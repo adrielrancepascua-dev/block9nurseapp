@@ -20,28 +20,10 @@ Lightweight offline-capable PWA and Android package for student nurses. Includes
 3. Open the APK and install.
 4. Test offline by disabling Wi‑Fi and re-opening the app.
 
-## Publish to GitHub (recommended)
-1. Create a new GitHub repo (e.g., `Block9NurseApp`).
-2. Put the files above into a folder and rename `nurse_app.html` → `index.html`.
-3. From PowerShell in that folder:
-
-```powershell
-git init
-git add .
-git commit -m "Initial publish: Block 9 Nurse app PWA"
-git branch -M main
-git remote add origin https://github.com/your-username/Block9NurseApp.git
-git push -u origin main
-```
-
-4. Create a Release and upload the signed APK as an asset to share a direct download link.
-
-## Netlify
-- If you prefer Netlify, drag & drop the same files to your site deploy area. Keep `_redirects` present so SPA routing works.
-
 ## Notes
 - The app is provided for educational use only and is NOT a substitute for clinical judgement.
 - If you plan to distribute via Google Play, use the signed AAB/APK and follow Play Store policies.
 
 ## License
 This project is licensed under the MIT License — see `LICENSE`.
+
