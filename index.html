@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="description" content="Block 9 Exclusive - Student Nurse Clinical Companion. Vital signs assessment, diagnosis support, IV calculator, and OTC medication reference for nursing students.">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Block 9 Nurse">
+    <meta name="application-name" content="Block 9 Nurse">
+    <meta name="msapplication-TileColor" content="#0f172a">
+    <meta name="msapplication-config" content="browserconfig.xml">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Student Nurse Clinical Companion - Block 9 Exclusive</title>
+    
+    <!-- CRITICAL: Load dark mode immediately to prevent white flash -->
+    <style>
+        /* Dark mode foundation - loads BEFORE Tailwind */
+        html {
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+    </style>
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%230f172a' width='192' height='192'/><text x='50%' y='50%' font-size='120' font-weight='bold' fill='%2306b6d4' text-anchor='middle' dy='.35em'>Rx</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%230f172a' width='180' height='180' rx='40'/><text x='50%' y='50%' font-size='100' font-weight='bold' fill='%2306b6d4' text-anchor='middle' dy='.35em'>Rx</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Mobile-first safe area for notches */
+        body {
+            padding-top: env(safe-area-inset-top);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        /* Ensure tappable elements are at least 44x44px */
+        button, a.btn, select, input[type="submit"], input[type="button"], input[type="number"], input[type="text"], input[type="date"] {
+            min-height: 44px;
+            min-width: 44px;
+            padding: 12px !important;
+        }
+        
+        /* Prevent zoom on input focus on iOS */
+        @media (max-width: 768px) {
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+            
+            /* Mobile-first: stack sidebar on top */
+            .grid.lg\:grid-cols-5 {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Improve spacing on small screens */
+            .gap-6 {
+                gap: 1rem;
+            }
+            
+            /* Make buttons full width or larger on mobile */
+            button.w-full {
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+        }
+        
+        /* Better sidebar for tablets and up */
+        @media (min-width: 1024px) {
+            .lg\:sticky {
+                position: sticky;
+                top: 24px;
+            }
+        }
+        
+        /* Improve card readability on mobile */
+        .rounded-xl {
+            border-radius: 0.875rem;
+        }
+        
+        /* Prevent text selection on buttons for better tap experience */
+        button, input[type="button"], input[type="submit"] {
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+        }
+        
+        /* iOS specific: improve form input appearance */
+        input, select, textarea {
+            -webkit-appearance: none;
+            appearance: none;
+            border-radius: 0.75rem;
+        }
+        
+        /* Custom select arrow on iOS */
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2394a3b8' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 36px;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen">
+
+    <div class="bg-red-700 text-white py-2 px-4 text-[10px] md:text-[11px] font-bold text-center tracking-widest uppercase border-b-2 border-red-900 sticky top-0 z-50 shadow-lg">
+        ⚠️ EDUCATIONAL USE ONLY • NOT FOR CLINICAL DIAGNOSIS • Always consult with licensed staff
+    </div>
+
+    <div class="max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
+        <header class="mb-6 sm:mb-8 text-center">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 mb-2">
+                <i class="fa-solid fa-stethoscope mr-2 sm:mr-3"></i>Student Nurse Clinical Companion
+            </h1>
+            <p class="text-slate-400 text-xs sm:text-sm">Vital Signs Analysis • Diagnosis Assistant • IV Calculator • Drug Reference</p>
+        </header>
+
+        <div class="grid lg:grid-cols-5 gap-6">
+            
+            <!-- SIDEBAR: OTC Drug Reference -->
+            <aside class="lg:col-span-1 space-y-4">
+                <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-5 border border-slate-700 shadow-xl sticky top-24">
+                    <h3 class="text-cyan-400 font-bold mb-4 flex items-center text-lg">
+                        <i class="fa-solid fa-pills mr-2"></i> OTC Medications
+                    </h3>
+                    <div id="otc-sidebar" class="space-y-3 h-[600px] overflow-y-auto pr-2">
+                        <!-- Dynamic OTC cards will be rendered here -->
+                    </div>
+                </div>
+            </aside>
+
+            <!-- MAIN CONTENT -->
+            <main class="lg:col-span-4 space-y-6">
+                
+                <!-- VITAL SIGNS INPUT & ANALYSIS -->
+                <section class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-white flex items-center">
+                            <i class="fa-solid fa-heart-pulse mr-3 text-red-500"></i> Vital Signs Assessment
+                        </h2>
+                        <span id="status-badge" class="px-4 py-2 bg-slate-700 rounded-full text-xs font-mono text-slate-400 font-bold">Enter Vitals</span>
+                    </div>
+                    
+                    <!-- Vital Signs Row -->
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-3 mb-6 pb-4 border-b border-slate-700">
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Systolic (mmHg)</label>
+                            <input type="number" id="sys" oninput="liveAnalyze()" placeholder="120" min="0" max="300" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-lg font-bold text-cyan-400">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Diastolic (mmHg)</label>
+                            <input type="number" id="dia" oninput="liveAnalyze()" placeholder="80" min="0" max="200" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-lg font-bold text-cyan-400">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Temp (°C)</label>
+                            <input type="number" id="temp" oninput="liveAnalyze()" placeholder="37.0" min="35" max="42" step="0.1" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-lg font-bold text-cyan-400">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Pulse (BPM)</label>
+                            <input type="number" id="hr" oninput="liveAnalyze()" placeholder="80" min="0" max="300" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-lg font-bold text-cyan-400">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Resp (Rate)</label>
+                            <input type="number" id="rr" oninput="liveAnalyze()" placeholder="16" min="0" max="60" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-lg font-bold text-cyan-400">
+                        </div>
+                    </div>
+
+                    <!-- Patient Demographics Row -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6 pb-4 border-b border-slate-700">
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Age (years)</label>
+                            <input type="number" id="age" oninput="liveAnalyze()" placeholder="30" min="0" max="120" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Pregnancies</label>
+                            <input type="number" id="pregnancies" oninput="liveAnalyze()" placeholder="0" min="0" max="20" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Currently Pregnant</label>
+                            <select id="pregnant" oninput="liveAnalyze()" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Known Conditions</label>
+                            <select id="conditions" oninput="liveAnalyze(); renderOTCSidebar()" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
+                                <option value="none">None</option>
+                                <option value="hypertension">Hypertension</option>
+                                <option value="diabetes">Diabetes</option>
+                                <option value="asthma">Asthma</option>
+                                <option value="copd">COPD</option>
+                                <option value="ckd">Chronic Kidney Disease</option>
+                                <option value="multiple">Multiple Conditions</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- DIAGNOSIS BOX -->
+                    <div id="dx-box" class="p-6 bg-slate-900/70 rounded-xl border border-slate-700 min-h-[120px] flex items-center justify-center text-slate-500 italic text-center">
+                        <div class="flex flex-col items-center space-y-2">
+                            <i class="fa-solid fa-chart-simple text-3xl text-slate-600 opacity-50"></i>
+                            <p class="text-sm">Enter all vital signs to generate assessment and medication recommendations...</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TOOLS SECTION: IV CALCULATOR & BMI -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    
+                    <!-- IV FLOW RATE CALCULATOR -->
+                    <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl">
+                        <h3 class="font-bold text-blue-400 mb-4 flex items-center text-lg">
+                            <i class="fa-solid fa-droplet mr-2"></i> IV Flow Rate Calculator
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase">Volume (mL)</label>
+                                    <input type="number" id="vol" placeholder="1000" min="0" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-blue-500 outline-none text-sm">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase">Time (Hours)</label>
+                                    <input type="number" id="hours" placeholder="8" min="0" step="0.5" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-blue-500 outline-none text-sm">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-bold text-slate-500 uppercase">Drop Factor (gtt/mL)</label>
+                                <select id="factor" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-blue-500">
+                                    <option value="10">Macro Drip (10 gtt/mL) - Blood/Colloids</option>
+                                    <option value="15">Macro Drip (15 gtt/mL) - Standard</option>
+                                    <option value="20">Macro Drip (20 gtt/mL) - Fast Flow</option>
+                                    <option value="60">Micro Drip (60 gtt/mL) - Pediatric/Medication</option>
+                                </select>
+                            </div>
+                            <div id="iv-calcs" class="space-y-3">
+                                <div class="bg-slate-700/30 p-3 rounded-lg border border-blue-500/30">
+                                    <p class="text-[10px] text-slate-400 uppercase">Flow Rate (mL/hr)</p>
+                                    <p id="mlhr" class="text-2xl font-mono font-bold text-blue-400">--</p>
+                                </div>
+                                <div class="bg-slate-700/30 p-3 rounded-lg border border-cyan-500/30">
+                                    <p class="text-[10px] text-slate-400 uppercase">Drop Rate (gtt/min)</p>
+                                    <p id="iv-result" class="text-2xl font-mono font-bold text-cyan-400">-- gtt/min</p>
+                                </div>
+                            </div>
+                            <button onclick="calcIV()" class="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 py-3 rounded-xl font-bold transition-all shadow-lg shadow-blue-900/30">
+                                <i class="fa-solid fa-calculator mr-2"></i> Calculate Drip Rate
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- BMI & BODY METRICS -->
+                    <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl">
+                        <h3 class="font-bold text-emerald-400 mb-4 flex items-center text-lg">
+                            <i class="fa-solid fa-scale-balanced mr-2"></i> BMI & Body Metrics
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase">Weight (kg)</label>
+                                    <input type="number" id="weight" placeholder="70" min="0" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-emerald-500 outline-none text-sm">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase">Height (cm)</label>
+                                    <input type="number" id="height" placeholder="170" min="0" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-emerald-500 outline-none text-sm">
+                                </div>
+                            </div>
+                            <div id="bmi-results" class="space-y-3">
+                                <div class="bg-slate-700/30 p-3 rounded-lg border border-emerald-500/30">
+                                    <p class="text-[10px] text-slate-400 uppercase">BMI Score</p>
+                                    <p id="bmi-result" class="text-2xl font-mono font-bold text-emerald-400">--</p>
+                                    <p id="bmi-status" class="text-xs text-slate-400 mt-1">Category: --</p>
+                                </div>
+                            </div>
+                            <button onclick="calcBMI()" class="w-full bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 py-3 rounded-xl font-bold transition-all shadow-lg shadow-emerald-900/30">
+                                <i class="fa-solid fa-calculator mr-2"></i> Calculate BMI
+                            </button>
+                            <div class="bg-slate-700/20 p-3 rounded-lg border border-slate-600 text-[11px] text-slate-400">
+                                <p class="font-bold text-slate-300 mb-1">BMI Categories:</p>
+                                <p>Underweight: &lt;18.5 | Normal: 18.5-24.9 | Overweight: 25-29.9 | Obese: ≥30</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+        <!-- OTC MEDICINES SECTION -->
+        <section id="otc-section" class="max-w-7xl mx-auto mt-8 bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-6 border border-slate-700 shadow-2xl">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold text-white flex items-center">
+                    <i class="fa-solid fa-capsules mr-3 text-amber-400"></i> OTC Medicines Directory
+                </h2>
+                <div class="w-1/3">
+                    <input id="otc-search" type="search" placeholder="Search conditions or medicine (eg. diarrhea, diatabs)" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none" />
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="col-span-2">
+                    <div id="otc-list" class="space-y-3 max-h-[420px] overflow-y-auto pr-2"></div>
+                </div>
+                <div>
+                    <div id="otc-detail" class="bg-slate-900/60 p-4 rounded-xl border border-slate-700 min-h-[240px] text-slate-300">
+                        <p class="text-slate-400 text-sm">Select an item to view full details. Use the search to find a condition or brand name.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <footer class="mt-12 py-6 text-center text-slate-500 border-t border-slate-800">
+        <p class="text-xs">This tool is for educational purposes only. Always consult qualified healthcare professionals. Data is not stored.</p>
+    </footer>
+
+    <script>
+        // ============= VITAL SIGNS REFERENCE DATABASE =============
+        const vitalSignsReference = {
+            ageGroups: {
+                infant: { name: "Infant (0-1y)", range: [0, 1], pulse: { min: 100, max: 160 }, rr: { min: 30, max: 60 }, bpSys: { min: 70, max: 90 }, bpDia: { min: 45, max: 55 } },
+                toddler: { name: "Toddler (1-3y)", range: [1, 3], pulse: { min: 90, max: 150 }, rr: { min: 24, max: 40 }, bpSys: { min: 80, max: 100 }, bpDia: { min: 55, max: 65 } },
+                preschool: { name: "Preschool (3-6y)", range: [3, 6], pulse: { min: 80, max: 120 }, rr: { min: 22, max: 34 }, bpSys: { min: 85, max: 110 }, bpDia: { min: 60, max: 70 } },
+                schoolAge: { name: "School Age (6-12y)", range: [6, 12], pulse: { min: 70, max: 110 }, rr: { min: 18, max: 30 }, bpSys: { min: 90, max: 110 }, bpDia: { min: 60, max: 75 } },
+                adolescent: { name: "Adolescent (12-18y)", range: [12, 18], pulse: { min: 60, max: 100 }, rr: { min: 12, max: 20 }, bpSys: { min: 100, max: 130 }, bpDia: { min: 65, max: 85 } },
+                adult: { name: "Adult (18+y)", range: [18, 120], pulse: { min: 60, max: 100 }, rr: { min: 12, max: 20 }, bpSys: { min: 110, max: 120 }, bpDia: { min: 70, max: 80 } },
+                elderly: { name: "Elderly (65+y)", range: [65, 120], pulse: { min: 55, max: 100 }, rr: { min: 12, max: 22 }, bpSys: { min: 130, max: 150 }, bpDia: { min: 70, max: 90 } }
+            },
+            pregnancy: {
+                notes: "Pregnant women typically have 15-20% increased cardiac output and blood volume",
+                pulseIncrease: 10, // BPM increase during pregnancy
+                systolicIncrease: 0, // Usually stays same or slightly lower
+                diastolicDecrease: 5, // Often drops slightly
+                respiratoryIncrease: 1, // Slight increase
+                normalBP: { sys: [110, 135], dia: [70, 85] },
+                gestationalHypertension: { sys: 140, dia: 90 }, // ≥140/90
+                preeclampsia: { sys: 160, dia: 110 } // ≥160/110
+            },
+            comorbidities: {
+                hypertension: {
+                    name: "Hypertension",
+                    systolicTarget: 140,
+                    diastolicTarget: 90,
+                    severity: "ELEVATED",
+                    notes: "Persistent elevation; aim for <130/80 if tolerated"
+                },
+                diabetes: {
+                    name: "Diabetes",
+                    systolicTarget: 140,
+                    diastolicTarget: 90,
+                    fever: "Monitor for DKA (fever + tachycardia + tachypnea)",
+                    notes: "May have reduced fever response; check glucose"
+                },
+                asthma: {
+                    name: "Asthma",
+                    rrAlert: 25,
+                    notes: "Increased RR may indicate asthma exacerbation; listen for wheeze"
+                },
+                copd: {
+                    name: "COPD",
+                    rrAlert: 25,
+                    notes: "Chronic baseline elevation; major change concerning; watch for exacerbation"
+                },
+                ckd: {
+                    name: "Chronic Kidney Disease",
+                    systolicTarget: 130,
+                    diastolicTarget: 80,
+                    notes: "Stricter BP control needed; avoid NSAIDs; monitor fluid balance"
+                }
+            }
+        };
+
+        // ============= DIAGNOSIS DATABASE =============
+        const diagnosisDatabase = {
+            fever: { symptoms: "High temperature (>38°C)", meds: ["Acetaminophen (500-1000mg)", "Ibuprofen (200-400mg with food)"], actions: "Monitor for dehydration, increase fluid intake, cool compress if >40°C" },
+            hypothermia: { symptoms: "Low temperature (<35°C)", meds: ["Passive rewarming - blankets"], actions: "CRITICAL - Notify RN immediately. Active rewarming may be needed." },
+            hypertensiveCrisis: { symptoms: "BP ≥180/120", meds: ["Seek immediate medical attention"], actions: "⚠️ EMERGENCY - Do NOT give OTC meds. Alert RN/Charge Nurse NOW." },
+            hypertension: { symptoms: "BP 140-179 systolic or 90-119 diastolic", meds: ["Limit sodium, increase rest"], actions: "Recheck in 5-10 min. Monitor for headache, chest pain, shortness of breath." },
+            tachycardia: { symptoms: "Heart rate >100 BPM", meds: ["Calm patient, elevate legs, cool environment"], actions: "Check for pain, anxiety, fever. Monitor ECG if available." },
+            bradycardia: { symptoms: "Heart rate <60 BPM (abnormal)", meds: ["Activity increase, monitor closely"], actions: "May be normal in athletes. Note any dizziness or weakness." },
+            tachypnea: { symptoms: "Respiratory rate >20/min", meds: ["Oxygen if SpO2 <94%", "Reassure patient - anxiety increases RR"], actions: "Check for anxiety, pain, infection. Monitor oxygen saturation." },
+            hypoxia: { symptoms: "SpO2 <94% (if measured)", meds: ["Oxygen therapy may be indicated"], actions: "Elevate HOB, clear airway, prepare for SpO2 measurement." }
+        };
+
+        // Helper: Get age group from age
+        function getAgeGroup(age) {
+            if (age < 1) return vitalSignsReference.ageGroups.infant;
+            if (age < 3) return vitalSignsReference.ageGroups.toddler;
+            if (age < 6) return vitalSignsReference.ageGroups.preschool;
+            if (age < 12) return vitalSignsReference.ageGroups.schoolAge;
+            if (age < 18) return vitalSignsReference.ageGroups.adolescent;
+            if (age >= 65) return vitalSignsReference.ageGroups.elderly;
+            return vitalSignsReference.ageGroups.adult;
+        }
+
+        function generateDiagnosis(sys, dia, temp, hr, rr, age, pregnancies, pregnant, conditions) {
+            let diagnosis = [];
+            let priority = "STABLE";
+            let color = "text-slate-400";
+            let recommendations = [];
+            let contextNotes = [];
+
+            // ===== PATIENT PROFILE SETUP =====
+            const isPregnant = pregnant === 'yes';
+            const ageGroup = getAgeGroup(age);
+            const hasComorbidity = conditions !== 'none';
+            const comorbidityData = hasComorbidity ? vitalSignsReference.comorbidities[conditions] : null;
+
+            // Add patient context
+            contextNotes.push(`📋 Patient: ${ageGroup.name}${isPregnant ? ' | PREGNANT (' + pregnancies + ' previous)' : ''}`);
+            if (hasComorbidity) contextNotes.push(`⚠️ Known condition: ${comorbidityData.name}`);
+
+            // Adjust vital sign targets based on pregnancy
+            let hrTarget = { min: ageGroup.pulse.min, max: ageGroup.pulse.max };
+            let rrTarget = { min: ageGroup.rr.min, max: ageGroup.rr.max };
+            let bpSysTarget = { min: ageGroup.bpSys.min, max: ageGroup.bpSys.max };
+            let bpDiaTarget = { min: ageGroup.bpDia.min, max: ageGroup.bpDia.max };
+
+            if (isPregnant) {
+                hrTarget.max += vitalSignsReference.pregnancy.pulseIncrease; // Allow +10 BPM
+                bpSysTarget.min = vitalSignsReference.pregnancy.normalBP.sys[0];
+                bpSysTarget.max = vitalSignsReference.pregnancy.normalBP.sys[1];
+                bpDiaTarget.min = vitalSignsReference.pregnancy.normalBP.dia[0];
+                bpDiaTarget.max = vitalSignsReference.pregnancy.normalBP.dia[1];
+            }
+
+            // ===== BP ASSESSMENT =====
+            if (sys > 0 && sys < 70) {
+                diagnosis.push({ name: "CRITICAL HYPOTENSION (SBP <70)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
+                priority = "CRITICAL";
+                color = "text-red-500";
+                contextNotes.push("🚨 BP <70 mmHg is life-threatening. ALERT RN IMMEDIATELY.");
+            } else if (sys > 0 && sys < bpSysTarget.min) {
+                diagnosis.push({ name: `Hypotension (Below ${ageGroup.name} Range)`, severity: "CRITICAL", icon: "fa-arrow-down" });
+                priority = "CRITICAL";
+                color = "text-red-500";
+                contextNotes.push(`⚠️ Systolic ${sys} is below normal for ${ageGroup.name} (normal: ${bpSysTarget.min}-${bpSysTarget.max})`);
+            } else if (sys >= 180 || (dia && dia >= 120)) {
+                diagnosis.push({ name: "HYPERTENSIVE CRISIS (SBP ≥180/DBP ≥120)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
+                priority = "CRITICAL";
+                color = "text-red-500";
+                recommendations.push(diagnosisDatabase.hypertensiveCrisis);
+            } else if (isPregnant && sys >= vitalSignsReference.pregnancy.preeclampsia.sys) {
+                diagnosis.push({ name: "PREECLAMPSIA ALERT (BP ≥160/110)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
+                priority = "CRITICAL";
+                color = "text-red-500";
+                contextNotes.push("🚨 Severely elevated BP in pregnancy. Check for proteinuria, edema, headache. ALERT RN.");
+            } else if (isPregnant && sys >= vitalSignsReference.pregnancy.gestationalHypertension.sys) {
+                diagnosis.push({ name: "Gestational Hypertension (SBP ≥140/DBP ≥90)", severity: "ELEVATED", icon: "fa-arrow-up" });
+                priority = "ELEVATED";
+                color = "text-orange-500";
+                contextNotes.push("Monitor closely for progression to preeclampsia.");
+            } else if (sys >= 160 || (dia && dia >= 100)) {
+                diagnosis.push({ name: "SEVERE Hypertension (SBP 160-179 or DBP 100-109)", severity: "ELEVATED", icon: "fa-arrow-up" });
+                priority = priority === "CRITICAL" ? "CRITICAL" : "ELEVATED";
+                color = "text-orange-500";
+                if (!isPregnant) recommendations.push(diagnosisDatabase.hypertension);
+            } else if (sys >= 140 || (dia && dia >= 90)) {
+                diagnosis.push({ name: "Hypertension (SBP 140-159 or DBP 90-99)", severity: "ELEVATED", icon: "fa-arrow-up" });
+                priority = priority === "CRITICAL" ? "CRITICAL" : "ELEVATED";
+                color = "text-orange-500";
+                if (!isPregnant) recommendations.push(diagnosisDatabase.hypertension);
+            } else if (sys >= bpSysTarget.max) {
+                diagnosis.push({ name: `MILD Elevated BP (Above ${ageGroup.name} Normal)`, severity: "MONITOR", icon: "fa-arrow-up-long" });
+                contextNotes.push(`Systolic ${sys} is slightly elevated for ${ageGroup.name} (normal: ${bpSysTarget.min}-${bpSysTarget.max})`);
+            }
+
+            // ===== TEMPERATURE ASSESSMENT =====
+            if (temp > 0) {
+                if (temp <= 28) {
+                    diagnosis.push({ name: "SEVERE HYPOTHERMIA (≤28°C)", severity: "CRITICAL", icon: "fa-snowflake" });
+                    priority = "CRITICAL";
+                    color = "text-blue-500";
+                    contextNotes.push("🚨 Temperature ≤28°C. Immediate rewarming required.");
+                } else if (temp <= 35.0) {
+                    diagnosis.push({ name: "Hypothermia (28-35°C)", severity: "CRITICAL", icon: "fa-snowflake" });
+                    priority = "CRITICAL";
+                    color = "text-blue-400";
+                    recommendations.push(diagnosisDatabase.hypothermia);
+                } else if (temp >= 40.5) {
+                    diagnosis.push({ name: "SEVERE HYPERTHERMIA (≥40.5°C)", severity: "CRITICAL", icon: "fa-fire" });
+                    priority = "CRITICAL";
+                    color = "text-red-500";
+                    contextNotes.push("🚨 Temperature ≥40.5°C. Heat stroke risk. Cool immediately.");
+                } else if (temp >= 40.0) {
+                    diagnosis.push({ name: "Very High Fever (40.0-40.4°C)", severity: "CRITICAL", icon: "fa-fire" });
+                    priority = "CRITICAL";
+                    color = "text-red-500";
+                    recommendations.push(diagnosisDatabase.fever);
+                } else {
+                    // Age-adjusted fever thresholds
+                    let feverThreshold = 38.0;
+                    if (age < 3) feverThreshold = 38.5;
+                    if (age >= 65) feverThreshold = 37.5;
+
+                    if (temp >= 39.5) {
+                        diagnosis.push({ name: "High Fever (39.5-39.9°C)", severity: "CRITICAL", icon: "fa-fire" });
+                        color = "text-red-500";
+                        recommendations.push(diagnosisDatabase.fever);
+                        if (conditions === 'diabetes') contextNotes.push("🔴 Diabetic with fever: monitor for DKA and infection");
+                    } else if (temp >= 38.5) {
+                        diagnosis.push({ name: "Moderate Fever (38.5-39.4°C)", severity: "MONITOR", icon: "fa-fire" });
+                        color = "text-orange-500";
+                        recommendations.push(diagnosisDatabase.fever);
+                    } else if (temp >= feverThreshold) {
+                        diagnosis.push({ name: `MILD Fever (${feverThreshold}-38.4°C)`, severity: "MONITOR", icon: "fa-thermometer" });
+                        recommendations.push(diagnosisDatabase.fever);
+                    }
+                }
+            }
+
+            // ===== HEART RATE ASSESSMENT (Age-Group Adjusted) =====
+            if (hr > 0 && hr < 30) {
+                diagnosis.push({ name: "CRITICAL BRADYCARDIA (HR <30)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
+                priority = "CRITICAL";
+                color = "text-red-500";
+                contextNotes.push("🚨 HR <30 is critically low. Check consciousness & pulse quality. Alert RN.");
+            } else if (hr > 200) {
+                diagnosis.push({ name: "CRITICAL TACHYCARDIA (HR >200)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
+                priority = "CRITICAL";
+                color = "text-red-500";
+                contextNotes.push("🚨 HR >200 is critically high. Check for arrhythmia, sepsis, shock.");
+            } else if (hr > 0 && hr < hrTarget.min) {
+                diagnosis.push({ name: `Bradycardia (Below ${ageGroup.name} Normal: HR ${hr})`, severity: "MONITOR", icon: "fa-heart" });
+                contextNotes.push(`HR ${hr} is below normal for ${ageGroup.name} (normal: ${hrTarget.min}-${hrTarget.max})`);
+                recommendations.push(diagnosisDatabase.bradycardia);
+            } else if (hr > hrTarget.max && hr <= hrTarget.max + 20) {
+                let note = `MILD Tachycardia (HR ${hr})`;
+                if (isPregnant) note += " (within pregnancy range)";
+                if (temp >= 38.0) note += " (fever-related)";
+                diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-heart" });
+                contextNotes.push(`HR ${hr} is slightly elevated for ${ageGroup.name} (normal: ${hrTarget.min}-${hrTarget.max})`);
+            } else if (hr > hrTarget.max + 20 && hr <= hrTarget.max + 40) {
+                let note = `Tachycardia (HR ${hr})`;
+                if (temp >= 38.0) note += " (fever-related)";
+                diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-heart" });
+                contextNotes.push(`HR ${hr} exceeds normal for ${ageGroup.name} (normal: ${hrTarget.min}-${hrTarget.max})`);
+                recommendations.push(diagnosisDatabase.tachycardia);
+            } else if (hr > hrTarget.max + 40) {
+                diagnosis.push({ name: `SEVERE Tachycardia (HR ${hr})`, severity: "CRITICAL", icon: "fa-exclamation-triangle" });
+                priority = priority === "STABLE" ? "CRITICAL" : priority;
+                color = "text-red-500";
+                contextNotes.push(`HR ${hr} is dangerously elevated. Check for shock, sepsis, severe infection.`);
+            }
+
+            // ===== RESPIRATORY RATE ASSESSMENT (Age-Group Adjusted) =====
+            if (rr > 0 && rr < 8) {
+                diagnosis.push({ name: "CRITICAL RESPIRATORY DEPRESSION (RR <8)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
+                priority = "CRITICAL";
+                color = "text-red-500";
+                contextNotes.push("🚨 RR <8 is critically low. Respiratory failure risk. Prepare for ventilation.");
+            } else if (rr > 50) {
+                diagnosis.push({ name: "SEVERE TACHYPNEA (RR >50)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
+                priority = "CRITICAL";
+                color = "text-red-500";
+                contextNotes.push("🚨 RR >50 is critically high. Severe distress. Alert RN.");
+            } else if (rr > 0 && rr < rrTarget.min) {
+                diagnosis.push({ name: `Bradypnea (Below ${ageGroup.name} Normal: RR ${rr})`, severity: "MONITOR", icon: "fa-wind" });
+                contextNotes.push(`RR ${rr} is below normal for ${ageGroup.name} (normal: ${rrTarget.min}-${rrTarget.max})`);
+            } else if (rr > rrTarget.max && rr <= rrTarget.max + 5) {
+                let note = `MILD Tachypnea (RR ${rr})`;
+                if (conditions === 'asthma' || conditions === 'copd') note += " (monitor for exacerbation)";
+                diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-wind" });
+                contextNotes.push(`RR ${rr} is slightly elevated for ${ageGroup.name} (normal: ${rrTarget.min}-${rrTarget.max})`);
+            } else if (rr > rrTarget.max + 5 && rr <= rrTarget.max + 15) {
+                let note = `Tachypnea (RR ${rr})`;
+                if (conditions === 'asthma' || conditions === 'copd') note += " (risk of exacerbation)";
+                diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-wind" });
+                contextNotes.push(`RR ${rr} exceeds normal for ${ageGroup.name} (normal: ${rrTarget.min}-${rrTarget.max})`);
+                recommendations.push(diagnosisDatabase.tachypnea);
+            } else if (rr > rrTarget.max + 15) {
+                let note = `SEVERE Tachypnea (RR ${rr})`;
+                if (conditions === 'asthma' || conditions === 'copd') note += " (EXACERBATION RISK)";
+                diagnosis.push({ name: note, severity: "CRITICAL", icon: "fa-exclamation-triangle" });
+                priority = priority === "STABLE" ? "CRITICAL" : priority;
+                color = "text-red-500";
+                contextNotes.push(`RR ${rr} is dangerously elevated. Check for respiratory distress, hypoxia.`);
+            }
+
+            // ===== COMORBIDITY-SPECIFIC CHECKS =====
+            if (hasComorbidity) {
+                if (conditions === 'ckd' && sys > vitalSignsReference.comorbidities.ckd.systolicTarget) {
+                    contextNotes.push("🔴 CKD: Strict BP control critical. Current BP exceeds target. Avoid NSAIDs.");
+                }
+                if (conditions === 'asthma' && rr > 25) {
+                    contextNotes.push("🔴 Asthma: Elevated RR - listen for wheeze. May indicate exacerbation.");
+                }
+                if (conditions === 'copd' && rr > 25) {
+                    contextNotes.push("🔴 COPD: RR elevated - check baseline. Monitor for COPD exacerbation.");
+                }
+            }
+
+            return { diagnosis, priority, color, recommendations, contextNotes };
+        }
+
+        function liveAnalyze() {
+            const sys = parseInt(document.getElementById('sys').value);
+            const dia = parseInt(document.getElementById('dia').value);
+            const temp = parseFloat(document.getElementById('temp').value);
+            const hr = parseInt(document.getElementById('hr').value);
+            const rr = parseInt(document.getElementById('rr').value);
+            const age = parseInt(document.getElementById('age').value);
+            const pregnancies = parseInt(document.getElementById('pregnancies').value);
+            const pregnant = document.getElementById('pregnant').value;
+            const conditions = document.getElementById('conditions').value;
+            const box = document.getElementById('dx-box');
+            const badge = document.getElementById('status-badge');
+
+            if (!sys && !temp && !hr && !rr) {
+                box.innerHTML = `<div class="flex flex-col items-center space-y-2">
+                    <i class="fa-solid fa-chart-simple text-3xl text-slate-600 opacity-50"></i>
+                    <p class="text-sm text-slate-500">Enter all vital signs to generate assessment and medication recommendations...</p>
+                </div>`;
+                return;
+            }
+
+            const { diagnosis, priority, color, recommendations, contextNotes } = generateDiagnosis(sys, dia, temp, hr, rr, age, pregnancies, pregnant, conditions);
+
+            if (diagnosis.length > 0) {
+                let html = `<div class="w-full space-y-4">`;
+                
+                // Context Notes
+                if (contextNotes.length > 0) {
+                    html += `<div class="bg-blue-900/30 border border-blue-700/50 p-3 rounded-lg space-y-1">`;
+                    contextNotes.forEach(note => {
+                        html += `<p class="text-xs text-blue-300">${note}</p>`;
+                    });
+                    html += `</div>`;
+                }
+
+                // Findings
+                html += `<div class="space-y-2">
+                    <p class="font-bold text-slate-300 text-left text-sm">📋 Clinical Findings:</p>
+                    <ul class="text-left w-full pl-4 space-y-1">`;
+                diagnosis.forEach(d => {
+                    html += `<li class="text-white text-sm">
+                        <i class="fa-solid ${d.icon} mr-2 text-yellow-400"></i> ${d.name}
+                    </li>`;
+                });
+                html += `</ul></div>`;
+
+                // Recommendations
+                if (recommendations.length > 0) {
+                    html += `<div class="bg-slate-800/50 p-4 rounded-lg border border-slate-600 space-y-3">`;
+                    recommendations.forEach((rec, idx) => {
+                        html += `<div class="space-y-2">
+                            <p class="font-bold text-cyan-400 text-sm">💊 Recommendation ${idx + 1}:</p>
+                            <p class="text-xs text-slate-300"><strong>Suggested OTC:</strong> ${rec.meds.join(", ")}</p>
+                            <p class="text-xs text-slate-400"><strong>Action:</strong> ${rec.actions}</p>
+                        </div>`;
+                    });
+                    html += `</div>`;
+                }
+
+                html += `</div>`;
+                box.innerHTML = html;
+                box.className = "p-6 bg-slate-700/20 rounded-xl border border-blue-500/50 min-h-[120px] flex items-center italic text-sm";
+                
+                badge.innerText = priority;
+                badge.className = `px-4 py-2 rounded-full text-xs font-bold font-mono ${color} bg-slate-800 border border-current shadow-lg`;
+            } else {
+                box.innerHTML = `<div class="text-center text-slate-400">
+                    <i class="fa-solid fa-check-circle text-2xl text-green-500 mb-2"></i>
+                    <p class="text-sm">Vitals appear within normal range</p>
+                </div>`;
+                badge.innerText = "NORMAL";
+                badge.className = `px-4 py-2 rounded-full text-xs font-bold font-mono text-green-400 bg-slate-800 border border-green-500 shadow-lg`;
+            }
+        }
+
+        function renderOTCSidebar() {
+            const conditions = document.getElementById('conditions').value;
+            const container = document.getElementById('otc-sidebar');
+            container.innerHTML = '';
+            
+            const colors = ['yellow-500', 'orange-500', 'purple-500', 'red-500', 'green-500', 'blue-500', 'pink-500', 'indigo-500'];
+            
+            otcDatabase.forEach((med, index) => {
+                const color = colors[index % colors.length];
+                const borderClass = `border-l-4 border-${color}`;
+                const hoverClass = `hover:border-${color.replace('500', '400')}`;
+                
+                let safetyStatus = 'SAFE';
+                let safetyIcon = '🟢';
+                let warningText = '';
+                
+                if (conditions && med.conditionSafety[conditions]) {
+                    safetyStatus = med.conditionSafety[conditions];
+                    if (safetyStatus === '⚠️ CONTRAINDICATED') {
+                        safetyIcon = '🔴';
+                        warningText = `⚠️ AVOID with ${conditions.toUpperCase()}`;
+                    } else if (safetyStatus === 'CAUTION') {
+                        safetyIcon = '🟡';
+                        warningText = `⚠️ USE WITH CAUTION with ${conditions.toUpperCase()}`;
+                    }
+                }
+                
+                const brandNames = med.ph_brands ? med.ph_brands.join(' • ') : 'N/A';
+                
+                const card = document.createElement('div');
+                card.className = `bg-slate-700/50 p-3 rounded-xl ${borderClass} ${hoverClass} transition-all cursor-pointer hover:bg-slate-700/70`;
+                card.innerHTML = `
+                    <p class="font-bold text-sm text-sky-300">${med.name}</p>
+                    <p class="text-[10px] text-slate-500 font-semibold">PH Brands: ${brandNames}</p>
+                    ${warningText ? `<p class="text-[10px] mt-1 text-red-400 font-bold">${warningText}</p>` : ''}
+                    <p class="text-[11px] mt-1 text-slate-300">${med.uses}</p>
+                    <p class="text-[10px] text-slate-400 italic mt-1">When: ${med.whenToGive}</p>
+                `;
+                card.onclick = () => showOTCDetail(med);
+                container.appendChild(card);
+            });
+        }
+
+        function calcIV() {
+            const vol = parseFloat(document.getElementById('vol').value);
+            const hours = parseFloat(document.getElementById('hours').value);
+            const factor = parseFloat(document.getElementById('factor').value);
+            
+            if(vol && hours) {
+                const mlPerHour = vol / hours;
+                const gttPerMin = Math.round((mlPerHour / 60) * factor);
+                
+                document.getElementById('mlhr').innerText = mlPerHour.toFixed(1) + " mL/hr";
+                document.getElementById('iv-result').innerText = gttPerMin + " gtt/min";
+            } else {
+                document.getElementById('iv-result').innerText = "-- gtt/min";
+                document.getElementById('mlhr').innerText = "-- mL/hr";
+            }
+        }
+
+        function calcBMI() {
+            const w = parseFloat(document.getElementById('weight').value);
+            const h = parseFloat(document.getElementById('height').value) / 100;
+            
+            if(w && h && h > 0) {
+                const bmi = (w / (h * h)).toFixed(1);
+                let category = "Normal Weight";
+                let categoryColor = "text-green-400";
+
+                if (bmi < 18.5) {
+                    category = "Underweight";
+                    categoryColor = "text-blue-400";
+                } else if (bmi < 25) {
+                    category = "Normal Weight";
+                    categoryColor = "text-green-400";
+                } else if (bmi < 30) {
+                    category = "Overweight";
+                    categoryColor = "text-yellow-400";
+                } else {
+                    category = "Obese";
+                    categoryColor = "text-red-400";
+                }
+
+                document.getElementById('bmi-result').innerText = bmi;
+                document.getElementById('bmi-status').innerHTML = `<span class="${categoryColor} font-bold">Category: ${category}</span>`;
+            }
+        }
+
+        // Live IV and BMI calculations
+        document.getElementById('vol').addEventListener('input', calcIV);
+        document.getElementById('hours').addEventListener('input', calcIV);
+        document.getElementById('factor').addEventListener('change', calcIV);
+        document.getElementById('weight').addEventListener('input', calcBMI);
+        document.getElementById('height').addEventListener('input', calcBMI);
+
+        // ------------------ OTC Medicines Data + Search ------------------
+        const otcDatabase = [
+            {
+                id: 'acetaminophen',
+                name: 'Acetaminophen',
+                ph_brands: ['Biogesic', 'Neozep', 'Tempra'],
+                uses: 'Fever, mild to moderate pain relief (headache, myalgia)',
+                origin: 'Synthetic analgesic discovered in the late 19th century',
+                whenToGive: 'For fever >38°C or pain as needed; follow dosing limits (max 4g/day)',
+                contraindications: 'Severe hepatic impairment, chronic alcohol use; check liver function if repeated dosing',
+                conditionSafety: { hypertension: 'SAFE', diabetes: 'SAFE', asthma: 'SAFE', copd: 'SAFE', ckd: 'SAFE' },
+                tags: ['fever','pain','analgesic']
+            },
+            {
+                id: 'ibuprofen',
+                name: 'Ibuprofen',
+                ph_brands: ['Biogesic Advance', 'Mybolic', 'Ponstan'],
+                uses: 'Pain, inflammation, fever',
+                origin: 'A widely used NSAID introduced in the 1960s',
+                whenToGive: 'For inflammatory pain or fever; give with food to reduce GI upset',
+                contraindications: 'Active peptic ulcer disease, severe renal impairment, hypersensitivity to NSAIDs',
+                conditionSafety: { hypertension: 'CAUTION', diabetes: 'SAFE', asthma: 'CAUTION', copd: 'SAFE', ckd: '⚠️ CONTRAINDICATED' },
+                tags: ['pain','fever','inflammation','nsaid']
+            },
+            {
+                id: 'diphenhydramine',
+                name: 'Diphenhydramine',
+                ph_brands: ['Benadryl', 'Allergeze'],
+                uses: 'Allergic reactions, urticaria, short-term insomnia',
+                origin: 'First-generation antihistamine introduced in the 1940s',
+                whenToGive: 'For mild allergic symptoms; caution with sedation',
+                contraindications: 'Elderly (falls), glaucoma, urinary retention, MAOI use',
+                conditionSafety: { hypertension: 'SAFE', diabetes: 'SAFE', asthma: 'SAFE', copd: 'SAFE', ckd: 'SAFE' },
+                tags: ['allergy','antihistamine']
+            },
+            {
+                id: 'omeprazole',
+                name: 'Omeprazole',
+                ph_brands: ['Losec', 'Gastroloc', 'Pepcidin'],
+                uses: 'Gastroesophageal reflux disease, peptic ulcer disease',
+                origin: 'Proton pump inhibitor introduced in the late 1980s',
+                whenToGive: 'For symptomatic heartburn or diagnosed reflux; usually once daily before meals',
+                contraindications: 'Known hypersensitivity; caution long-term (B12, Mg, C.diff risk)',
+                conditionSafety: { hypertension: 'SAFE', diabetes: 'SAFE', asthma: 'SAFE', copd: 'SAFE', ckd: 'SAFE' },
+                tags: ['reflux','heartburn','acid']
+            },
+            {
+                id: 'dextromethorphan',
+                name: 'Dextromethorphan',
+                ph_brands: ['Robitussin DM', 'Romilar', 'Aspco-C'],
+                uses: 'Non-productive cough suppression',
+                origin: 'Synthetic cough suppressant used since mid-20th century',
+                whenToGive: 'For dry cough disrupting rest; avoid in productive cough',
+                contraindications: 'MAOI use, some serotonergic meds (risk of serotonin syndrome)',
+                conditionSafety: { hypertension: 'SAFE', diabetes: 'SAFE', asthma: 'SAFE', copd: 'SAFE', ckd: 'SAFE' },
+                tags: ['cough','antitussive']
+            },
+            {
+                id: 'psyllium',
+                name: 'Psyllium Husk',
+                ph_brands: ['Fiberlax', 'Metamucil', 'Colace Plus'],
+                uses: 'Bulk-forming laxative for constipation',
+                origin: 'Plant-derived fiber used as a laxative',
+                whenToGive: 'For mild constipation; ensure adequate fluid intake',
+                contraindications: 'Obstruction of GI tract, difficulty swallowing',
+                conditionSafety: { hypertension: 'SAFE', diabetes: 'SAFE', asthma: 'SAFE', copd: 'SAFE', ckd: 'SAFE' },
+                tags: ['constipation','laxative']
+            },
+            {
+                id: 'loperamide',
+                name: 'Loperamide',
+                ph_brands: ['Diatabs', 'Immodium', 'Entestop'],
+                uses: 'Symptomatic relief of diarrhea',
+                origin: 'Synthetic opioid receptor agonist acting on gut motility',
+                whenToGive: 'For acute non-bloody diarrhea without fever; follow age/dose guidance',
+                contraindications: 'Bloody diarrhea, high fever, suspected C. difficile, pediatric limits',
+                conditionSafety: { hypertension: 'SAFE', diabetes: 'SAFE', asthma: 'SAFE', copd: 'SAFE', ckd: 'SAFE' },
+                tags: ['diarrhea','antidiarrheal']
+            },
+            {
+                id: 'ginger',
+                name: 'Ginger / Peppermint',
+                ph_brands: ['Ginger Tablets', 'Peppermint Oil', 'Katipay'],
+                uses: 'Nausea relief, mild digestive upset',
+                origin: 'Herbal remedies used historically across cultures',
+                whenToGive: 'For mild nausea and indigestion; non-pharmacologic first-line',
+                contraindications: 'None common; caution with anticoagulants in high doses',
+                conditionSafety: { hypertension: 'SAFE', diabetes: 'SAFE', asthma: 'SAFE', copd: 'SAFE', ckd: 'SAFE' },
+                tags: ['nausea','digestive','herbal']
+            }
+        ];
+
+        const otcListEl = document.getElementById('otc-list');
+        const otcDetailEl = document.getElementById('otc-detail');
+        const otcSearch = document.getElementById('otc-search');
+
+        function escapeRegex(s){ return s.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&"); }
+
+        function highlight(text, term){
+            if(!term) return text;
+            const re = new RegExp(escapeRegex(term), 'ig');
+            return text.replace(re, m => `<mark class="bg-amber-300 text-black px-0">${m}</mark>`);
+        }
+
+        function renderOTCList(filter){
+            const q = (filter||'').trim().toLowerCase();
+            otcListEl.innerHTML = '';
+            const matches = otcDatabase.filter(item => {
+                if(!q) return true;
+                if(item.name.toLowerCase().includes(q)) return true;
+                if(item.ph_brands.join(' ').toLowerCase().includes(q)) return true;
+                if(item.uses.toLowerCase().includes(q)) return true;
+                if((item.tags||[]).some(t=>t.includes(q))) return true;
+                return false;
+            });
+
+            if(matches.length === 0){
+                otcListEl.innerHTML = `<div class="text-slate-400 text-sm">No matches found.</div>`;
+                return;
+            }
+
+            matches.forEach((item, idx) => {
+                const searchTerm = q;
+                const title = highlight(item.name, searchTerm);
+                const trade = highlight(item.ph_brands.join(', '), searchTerm);
+                const usesPreview = highlight(item.uses, searchTerm);
+
+                const card = document.createElement('button');
+                card.className = 'w-full text-left p-3 bg-slate-800/50 rounded-xl border border-slate-700 hover:bg-slate-800 transition';
+                card.innerHTML = `<div class="flex justify-between items-start">
+                        <div>
+                            <p class="font-bold text-white text-sm">${title}</p>
+                            <p class="text-[11px] text-slate-300 mt-1">${trade}</p>
+                            <p class="text-[11px] text-slate-400 mt-2">${usesPreview}</p>
+                        </div>
+                        <div class="text-xs text-slate-500">More</div>
+                    </div>`;
+                card.onclick = () => showOTCDetail(item);
+                otcListEl.appendChild(card);
+            });
+        }
+
+        function showOTCDetail(item){
+            otcDetailEl.innerHTML = `
+                <h3 class="font-bold text-xl text-amber-300 mb-1">${item.name}</h3>
+                <p class="text-xs text-slate-400 mb-3">Philippine Brand Names: ${item.ph_brands.join(', ')}</p>
+                <div class="space-y-2 text-sm text-slate-300">
+                    <div><strong class="text-slate-200">Uses:</strong> ${item.uses}</div>
+                    <div><strong class="text-slate-200">Origin:</strong> ${item.origin}</div>
+                    <div><strong class="text-slate-200">When to give:</strong> ${item.whenToGive}</div>
+                    <div><strong class="text-slate-200">Contraindications / Cautions:</strong> ${item.contraindications}</div>
+                </div>
+                `;
+            otcDetailEl.scrollIntoView({behavior:'smooth', block:'nearest'});
+        }
+
+        otcSearch.addEventListener('input', (e) => {
+            renderOTCList(e.target.value);
+        });
+
+        // initial render
+        renderOTCList('');
+        renderOTCSidebar();
+    </script>
+
+    <!-- Service Worker Registration for PWA offline support -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js', { scope: '/' })
+                    .then((registration) => {
+                        console.log('✅ Service Worker registered successfully:', registration.scope);
+                        registration.update();
+                        
+                        // In standalone mode, ensure app functions work
+                        if (window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches) {
+                            console.log('📱 Running in standalone mode - app fully functional');
+                            // Ensure all event listeners are active
+                            if (typeof liveAnalyze !== 'undefined') {
+                                console.log('✅ Analysis functions loaded');
+                            }
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('⚠️ Service Worker registration failed:', error);
+                    });
+            });
+
+            // Handle SW update notifications
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                console.log('🔄 Service Worker updated');
+                // Reload to get latest version
+                window.location.reload();
+            });
+        } else {
+            console.log('⚠️ Service Workers not supported - app will work in browser only');
+        }
+
+        // Check if app was launched from home screen
+        const isInStandaloneMode = () => 
+            (window.navigator.standalone === true) || 
+            (window.matchMedia('(display-mode: standalone)').matches);
+        
+        if (isInStandaloneMode()) {
+            console.log('📱 App running in standalone mode (installed PWA)');
+            console.log('✅ All offline features available');
+        }
+    </script>
+</body>
+</html>
