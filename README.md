@@ -1,29 +1,40 @@
-# Block 9 Nurse — Student Nurse Clinical Companion
+# Block 9 Nurse — Student Nurse Clinical Companion 🏥
 
-Lightweight offline-capable PWA and Android package for student nurses. Includes vital-signs assessment, diagnosis suggestions, IV flow calculator, BMI calculator, and an OTC medication reference with Philippine brands.
+**Block 9 Nurse** is an offline-first Progressive Web App (PWA) designed to assist nursing students at Universidad de Dagupan during clinical rotations. It bridges the gap between complex medical references and the fast-paced, low-connectivity environment of a hospital ward.
 
-## Files
-- `index.html` — main app (rename `nurse_app.html` → `index.html` before publishing)
-- `manifest.json` — Web App Manifest
-- `sw.js` — Service Worker (offline support)
-- `image-192.png`, `image-512.png` — app icons
-- `screenshot-narrow.png`, `screenshot-wide.png` — screenshots for stores
-- `_redirects` — Netlify SPA redirect rule
+## 🌟 Why I built this
+During clinical duties, I noticed that students often struggle to access vital signs interpretation and medication logic when hospital Wi-Fi is unavailable or cell signals are weak. I built this tool to provide **instant, offline reliability** so we can focus on patient care instead of searching for data.
 
-## Quick local test (no install)
-1. Open `index.html` in a browser (Chrome recommended).
-2. You can test functions (vitals, IV, BMI, OTC search) directly.
+## ✨ Key Features
+- **Offline-First Logic:** Once installed on a phone, the app works without internet, ensuring 24/7 access in the ward.
+- **Nursing Calculators:** Quick IV flow rate, BMI, and vital signs assessment tools.
+- **Localized OTC Reference:** Searchable database featuring Philippine brands (e.g., Biogesic, Neozep) and nursing considerations.
+- **Clinical Guardrails:** Built-in logic to assist in clinical reasoning during simulations and study.
 
-## Installing the Android APK
-1. Download the signed APK (from PWABuilder release or this repo's Releases).
-2. On Android: enable `Install unknown apps` for your file manager or browser.
-3. Open the APK and install.
-4. Test offline by disabling Wi‑Fi and re-opening the app.
+## 🛠️ Tech Stack
+- **Frontend:** Vanilla JavaScript, HTML5, CSS3
+- **PWA Architecture:** Service Workers for offline caching and Manifest for "Add to Home Screen" functionality.
+- **Deployment:** Hosted on Netlify with automated build triggers.
 
-## Notes
-- The app is provided for educational use only and is NOT a substitute for clinical judgement.
-- If you plan to distribute via Google Play, use the signed AAB/APK and follow Play Store policies.
+## 📂 File Structure
+- `index.html` — Main application and UI logic.
+- `manifest.json` — Configuration for home screen installation.
+- `sw.js` — Service Worker ensuring offline persistence.
+- `LICENSE` — Licensed under the MIT License for open-source transparency.
 
-## License
-This project is licensed under the MIT License — see `LICENSE`.
+## 📲 How to Use
+### Option 1: Web / PWA (Recommended)
+1. Open the [Live Demo Link](https://plsworkk.netlify.app/) in Safari (iOS) or Chrome (Android).
+2. Tap the **Share** button (iOS) or **Menu** (Android).
+3. Select **"Add to Home Screen"**.
+4. Launch from your home screen and test in Airplane Mode.
 
+### Option 2: Android APK
+- Download the signed APK from the [Releases](https://github.com/adrielrancepascua-dev/block9nurseapp/releases/tag/v1.0) section.
+- Enable `Install unknown apps` on your device to install.
+
+## 🛡️ Disclaimer
+**For Educational Use Only.** This app is intended as a study and simulation aid for nursing students. It is NOT a substitute for professional clinical judgment or official hospital protocols. Always verify calculations manually before making clinical decisions.
+
+---
+*Created with ☕ and no sleep by [Rance Adriel Pascua], BSN Student @ Universidad de Dagupan*
