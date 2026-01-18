@@ -15,17 +15,18 @@
     <meta name="mobile-web-app-capable" content="yes">
     <title>NursePath - Student Nurse Clinical Companion</title>
     
-    <!-- CRITICAL: Load dark mode immediately to prevent white flash -->
+    <!-- CRITICAL: Force dark mode immediately to prevent white flash -->
     <style>
-        /* Dark mode foundation - loads BEFORE Tailwind */
-        html {
-            background-color: #0f172a;
-            color: #e2e8f0;
+        /* Dark mode foundation - loads FIRST */
+        html, body {
+            background-color: #020617 !important;
+            color: #e2e8f0 !important;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
-        body {
-            background-color: #0f172a;
-            color: #e2e8f0;
-            font-family: system-ui, -apple-system, sans-serif;
+        * { box-sizing: border-box; }
+        /* Prevent ANY white backgrounds */
+        div, section, main, aside, article, header, footer, nav {
+            background-color: transparent;
         }
     </style>
     
@@ -35,8 +36,10 @@
     <!-- OFFLINE-FIRST: Inlined CSS (no CDN) -->
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { background: #0f172a; color: #e2e8f0; font-family: system-ui, -apple-system, sans-serif; }
-        body { background: #0f172a; color: #e2e8f0; min-height: 100vh; padding-top: env(safe-area-inset-top); padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); padding-bottom: env(safe-area-inset-bottom); }
+        html { background: #020617 !important; color: #e2e8f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        body { background: #020617 !important; color: #e2e8f0; min-height: 100vh; padding-top: env(safe-area-inset-top); padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); padding-bottom: env(safe-area-inset-bottom); overflow-x: hidden; }
+        /* Text overflow prevention */
+        p, span, div, h1, h2, h3, h4, h5, h6, label, td, th, li { word-wrap: break-word; overflow-wrap: break-word; max-width: 100%; }
         .max-w-7xl { max-width: 80rem; margin: 0 auto; }
         .mx-auto { margin-left: auto; margin-right: auto; }
         .p-3 { padding: 0.75rem; }
@@ -118,21 +121,23 @@
         .border-cyan-500-30 { border-color: rgba(6, 182, 212, 0.3); }
         .border-emerald-500-30 { border-color: rgba(16, 185, 129, 0.3); }
         .border-blue-700-50 { border-color: rgba(29, 78, 216, 0.5); }
-        .bg-slate-900 { background-color: #0f172a; }
-        .bg-slate-800 { background-color: #1e293b; }
-        .bg-slate-700 { background-color: #334155; }
-        .bg-slate-950 { background-color: #020617; }
-        .bg-red-700 { background-color: #b91c1c; }
+        .bg-slate-900 { background-color: #0f172a !important; }
+        .bg-slate-800 { background-color: #1e293b !important; }
+        .bg-slate-700 { background-color: #334155 !important; }
+        .bg-slate-950 { background-color: #020617 !important; }
+        .bg-red-700 { background-color: #b91c1c !important; }
         .bg-blue-600 { background-color: #2563eb; }
         .bg-blue-500 { background-color: #3b82f6; }
         .bg-emerald-600 { background-color: #059669; }
         .bg-emerald-500 { background-color: #10b981; }
-        .bg-slate-700-30 { background-color: rgba(51, 65, 85, 0.3); }
-        .bg-slate-900-70 { background-color: rgba(15, 23, 42, 0.7); }
-        .bg-slate-800-50 { background-color: rgba(30, 41, 59, 0.5); }
-        .bg-slate-700-20 { background-color: rgba(51, 65, 85, 0.2); }
-        .bg-slate-900-60 { background-color: rgba(15, 23, 42, 0.6); }
-        .bg-blue-900-30 { background-color: rgba(30, 58, 138, 0.3); }
+        .bg-slate-700-30 { background-color: rgba(51, 65, 85, 0.4) !important; }
+        .bg-slate-900-70 { background-color: rgba(15, 23, 42, 0.85) !important; }
+        .bg-slate-800-50 { background-color: rgba(30, 41, 59, 0.6) !important; }
+        .bg-slate-700-20 { background-color: rgba(51, 65, 85, 0.3) !important; }
+        .bg-slate-900-60 { background-color: rgba(15, 23, 42, 0.75) !important; }
+        .bg-blue-900-30 { background-color: rgba(30, 58, 138, 0.4) !important; }
+        /* Gradient backgrounds with dark tones */
+        .bg-gradient-to-br { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important; }
         .hover\:bg-slate-700 { cursor: pointer; }
         .hover\:bg-slate-700:hover { background-color: rgba(51, 65, 85, 0.7); }
         .hover\:from-blue-500 { cursor: pointer; }
@@ -237,75 +242,74 @@
             padding: 12px !important;
         }
         
-        /* Prevent zoom on input focus on iOS */
+        /* Mobile Optimizations */
         @media (max-width: 768px) {
-            /* Force all inputs to 16px to prevent zoom */
+            /* Force 16px inputs to prevent iOS zoom */
             input, select, textarea {
                 font-size: 16px !important;
+                min-height: 48px !important;
             }
             
-            /* Mobile-first: stack sidebar on top */
-            .grid.lg\:grid-cols-5 {
+            /* Stack all grids on mobile */
+            .grid, .grid.lg\:grid-cols-5, .grid.grid-cols-2, .md\:grid-cols-2, .md\:grid-cols-4, .md\:grid-cols-5 {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 8px !important;
+            }
+            
+            /* Container padding */
+            .max-w-7xl, .container {
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+            }
+            
+            /* Smaller gaps */
+            .gap-6, .gap-3 {
+                gap: 10px !important;
+            }
+            
+            /* Card padding on mobile */
+            .bg-gradient-to-br, .card, .p-6, .p-5, .p-4 {
+                padding: 14px !important;
+                border-radius: 14px !important;
+            }
+            
+            /* Smaller text on mobile */
+            h1, .text-3xl, .text-4xl { font-size: 1.4rem !important; }
+            h2, .text-2xl { font-size: 1.15rem !important; }
+            h3, .text-xl, .text-lg { font-size: 1rem !important; }
+            
+            /* Full width on mobile - single column for some sections */
+            .md\:grid-cols-2 {
                 grid-template-columns: 1fr !important;
             }
             
-            /* Reduce container padding on mobile */
-            .max-w-7xl {
-                padding-left: 0.75rem !important;
-                padding-right: 0.75rem !important;
+            /* Buttons */
+            button {
+                padding: 12px 16px !important;
+                font-size: 14px !important;
+                min-height: 48px !important;
             }
             
-            /* Tighter spacing on small screens */
-            .gap-6 {
-                gap: 0.75rem !important;
-            }
-            
-            /* Make section padding smaller on mobile */
-            .bg-gradient-to-br.p-6 {
-                padding: 1rem !important;
-            }
-            
-            /* Reduce header text on mobile */
-            .text-2xl {
-                font-size: 1.25rem !important;
-            }
-            
-            /* Make grid columns stack better */
-            .grid.grid-cols-2 {
-                grid-template-columns: 1fr !important;
-            }
-            
-            /* Full-width buttons on mobile */
-            button.w-full {
-                padding: 14px 16px !important;
-                font-size: 15px !important;
-            }
-            
-            /* Smaller card padding */
-            .p-3, .p-4, .p-5, .p-6 {
-                padding: 0.875rem !important;
-            }
-            
-            /* Hide sidebar on mobile or make it collapsible */
+            /* Hide OTC sidebar on mobile */
             aside.lg\:col-span-1 {
-                display: none;
+                display: none !important;
             }
             
-            /* Adjust input padding */
-            input[type="number"], input[type="text"], select {
-                padding: 10px !important;
-                font-size: 16px !important;
+            /* Labels smaller */
+            label, .text-\[9px\], .text-\[10px\] {
+                font-size: 9px !important;
             }
             
-            /* Smaller font for labels */
-            label {
-                font-size: 10px !important;
-            }
-            
-            /* Compact diagnosis box */
+            /* Diagnosis box */
             #dx-box {
-                min-height: 80px !important;
-                padding: 1rem !important;
+                min-height: 70px !important;
+                padding: 12px !important;
+            }
+            
+            /* Prevent text overflow */
+            p, span, div, h1, h2, h3, h4, label {
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
             }
         }
         
