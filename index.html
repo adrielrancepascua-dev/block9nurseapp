@@ -1151,7 +1151,7 @@
         function highlight(text, term){
             if(!term) return text;
             const re = new RegExp(escapeRegex(term), 'ig');
-            return text.replace(re, m => `<mark style="background-color: rgba(34, 211, 238, 0.25); color: #67e8f9; padding: 1px 4px; border-radius: 4px; font-weight: 600;">${m}</mark>`);
+            return text.replace(re, m => `<strong style="font-weight: 800; color: #22d3ee;">${m}</strong>`);
         }
 
         function renderOTCList(filter){
