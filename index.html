@@ -351,40 +351,6 @@
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen" style="background-color: #020617 !important;">
 
-    <!-- Access Code Overlay (Option 2) -->
-    <div id="access-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; background-color: #020617; display: flex; align-items: center; justify-content: center; padding: 20px;">
-        <div style="max-width: 380px; width: 100%; background-color: #0f172a; border-radius: 16px; border: 2px solid #06b6d4; padding: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);">
-            <div style="text-align: center; margin-bottom: 24px;">
-                <h1 style="font-size: 28px; font-weight: 900; color: white; margin-bottom: 8px;">🔒 NursePath</h1>
-                <p style="color: #94a3b8; font-size: 14px;">Enter your access code</p>
-            </div>
-
-            <div style="margin-bottom: 16px;">
-                <label style="display: block; font-size: 11px; font-weight: bold; color: #cbd5e1; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Access Code</label>
-                <input 
-                    id="access-code-input" 
-                    type="text" 
-                    placeholder="NP-XXXX" 
-                    maxlength="7"
-                    style="width: 100%; background-color: #1e293b; border: 2px solid #334155; padding: 16px; border-radius: 12px; font-size: 18px; font-family: monospace; color: #22d3ee; text-transform: uppercase; text-align: center; letter-spacing: 0.1em; outline: none; box-sizing: border-box;"
-                    autocomplete="off">
-            </div>
-
-            <p id="access-error" style="display: none; color: #ef4444; font-size: 14px; margin-bottom: 16px; text-align: center;">Invalid code. Please try again.</p>
-            <p id="access-success" style="display: none; color: #34d399; font-size: 14px; margin-bottom: 16px; text-align: center;">✓ Access granted! Loading...</p>
-
-            <button 
-                onclick="verifyAccessCode()" 
-                style="width: 100%; background: linear-gradient(to right, #0891b2, #2563eb); color: white; font-weight: bold; padding: 16px; border-radius: 12px; border: none; font-size: 16px; cursor: pointer;">
-                Verify Code
-            </button>
-
-            <div style="color: #64748b; font-size: 12px; text-align: center; margin-top: 16px;">
-                Need a code? <a href="https://nursepathdapp.com" target="_blank" style="color: #22d3ee; text-decoration: underline;">Get Early Access (₱200)</a>
-            </div>
-        </div>
-    </div>
-
     <div class="bg-red-700 text-white py-2 px-4 text-[10px] md:text-[11px] font-bold text-center tracking-widest uppercase border-b-2 border-red-900 sticky top-0 z-50 shadow-lg">
         ⚠️ EDUCATIONAL USE ONLY • NOT FOR CLINICAL DIAGNOSIS • Always consult with licensed staff
     </div>
@@ -1185,7 +1151,7 @@
         function highlight(text, term){
             if(!term) return text;
             const re = new RegExp(escapeRegex(term), 'ig');
-            return text.replace(re, m => `<mark class="bg-amber-300 text-black px-0">${m}</mark>`);
+            return text.replace(re, m => `<mark style="background-color: rgba(34, 211, 238, 0.25); color: #67e8f9; padding: 1px 4px; border-radius: 4px; font-weight: 600;">${m}</mark>`);
         }
 
         function renderOTCList(filter){
@@ -1291,120 +1257,6 @@
         if (isInStandaloneMode()) {
             console.log('📱 App running in standalone mode (installed PWA)');
             console.log('✅ All offline features available');
-        }
-    </script>
-
-    <!-- Access Code Verification Logic -->
-    <script>
-        const NETLIFY_VERIFY_ENDPOINT = '/.netlify/functions/verify';
-
-        // Check if user is already unlocked
-        function isUnlocked() {
-            return localStorage.getItem('nursePathUnlocked') === 'true';
-        }
-
-        // Show or hide overlay
-        function showOverlay() {
-            const overlay = document.getElementById('access-overlay');
-            if (overlay) overlay.style.display = 'block';
-        }
-
-        function hideOverlay() {
-            const overlay = document.getElementById('access-overlay');
-            if (overlay) overlay.style.display = 'none';
-        }
-
-        // Verify access code
-        async function verifyAccessCode() {
-            const input = document.getElementById('access-code-input');
-            const errorEl = document.getElementById('access-error');
-            const successEl = document.getElementById('access-success');
-            const code = input.value.trim().toUpperCase();
-
-            // Hide previous messages
-            errorEl.style.display = 'none';
-            successEl.style.display = 'none';
-
-            // Basic format validation (NP-XXXX)
-            const codePattern = /^NP-\d{4}$/;
-            if (!codePattern.test(code)) {
-                errorEl.textContent = 'Invalid format. Use NP-XXXX';
-                errorEl.style.display = 'block';
-                return;
-            }
-
-            // Test codes (client-side validation)
-            const TEST_CODES = ['NP-1234', 'NP-5678', 'NP-9012', 'NP-3456', 'NP-7890'];
-            
-            if (TEST_CODES.includes(code)) {
-                // Valid test code!
-                localStorage.setItem('nursePathUnlocked', 'true');
-                localStorage.setItem('nursePathAccessCode', code);
-                localStorage.setItem('nursePathUnlockedAt', new Date().toISOString());
-
-                successEl.style.display = 'block';
-                
-                setTimeout(() => {
-                    hideOverlay();
-                }, 800);
-                return;
-            }
-
-            // If not a test code, try server validation
-            try {
-                const response = await fetch(NETLIFY_VERIFY_ENDPOINT, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ code })
-                });
-
-                const data = await response.json();
-
-                if (response.ok && data.valid === true) {
-                    localStorage.setItem('nursePathUnlocked', 'true');
-                    localStorage.setItem('nursePathAccessCode', code);
-                    localStorage.setItem('nursePathUnlockedAt', new Date().toISOString());
-
-                    successEl.style.display = 'block';
-                    
-                    setTimeout(() => {
-                        hideOverlay();
-                    }, 800);
-                } else {
-                    errorEl.textContent = data.message || 'Invalid or already-used code.';
-                    errorEl.style.display = 'block';
-                }
-            } catch (error) {
-                console.error('Verification error:', error);
-                errorEl.textContent = 'Invalid code.';
-                errorEl.style.display = 'block';
-            }
-        }
-
-        // Check unlock status on page load
-        window.addEventListener('DOMContentLoaded', () => {
-            if (!isUnlocked()) {
-                showOverlay();
-            }
-            
-            // Attach Enter key listener after DOM is ready
-            const input = document.getElementById('access-code-input');
-            if (input) {
-                input.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') {
-                        verifyAccessCode();
-                    }
-                });
-            }
-        });
-
-        // Dev helper: Reset access (call from console)
-        function resetAccess() {
-            localStorage.removeItem('nursePathUnlocked');
-            localStorage.removeItem('nursePathAccessCode');
-            localStorage.removeItem('nursePathUnlockedAt');
-            showOverlay();
-            console.log('Access reset. Overlay shown.');
         }
     </script>
 </body>
