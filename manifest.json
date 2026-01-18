@@ -1,7 +1,7 @@
 {
-  "id": "https://your-site.netlify.app/nurse_app.html",
-  "name": "Block 9 Exclusive - Student Nurse Clinical Companion",
-  "short_name": "Block 9 Nurse",
+  "id": "https://plsworkk.netlify.app/nurse_app.html",
+  "name": "NursePath - Student Nurse Clinical Companion",
+  "short_name": "NursePath",
   "description": "Vital Signs Analysis, Diagnosis Assistant, IV Calculator, OTC Drug Reference - Offline capable clinical support for student nurses",
   "start_url": "/index.html",
   "scope": "/",
