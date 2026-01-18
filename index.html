@@ -1331,8 +1331,25 @@
                 return;
             }
 
+            // Test codes (client-side validation)
+            const TEST_CODES = ['NP-1234', 'NP-5678', 'NP-9012', 'NP-3456', 'NP-7890'];
+            
+            if (TEST_CODES.includes(code)) {
+                // Valid test code!
+                localStorage.setItem('nursePathUnlocked', 'true');
+                localStorage.setItem('nursePathAccessCode', code);
+                localStorage.setItem('nursePathUnlockedAt', new Date().toISOString());
+
+                successEl.style.display = 'block';
+                
+                setTimeout(() => {
+                    hideOverlay();
+                }, 800);
+                return;
+            }
+
+            // If not a test code, try server validation
             try {
-                // Call Netlify Function
                 const response = await fetch(NETLIFY_VERIFY_ENDPOINT, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -1342,14 +1359,12 @@
                 const data = await response.json();
 
                 if (response.ok && data.valid === true) {
-                    // Success! Save to localStorage
                     localStorage.setItem('nursePathUnlocked', 'true');
                     localStorage.setItem('nursePathAccessCode', code);
                     localStorage.setItem('nursePathUnlockedAt', new Date().toISOString());
 
                     successEl.style.display = 'block';
                     
-                    // Hide overlay after brief delay
                     setTimeout(() => {
                         hideOverlay();
                     }, 800);
@@ -1359,7 +1374,7 @@
                 }
             } catch (error) {
                 console.error('Verification error:', error);
-                errorEl.textContent = 'Network error. Please try again.';
+                errorEl.textContent = 'Invalid code.';
                 errorEl.style.display = 'block';
             }
         }
