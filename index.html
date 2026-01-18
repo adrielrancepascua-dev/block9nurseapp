@@ -345,41 +345,38 @@
         }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen">
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen" style="background-color: #020617 !important;">
 
     <!-- Access Code Overlay (Option 2) -->
-    <div id="access-overlay" class="fixed inset-0 z-[9999] bg-slate-950" style="overflow-y: auto;">
-        <div class="max-w-md w-full mx-4" style="margin-top: 20vh; margin-bottom: 20vh; margin-left: auto; margin-right: auto;">
-            <div class="bg-slate-900 rounded-2xl border-2 border-cyan-500 p-6 shadow-2xl">
-                <div class="text-center mb-6">
-                    <h1 class="text-3xl font-black text-white mb-2">🔒 NursePath</h1>
-                    <p class="text-slate-400 text-sm">Enter your 6-digit access code</p>
-                </div>
+    <div id="access-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; background-color: #020617; display: flex; align-items: center; justify-content: center; padding: 20px;">
+        <div style="max-width: 380px; width: 100%; background-color: #0f172a; border-radius: 16px; border: 2px solid #06b6d4; padding: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);">
+            <div style="text-align: center; margin-bottom: 24px;">
+                <h1 style="font-size: 28px; font-weight: 900; color: white; margin-bottom: 8px;">🔒 NursePath</h1>
+                <p style="color: #94a3b8; font-size: 14px;">Enter your access code</p>
+            </div>
 
-                <div class="mb-4">
-                    <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-2">Access Code</label>
-                    <input 
-                        id="access-code-input" 
-                        type="text" 
-                        placeholder="NP-XXXX" 
-                        maxlength="7"
-                        class="w-full bg-slate-800 border-2 border-slate-700 p-4 rounded-xl focus:border-cyan-500 outline-none font-mono text-cyan-400 uppercase text-center tracking-widest"
-                        autocomplete="off"
-                        style="font-size: 16px;">
-                </div>
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 11px; font-weight: bold; color: #cbd5e1; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Access Code</label>
+                <input 
+                    id="access-code-input" 
+                    type="text" 
+                    placeholder="NP-XXXX" 
+                    maxlength="7"
+                    style="width: 100%; background-color: #1e293b; border: 2px solid #334155; padding: 16px; border-radius: 12px; font-size: 18px; font-family: monospace; color: #22d3ee; text-transform: uppercase; text-align: center; letter-spacing: 0.1em; outline: none; box-sizing: border-box;"
+                    autocomplete="off">
+            </div>
 
-                <p id="access-error" class="text-red-500 text-sm mb-4 text-center" style="display: none; min-height: 20px;">Invalid code. Please try again.</p>
-                <p id="access-success" class="text-emerald-400 text-sm mb-4 text-center" style="display: none; min-height: 20px;">✓ Access granted! Loading...</p>
+            <p id="access-error" style="display: none; color: #ef4444; font-size: 14px; margin-bottom: 16px; text-align: center;">Invalid code. Please try again.</p>
+            <p id="access-success" style="display: none; color: #34d399; font-size: 14px; margin-bottom: 16px; text-align: center;">✓ Access granted! Loading...</p>
 
-                <button 
-                    onclick="verifyAccessCode()" 
-                    class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold py-4 rounded-xl transition-all shadow-lg">
-                    Verify Code
-                </button>
+            <button 
+                onclick="verifyAccessCode()" 
+                style="width: 100%; background: linear-gradient(to right, #0891b2, #2563eb); color: white; font-weight: bold; padding: 16px; border-radius: 12px; border: none; font-size: 16px; cursor: pointer;">
+                Verify Code
+            </button>
 
-                <div class="text-slate-500 text-xs text-center mt-4">
-                    Need a code? <a href="https://nursepathdapp.com" target="_blank" class="text-cyan-400 hover:text-cyan-300 underline">Get Early Access (₱200)</a>
-                </div>
+            <div style="color: #64748b; font-size: 12px; text-align: center; margin-top: 16px;">
+                Need a code? <a href="https://nursepathdapp.com" target="_blank" style="color: #22d3ee; text-decoration: underline;">Get Early Access (₱200)</a>
             </div>
         </div>
     </div>
