@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <meta name="theme-color" content="#0f172a">
-    <meta name="description" content="NursePath - Student Nurse Clinical Companion. Vital signs assessment, diagnosis support, IV calculator, and OTC medication reference for nursing students.">
+    <meta name="description" content="Block 9 Exclusive - Student Nurse Clinical Companion. Vital signs assessment, diagnosis support, IV calculator, and OTC medication reference for nursing students.">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="NursePath">
-    <meta name="application-name" content="NursePath">
+    <meta name="apple-mobile-web-app-title" content="Block 9 Nurse">
+    <meta name="application-name" content="Block 9 Nurse">
     <meta name="msapplication-TileColor" content="#0f172a">
     <meta name="msapplication-config" content="browserconfig.xml">
     <meta name="format-detection" content="telephone=no">
     <meta name="mobile-web-app-capable" content="yes">
-    <title>NursePath - Student Nurse Clinical Companion</title>
+    <title>Student Nurse Clinical Companion - Block 9 Exclusive</title>
     
     <!-- CRITICAL: Load dark mode immediately to prevent white flash -->
     <style>
@@ -239,73 +239,24 @@
         
         /* Prevent zoom on input focus on iOS */
         @media (max-width: 768px) {
-            /* Force all inputs to 16px to prevent zoom */
             input, select, textarea {
                 font-size: 16px !important;
             }
             
             /* Mobile-first: stack sidebar on top */
             .grid.lg\:grid-cols-5 {
-                grid-template-columns: 1fr !important;
+                grid-template-columns: 1fr;
             }
             
-            /* Reduce container padding on mobile */
-            .max-w-7xl {
-                padding-left: 0.75rem !important;
-                padding-right: 0.75rem !important;
-            }
-            
-            /* Tighter spacing on small screens */
+            /* Improve spacing on small screens */
             .gap-6 {
-                gap: 0.75rem !important;
+                gap: 1rem;
             }
             
-            /* Make section padding smaller on mobile */
-            .bg-gradient-to-br.p-6 {
-                padding: 1rem !important;
-            }
-            
-            /* Reduce header text on mobile */
-            .text-2xl {
-                font-size: 1.25rem !important;
-            }
-            
-            /* Make grid columns stack better */
-            .grid.grid-cols-2 {
-                grid-template-columns: 1fr !important;
-            }
-            
-            /* Full-width buttons on mobile */
+            /* Make buttons full width or larger on mobile */
             button.w-full {
-                padding: 14px 16px !important;
-                font-size: 15px !important;
-            }
-            
-            /* Smaller card padding */
-            .p-3, .p-4, .p-5, .p-6 {
-                padding: 0.875rem !important;
-            }
-            
-            /* Hide sidebar on mobile or make it collapsible */
-            aside.lg\:col-span-1 {
-                display: none;
-            }
-            
-            /* Adjust input padding */
-            input[type="number"], input[type="text"], select {
-                padding: 10px !important;
-                font-size: 16px !important;
-            }
-            
-            /* Smaller font for labels */
-            label {
-                font-size: 10px !important;
-            }
-            
-            /* Compact diagnosis box */
-            #dx-box {
-                min-height: 80px !important;
-                padding: 1rem !important;
+                padding: 12px 16px;
+                font-size: 14px;
             }
         }
         
@@ -425,49 +376,49 @@
                     </div>
                     
                     <!-- Vital Signs Row -->
-                    <div class="grid grid-cols-2 gap-2 mb-4 pb-4 border-b border-slate-700">
-                        <div class="space-y-1">
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-3 mb-6 pb-4 border-b border-slate-700">
+                        <div class="space-y-2">
                             <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Systolic (mmHg)</label>
-                            <input type="number" id="sys" oninput="liveAnalyze()" placeholder="120" min="0" max="300" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold text-cyan-400">
+                            <input type="number" id="sys" oninput="liveAnalyze()" placeholder="120" min="0" max="300" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-lg font-bold text-cyan-400">
                         </div>
-                        <div class="space-y-1">
+                        <div class="space-y-2">
                             <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Diastolic (mmHg)</label>
-                            <input type="number" id="dia" oninput="liveAnalyze()" placeholder="80" min="0" max="200" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold text-cyan-400">
+                            <input type="number" id="dia" oninput="liveAnalyze()" placeholder="80" min="0" max="200" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-lg font-bold text-cyan-400">
                         </div>
-                        <div class="space-y-1">
+                        <div class="space-y-2">
                             <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Temp (°C)</label>
-                            <input type="number" id="temp" oninput="liveAnalyze()" placeholder="37.0" min="35" max="42" step="0.1" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold text-cyan-400">
+                            <input type="number" id="temp" oninput="liveAnalyze()" placeholder="37.0" min="35" max="42" step="0.1" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-lg font-bold text-cyan-400">
                         </div>
-                        <div class="space-y-1">
+                        <div class="space-y-2">
                             <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Pulse (BPM)</label>
-                            <input type="number" id="hr" oninput="liveAnalyze()" placeholder="80" min="0" max="300" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold text-cyan-400">
+                            <input type="number" id="hr" oninput="liveAnalyze()" placeholder="80" min="0" max="300" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-lg font-bold text-cyan-400">
                         </div>
-                        <div class="space-y-1">
+                        <div class="space-y-2">
                             <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Resp (Rate)</label>
-                            <input type="number" id="rr" oninput="liveAnalyze()" placeholder="16" min="0" max="60" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold text-cyan-400">
+                            <input type="number" id="rr" oninput="liveAnalyze()" placeholder="16" min="0" max="60" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-lg font-bold text-cyan-400">
                         </div>
                     </div>
 
                     <!-- Patient Demographics Row -->
-                    <div class="grid grid-cols-2 gap-2 mb-4 pb-4 border-b border-slate-700">
-                        <div class="space-y-1">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6 pb-4 border-b border-slate-700">
+                        <div class="space-y-2">
                             <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Age (years)</label>
-                            <input type="number" id="age" oninput="liveAnalyze()" placeholder="30" min="0" max="120" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
+                            <input type="number" id="age" oninput="liveAnalyze()" placeholder="30" min="0" max="120" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
                         </div>
-                        <div class="space-y-1">
+                        <div class="space-y-2">
                             <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Pregnancies</label>
-                            <input type="number" id="pregnancies" oninput="liveAnalyze()" placeholder="0" min="0" max="20" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
+                            <input type="number" id="pregnancies" oninput="liveAnalyze()" placeholder="0" min="0" max="20" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
                         </div>
-                        <div class="space-y-1">
+                        <div class="space-y-2">
                             <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Currently Pregnant</label>
-                            <select id="pregnant" oninput="liveAnalyze()" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
+                            <select id="pregnant" oninput="liveAnalyze()" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
                                 <option value="no">No</option>
                                 <option value="yes">Yes</option>
                             </select>
                         </div>
-                        <div class="space-y-1">
+                        <div class="space-y-2">
                             <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Known Conditions</label>
-                            <select id="conditions" oninput="liveAnalyze(); renderOTCSidebar()" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
+                            <select id="conditions" oninput="liveAnalyze(); renderOTCSidebar()" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
                                 <option value="none">None</option>
                                 <option value="hypertension">Hypertension</option>
                                 <option value="diabetes">Diabetes</option>
