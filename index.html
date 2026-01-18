@@ -109,17 +109,17 @@
         .border-b { border-bottom: 1px solid; }
         .border-b-2 { border-bottom: 2px solid; }
         .border-l-4 { border-left: 4px solid; }
-        .border-slate-600 { border-color: #475569; }
-        .border-slate-700 { border-color: #334155; }
-        .border-blue-500 { border-color: #3b82f6; }
+        .border-slate-600 { border-color: #1e293b !important; }
+        .border-slate-700 { border-color: #1e293b !important; }
+        .border-blue-500 { border-color: #1e4a7a; }
         .border-blue-700 { border-color: #1d4ed8; }
-        .border-cyan-500 { border-color: #06b6d4; }
-        .border-emerald-500 { border-color: #10b981; }
+        .border-cyan-500 { border-color: #0e4a5c; }
+        .border-emerald-500 { border-color: #064e3b; }
         .border-red-900 { border-color: #7f1d1d; }
-        .border-slate-700-50 { border-color: rgba(51, 65, 85, 0.5); }
-        .border-blue-500-30 { border-color: rgba(59, 130, 246, 0.3); }
-        .border-cyan-500-30 { border-color: rgba(6, 182, 212, 0.3); }
-        .border-emerald-500-30 { border-color: rgba(16, 185, 129, 0.3); }
+        .border-slate-700-50 { border-color: rgba(30, 41, 59, 0.5) !important; }
+        .border-blue-500-30 { border-color: rgba(30, 74, 122, 0.3); }
+        .border-cyan-500-30 { border-color: rgba(14, 74, 92, 0.3); }
+        .border-emerald-500-30 { border-color: rgba(6, 78, 59, 0.3); }
         .border-blue-700-50 { border-color: rgba(29, 78, 216, 0.5); }
         .bg-slate-900 { background-color: #0f172a !important; }
         .bg-slate-800 { background-color: #1e293b !important; }
@@ -928,7 +928,7 @@
 
                 // Recommendations
                 if (recommendations.length > 0) {
-                    html += `<div class="bg-slate-800/50 p-4 rounded-lg border border-slate-600 space-y-3">`;
+                    html += `<div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700 space-y-3">`;
                     recommendations.forEach((rec, idx) => {
                         html += `<div class="space-y-2">
                             <p class="font-bold text-cyan-400 text-sm">💊 Recommendation ${idx + 1}:</p>
@@ -1178,8 +1178,9 @@
                 const usesPreview = highlight(item.uses, searchTerm);
 
                 const card = document.createElement('button');
-                card.className = 'w-full text-left p-3 rounded-xl border border-slate-700 hover:bg-slate-700 transition';
+                card.className = 'w-full text-left p-3 rounded-xl border transition';
                 card.style.backgroundColor = '#1e293b';
+                card.style.borderColor = '#1e293b';
                 card.innerHTML = `<div class="flex justify-between items-start">
                         <div>
                             <p class="font-bold text-white text-sm">${title}</p>
