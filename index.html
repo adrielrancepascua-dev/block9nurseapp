@@ -295,6 +295,27 @@
             padding-right: 36px;
         }
     </style>
+    <style>
+        /* Force dark theme consistency across all screen sizes */
+        @media (min-width: 768px) {
+            body {
+                background-color: #020617 !important;
+            }
+            .bg-slate-950 {
+                background-color: #020617 !important;
+            }
+            .bg-slate-900 {
+                background-color: #0f172a !important;
+            }
+            .bg-slate-800 {
+                background-color: #1e293b !important;
+            }
+            /* Ensure gradient backgrounds stay dark */
+            .bg-gradient-to-br {
+                opacity: 1 !important;
+            }
+        }
+    </style>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen">
 
