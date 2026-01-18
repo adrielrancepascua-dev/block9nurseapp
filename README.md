@@ -1,40 +1,75 @@
-# Block 9 Nurse — Student Nurse Clinical Companion 🏥
+# NursePath - Student Nurse Clinical Companion
 
-**Block 9 Nurse** is an offline-first Progressive Web App (PWA) designed to assist nursing students at Universidad de Dagupan during clinical rotations. It bridges the gap between complex medical references and the fast-paced, low-connectivity environment of a hospital ward.
+**NursePath** is an offline-first Progressive Web App (PWA) built by nursing students, for nursing students. It provides instant vital signs interpretation, clinical calculators, and medication reference during clinical rotations—even when hospital Wi-Fi isn't available.
 
-## 🌟 Why I built this
-During clinical duties, I noticed that students often struggle to access vital signs interpretation and medication logic when hospital Wi-Fi is unavailable or cell signals are weak. I built this tool to provide **instant, offline reliability** so we can focus on patient care instead of searching for data.
+## 🌟 Why NursePath?
+
+During clinical duties, nursing students face a common challenge: **accessing critical medical references when connectivity is unreliable**. Whether it's weak hospital Wi-Fi, no cell signal, or devices in Airplane Mode, NursePath works everywhere.
 
 ## ✨ Key Features
-- **Offline-First Logic:** Once installed on a phone, the app works without internet, ensuring 24/7 access in the ward.
-- **Nursing Calculators:** Quick IV flow rate, BMI, and vital signs assessment tools.
-- **Localized OTC Reference:** Searchable database featuring Philippine brands (e.g., Biogesic, Neozep) and nursing considerations.
-- **Clinical Guardrails:** Built-in logic to assist in clinical reasoning during simulations and study.
+
+- **📊 Vital Signs Analysis** - Age-adjusted vital sign interpretation with priority-based diagnosis
+- **💧 IV Flow Rate Calculator** - Automatic mL/hr and gtt/min conversion
+- **⚖️ BMI Calculator** - Instant body mass index with clinical categories
+- **💊 OTC Medication Database** - 8 medications with Philippine brand names
+- **📱 100% Offline** - No internet required after first load
+- **🚀 Auto-Updates** - PWA auto-updates when deployed
+- **🎯 Clinical Guardrails** - Built-in logic for clinical reasoning
+
+## 🏥 Early Tester Program
+
+**Limited to 200 student testers**
+- ✅ One-time payment: ₱200
+- ✅ Lifetime access
+- ✅ All future updates included
+- ✅ Direct feedback on features
+
+**[Join the Program](https://nursepathdapp.com)**
 
 ## 🛠️ Tech Stack
-- **Frontend:** Vanilla JavaScript, HTML5, CSS3
-- **PWA Architecture:** Service Workers for offline caching and Manifest for "Add to Home Screen" functionality.
-- **Deployment:** Hosted on Netlify with automated build triggers.
 
-## 📂 File Structure
-- `index.html` — Main application and UI logic.
-- `manifest.json` — Configuration for home screen installation.
-- `sw.js` — Service Worker ensuring offline persistence.
-- `LICENSE` — Licensed under the MIT License for open-source transparency.
+- Vanilla HTML5, CSS3, JavaScript
+- Inlined Tailwind CSS (~500 lines) - **zero CDN dependencies**
+- Inline SVG icons - **no Font Awesome CDN**
+- Service Worker for offline caching
+- Netlify hosting with auto-deploy
 
-## 📲 How to Use
-### Option 1: Web / PWA (Recommended)
-1. Open the [Live Demo Link](https://plsworkk.netlify.app/) in Safari (iOS) or Chrome (Android).
-2. Tap the **Share** button (iOS) or **Menu** (Android).
-3. Select **"Add to Home Screen"**.
-4. Launch from your home screen and test in Airplane Mode.
+## 📂 Files
 
-### Option 2: Android APK
-- Download the signed APK from the [Releases](https://github.com/adrielrancepascua-dev/block9nurseapp/releases/tag/v1.0) section.
-- Enable `Install unknown apps` on your device to install.
+- `index.html` — Main app (1150+ lines, fully self-contained)
+- `manifest.json` — PWA metadata
+- `sw.js` — Service Worker for offline support
+- `landing.html` — Marketing website & early tester info
+- `image-*.png` — App icons
+- `screenshot-*.png` — App screenshots
+
+## 📲 How to Access
+
+**Option 1: Web App (Recommended)**
+1. Visit: https://plsworkk.netlify.app
+2. **iOS:** Tap Share → Add to Home Screen
+3. **Android:** Tap Menu (⋮) → Add to Home Screen
+4. Test offline in Airplane Mode
+
+**Option 2: Landing Page**
+Visit: https://nursepathdapp.com for program details
 
 ## 🛡️ Disclaimer
-**For Educational Use Only.** This app is intended as a study and simulation aid for nursing students. It is NOT a substitute for professional clinical judgment or official hospital protocols. Always verify calculations manually before making clinical decisions.
+
+**Educational Use Only.** NursePath is a study aid for student nurses, NOT a clinical tool. Always verify calculations, consult licensed professionals, and follow your institution's protocols.
+
+## 🚀 Performance
+
+- Initial load: ~80KB (fully self-contained)
+- Offline load: Instant (fully cached)
+- No external dependencies
+- Auto-updates through service worker
+
+## 📄 License
+
+MIT License - see LICENSE file
 
 ---
-*Created with ☕ and no sleep by [Rance Adriel Pascua], BSN Student @ Universidad de Dagupan*
+
+**Built by student nurses, for student nurses**  
+*Because reliable tools shouldn't depend on Wi-Fi signals.*
