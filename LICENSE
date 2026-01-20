@@ -1,22 +1,187 @@
-MIT License
+================================================================================
+                     RESTRICTIVE PROPRIETARY LICENSE
+                        NursePath Clinical Companion
+                              Version 1.0
+                            January 2026
+================================================================================
 
-Copyright (c) 2026 [Rance Adriel Pascua]
+COPYRIGHT NOTICE
+--------------------------------------------------------------------------------
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (Nursing Companion App), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Copyright © 2026 [Your Name]. All Rights Reserved.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+This software application, including but not limited to its source code, 
+clinical logic, mathematical formulas, user interface design, and associated 
+documentation (collectively, the "Software"), is the exclusive intellectual 
+property of [Your Name] (the "Developer").
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+================================================================================
+                         TERMS AND CONDITIONS
+================================================================================
 
+1. PROPRIETARY NATURE
+--------------------------------------------------------------------------------
+
+   This Software is PROPRIETARY and CONFIDENTIAL. It is NOT open source and 
+   is NOT released under any permissive license (including but not limited to 
+   MIT, Apache, GPL, or Creative Commons licenses).
+
+2. INTELLECTUAL PROPERTY RIGHTS
+--------------------------------------------------------------------------------
+
+   a) The clinical decision-support logic, medical calculation algorithms, 
+      and drug reference databases contained within this Software are the 
+      original intellectual property of the Developer.
+
+   b) The user interface design, user experience flow, and visual elements 
+      are the creative property of the Developer.
+
+   c) All rights not expressly granted herein are reserved by the Developer.
+
+3. EVALUATION LICENSE GRANT
+--------------------------------------------------------------------------------
+
+   Subject to the terms of this License, the Developer hereby grants the 
+   following LIMITED license:
+
+   GRANTED TO: [Your College/University] College of Nursing
+   
+   LICENSE TYPE: Review License for Academic Evaluation
+   
+   PERMITTED USES:
+   
+   ✓ Faculty members may access and review the Software for academic 
+     evaluation purposes
+   
+   ✓ The Software may be demonstrated in academic settings for the purpose 
+     of assessing its educational merit
+   
+   ✓ Clinical instructors may audit the medical formulas and calculations 
+     for accuracy verification
+   
+   ✓ The institution may provide written feedback to the Developer regarding 
+     the Software's functionality and clinical accuracy
+
+4. RESTRICTIONS
+--------------------------------------------------------------------------------
+
+   Unless expressly authorized in writing by the Developer, recipients of 
+   this Software SHALL NOT:
+
+   ✗ Copy, reproduce, or duplicate the Software or any portion thereof
+   
+   ✗ Modify, adapt, alter, or create derivative works based on the Software
+   
+   ✗ Distribute, publish, or share the Software with any third party
+   
+   ✗ Sell, license, sublicense, or commercialize the Software
+   
+   ✗ Reverse engineer, decompile, or disassemble the Software
+   
+   ✗ Remove or alter any proprietary notices, labels, or marks
+   
+   ✗ Use the Software for actual clinical patient care decisions
+   
+   ✗ Deploy the Software on any public server without written authorization
+
+5. CONFIDENTIALITY
+--------------------------------------------------------------------------------
+
+   Recipients acknowledge that the Software contains confidential and 
+   proprietary information. Recipients agree to:
+
+   a) Maintain the confidentiality of the Software and its contents
+   
+   b) Not disclose the Software or its underlying logic to unauthorized parties
+   
+   c) Limit access to individuals with a legitimate need to review the Software 
+      for academic evaluation purposes
+
+6. NO WARRANTY
+--------------------------------------------------------------------------------
+
+   THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+   FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.
+
+   THE DEVELOPER MAKES NO REPRESENTATIONS OR WARRANTIES REGARDING THE 
+   ACCURACY, RELIABILITY, OR COMPLETENESS OF THE CLINICAL INFORMATION 
+   CONTAINED IN THE SOFTWARE.
+
+7. LIMITATION OF LIABILITY
+--------------------------------------------------------------------------------
+
+   IN NO EVENT SHALL THE DEVELOPER BE LIABLE FOR ANY DIRECT, INDIRECT, 
+   INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT 
+   NOT LIMITED TO PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, LOSS OF USE, 
+   DATA, OR PROFITS, OR BUSINESS INTERRUPTION) ARISING IN ANY WAY OUT OF 
+   THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
+   DAMAGE.
+
+   THE DEVELOPER SHALL NOT BE LIABLE FOR ANY CLINICAL DECISIONS, MEDICAL 
+   ERRORS, OR PATIENT OUTCOMES RESULTING FROM THE USE OR MISUSE OF THIS 
+   SOFTWARE.
+
+8. MEDICAL DISCLAIMER
+--------------------------------------------------------------------------------
+
+   THIS SOFTWARE IS AN EDUCATIONAL PROTOTYPE AND IS NOT INTENDED FOR USE IN 
+   ACTUAL CLINICAL PRACTICE. ALL MEDICAL CALCULATIONS AND CLINICAL 
+   RECOMMENDATIONS MUST BE VERIFIED BY A LICENSED HEALTHCARE PROFESSIONAL 
+   BEFORE APPLICATION TO PATIENT CARE.
+
+   THE SOFTWARE IS CURRENTLY IN THE "FACULTY VALIDATION" PHASE AND HAS NOT 
+   RECEIVED INSTITUTIONAL APPROVAL FOR CLINICAL USE.
+
+9. TERMINATION
+--------------------------------------------------------------------------------
+
+   This License is effective until terminated. The Developer may terminate 
+   this License at any time without notice if the recipient fails to comply 
+   with any term herein. Upon termination, all rights granted under this 
+   License shall immediately cease, and the recipient must destroy all 
+   copies of the Software in their possession.
+
+10. GOVERNING LAW
+--------------------------------------------------------------------------------
+
+    This License shall be governed by and construed in accordance with the 
+    laws of the Republic of the Philippines, without regard to its conflict 
+    of law provisions.
+
+11. FUTURE LICENSING
+--------------------------------------------------------------------------------
+
+    The Developer reserves the right to release future versions of this 
+    Software under different licensing terms, including but not limited to 
+    commercial licenses, institutional licenses, or open-source licenses.
+
+    Any future licensing decisions shall be at the sole discretion of the 
+    Developer.
+
+================================================================================
+                              CONTACT
+================================================================================
+
+For licensing inquiries, permissions, or feedback:
+
+Developer: [Your Name]
+Program:   Bachelor of Science in Nursing
+Email:     [Your Email]
+Date:      January 2026
+
+================================================================================
+                         ACKNOWLEDGMENT
+================================================================================
+
+By accessing, reviewing, or using this Software, you acknowledge that you 
+have read, understood, and agree to be bound by the terms and conditions 
+of this Restrictive Proprietary License.
+
+================================================================================
+
+                    © 2026 [Your Name]. All Rights Reserved.
+              NursePath: A Digital Clinical Companion for Student Nurses
+                         For Academic Evaluation Only
+
+================================================================================
