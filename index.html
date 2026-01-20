@@ -367,7 +367,7 @@
             <p style="color: #64748b; font-size: 13px; margin-bottom: 25px;">Enter your access code to unlock the app</p>
             
             <!-- Code Input -->
-            <input type="text" id="accessCodeInput" placeholder="Enter code (e.g., NP-DEAN-2026)" 
+            <input type="text" id="accessCodeInput" placeholder="Enter access code" 
                 style="width: 100%; padding: 16px; font-size: 16px; text-align: center; background: #1e293b; border: 2px solid #334155; border-radius: 12px; color: white; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px;"
                 onkeypress="if(event.key==='Enter') verifyAccessCode()">
             
@@ -387,7 +387,7 @@
     <!-- Access Code Verification Script -->
     <script>
         // MASTER CODE - Change this for your dean demo
-        const MASTER_CODE = 'NP-DEAN-2026';
+        const MASTER_CODE = '202526';
         const STORAGE_KEY = 'nursepath_access';
         const UNLOCK_DURATION = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
 
