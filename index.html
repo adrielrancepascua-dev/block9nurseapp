@@ -351,6 +351,123 @@
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen" style="background-color: #020617 !important;">
 
+    <!-- ACCESS CODE LOCK OVERLAY -->
+    <div id="accessLockOverlay" style="position: fixed; inset: 0; background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: #0f172a; border: 2px solid #06b6d4; border-radius: 20px; padding: 40px 30px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5);">
+            <!-- Logo -->
+            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #06b6d4, #0891b2); border-radius: 20px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: bold; color: white;">Rx</div>
+            
+            <h1 style="color: #06b6d4; font-size: 28px; font-weight: bold; margin-bottom: 8px;">NursePath</h1>
+            <p style="color: #94a3b8; font-size: 14px; margin-bottom: 30px;">Student Nurse Clinical Companion</p>
+            
+            <!-- Lock Icon -->
+            <div style="font-size: 48px; margin-bottom: 20px;">🔐</div>
+            
+            <h2 style="color: white; font-size: 20px; margin-bottom: 10px;">Access Code Required</h2>
+            <p style="color: #64748b; font-size: 13px; margin-bottom: 25px;">Enter your access code to unlock the app</p>
+            
+            <!-- Code Input -->
+            <input type="text" id="accessCodeInput" placeholder="Enter code (e.g., NP-DEAN-2026)" 
+                style="width: 100%; padding: 16px; font-size: 16px; text-align: center; background: #1e293b; border: 2px solid #334155; border-radius: 12px; color: white; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px;"
+                onkeypress="if(event.key==='Enter') verifyAccessCode()">
+            
+            <!-- Error Message -->
+            <p id="accessError" style="color: #ef4444; font-size: 13px; margin-bottom: 15px; display: none;">Invalid code. Please try again.</p>
+            
+            <!-- Submit Button -->
+            <button onclick="verifyAccessCode()" 
+                style="width: 100%; padding: 16px; font-size: 16px; font-weight: 600; background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; border: none; border-radius: 12px; cursor: pointer; margin-bottom: 20px; transition: all 0.3s;">
+                🔓 Unlock App
+            </button>
+            
+            <p style="color: #475569; font-size: 11px;">Demo version for academic evaluation<br>Contact developer for access code</p>
+        </div>
+    </div>
+
+    <!-- Access Code Verification Script -->
+    <script>
+        // MASTER CODE - Change this for your dean demo
+        const MASTER_CODE = 'NP-DEAN-2026';
+        const STORAGE_KEY = 'nursepath_access';
+        const UNLOCK_DURATION = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
+
+        // Check if already unlocked (works offline!)
+        function checkAccess() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                try {
+                    const data = JSON.parse(stored);
+                    const now = Date.now();
+                    if (data.granted && data.expires > now) {
+                        // Still valid - hide overlay
+                        document.getElementById('accessLockOverlay').style.display = 'none';
+                        return true;
+                    } else {
+                        // Expired - clear it
+                        localStorage.removeItem(STORAGE_KEY);
+                    }
+                } catch (e) {
+                    localStorage.removeItem(STORAGE_KEY);
+                }
+            }
+            // Not unlocked - show overlay
+            document.getElementById('accessLockOverlay').style.display = 'flex';
+            return false;
+        }
+
+        // Verify the entered code
+        function verifyAccessCode() {
+            const input = document.getElementById('accessCodeInput');
+            const error = document.getElementById('accessError');
+            const code = input.value.trim().toUpperCase();
+
+            if (code === MASTER_CODE) {
+                // Success! Store unlock with 30-day expiry
+                const unlockData = {
+                    granted: true,
+                    expires: Date.now() + UNLOCK_DURATION,
+                    unlockedAt: new Date().toISOString()
+                };
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(unlockData));
+                
+                // Hide overlay with animation
+                const overlay = document.getElementById('accessLockOverlay');
+                overlay.style.opacity = '0';
+                overlay.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 500);
+                
+                error.style.display = 'none';
+            } else {
+                // Wrong code
+                error.style.display = 'block';
+                input.style.borderColor = '#ef4444';
+                input.value = '';
+                input.focus();
+                
+                // Shake animation
+                input.style.animation = 'shake 0.5s';
+                setTimeout(() => input.style.animation = '', 500);
+            }
+        }
+
+        // Check on page load
+        checkAccess();
+        
+        // Focus input if overlay is visible
+        if (document.getElementById('accessLockOverlay').style.display !== 'none') {
+            setTimeout(() => document.getElementById('accessCodeInput').focus(), 100);
+        }
+    </script>
+    <style>
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+    </style>
+
     <div class="bg-red-700 text-white py-2 px-4 text-[10px] md:text-[11px] font-bold text-center tracking-widest uppercase border-b-2 border-red-900 sticky top-0 z-50 shadow-lg">
         ⚠️ EDUCATIONAL USE ONLY • NOT FOR CLINICAL DIAGNOSIS • Always consult with licensed staff
     </div>
