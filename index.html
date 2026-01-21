@@ -384,12 +384,90 @@
         </div>
     </div>
 
+    <!-- SIMULATION MODE AGREEMENT OVERLAY -->
+    <div id="simulationModeOverlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center; padding: 20px;">
+        <div style="background: linear-gradient(135deg, #1e293b, #0f172a); border-radius: 20px; padding: 40px; max-width: 500px; width: 100%; text-align: center; border: 2px solid #f59e0b; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);">
+            
+            <!-- Warning Icon -->
+            <div style="font-size: 60px; margin-bottom: 20px;">⚠️</div>
+            
+            <!-- Title -->
+            <h2 style="font-size: 24px; font-weight: bold; color: #f59e0b; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px;">
+                Simulation Mode
+            </h2>
+            
+            <!-- Disclaimer Text -->
+            <div style="background: #0f172a; border-radius: 12px; padding: 20px; margin-bottom: 25px; border: 1px solid #334155;">
+                <p style="color: #e2e8f0; font-size: 15px; line-height: 1.7; text-align: left;">
+                    This is a <strong style="color: #f59e0b;">simulation-only reference tool</strong> designed for academic purposes.
+                </p>
+                <p style="color: #94a3b8; font-size: 13px; line-height: 1.6; margin-top: 15px; text-align: left;">
+                    By proceeding, I agree to:
+                </p>
+                <ul style="color: #94a3b8; font-size: 13px; line-height: 1.8; text-align: left; margin-top: 10px; padding-left: 20px;">
+                    <li>✓ Verify <strong>ALL outputs</strong> with a Clinical Instructor</li>
+                    <li>✓ Cross-reference with my <strong>prescribed textbooks</strong></li>
+                    <li>✓ <strong>NOT use</strong> this for actual patient care decisions</li>
+                </ul>
+            </div>
+            
+            <!-- Agreement Button -->
+            <button onclick="acceptSimulationMode()" 
+                style="width: 100%; padding: 16px; font-size: 16px; font-weight: 600; background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px;">
+                📚 I Understand — Enter Simulation Mode
+            </button>
+            
+            <p style="color: #475569; font-size: 11px; margin-top: 15px;">
+                This agreement is valid for 24 hours
+            </p>
+        </div>
+    </div>
+
     <!-- Access Code Verification Script -->
     <script>
         // MASTER CODE - Change this for your dean demo
         const MASTER_CODE = '202526';
         const STORAGE_KEY = 'nursepath_access';
+        const SIMULATION_KEY = 'nursepath_simulation_agreed';
         const UNLOCK_DURATION = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
+        const SIMULATION_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+        // Check if simulation mode agreement is valid
+        function checkSimulationAgreement() {
+            const stored = localStorage.getItem(SIMULATION_KEY);
+            if (stored) {
+                try {
+                    const data = JSON.parse(stored);
+                    const now = Date.now();
+                    if (data.agreed && data.expires > now) {
+                        return true; // Agreement still valid
+                    } else {
+                        localStorage.removeItem(SIMULATION_KEY);
+                    }
+                } catch (e) {
+                    localStorage.removeItem(SIMULATION_KEY);
+                }
+            }
+            return false;
+        }
+
+        // Accept simulation mode agreement
+        function acceptSimulationMode() {
+            const agreementData = {
+                agreed: true,
+                expires: Date.now() + SIMULATION_DURATION,
+                agreedAt: new Date().toISOString()
+            };
+            localStorage.setItem(SIMULATION_KEY, JSON.stringify(agreementData));
+            
+            // Hide overlay with animation
+            const overlay = document.getElementById('simulationModeOverlay');
+            overlay.style.opacity = '0';
+            overlay.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 500);
+        }
 
         // Check if already unlocked (works offline!)
         function checkAccess() {
@@ -399,8 +477,13 @@
                     const data = JSON.parse(stored);
                     const now = Date.now();
                     if (data.granted && data.expires > now) {
-                        // Still valid - hide overlay
+                        // Still valid - hide access overlay
                         document.getElementById('accessLockOverlay').style.display = 'none';
+                        
+                        // Now check simulation agreement
+                        if (!checkSimulationAgreement()) {
+                            document.getElementById('simulationModeOverlay').style.display = 'flex';
+                        }
                         return true;
                     } else {
                         // Expired - clear it
@@ -436,6 +519,10 @@
                 overlay.style.transition = 'opacity 0.5s ease';
                 setTimeout(() => {
                     overlay.style.display = 'none';
+                    // Show simulation agreement after access is granted
+                    if (!checkSimulationAgreement()) {
+                        document.getElementById('simulationModeOverlay').style.display = 'flex';
+                    }
                 }, 500);
                 
                 error.style.display = 'none';
@@ -468,8 +555,8 @@
         }
     </style>
 
-    <div class="bg-red-700 text-white py-2 px-4 text-[10px] md:text-[11px] font-bold text-center tracking-widest uppercase border-b-2 border-red-900 sticky top-0 z-50 shadow-lg">
-        ⚠️ EDUCATIONAL USE ONLY • NOT FOR CLINICAL DIAGNOSIS • Always consult with licensed staff
+    <div class="bg-amber-600 text-white py-2 px-4 text-[10px] md:text-[11px] font-bold text-center tracking-widest uppercase border-b-2 border-amber-800 sticky top-0 z-50 shadow-lg">
+        📚 SIMULATION MODE • Verify with Faculty & Textbooks • Academic Reference Only
     </div>
 
     <!-- SVG Icon Helper (no Font Awesome) -->
@@ -514,9 +601,9 @@
     <div class="max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
         <header class="mb-6 sm:mb-8 text-center">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 mb-2">
-                <svg class="inline mr-2 sm:mr-3" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v2h-2zm0-10h2v8h-2zm3-3h2v6h-2zm-6 3h2v6H7z"/></svg>Student Nurse Clinical Companion
+                <svg class="inline mr-2 sm:mr-3" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v2h-2zm0-10h2v8h-2zm3-3h2v6h-2zm-6 3h2v6H7z"/></svg>NursePath Simulation Tool
             </h1>
-            <p class="text-slate-400 text-xs sm:text-sm">Vital Signs Analysis • Diagnosis Assistant • IV Calculator • Drug Reference</p>
+            <p class="text-slate-400 text-xs sm:text-sm">Vital Signs Simulation • Reference Interpreter • IV Calculator • Drug Reference</p>
         </header>
 
         <div class="grid lg:grid-cols-5 gap-6">
@@ -525,7 +612,7 @@
             <aside class="lg:col-span-1 space-y-4">
                 <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-5 border border-slate-700 shadow-xl sticky top-24">
                     <h3 class="text-cyan-400 font-bold mb-4 flex items-center text-lg">
-                        <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" class="mr-2"><path d="M19 6h-2V4a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2v2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zm-7 12a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg> OTC Medications
+                        <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" class="mr-2"><path d="M19 6h-2V4a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2v2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zm-7 12a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg> OTC Reference
                     </h3>
                     <div id="otc-sidebar" class="space-y-3 h-[600px] overflow-y-auto pr-2">
                         <!-- Dynamic OTC cards will be rendered here -->
@@ -540,7 +627,7 @@
                 <section class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-bold text-white flex items-center">
-                            <svg width="1.3em" height="1.3em" viewBox="0 0 24 24" fill="currentColor" class="mr-3 text-red-500"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Vital Signs Assessment
+                            <svg width="1.3em" height="1.3em" viewBox="0 0 24 24" fill="currentColor" class="mr-3 text-red-500"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Vital Signs Simulation
                         </h2>
                         <span id="status-badge" class="px-4 py-2 bg-slate-700 rounded-full text-xs font-mono text-slate-400 font-bold">Enter Vitals</span>
                     </div>
@@ -646,6 +733,9 @@
                                     <p class="text-[10px] text-slate-400 uppercase">Drop Rate (gtt/min)</p>
                                     <p id="iv-result" class="text-2xl font-mono font-bold text-cyan-400">-- gtt/min</p>
                                 </div>
+                                <div class="bg-amber-900/20 p-2 rounded-lg border border-amber-700/30">
+                                    <p class="text-[9px] text-amber-400 italic">📚 Ref: Standard IV formula / Verify with CI</p>
+                                </div>
                             </div>
                             <button onclick="calcIV()" class="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 py-3 rounded-xl font-bold transition-all shadow-lg shadow-blue-900/30">
                                 <svg class="inline mr-2" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm2 4a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2H6zm4 0a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2h-1zm4 0a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2h-1zm-8 4a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2H6zm0 4a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2H6z"/></svg> Calculate Drip Rate
@@ -675,6 +765,9 @@
                                     <p id="bmi-result" class="text-2xl font-mono font-bold text-emerald-400">--</p>
                                     <p id="bmi-status" class="text-xs text-slate-400 mt-1">Category: --</p>
                                 </div>
+                                <div class="bg-amber-900/20 p-2 rounded-lg border border-amber-700/30">
+                                    <p class="text-[9px] text-amber-400 italic">📚 Ref: WHO BMI Classification / Textbook Validation Required</p>
+                                </div>
                             </div>
                             <button onclick="calcBMI()" class="w-full bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 py-3 rounded-xl font-bold transition-all shadow-lg shadow-emerald-900/30">
                                 <svg class="inline mr-2" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm2 4a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2H6zm4 0a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2h-1zm4 0a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2h-1zm-8 4a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2H6zm0 4a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2H6z"/></svg> Calculate BMI
@@ -694,7 +787,7 @@
         <section id="otc-section" class="max-w-7xl mx-auto mt-8 rounded-2xl p-6 border border-slate-700 shadow-2xl" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-xl font-bold text-white flex items-center">
-                    <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" class="mr-3 text-amber-400"><path d="M8 2a6 6 0 0 1 6 6v8a6 6 0 0 1-12 0V8a6 6 0 0 1 6-6zm8 0a6 6 0 0 1 0 12v-6a6 6 0 0 0-6-6h6z"/></svg> OTC Medicines Directory
+                    <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" class="mr-3 text-amber-400"><path d="M8 2a6 6 0 0 1 6 6v8a6 6 0 0 1-12 0V8a6 6 0 0 1 6-6zm8 0a6 6 0 0 1 0 12v-6a6 6 0 0 0-6-6h6z"/></svg> OTC Reference Directory
                 </h2>
                 <div class="w-1/3">
                     <input id="otc-search" type="search" placeholder="Search conditions or medicine (eg. diarrhea, diatabs)" class="w-full border border-slate-700 p-3 rounded-xl text-sm outline-none" style="background-color: #0f172a;" />
@@ -773,16 +866,16 @@
             }
         };
 
-        // ============= DIAGNOSIS DATABASE =============
+        // ============= DIAGNOSIS DATABASE (Simulation Reference) =============
         const diagnosisDatabase = {
-            fever: { symptoms: "High temperature (>38°C)", meds: ["Acetaminophen (500-1000mg)", "Ibuprofen (200-400mg with food)"], actions: "Monitor for dehydration, increase fluid intake, cool compress if >40°C" },
-            hypothermia: { symptoms: "Low temperature (<35°C)", meds: ["Passive rewarming - blankets"], actions: "CRITICAL - Notify RN immediately. Active rewarming may be needed." },
-            hypertensiveCrisis: { symptoms: "BP ≥180/120", meds: ["Seek immediate medical attention"], actions: "⚠️ EMERGENCY - Do NOT give OTC meds. Alert RN/Charge Nurse NOW." },
-            hypertension: { symptoms: "BP 140-179 systolic or 90-119 diastolic", meds: ["Limit sodium, increase rest"], actions: "Recheck in 5-10 min. Monitor for headache, chest pain, shortness of breath." },
-            tachycardia: { symptoms: "Heart rate >100 BPM", meds: ["Calm patient, elevate legs, cool environment"], actions: "Check for pain, anxiety, fever. Monitor ECG if available." },
-            bradycardia: { symptoms: "Heart rate <60 BPM (abnormal)", meds: ["Activity increase, monitor closely"], actions: "May be normal in athletes. Note any dizziness or weakness." },
-            tachypnea: { symptoms: "Respiratory rate >20/min", meds: ["Oxygen if SpO2 <94%", "Reassure patient - anxiety increases RR"], actions: "Check for anxiety, pain, infection. Monitor oxygen saturation." },
-            hypoxia: { symptoms: "SpO2 <94% (if measured)", meds: ["Oxygen therapy may be indicated"], actions: "Elevate HOB, clear airway, prepare for SpO2 measurement." }
+            fever: { symptoms: "High temperature (>38°C)", meds: ["Ref: Acetaminophen (500-1000mg)", "Ref: Ibuprofen (200-400mg with food)"], actions: "📚 In simulation, monitor for dehydration signs, document fluid intake, consider cooling measures if >40°C. Verify protocol with CI." },
+            hypothermia: { symptoms: "Low temperature (<35°C)", meds: ["Ref: Passive rewarming measures"], actions: "📋 Simulation Note: Indicates critical hypothermia; follow institutional thermal regulation protocols. Priority: Faculty notification required." },
+            hypertensiveCrisis: { symptoms: "BP ≥180/120", meds: ["No OTC intervention indicated"], actions: "📋 Simulation Note: In a clinical setting, this represents a hypertensive emergency. Priority: Instructor notification required for simulation guidance." },
+            hypertension: { symptoms: "BP 140-179 systolic or 90-119 diastolic", meds: ["Ref: Lifestyle modifications (sodium reduction, rest)"], actions: "📚 In simulation, recheck BP in 5-10 min. Document associated symptoms (headache, chest pain, SOB). Consult textbook for staging." },
+            tachycardia: { symptoms: "Heart rate >100 BPM", meds: ["Ref: Non-pharmacological interventions (positioning, environment)"], actions: "📚 In simulation, assess for contributing factors (pain, anxiety, fever). Document rhythm characteristics." },
+            bradycardia: { symptoms: "Heart rate <60 BPM (abnormal)", meds: ["Ref: Monitor and document"], actions: "📚 Academic Note: May be physiologic in athletes. In simulation, document associated symptoms (dizziness, weakness)." },
+            tachypnea: { symptoms: "Respiratory rate >20/min", meds: ["Ref: Supplemental O2 if SpO2 <94%", "Ref: Anxiety reduction techniques"], actions: "📚 In simulation, assess for underlying causes (anxiety, pain, infection). Document oxygen saturation if available." },
+            hypoxia: { symptoms: "SpO2 <94% (if measured)", meds: ["Ref: Oxygen therapy per protocol"], actions: "📚 In simulation, elevate HOB, ensure airway patency. Document SpO2 trend. Consult CI for intervention guidance." }
         };
 
         // Helper: Get age group from age
@@ -828,65 +921,78 @@
             }
 
             // ===== BP ASSESSMENT =====
+            // Check for critically low diastolic first
+            if (dia > 0 && dia < 40) {
+                diagnosis.push({ name: "⚠️ SIM ALERT: Severe Low Diastolic (DBP <40)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
+                priority = "CRITICAL";
+                color = "text-red-500";
+                contextNotes.push("📚 Ref Note: Diastolic <40 mmHg suggests severe hypoperfusion in simulation. Priority: Faculty/Instructor notification required for guidance.");
+            } else if (dia > 0 && dia < 60) {
+                diagnosis.push({ name: "Low Diastolic Pressure (DBP <60)", severity: "MONITOR", icon: "fa-arrow-down" });
+                if (priority === "STABLE") priority = "ELEVATED";
+                contextNotes.push(`📋 Simulation Finding: Diastolic ${dia} mmHg is below reference range. In a clinical setting, this suggests monitoring for orthostatic symptoms.`);
+            }
+            
+            // Systolic checks
             if (sys > 0 && sys < 70) {
-                diagnosis.push({ name: "CRITICAL HYPOTENSION (SBP <70)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
+                diagnosis.push({ name: "⚠️ SIM ALERT: Severe Hypotension (SBP <70)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
                 priority = "CRITICAL";
                 color = "text-red-500";
-                contextNotes.push("🚨 BP <70 mmHg is life-threatening. ALERT RN IMMEDIATELY.");
+                contextNotes.push("📚 Ref Note: SBP <70 mmHg represents severe hypotension in simulation. In a clinical setting, this indicates hemodynamic instability. Priority: Faculty notification required.");
             } else if (sys > 0 && sys < bpSysTarget.min) {
-                diagnosis.push({ name: `Hypotension (Below ${ageGroup.name} Range)`, severity: "CRITICAL", icon: "fa-arrow-down" });
+                diagnosis.push({ name: `⚠️ SIM ALERT: Hypotension (Below ${ageGroup.name} Range)`, severity: "CRITICAL", icon: "fa-arrow-down" });
                 priority = "CRITICAL";
                 color = "text-red-500";
-                contextNotes.push(`⚠️ Systolic ${sys} is below normal for ${ageGroup.name} (normal: ${bpSysTarget.min}-${bpSysTarget.max})`);
+                contextNotes.push(`📋 Simulation Finding: Systolic ${sys} is below reference for ${ageGroup.name} (normal: ${bpSysTarget.min}-${bpSysTarget.max}). Consult textbook for age-specific interventions.`);
             } else if (sys >= 180 || (dia && dia >= 120)) {
-                diagnosis.push({ name: "HYPERTENSIVE CRISIS (SBP ≥180/DBP ≥120)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
+                diagnosis.push({ name: "⚠️ SIM ALERT: Hypertensive Crisis Pattern (SBP ≥180/DBP ≥120)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
                 priority = "CRITICAL";
                 color = "text-red-500";
                 recommendations.push(diagnosisDatabase.hypertensiveCrisis);
             } else if (isPregnant && sys >= vitalSignsReference.pregnancy.preeclampsia.sys) {
-                diagnosis.push({ name: "PREECLAMPSIA ALERT (BP ≥160/110)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
+                diagnosis.push({ name: "⚠️ SIM ALERT: Preeclampsia Pattern (BP ≥160/110)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
                 priority = "CRITICAL";
                 color = "text-red-500";
-                contextNotes.push("🚨 Severely elevated BP in pregnancy. Check for proteinuria, edema, headache. ALERT RN.");
+                contextNotes.push("📚 Ref Note: In simulation, severely elevated BP in pregnancy suggests preeclampsia pattern. Assess for proteinuria, edema, headache. Priority: Instructor notification required.");
             } else if (isPregnant && sys >= vitalSignsReference.pregnancy.gestationalHypertension.sys) {
-                diagnosis.push({ name: "Gestational Hypertension (SBP ≥140/DBP ≥90)", severity: "ELEVATED", icon: "fa-arrow-up" });
+                diagnosis.push({ name: "Gestational Hypertension Pattern (SBP ≥140/DBP ≥90)", severity: "ELEVATED", icon: "fa-arrow-up" });
                 priority = "ELEVATED";
                 color = "text-orange-500";
-                contextNotes.push("Monitor closely for progression to preeclampsia.");
+                contextNotes.push("📋 Simulation Finding: In a clinical setting, this pattern requires monitoring for progression to preeclampsia.");
             } else if (sys >= 160 || (dia && dia >= 100)) {
-                diagnosis.push({ name: "SEVERE Hypertension (SBP 160-179 or DBP 100-109)", severity: "ELEVATED", icon: "fa-arrow-up" });
+                diagnosis.push({ name: "Severe Hypertension Pattern (SBP 160-179 or DBP 100-109)", severity: "ELEVATED", icon: "fa-arrow-up" });
                 priority = priority === "CRITICAL" ? "CRITICAL" : "ELEVATED";
                 color = "text-orange-500";
                 if (!isPregnant) recommendations.push(diagnosisDatabase.hypertension);
             } else if (sys >= 140 || (dia && dia >= 90)) {
-                diagnosis.push({ name: "Hypertension (SBP 140-159 or DBP 90-99)", severity: "ELEVATED", icon: "fa-arrow-up" });
+                diagnosis.push({ name: "Hypertension Pattern (SBP 140-159 or DBP 90-99)", severity: "ELEVATED", icon: "fa-arrow-up" });
                 priority = priority === "CRITICAL" ? "CRITICAL" : "ELEVATED";
                 color = "text-orange-500";
                 if (!isPregnant) recommendations.push(diagnosisDatabase.hypertension);
             } else if (sys >= bpSysTarget.max) {
-                diagnosis.push({ name: `MILD Elevated BP (Above ${ageGroup.name} Normal)`, severity: "MONITOR", icon: "fa-arrow-up-long" });
-                contextNotes.push(`Systolic ${sys} is slightly elevated for ${ageGroup.name} (normal: ${bpSysTarget.min}-${bpSysTarget.max})`);
+                diagnosis.push({ name: `Mildly Elevated BP (Above ${ageGroup.name} Reference)`, severity: "MONITOR", icon: "fa-arrow-up-long" });
+                contextNotes.push(`📋 Simulation Finding: Systolic ${sys} is slightly above reference for ${ageGroup.name} (normal: ${bpSysTarget.min}-${bpSysTarget.max}).`);
             }
 
             // ===== TEMPERATURE ASSESSMENT =====
             if (temp > 0) {
                 if (temp <= 28) {
-                    diagnosis.push({ name: "SEVERE HYPOTHERMIA (≤28°C)", severity: "CRITICAL", icon: "fa-snowflake" });
+                    diagnosis.push({ name: "⚠️ SIM ALERT: Severe Hypothermia (≤28°C)", severity: "CRITICAL", icon: "fa-snowflake" });
                     priority = "CRITICAL";
                     color = "text-blue-500";
-                    contextNotes.push("🚨 Temperature ≤28°C. Immediate rewarming required.");
+                    contextNotes.push("📋 Simulation Note: Temperature ≤28°C indicates critical hypothermia pattern. In simulation, this requires immediate faculty-led intervention per institutional thermal regulation protocols.");
                 } else if (temp <= 35.0) {
-                    diagnosis.push({ name: "Hypothermia (28-35°C)", severity: "CRITICAL", icon: "fa-snowflake" });
+                    diagnosis.push({ name: "⚠️ SIM ALERT: Hypothermia (28-35°C)", severity: "CRITICAL", icon: "fa-snowflake" });
                     priority = "CRITICAL";
                     color = "text-blue-400";
                     recommendations.push(diagnosisDatabase.hypothermia);
                 } else if (temp >= 40.5) {
-                    diagnosis.push({ name: "SEVERE HYPERTHERMIA (≥40.5°C)", severity: "CRITICAL", icon: "fa-fire" });
+                    diagnosis.push({ name: "⚠️ SIM ALERT: Severe Hyperthermia (≥40.5°C)", severity: "CRITICAL", icon: "fa-fire" });
                     priority = "CRITICAL";
                     color = "text-red-500";
-                    contextNotes.push("🚨 Temperature ≥40.5°C. Heat stroke risk. Cool immediately.");
+                    contextNotes.push("📋 Simulation Note: Temperature ≥40.5°C suggests heat stroke pattern. In a clinical setting, this requires immediate cooling interventions. Priority: Instructor notification required.");
                 } else if (temp >= 40.0) {
-                    diagnosis.push({ name: "Very High Fever (40.0-40.4°C)", severity: "CRITICAL", icon: "fa-fire" });
+                    diagnosis.push({ name: "⚠️ SIM ALERT: Very High Fever (40.0-40.4°C)", severity: "CRITICAL", icon: "fa-fire" });
                     priority = "CRITICAL";
                     color = "text-red-500";
                     recommendations.push(diagnosisDatabase.fever);
@@ -897,16 +1003,16 @@
                     if (age >= 65) feverThreshold = 37.5;
 
                     if (temp >= 39.5) {
-                        diagnosis.push({ name: "High Fever (39.5-39.9°C)", severity: "CRITICAL", icon: "fa-fire" });
+                        diagnosis.push({ name: "High Fever Pattern (39.5-39.9°C)", severity: "CRITICAL", icon: "fa-fire" });
                         color = "text-red-500";
                         recommendations.push(diagnosisDatabase.fever);
-                        if (conditions === 'diabetes') contextNotes.push("🔴 Diabetic with fever: monitor for DKA and infection");
+                        if (conditions === 'diabetes') contextNotes.push("📚 Academic Note: Diabetic patient with fever pattern - in simulation, monitor for DKA signs and infection indicators.");
                     } else if (temp >= 38.5) {
-                        diagnosis.push({ name: "Moderate Fever (38.5-39.4°C)", severity: "MONITOR", icon: "fa-fire" });
+                        diagnosis.push({ name: "Moderate Fever Pattern (38.5-39.4°C)", severity: "MONITOR", icon: "fa-fire" });
                         color = "text-orange-500";
                         recommendations.push(diagnosisDatabase.fever);
                     } else if (temp >= feverThreshold) {
-                        diagnosis.push({ name: `MILD Fever (${feverThreshold}-38.4°C)`, severity: "MONITOR", icon: "fa-thermometer" });
+                        diagnosis.push({ name: `Mild Fever Pattern (${feverThreshold}-38.4°C)`, severity: "MONITOR", icon: "fa-thermometer" });
                         recommendations.push(diagnosisDatabase.fever);
                     }
                 }
@@ -914,82 +1020,82 @@
 
             // ===== HEART RATE ASSESSMENT (Age-Group Adjusted) =====
             if (hr > 0 && hr < 30) {
-                diagnosis.push({ name: "CRITICAL BRADYCARDIA (HR <30)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
+                diagnosis.push({ name: "⚠️ SIM ALERT: Severe Bradycardia (HR <30)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
                 priority = "CRITICAL";
                 color = "text-red-500";
-                contextNotes.push("🚨 HR <30 is critically low. Check consciousness & pulse quality. Alert RN.");
+                contextNotes.push("📚 Ref Note: HR <30 indicates severe bradycardia pattern. In simulation, assess consciousness & pulse quality. Priority: Faculty notification required.");
             } else if (hr > 200) {
-                diagnosis.push({ name: "CRITICAL TACHYCARDIA (HR >200)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
+                diagnosis.push({ name: "⚠️ SIM ALERT: Severe Tachycardia (HR >200)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
                 priority = "CRITICAL";
                 color = "text-red-500";
-                contextNotes.push("🚨 HR >200 is critically high. Check for arrhythmia, sepsis, shock.");
+                contextNotes.push("📚 Ref Note: HR >200 indicates severe tachycardia pattern. In a clinical setting, this suggests arrhythmia, sepsis, or shock. Priority: Instructor notification required.");
             } else if (hr > 0 && hr < hrTarget.min) {
-                diagnosis.push({ name: `Bradycardia (Below ${ageGroup.name} Normal: HR ${hr})`, severity: "MONITOR", icon: "fa-heart" });
-                contextNotes.push(`HR ${hr} is below normal for ${ageGroup.name} (normal: ${hrTarget.min}-${hrTarget.max})`);
+                diagnosis.push({ name: `Bradycardia Pattern (Below ${ageGroup.name} Reference: HR ${hr})`, severity: "MONITOR", icon: "fa-heart" });
+                contextNotes.push(`📋 Simulation Finding: HR ${hr} is below reference for ${ageGroup.name} (normal: ${hrTarget.min}-${hrTarget.max}). Consult textbook for assessment criteria.`);
                 recommendations.push(diagnosisDatabase.bradycardia);
             } else if (hr > hrTarget.max && hr <= hrTarget.max + 20) {
-                let note = `MILD Tachycardia (HR ${hr})`;
+                let note = `Mild Tachycardia Pattern (HR ${hr})`;
                 if (isPregnant) note += " (within pregnancy range)";
                 if (temp >= 38.0) note += " (fever-related)";
                 diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-heart" });
-                contextNotes.push(`HR ${hr} is slightly elevated for ${ageGroup.name} (normal: ${hrTarget.min}-${hrTarget.max})`);
+                contextNotes.push(`📋 Simulation Finding: HR ${hr} is slightly above reference for ${ageGroup.name} (normal: ${hrTarget.min}-${hrTarget.max}).`);
             } else if (hr > hrTarget.max + 20 && hr <= hrTarget.max + 40) {
-                let note = `Tachycardia (HR ${hr})`;
+                let note = `Tachycardia Pattern (HR ${hr})`;
                 if (temp >= 38.0) note += " (fever-related)";
                 diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-heart" });
-                contextNotes.push(`HR ${hr} exceeds normal for ${ageGroup.name} (normal: ${hrTarget.min}-${hrTarget.max})`);
+                contextNotes.push(`📋 Simulation Finding: HR ${hr} exceeds reference for ${ageGroup.name} (normal: ${hrTarget.min}-${hrTarget.max}).`);
                 recommendations.push(diagnosisDatabase.tachycardia);
             } else if (hr > hrTarget.max + 40) {
-                diagnosis.push({ name: `SEVERE Tachycardia (HR ${hr})`, severity: "CRITICAL", icon: "fa-exclamation-triangle" });
+                diagnosis.push({ name: `⚠️ SIM ALERT: Severe Tachycardia (HR ${hr})`, severity: "CRITICAL", icon: "fa-exclamation-triangle" });
                 priority = priority === "STABLE" ? "CRITICAL" : priority;
                 color = "text-red-500";
-                contextNotes.push(`HR ${hr} is dangerously elevated. Check for shock, sepsis, severe infection.`);
+                contextNotes.push(`📚 Ref Note: HR ${hr} is significantly elevated. In a clinical setting, this suggests shock, sepsis, or severe underlying condition.`);
             }
 
             // ===== RESPIRATORY RATE ASSESSMENT (Age-Group Adjusted) =====
             if (rr > 0 && rr < 8) {
-                diagnosis.push({ name: "CRITICAL RESPIRATORY DEPRESSION (RR <8)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
+                diagnosis.push({ name: "⚠️ SIM ALERT: Severe Respiratory Depression (RR <8)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
                 priority = "CRITICAL";
                 color = "text-red-500";
-                contextNotes.push("🚨 RR <8 is critically low. Respiratory failure risk. Prepare for ventilation.");
+                contextNotes.push("📋 Simulation Note: RR <8 indicates severe respiratory depression pattern. In simulation, this represents respiratory failure risk requiring immediate faculty-led intervention.");
             } else if (rr > 50) {
-                diagnosis.push({ name: "SEVERE TACHYPNEA (RR >50)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
+                diagnosis.push({ name: "⚠️ SIM ALERT: Severe Tachypnea (RR >50)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
                 priority = "CRITICAL";
                 color = "text-red-500";
-                contextNotes.push("🚨 RR >50 is critically high. Severe distress. Alert RN.");
+                contextNotes.push("📚 Ref Note: RR >50 indicates severe respiratory distress pattern. Priority: Faculty/Instructor notification required for simulation guidance.");
             } else if (rr > 0 && rr < rrTarget.min) {
-                diagnosis.push({ name: `Bradypnea (Below ${ageGroup.name} Normal: RR ${rr})`, severity: "MONITOR", icon: "fa-wind" });
-                contextNotes.push(`RR ${rr} is below normal for ${ageGroup.name} (normal: ${rrTarget.min}-${rrTarget.max})`);
+                diagnosis.push({ name: `Bradypnea Pattern (Below ${ageGroup.name} Reference: RR ${rr})`, severity: "MONITOR", icon: "fa-wind" });
+                contextNotes.push(`📋 Simulation Finding: RR ${rr} is below reference for ${ageGroup.name} (normal: ${rrTarget.min}-${rrTarget.max}).`);
             } else if (rr > rrTarget.max && rr <= rrTarget.max + 5) {
-                let note = `MILD Tachypnea (RR ${rr})`;
+                let note = `Mild Tachypnea Pattern (RR ${rr})`;
                 if (conditions === 'asthma' || conditions === 'copd') note += " (monitor for exacerbation)";
                 diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-wind" });
-                contextNotes.push(`RR ${rr} is slightly elevated for ${ageGroup.name} (normal: ${rrTarget.min}-${rrTarget.max})`);
+                contextNotes.push(`📋 Simulation Finding: RR ${rr} is slightly above reference for ${ageGroup.name} (normal: ${rrTarget.min}-${rrTarget.max}).`);
             } else if (rr > rrTarget.max + 5 && rr <= rrTarget.max + 15) {
-                let note = `Tachypnea (RR ${rr})`;
-                if (conditions === 'asthma' || conditions === 'copd') note += " (risk of exacerbation)";
+                let note = `Tachypnea Pattern (RR ${rr})`;
+                if (conditions === 'asthma' || conditions === 'copd') note += " (exacerbation indicator)";
                 diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-wind" });
-                contextNotes.push(`RR ${rr} exceeds normal for ${ageGroup.name} (normal: ${rrTarget.min}-${rrTarget.max})`);
+                contextNotes.push(`📋 Simulation Finding: RR ${rr} exceeds reference for ${ageGroup.name} (normal: ${rrTarget.min}-${rrTarget.max}).`);
                 recommendations.push(diagnosisDatabase.tachypnea);
             } else if (rr > rrTarget.max + 15) {
-                let note = `SEVERE Tachypnea (RR ${rr})`;
-                if (conditions === 'asthma' || conditions === 'copd') note += " (EXACERBATION RISK)";
+                let note = `⚠️ SIM ALERT: Severe Tachypnea (RR ${rr})`;
+                if (conditions === 'asthma' || conditions === 'copd') note += " (EXACERBATION PATTERN)";
                 diagnosis.push({ name: note, severity: "CRITICAL", icon: "fa-exclamation-triangle" });
                 priority = priority === "STABLE" ? "CRITICAL" : priority;
                 color = "text-red-500";
-                contextNotes.push(`RR ${rr} is dangerously elevated. Check for respiratory distress, hypoxia.`);
+                contextNotes.push(`📚 Ref Note: RR ${rr} is significantly elevated. In a clinical setting, this suggests respiratory distress or hypoxia.`);
             }
 
             // ===== COMORBIDITY-SPECIFIC CHECKS =====
             if (hasComorbidity) {
                 if (conditions === 'ckd' && sys > vitalSignsReference.comorbidities.ckd.systolicTarget) {
-                    contextNotes.push("🔴 CKD: Strict BP control critical. Current BP exceeds target. Avoid NSAIDs.");
+                    contextNotes.push("� Academic Note: CKD patient - in simulation, strict BP control is emphasized. Current reading exceeds textbook target. Ref: Avoid NSAIDs in CKD.");
                 }
                 if (conditions === 'asthma' && rr > 25) {
-                    contextNotes.push("🔴 Asthma: Elevated RR - listen for wheeze. May indicate exacerbation.");
+                    contextNotes.push("📚 Academic Note: Asthma patient with elevated RR - in simulation, auscultate for wheeze. This pattern may indicate exacerbation.");
                 }
                 if (conditions === 'copd' && rr > 25) {
-                    contextNotes.push("🔴 COPD: RR elevated - check baseline. Monitor for COPD exacerbation.");
+                    contextNotes.push("📚 Academic Note: COPD patient - RR elevated. In simulation, compare to patient's baseline. Consider COPD exacerbation pattern.");
                 }
             }
 
@@ -1033,7 +1139,7 @@
 
                 // Findings
                 html += `<div class="space-y-2">
-                    <p class="font-bold text-slate-300 text-left text-sm">📋 Clinical Findings:</p>
+                    <p class="font-bold text-slate-300 text-left text-sm">📋 Simulation Findings:</p>
                     <ul class="text-left w-full pl-4 space-y-1">`;
                 diagnosis.forEach(d => {
                     const iconSvg = getIconSvg(d.icon);
@@ -1042,15 +1148,21 @@
                     </li>`;
                 });
                 html += `</ul></div>`;
+                
+                // Citation Reference
+                html += `<div class="bg-amber-900/20 border border-amber-700/50 p-2 rounded-lg mt-3">
+                    <p class="text-[10px] text-amber-400 italic">📚 Ref: Standard Nursing Protocol / Textbook Validation Required</p>
+                </div>`;
 
                 // Recommendations
                 if (recommendations.length > 0) {
                     html += `<div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700 space-y-3">`;
                     recommendations.forEach((rec, idx) => {
                         html += `<div class="space-y-2">
-                            <p class="font-bold text-cyan-400 text-sm">💊 Recommendation ${idx + 1}:</p>
-                            <p class="text-xs text-slate-300"><strong>Suggested OTC:</strong> ${rec.meds.join(", ")}</p>
-                            <p class="text-xs text-slate-400"><strong>Action:</strong> ${rec.actions}</p>
+                            <p class="font-bold text-cyan-400 text-sm">� Reference ${idx + 1}:</p>
+                            <p class="text-xs text-slate-300"><strong>Reference OTC:</strong> ${rec.meds.join(", ")}</p>
+                            <p class="text-xs text-slate-400"><strong>Consideration:</strong> ${rec.actions}</p>
+                            <p class="text-[10px] text-amber-400/70 italic">⚠️ Verify with CI before any application</p>
                         </div>`;
                     });
                     html += `</div>`;
@@ -1060,14 +1172,28 @@
                 box.innerHTML = html;
                 box.className = "p-6 bg-slate-700/20 rounded-xl border border-blue-500/50 min-h-[120px] flex items-center italic text-sm";
                 
-                badge.innerText = priority;
-                badge.className = `px-4 py-2 rounded-full text-xs font-bold font-mono ${color} bg-slate-800 border border-current shadow-lg`;
+                // Map internal priority to simulation-friendly display text
+                let displayPriority = priority;
+                let badgeColor = color;
+                if (priority === "CRITICAL") {
+                    displayPriority = "⚠️ SIM ALERT";
+                    badgeColor = "text-amber-400";
+                }
+                else if (priority === "ELEVATED") {
+                    displayPriority = "📋 MONITOR REF";
+                    badgeColor = "text-amber-400";
+                }
+                else if (priority === "STABLE") displayPriority = "✓ BASELINE";
+                
+                badge.innerText = displayPriority;
+                badge.className = `px-4 py-2 rounded-full text-xs font-bold font-mono ${badgeColor} bg-slate-800 border border-current shadow-lg`;
             } else {
                 box.innerHTML = `<div class="text-center text-slate-400">
                     <svg class="inline text-2xl text-green-500 mb-2" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                    <p class="text-sm">Vitals appear within normal range</p>
+                    <p class="text-sm">Vitals appear within reference range</p>
+                    <p class="text-[10px] text-amber-400 mt-2 italic">📚 Verify interpretation with CI & textbooks</p>
                 </div>`;
-                badge.innerText = "NORMAL";
+                badge.innerText = "✓ BASELINE";
                 badge.className = `px-4 py-2 rounded-full text-xs font-bold font-mono text-green-400 bg-slate-800 border border-green-500 shadow-lg`;
             }
         }
@@ -1377,5 +1503,15 @@
             console.log('✅ All offline features available');
         }
     </script>
+
+    <!-- Persistent Simulation Mode Footer -->
+    <div style="position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(90deg, #92400e, #b45309, #92400e); color: white; padding: 8px 16px; text-align: center; font-size: 11px; font-weight: bold; z-index: 9999; border-top: 2px solid #f59e0b; letter-spacing: 1px; text-transform: uppercase;">
+        📚 Simulation Mode: Verify All Outputs with Faculty & Prescribed Textbooks
+    </div>
+
+    <!-- Add padding to body to prevent content being hidden behind fixed footer -->
+    <style>
+        body { padding-bottom: 50px !important; }
+    </style>
 </body>
 </html>
