@@ -204,6 +204,7 @@ This application is designed exclusively for:
 ---
 
 <p align="center">
-  <em>© 2026 [Your Name]. All Rights Reserved.</em><br>
+  <em>© 2026 Rance Adriel Pascua. All Rights Reserved.</em><br>
   <em>Developed for the College of Nursing | For Academic Evaluation Only</em>
 </p>
+
