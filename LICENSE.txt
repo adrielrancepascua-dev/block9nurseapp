@@ -1,0 +1,174 @@
+================================================================================
+                      ACADEMIC PROJECT LICENSE
+                    NursePath Learning Companion
+                           Version 1.1
+                          February 2026
+================================================================================
+
+PROJECT INFORMATION
+--------------------------------------------------------------------------------
+
+Project:     NursePath - An Academic Learning Companion for Nursing Students
+Developer:   Rance Adriel M. Pascua
+Program:     Bachelor of Science in Nursing
+Institution: Universidad de Dagupan
+Date:        February 2026
+
+================================================================================
+                          NATURE OF PROJECT
+================================================================================
+
+This software application ("NursePath" or the "Application") is a student 
+academic project developed as a learning tool for nursing students. The 
+Application is designed to reinforce concepts taught in nursing coursework 
+and serve as a personal study aid.
+
+This is NOT a clinical tool. The Application mirrors textbook content and 
+is intended for educational reinforcement only.
+
+================================================================================
+                         TERMS OF USE
+================================================================================
+
+1. ACADEMIC PURPOSE
+--------------------------------------------------------------------------------
+
+   This Application is developed for academic and educational purposes. It 
+   represents coursework and independent study by the developer as part of 
+   their nursing education.
+
+2. EDUCATIONAL CONTENT
+--------------------------------------------------------------------------------
+
+   The educational reference content, calculation examples, and study 
+   materials contained within this Application are compiled from standard 
+   nursing textbooks and educational resources. This content is intended 
+   to help students:
+
+   - Practice drug calculation formulas
+   - Review medication information from pharmacology classes
+   - Study vital signs ranges discussed in coursework
+   - Reinforce concepts from maternal-child nursing
+
+3. FACULTY REVIEW LICENSE
+--------------------------------------------------------------------------------
+
+   The developer respectfully requests faculty review and feedback on this 
+   academic project.
+
+   GRANTED TO: Universidad de Dagupan, College of Nursing
+   
+   PURPOSE: Academic evaluation and educational feedback
+   
+   FACULTY REVIEWERS MAY:
+   
+   ✓ Access and review the Application for academic evaluation
+   ✓ Provide feedback on educational accuracy and appropriateness
+   ✓ Suggest improvements to better align with curriculum objectives
+   ✓ Assess the project as part of the developer's academic work
+
+4. STUDENT USE
+--------------------------------------------------------------------------------
+
+   Fellow nursing students may use this Application as a personal study 
+   companion, with the understanding that:
+
+   - The Application is a study aid, not a clinical reference
+   - Textbooks and instructors remain the authoritative sources
+   - Students are responsible for verifying information
+   - The Application does not replace institutional learning resources
+
+5. NOT FOR CLINICAL USE
+--------------------------------------------------------------------------------
+
+   ⚠️ IMPORTANT: This Application is NOT intended for clinical settings.
+
+   - Do NOT use this Application for patient care decisions
+   - Do NOT rely on this Application in hospital or clinical environments
+   - Do NOT substitute this tool for professional clinical resources
+   
+   This is a study tool for learning concepts, not a clinical reference 
+   for practice.
+
+6. EDUCATIONAL DISCLAIMER
+--------------------------------------------------------------------------------
+
+   THE APPLICATION IS PROVIDED AS A STUDENT ACADEMIC PROJECT. THE DEVELOPER 
+   MAKES NO CLAIMS REGARDING CLINICAL APPLICABILITY.
+
+   All content is derived from standard nursing textbooks and is presented 
+   for educational reinforcement. Students should always:
+
+   - Refer to assigned course materials
+   - Follow instructor guidance
+   - Use institutionally approved resources for academic work
+   - Verify information against authoritative textbook sources
+
+7. LIMITATION OF LIABILITY
+--------------------------------------------------------------------------------
+
+   This is a student project provided for educational purposes. The 
+   developer, as a student, provides this tool in good faith as a study 
+   aid and assumes no responsibility for how it may be used.
+
+   The Application is not designed or intended for clinical application, 
+   and the developer disclaims any liability related to clinical use or 
+   misuse of educational content.
+
+8. FEEDBACK WELCOME
+--------------------------------------------------------------------------------
+
+   The developer welcomes constructive feedback from faculty and peers to 
+   improve the educational value of this project. Suggestions for:
+
+   - Content accuracy improvements
+   - Additional topics to cover
+   - User experience enhancements
+   - Better alignment with curriculum
+
+   ...are appreciated and will be considered for future updates.
+
+9. ATTRIBUTION
+--------------------------------------------------------------------------------
+
+   This Application was developed with AI programming assistance (Claude, 
+   Anthropic). The developer is responsible for:
+
+   - Content selection and requirements
+   - Educational accuracy verification
+   - Feature planning and testing
+   - Overall project direction
+
+10. GOVERNING LAW
+--------------------------------------------------------------------------------
+
+    This project is submitted as academic work under the policies of 
+    Universidad de Dagupan and the Republic of the Philippines.
+
+================================================================================
+                            CONTACT
+================================================================================
+
+For questions, feedback, or academic inquiries:
+
+Developer: Rance Adriel M. Pascua
+Program:   Bachelor of Science in Nursing  
+Email:     adrielrancepascua@gmail.com
+A.Y.:      2025-2026
+
+================================================================================
+                         ACKNOWLEDGMENT
+================================================================================
+
+This project was developed with guidance from nursing coursework at 
+Universidad de Dagupan. The developer thanks the College of Nursing 
+faculty for the educational foundation that made this project possible.
+
+================================================================================
+
+              © 2025-2026 Rance Adriel Pascua
+         NursePath: An Academic Learning Companion
+              For Educational Purposes Only
+
+================================================================================
+
