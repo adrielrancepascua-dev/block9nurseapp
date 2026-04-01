@@ -481,31 +481,22 @@
 
         // Check if already unlocked (works offline!)
         function checkAccess() {
-            const stored = localStorage.getItem(STORAGE_KEY);
-            if (stored) {
-                try {
-                    const data = JSON.parse(stored);
-                    const now = Date.now();
-                    if (data.granted && data.expires > now) {
-                        // Still valid - hide access overlay
-                        document.getElementById('accessLockOverlay').style.display = 'none';
-                        
-                        // Now check simulation agreement
-                        if (!checkSimulationAgreement()) {
-                            document.getElementById('simulationModeOverlay').style.display = 'flex';
-                        }
-                        return true;
-                    } else {
-                        // Expired - clear it
-                        localStorage.removeItem(STORAGE_KEY);
-                    }
-                } catch (e) {
-                    localStorage.removeItem(STORAGE_KEY);
-                }
+            // Automatically grant access without requiring password
+            const unlockData = {
+                granted: true,
+                expires: Date.now() + UNLOCK_DURATION,
+                unlockedAt: new Date().toISOString()
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(unlockData));
+            
+            // Hide access overlay
+            document.getElementById('accessLockOverlay').style.display = 'none';
+            
+            // Now check simulation agreement
+            if (!checkSimulationAgreement()) {
+                document.getElementById('simulationModeOverlay').style.display = 'flex';
             }
-            // Not unlocked - show overlay
-            document.getElementById('accessLockOverlay').style.display = 'flex';
-            return false;
+            return true;
         }
 
         // Verify the entered code

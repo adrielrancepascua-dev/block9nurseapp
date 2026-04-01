@@ -127,7 +127,7 @@ All educational content in NursePath is derived from standard nursing textbooks 
 
 ### For Faculty Reviewers
 
-**Demo Access Code:** `202526`
+**Demo Access:** Automatically unlocked on load
 
 This code is valid for 30 days and functions offline after initial access.
 
