@@ -1,6 +1,6 @@
 {
-  "id": "https://plsworkk.netlify.app/nurse_app.html",
-  "name": "NursePath - Student Nurse Clinical Companion",
+  "id": "https://block9nurseapp.vercel.app/",
+  "name": "NursePath - Academic Learning Companion",
   "short_name": "NursePath",
   "description": "Vital Signs Analysis, Diagnosis Assistant, IV Calculator, OTC Drug Reference - Offline capable clinical support for student nurses",
   "start_url": "/index.html",

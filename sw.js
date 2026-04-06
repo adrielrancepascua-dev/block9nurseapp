@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nursepath-dean-demo-v1.0';
+const CACHE_NAME = 'nursepath-dean-demo-v1.1';
 const OFFLINE_URL = '/index.html';
 
 // Files to cache for offline use
