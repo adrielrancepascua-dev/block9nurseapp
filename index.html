@@ -57,9 +57,12 @@
         .mb-3 { margin-bottom: 0.75rem; }
         .mb-4 { margin-bottom: 1rem; }
         .mb-6 { margin-bottom: 1.5rem; }
+        .mt-0 { margin-top: 0; }
+        .mt-0.5 { margin-top: 0.125rem; }
         .mt-1 { margin-top: 0.25rem; }
         .mt-8 { margin-top: 2rem; }
         .mt-12 { margin-top: 3rem; }
+        .gap-0 { gap: 0; }
         .gap-2 { gap: 0.5rem; }
         .gap-3 { gap: 0.75rem; }
         .gap-6 { gap: 1.5rem; }
@@ -226,7 +229,7 @@
         .text-transparent { color: transparent; }
         .pr-4 { padding-right: 1rem; }
         @media (max-width: 768px) { .md\:text-\[11px\] { font-size: 11px; } .md\:gap-3 { gap: 0.75rem; } .md\:p-4 { padding: 1rem; } .md\:p-6 { padding: 1.5rem; } .md\:mb-8 { margin-bottom: 2rem; } .md\:text-3xl { font-size: 1.875rem; } .md\:text-4xl { font-size: 2.25rem; } }
-        @media (min-width: 768px) { .sm\:p-4 { padding: 1rem; } .sm\:mb-8 { margin-bottom: 2rem; } .sm\:text-sm { font-size: 0.875rem; } .sm\:text-3xl { font-size: 1.875rem; } .sm\:mr-2 { margin-right: 0.5rem; } .sm\:mr-3 { margin-right: 0.75rem; } }
+        @media (min-width: 768px) { .sm\:p-4 { padding: 1rem; } .sm\:mb-8 { margin-bottom: 2rem; } .sm\:text-sm { font-size: 0.875rem; } .sm\:text-3xl { font-size: 1.875rem; } .sm\:mr-2 { margin-right: 0.5rem; } .sm\:mr-3 { margin-right: 0.75rem; } .sm\:gap-2 { gap: 0.5rem; } .sm\:gap-3 { gap: 0.75rem; } .sm\:flex-row { flex-direction: row; } .sm\:items-center { align-items: center; } }
         @media (min-width: 1024px) { .lg\:col-span-1 { grid-column: span 1; } .lg\:col-span-4 { grid-column: span 4; } }
     </style>
     <style>
@@ -2507,14 +2510,15 @@
                 const usesPreview = highlight(item.uses, searchTerm);
 
                 const card = document.createElement('button');
-                card.className = 'w-full text-left px-2 py-1 sm:p-3 rounded-xl border transition';
+                card.className = 'w-full text-left rounded-xl border transition';
                 card.style.backgroundColor = '#1e293b';
                 card.style.borderColor = '#1e293b';
-                card.innerHTML = `<div class="flex flex-col sm:flex-row justify-between items-start gap-1 sm:gap-4">
+                card.style.padding = '0.25rem 0.5rem';
+                card.innerHTML = `<div class="flex flex-col sm:flex-row justify-between items-start gap-0 sm:gap-2">
                         <div class="flex-1">
                             <p class="font-bold text-white text-sm">${title}</p>
-                            <p class="text-[11px] text-slate-300 mt-1">${trade}</p>
-                            <p class="text-[11px] text-slate-400 mt-2">${usesPreview}</p>
+                            <p class="text-[11px] text-slate-300 mt-0">${trade}</p>
+                            <p class="text-[11px] text-slate-400 mt-0.5">${usesPreview}</p>
                         </div>
                         <div class="text-xs text-slate-500 whitespace-nowrap">More</div>
                     </div>`;
