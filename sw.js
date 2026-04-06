@@ -47,7 +47,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch: CACHE-FIRST strategy for offline hospital use
+// Fetch: CACHE-FIRST strategy for offline academic use
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   
@@ -94,4 +94,4 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
-console.log('🏥 NursePath Service Worker loaded - Ready for offline hospital use!');
+console.log('🏥 NursePath Service Worker loaded - Ready for offline academic reinforcement!');
