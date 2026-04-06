@@ -878,7 +878,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 <div id="otc-list-container" class="order-2 md:order-1">
-                    <div id="otc-list" class="space-y-3 max-h-[60vh] sm:max-h-[420px] overflow-y-auto pr-2"></div>
+                    <div id="otc-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
                 </div>
                 <div id="otc-detail-container" class="order-1 md:order-2 hidden md:block">
                     <button id="otc-back-btn" onclick="hideOTCDetail()" class="md:hidden w-full mb-3 py-2 px-4 rounded-xl font-semibold text-sm flex items-center justify-center gap-2" style="background: linear-gradient(135deg, #475569, #334155); color: #cbd5e1; border: 1px solid #475569;">
@@ -2510,7 +2510,7 @@
                 const usesPreview = highlight(item.uses, searchTerm);
 
                 const card = document.createElement('button');
-                card.className = 'w-full text-left rounded-xl border transition';
+                card.className = 'w-full h-full text-left rounded-xl border transition';
                 card.style.backgroundColor = '#1e293b';
                 card.style.borderColor = '#1e293b';
                 card.style.padding = '0.25rem 0.5rem';
