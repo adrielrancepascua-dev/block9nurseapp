@@ -2507,10 +2507,10 @@
                 const usesPreview = highlight(item.uses, searchTerm);
 
                 const card = document.createElement('button');
-                card.className = 'w-full text-left p-2 sm:p-3 rounded-xl border transition';
+                card.className = 'w-full text-left px-2 py-1 sm:p-3 rounded-xl border transition';
                 card.style.backgroundColor = '#1e293b';
                 card.style.borderColor = '#1e293b';
-                card.innerHTML = `<div class="flex flex-col sm:flex-row justify-between items-start gap-2 sm:gap-4">
+                card.innerHTML = `<div class="flex flex-col sm:flex-row justify-between items-start gap-1 sm:gap-4">
                         <div class="flex-1">
                             <p class="font-bold text-white text-sm">${title}</p>
                             <p class="text-[11px] text-slate-300 mt-1">${trade}</p>
