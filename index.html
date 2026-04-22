@@ -383,7 +383,6 @@
             </form>
 
             <p id="authStatus" style="color: #f59e0b; font-size: 12px; min-height: 18px; margin-bottom: 8px;"></p>
-            <p style="color: #64748b; font-size: 11px;">Allowed domain: <strong>@cdd.edu.ph</strong><br>Offline entry is available only with a cached valid session.</p>
         </div>
     </div>
 
@@ -432,8 +431,8 @@
         const SIMULATION_DURATION = 24 * 60 * 60 * 1000;
         const AUTH_ALLOWED_DOMAIN = '@cdd.edu.ph';
         const SESSION_CACHE_KEY = 'nursepath_supabase_session_cache_v1';
-        const SUPABASE_URL = window.NURSEPATH_SUPABASE_URL || 'https://YOUR-PROJECT.supabase.co';
-        const SUPABASE_ANON_KEY = window.NURSEPATH_SUPABASE_ANON_KEY || 'YOUR_SUPABASE_ANON_KEY';
+        const SUPABASE_URL = window.NURSEPATH_SUPABASE_URL || 'https://oobrhmnvbxiqdbpjnnbn.supabase.co';
+        const SUPABASE_ANON_KEY = window.NURSEPATH_SUPABASE_ANON_KEY || 'sb_publishable_wXKxmmY-s0c5yv7kDITMoA_jPmufAK2';
 
         let authMode = 'signin';
         let supabaseClient = null;
@@ -613,7 +612,7 @@
             const password = passwordInput.value || '';
 
             if (!isAllowedDomain(email)) {
-                setAuthStatus('Only @cdd.edu.ph email addresses are allowed.', true);
+                setAuthStatus('This account is not authorized for this app.', true);
                 return;
             }
 
@@ -737,7 +736,7 @@
             }
 
             if (!cachedSession) {
-                showAuthOverlay('Please log in to access NursePath.', false);
+                showAuthOverlay('', false);
             }
         }
 
