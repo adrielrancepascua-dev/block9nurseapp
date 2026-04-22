@@ -431,6 +431,8 @@
         const SIMULATION_DURATION = 24 * 60 * 60 * 1000;
         const AUTH_ALLOWED_DOMAIN = '@cdd.edu.ph';
         const SESSION_CACHE_KEY = 'nursepath_supabase_session_cache_v1';
+        const AUTH_SIGNUP_COOLDOWN_KEY = 'nursepath_signup_cooldown_until_v1';
+        const AUTH_SIGNUP_COOLDOWN_DEFAULT_SECONDS = 60;
         const SUPABASE_URL = window.NURSEPATH_SUPABASE_URL || 'https://oobrhmnvbxiqdbpjnnbn.supabase.co';
         const SUPABASE_ANON_KEY = window.NURSEPATH_SUPABASE_ANON_KEY || 'sb_publishable_wXKxmmY-s0c5yv7kDITMoA_jPmufAK2';
 
@@ -482,6 +484,44 @@
             }
             statusEl.textContent = message || '';
             statusEl.style.color = isError ? '#f87171' : '#f59e0b';
+        }
+
+        function parseRetrySeconds(message) {
+            const text = (message || '').toLowerCase();
+            const minuteMatch = text.match(/(\d+)\s*minute/);
+            if (minuteMatch) {
+                return parseInt(minuteMatch[1], 10) * 60;
+            }
+            const secondMatch = text.match(/(\d+)\s*second/);
+            if (secondMatch) {
+                return parseInt(secondMatch[1], 10);
+            }
+            return AUTH_SIGNUP_COOLDOWN_DEFAULT_SECONDS;
+        }
+
+        function readSignupCooldownMs() {
+            const raw = localStorage.getItem(AUTH_SIGNUP_COOLDOWN_KEY);
+            if (!raw) {
+                return 0;
+            }
+            const until = Number(raw);
+            if (!Number.isFinite(until)) {
+                localStorage.removeItem(AUTH_SIGNUP_COOLDOWN_KEY);
+                return 0;
+            }
+            const remaining = until - Date.now();
+            if (remaining <= 0) {
+                localStorage.removeItem(AUTH_SIGNUP_COOLDOWN_KEY);
+                return 0;
+            }
+            return remaining;
+        }
+
+        function setSignupCooldown(seconds) {
+            const safeSeconds = Math.max(10, Number(seconds) || AUTH_SIGNUP_COOLDOWN_DEFAULT_SECONDS);
+            const until = Date.now() + (safeSeconds * 1000);
+            localStorage.setItem(AUTH_SIGNUP_COOLDOWN_KEY, String(until));
+            return safeSeconds;
         }
 
         function isAllowedDomain(email) {
@@ -621,6 +661,15 @@
                 return;
             }
 
+            if (authMode === 'signup') {
+                const remainingMs = readSignupCooldownMs();
+                if (remainingMs > 0) {
+                    const remainingSeconds = Math.ceil(remainingMs / 1000);
+                    setAuthStatus(`Please wait ${remainingSeconds}s before another sign-up attempt, or use Login.`, true);
+                    return;
+                }
+            }
+
             if (!navigator.onLine) {
                 setAuthStatus('Offline sign-in is unavailable without a cached valid session.', true);
                 return;
@@ -644,7 +693,27 @@
                 }
 
                 if (result.error) {
-                    setAuthStatus(result.error.message, true);
+                    const message = result.error.message || 'Authentication failed.';
+                    const normalized = message.toLowerCase();
+
+                    if (authMode === 'signup' && (
+                        normalized.includes('already') ||
+                        normalized.includes('registered') ||
+                        normalized.includes('exists') ||
+                        normalized.includes('not available')
+                    )) {
+                        setAuthMode('signin');
+                        setAuthStatus('This email already has an account. Please log in instead.', true);
+                        return;
+                    }
+
+                    if (authMode === 'signup' && normalized.includes('rate limit')) {
+                        const retrySeconds = setSignupCooldown(parseRetrySeconds(message));
+                        setAuthStatus(`Too many sign-up attempts. Please wait about ${retrySeconds}s, then try again or use Login.`, true);
+                        return;
+                    }
+
+                    setAuthStatus(message, true);
                     return;
                 }
 
