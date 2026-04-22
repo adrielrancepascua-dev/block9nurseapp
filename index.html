@@ -31,6 +31,7 @@
     </style>
     
     <link rel="manifest" href="manifest.json">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%230f172a' width='192' height='192'/><text x='50%' y='50%' font-size='120' font-weight='bold' fill='%2306b6d4' text-anchor='middle' dy='.35em'>Rx</text></svg>">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%230f172a' width='180' height='180' rx='40'/><text x='50%' y='50%' font-size='100' font-weight='bold' fill='%2306b6d4' text-anchor='middle' dy='.35em'>Rx</text></svg>">
     <!-- OFFLINE-FIRST: Inlined CSS (no CDN) -->
@@ -58,7 +59,7 @@
         .mb-4 { margin-bottom: 1rem; }
         .mb-6 { margin-bottom: 1.5rem; }
         .mt-0 { margin-top: 0; }
-        .mt-0.5 { margin-top: 0.125rem; }
+        .mt-0\.5 { margin-top: 0.125rem; }
         .mt-1 { margin-top: 0.25rem; }
         .mt-8 { margin-top: 2rem; }
         .mt-12 { margin-top: 3rem; }
@@ -364,36 +365,25 @@
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen" style="background-color: #020617 !important;">
 
-    <!-- ACCESS CODE LOCK OVERLAY -->
-    <div id="accessLockOverlay" style="position: fixed; inset: 0; background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px;">
-        <div style="background: #0f172a; border: 2px solid #06b6d4; border-radius: 20px; padding: 40px 30px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5);">
-            <!-- Logo -->
-            <div style="display: none; width: 80px; height: 80px; background: linear-gradient(135deg, #06b6d4, #0891b2); border-radius: 20px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: bold; color: white;">Rx</div>
-            
+    <!-- AUTH OVERLAY -->
+    <div id="authOverlay" style="position: fixed; inset: 0; background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: #0f172a; border: 2px solid #06b6d4; border-radius: 20px; padding: 32px 24px; max-width: 420px; width: 100%; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5);">
             <h1 style="color: #06b6d4; font-size: 28px; font-weight: bold; margin-bottom: 8px;">NursePath</h1>
-            <p style="color: #94a3b8; font-size: 14px; margin-bottom: 30px;">Academic Simulation Tool</p>
-            
-            <!-- Lock Icon -->
-            <div style="font-size: 48px; margin-bottom: 20px;">🔐</div>
-            
-            <h2 style="color: white; font-size: 20px; margin-bottom: 10px;">Access Code Required</h2>
-            <p style="color: #64748b; font-size: 13px; margin-bottom: 25px;">Enter your access code to unlock the app</p>
-            
-            <!-- Code Input -->
-            <input type="text" id="accessCodeInput" placeholder="Enter access code" 
-                style="width: 100%; padding: 16px; font-size: 16px; text-align: center; background: #1e293b; border: 2px solid #334155; border-radius: 12px; color: white; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px;"
-                onkeypress="if(event.key==='Enter') verifyAccessCode()">
-            
-            <!-- Error Message -->
-            <p id="accessError" style="color: #ef4444; font-size: 13px; margin-bottom: 15px; display: none;">Invalid code. Please try again.</p>
-            
-            <!-- Submit Button -->
-            <button onclick="verifyAccessCode()" 
-                style="width: 100%; padding: 16px; font-size: 16px; font-weight: 600; background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; border: none; border-radius: 12px; cursor: pointer; margin-bottom: 20px; transition: all 0.3s;">
-                🔓 Unlock App
-            </button>
-            
-            <p style="color: #475569; font-size: 11px;">Demo version for academic evaluation<br>Contact developer for access code</p>
+            <p style="color: #94a3b8; font-size: 14px; margin-bottom: 14px;">Sign in with your institutional account</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px;">
+                <button id="authModeSignin" type="button" style="padding: 10px; border-radius: 10px; border: 1px solid #06b6d4; background: #0e7490; color: #ffffff; font-weight: 700;">Login</button>
+                <button id="authModeSignup" type="button" style="padding: 10px; border-radius: 10px; border: 1px solid #334155; background: #1e293b; color: #cbd5e1; font-weight: 700;">Sign Up</button>
+            </div>
+
+            <form id="authForm" style="display: grid; gap: 10px; margin-bottom: 12px;">
+                <input id="authEmail" type="email" placeholder="student@cdd.edu.ph" autocomplete="email" required style="width: 100%; padding: 14px; font-size: 15px; text-align: left; background: #1e293b; border: 1px solid #334155; border-radius: 12px; color: white;">
+                <input id="authPassword" type="password" placeholder="Password" autocomplete="current-password" required style="width: 100%; padding: 14px; font-size: 15px; text-align: left; background: #1e293b; border: 1px solid #334155; border-radius: 12px; color: white;">
+                <button id="authSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 700; background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s;">Sign In</button>
+            </form>
+
+            <p id="authStatus" style="color: #f59e0b; font-size: 12px; min-height: 18px; margin-bottom: 8px;"></p>
+            <p style="color: #64748b; font-size: 11px;">Allowed domain: <strong>@cdd.edu.ph</strong><br>Offline entry is available only with a cached valid session.</p>
         </div>
     </div>
 
@@ -436,35 +426,41 @@
         </div>
     </div>
 
-    <!-- Access Code Verification Script -->
+    <!-- Supabase Auth + Offline Session Gate -->
     <script>
-        // MASTER CODE - Change this for your dean demo
-        const MASTER_CODE = '202526';
-        const STORAGE_KEY = 'nursepath_access';
         const SIMULATION_KEY = 'nursepath_simulation_agreed';
-        const UNLOCK_DURATION = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
-        const SIMULATION_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+        const SIMULATION_DURATION = 24 * 60 * 60 * 1000;
+        const AUTH_ALLOWED_DOMAIN = '@cdd.edu.ph';
+        const SESSION_CACHE_KEY = 'nursepath_supabase_session_cache_v1';
+        const SUPABASE_URL = window.NURSEPATH_SUPABASE_URL || 'https://YOUR-PROJECT.supabase.co';
+        const SUPABASE_ANON_KEY = window.NURSEPATH_SUPABASE_ANON_KEY || 'YOUR_SUPABASE_ANON_KEY';
 
-        // Check if simulation mode agreement is valid
+        let authMode = 'signin';
+        let supabaseClient = null;
+        window.__nursepathAuthState = window.__nursepathAuthState || {
+            authenticated: false,
+            booted: false,
+            pendingBoot: false
+        };
+
         function checkSimulationAgreement() {
             const stored = localStorage.getItem(SIMULATION_KEY);
-            if (stored) {
-                try {
-                    const data = JSON.parse(stored);
-                    const now = Date.now();
-                    if (data.agreed && data.expires > now) {
-                        return true; // Agreement still valid
-                    } else {
-                        localStorage.removeItem(SIMULATION_KEY);
-                    }
-                } catch (e) {
-                    localStorage.removeItem(SIMULATION_KEY);
+            if (!stored) {
+                return false;
+            }
+            try {
+                const data = JSON.parse(stored);
+                const now = Date.now();
+                if (data.agreed && data.expires > now) {
+                    return true;
                 }
+                localStorage.removeItem(SIMULATION_KEY);
+            } catch (e) {
+                localStorage.removeItem(SIMULATION_KEY);
             }
             return false;
         }
 
-        // Accept simulation mode agreement
         function acceptSimulationMode() {
             const agreementData = {
                 agreed: true,
@@ -472,8 +468,6 @@
                 agreedAt: new Date().toISOString()
             };
             localStorage.setItem(SIMULATION_KEY, JSON.stringify(agreementData));
-            
-            // Hide overlay with animation
             const overlay = document.getElementById('simulationModeOverlay');
             overlay.style.opacity = '0';
             overlay.style.transition = 'opacity 0.5s ease';
@@ -482,83 +476,275 @@
             }, 500);
         }
 
-        // Check if already unlocked (works offline!)
-        function checkAccess() {
-            // Automatically grant access without requiring password
-            const unlockData = {
-                granted: true,
-                expires: Date.now() + UNLOCK_DURATION,
-                unlockedAt: new Date().toISOString()
-            };
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(unlockData));
-            
-            // Hide access overlay
-            document.getElementById('accessLockOverlay').style.display = 'none';
-            
-            // Now check simulation agreement
-            if (!checkSimulationAgreement()) {
-                document.getElementById('simulationModeOverlay').style.display = 'flex';
+        function setAuthStatus(message, isError = false) {
+            const statusEl = document.getElementById('authStatus');
+            if (!statusEl) {
+                return;
+            }
+            statusEl.textContent = message || '';
+            statusEl.style.color = isError ? '#f87171' : '#f59e0b';
+        }
+
+        function isAllowedDomain(email) {
+            return (email || '').trim().toLowerCase().endsWith(AUTH_ALLOWED_DOMAIN);
+        }
+
+        function isSessionValid(session) {
+            if (!session || !session.access_token || !session.user || !session.user.email) {
+                return false;
+            }
+            if (!isAllowedDomain(session.user.email)) {
+                return false;
+            }
+            if (session.expires_at && (Date.now() >= (session.expires_at * 1000))) {
+                return false;
             }
             return true;
         }
 
-        // Verify the entered code
-        function verifyAccessCode() {
-            const input = document.getElementById('accessCodeInput');
-            const error = document.getElementById('accessError');
-            const code = input.value.trim().toUpperCase();
-
-            if (code === MASTER_CODE) {
-                // Success! Store unlock with 30-day expiry
-                const unlockData = {
-                    granted: true,
-                    expires: Date.now() + UNLOCK_DURATION,
-                    unlockedAt: new Date().toISOString()
-                };
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(unlockData));
-                
-                // Hide overlay with animation
-                const overlay = document.getElementById('accessLockOverlay');
-                overlay.style.opacity = '0';
-                overlay.style.transition = 'opacity 0.5s ease';
-                setTimeout(() => {
-                    overlay.style.display = 'none';
-                    // Show simulation agreement after access is granted
-                    if (!checkSimulationAgreement()) {
-                        document.getElementById('simulationModeOverlay').style.display = 'flex';
-                    }
-                }, 500);
-                
-                error.style.display = 'none';
-            } else {
-                // Wrong code
-                error.style.display = 'block';
-                input.style.borderColor = '#ef4444';
-                input.value = '';
-                input.focus();
-                
-                // Shake animation
-                input.style.animation = 'shake 0.5s';
-                setTimeout(() => input.style.animation = '', 500);
+        function readCachedSession() {
+            const raw = localStorage.getItem(SESSION_CACHE_KEY);
+            if (!raw) {
+                return null;
+            }
+            try {
+                const parsed = JSON.parse(raw);
+                return isSessionValid(parsed) ? parsed : null;
+            } catch (e) {
+                return null;
             }
         }
 
-        // Check on page load
-        checkAccess();
-        
-        // Focus input if overlay is visible
-        if (document.getElementById('accessLockOverlay').style.display !== 'none') {
-            setTimeout(() => document.getElementById('accessCodeInput').focus(), 100);
+        function writeCachedSession(session) {
+            if (!isSessionValid(session)) {
+                return;
+            }
+            localStorage.setItem(SESSION_CACHE_KEY, JSON.stringify(session));
         }
-    </script>
-    <style>
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-    </style>
 
+        function clearCachedSession() {
+            localStorage.removeItem(SESSION_CACHE_KEY);
+        }
+
+        function setAuthMode(nextMode) {
+            authMode = nextMode === 'signup' ? 'signup' : 'signin';
+            const signinBtn = document.getElementById('authModeSignin');
+            const signupBtn = document.getElementById('authModeSignup');
+            const submitBtn = document.getElementById('authSubmitBtn');
+            if (!signinBtn || !signupBtn || !submitBtn) {
+                return;
+            }
+
+            if (authMode === 'signin') {
+                signinBtn.style.background = '#0e7490';
+                signinBtn.style.color = '#ffffff';
+                signinBtn.style.borderColor = '#06b6d4';
+                signupBtn.style.background = '#1e293b';
+                signupBtn.style.color = '#cbd5e1';
+                signupBtn.style.borderColor = '#334155';
+                submitBtn.textContent = 'Sign In';
+            } else {
+                signupBtn.style.background = '#0e7490';
+                signupBtn.style.color = '#ffffff';
+                signupBtn.style.borderColor = '#06b6d4';
+                signinBtn.style.background = '#1e293b';
+                signinBtn.style.color = '#cbd5e1';
+                signinBtn.style.borderColor = '#334155';
+                submitBtn.textContent = 'Create Account';
+            }
+        }
+
+        function bootProtectedApp() {
+            if (typeof window.__nursepathBootApp === 'function') {
+                window.__nursepathBootApp();
+                return;
+            }
+            window.__nursepathAuthState.pendingBoot = true;
+        }
+
+        function showAuthenticatedApp(session, source) {
+            const authOverlay = document.getElementById('authOverlay');
+            const appShell = document.getElementById('app-shell');
+            if (authOverlay) {
+                authOverlay.style.display = 'none';
+            }
+            if (appShell) {
+                appShell.style.display = 'block';
+            }
+
+            window.__nursepathAuthState.authenticated = true;
+            if (isSessionValid(session)) {
+                writeCachedSession(session);
+            }
+
+            if (!checkSimulationAgreement()) {
+                document.getElementById('simulationModeOverlay').style.display = 'flex';
+            }
+
+            if (source === 'cached') {
+                setAuthStatus('Offline entry enabled via cached session.', false);
+            }
+            bootProtectedApp();
+        }
+
+        function showAuthOverlay(message, isError = false) {
+            const authOverlay = document.getElementById('authOverlay');
+            const appShell = document.getElementById('app-shell');
+            if (authOverlay) {
+                authOverlay.style.display = 'flex';
+            }
+            if (appShell) {
+                appShell.style.display = 'none';
+            }
+            window.__nursepathAuthState.authenticated = false;
+            window.__nursepathAuthState.booted = false;
+            if (message) {
+                setAuthStatus(message, isError);
+            }
+        }
+
+        async function submitAuth(event) {
+            event.preventDefault();
+            const emailInput = document.getElementById('authEmail');
+            const passwordInput = document.getElementById('authPassword');
+            const submitBtn = document.getElementById('authSubmitBtn');
+
+            const email = (emailInput.value || '').trim().toLowerCase();
+            const password = passwordInput.value || '';
+
+            if (!isAllowedDomain(email)) {
+                setAuthStatus('Only @cdd.edu.ph email addresses are allowed.', true);
+                return;
+            }
+
+            if (!password || password.length < 6) {
+                setAuthStatus('Password must contain at least 6 characters.', true);
+                return;
+            }
+
+            if (!navigator.onLine) {
+                setAuthStatus('Offline sign-in is unavailable without a cached valid session.', true);
+                return;
+            }
+
+            if (!supabaseClient) {
+                setAuthStatus('Supabase client is not configured. Set URL and anon key first.', true);
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.7';
+            setAuthStatus(authMode === 'signup' ? 'Creating account...' : 'Signing in...', false);
+
+            try {
+                let result;
+                if (authMode === 'signup') {
+                    result = await supabaseClient.auth.signUp({ email, password });
+                } else {
+                    result = await supabaseClient.auth.signInWithPassword({ email, password });
+                }
+
+                if (result.error) {
+                    setAuthStatus(result.error.message, true);
+                    return;
+                }
+
+                if (result.data && isSessionValid(result.data.session)) {
+                    showAuthenticatedApp(result.data.session, 'online');
+                    return;
+                }
+
+                if (authMode === 'signup') {
+                    setAuthStatus('Sign-up successful. Verify your email, then sign in.', false);
+                } else {
+                    setAuthStatus('Signed in, but session was not returned. Try again.', true);
+                }
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+            }
+        }
+
+        async function initSupabaseAuth() {
+            const form = document.getElementById('authForm');
+            const signinBtn = document.getElementById('authModeSignin');
+            const signupBtn = document.getElementById('authModeSignup');
+
+            signinBtn.addEventListener('click', () => setAuthMode('signin'));
+            signupBtn.addEventListener('click', () => setAuthMode('signup'));
+            form.addEventListener('submit', submitAuth);
+            setAuthMode('signin');
+
+            const cachedSession = readCachedSession();
+            if (cachedSession) {
+                showAuthenticatedApp(cachedSession, 'cached');
+            }
+
+            const isConfigured = !SUPABASE_URL.includes('YOUR-PROJECT') && !SUPABASE_ANON_KEY.includes('YOUR_SUPABASE_ANON_KEY');
+            if (!window.supabase || !isConfigured) {
+                if (!cachedSession) {
+                    showAuthOverlay('Supabase credentials are required for online login.', true);
+                }
+                return;
+            }
+
+            supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+                auth: {
+                    persistSession: true,
+                    autoRefreshToken: true
+                }
+            });
+
+            supabaseClient.auth.onAuthStateChange((event, session) => {
+                if (isSessionValid(session)) {
+                    showAuthenticatedApp(session, 'online');
+                    return;
+                }
+
+                const cachedFallback = readCachedSession();
+                if (cachedFallback && !navigator.onLine) {
+                    showAuthenticatedApp(cachedFallback, 'cached');
+                    return;
+                }
+
+                if (event === 'SIGNED_OUT' || event === 'USER_DELETED') {
+                    clearCachedSession();
+                }
+
+                if (!cachedFallback) {
+                    showAuthOverlay('No valid session. Please sign in.', true);
+                }
+            });
+
+            if (!navigator.onLine) {
+                if (!cachedSession) {
+                    showAuthOverlay('Offline mode detected. Sign in requires internet once.', true);
+                }
+                return;
+            }
+
+            const { data, error } = await supabaseClient.auth.getSession();
+            if (error) {
+                if (!cachedSession) {
+                    showAuthOverlay('Could not verify session with Supabase.', true);
+                }
+                return;
+            }
+
+            if (isSessionValid(data.session)) {
+                showAuthenticatedApp(data.session, 'online');
+                return;
+            }
+
+            if (!cachedSession) {
+                showAuthOverlay('Please log in to access NursePath.', false);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', initSupabaseAuth);
+    </script>
+
+    <div id="app-shell" style="display: none;">
     <div class="bg-amber-600 text-white py-2 px-4 text-[10px] md:text-[11px] font-bold text-center tracking-widest uppercase border-b-2 border-amber-800 sticky top-0 z-50 shadow-lg">
         📚 SIMULATION MODE • Verify with Faculty & Textbooks • Academic Reference Only
     </div>
@@ -2663,9 +2849,19 @@
             renderOTCList(e.target.value);
         });
 
-        // initial render
-        renderOTCList('');
-        renderOTCSidebar();
+        window.__nursepathBootApp = function () {
+            if (!window.__nursepathAuthState || !window.__nursepathAuthState.authenticated || window.__nursepathAuthState.booted) {
+                return;
+            }
+            renderOTCList('');
+            renderOTCSidebar();
+            window.__nursepathAuthState.booted = true;
+            window.__nursepathAuthState.pendingBoot = false;
+        };
+
+        if (window.__nursepathAuthState && window.__nursepathAuthState.pendingBoot) {
+            window.__nursepathBootApp();
+        }
     </script>
 
     <!-- Service Worker Registration for PWA offline support -->
@@ -2721,5 +2917,6 @@
     <style>
         body { padding-bottom: 50px !important; }
     </style>
+    </div>
 </body>
 </html>

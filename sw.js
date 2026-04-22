@@ -1,13 +1,12 @@
-const CACHE_NAME = 'nursepath-dean-demo-v1.1';
+const CACHE_NAME = 'nursepath-dean-demo-v1.2';
 const OFFLINE_URL = '/index.html';
 
-// Files to cache for offline use
+// Files to cache for offline use, including the login/auth UI in index.html
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/image-192.png',
-  '/image-512.png'
+  '/sw.js'
 ];
 
 // Install: cache all static assets
