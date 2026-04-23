@@ -382,6 +382,15 @@
                 <button id="authSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 700; background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s;">Sign In</button>
             </form>
 
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
+                <button id="forgotPasswordBtn" type="button" style="background: transparent; border: none; color: #94a3b8; font-size: 12px; font-weight: 600; padding: 4px 0; text-decoration: underline; cursor: pointer;">Forgot Password?</button>
+            </div>
+
+            <div id="recoveryPanel" style="display: none; grid-template-columns: 1fr; gap: 8px; margin-bottom: 12px;">
+                <input id="recoveryPassword" type="password" placeholder="New password (min 8 characters)" autocomplete="new-password" style="width: 100%; padding: 12px; font-size: 14px; text-align: left; background: #1e293b; border: 1px solid #334155; border-radius: 12px; color: white;">
+                <button id="recoverySubmitBtn" type="button" style="width: 100%; padding: 12px; font-size: 14px; font-weight: 700; background: linear-gradient(135deg, #14b8a6, #0d9488); color: white; border: none; border-radius: 12px; cursor: pointer;">Update Password</button>
+            </div>
+
             <p id="authStatus" style="color: #f59e0b; font-size: 12px; min-height: 18px; margin-bottom: 8px;"></p>
         </div>
     </div>
@@ -433,6 +442,8 @@
         const SESSION_CACHE_KEY = 'nursepath_supabase_session_cache_v1';
         const AUTH_SIGNUP_COOLDOWN_KEY = 'nursepath_signup_cooldown_until_v1';
         const AUTH_SIGNUP_COOLDOWN_DEFAULT_SECONDS = 60;
+        const AUTH_RECOVERY_COOLDOWN_KEY = 'nursepath_recovery_cooldown_until_v1';
+        const AUTH_RECOVERY_COOLDOWN_DEFAULT_SECONDS = 60;
         const SUPABASE_URL = window.NURSEPATH_SUPABASE_URL || 'https://oobrhmnvbxiqdbpjnnbn.supabase.co';
         const SUPABASE_ANON_KEY = window.NURSEPATH_SUPABASE_ANON_KEY || 'sb_publishable_wXKxmmY-s0c5yv7kDITMoA_jPmufAK2';
 
@@ -524,6 +535,113 @@
             return safeSeconds;
         }
 
+        // Recovery cooldown helpers and password-recovery flow
+        function readRecoveryCooldownMs() {
+            const raw = localStorage.getItem(AUTH_RECOVERY_COOLDOWN_KEY);
+            if (!raw) return 0;
+            const until = Number(raw);
+            if (!Number.isFinite(until)) { localStorage.removeItem(AUTH_RECOVERY_COOLDOWN_KEY); return 0; }
+            const remaining = until - Date.now();
+            if (remaining <= 0) { localStorage.removeItem(AUTH_RECOVERY_COOLDOWN_KEY); return 0; }
+            return remaining;
+        }
+
+        function setRecoveryCooldown(seconds) {
+            const safeSeconds = Math.max(10, Number(seconds) || AUTH_RECOVERY_COOLDOWN_DEFAULT_SECONDS);
+            const until = Date.now() + (safeSeconds * 1000);
+            localStorage.setItem(AUTH_RECOVERY_COOLDOWN_KEY, String(until));
+            return safeSeconds;
+        }
+
+        function showRecoveryPanel() {
+            const recoveryPanel = document.getElementById('recoveryPanel');
+            if (recoveryPanel) recoveryPanel.style.display = 'grid';
+        }
+
+        function hideRecoveryPanel() {
+            const recoveryPanel = document.getElementById('recoveryPanel');
+            const recoveryPassword = document.getElementById('recoveryPassword');
+            if (recoveryPanel) recoveryPanel.style.display = 'none';
+            if (recoveryPassword) recoveryPassword.value = '';
+        }
+
+        async function requestPasswordReset() {
+            const emailInput = document.getElementById('authEmail');
+            const email = (emailInput && emailInput.value || '').trim().toLowerCase();
+            if (!email) {
+                setAuthStatus('Enter your email first, then tap Forgot Password.', true);
+                if (emailInput) emailInput.focus();
+                return;
+            }
+            if (!isAllowedDomain(email)) {
+                setAuthStatus('This account is not authorized for this app.', true);
+                return;
+            }
+
+            const remainingMs = readRecoveryCooldownMs();
+            if (remainingMs > 0) {
+                const remainingSeconds = Math.ceil(remainingMs / 1000);
+                setAuthStatus(`Please wait ${remainingSeconds}s before requesting another reset email.`, true);
+                return;
+            }
+
+            if (!supabaseClient) {
+                setAuthStatus('Login service is not ready. Try again in a moment.', true);
+                return;
+            }
+
+            const redirectTo = `${window.location.origin}${window.location.pathname}`;
+            const { error } = await supabaseClient.auth.resetPasswordForEmail(email, { redirectTo });
+
+            if (error) {
+                const message = (error.message || '').toLowerCase();
+                if (message.includes('rate limit')) {
+                    const retrySeconds = setRecoveryCooldown(parseRetrySeconds(error.message));
+                    setAuthStatus(`Too many reset requests. Please wait about ${retrySeconds}s.`, true);
+                    return;
+                }
+                setAuthStatus(error.message || 'Could not send reset email.', true);
+                return;
+            }
+
+            setRecoveryCooldown(AUTH_RECOVERY_COOLDOWN_DEFAULT_SECONDS);
+            setAuthStatus('Password reset email sent. Open it, then return here to set a new password.', false);
+        }
+
+        async function submitRecoveredPassword() {
+            const recoveryPassword = document.getElementById('recoveryPassword');
+            const recoverySubmitBtn = document.getElementById('recoverySubmitBtn');
+            const nextPassword = recoveryPassword ? (recoveryPassword.value || '') : '';
+
+            if (!nextPassword || nextPassword.length < 8) {
+                setAuthStatus('New password must be at least 8 characters.', true);
+                return;
+            }
+
+            if (!supabaseClient) {
+                setAuthStatus('Login service is not ready. Try again in a moment.', true);
+                return;
+            }
+
+            recoverySubmitBtn.disabled = true;
+            recoverySubmitBtn.style.opacity = '0.7';
+
+            try {
+                const { error } = await supabaseClient.auth.updateUser({ password: nextPassword });
+                if (error) {
+                    setAuthStatus(error.message || 'Could not update password.', true);
+                    return;
+                }
+
+                await supabaseClient.auth.signOut();
+                hideRecoveryPanel();
+                showAuthOverlay('Password updated. Please log in with your new password.', false);
+            } finally {
+                recoverySubmitBtn.disabled = false;
+                recoverySubmitBtn.style.opacity = '1';
+            }
+        }
+
         function isAllowedDomain(email) {
             return (email || '').trim().toLowerCase().endsWith(AUTH_ALLOWED_DOMAIN);
         }
@@ -591,6 +709,8 @@
                 signinBtn.style.borderColor = '#334155';
                 submitBtn.textContent = 'Create Account';
             }
+            // ensure recovery UI is hidden when switching auth modes
+            hideRecoveryPanel();
         }
 
         function bootProtectedApp() {
@@ -743,6 +863,16 @@
             form.addEventListener('submit', submitAuth);
             setAuthMode('signin');
 
+            // wire forgot-password + recovery submit handlers
+            const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+            const recoverySubmitBtn = document.getElementById('recoverySubmitBtn');
+            if (forgotPasswordBtn) {
+                forgotPasswordBtn.addEventListener('click', (e) => { e.preventDefault(); requestPasswordReset(); });
+            }
+            if (recoverySubmitBtn) {
+                recoverySubmitBtn.addEventListener('click', (e) => { e.preventDefault(); submitRecoveredPassword(); });
+            }
+
             const cachedSession = readCachedSession();
             if (cachedSession) {
                 showAuthenticatedApp(cachedSession, 'cached');
@@ -764,6 +894,13 @@
             });
 
             supabaseClient.auth.onAuthStateChange((event, session) => {
+                // If user landed via a password recovery link, show the recovery panel
+                if (event === 'PASSWORD_RECOVERY') {
+                    showAuthOverlay('Recovery verified. Set your new password below.', false);
+                    showRecoveryPanel();
+                    return;
+                }
+
                 if (isSessionValid(session)) {
                     showAuthenticatedApp(session, 'online');
                     return;
