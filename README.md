@@ -37,13 +37,12 @@ The application operates entirely offline after initial installation, making it 
 - Smooth scrolling between study modules
 - Color-coded sections for quick identification
 
-### ✉️ Demo Magic-Link Authentication
-- Sign in using cdd.edu.ph or personal email addresses (demo mode)
-- No password entry on the app login screen
-- Secure one-time sign-in link sent to school inbox
-- Built-in cooldown to reduce repeated email requests
-- Typo-domain checks (e.g. gmal.com) to reduce bounce backs
-- Email attempt logging (local and optional Supabase table)
+### 👻 Ghost Persistence (Demo Auth)
+- Email is treated as pilot identity (username/session ID), not strict inbox-auth login
+- No password and no signup screen
+- Enter email once and the device is locally sealed for auto-bypass on next launches
+- Built-in cooldown and typo-domain checks (e.g. gmal.com) to reduce bounce backs
+- Best-effort email logging (local always, Supabase when online)
 
 ### 💉 IV Flow Rate Practice Calculator
 - Demonstrates **mL/hr** calculations for infusion scenarios
@@ -136,14 +135,14 @@ All educational content in NursePath is derived from standard nursing textbooks 
 
 ### Login Method
 
-Users sign in using a magic link sent to the email they enter.
+Users start the pilot by entering an email once.
 
 1. Enter a valid email on the login screen.
-2. Tap Send Magic Link.
-3. Open the email and click the sign-in link.
-4. Return to NursePath and continue.
+2. Tap Get Started.
+3. The app stores `nursepath_user` on the device and opens immediately.
+4. On next launches, `nursepath_user` auto-bypasses the auth overlay.
 
-If no valid session exists, internet is required to request and complete login.
+Internet is optional for pilot entry. If online, the app also attempts to log the email to Supabase.
 
 ### Supabase Configuration Required
 
@@ -161,14 +160,14 @@ In Supabase Dashboard, verify the following:
 
 If Supabase warns about bounced emails, do the following:
 
-1. Keep self-service magic links enabled but validate email format before sending.
+1. Validate email format before accepting pilot entry.
 2. Block obvious typo domains (already implemented in app).
 3. Avoid repeated tests to fake addresses.
-4. Configure custom SMTP when moving from demo to production.
+4. If you re-enable magic links later, configure custom SMTP for production.
 
 ### Optional: Central Email Attempt Logs (Supabase)
 
-The app already stores sign-in email attempts in local browser storage.
+The app stores sign-in email attempts in local browser storage and queues failed sends for retry when internet returns.
 
 To store logs centrally in Supabase, create this table and policy:
 
@@ -190,9 +189,13 @@ to anon, authenticated
 with check (true);
 ```
 
+### Emergency Reset Backdoor
+
+If a user typed the wrong email and the device is sealed, tap the NursePath header logo 5 times to clear local pilot identity and reload.
+
 Fallback if you cannot access your school inbox
 
-If your student account does not have an active mailbox yet (for example the university has provided an email address but it's not activated), the magic-link flow will not work until you can receive emails at that address. Options:
+If your student account does not have an active mailbox, Ghost Persistence still allows pilot entry because email inbox access is not required for demo auth. Options:
 
 - Contact your school's IT department and ask them to enable your mailbox or forward mail to your personal account. Use this template subject/body when emailing IT:
 
@@ -208,7 +211,7 @@ If your student account does not have an active mailbox yet (for example the uni
   Thank you,
 
 - Ask your instructor to whitelist your personal email or create a user entry for you in the system so you can sign in while IT resolves the mailbox.
-- As a temporary testing step (development only), an instructor or admin can create a user in Supabase and send a magic link manually to an alternate address.
+- As a temporary testing step (development only), an instructor or admin can still review local/Supabase email logs to verify participant identities.
 
 ---
 

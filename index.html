@@ -14,6 +14,18 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="mobile-web-app-capable" content="yes">
     <title>NursePath - Academic Simulation & Reference Tool</title>
+    <script>
+        // Ghost persistence pre-check: hide auth overlay as early as possible.
+        (function () {
+            try {
+                if (localStorage.getItem('nursepath_user')) {
+                    document.documentElement.setAttribute('data-ghost-auth', '1');
+                }
+            } catch (e) {
+                // Ignore storage access failures.
+            }
+        })();
+    </script>
     
     <!-- CRITICAL: Force dark mode immediately to prevent white flash -->
     <style>
@@ -234,6 +246,9 @@
         @media (min-width: 1024px) { .lg\:col-span-1 { grid-column: span 1; } .lg\:col-span-4 { grid-column: span 4; } }
     </style>
     <style>
+        html[data-ghost-auth="1"] #authOverlay { display: none !important; }
+        html[data-ghost-auth="1"] #app-shell { display: block !important; }
+
         /* Mobile-first safe area for notches */
         body {
             padding-top: env(safe-area-inset-top);
@@ -369,7 +384,7 @@
     <div id="authOverlay" style="position: fixed; inset: 0; background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px;">
         <div style="background: #0f172a; border: 2px solid #06b6d4; border-radius: 20px; padding: 32px 24px; max-width: 420px; width: 100%; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5);">
             <h1 style="color: #06b6d4; font-size: 28px; font-weight: bold; margin-bottom: 8px;">NursePath</h1>
-            <p style="color: #94a3b8; font-size: 14px; margin-bottom: 14px;">Use your cdd.edu.ph or personal email to receive a secure sign-in link</p>
+            <p style="color: #94a3b8; font-size: 14px; margin-bottom: 14px;">Enter email to begin the pilot</p>
 
             <div style="margin-bottom: 14px; padding: 10px 12px; border-radius: 10px; border: 1px solid #334155; background: #1e293b; color: #cbd5e1; font-size: 12px; font-weight: 600; text-align: left;">
                 Demo mode: school and personal email addresses are allowed
@@ -377,7 +392,7 @@
 
             <form id="authForm" style="display: grid; gap: 10px; margin-bottom: 8px;">
                 <input id="authEmail" type="email" placeholder="student@cdd.edu.ph or yourname@gmail.com" autocomplete="email" required style="width: 100%; padding: 14px; font-size: 15px; text-align: left; background: #1e293b; border: 1px solid #334155; border-radius: 12px; color: white;">
-                <button id="authSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 700; background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s;">Send Magic Link</button>
+                <button id="authSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 700; background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s;">Get Started</button>
             </form>
 
             <div style="display:flex; justify-content:center; margin-bottom: 10px;">
@@ -446,9 +461,11 @@
         const SIMULATION_KEY = 'nursepath_simulation_agreed';
         const SIMULATION_DURATION = 24 * 60 * 60 * 1000;
         const SESSION_CACHE_KEY = 'nursepath_supabase_session_cache_v1';
+        const DEMO_USER_KEY = 'nursepath_user';
         const AUTH_MAGIC_LINK_COOLDOWN_KEY = 'nursepath_magic_link_cooldown_until_v1';
         const AUTH_MAGIC_LINK_COOLDOWN_DEFAULT_SECONDS = 45;
         const AUTH_EMAIL_LOG_KEY = 'nursepath_auth_email_log_v1';
+        const AUTH_PENDING_LOG_KEY = 'nursepath_pending_auth_email_log_v1';
         const AUTH_EMAIL_LOG_TABLE = 'auth_email_log';
         const EMAIL_TYPO_HINTS = {
             'gmal.com': 'gmail.com',
@@ -560,6 +577,63 @@
             return safeSeconds;
         }
 
+        function readGhostUser() {
+            const raw = localStorage.getItem(DEMO_USER_KEY);
+            if (!raw) return null;
+            try {
+                const parsed = JSON.parse(raw);
+                if (parsed && typeof parsed.email === 'string' && parsed.email.trim()) {
+                    return parsed;
+                }
+            } catch (e) {
+                if (typeof raw === 'string' && raw.includes('@')) {
+                    return { email: raw, sealedAt: new Date().toISOString(), legacy: true };
+                }
+            }
+            return null;
+        }
+
+        function saveGhostUser(email) {
+            const now = new Date().toISOString();
+            const existing = readGhostUser();
+            const entry = {
+                email: normalizeEmail(email),
+                sealedAt: existing && existing.sealedAt ? existing.sealedAt : now,
+                lastSeenAt: now
+            };
+            localStorage.setItem(DEMO_USER_KEY, JSON.stringify(entry));
+            document.documentElement.setAttribute('data-ghost-auth', '1');
+            return entry;
+        }
+
+        function clearGhostUser() {
+            localStorage.removeItem(DEMO_USER_KEY);
+            localStorage.removeItem(SESSION_CACHE_KEY);
+            localStorage.removeItem(AUTH_MAGIC_LINK_COOLDOWN_KEY);
+            document.documentElement.removeAttribute('data-ghost-auth');
+        }
+
+        function readPendingLogs() {
+            const raw = localStorage.getItem(AUTH_PENDING_LOG_KEY);
+            if (!raw) return [];
+            try {
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function writePendingLogs(entries) {
+            localStorage.setItem(AUTH_PENDING_LOG_KEY, JSON.stringify(entries.slice(-300)));
+        }
+
+        function queuePendingLog(entry) {
+            const pending = readPendingLogs();
+            pending.push(entry);
+            writePendingLogs(pending);
+        }
+
         function normalizeEmail(email) {
             return (email || '').trim().toLowerCase();
         }
@@ -600,52 +674,40 @@
                 // no-op for localStorage failures
             }
 
-            if (!supabaseClient) {
+            if (!supabaseClient || !navigator.onLine) {
+                queuePendingLog(entry);
                 return;
             }
 
             try {
-                await supabaseClient.from(AUTH_EMAIL_LOG_TABLE).insert(entry);
+                const { error } = await supabaseClient.from(AUTH_EMAIL_LOG_TABLE).insert(entry);
+                if (error) {
+                    queuePendingLog(entry);
+                }
             } catch (e) {
-                // table may not exist yet; keep local log as fallback
+                // Table may not exist or network may fail; keep pending for best-effort retry.
+                queuePendingLog(entry);
             }
         }
 
-        function isSessionValid(session) {
-            if (!session || !session.access_token || !session.user || !session.user.email) {
-                return false;
-            }
-            if (!isAllowedAuthEmail(session.user.email)) {
-                return false;
-            }
-            if (session.expires_at && (Date.now() >= (session.expires_at * 1000))) {
-                return false;
-            }
-            return true;
-        }
-
-        function readCachedSession() {
-            const raw = localStorage.getItem(SESSION_CACHE_KEY);
-            if (!raw) {
-                return null;
-            }
-            try {
-                const parsed = JSON.parse(raw);
-                return isSessionValid(parsed) ? parsed : null;
-            } catch (e) {
-                return null;
-            }
-        }
-
-        function writeCachedSession(session) {
-            if (!isSessionValid(session)) {
+        async function flushPendingEmailLogs() {
+            if (!supabaseClient || !navigator.onLine) {
                 return;
             }
-            localStorage.setItem(SESSION_CACHE_KEY, JSON.stringify(session));
-        }
 
-        function clearCachedSession() {
-            localStorage.removeItem(SESSION_CACHE_KEY);
+            const pending = readPendingLogs();
+            if (!pending.length) {
+                return;
+            }
+
+            try {
+                const { error } = await supabaseClient.from(AUTH_EMAIL_LOG_TABLE).insert(pending);
+                if (!error) {
+                    localStorage.removeItem(AUTH_PENDING_LOG_KEY);
+                }
+            } catch (e) {
+                // Keep pending logs for another retry.
+            }
         }
 
         function bootProtectedApp() {
@@ -656,7 +718,29 @@
             window.__nursepathAuthState.pendingBoot = true;
         }
 
-        function showAuthenticatedApp(session, source) {
+        function checkAuth() {
+            const ghostUser = readGhostUser();
+            if (!ghostUser || !isAllowedAuthEmail(ghostUser.email)) {
+                return false;
+            }
+
+            const authOverlay = document.getElementById('authOverlay');
+            const appShell = document.getElementById('app-shell');
+            if (authOverlay) authOverlay.style.display = 'none';
+            if (appShell) appShell.style.display = 'block';
+            document.documentElement.setAttribute('data-ghost-auth', '1');
+
+            window.__nursepathAuthState.authenticated = true;
+
+            if (!checkSimulationAgreement()) {
+                document.getElementById('simulationModeOverlay').style.display = 'flex';
+            }
+
+            bootProtectedApp();
+            return true;
+        }
+
+        function showAuthenticatedApp(email, source) {
             const authOverlay = document.getElementById('authOverlay');
             const appShell = document.getElementById('app-shell');
             if (authOverlay) {
@@ -665,18 +749,20 @@
             if (appShell) {
                 appShell.style.display = 'block';
             }
+            document.documentElement.setAttribute('data-ghost-auth', '1');
 
             window.__nursepathAuthState.authenticated = true;
-            if (isSessionValid(session)) {
-                writeCachedSession(session);
+
+            if (email) {
+                saveGhostUser(email);
             }
 
             if (!checkSimulationAgreement()) {
                 document.getElementById('simulationModeOverlay').style.display = 'flex';
             }
 
-            if (source === 'cached') {
-                setAuthStatus('Offline entry enabled via cached session.', false);
+            if (source === 'ghost') {
+                setAuthStatus('Pilot session restored on this device.', false);
             }
             bootProtectedApp();
         }
@@ -741,40 +827,30 @@
 
             submitBtn.disabled = true;
             submitBtn.style.opacity = '0.7';
-            setAuthStatus('Sending magic link...', false);
+            setAuthStatus('Sealing this device for pilot access...', false);
 
             try {
-                const redirectTo = `${window.location.origin}${window.location.pathname}`;
-                const result = await supabaseClient.auth.signInWithOtp({
-                    email,
-                    options: { emailRedirectTo: redirectTo }
-                });
-
-                if (result.error) {
-                    const message = result.error.message || 'Authentication failed.';
-                    const normalized = message.toLowerCase();
-
-                    if (normalized.includes('rate limit')) {
-                        const retrySeconds = setMagicLinkCooldown(parseRetrySeconds(message));
-                        setAuthStatus(`Too many attempts. Please wait about ${retrySeconds}s and try again.`, true);
-                        void recordEmailAttempt(email, 'failed_rate_limited', message);
-                        return;
+                // Best-effort logging only. Pilot access should not be blocked by network errors.
+                if (supabaseClient && navigator.onLine) {
+                    try {
+                        const { error } = await supabaseClient.from(AUTH_EMAIL_LOG_TABLE).insert({
+                            email,
+                            status: 'pilot_login',
+                            reason: 'best_effort_online',
+                            timestamp: new Date().toISOString()
+                        });
+                        if (error) {
+                            console.warn('Best-effort log insert failed:', error.message || error);
+                        }
+                    } catch (err) {
+                        console.warn('Best-effort log insert exception:', err);
                     }
-
-                    if (normalized.includes('signups not allowed') || normalized.includes('not allowed')) {
-                        setAuthStatus('Your email is not enabled for self-service login. Contact your instructor/admin.', true);
-                        void recordEmailAttempt(email, 'failed_not_allowed', message);
-                        return;
-                    }
-
-                    setAuthStatus(message, true);
-                    void recordEmailAttempt(email, 'failed_error', message);
-                    return;
                 }
 
                 setMagicLinkCooldown(AUTH_MAGIC_LINK_COOLDOWN_DEFAULT_SECONDS);
-                setAuthStatus('Check your inbox for a magic sign-in link.', false);
-                void recordEmailAttempt(email, 'magic_link_requested', 'request_sent');
+                saveGhostUser(email);
+                void recordEmailAttempt(email, 'pilot_login_sealed', navigator.onLine ? 'online_or_partial' : 'offline');
+                showAuthenticatedApp(email, 'ghost');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.style.opacity = '1';
@@ -791,16 +867,13 @@
             if (helpAccessBtn) helpAccessBtn.addEventListener('click', (e) => { e.preventDefault(); showAccessHelpPanel(); });
             if (closeAccessHelpBtn) closeAccessHelpBtn.addEventListener('click', (e) => { e.preventDefault(); hideAccessHelpPanel(); });
 
-            const cachedSession = readCachedSession();
-            if (cachedSession) {
-                showAuthenticatedApp(cachedSession, 'cached');
+            if (checkAuth()) {
+                return;
             }
 
             const isConfigured = !SUPABASE_URL.includes('YOUR-PROJECT') && !SUPABASE_ANON_KEY.includes('YOUR_SUPABASE_ANON_KEY');
             if (!window.supabase || !isConfigured) {
-                if (!cachedSession) {
-                    showAuthOverlay('Supabase credentials are required for online login.', true);
-                }
+                showAuthOverlay('Offline-first demo mode: enter email and tap Get Started.', false);
                 return;
             }
 
@@ -811,54 +884,45 @@
                 }
             });
 
-            supabaseClient.auth.onAuthStateChange((event, session) => {
-                if (isSessionValid(session)) {
-                    void recordEmailAttempt(session.user.email, 'authenticated', event || 'auth_state_change');
-                    showAuthenticatedApp(session, 'online');
-                    return;
-                }
-
-                const cachedFallback = readCachedSession();
-                if (cachedFallback && !navigator.onLine) {
-                    showAuthenticatedApp(cachedFallback, 'cached');
-                    return;
-                }
-
-                if (event === 'SIGNED_OUT' || event === 'USER_DELETED') {
-                    clearCachedSession();
-                }
-
-                if (!cachedFallback) {
-                    showAuthOverlay('No valid session. Please sign in.', true);
-                }
+            await flushPendingEmailLogs();
+            window.addEventListener('online', () => {
+                void flushPendingEmailLogs();
             });
 
-            if (!navigator.onLine) {
-                if (!cachedSession) {
-                    showAuthOverlay('Offline mode detected. Sign in requires internet once.', true);
-                }
-                return;
-            }
-
-            const { data, error } = await supabaseClient.auth.getSession();
-            if (error) {
-                if (!cachedSession) {
-                    showAuthOverlay('Could not verify session with Supabase.', true);
-                }
-                return;
-            }
-
-            if (isSessionValid(data.session)) {
-                showAuthenticatedApp(data.session, 'online');
-                return;
-            }
-
-            if (!cachedSession) {
-                showAuthOverlay('', false);
-            }
+            showAuthOverlay('Enter email and tap Get Started.', false);
         }
 
-        window.addEventListener('DOMContentLoaded', initSupabaseAuth);
+        function initEmergencyReset() {
+            const logo = document.getElementById('nursepathHeaderLogo');
+            if (!logo) return;
+
+            let taps = 0;
+            let tapResetTimer = null;
+
+            logo.addEventListener('click', () => {
+                taps += 1;
+
+                if (tapResetTimer) {
+                    clearTimeout(tapResetTimer);
+                }
+
+                tapResetTimer = setTimeout(() => {
+                    taps = 0;
+                }, 3000);
+
+                if (taps >= 5) {
+                    clearGhostUser();
+                    localStorage.removeItem(AUTH_EMAIL_LOG_KEY);
+                    localStorage.removeItem(AUTH_PENDING_LOG_KEY);
+                    location.reload();
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initSupabaseAuth();
+            initEmergencyReset();
+        });
     </script>
 
     <div id="app-shell" style="display: none;">
@@ -907,7 +971,7 @@
 
     <div class="max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
         <header class="mb-4 sm:mb-6 text-center">
-            <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 mb-2">
+            <h1 id="nursepathHeaderLogo" title="Pilot reset: tap 5 times" class="text-2xl sm:text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 mb-2" style="cursor: pointer;">
                 <svg class="inline mr-2 sm:mr-3" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v2h-2zm0-10h2v8h-2zm3-3h2v6h-2zm-6 3h2v6H7z"/></svg>NursePath Simulation Tool
             </h1>
             <p class="text-slate-400 text-xs sm:text-sm">Vital Signs Simulation • Reference Interpreter • IV Calculator • Drug Reference</p>
