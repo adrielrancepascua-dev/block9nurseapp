@@ -380,6 +380,24 @@
                 <button id="authSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 700; background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s;">Send Magic Link</button>
             </form>
 
+            <div style="display:flex; justify-content:center; margin-bottom: 10px;">
+                <button id="helpAccessBtn" type="button" style="background: transparent; border: none; color: #94a3b8; font-size: 12px; font-weight: 600; padding: 4px 0; text-decoration: underline; cursor: pointer;">Can't access school email?</button>
+            </div>
+
+            <div id="accessHelpPanel" style="display:none; text-align:left; background: #071225; border: 1px solid #334155; padding: 12px; border-radius: 10px; margin-bottom: 10px;">
+                <p style="color:#cbd5e1; font-size:13px; margin-bottom:8px;">If you cannot access your school inbox, try the options below:</p>
+                <ol style="color:#94a3b8; font-size:12px; margin-left:18px; margin-bottom:8px;">
+                    <li>Confirm with your school that an email mailbox exists for your student account.</li>
+                    <li>Ask IT to enable/activate your mailbox or set forwarding to a personal address.</li>
+                    <li>Ask your instructor to whitelist your personal email or create an account for you.</li>
+                </ol>
+                <div style="display:flex; gap:8px; align-items:center;">
+                    <a id="emailItLink" href="mailto:it@cdd.edu.ph?subject=Enable%20student%20email%20account&body=Hello%20IT%2C%0A%0ACan%20you%20please%20enable%20email%20for%20my%20student%20account%20(student%40cdd.edu.ph)%3F%0A%0AMy%20full%20name%3A%0AStudent%20ID%3A%0A%0AThank%20you%2C" style="background:#0f172a; color:#cbd5e1; padding:8px 10px; border-radius:8px; border:1px solid #334155; text-decoration:none;">Email IT</a>
+                    <a id="emailInstructorLink" href="mailto:instructor@cdd.edu.ph?subject=Request%20to%20whitelist%20personal%20email&body=Hello%20Instructor%2C%0A%0AI%20cannot%20access%20my%20school%20email%20(student%40cdd.edu.ph).%20Please%20whitelist%20my%20personal%20email%20(yourpersonal%40gmail.com)%20so%20I%20can%20login.%0A%0AThank%20you%2C" style="background:#0f172a; color:#cbd5e1; padding:8px 10px; border-radius:8px; border:1px solid #334155; text-decoration:none;">Contact Instructor</a>
+                    <button id="closeAccessHelpBtn" type="button" style="background: transparent; border: none; color: #94a3b8; font-size: 12px; padding: 8px 10px; cursor:pointer;">Close</button>
+                </div>
+            </div>
+
             <p id="authStatus" style="color: #f59e0b; font-size: 12px; min-height: 18px; margin-bottom: 8px;"></p>
         </div>
     </div>
@@ -481,6 +499,17 @@
             }
             statusEl.textContent = message || '';
             statusEl.style.color = isError ? '#f87171' : '#f59e0b';
+        }
+
+        // Help panel for students without an active school inbox
+        function showAccessHelpPanel() {
+            const panel = document.getElementById('accessHelpPanel');
+            if (panel) panel.style.display = 'block';
+        }
+
+        function hideAccessHelpPanel() {
+            const panel = document.getElementById('accessHelpPanel');
+            if (panel) panel.style.display = 'none';
         }
 
         function parseRetrySeconds(message) {
@@ -686,6 +715,12 @@
         async function initSupabaseAuth() {
             const form = document.getElementById('authForm');
             form.addEventListener('submit', submitAuth);
+
+            // help panel wiring
+            const helpAccessBtn = document.getElementById('helpAccessBtn');
+            const closeAccessHelpBtn = document.getElementById('closeAccessHelpBtn');
+            if (helpAccessBtn) helpAccessBtn.addEventListener('click', (e) => { e.preventDefault(); showAccessHelpPanel(); });
+            if (closeAccessHelpBtn) closeAccessHelpBtn.addEventListener('click', (e) => { e.preventDefault(); hideAccessHelpPanel(); });
 
             const cachedSession = readCachedSession();
             if (cachedSession) {

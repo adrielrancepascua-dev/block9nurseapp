@@ -155,6 +155,28 @@ In Supabase Dashboard, verify the following:
   - Self-service allowed: students can request their own magic links
   - Invite-only: only pre-created users can log in
 
+Fallback if you cannot access your school inbox
+
+If your student account does not have an active mailbox yet (for example the university has provided an email address but it's not activated), the magic-link flow will not work until you can receive emails at that address. Options:
+
+- Contact your school's IT department and ask them to enable your mailbox or forward mail to your personal account. Use this template subject/body when emailing IT:
+
+  Subject: Enable student email account
+
+  Body: Hello IT,
+
+  Can you please enable email for my student account (student@cdd.edu.ph)?
+
+  Full name:
+  Student ID:
+
+  Thank you,
+
+- Ask your instructor to whitelist your personal email or create a user entry for you in the system so you can sign in while IT resolves the mailbox.
+- As a temporary testing step (development only), an instructor or admin can create a user in Supabase and send a magic link manually to an alternate address.
+
+If you'd like, I can add an in-app help button that shows these steps and provides prefilled email links to contact IT/instructor — I can do that now.
+
 ---
 
 ## Future Considerations
