@@ -1,0 +1,6 @@
+# Local Python environment
+.venv/
+
+# Local planning and documentation not meant for repo
+SUPABASE_HARDENING.sql
+SUPABASE_HARDENING_STEPS.md

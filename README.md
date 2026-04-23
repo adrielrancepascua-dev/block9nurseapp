@@ -37,6 +37,12 @@ The application operates entirely offline after initial installation, making it 
 - Smooth scrolling between study modules
 - Color-coded sections for quick identification
 
+### ✉️ School Email Magic-Link Authentication
+- Sign in using institutional email only (cdd.edu.ph domain)
+- No password entry on the app login screen
+- Secure one-time sign-in link sent to school inbox
+- Built-in cooldown to reduce repeated email requests
+
 ### 💉 IV Flow Rate Practice Calculator
 - Demonstrates **mL/hr** calculations for infusion scenarios
 - Shows **gtt/min** (drops per minute) formula applications
@@ -93,6 +99,7 @@ This application was developed using **AI-Assisted Programming**, combining the 
 
 - **Frontend:** HTML5, CSS3, JavaScript
 - **Styling:** Tailwind CSS (inlined)
+- **Authentication:** Supabase Email OTP (Magic Link)
 - **Offline Support:** Service Worker
 - **Hosting:** Vercel
 
@@ -125,11 +132,28 @@ All educational content in NursePath is derived from standard nursing textbooks 
 
 ## Access Information
 
-### For Faculty Reviewers
+### Login Method
 
-**Demo Access:** Automatically unlocked on load
+Users sign in using a magic link sent to their school email address.
 
-This code is valid for 30 days and functions offline after initial access.
+1. Enter a cdd.edu.ph email on the login screen.
+2. Tap Send Magic Link.
+3. Open the email and click the sign-in link.
+4. Return to NursePath and continue.
+
+If no valid session exists, internet is required to request and complete login.
+
+### Supabase Configuration Required
+
+In Supabase Dashboard, verify the following:
+
+1. Authentication > URL Configuration
+2. Site URL is set to your deployed NursePath URL
+3. Redirect URLs include your deployed URL and local dev URL
+4. Authentication > Providers > Email is enabled
+5. Authentication > Settings aligns with your policy:
+  - Self-service allowed: students can request their own magic links
+  - Invite-only: only pre-created users can log in
 
 ---
 

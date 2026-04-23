@@ -369,27 +369,16 @@
     <div id="authOverlay" style="position: fixed; inset: 0; background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px;">
         <div style="background: #0f172a; border: 2px solid #06b6d4; border-radius: 20px; padding: 32px 24px; max-width: 420px; width: 100%; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5);">
             <h1 style="color: #06b6d4; font-size: 28px; font-weight: bold; margin-bottom: 8px;">NursePath</h1>
-            <p style="color: #94a3b8; font-size: 14px; margin-bottom: 14px;">Sign in with your institutional account</p>
+            <p style="color: #94a3b8; font-size: 14px; margin-bottom: 14px;">Use your school email to receive a secure sign-in link</p>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px;">
-                <button id="authModeSignin" type="button" style="padding: 10px; border-radius: 10px; border: 1px solid #06b6d4; background: #0e7490; color: #ffffff; font-weight: 700;">Login</button>
-                <button id="authModeSignup" type="button" style="padding: 10px; border-radius: 10px; border: 1px solid #334155; background: #1e293b; color: #cbd5e1; font-weight: 700;">Sign Up</button>
+            <div style="margin-bottom: 14px; padding: 10px 12px; border-radius: 10px; border: 1px solid #334155; background: #1e293b; color: #cbd5e1; font-size: 12px; font-weight: 600; text-align: left;">
+                Allowed domain: cdd.edu.ph
             </div>
 
-            <form id="authForm" style="display: grid; gap: 10px; margin-bottom: 12px;">
+            <form id="authForm" style="display: grid; gap: 10px; margin-bottom: 8px;">
                 <input id="authEmail" type="email" placeholder="student@cdd.edu.ph" autocomplete="email" required style="width: 100%; padding: 14px; font-size: 15px; text-align: left; background: #1e293b; border: 1px solid #334155; border-radius: 12px; color: white;">
-                <input id="authPassword" type="password" placeholder="Password" autocomplete="current-password" required style="width: 100%; padding: 14px; font-size: 15px; text-align: left; background: #1e293b; border: 1px solid #334155; border-radius: 12px; color: white;">
-                <button id="authSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 700; background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s;">Sign In</button>
+                <button id="authSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 700; background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s;">Send Magic Link</button>
             </form>
-
-            <div style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
-                <button id="forgotPasswordBtn" type="button" style="background: transparent; border: none; color: #94a3b8; font-size: 12px; font-weight: 600; padding: 4px 0; text-decoration: underline; cursor: pointer;">Forgot Password?</button>
-            </div>
-
-            <div id="recoveryPanel" style="display: none; grid-template-columns: 1fr; gap: 8px; margin-bottom: 12px;">
-                <input id="recoveryPassword" type="password" placeholder="New password (min 8 characters)" autocomplete="new-password" style="width: 100%; padding: 12px; font-size: 14px; text-align: left; background: #1e293b; border: 1px solid #334155; border-radius: 12px; color: white;">
-                <button id="recoverySubmitBtn" type="button" style="width: 100%; padding: 12px; font-size: 14px; font-weight: 700; background: linear-gradient(135deg, #14b8a6, #0d9488); color: white; border: none; border-radius: 12px; cursor: pointer;">Update Password</button>
-            </div>
 
             <p id="authStatus" style="color: #f59e0b; font-size: 12px; min-height: 18px; margin-bottom: 8px;"></p>
         </div>
@@ -440,14 +429,11 @@
         const SIMULATION_DURATION = 24 * 60 * 60 * 1000;
         const AUTH_ALLOWED_DOMAIN = '@cdd.edu.ph';
         const SESSION_CACHE_KEY = 'nursepath_supabase_session_cache_v1';
-        const AUTH_SIGNUP_COOLDOWN_KEY = 'nursepath_signup_cooldown_until_v1';
-        const AUTH_SIGNUP_COOLDOWN_DEFAULT_SECONDS = 60;
-        const AUTH_RECOVERY_COOLDOWN_KEY = 'nursepath_recovery_cooldown_until_v1';
-        const AUTH_RECOVERY_COOLDOWN_DEFAULT_SECONDS = 60;
+        const AUTH_MAGIC_LINK_COOLDOWN_KEY = 'nursepath_magic_link_cooldown_until_v1';
+        const AUTH_MAGIC_LINK_COOLDOWN_DEFAULT_SECONDS = 45;
         const SUPABASE_URL = window.NURSEPATH_SUPABASE_URL || 'https://oobrhmnvbxiqdbpjnnbn.supabase.co';
         const SUPABASE_ANON_KEY = window.NURSEPATH_SUPABASE_ANON_KEY || 'sb_publishable_wXKxmmY-s0c5yv7kDITMoA_jPmufAK2';
 
-        let authMode = 'signin';
         let supabaseClient = null;
         window.__nursepathAuthState = window.__nursepathAuthState || {
             authenticated: false,
@@ -507,139 +493,32 @@
             if (secondMatch) {
                 return parseInt(secondMatch[1], 10);
             }
-            return AUTH_SIGNUP_COOLDOWN_DEFAULT_SECONDS;
+            return AUTH_MAGIC_LINK_COOLDOWN_DEFAULT_SECONDS;
         }
 
-        function readSignupCooldownMs() {
-            const raw = localStorage.getItem(AUTH_SIGNUP_COOLDOWN_KEY);
+        function readMagicLinkCooldownMs() {
+            const raw = localStorage.getItem(AUTH_MAGIC_LINK_COOLDOWN_KEY);
             if (!raw) {
                 return 0;
             }
             const until = Number(raw);
             if (!Number.isFinite(until)) {
-                localStorage.removeItem(AUTH_SIGNUP_COOLDOWN_KEY);
+                localStorage.removeItem(AUTH_MAGIC_LINK_COOLDOWN_KEY);
                 return 0;
             }
             const remaining = until - Date.now();
             if (remaining <= 0) {
-                localStorage.removeItem(AUTH_SIGNUP_COOLDOWN_KEY);
+                localStorage.removeItem(AUTH_MAGIC_LINK_COOLDOWN_KEY);
                 return 0;
             }
             return remaining;
         }
 
-        function setSignupCooldown(seconds) {
-            const safeSeconds = Math.max(10, Number(seconds) || AUTH_SIGNUP_COOLDOWN_DEFAULT_SECONDS);
+        function setMagicLinkCooldown(seconds) {
+            const safeSeconds = Math.max(10, Number(seconds) || AUTH_MAGIC_LINK_COOLDOWN_DEFAULT_SECONDS);
             const until = Date.now() + (safeSeconds * 1000);
-            localStorage.setItem(AUTH_SIGNUP_COOLDOWN_KEY, String(until));
+            localStorage.setItem(AUTH_MAGIC_LINK_COOLDOWN_KEY, String(until));
             return safeSeconds;
-        }
-
-        // Recovery cooldown helpers and password-recovery flow
-        function readRecoveryCooldownMs() {
-            const raw = localStorage.getItem(AUTH_RECOVERY_COOLDOWN_KEY);
-            if (!raw) return 0;
-            const until = Number(raw);
-            if (!Number.isFinite(until)) { localStorage.removeItem(AUTH_RECOVERY_COOLDOWN_KEY); return 0; }
-            const remaining = until - Date.now();
-            if (remaining <= 0) { localStorage.removeItem(AUTH_RECOVERY_COOLDOWN_KEY); return 0; }
-            return remaining;
-        }
-
-        function setRecoveryCooldown(seconds) {
-            const safeSeconds = Math.max(10, Number(seconds) || AUTH_RECOVERY_COOLDOWN_DEFAULT_SECONDS);
-            const until = Date.now() + (safeSeconds * 1000);
-            localStorage.setItem(AUTH_RECOVERY_COOLDOWN_KEY, String(until));
-            return safeSeconds;
-        }
-
-        function showRecoveryPanel() {
-            const recoveryPanel = document.getElementById('recoveryPanel');
-            if (recoveryPanel) recoveryPanel.style.display = 'grid';
-        }
-
-        function hideRecoveryPanel() {
-            const recoveryPanel = document.getElementById('recoveryPanel');
-            const recoveryPassword = document.getElementById('recoveryPassword');
-            if (recoveryPanel) recoveryPanel.style.display = 'none';
-            if (recoveryPassword) recoveryPassword.value = '';
-        }
-
-        async function requestPasswordReset() {
-            const emailInput = document.getElementById('authEmail');
-            const email = (emailInput && emailInput.value || '').trim().toLowerCase();
-            if (!email) {
-                setAuthStatus('Enter your email first, then tap Forgot Password.', true);
-                if (emailInput) emailInput.focus();
-                return;
-            }
-            if (!isAllowedDomain(email)) {
-                setAuthStatus('This account is not authorized for this app.', true);
-                return;
-            }
-
-            const remainingMs = readRecoveryCooldownMs();
-            if (remainingMs > 0) {
-                const remainingSeconds = Math.ceil(remainingMs / 1000);
-                setAuthStatus(`Please wait ${remainingSeconds}s before requesting another reset email.`, true);
-                return;
-            }
-
-            if (!supabaseClient) {
-                setAuthStatus('Login service is not ready. Try again in a moment.', true);
-                return;
-            }
-
-            const redirectTo = `${window.location.origin}${window.location.pathname}`;
-            const { error } = await supabaseClient.auth.resetPasswordForEmail(email, { redirectTo });
-
-            if (error) {
-                const message = (error.message || '').toLowerCase();
-                if (message.includes('rate limit')) {
-                    const retrySeconds = setRecoveryCooldown(parseRetrySeconds(error.message));
-                    setAuthStatus(`Too many reset requests. Please wait about ${retrySeconds}s.`, true);
-                    return;
-                }
-                setAuthStatus(error.message || 'Could not send reset email.', true);
-                return;
-            }
-
-            setRecoveryCooldown(AUTH_RECOVERY_COOLDOWN_DEFAULT_SECONDS);
-            setAuthStatus('Password reset email sent. Open it, then return here to set a new password.', false);
-        }
-
-        async function submitRecoveredPassword() {
-            const recoveryPassword = document.getElementById('recoveryPassword');
-            const recoverySubmitBtn = document.getElementById('recoverySubmitBtn');
-            const nextPassword = recoveryPassword ? (recoveryPassword.value || '') : '';
-
-            if (!nextPassword || nextPassword.length < 8) {
-                setAuthStatus('New password must be at least 8 characters.', true);
-                return;
-            }
-
-            if (!supabaseClient) {
-                setAuthStatus('Login service is not ready. Try again in a moment.', true);
-                return;
-            }
-
-            recoverySubmitBtn.disabled = true;
-            recoverySubmitBtn.style.opacity = '0.7';
-
-            try {
-                const { error } = await supabaseClient.auth.updateUser({ password: nextPassword });
-                if (error) {
-                    setAuthStatus(error.message || 'Could not update password.', true);
-                    return;
-                }
-
-                await supabaseClient.auth.signOut();
-                hideRecoveryPanel();
-                showAuthOverlay('Password updated. Please log in with your new password.', false);
-            } finally {
-                recoverySubmitBtn.disabled = false;
-                recoverySubmitBtn.style.opacity = '1';
-            }
         }
 
         function isAllowedDomain(email) {
@@ -681,36 +560,6 @@
 
         function clearCachedSession() {
             localStorage.removeItem(SESSION_CACHE_KEY);
-        }
-
-        function setAuthMode(nextMode) {
-            authMode = nextMode === 'signup' ? 'signup' : 'signin';
-            const signinBtn = document.getElementById('authModeSignin');
-            const signupBtn = document.getElementById('authModeSignup');
-            const submitBtn = document.getElementById('authSubmitBtn');
-            if (!signinBtn || !signupBtn || !submitBtn) {
-                return;
-            }
-
-            if (authMode === 'signin') {
-                signinBtn.style.background = '#0e7490';
-                signinBtn.style.color = '#ffffff';
-                signinBtn.style.borderColor = '#06b6d4';
-                signupBtn.style.background = '#1e293b';
-                signupBtn.style.color = '#cbd5e1';
-                signupBtn.style.borderColor = '#334155';
-                submitBtn.textContent = 'Sign In';
-            } else {
-                signupBtn.style.background = '#0e7490';
-                signupBtn.style.color = '#ffffff';
-                signupBtn.style.borderColor = '#06b6d4';
-                signinBtn.style.background = '#1e293b';
-                signinBtn.style.color = '#cbd5e1';
-                signinBtn.style.borderColor = '#334155';
-                submitBtn.textContent = 'Create Account';
-            }
-            // ensure recovery UI is hidden when switching auth modes
-            hideRecoveryPanel();
         }
 
         function bootProtectedApp() {
@@ -765,29 +614,25 @@
         async function submitAuth(event) {
             event.preventDefault();
             const emailInput = document.getElementById('authEmail');
-            const passwordInput = document.getElementById('authPassword');
             const submitBtn = document.getElementById('authSubmitBtn');
 
             const email = (emailInput.value || '').trim().toLowerCase();
-            const password = passwordInput.value || '';
+
+            if (!email) {
+                setAuthStatus('Enter your school email to continue.', true);
+                return;
+            }
 
             if (!isAllowedDomain(email)) {
                 setAuthStatus('This account is not authorized for this app.', true);
                 return;
             }
 
-            if (!password || password.length < 6) {
-                setAuthStatus('Password must contain at least 6 characters.', true);
+            const remainingMs = readMagicLinkCooldownMs();
+            if (remainingMs > 0) {
+                const remainingSeconds = Math.ceil(remainingMs / 1000);
+                setAuthStatus(`Please wait ${remainingSeconds}s before requesting another magic link.`, true);
                 return;
-            }
-
-            if (authMode === 'signup') {
-                const remainingMs = readSignupCooldownMs();
-                if (remainingMs > 0) {
-                    const remainingSeconds = Math.ceil(remainingMs / 1000);
-                    setAuthStatus(`Please wait ${remainingSeconds}s before another sign-up attempt, or use Login.`, true);
-                    return;
-                }
             }
 
             if (!navigator.onLine) {
@@ -802,34 +647,27 @@
 
             submitBtn.disabled = true;
             submitBtn.style.opacity = '0.7';
-            setAuthStatus(authMode === 'signup' ? 'Creating account...' : 'Signing in...', false);
+            setAuthStatus('Sending magic link...', false);
 
             try {
-                let result;
-                if (authMode === 'signup') {
-                    result = await supabaseClient.auth.signUp({ email, password });
-                } else {
-                    result = await supabaseClient.auth.signInWithPassword({ email, password });
-                }
+                const redirectTo = `${window.location.origin}${window.location.pathname}`;
+                const result = await supabaseClient.auth.signInWithOtp({
+                    email,
+                    options: { emailRedirectTo: redirectTo }
+                });
 
                 if (result.error) {
                     const message = result.error.message || 'Authentication failed.';
                     const normalized = message.toLowerCase();
 
-                    if (authMode === 'signup' && (
-                        normalized.includes('already') ||
-                        normalized.includes('registered') ||
-                        normalized.includes('exists') ||
-                        normalized.includes('not available')
-                    )) {
-                        setAuthMode('signin');
-                        setAuthStatus('This email already has an account. Please log in instead.', true);
+                    if (normalized.includes('rate limit')) {
+                        const retrySeconds = setMagicLinkCooldown(parseRetrySeconds(message));
+                        setAuthStatus(`Too many attempts. Please wait about ${retrySeconds}s and try again.`, true);
                         return;
                     }
 
-                    if (authMode === 'signup' && normalized.includes('rate limit')) {
-                        const retrySeconds = setSignupCooldown(parseRetrySeconds(message));
-                        setAuthStatus(`Too many sign-up attempts. Please wait about ${retrySeconds}s, then try again or use Login.`, true);
+                    if (normalized.includes('signups not allowed') || normalized.includes('not allowed')) {
+                        setAuthStatus('Your email is not enabled for self-service login. Contact your instructor/admin.', true);
                         return;
                     }
 
@@ -837,16 +675,8 @@
                     return;
                 }
 
-                if (result.data && isSessionValid(result.data.session)) {
-                    showAuthenticatedApp(result.data.session, 'online');
-                    return;
-                }
-
-                if (authMode === 'signup') {
-                    setAuthStatus('Sign-up successful. Verify your email, then sign in.', false);
-                } else {
-                    setAuthStatus('Signed in, but session was not returned. Try again.', true);
-                }
+                setMagicLinkCooldown(AUTH_MAGIC_LINK_COOLDOWN_DEFAULT_SECONDS);
+                setAuthStatus('Check your school inbox for a magic sign-in link.', false);
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.style.opacity = '1';
@@ -855,23 +685,7 @@
 
         async function initSupabaseAuth() {
             const form = document.getElementById('authForm');
-            const signinBtn = document.getElementById('authModeSignin');
-            const signupBtn = document.getElementById('authModeSignup');
-
-            signinBtn.addEventListener('click', () => setAuthMode('signin'));
-            signupBtn.addEventListener('click', () => setAuthMode('signup'));
             form.addEventListener('submit', submitAuth);
-            setAuthMode('signin');
-
-            // wire forgot-password + recovery submit handlers
-            const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
-            const recoverySubmitBtn = document.getElementById('recoverySubmitBtn');
-            if (forgotPasswordBtn) {
-                forgotPasswordBtn.addEventListener('click', (e) => { e.preventDefault(); requestPasswordReset(); });
-            }
-            if (recoverySubmitBtn) {
-                recoverySubmitBtn.addEventListener('click', (e) => { e.preventDefault(); submitRecoveredPassword(); });
-            }
 
             const cachedSession = readCachedSession();
             if (cachedSession) {
@@ -894,13 +708,6 @@
             });
 
             supabaseClient.auth.onAuthStateChange((event, session) => {
-                // If user landed via a password recovery link, show the recovery panel
-                if (event === 'PASSWORD_RECOVERY') {
-                    showAuthOverlay('Recovery verified. Set your new password below.', false);
-                    showRecoveryPanel();
-                    return;
-                }
-
                 if (isSessionValid(session)) {
                     showAuthenticatedApp(session, 'online');
                     return;
