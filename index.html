@@ -369,14 +369,14 @@
     <div id="authOverlay" style="position: fixed; inset: 0; background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px;">
         <div style="background: #0f172a; border: 2px solid #06b6d4; border-radius: 20px; padding: 32px 24px; max-width: 420px; width: 100%; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5);">
             <h1 style="color: #06b6d4; font-size: 28px; font-weight: bold; margin-bottom: 8px;">NursePath</h1>
-            <p style="color: #94a3b8; font-size: 14px; margin-bottom: 14px;">Use your school email to receive a secure sign-in link</p>
+            <p style="color: #94a3b8; font-size: 14px; margin-bottom: 14px;">Use your cdd.edu.ph or personal email to receive a secure sign-in link</p>
 
             <div style="margin-bottom: 14px; padding: 10px 12px; border-radius: 10px; border: 1px solid #334155; background: #1e293b; color: #cbd5e1; font-size: 12px; font-weight: 600; text-align: left;">
-                Allowed domain: cdd.edu.ph
+                Demo mode: school and personal email addresses are allowed
             </div>
 
             <form id="authForm" style="display: grid; gap: 10px; margin-bottom: 8px;">
-                <input id="authEmail" type="email" placeholder="student@cdd.edu.ph" autocomplete="email" required style="width: 100%; padding: 14px; font-size: 15px; text-align: left; background: #1e293b; border: 1px solid #334155; border-radius: 12px; color: white;">
+                <input id="authEmail" type="email" placeholder="student@cdd.edu.ph or yourname@gmail.com" autocomplete="email" required style="width: 100%; padding: 14px; font-size: 15px; text-align: left; background: #1e293b; border: 1px solid #334155; border-radius: 12px; color: white;">
                 <button id="authSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 700; background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s;">Send Magic Link</button>
             </form>
 
@@ -445,10 +445,20 @@
     <script>
         const SIMULATION_KEY = 'nursepath_simulation_agreed';
         const SIMULATION_DURATION = 24 * 60 * 60 * 1000;
-        const AUTH_ALLOWED_DOMAIN = '@cdd.edu.ph';
         const SESSION_CACHE_KEY = 'nursepath_supabase_session_cache_v1';
         const AUTH_MAGIC_LINK_COOLDOWN_KEY = 'nursepath_magic_link_cooldown_until_v1';
         const AUTH_MAGIC_LINK_COOLDOWN_DEFAULT_SECONDS = 45;
+        const AUTH_EMAIL_LOG_KEY = 'nursepath_auth_email_log_v1';
+        const AUTH_EMAIL_LOG_TABLE = 'auth_email_log';
+        const EMAIL_TYPO_HINTS = {
+            'gmal.com': 'gmail.com',
+            'gmial.com': 'gmail.com',
+            'gmai.com': 'gmail.com',
+            'yaho.com': 'yahoo.com',
+            'yahho.com': 'yahoo.com',
+            'outlok.com': 'outlook.com',
+            'hotnail.com': 'hotmail.com'
+        };
         const SUPABASE_URL = window.NURSEPATH_SUPABASE_URL || 'https://oobrhmnvbxiqdbpjnnbn.supabase.co';
         const SUPABASE_ANON_KEY = window.NURSEPATH_SUPABASE_ANON_KEY || 'sb_publishable_wXKxmmY-s0c5yv7kDITMoA_jPmufAK2';
 
@@ -550,15 +560,62 @@
             return safeSeconds;
         }
 
-        function isAllowedDomain(email) {
-            return (email || '').trim().toLowerCase().endsWith(AUTH_ALLOWED_DOMAIN);
+        function normalizeEmail(email) {
+            return (email || '').trim().toLowerCase();
+        }
+
+        function isValidEmailFormat(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(normalizeEmail(email));
+        }
+
+        function getDomainTypoSuggestion(email) {
+            const parts = normalizeEmail(email).split('@');
+            if (parts.length !== 2) return null;
+            return EMAIL_TYPO_HINTS[parts[1]] || null;
+        }
+
+        function isAllowedAuthEmail(email) {
+            return isValidEmailFormat(email);
+        }
+
+        function saveEmailAttemptLocal(entry) {
+            const raw = localStorage.getItem(AUTH_EMAIL_LOG_KEY);
+            const list = raw ? JSON.parse(raw) : [];
+            list.push(entry);
+            const trimmed = list.slice(-300);
+            localStorage.setItem(AUTH_EMAIL_LOG_KEY, JSON.stringify(trimmed));
+        }
+
+        async function recordEmailAttempt(email, status, reason = '') {
+            const entry = {
+                email: normalizeEmail(email),
+                status,
+                reason,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                saveEmailAttemptLocal(entry);
+            } catch (e) {
+                // no-op for localStorage failures
+            }
+
+            if (!supabaseClient) {
+                return;
+            }
+
+            try {
+                await supabaseClient.from(AUTH_EMAIL_LOG_TABLE).insert(entry);
+            } catch (e) {
+                // table may not exist yet; keep local log as fallback
+            }
         }
 
         function isSessionValid(session) {
             if (!session || !session.access_token || !session.user || !session.user.email) {
                 return false;
             }
-            if (!isAllowedDomain(session.user.email)) {
+            if (!isAllowedAuthEmail(session.user.email)) {
                 return false;
             }
             if (session.expires_at && (Date.now() >= (session.expires_at * 1000))) {
@@ -645,15 +702,23 @@
             const emailInput = document.getElementById('authEmail');
             const submitBtn = document.getElementById('authSubmitBtn');
 
-            const email = (emailInput.value || '').trim().toLowerCase();
+            const email = normalizeEmail(emailInput.value || '');
 
             if (!email) {
-                setAuthStatus('Enter your school email to continue.', true);
+                setAuthStatus('Enter your email to continue.', true);
                 return;
             }
 
-            if (!isAllowedDomain(email)) {
-                setAuthStatus('This account is not authorized for this app.', true);
+            if (!isAllowedAuthEmail(email)) {
+                setAuthStatus('Enter a valid email address before requesting a magic link.', true);
+                void recordEmailAttempt(email, 'blocked_invalid_format', 'invalid_email_format');
+                return;
+            }
+
+            const typoSuggestion = getDomainTypoSuggestion(email);
+            if (typoSuggestion) {
+                setAuthStatus(`Did you mean @${typoSuggestion}? Please fix your email to avoid bounce errors.`, true);
+                void recordEmailAttempt(email, 'blocked_domain_typo', `suggested:${typoSuggestion}`);
                 return;
             }
 
@@ -692,20 +757,24 @@
                     if (normalized.includes('rate limit')) {
                         const retrySeconds = setMagicLinkCooldown(parseRetrySeconds(message));
                         setAuthStatus(`Too many attempts. Please wait about ${retrySeconds}s and try again.`, true);
+                        void recordEmailAttempt(email, 'failed_rate_limited', message);
                         return;
                     }
 
                     if (normalized.includes('signups not allowed') || normalized.includes('not allowed')) {
                         setAuthStatus('Your email is not enabled for self-service login. Contact your instructor/admin.', true);
+                        void recordEmailAttempt(email, 'failed_not_allowed', message);
                         return;
                     }
 
                     setAuthStatus(message, true);
+                    void recordEmailAttempt(email, 'failed_error', message);
                     return;
                 }
 
                 setMagicLinkCooldown(AUTH_MAGIC_LINK_COOLDOWN_DEFAULT_SECONDS);
-                setAuthStatus('Check your school inbox for a magic sign-in link.', false);
+                setAuthStatus('Check your inbox for a magic sign-in link.', false);
+                void recordEmailAttempt(email, 'magic_link_requested', 'request_sent');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.style.opacity = '1';
@@ -744,6 +813,7 @@
 
             supabaseClient.auth.onAuthStateChange((event, session) => {
                 if (isSessionValid(session)) {
+                    void recordEmailAttempt(session.user.email, 'authenticated', event || 'auth_state_change');
                     showAuthenticatedApp(session, 'online');
                     return;
                 }
