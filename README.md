@@ -50,6 +50,7 @@ The application operates entirely offline after initial installation, making it 
 - Batch sync to Supabase when internet returns
 - Session boundaries with session IDs and duration tracking
 - Consent-controlled tracking toggle on the auth overlay
+- Telemetry for vitals/IV/BMI/AOG is button-driven (`Simulate`/`Calculate`) instead of keystroke-driven, so results and logs occur only on explicit user action
 
 ### 💉 IV Flow Rate Practice Calculator
 - Demonstrates **mL/hr** calculations for infusion scenarios
@@ -159,6 +160,8 @@ For Ghost Persistence pilot mode, Supabase is used for logging only.
 1. Keep project URL and anon key configured in the app.
 2. Run the SQL setup below to create logging tables + insert policies.
 3. Confirm RLS is enabled and insert policy exists for `anon` and `authenticated`.
+
+No SQL schema change is required for button-driven telemetry. Existing `usage_events` columns and indexes remain valid.
 
 ### Supabase SQL Setup (Run In Order)
 
