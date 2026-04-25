@@ -1343,6 +1343,13 @@
                             <p class="text-sm">Enter all vital signs to generate assessment and medication recommendations...</p>
                         </div>
                     </div>
+
+                    <div class="mt-4 grid gap-2">
+                        <button id="record-vitals-btn" onclick="recordVitalSimulation()" class="w-full bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 py-3 rounded-xl font-bold transition-all shadow-lg shadow-cyan-900/30">
+                            <svg class="inline mr-2" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H5a2 2 0 0 0-2 2v14l4-4h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-6 9H9V7h2v5zm4-2h-2V7h2v3z"/></svg> Record Simulation
+                        </button>
+                        <p id="vitals-record-status" class="text-xs text-slate-400 min-h-[18px]"></p>
+                    </div>
                 </section>
 
                 <!-- TOOLS SECTION: IV CALCULATOR & BMI -->
@@ -1935,6 +1942,61 @@
                         findings_count: 0,
                         recommendation_count: 0
                     }, { minIntervalMs: 6000, rateKey: 'vitals_baseline' });
+                }
+            }
+        }
+
+        async function recordVitalSimulation() {
+            const sys = parseInt(document.getElementById('sys').value);
+            const dia = parseInt(document.getElementById('dia').value);
+            const temp = parseFloat(document.getElementById('temp').value);
+            const hr = parseInt(document.getElementById('hr').value);
+            const rr = parseInt(document.getElementById('rr').value);
+            const age = parseInt(document.getElementById('age').value);
+            const pregnancies = parseInt(document.getElementById('pregnancies').value);
+            const pregnant = document.getElementById('pregnant').value;
+            const conditions = document.getElementById('conditions').value;
+            const status = document.getElementById('vitals-record-status');
+
+            const hasCoreVitals = Number.isFinite(sys) && Number.isFinite(dia) && Number.isFinite(temp) && Number.isFinite(hr) && Number.isFinite(rr);
+            if (!hasCoreVitals) {
+                if (status) status.textContent = 'Enter systolic, diastolic, temp, pulse, and resp first.';
+                trackUsageSafe('vitals', 'error_shown', { reason: 'record_missing_required_inputs' }, { minIntervalMs: 2000, rateKey: 'record_missing_required_inputs' });
+                return;
+            }
+
+            const { diagnosis, recommendations } = generateDiagnosis(
+                sys,
+                dia,
+                temp,
+                hr,
+                rr,
+                Number.isFinite(age) ? age : 0,
+                Number.isFinite(pregnancies) ? pregnancies : 0,
+                pregnant,
+                conditions
+            );
+
+            trackUsageSafe('vitals', 'result_generated', {
+                source: 'record_button',
+                findings_count: diagnosis.length,
+                recommendation_count: recommendations.length,
+                has_comorbidity: conditions !== 'none',
+                pregnant
+            }, { minIntervalMs: 500, rateKey: `record_btn_${Date.now()}` });
+
+            if (status) {
+                status.textContent = navigator.onLine
+                    ? 'Recorded. Syncing now...'
+                    : 'Recorded offline. Will sync when internet returns.';
+            }
+
+            if (navigator.onLine && typeof flushUsageEvents === 'function') {
+                try {
+                    await flushUsageEvents();
+                    if (status) status.textContent = 'Recorded and sent to Supabase.';
+                } catch (err) {
+                    if (status) status.textContent = 'Recorded locally. Supabase sync will retry.';
                 }
             }
         }
