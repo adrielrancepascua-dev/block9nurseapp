@@ -217,8 +217,9 @@
         .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
         .shadow-blue-900-30 { box-shadow: 0 10px 15px -3px rgba(30, 58, 138, 0.3); }
         .shadow-emerald-900-30 { box-shadow: 0 10px 15px -3px rgba(4, 120, 87, 0.3); }
-        input, select, textarea { min-height: 44px; min-width: 44px; padding: 12px; font-size: 16px; border: 1px solid #334155; background: #0f172a; color: #e2e8f0; border-radius: 0.75rem; -webkit-appearance: none; appearance: none; }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3); }
+        input:not([type="checkbox"]):not([type="radio"]), select, textarea { min-height: 44px; min-width: 44px; padding: 12px; font-size: 16px; border: 1px solid #334155; background: #0f172a; color: #e2e8f0; border-radius: 0.75rem; -webkit-appearance: none; appearance: none; }
+        input:not([type="checkbox"]):not([type="radio"]):focus, select:focus, textarea:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3); }
+        input[type="checkbox"], input[type="radio"] { -webkit-appearance: auto !important; appearance: auto !important; min-height: auto; min-width: auto; padding: 0; border-radius: 0; background: transparent; }
         button { min-height: 44px; min-width: 44px; padding: 12px; cursor: pointer; border: none; border-radius: 0.875rem; font-weight: 700; transition: all 0.3s; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
         button:active { transform: scale(0.98); }
         .transition { transition: all 0.3s; }
@@ -267,7 +268,7 @@
         /* Mobile Optimizations */
         @media (max-width: 768px) {
             /* Force 16px inputs to prevent iOS zoom */
-            input, select, textarea {
+            input:not([type="checkbox"]):not([type="radio"]), select, textarea {
                 font-size: 16px !important;
                 min-height: 48px !important;
             }
@@ -363,7 +364,7 @@
         }
         
         /* iOS specific: improve form input appearance */
-        input, select, textarea {
+        input:not([type="checkbox"]):not([type="radio"]), select, textarea {
             -webkit-appearance: none;
             appearance: none;
             border-radius: 0.75rem;
@@ -396,27 +397,9 @@
             </form>
 
             <label style="display:flex; align-items:flex-start; gap:8px; margin-bottom: 10px; text-align:left;">
-                <input id="usageConsent" type="checkbox" checked style="margin-top:2px; width:16px; height:16px; min-height:16px; min-width:16px; accent-color:#06b6d4;">
+                <input id="usageConsent" type="checkbox" style="margin-top:2px; width:16px; height:16px; min-height:16px; min-width:16px; accent-color:#06b6d4; cursor:pointer;">
                 <span style="color:#94a3b8; font-size:12px; line-height:1.35;">I consent to anonymous usage tracking for academic pilot evaluation.</span>
             </label>
-
-            <div style="display:flex; justify-content:center; margin-bottom: 10px;">
-                <button id="helpAccessBtn" type="button" style="background: transparent; border: none; color: #94a3b8; font-size: 12px; font-weight: 600; padding: 4px 0; text-decoration: underline; cursor: pointer;">Can't access school email?</button>
-            </div>
-
-            <div id="accessHelpPanel" style="display:none; text-align:left; background: #071225; border: 1px solid #334155; padding: 12px; border-radius: 10px; margin-bottom: 10px;">
-                <p style="color:#cbd5e1; font-size:13px; margin-bottom:8px;">If you cannot access your school inbox, try the options below:</p>
-                <ol style="color:#94a3b8; font-size:12px; margin-left:18px; margin-bottom:8px;">
-                    <li>Confirm with your school that an email mailbox exists for your student account.</li>
-                    <li>Ask IT to enable/activate your mailbox or set forwarding to a personal address.</li>
-                    <li>Ask your instructor to whitelist your personal email or create an account for you.</li>
-                </ol>
-                <div style="display:flex; gap:8px; align-items:center;">
-                    <a id="emailItLink" href="mailto:it@cdd.edu.ph?subject=Enable%20student%20email%20account&body=Hello%20IT%2C%0A%0ACan%20you%20please%20enable%20email%20for%20my%20student%20account%20(student%40cdd.edu.ph)%3F%0A%0AMy%20full%20name%3A%0AStudent%20ID%3A%0A%0AThank%20you%2C" style="background:#0f172a; color:#cbd5e1; padding:8px 10px; border-radius:8px; border:1px solid #334155; text-decoration:none;">Email IT</a>
-                    <a id="emailInstructorLink" href="mailto:instructor@cdd.edu.ph?subject=Request%20to%20whitelist%20personal%20email&body=Hello%20Instructor%2C%0A%0AI%20cannot%20access%20my%20school%20email%20(student%40cdd.edu.ph).%20Please%20whitelist%20my%20personal%20email%20(yourpersonal%40gmail.com)%20so%20I%20can%20login.%0A%0AThank%20you%2C" style="background:#0f172a; color:#cbd5e1; padding:8px 10px; border-radius:8px; border:1px solid #334155; text-decoration:none;">Contact Instructor</a>
-                    <button id="closeAccessHelpBtn" type="button" style="background: transparent; border: none; color: #94a3b8; font-size: 12px; padding: 8px 10px; cursor:pointer;">Close</button>
-                </div>
-            </div>
 
             <p id="authStatus" style="color: #f59e0b; font-size: 12px; min-height: 18px; margin-bottom: 8px;"></p>
         </div>
@@ -545,18 +528,6 @@
             }
         }
 
-        // Help panel for students without an active school inbox
-        function showAccessHelpPanel() {
-            const panel = document.getElementById('accessHelpPanel');
-            if (panel) panel.style.display = 'block';
-            trackUsageEvent('auth', 'help_opened', { panel: 'access_help' }, { minIntervalMs: 2000, rateKey: 'access_help' });
-        }
-
-        function hideAccessHelpPanel() {
-            const panel = document.getElementById('accessHelpPanel');
-            if (panel) panel.style.display = 'none';
-        }
-
         function safeUuid() {
             if (window.crypto && typeof window.crypto.randomUUID === 'function') {
                 return window.crypto.randomUUID();
@@ -566,7 +537,7 @@
 
         function readUsageConsent() {
             const raw = localStorage.getItem(USAGE_CONSENT_KEY);
-            if (raw === null) return true;
+            if (raw === null) return false;
             return raw === '1';
         }
 
@@ -1048,8 +1019,17 @@
             event.preventDefault();
             const emailInput = document.getElementById('authEmail');
             const submitBtn = document.getElementById('authSubmitBtn');
+            const usageConsent = document.getElementById('usageConsent');
 
             const email = normalizeEmail(emailInput.value || '');
+
+            if (!usageConsent || !usageConsent.checked) {
+                setUsageConsent(false);
+                setAuthStatus('You must consent to usage tracking to access formal testing.', true);
+                trackUsageEvent('consent', 'error_shown', { reason: 'consent_required' }, { minIntervalMs: 2000, rateKey: 'consent_required' });
+                return;
+            }
+            setUsageConsent(true);
 
             if (!email) {
                 setAuthStatus('Enter your email to continue.', true);
@@ -1114,23 +1094,31 @@
             const form = document.getElementById('authForm');
             form.addEventListener('submit', submitAuth);
 
-            // help panel wiring
-            const helpAccessBtn = document.getElementById('helpAccessBtn');
-            const closeAccessHelpBtn = document.getElementById('closeAccessHelpBtn');
             const usageConsent = document.getElementById('usageConsent');
-            if (helpAccessBtn) helpAccessBtn.addEventListener('click', (e) => { e.preventDefault(); showAccessHelpPanel(); });
-            if (closeAccessHelpBtn) closeAccessHelpBtn.addEventListener('click', (e) => { e.preventDefault(); hideAccessHelpPanel(); });
+
+            function updateConsentRequirementUI() {
+                const submitBtn = document.getElementById('authSubmitBtn');
+                if (!usageConsent || !submitBtn) return;
+                const allowed = usageConsent.checked;
+                submitBtn.disabled = !allowed;
+                submitBtn.style.opacity = allowed ? '1' : '0.55';
+                submitBtn.style.cursor = allowed ? 'pointer' : 'not-allowed';
+            }
 
             if (usageConsent) {
                 usageConsent.checked = readUsageConsent();
                 usageConsent.addEventListener('change', () => {
                     setUsageConsent(Boolean(usageConsent.checked));
+                    updateConsentRequirementUI();
                     if (usageConsent.checked) {
                         trackUsageEvent('consent', 'feature_use', { value: 'enabled' }, { minIntervalMs: 500, rateKey: 'consent_enabled' });
                         void flushUsageEvents();
+                    } else {
+                        trackUsageEvent('consent', 'feature_use', { value: 'disabled' }, { minIntervalMs: 500, rateKey: 'consent_disabled' });
                     }
                 });
             }
+            updateConsentRequirementUI();
 
             initUsageTracking();
 

@@ -287,25 +287,9 @@ The app stores sign-in email attempts in local browser storage and queues failed
 
 If a user typed the wrong email and the device is sealed, tap the NursePath header logo 5 times to clear local pilot identity and reload.
 
-### Fallback if you cannot access your school inbox
+### Formal Testing Requirement
 
-If your student account does not have an active mailbox, Ghost Persistence still allows pilot entry because email inbox access is not required for demo auth. Options:
-
-- Contact your school's IT department and ask them to enable your mailbox or forward mail to your personal account. Use this template subject/body when emailing IT:
-
-  Subject: Enable student email account
-
-  Body: Hello IT,
-
-  Can you please enable email for my student account (student@cdd.edu.ph)?
-
-  Full name:
-  Student ID:
-
-  Thank you,
-
-- Ask your instructor to whitelist your personal email or create a user entry for you in the system so you can sign in while IT resolves the mailbox.
-- As a temporary testing step (development only), an instructor or admin can still review local/Supabase email logs to verify participant identities.
+For formal testing, participants must actively check the usage-tracking consent checkbox before they can tap Get Started.
 
 ---
 
