@@ -395,6 +395,11 @@
                 <button id="authSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 700; background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s;">Get Started</button>
             </form>
 
+            <label style="display:flex; align-items:flex-start; gap:8px; margin-bottom: 10px; text-align:left;">
+                <input id="usageConsent" type="checkbox" checked style="margin-top:2px; width:16px; height:16px; min-height:16px; min-width:16px; accent-color:#06b6d4;">
+                <span style="color:#94a3b8; font-size:12px; line-height:1.35;">I consent to anonymous usage tracking for academic pilot evaluation.</span>
+            </label>
+
             <div style="display:flex; justify-content:center; margin-bottom: 10px;">
                 <button id="helpAccessBtn" type="button" style="background: transparent; border: none; color: #94a3b8; font-size: 12px; font-weight: 600; padding: 4px 0; text-decoration: underline; cursor: pointer;">Can't access school email?</button>
             </div>
@@ -467,6 +472,12 @@
         const AUTH_EMAIL_LOG_KEY = 'nursepath_auth_email_log_v1';
         const AUTH_PENDING_LOG_KEY = 'nursepath_pending_auth_email_log_v1';
         const AUTH_EMAIL_LOG_TABLE = 'auth_email_log';
+        const USAGE_CONSENT_KEY = 'nursepath_usage_consent_v1';
+        const USAGE_QUEUE_KEY = 'nursepath_usage_queue_v1';
+        const USAGE_SESSION_KEY = 'nursepath_usage_session_v1';
+        const USAGE_EVENTS_TABLE = 'usage_events';
+        const USAGE_QUEUE_LIMIT = 1000;
+        const USAGE_SESSION_TIMEOUT_MS = 30 * 60 * 1000;
         const EMAIL_TYPO_HINTS = {
             'gmal.com': 'gmail.com',
             'gmial.com': 'gmail.com',
@@ -485,6 +496,8 @@
             booted: false,
             pendingBoot: false
         };
+        const usageRateLimitMap = new Map();
+        let usageSessionEndingSent = false;
 
         function checkSimulationAgreement() {
             const stored = localStorage.getItem(SIMULATION_KEY);
@@ -526,17 +539,265 @@
             }
             statusEl.textContent = message || '';
             statusEl.style.color = isError ? '#f87171' : '#f59e0b';
+
+            if (isError && message) {
+                trackUsageEvent('auth', 'error_shown', { context: 'auth_overlay' }, { minIntervalMs: 4000, rateKey: message.slice(0, 40) });
+            }
         }
 
         // Help panel for students without an active school inbox
         function showAccessHelpPanel() {
             const panel = document.getElementById('accessHelpPanel');
             if (panel) panel.style.display = 'block';
+            trackUsageEvent('auth', 'help_opened', { panel: 'access_help' }, { minIntervalMs: 2000, rateKey: 'access_help' });
         }
 
         function hideAccessHelpPanel() {
             const panel = document.getElementById('accessHelpPanel');
             if (panel) panel.style.display = 'none';
+        }
+
+        function safeUuid() {
+            if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+                return window.crypto.randomUUID();
+            }
+            return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+        }
+
+        function readUsageConsent() {
+            const raw = localStorage.getItem(USAGE_CONSENT_KEY);
+            if (raw === null) return true;
+            return raw === '1';
+        }
+
+        function setUsageConsent(enabled) {
+            localStorage.setItem(USAGE_CONSENT_KEY, enabled ? '1' : '0');
+        }
+
+        function readUsageQueue() {
+            const raw = localStorage.getItem(USAGE_QUEUE_KEY);
+            if (!raw) return [];
+            try {
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function writeUsageQueue(queue) {
+            localStorage.setItem(USAGE_QUEUE_KEY, JSON.stringify(queue.slice(-USAGE_QUEUE_LIMIT)));
+        }
+
+        function readUsageSessionState() {
+            const raw = localStorage.getItem(USAGE_SESSION_KEY);
+            if (!raw) return null;
+            try {
+                const parsed = JSON.parse(raw);
+                return parsed && parsed.session_id ? parsed : null;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function writeUsageSessionState(state) {
+            localStorage.setItem(USAGE_SESSION_KEY, JSON.stringify(state));
+        }
+
+        function queueUsageEventRaw(event) {
+            const queue = readUsageQueue();
+            queue.push(event);
+            writeUsageQueue(queue);
+        }
+
+        function getUsageSessionId(now = Date.now()) {
+            let session = readUsageSessionState();
+
+            if (!session) {
+                session = {
+                    session_id: safeUuid(),
+                    started_at: new Date(now).toISOString(),
+                    last_activity_at: new Date(now).toISOString(),
+                    ended_at: null
+                };
+                writeUsageSessionState(session);
+                queueUsageEventRaw({
+                    event_id: safeUuid(),
+                    user_email: (readGhostUser() || {}).email || null,
+                    session_id: session.session_id,
+                    feature: 'session',
+                    action: 'session_start',
+                    timestamp: new Date(now).toISOString(),
+                    online: navigator.onLine,
+                    duration_ms: 0,
+                    meta: { reason: 'app_start' }
+                });
+                usageSessionEndingSent = false;
+                return session.session_id;
+            }
+
+            const lastActivityMs = new Date(session.last_activity_at || session.started_at).getTime();
+            const timedOut = Number.isFinite(lastActivityMs) && (now - lastActivityMs > USAGE_SESSION_TIMEOUT_MS);
+            const alreadyEnded = Boolean(session.ended_at);
+
+            if (timedOut || alreadyEnded) {
+                if (!alreadyEnded) {
+                    const startedMs = new Date(session.started_at).getTime();
+                    queueUsageEventRaw({
+                        event_id: safeUuid(),
+                        user_email: (readGhostUser() || {}).email || null,
+                        session_id: session.session_id,
+                        feature: 'session',
+                        action: 'session_end',
+                        timestamp: new Date(now).toISOString(),
+                        online: navigator.onLine,
+                        duration_ms: Number.isFinite(startedMs) ? Math.max(0, now - startedMs) : 0,
+                        meta: { reason: timedOut ? 'inactivity_timeout' : 'resume_after_end' }
+                    });
+                }
+
+                session = {
+                    session_id: safeUuid(),
+                    started_at: new Date(now).toISOString(),
+                    last_activity_at: new Date(now).toISOString(),
+                    ended_at: null
+                };
+                writeUsageSessionState(session);
+                queueUsageEventRaw({
+                    event_id: safeUuid(),
+                    user_email: (readGhostUser() || {}).email || null,
+                    session_id: session.session_id,
+                    feature: 'session',
+                    action: 'session_start',
+                    timestamp: new Date(now).toISOString(),
+                    online: navigator.onLine,
+                    duration_ms: 0,
+                    meta: { reason: timedOut ? 'resume_after_timeout' : 'resume_after_end' }
+                });
+                usageSessionEndingSent = false;
+                return session.session_id;
+            }
+
+            session.last_activity_at = new Date(now).toISOString();
+            writeUsageSessionState(session);
+            return session.session_id;
+        }
+
+        function endUsageSession(reason) {
+            if (usageSessionEndingSent) {
+                return;
+            }
+
+            const session = readUsageSessionState();
+            if (!session || session.ended_at) {
+                return;
+            }
+
+            const now = Date.now();
+            const startedMs = new Date(session.started_at).getTime();
+            queueUsageEventRaw({
+                event_id: safeUuid(),
+                user_email: (readGhostUser() || {}).email || null,
+                session_id: session.session_id,
+                feature: 'session',
+                action: 'session_end',
+                timestamp: new Date(now).toISOString(),
+                online: navigator.onLine,
+                duration_ms: Number.isFinite(startedMs) ? Math.max(0, now - startedMs) : 0,
+                meta: { reason: reason || 'page_exit' }
+            });
+
+            session.ended_at = new Date(now).toISOString();
+            writeUsageSessionState(session);
+            usageSessionEndingSent = true;
+        }
+
+        async function flushUsageEvents() {
+            if (!supabaseClient || !navigator.onLine || !readUsageConsent()) {
+                return;
+            }
+
+            const queue = readUsageQueue();
+            if (!queue.length) {
+                return;
+            }
+
+            try {
+                const { error } = await supabaseClient.from(USAGE_EVENTS_TABLE).insert(queue);
+                if (!error) {
+                    localStorage.removeItem(USAGE_QUEUE_KEY);
+                }
+            } catch (e) {
+                // Keep queued events for retry.
+            }
+        }
+
+        function trackUsageEvent(feature, action, meta = {}, options = {}) {
+            if (!readUsageConsent()) {
+                return;
+            }
+
+            const now = Date.now();
+            const minIntervalMs = options.minIntervalMs || 0;
+            const key = `${feature}:${action}:${options.rateKey || ''}`;
+            if (minIntervalMs > 0) {
+                const lastTs = usageRateLimitMap.get(key) || 0;
+                if (now - lastTs < minIntervalMs) {
+                    return;
+                }
+                usageRateLimitMap.set(key, now);
+            }
+
+            const ghostUser = readGhostUser();
+            const sessionId = getUsageSessionId(now);
+            const event = {
+                event_id: safeUuid(),
+                user_email: options.userEmail ? normalizeEmail(options.userEmail) : (ghostUser ? ghostUser.email : null),
+                session_id: sessionId,
+                feature,
+                action,
+                timestamp: new Date(now).toISOString(),
+                online: navigator.onLine,
+                duration_ms: Number.isFinite(options.durationMs) ? options.durationMs : null,
+                meta: meta || {}
+            };
+
+            queueUsageEventRaw(event);
+            if (navigator.onLine) {
+                void flushUsageEvents();
+            }
+        }
+
+        function initUsageTracking() {
+            if (readUsageConsent()) {
+                getUsageSessionId();
+            }
+
+            window.trackUsageEvent = trackUsageEvent;
+            window.flushUsageEvents = flushUsageEvents;
+
+            window.addEventListener('online', () => {
+                void flushUsageEvents();
+            });
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'hidden') {
+                    endUsageSession('visibility_hidden');
+                    void flushUsageEvents();
+                } else {
+                    usageSessionEndingSent = false;
+                    getUsageSessionId();
+                    trackUsageEvent('session', 'feature_open', { reason: 'tab_visible' }, { minIntervalMs: 5000, rateKey: 'tab_visible' });
+                }
+            });
+
+            window.addEventListener('pagehide', () => {
+                endUsageSession('pagehide');
+            });
+
+            window.addEventListener('beforeunload', () => {
+                endUsageSession('beforeunload');
+            });
         }
 
         function parseRetrySeconds(message) {
@@ -796,7 +1057,7 @@
             }
 
             if (!isAllowedAuthEmail(email)) {
-                setAuthStatus('Enter a valid email address before requesting a magic link.', true);
+                setAuthStatus('Enter a valid email address before starting the pilot.', true);
                 void recordEmailAttempt(email, 'blocked_invalid_format', 'invalid_email_format');
                 return;
             }
@@ -811,23 +1072,14 @@
             const remainingMs = readMagicLinkCooldownMs();
             if (remainingMs > 0) {
                 const remainingSeconds = Math.ceil(remainingMs / 1000);
-                setAuthStatus(`Please wait ${remainingSeconds}s before requesting another magic link.`, true);
-                return;
-            }
-
-            if (!navigator.onLine) {
-                setAuthStatus('Offline sign-in is unavailable without a cached valid session.', true);
-                return;
-            }
-
-            if (!supabaseClient) {
-                setAuthStatus('Supabase client is not configured. Set URL and anon key first.', true);
+                setAuthStatus(`Please wait ${remainingSeconds}s before another pilot start attempt.`, true);
                 return;
             }
 
             submitBtn.disabled = true;
             submitBtn.style.opacity = '0.7';
             setAuthStatus('Sealing this device for pilot access...', false);
+            trackUsageEvent('auth', 'feature_use', { action: 'pilot_login_submit' }, { userEmail: email, minIntervalMs: 1000, rateKey: 'pilot_login_submit' });
 
             try {
                 // Best-effort logging only. Pilot access should not be blocked by network errors.
@@ -850,6 +1102,7 @@
                 setMagicLinkCooldown(AUTH_MAGIC_LINK_COOLDOWN_DEFAULT_SECONDS);
                 saveGhostUser(email);
                 void recordEmailAttempt(email, 'pilot_login_sealed', navigator.onLine ? 'online_or_partial' : 'offline');
+                trackUsageEvent('auth', 'result_generated', { action: 'pilot_login_sealed' }, { userEmail: email, minIntervalMs: 1000, rateKey: 'pilot_login_sealed' });
                 showAuthenticatedApp(email, 'ghost');
             } finally {
                 submitBtn.disabled = false;
@@ -864,10 +1117,25 @@
             // help panel wiring
             const helpAccessBtn = document.getElementById('helpAccessBtn');
             const closeAccessHelpBtn = document.getElementById('closeAccessHelpBtn');
+            const usageConsent = document.getElementById('usageConsent');
             if (helpAccessBtn) helpAccessBtn.addEventListener('click', (e) => { e.preventDefault(); showAccessHelpPanel(); });
             if (closeAccessHelpBtn) closeAccessHelpBtn.addEventListener('click', (e) => { e.preventDefault(); hideAccessHelpPanel(); });
 
+            if (usageConsent) {
+                usageConsent.checked = readUsageConsent();
+                usageConsent.addEventListener('change', () => {
+                    setUsageConsent(Boolean(usageConsent.checked));
+                    if (usageConsent.checked) {
+                        trackUsageEvent('consent', 'feature_use', { value: 'enabled' }, { minIntervalMs: 500, rateKey: 'consent_enabled' });
+                        void flushUsageEvents();
+                    }
+                });
+            }
+
+            initUsageTracking();
+
             if (checkAuth()) {
+                trackUsageEvent('auth', 'session_start', { source: 'ghost_auto_bypass' }, { minIntervalMs: 1000, rateKey: 'ghost_auto_bypass' });
                 return;
             }
 
@@ -885,9 +1153,8 @@
             });
 
             await flushPendingEmailLogs();
-            window.addEventListener('online', () => {
-                void flushPendingEmailLogs();
-            });
+            await flushUsageEvents();
+            window.addEventListener('online', () => { void flushPendingEmailLogs(); });
 
             showAuthOverlay('Enter email and tap Get Started.', false);
         }
@@ -1260,7 +1527,7 @@
         </div> <!-- End content-otc -->
 
     <footer class="mt-12 py-6 text-center text-slate-500 border-t border-slate-800">
-        <p class="text-xs">This tool is for educational purposes only. Always consult qualified healthcare professionals. Data is not stored.</p>
+        <p class="text-xs">This tool is for educational purposes only. Always consult qualified healthcare professionals. Pilot usage metadata may be logged with consent.</p>
     </footer>
 
     <script>
@@ -1330,6 +1597,15 @@
             tachypnea: { symptoms: "Respiratory rate >20/min", meds: ["Ref: Supplemental O2 if SpO2 <94%", "Ref: Anxiety reduction techniques"], actions: "📚 In simulation, assess for underlying causes (anxiety, pain, infection). Document oxygen saturation if available." },
             hypoxia: { symptoms: "SpO2 <94% (if measured)", meds: ["Ref: Oxygen therapy per protocol"], actions: "📚 In simulation, elevate HOB, ensure airway patency. Document SpO2 trend. Consult CI for intervention guidance." }
         };
+
+        function trackUsageSafe(feature, action, meta = {}, options = {}) {
+            if (typeof window.trackUsageEvent === 'function') {
+                window.trackUsageEvent(feature, action, meta, options);
+            }
+        }
+
+        let lastVitalsSignature = '';
+        let lastVitalsSignatureAt = 0;
 
         // Helper: Get age group from age
         function getAgeGroup(age) {
@@ -1640,6 +1916,18 @@
                 
                 badge.innerText = displayPriority;
                 badge.className = `px-4 py-2 rounded-full text-xs font-bold font-mono ${badgeColor} bg-slate-800 border border-current shadow-lg`;
+
+                const sig = `${displayPriority}|${diagnosis.length}|${recommendations.length}`;
+                const now = Date.now();
+                if (sig !== lastVitalsSignature && (now - lastVitalsSignatureAt) > 2000) {
+                    lastVitalsSignature = sig;
+                    lastVitalsSignatureAt = now;
+                    trackUsageSafe('vitals', 'result_generated', {
+                        priority: displayPriority,
+                        findings_count: diagnosis.length,
+                        recommendation_count: recommendations.length
+                    }, { minIntervalMs: 3000, rateKey: sig });
+                }
             } else {
                 box.innerHTML = `<div class="text-center text-slate-400">
                     <svg class="inline text-2xl text-green-500 mb-2" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
@@ -1648,6 +1936,18 @@
                 </div>`;
                 badge.innerText = "✓ BASELINE";
                 badge.className = `px-4 py-2 rounded-full text-xs font-bold font-mono text-green-400 bg-slate-800 border border-green-500 shadow-lg`;
+
+                const sig = 'baseline';
+                const now = Date.now();
+                if (sig !== lastVitalsSignature && (now - lastVitalsSignatureAt) > 2000) {
+                    lastVitalsSignature = sig;
+                    lastVitalsSignatureAt = now;
+                    trackUsageSafe('vitals', 'result_generated', {
+                        priority: 'BASELINE',
+                        findings_count: 0,
+                        recommendation_count: 0
+                    }, { minIntervalMs: 6000, rateKey: 'vitals_baseline' });
+                }
             }
         }
 
@@ -1705,6 +2005,10 @@
                 
                 document.getElementById('mlhr').innerText = mlPerHour.toFixed(1) + " mL/hr";
                 document.getElementById('iv-result').innerText = gttPerMin + " gtt/min";
+                trackUsageSafe('iv_calc', 'result_generated', {
+                    result_state: 'computed',
+                    has_value: true
+                }, { minIntervalMs: 1500, rateKey: 'iv_calc_computed' });
             } else {
                 document.getElementById('iv-result').innerText = "-- gtt/min";
                 document.getElementById('mlhr').innerText = "-- mL/hr";
@@ -1736,11 +2040,17 @@
 
                 document.getElementById('bmi-result').innerText = bmi;
                 document.getElementById('bmi-status').innerHTML = `<span class="${categoryColor} font-bold">Category: ${category}</span>`;
+                trackUsageSafe('bmi', 'result_generated', {
+                    category,
+                    has_value: true
+                }, { minIntervalMs: 1500, rateKey: `bmi_${category}` });
             }
         }
 
         // ============= TAB SWITCHING FUNCTION =============
         function switchMainTab(tab) {
+            trackUsageSafe('navigation', 'feature_open', { tab }, { minIntervalMs: 700, rateKey: `tab_${tab}` });
+
             // Hide all tab contents
             document.getElementById('content-tools').classList.add('hidden');
             document.getElementById('content-otc').classList.add('hidden');
@@ -1777,6 +2087,7 @@
             if (!lmpInput) {
                 document.getElementById('aog-result').innerText = 'Please enter LMP date';
                 document.getElementById('aog-result').className = 'text-lg font-mono font-bold text-red-400';
+                trackUsageSafe('aog_edd', 'error_shown', { reason: 'missing_lmp' }, { minIntervalMs: 2000, rateKey: 'aog_missing_lmp' });
                 return;
             }
             
@@ -1787,6 +2098,7 @@
             if (lmp > calcDate) {
                 document.getElementById('aog-result').innerText = 'LMP cannot be after calculation date';
                 document.getElementById('aog-result').className = 'text-lg font-mono font-bold text-red-400';
+                trackUsageSafe('aog_edd', 'error_shown', { reason: 'lmp_after_calc_date' }, { minIntervalMs: 2000, rateKey: 'aog_invalid_dates' });
                 return;
             }
             
@@ -1842,6 +2154,11 @@
             
             document.getElementById('trimester-result').innerText = trimester;
             document.getElementById('trimester-info').innerText = trimesterInfo;
+
+            trackUsageSafe('aog_edd', 'result_generated', {
+                trimester,
+                due_state: daysRemaining > 0 ? 'future' : (daysRemaining === 0 ? 'today' : 'past_due')
+            }, { minIntervalMs: 1500, rateKey: `aog_${trimester}` });
             
             // Show pregnancy milestones
             showPregnancyMilestones(weeks, days, calcDate, lmp);
@@ -2927,6 +3244,10 @@
         }
 
         function showOTCDetail(item){
+            trackUsageSafe('otc_ref', 'feature_open', {
+                item_id: item.id || 'unknown'
+            }, { minIntervalMs: 1000, rateKey: `otc_open_${item.id || 'unknown'}` });
+
             // TLDR (short) content - always uses the short fields
             const tldrContent = `
                 <div class="space-y-2 text-sm text-slate-300">
@@ -2966,6 +3287,7 @@
             let html = `
                 <h3 class="font-bold text-xl text-amber-300 mb-1">${item.name}</h3>
                 <p class="text-xs text-slate-400 mb-3">Philippine Brand Names: ${item.ph_brands.join(', ')}</p>
+                <button onclick="copyOTCReference()" class="mb-3 px-3 py-2 text-xs font-semibold rounded-lg transition" style="background: linear-gradient(135deg, #0e7490, #0f766e); color: white; border: 1px solid #14b8a6;">Copy Quick Reference</button>
                 
                 ${hasAdditionalInfo ? `
                 <!-- Tab Buttons -->
@@ -2984,6 +3306,7 @@
                 ` : tldrContent}
             `;
             otcDetailEl.innerHTML = html;
+            window.__nursepathSelectedOtc = item;
             
             // On mobile: hide list, show detail container full width
             const isMobile = window.innerWidth < 768;
@@ -3001,6 +3324,34 @@
             document.getElementById('otc-list-container').classList.remove('hidden');
             document.getElementById('otc-detail-container').classList.add('hidden');
             document.getElementById('otc-list-container').scrollIntoView({behavior:'smooth', block:'start'});
+            trackUsageSafe('otc_ref', 'feature_use', { action: 'back_to_list' }, { minIntervalMs: 1000, rateKey: 'otc_back_to_list' });
+        }
+
+        async function copyOTCReference() {
+            const item = window.__nursepathSelectedOtc;
+            if (!item) return;
+
+            const info = item.additionalInfo || {};
+            const payload = [
+                `Medicine: ${item.name}`,
+                `Brands: ${item.ph_brands.join(', ')}`,
+                `Uses: ${item.uses}`,
+                `When to Give: ${item.whenToGive}`,
+                `Contraindications: ${item.contraindications}`,
+                info.drugClass ? `Drug Class: ${info.drugClass}` : ''
+            ].filter(Boolean).join('\n');
+
+            try {
+                await navigator.clipboard.writeText(payload);
+                trackUsageSafe('otc_ref', 'copy_reference', {
+                    item_id: item.id || 'unknown',
+                    source: 'otc_detail'
+                }, { minIntervalMs: 1200, rateKey: `otc_copy_${item.id || 'unknown'}` });
+            } catch (err) {
+                trackUsageSafe('otc_ref', 'error_shown', {
+                    reason: 'clipboard_failed'
+                }, { minIntervalMs: 1500, rateKey: 'otc_copy_error' });
+            }
         }
         
         function switchOTCTab(tab) {
@@ -3008,6 +3359,8 @@
             const additionalTab = document.getElementById('additional-tab');
             const tldrContent = document.getElementById('tldr-content');
             const additionalContent = document.getElementById('additional-content');
+
+            trackUsageSafe('otc_ref', 'feature_use', { tab }, { minIntervalMs: 500, rateKey: `otc_tab_${tab}` });
             
             if (tab === 'tldr') {
                 tldrTab.style.background = 'linear-gradient(135deg, #06b6d4, #0891b2)';
@@ -3038,6 +3391,9 @@
             renderOTCSidebar();
             window.__nursepathAuthState.booted = true;
             window.__nursepathAuthState.pendingBoot = false;
+            trackUsageSafe('session', 'session_start', {
+                source: 'app_boot'
+            }, { minIntervalMs: 2000, rateKey: 'app_boot_session_start' });
         };
 
         if (window.__nursepathAuthState && window.__nursepathAuthState.pendingBoot) {
