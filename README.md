@@ -43,6 +43,8 @@ The application operates entirely offline after initial installation, making it 
 - Enter email once and the device is locally sealed for auto-bypass on next launches
 - Built-in cooldown and typo-domain checks (e.g. gmal.com) to reduce bounce backs
 - Best-effort email logging (local always, Supabase when online)
+- Access modes: `Demo` (open testing), `Pilot` (allowlisted domain or invite code), `Admin` (faculty token)
+- Visible `Logout` and `Faculty Reset` controls are available in-app
 
 ### 📈 Offline Usage Analytics Queue
 - Meaningful events only: session_start, session_end, feature_open, feature_use, result_generated, copy_reference, help_opened, error_shown
@@ -51,6 +53,8 @@ The application operates entirely offline after initial installation, making it 
 - Session boundaries with session IDs and duration tracking
 - Consent-controlled tracking toggle on the auth overlay
 - Telemetry for vitals/IV/BMI/AOG is button-driven (`Simulate`/`Calculate`) instead of keystroke-driven, so results and logs occur only on explicit user action
+- Anonymous by default for usage events unless explicitly enabled via runtime config
+- Built-in pilot metrics snapshot panel and CSV export for faculty review
 
 ### 💉 IV Flow Rate Practice Calculator
 - Demonstrates **mL/hr** calculations for infusion scenarios
@@ -144,12 +148,15 @@ All educational content in NursePath is derived from standard nursing textbooks 
 
 ### Login Method
 
-Users start the pilot by entering an email once.
+Users start by selecting an access mode and entering an email.
 
-1. Enter a valid email on the login screen.
-2. Tap Get Started.
-3. The app stores `nursepath_user` on the device and opens immediately.
-4. On next launches, `nursepath_user` auto-bypasses the auth overlay.
+1. Select access mode: Demo, Pilot, or Admin.
+2. Enter a valid email.
+3. For Pilot mode, use an allowlisted school domain or invite code.
+4. For Admin mode, enter the faculty admin token.
+5. Tap Enter Pilot Workspace.
+6. The app stores `nursepath_user` on the device and opens immediately.
+7. On next launches, `nursepath_user` auto-bypasses the access overlay for offline continuity.
 
 Internet is optional for pilot entry. If online, the app also attempts to log the email to Supabase.
 
