@@ -407,7 +407,7 @@
                 <button id="authSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 700; background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s;">Enter Pilot Workspace</button>
             </form>
 
-            <button id="authResetBtn" type="button" style="width:100%; padding:10px; margin-bottom:8px; font-size:12px; font-weight:700; background:#1f2937; color:#cbd5e1; border:1px solid #475569; border-radius:10px; cursor:pointer;">Faculty Reset This Device</button>
+            <button id="authResetBtn" type="button" style="display:none; width:100%; padding:10px; margin-bottom:8px; font-size:12px; font-weight:700; background:#1f2937; color:#cbd5e1; border:1px solid #475569; border-radius:10px; cursor:pointer;">Faculty Reset This Device</button>
 
             <label style="display:flex; align-items:flex-start; gap:8px; margin-bottom: 10px; text-align:left;">
                 <input id="usageConsent" type="checkbox" style="margin-top:2px; width:16px; height:16px; min-height:16px; min-width:16px; accent-color:#06b6d4; cursor:pointer;">
@@ -474,6 +474,10 @@
         const USAGE_EVENTS_TABLE = 'usage_events';
         const USAGE_QUEUE_LIMIT = 1000;
         const USAGE_SESSION_TIMEOUT_MS = 30 * 60 * 1000;
+        const VISIBILITY_RESUME_THRESHOLD_MS = 30 * 1000;
+        const SESSION_EVENT_DEBOUNCE_MS = 5 * 1000;
+        const MIN_REPORTABLE_SESSION_MS = 2 * 1000;
+        const TAB_SESSION_LOGGED_KEY = 'np_session_logged';
         const ACCESS_MODE_KEY = 'nursepath_access_mode_v1';
         const LAST_SYNC_KEY = 'nursepath_last_sync_v1';
         const PILOT_ALLOWLIST_DOMAINS = (window.NURSEPATH_PILOT_ALLOWLIST_DOMAINS || ['cdd.edu.ph']).map((d) => String(d).toLowerCase());
@@ -500,6 +504,7 @@
         };
         const usageRateLimitMap = new Map();
         let usageSessionEndingSent = false;
+        let hiddenSinceMs = null;
 
         function checkSimulationAgreement() {
             const stored = localStorage.getItem(SIMULATION_KEY);
@@ -615,6 +620,30 @@
             localStorage.setItem(USAGE_SESSION_KEY, JSON.stringify(state));
         }
 
+        function hasTabSessionLogged() {
+            try {
+                return Boolean(sessionStorage.getItem(TAB_SESSION_LOGGED_KEY));
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function markTabSessionLogged() {
+            try {
+                sessionStorage.setItem(TAB_SESSION_LOGGED_KEY, '1');
+            } catch (e) {
+                // ignore sessionStorage restrictions
+            }
+        }
+
+        function clearTabSessionLogged() {
+            try {
+                sessionStorage.removeItem(TAB_SESSION_LOGGED_KEY);
+            } catch (e) {
+                // ignore sessionStorage restrictions
+            }
+        }
+
         function queueUsageEventRaw(event) {
             const queue = readUsageQueue();
             queue.push(event);
@@ -632,17 +661,20 @@
                     ended_at: null
                 };
                 writeUsageSessionState(session);
-                queueUsageEventRaw({
-                    event_id: safeUuid(),
-                    user_email: (readGhostUser() || {}).email || null,
-                    session_id: session.session_id,
-                    feature: 'session',
-                    action: 'session_start',
-                    timestamp: new Date(now).toISOString(),
-                    online: navigator.onLine,
-                    duration_ms: 0,
-                    meta: { reason: 'app_start' }
-                });
+                if (!hasTabSessionLogged()) {
+                    queueUsageEventRaw({
+                        event_id: safeUuid(),
+                        user_email: (readGhostUser() || {}).email || null,
+                        session_id: session.session_id,
+                        feature: 'session',
+                        action: 'session_start',
+                        timestamp: new Date(now).toISOString(),
+                        online: navigator.onLine,
+                        duration_ms: 0,
+                        meta: { reason: 'app_start' }
+                    });
+                    markTabSessionLogged();
+                }
                 usageSessionEndingSent = false;
                 return session.session_id;
             }
@@ -674,17 +706,20 @@
                     ended_at: null
                 };
                 writeUsageSessionState(session);
-                queueUsageEventRaw({
-                    event_id: safeUuid(),
-                    user_email: (readGhostUser() || {}).email || null,
-                    session_id: session.session_id,
-                    feature: 'session',
-                    action: 'session_start',
-                    timestamp: new Date(now).toISOString(),
-                    online: navigator.onLine,
-                    duration_ms: 0,
-                    meta: { reason: timedOut ? 'resume_after_timeout' : 'resume_after_end' }
-                });
+                if (!hasTabSessionLogged()) {
+                    queueUsageEventRaw({
+                        event_id: safeUuid(),
+                        user_email: (readGhostUser() || {}).email || null,
+                        session_id: session.session_id,
+                        feature: 'session',
+                        action: 'session_start',
+                        timestamp: new Date(now).toISOString(),
+                        online: navigator.onLine,
+                        duration_ms: 0,
+                        meta: { reason: timedOut ? 'resume_after_timeout' : 'resume_after_end' }
+                    });
+                    markTabSessionLogged();
+                }
                 usageSessionEndingSent = false;
                 return session.session_id;
             }
@@ -751,6 +786,17 @@
             }
 
             const now = Date.now();
+
+            // Debounce noisy lifecycle actions that often duplicate on refresh/focus churn.
+            if (action === 'session_start' || action === 'feature_open') {
+                const lifecycleKey = `lifecycle:${feature}:${action}:${JSON.stringify(meta || {})}`;
+                const lastLifecycleTs = usageRateLimitMap.get(lifecycleKey) || 0;
+                if (now - lastLifecycleTs < SESSION_EVENT_DEBOUNCE_MS) {
+                    return;
+                }
+                usageRateLimitMap.set(lifecycleKey, now);
+            }
+
             const minIntervalMs = options.minIntervalMs || 0;
             const key = `${feature}:${action}:${options.rateKey || ''}`;
             if (minIntervalMs > 0) {
@@ -796,12 +842,22 @@
 
             document.addEventListener('visibilitychange', () => {
                 if (document.visibilityState === 'hidden') {
+                    hiddenSinceMs = Date.now();
                     endUsageSession('visibility_hidden');
                     void flushUsageEvents();
                 } else {
-                    usageSessionEndingSent = false;
-                    getUsageSessionId();
-                    trackUsageEvent('session', 'feature_open', { reason: 'tab_visible' }, { minIntervalMs: 5000, rateKey: 'tab_visible' });
+                    const now = Date.now();
+                    const hiddenMs = hiddenSinceMs ? (now - hiddenSinceMs) : 0;
+                    hiddenSinceMs = null;
+                    if (hiddenMs > VISIBILITY_RESUME_THRESHOLD_MS) {
+                        usageSessionEndingSent = false;
+                        clearTabSessionLogged();
+                        getUsageSessionId();
+                        trackUsageEvent('session', 'feature_open', {
+                            reason: 'tab_resumed_after_hide',
+                            hidden_ms: hiddenMs
+                        }, { minIntervalMs: 5000, rateKey: 'tab_resumed_after_hide' });
+                    }
                 }
             });
 
@@ -964,6 +1020,7 @@
             const modeEl = document.getElementById('accessMode');
             const helpEl = document.getElementById('accessModeHelp');
             const codeEl = document.getElementById('accessCode');
+            const resetBtn = document.getElementById('authResetBtn');
             if (!modeEl || !helpEl || !codeEl) {
                 return;
             }
@@ -973,13 +1030,29 @@
             if (mode === 'demo') {
                 helpEl.textContent = 'Demo mode: open testing for your own device.';
                 codeEl.placeholder = 'No code required in demo mode';
+                if (resetBtn) resetBtn.style.display = 'none';
             } else if (mode === 'admin') {
                 helpEl.textContent = 'Admin mode: requires faculty admin token.';
                 codeEl.placeholder = 'Enter admin token';
+                if (resetBtn) resetBtn.style.display = 'block';
             } else {
                 helpEl.textContent = 'Pilot mode: use allowlisted school email domain or invite code.';
                 codeEl.placeholder = 'Enter invite code if needed';
+                if (resetBtn) resetBtn.style.display = 'none';
             }
+        }
+
+        function applyRoleVisibility() {
+            const mode = readAccessMode();
+            const isAdmin = mode === 'admin';
+
+            const metricsPanel = document.getElementById('pilotMetricsPanel');
+            const facultyResetBtn = document.getElementById('facultyResetBtn');
+            if (metricsPanel) metricsPanel.style.display = isAdmin ? 'block' : 'none';
+            if (facultyResetBtn) facultyResetBtn.style.display = isAdmin ? 'inline-block' : 'none';
+
+            // Keep auth reset scoped to selector state while on auth overlay.
+            renderAccessModeHelp();
         }
 
         function summarizeFeatureUsage(queue) {
@@ -995,8 +1068,44 @@
                 .join(' • ');
         }
 
+        function buildReportableEvents(queue) {
+            const items = Array.isArray(queue) ? queue : [];
+            const microSessionIds = new Set(
+                items
+                    .filter((e) => e.feature === 'session' && e.action === 'session_end')
+                    .filter((e) => Number.isFinite(e.duration_ms) && e.duration_ms < MIN_REPORTABLE_SESSION_MS)
+                    .map((e) => e.session_id)
+                    .filter(Boolean)
+            );
+            return items.filter((e) => !e.session_id || !microSessionIds.has(e.session_id));
+        }
+
+        function formatInstructorTimestamp(isoTimestamp) {
+            if (!isoTimestamp) return '';
+            const d = new Date(isoTimestamp);
+            if (Number.isNaN(d.getTime())) return String(isoTimestamp);
+            return d.toLocaleString('en-US', {
+                month: 'short',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            });
+        }
+
+        function mapActionToInstructorEnglish(action) {
+            if (action === 'session_start') return 'App Opened';
+            if (action === 'session_end') return 'App Closed/Minimized';
+            if (action === 'feature_use') return 'Tool Accessed';
+            return action || 'Activity';
+        }
+
         function renderPilotMetrics() {
-            const queue = readUsageQueue();
+            if (readAccessMode() !== 'admin') {
+                return;
+            }
+
+            const queue = buildReportableEvents(readUsageQueue());
             const sessions = queue.filter((e) => e.feature === 'session' && e.action === 'session_start').length;
             const onlineCount = queue.filter((e) => e.online === true).length;
             const offlineCount = queue.filter((e) => e.online === false).length;
@@ -1024,22 +1133,24 @@
         }
 
         function exportUsageCsv() {
-            const queue = readUsageQueue();
+            if (readAccessMode() !== 'admin') {
+                setAuthStatus('CSV export is available in Admin mode only.', true);
+                return;
+            }
+
+            const queue = buildReportableEvents(readUsageQueue());
             if (!queue.length) {
                 setAuthStatus('No local telemetry events available for export yet.', true);
                 return;
             }
 
-            const header = ['event_id', 'timestamp', 'feature', 'action', 'online', 'session_id', 'user_email', 'duration_ms', 'meta'];
+            const header = ['Time', 'Activity', 'Feature', 'Online', 'Duration (sec)', 'Notes'];
             const rows = queue.map((e) => [
-                toCsvCell(e.event_id),
-                toCsvCell(e.timestamp),
+                toCsvCell(formatInstructorTimestamp(e.timestamp)),
+                toCsvCell(mapActionToInstructorEnglish(e.action)),
                 toCsvCell(e.feature),
-                toCsvCell(e.action),
                 toCsvCell(e.online),
-                toCsvCell(e.session_id),
-                toCsvCell(e.user_email),
-                toCsvCell(e.duration_ms),
+                toCsvCell(Number.isFinite(e.duration_ms) ? (e.duration_ms / 1000).toFixed(1) : ''),
                 toCsvCell(JSON.stringify(e.meta || {}))
             ].join(','));
 
@@ -1059,12 +1170,15 @@
 
         function manualLogout() {
             clearGhostUser();
+            clearTabSessionLogged();
             showAuthOverlay('Logged out. Select mode and enter access details to continue.', false);
+            applyRoleVisibility();
             trackUsageEvent('auth', 'feature_use', { action: 'logout' }, { minIntervalMs: 500, rateKey: 'logout_action' });
         }
 
         function facultyResetDevice() {
             clearGhostUser();
+            clearTabSessionLogged();
             localStorage.removeItem(AUTH_EMAIL_LOG_KEY);
             localStorage.removeItem(AUTH_PENDING_LOG_KEY);
             localStorage.removeItem(USAGE_QUEUE_KEY);
@@ -1330,7 +1444,7 @@
             updateConsentRequirementUI();
             if (accessModeEl) {
                 accessModeEl.value = readAccessMode();
-                accessModeEl.addEventListener('change', renderAccessModeHelp);
+                accessModeEl.addEventListener('change', applyRoleVisibility);
                 renderAccessModeHelp();
             }
             if (resetBtn) {
@@ -1338,6 +1452,7 @@
             }
 
             initUsageTracking();
+            applyRoleVisibility();
             renderPilotMetrics();
 
             if (checkAuth()) {
@@ -1450,7 +1565,7 @@
             <p class="text-slate-400 text-xs sm:text-sm">Simulation/Reference only • Not Clinical Decision Support • Verify with faculty and textbooks</p>
             <div class="mt-1" style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap;">
                 <button type="button" onclick="manualLogout()" style="padding:8px 12px; min-height:36px; background:#1f2937; color:#e2e8f0; border:1px solid #475569; border-radius:10px; font-size:12px; font-weight:700;">Logout</button>
-                <button type="button" onclick="facultyResetDevice()" style="padding:8px 12px; min-height:36px; background:#7f1d1d; color:#fee2e2; border:1px solid #ef4444; border-radius:10px; font-size:12px; font-weight:700;">Faculty Reset</button>
+                <button id="facultyResetBtn" type="button" onclick="facultyResetDevice()" style="display:none; padding:8px 12px; min-height:36px; background:#7f1d1d; color:#fee2e2; border:1px solid #ef4444; border-radius:10px; font-size:12px; font-weight:700;">Faculty Reset</button>
             </div>
         </header>
 
@@ -1477,7 +1592,7 @@
 
         <!-- ============ TOOLS TAB CONTENT ============ -->
         <div id="content-tools" class="tab-content">
-        <section id="pilotMetricsPanel" class="mb-4 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-4 border border-slate-700 shadow-xl">
+        <section id="pilotMetricsPanel" class="mb-4 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-4 border border-slate-700 shadow-xl" style="display:none;">
             <div class="flex items-center justify-between mb-2" style="gap:8px; flex-wrap:wrap;">
                 <h2 style="font-size:14px; font-weight:800; color:#93c5fd; letter-spacing:0.04em; text-transform:uppercase;">Pilot Metrics Snapshot</h2>
                 <div style="display:flex; gap:8px;">
@@ -3646,11 +3761,12 @@
             }
             renderOTCList('');
             renderOTCSidebar();
+            applyRoleVisibility();
             window.__nursepathAuthState.booted = true;
             window.__nursepathAuthState.pendingBoot = false;
-            trackUsageSafe('session', 'session_start', {
+            trackUsageSafe('session', 'feature_open', {
                 source: 'app_boot'
-            }, { minIntervalMs: 2000, rateKey: 'app_boot_session_start' });
+            }, { minIntervalMs: 2000, rateKey: 'app_boot_feature_open' });
         };
 
         if (window.__nursepathAuthState && window.__nursepathAuthState.pendingBoot) {
