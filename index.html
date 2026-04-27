@@ -478,6 +478,8 @@
         const SESSION_EVENT_DEBOUNCE_MS = 5 * 1000;
         const MIN_REPORTABLE_SESSION_MS = 2 * 1000;
         const TAB_SESSION_LOGGED_KEY = 'np_session_logged';
+        const TAB_CURRENT_SESSION_ID_KEY = 'np_current_session_id';
+        const TAB_APP_INIT_LOGGED_KEY = 'np_app_init_logged';
         const ACCESS_MODE_KEY = 'nursepath_access_mode_v1';
         const LAST_SYNC_KEY = 'nursepath_last_sync_v1';
         const PILOT_ALLOWLIST_DOMAINS = (window.NURSEPATH_PILOT_ALLOWLIST_DOMAINS || ['cdd.edu.ph']).map((d) => String(d).toLowerCase());
@@ -505,6 +507,7 @@
         const usageRateLimitMap = new Map();
         let usageSessionEndingSent = false;
         let hiddenSinceMs = null;
+        let isSubmittingAuth = false;
 
         function checkSimulationAgreement() {
             const stored = localStorage.getItem(SIMULATION_KEY);
@@ -644,6 +647,57 @@
             }
         }
 
+        function readCurrentTabSessionId() {
+            try {
+                const raw = sessionStorage.getItem(TAB_CURRENT_SESSION_ID_KEY);
+                return raw ? String(raw) : '';
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function writeCurrentTabSessionId(sessionId) {
+            try {
+                if (sessionId) {
+                    sessionStorage.setItem(TAB_CURRENT_SESSION_ID_KEY, String(sessionId));
+                }
+            } catch (e) {
+                // ignore sessionStorage restrictions
+            }
+        }
+
+        function clearCurrentTabSessionId() {
+            try {
+                sessionStorage.removeItem(TAB_CURRENT_SESSION_ID_KEY);
+            } catch (e) {
+                // ignore sessionStorage restrictions
+            }
+        }
+
+        function hasTabAppInitLogged() {
+            try {
+                return Boolean(sessionStorage.getItem(TAB_APP_INIT_LOGGED_KEY));
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function markTabAppInitLogged() {
+            try {
+                sessionStorage.setItem(TAB_APP_INIT_LOGGED_KEY, '1');
+            } catch (e) {
+                // ignore sessionStorage restrictions
+            }
+        }
+
+        function clearTabAppInitLogged() {
+            try {
+                sessionStorage.removeItem(TAB_APP_INIT_LOGGED_KEY);
+            } catch (e) {
+                // ignore sessionStorage restrictions
+            }
+        }
+
         function queueUsageEventRaw(event) {
             const queue = readUsageQueue();
             queue.push(event);
@@ -652,15 +706,18 @@
 
         function getUsageSessionId(now = Date.now()) {
             let session = readUsageSessionState();
+            const tabSessionId = readCurrentTabSessionId();
 
             if (!session) {
+                const sessionId = tabSessionId || safeUuid();
                 session = {
-                    session_id: safeUuid(),
+                    session_id: sessionId,
                     started_at: new Date(now).toISOString(),
                     last_activity_at: new Date(now).toISOString(),
                     ended_at: null
                 };
                 writeUsageSessionState(session);
+                writeCurrentTabSessionId(session.session_id);
                 if (!hasTabSessionLogged()) {
                     queueUsageEventRaw({
                         event_id: safeUuid(),
@@ -699,13 +756,15 @@
                     });
                 }
 
+                const nextSessionId = safeUuid();
                 session = {
-                    session_id: safeUuid(),
+                    session_id: nextSessionId,
                     started_at: new Date(now).toISOString(),
                     last_activity_at: new Date(now).toISOString(),
                     ended_at: null
                 };
                 writeUsageSessionState(session);
+                writeCurrentTabSessionId(session.session_id);
                 if (!hasTabSessionLogged()) {
                     queueUsageEventRaw({
                         event_id: safeUuid(),
@@ -724,8 +783,13 @@
                 return session.session_id;
             }
 
+            if (tabSessionId && session.session_id !== tabSessionId) {
+                session.session_id = tabSessionId;
+            }
+
             session.last_activity_at = new Date(now).toISOString();
             writeUsageSessionState(session);
+            writeCurrentTabSessionId(session.session_id);
             return session.session_id;
         }
 
@@ -785,6 +849,15 @@
                 return;
             }
 
+            if (action === 'session_start' && hasTabSessionLogged()) {
+                return;
+            }
+
+            const durationMs = Number.isFinite(options.durationMs) ? options.durationMs : null;
+            if (action === 'session_end' && durationMs !== null && durationMs < MIN_REPORTABLE_SESSION_MS) {
+                return;
+            }
+
             const now = Date.now();
 
             // Debounce noisy lifecycle actions that often duplicate on refresh/focus churn.
@@ -817,7 +890,7 @@
                 action,
                 timestamp: new Date(now).toISOString(),
                 online: navigator.onLine,
-                duration_ms: Number.isFinite(options.durationMs) ? options.durationMs : null,
+                duration_ms: durationMs,
                 meta: meta || {}
             };
 
@@ -843,7 +916,6 @@
             document.addEventListener('visibilitychange', () => {
                 if (document.visibilityState === 'hidden') {
                     hiddenSinceMs = Date.now();
-                    endUsageSession('visibility_hidden');
                     void flushUsageEvents();
                 } else {
                     const now = Date.now();
@@ -862,11 +934,11 @@
             });
 
             window.addEventListener('pagehide', () => {
-                endUsageSession('pagehide');
+                void flushUsageEvents();
             });
 
             window.addEventListener('beforeunload', () => {
-                endUsageSession('beforeunload');
+                void flushUsageEvents();
             });
         }
 
@@ -1171,6 +1243,8 @@
         function manualLogout() {
             clearGhostUser();
             clearTabSessionLogged();
+            clearCurrentTabSessionId();
+            clearTabAppInitLogged();
             showAuthOverlay('Logged out. Select mode and enter access details to continue.', false);
             applyRoleVisibility();
             trackUsageEvent('auth', 'feature_use', { action: 'logout' }, { minIntervalMs: 500, rateKey: 'logout_action' });
@@ -1179,6 +1253,8 @@
         function facultyResetDevice() {
             clearGhostUser();
             clearTabSessionLogged();
+            clearCurrentTabSessionId();
+            clearTabAppInitLogged();
             localStorage.removeItem(AUTH_EMAIL_LOG_KEY);
             localStorage.removeItem(AUTH_PENDING_LOG_KEY);
             localStorage.removeItem(USAGE_QUEUE_KEY);
@@ -1339,16 +1415,35 @@
             const accessCode = accessCodeEl ? String(accessCodeEl.value || '').trim() : '';
             setAccessMode(accessMode);
 
+            if (isSubmittingAuth) {
+                return;
+            }
+            isSubmittingAuth = true;
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.7';
+            }
+
+            function releaseSubmitLock() {
+                isSubmittingAuth = false;
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.style.opacity = '1';
+                }
+            }
+
             if (!usageConsent || !usageConsent.checked) {
                 setUsageConsent(false);
                 setAuthStatus('You must consent to usage tracking to access formal testing.', true);
                 trackUsageEvent('consent', 'error_shown', { reason: 'consent_required' }, { minIntervalMs: 2000, rateKey: 'consent_required' });
+                releaseSubmitLock();
                 return;
             }
             setUsageConsent(true);
 
             if (!email) {
                 setAuthStatus('Enter your email to continue.', true);
+                releaseSubmitLock();
                 return;
             }
 
@@ -1360,6 +1455,7 @@
                         : 'Enter a valid email address before starting.');
                 setAuthStatus(reason, true);
                 void recordEmailAttempt(email, 'blocked_invalid_format', 'invalid_email_format');
+                releaseSubmitLock();
                 return;
             }
 
@@ -1367,6 +1463,7 @@
             if (typoSuggestion) {
                 setAuthStatus(`Did you mean @${typoSuggestion}? Please fix your email to avoid bounce errors.`, true);
                 void recordEmailAttempt(email, 'blocked_domain_typo', `suggested:${typoSuggestion}`);
+                releaseSubmitLock();
                 return;
             }
 
@@ -1374,13 +1471,12 @@
             if (remainingMs > 0) {
                 const remainingSeconds = Math.ceil(remainingMs / 1000);
                 setAuthStatus(`Please wait ${remainingSeconds}s before another pilot start attempt.`, true);
+                releaseSubmitLock();
                 return;
             }
 
-            submitBtn.disabled = true;
-            submitBtn.style.opacity = '0.7';
             setAuthStatus('Sealing this device for pilot access...', false);
-            trackUsageEvent('auth', 'feature_use', { action: 'pilot_login_submit' }, { userEmail: email, minIntervalMs: 1000, rateKey: 'pilot_login_submit' });
+            trackUsageEvent('auth', 'feature_use', { action: 'pilot_login_submit' }, { userEmail: email, minIntervalMs: 1000, rateKey: `pilot_login_submit:${Date.now()}` });
 
             try {
                 // Best-effort logging only. Pilot access should not be blocked by network errors.
@@ -1406,8 +1502,7 @@
                 trackUsageEvent('auth', 'result_generated', { action: 'pilot_login_sealed' }, { userEmail: email, minIntervalMs: 1000, rateKey: 'pilot_login_sealed' });
                 showAuthenticatedApp(email, 'ghost');
             } finally {
-                submitBtn.disabled = false;
-                submitBtn.style.opacity = '1';
+                releaseSubmitLock();
             }
         }
 
@@ -1456,7 +1551,6 @@
             renderPilotMetrics();
 
             if (checkAuth()) {
-                trackUsageEvent('auth', 'session_start', { source: 'ghost_auto_bypass' }, { minIntervalMs: 1000, rateKey: 'ghost_auto_bypass' });
                 return;
             }
 
@@ -3764,9 +3858,12 @@
             applyRoleVisibility();
             window.__nursepathAuthState.booted = true;
             window.__nursepathAuthState.pendingBoot = false;
-            trackUsageSafe('session', 'feature_open', {
-                source: 'app_boot'
-            }, { minIntervalMs: 2000, rateKey: 'app_boot_feature_open' });
+            if (!hasTabAppInitLogged()) {
+                trackUsageSafe('session', 'app_init', {
+                    source: 'auth_boot'
+                }, { minIntervalMs: 2000, rateKey: 'app_init_once_per_tab' });
+                markTabAppInitLogged();
+            }
         };
 
         if (window.__nursepathAuthState && window.__nursepathAuthState.pendingBoot) {
