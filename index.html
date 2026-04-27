@@ -403,7 +403,7 @@
             </div>
 
             <form id="authForm" style="display: grid; gap: 10px; margin-bottom: 8px;">
-                <input id="authEmail" type="email" placeholder="student@cdd.edu.ph or yourname@gmail.com" autocomplete="email" required style="width: 100%; padding: 14px; font-size: 15px; text-align: left; background: #1e293b; border: 1px solid #334155; border-radius: 12px; color: white;">
+                <input id="authEmail" type="email" placeholder="student@cdd.edu.ph or yourname@gmail.com (optional with valid code)" autocomplete="email" style="width: 100%; padding: 14px; font-size: 15px; text-align: left; background: #1e293b; border: 1px solid #334155; border-radius: 12px; color: white;">
                 <button id="authSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 700; background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s;">Enter Pilot Workspace</button>
             </form>
 
@@ -1119,17 +1119,44 @@
             return normalizedCode.length > 0 && normalizedCode === ADMIN_ACCESS_TOKEN;
         }
 
-        function isAllowedAuthEmail(email, accessMode, accessCode) {
-            if (!isValidEmailFormat(email)) {
-                return false;
+        function generateCodeAccessEmail(accessMode) {
+            const modeLabel = accessMode === 'admin' ? 'admin' : 'pilot';
+            return `${modeLabel}-${safeUuid().slice(0, 8)}@nursepath.local`;
+        }
+
+        function resolveAuthIdentityEmail(email, accessMode, accessCode) {
+            if (isValidEmailFormat(email)) {
+                return normalizeEmail(email);
             }
 
+            if (accessMode === 'admin' && hasValidAdminToken(accessCode)) {
+                return generateCodeAccessEmail('admin');
+            }
+
+            if (accessMode === 'pilot' && hasValidPilotInvite(accessCode)) {
+                return generateCodeAccessEmail('pilot');
+            }
+
+            return '';
+        }
+
+        function isAllowedAuthEmail(email, accessMode, accessCode) {
+            const hasEmail = isValidEmailFormat(email);
+
             if (accessMode === 'demo') {
-                return true;
+                return hasEmail;
             }
 
             if (accessMode === 'admin') {
                 return hasValidAdminToken(accessCode);
+            }
+
+            if (hasValidPilotInvite(accessCode)) {
+                return true;
+            }
+
+            if (!hasEmail) {
+                return false;
             }
 
             const domain = getDomainFromEmail(email);
@@ -1137,7 +1164,7 @@
                 return true;
             }
 
-            return hasValidPilotInvite(accessCode);
+            return false;
         }
 
         function renderAccessModeHelp() {
@@ -1465,6 +1492,7 @@
             const email = normalizeEmail(emailInput.value || '');
             const accessMode = accessModeEl ? accessModeEl.value : readAccessMode();
             const accessCode = accessCodeEl ? String(accessCodeEl.value || '').trim() : '';
+            const identityEmail = resolveAuthIdentityEmail(email, accessMode, accessCode);
             setAccessMode(accessMode);
 
             if (isSubmittingAuth) {
@@ -1493,8 +1521,8 @@
             }
             setUsageConsent(true);
 
-            if (!email) {
-                setAuthStatus('Enter your email to continue.', true);
+            if (accessMode === 'demo' && !identityEmail) {
+                setAuthStatus('Enter your email to continue in Demo mode.', true);
                 releaseSubmitLock();
                 return;
             }
@@ -1512,7 +1540,7 @@
             }
 
             const typoSuggestion = getDomainTypoSuggestion(email);
-            if (typoSuggestion) {
+            if (email && typoSuggestion) {
                 setAuthStatus(`Did you mean @${typoSuggestion}? Please fix your email to avoid bounce errors.`, true);
                 void recordEmailAttempt(email, 'blocked_domain_typo', `suggested:${typoSuggestion}`);
                 releaseSubmitLock();
@@ -1528,14 +1556,17 @@
             }
 
             setAuthStatus('Sealing this device for pilot access...', false);
-            trackUsageEvent('auth', 'feature_use', { action: 'pilot_login_submit' }, { userEmail: email, minIntervalMs: 1000, rateKey: `pilot_login_submit:${Date.now()}` });
+            trackUsageEvent('auth', 'feature_use', {
+                action: 'pilot_login_submit',
+                entered_with_code_only: !email
+            }, { userEmail: identityEmail, minIntervalMs: 1000, rateKey: `pilot_login_submit:${Date.now()}` });
 
             try {
                 // Best-effort logging only. Pilot access should not be blocked by network errors.
                 if (supabaseClient && navigator.onLine) {
                     try {
                         const { error } = await supabaseClient.from(AUTH_EMAIL_LOG_TABLE).insert({
-                            email,
+                            email: identityEmail,
                             status: 'pilot_login',
                             reason: 'best_effort_online',
                             timestamp: new Date().toISOString()
@@ -1549,10 +1580,13 @@
                 }
 
                 setMagicLinkCooldown(AUTH_MAGIC_LINK_COOLDOWN_DEFAULT_SECONDS);
-                saveGhostUser(email);
-                void recordEmailAttempt(email, 'pilot_login_sealed', navigator.onLine ? 'online_or_partial' : 'offline');
-                trackUsageEvent('auth', 'result_generated', { action: 'pilot_login_sealed' }, { userEmail: email, minIntervalMs: 1000, rateKey: 'pilot_login_sealed' });
-                showAuthenticatedApp(email, 'ghost');
+                saveGhostUser(identityEmail);
+                void recordEmailAttempt(identityEmail, 'pilot_login_sealed', navigator.onLine ? 'online_or_partial' : 'offline');
+                trackUsageEvent('auth', 'result_generated', {
+                    action: 'pilot_login_sealed',
+                    entered_with_code_only: !email
+                }, { userEmail: identityEmail, minIntervalMs: 1000, rateKey: 'pilot_login_sealed' });
+                showAuthenticatedApp(identityEmail, 'ghost');
             } finally {
                 releaseSubmitLock();
             }
