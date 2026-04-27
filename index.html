@@ -706,10 +706,14 @@
 
         function getUsageSessionId(now = Date.now()) {
             let session = readUsageSessionState();
-            const tabSessionId = readCurrentTabSessionId();
+            let tabSessionId = readCurrentTabSessionId();
+            if (!tabSessionId) {
+                tabSessionId = safeUuid();
+                writeCurrentTabSessionId(tabSessionId);
+            }
 
             if (!session) {
-                const sessionId = tabSessionId || safeUuid();
+                const sessionId = tabSessionId;
                 session = {
                     session_id: sessionId,
                     started_at: new Date(now).toISOString(),
@@ -832,6 +836,8 @@
                 return;
             }
 
+            console.log('📡 Attempting Supabase Sync:', queue.length);
+
             try {
                 const { error } = await supabaseClient.from(USAGE_EVENTS_TABLE).insert(queue);
                 if (!error) {
@@ -844,17 +850,60 @@
             }
         }
 
+        function emergencyFlushUsageEvents() {
+            if (!navigator.onLine || !readUsageConsent()) {
+                return;
+            }
+
+            const queue = readUsageQueue();
+            if (!queue.length) {
+                return;
+            }
+
+            console.log('📡 Attempting Supabase Sync:', queue.length);
+
+            const configured =
+                Boolean(SUPABASE_URL) &&
+                Boolean(SUPABASE_ANON_KEY) &&
+                !SUPABASE_URL.includes('YOUR-PROJECT') &&
+                !SUPABASE_ANON_KEY.includes('YOUR_SUPABASE_ANON_KEY');
+
+            if (!configured) {
+                return;
+            }
+
+            const endpoint = `${SUPABASE_URL}/rest/v1/${USAGE_EVENTS_TABLE}`;
+            fetch(endpoint, {
+                method: 'POST',
+                keepalive: true,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify(queue)
+            }).then((response) => {
+                if (response && response.ok) {
+                    localStorage.removeItem(USAGE_QUEUE_KEY);
+                    setLastSyncAt(new Date().toISOString());
+                }
+            }).catch(() => {
+                // Keep queued events for retry.
+            });
+        }
+
         function trackUsageEvent(feature, action, meta = {}, options = {}) {
             if (!readUsageConsent()) {
                 return;
             }
 
-            if (action === 'session_start' && hasTabSessionLogged()) {
+            if (feature === 'session' && action === 'session_start' && hasTabSessionLogged()) {
                 return;
             }
 
             const durationMs = Number.isFinite(options.durationMs) ? options.durationMs : null;
-            if (action === 'session_end' && durationMs !== null && durationMs < MIN_REPORTABLE_SESSION_MS) {
+            if (feature === 'session' && action === 'session_end' && durationMs !== null && durationMs < MIN_REPORTABLE_SESSION_MS) {
                 return;
             }
 
@@ -881,7 +930,10 @@
             }
 
             const ghostUser = readGhostUser();
-            const sessionId = getUsageSessionId(now);
+            const sessionId = getUsageSessionId(now) || readCurrentTabSessionId() || safeUuid();
+            if (!readCurrentTabSessionId()) {
+                writeCurrentTabSessionId(sessionId);
+            }
             const event = {
                 event_id: safeUuid(),
                 user_email: USAGE_INCLUDE_EMAIL ? (options.userEmail ? normalizeEmail(options.userEmail) : (ghostUser ? ghostUser.email : null)) : null,
@@ -934,11 +986,11 @@
             });
 
             window.addEventListener('pagehide', () => {
-                void flushUsageEvents();
+                emergencyFlushUsageEvents();
             });
 
             window.addEventListener('beforeunload', () => {
-                void flushUsageEvents();
+                emergencyFlushUsageEvents();
             });
         }
 
@@ -2415,9 +2467,7 @@
             }, { minIntervalMs: 250, rateKey: `simulate_press_${Date.now()}` });
 
             if (status) {
-                status.textContent = navigator.onLine
-                    ? 'Simulated. Syncing now...'
-                    : 'Recorded offline. Will sync when internet returns.';
+                status.textContent = '';
             }
 
             requestTelemetryFlush();
