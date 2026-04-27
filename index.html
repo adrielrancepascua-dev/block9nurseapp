@@ -508,6 +508,7 @@
         let usageSessionEndingSent = false;
         let hiddenSinceMs = null;
         let isSubmittingAuth = false;
+        let usageFlushInFlight = false;
 
         function checkSimulationAgreement() {
             const stored = localStorage.getItem(SIMULATION_KEY);
@@ -605,7 +606,19 @@
         }
 
         function writeUsageQueue(queue) {
-            localStorage.setItem(USAGE_QUEUE_KEY, JSON.stringify(queue.slice(-USAGE_QUEUE_LIMIT)));
+            const deduped = [];
+            const seenEventIds = new Set();
+            for (const item of queue.slice(-USAGE_QUEUE_LIMIT)) {
+                const eventId = item && item.event_id ? String(item.event_id) : '';
+                if (eventId && seenEventIds.has(eventId)) {
+                    continue;
+                }
+                if (eventId) {
+                    seenEventIds.add(eventId);
+                }
+                deduped.push(item);
+            }
+            localStorage.setItem(USAGE_QUEUE_KEY, JSON.stringify(deduped));
         }
 
         function readUsageSessionState() {
@@ -700,6 +713,9 @@
 
         function queueUsageEventRaw(event) {
             const queue = readUsageQueue();
+            if (event && event.event_id && queue.some((item) => item && item.event_id === event.event_id)) {
+                return;
+            }
             queue.push(event);
             writeUsageQueue(queue);
         }
@@ -809,6 +825,10 @@
 
             const now = Date.now();
             const startedMs = new Date(session.started_at).getTime();
+            const durationMs = Number.isFinite(startedMs) ? Math.max(0, now - startedMs) : 0;
+            if (durationMs < MIN_REPORTABLE_SESSION_MS) {
+                return;
+            }
             queueUsageEventRaw({
                 event_id: safeUuid(),
                 user_email: (readGhostUser() || {}).email || null,
@@ -817,7 +837,7 @@
                 action: 'session_end',
                 timestamp: new Date(now).toISOString(),
                 online: navigator.onLine,
-                duration_ms: Number.isFinite(startedMs) ? Math.max(0, now - startedMs) : 0,
+                duration_ms: durationMs,
                 meta: { reason: reason || 'page_exit' }
             });
 
@@ -827,7 +847,7 @@
         }
 
         async function flushUsageEvents() {
-            if (!supabaseClient || !navigator.onLine || !readUsageConsent()) {
+            if (usageFlushInFlight || !supabaseClient || !navigator.onLine || !readUsageConsent()) {
                 return;
             }
 
@@ -836,6 +856,7 @@
                 return;
             }
 
+            usageFlushInFlight = true;
             console.log('📡 Attempting Supabase Sync:', queue.length);
 
             try {
@@ -847,11 +868,13 @@
                 }
             } catch (e) {
                 // Keep queued events for retry.
+            } finally {
+                usageFlushInFlight = false;
             }
         }
 
         function emergencyFlushUsageEvents() {
-            if (!navigator.onLine || !readUsageConsent()) {
+            if (usageFlushInFlight || !navigator.onLine || !readUsageConsent()) {
                 return;
             }
 
@@ -860,6 +883,7 @@
                 return;
             }
 
+            usageFlushInFlight = true;
             console.log('📡 Attempting Supabase Sync:', queue.length);
 
             const configured =
@@ -890,6 +914,8 @@
                 }
             }).catch(() => {
                 // Keep queued events for retry.
+            }).finally(() => {
+                usageFlushInFlight = false;
             });
         }
 
