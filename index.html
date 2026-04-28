@@ -388,17 +388,11 @@
             <p style="color: #94a3b8; font-size: 13px; margin-bottom: 14px;">Simulation-only academic tool. Not for real patient care decisions.</p>
 
             <div style="margin-bottom: 14px; padding: 10px 12px; border-radius: 10px; border: 1px solid #334155; background: #1e293b; color: #cbd5e1; font-size: 12px; font-weight: 600; text-align: left;">
-                Choose access mode, then enter email. Pilot/Admin modes require school controls.
+                Pilot access only. Enter a school email or valid invite code.
             </div>
 
             <div style="display:grid; gap:8px; margin-bottom: 10px; text-align:left;">
-                <label for="accessMode" style="color:#94a3b8; font-size:11px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase;">Access Mode</label>
-                <select id="accessMode" style="width:100%; padding:12px; font-size:14px; background:#1e293b; border:1px solid #334155; border-radius:12px; color:#e2e8f0;">
-                    <option value="pilot" selected>Pilot mode (school run)</option>
-                    <option value="demo">Demo mode (open testing)</option>
-                    <option value="admin">Admin mode (faculty control)</option>
-                </select>
-                <input id="accessCode" type="text" placeholder="Invite code or admin token (if required)" autocomplete="off" style="width:100%; padding:12px; font-size:14px; text-align:left; background:#1e293b; border:1px solid #334155; border-radius:12px; color:white;">
+                <input id="accessCode" type="text" placeholder="Invite code (optional)" autocomplete="off" style="width:100%; padding:12px; font-size:14px; text-align:left; background:#1e293b; border:1px solid #334155; border-radius:12px; color:white;">
                 <p id="accessModeHelp" style="color:#93c5fd; font-size:11px; min-height:16px;">Pilot mode: use school email domain or invite code.</p>
             </div>
 
@@ -407,7 +401,7 @@
                 <button id="authSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 700; background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s;">Enter Pilot Workspace</button>
             </form>
 
-            <button id="authResetBtn" type="button" style="display:none; width:100%; padding:10px; margin-bottom:8px; font-size:12px; font-weight:700; background:#1f2937; color:#cbd5e1; border:1px solid #475569; border-radius:10px; cursor:pointer;">Faculty Reset This Device</button>
+            <button id="authResetBtn" type="button" style="display:none; width:100%; padding:10px; margin-bottom:8px; font-size:12px; font-weight:700; background:#1f2937; color:#cbd5e1; border:1px solid #475569; border-radius:10px; cursor:pointer;">Reset This Device</button>
 
             <label style="display:flex; align-items:flex-start; gap:8px; margin-bottom: 10px; text-align:left;">
                 <input id="usageConsent" type="checkbox" style="margin-top:2px; width:16px; height:16px; min-height:16px; min-width:16px; accent-color:#06b6d4; cursor:pointer;">
@@ -484,7 +478,6 @@
         const LAST_SYNC_KEY = 'nursepath_last_sync_v1';
         const PILOT_ALLOWLIST_DOMAINS = (window.NURSEPATH_PILOT_ALLOWLIST_DOMAINS || ['cdd.edu.ph']).map((d) => String(d).toLowerCase());
         const PILOT_INVITE_CODES = window.NURSEPATH_PILOT_INVITE_CODES || ['NP-PILOT-2026'];
-        const ADMIN_ACCESS_TOKEN = window.NURSEPATH_ADMIN_TOKEN || 'NP-ADMIN-2026';
         const USAGE_INCLUDE_EMAIL = Boolean(window.NURSEPATH_USAGE_INCLUDE_EMAIL);
         const EMAIL_TYPO_HINTS = {
             'gmal.com': 'gmail.com',
@@ -570,16 +563,11 @@
         }
 
         function readAccessMode() {
-            const raw = localStorage.getItem(ACCESS_MODE_KEY);
-            if (raw === 'demo' || raw === 'pilot' || raw === 'admin') {
-                return raw;
-            }
             return 'pilot';
         }
 
         function setAccessMode(mode) {
-            const safeMode = (mode === 'demo' || mode === 'pilot' || mode === 'admin') ? mode : 'pilot';
-            localStorage.setItem(ACCESS_MODE_KEY, safeMode);
+            localStorage.setItem(ACCESS_MODE_KEY, 'pilot');
         }
 
         function readLastSyncAt() {
@@ -1140,27 +1128,13 @@
             return normalizedCode.length > 0 && PILOT_INVITE_CODES.includes(normalizedCode);
         }
 
-        function hasValidAdminToken(code) {
-            const normalizedCode = String(code || '').trim();
-            return normalizedCode.length > 0 && normalizedCode === ADMIN_ACCESS_TOKEN;
-        }
-
-        function generateCodeAccessEmail(accessMode) {
-            const modeLabel = accessMode === 'admin' ? 'admin' : 'pilot';
-            return `${modeLabel}-${safeUuid().slice(0, 8)}@nursepath.local`;
-        }
-
         function resolveAuthIdentityEmail(email, accessMode, accessCode) {
             if (isValidEmailFormat(email)) {
                 return normalizeEmail(email);
             }
 
-            if (accessMode === 'admin' && hasValidAdminToken(accessCode)) {
-                return generateCodeAccessEmail('admin');
-            }
-
             if (accessMode === 'pilot' && hasValidPilotInvite(accessCode)) {
-                return generateCodeAccessEmail('pilot');
+                return `pilot-${safeUuid().slice(0, 8)}@nursepath.local`;
             }
 
             return '';
@@ -1168,14 +1142,6 @@
 
         function isAllowedAuthEmail(email, accessMode, accessCode) {
             const hasEmail = isValidEmailFormat(email);
-
-            if (accessMode === 'demo') {
-                return hasEmail;
-            }
-
-            if (accessMode === 'admin') {
-                return hasValidAdminToken(accessCode);
-            }
 
             if (hasValidPilotInvite(accessCode)) {
                 return true;
@@ -1204,29 +1170,16 @@
 
             const mode = modeEl.value;
             setAccessMode(mode);
-            if (mode === 'demo') {
-                helpEl.textContent = 'Demo mode: open testing for your own device.';
-                codeEl.placeholder = 'No code required in demo mode';
-                if (resetBtn) resetBtn.style.display = 'none';
-            } else if (mode === 'admin') {
-                helpEl.textContent = 'Admin mode: requires faculty admin token.';
-                codeEl.placeholder = 'Enter admin token';
-                if (resetBtn) resetBtn.style.display = 'block';
-            } else {
-                helpEl.textContent = 'Pilot mode: use allowlisted school email domain or invite code.';
-                codeEl.placeholder = 'Enter invite code if needed';
-                if (resetBtn) resetBtn.style.display = 'none';
-            }
+            helpEl.textContent = 'Pilot mode: use allowlisted school email domain or invite code.';
+            codeEl.placeholder = 'Enter invite code if needed';
+            if (resetBtn) resetBtn.style.display = 'none';
         }
 
         function applyRoleVisibility() {
-            const mode = readAccessMode();
-            const isAdmin = mode === 'admin';
-
             const metricsPanel = document.getElementById('pilotMetricsPanel');
             const facultyResetBtn = document.getElementById('facultyResetBtn');
-            if (metricsPanel) metricsPanel.style.display = isAdmin ? 'block' : 'none';
-            if (facultyResetBtn) facultyResetBtn.style.display = isAdmin ? 'inline-block' : 'none';
+            if (metricsPanel) metricsPanel.style.display = 'none';
+            if (facultyResetBtn) facultyResetBtn.style.display = 'none';
 
             // Keep auth reset scoped to selector state while on auth overlay.
             renderAccessModeHelp();
@@ -1278,9 +1231,7 @@
         }
 
         function renderPilotMetrics() {
-            if (readAccessMode() !== 'admin') {
-                return;
-            }
+            return;
 
             const queue = buildReportableEvents(readUsageQueue());
             const sessions = queue.filter((e) => e.feature === 'session' && e.action === 'session_start').length;
@@ -1310,10 +1261,8 @@
         }
 
         function exportUsageCsv() {
-            if (readAccessMode() !== 'admin') {
-                setAuthStatus('CSV export is available in Admin mode only.', true);
-                return;
-            }
+            setAuthStatus('CSV export is available in the dashboard only.', true);
+            return;
 
             const queue = buildReportableEvents(readUsageQueue());
             if (!queue.length) {
@@ -1350,7 +1299,7 @@
             clearTabSessionLogged();
             clearCurrentTabSessionId();
             clearTabAppInitLogged();
-            showAuthOverlay('Logged out. Select mode and enter access details to continue.', false);
+            showAuthOverlay('Logged out. Enter email or invite code to continue.', false);
             applyRoleVisibility();
             trackUsageEvent('auth', 'feature_use', { action: 'logout' }, { minIntervalMs: 500, rateKey: 'logout_action' });
         }
@@ -1512,14 +1461,13 @@
             const emailInput = document.getElementById('authEmail');
             const submitBtn = document.getElementById('authSubmitBtn');
             const usageConsent = document.getElementById('usageConsent');
-            const accessModeEl = document.getElementById('accessMode');
             const accessCodeEl = document.getElementById('accessCode');
 
             const email = normalizeEmail(emailInput.value || '');
-            const accessMode = accessModeEl ? accessModeEl.value : readAccessMode();
+            const accessMode = 'pilot';
             const accessCode = accessCodeEl ? String(accessCodeEl.value || '').trim() : '';
             const identityEmail = resolveAuthIdentityEmail(email, accessMode, accessCode);
-            setAccessMode(accessMode);
+            setAccessMode('pilot');
 
             if (isSubmittingAuth) {
                 return;
@@ -1547,19 +1495,8 @@
             }
             setUsageConsent(true);
 
-            if (accessMode === 'demo' && !identityEmail) {
-                setAuthStatus('Enter your email to continue in Demo mode.', true);
-                releaseSubmitLock();
-                return;
-            }
-
             if (!isAllowedAuthEmail(email, accessMode, accessCode)) {
-                const reason = accessMode === 'pilot'
-                    ? 'Pilot mode requires allowlisted school email or valid invite code.'
-                    : (accessMode === 'admin'
-                        ? 'Admin mode requires a valid admin token.'
-                        : 'Enter a valid email address before starting.');
-                setAuthStatus(reason, true);
+                setAuthStatus('Pilot mode requires allowlisted school email or valid invite code.', true);
                 void recordEmailAttempt(email, 'blocked_invalid_format', 'invalid_email_format');
                 releaseSubmitLock();
                 return;
@@ -1624,7 +1561,6 @@
             const resetBtn = document.getElementById('authResetBtn');
 
             const usageConsent = document.getElementById('usageConsent');
-            const accessModeEl = document.getElementById('accessMode');
 
             function updateConsentRequirementUI() {
                 const submitBtn = document.getElementById('authSubmitBtn');
@@ -1649,11 +1585,6 @@
                 });
             }
             updateConsentRequirementUI();
-            if (accessModeEl) {
-                accessModeEl.value = readAccessMode();
-                accessModeEl.addEventListener('change', applyRoleVisibility);
-                renderAccessModeHelp();
-            }
             if (resetBtn) {
                 resetBtn.addEventListener('click', facultyResetDevice);
             }
@@ -1668,7 +1599,7 @@
 
             const isConfigured = !SUPABASE_URL.includes('YOUR-PROJECT') && !SUPABASE_ANON_KEY.includes('YOUR_SUPABASE_ANON_KEY');
             if (!window.supabase || !isConfigured) {
-                showAuthOverlay('Offline-first demo mode: enter email and tap Get Started.', false);
+                showAuthOverlay('Enter your school email or invite code to continue.', false);
                 return;
             }
 
@@ -1684,6 +1615,7 @@
             window.addEventListener('online', () => { void flushPendingEmailLogs(); });
 
             showAuthOverlay('Enter email and tap Get Started.', false);
+            showAuthOverlay('Enter your school email or invite code to continue.', false);
         }
 
         function initEmergencyReset() {

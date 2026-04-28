@@ -150,13 +150,10 @@ All educational content in NursePath is derived from standard nursing textbooks 
 
 Users start by selecting an access mode and entering an email.
 
-1. Select access mode: Demo, Pilot, or Admin.
-2. Enter a valid email.
-3. For Pilot mode, use an allowlisted school domain or invite code.
-4. For Admin mode, enter the faculty admin token.
-5. Tap Enter Pilot Workspace.
-6. The app stores `nursepath_user` on the device and opens immediately.
-7. On next launches, `nursepath_user` auto-bypasses the access overlay for offline continuity.
+1. Enter your school email or a valid invite code.
+2. Tap Enter Pilot Workspace.
+3. The app stores `nursepath_user` on the device and opens immediately.
+4. On next launches, `nursepath_user` auto-bypasses the access overlay for offline continuity.
 
 Internet is optional for pilot entry. If online, the app also attempts to log the email to Supabase.
 
@@ -215,6 +212,13 @@ on public.usage_events
 for insert
 to anon, authenticated
 with check (true);
+
+drop policy if exists "allow anon usage select" on public.usage_events;
+create policy "allow anon usage select"
+on public.usage_events
+for select
+to anon, authenticated
+using (true);
 
 -- 3) Helpful indexes for pilot reporting
 create index if not exists usage_events_timestamp_idx on public.usage_events (timestamp desc);
