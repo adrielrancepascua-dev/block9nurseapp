@@ -835,7 +835,7 @@
         }
 
         async function flushUsageEvents() {
-            if (usageFlushInFlight || !supabaseClient || !navigator.onLine || !readUsageConsent()) {
+            if (usageFlushInFlight || !supabaseClient || !navigator.onLine) {
                 return;
             }
 
@@ -862,7 +862,7 @@
         }
 
         function emergencyFlushUsageEvents() {
-            if (usageFlushInFlight || !navigator.onLine || !readUsageConsent()) {
+            if (usageFlushInFlight || !navigator.onLine) {
                 return;
             }
 
@@ -908,10 +908,6 @@
         }
 
         function trackUsageEvent(feature, action, meta = {}, options = {}) {
-            if (!readUsageConsent()) {
-                return;
-            }
-
             if (feature === 'session' && action === 'session_start' && hasTabSessionLogged()) {
                 return;
             }
@@ -968,9 +964,7 @@
         }
 
         function initUsageTracking() {
-            if (readUsageConsent()) {
-                getUsageSessionId();
-            }
+            getUsageSessionId();
 
             window.trackUsageEvent = trackUsageEvent;
             window.flushUsageEvents = flushUsageEvents;
@@ -1495,6 +1489,15 @@
             }
             setUsageConsent(true);
 
+            if (!usageConsent || !usageConsent.checked) {
+                setUsageConsent(false);
+                setAuthStatus('You must consent to usage tracking to access formal testing.', true);
+                trackUsageEvent('consent', 'error_shown', { reason: 'consent_required' }, { minIntervalMs: 2000, rateKey: 'consent_required' });
+                releaseSubmitLock();
+                return;
+            }
+            setUsageConsent(true);
+
             if (!isAllowedAuthEmail(email, accessMode, accessCode)) {
                 setAuthStatus('Pilot mode requires allowlisted school email or valid invite code.', true);
                 void recordEmailAttempt(email, 'blocked_invalid_format', 'invalid_email_format');
@@ -1559,7 +1562,6 @@
             const form = document.getElementById('authForm');
             form.addEventListener('submit', submitAuth);
             const resetBtn = document.getElementById('authResetBtn');
-
             const usageConsent = document.getElementById('usageConsent');
 
             function updateConsentRequirementUI() {
@@ -1585,6 +1587,7 @@
                 });
             }
             updateConsentRequirementUI();
+
             if (resetBtn) {
                 resetBtn.addEventListener('click', facultyResetDevice);
             }
@@ -1614,7 +1617,6 @@
             await flushUsageEvents();
             window.addEventListener('online', () => { void flushPendingEmailLogs(); });
 
-            showAuthOverlay('Enter email and tap Get Started.', false);
             showAuthOverlay('Enter your school email or invite code to continue.', false);
         }
 
