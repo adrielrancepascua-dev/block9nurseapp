@@ -2320,6 +2320,7 @@
         }
 
         function liveAnalyze() {
+            // Improved simulation-focused interpretation with clear priority, actions, and context.
             const sys = parseInt(document.getElementById('sys').value);
             const dia = parseInt(document.getElementById('dia').value);
             const temp = parseFloat(document.getElementById('temp').value);
@@ -2335,105 +2336,236 @@
             if (!sys && !temp && !hr && !rr) {
                 box.innerHTML = `<div class="flex flex-col items-center space-y-2">
                     <svg class="inline text-3xl text-slate-600 opacity-50" width="1.3em" height="1.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3v18h18"/></svg>
-                    <p class="text-sm text-slate-500">Enter all vital signs to generate assessment and medication recommendations...</p>
+                    <p class="text-sm text-slate-500">Enter all vital signs to generate a simulation assessment.</p>
                 </div>`;
                 badge.innerText = "Enter Vitals";
                 badge.className = "px-4 py-2 bg-slate-700 rounded-full text-xs font-mono text-slate-400 font-bold";
                 return { ok: false, reason: 'missing_inputs' };
             }
 
-            const { diagnosis, priority, color, recommendations, contextNotes } = generateDiagnosis(sys, dia, temp, hr, rr, age, pregnancies, pregnant, conditions);
+            const abnormalFindings = [];
+            const interpretations = [];
+            const actions = [];
+            const context = [];
+            let severityScore = 0;
 
-            if (diagnosis.length > 0) {
-                let html = `<div class="w-full space-y-4">`;
-                
-                // Context Notes
-                if (contextNotes.length > 0) {
-                    html += `<div class="bg-blue-900/30 border border-blue-700/50 p-3 rounded-lg space-y-1">`;
-                    contextNotes.forEach(note => {
-                        html += `<p class="text-xs text-blue-300">${note}</p>`;
-                    });
-                    html += `</div>`;
+            const isChild = age > 0 && age < 12;
+            const isOlderAdult = age >= 65;
+            const hasComorbidity = conditions && conditions !== 'none';
+
+            // Blood pressure interpretation
+            if (sys >= 180 || dia >= 120) {
+                interpretations.push(`Hypertensive crisis pattern (${sys}/${dia} mmHg)`);
+                abnormalFindings.push('critical_bp');
+                severityScore += 4;
+                actions.push("Recheck BP manually within 5 minutes and escalate to the clinical instructor immediately.");
+            } else if (sys >= 140 || dia >= 90) {
+                interpretations.push(`Stage 2 hypertension pattern (${sys}/${dia} mmHg)`);
+                abnormalFindings.push('stage2_bp');
+                severityScore += 3;
+                actions.push("Monitor blood pressure every 15 minutes in simulation and observe for headache, chest pain, or neurologic changes.");
+            } else if (sys >= 130 || dia >= 80) {
+                interpretations.push(`Stage 1 hypertension pattern (${sys}/${dia} mmHg)`);
+                abnormalFindings.push('stage1_bp');
+                severityScore += 2;
+                actions.push("Repeat BP after a brief rest and compare trend with previous simulation readings.");
+            } else if (sys >= 120 && dia < 80) {
+                interpretations.push(`Elevated blood pressure pattern (${sys}/${dia} mmHg)`);
+                abnormalFindings.push('elevated_bp');
+                severityScore += 1;
+            } else if (sys < 90 || dia < 60) {
+                interpretations.push(`Hypotension pattern (${sys}/${dia} mmHg)`);
+                abnormalFindings.push('low_bp');
+                severityScore += 2;
+                actions.push("Assess perfusion indicators in simulation (mental status, skin signs, capillary refill) and reassess vitals promptly.");
+            } else {
+                interpretations.push(`Blood pressure within reference range (${sys}/${dia} mmHg)`);
+            }
+
+            // Temperature interpretation
+            if (temp >= 39.5) {
+                interpretations.push(`High fever pattern (${temp.toFixed(1)}°C)`);
+                abnormalFindings.push('high_fever');
+                severityScore += 3;
+                actions.push("Increase monitoring frequency and evaluate for fever-associated tachycardia or tachypnea trends.");
+            } else if (temp >= 38.0) {
+                interpretations.push(`Fever pattern (${temp.toFixed(1)}°C)`);
+                abnormalFindings.push('fever');
+                severityScore += 2;
+            } else if (temp >= 37.5) {
+                interpretations.push(`Low-grade fever pattern (${temp.toFixed(1)}°C)`);
+                abnormalFindings.push('low_fever');
+                severityScore += 1;
+            } else if (temp < 35.0) {
+                interpretations.push(`Hypothermia pattern (${temp.toFixed(1)}°C)`);
+                abnormalFindings.push('hypothermia');
+                severityScore += 3;
+                actions.push("Prioritize warming interventions in simulation and reassess core vital trends.");
+            } else {
+                interpretations.push(`Temperature within reference range (${temp.toFixed(1)}°C)`);
+            }
+
+            // Heart rate interpretation (age-adjusted simplification for simulation)
+            const hrLow = isChild ? 70 : 60;
+            const hrHigh = isChild ? 120 : 100;
+            if (hr > hrHigh + 20) {
+                interpretations.push(`Marked tachycardia pattern (HR ${hr} bpm)`);
+                abnormalFindings.push('severe_tachy');
+                severityScore += 3;
+                actions.push("Assess for contributing simulation causes (pain, fever, anxiety, dehydration) and trend HR closely.");
+            } else if (hr > hrHigh) {
+                interpretations.push(`Tachycardia pattern (HR ${hr} bpm)`);
+                abnormalFindings.push('tachy');
+                severityScore += 2;
+            } else if (hr < hrLow - 10) {
+                interpretations.push(`Bradycardia pattern (HR ${hr} bpm)`);
+                abnormalFindings.push('brady');
+                severityScore += 2;
+                actions.push("Reassess perfusion and symptoms in simulation; verify reading quality and repeat HR.");
+            } else {
+                interpretations.push(`Heart rate within expected range for age (HR ${hr} bpm)`);
+            }
+
+            // Respiratory rate interpretation (age-adjusted simplification for simulation)
+            const rrLow = isChild ? 18 : 12;
+            const rrHigh = isChild ? 30 : 20;
+            if (rr > rrHigh + 10) {
+                interpretations.push(`Severe tachypnea pattern (RR ${rr}/min)`);
+                abnormalFindings.push('severe_tachypnea');
+                severityScore += 3;
+                actions.push("Reassess airway and breathing immediately in simulation and check oxygenation if available.");
+            } else if (rr > rrHigh) {
+                interpretations.push(`Tachypnea pattern (RR ${rr}/min)`);
+                abnormalFindings.push('tachypnea');
+                severityScore += 2;
+            } else if (rr < rrLow) {
+                interpretations.push(`Bradypnea pattern (RR ${rr}/min)`);
+                abnormalFindings.push('bradypnea');
+                severityScore += 2;
+                actions.push("Observe depth and effort of breathing in simulation and repeat respiratory assessment.");
+            } else {
+                interpretations.push(`Respiratory rate within expected range for age (RR ${rr}/min)`);
+            }
+
+            // Combined pattern interpretation
+            if ((hr > hrHigh || hr > 100) && temp >= 38.0) {
+                interpretations.push("Tachycardia with fever pattern (possible systemic stress response in simulation)");
+                severityScore += 1;
+            }
+            if ((rr > rrHigh || rr > 20) && temp >= 38.0) {
+                interpretations.push("Tachypnea with fever pattern (monitor for increasing work of breathing in simulation)");
+                severityScore += 1;
+            }
+
+            // Patient factor context
+            if (age > 0) {
+                context.push(isChild ? "Pediatric age group: compare trends with age-appropriate reference ranges." : "Adult reference ranges applied for baseline interpretation.");
+            }
+            if (isOlderAdult) {
+                context.push("Older adult factor: atypical presentation may occur, so trending and reassessment are important.");
+                severityScore += 1;
+            }
+            if (pregnant === 'yes') {
+                context.push("Pregnancy factor: monitor maternal trends closely and correlate with gestational context in simulation.");
+                if (!Number.isNaN(pregnancies) && pregnancies > 0) {
+                    context.push(`Obstetric history noted: G${pregnancies}.`);
                 }
+                if (sys >= 140 || dia >= 90) {
+                    context.push("Pregnancy + elevated BP pattern: discuss preeclampsia screening workflow with your instructor in simulation.");
+                    severityScore += 1;
+                }
+            }
+            if (hasComorbidity) {
+                context.push(`Known condition context: ${conditions.toUpperCase()} may shift target priorities and reassessment frequency.`);
+                severityScore += 1;
+            }
 
-                // Findings
-                html += `<div class="space-y-2">
-                    <p class="font-bold text-slate-300 text-left text-sm">📋 Simulation Findings:</p>
-                    <ul class="text-left w-full pl-4 space-y-1">`;
-                diagnosis.forEach(d => {
-                    const iconSvg = getIconSvg(d.icon);
-                    html += `<li class="text-white text-sm">
-                        ${iconSvg} ${d.name}
-                    </li>`;
+            // Assign priority level and style
+            const priorityLevels = [
+                { key: "Normal / Green", icon: "🟢", textClass: "text-green-300", bgClass: "bg-green-900/30", borderClass: "border-green-600/60" },
+                { key: "Mild Concern / Yellow", icon: "🟡", textClass: "text-yellow-300", bgClass: "bg-yellow-900/30", borderClass: "border-yellow-600/60" },
+                { key: "Moderate Concern / Orange", icon: "🟠", textClass: "text-orange-300", bgClass: "bg-orange-900/30", borderClass: "border-orange-600/60" },
+                { key: "High Priority / Red", icon: "🔴", textClass: "text-red-300", bgClass: "bg-red-900/30", borderClass: "border-red-600/60" },
+                { key: "Emergency / Critical", icon: "🚨", textClass: "text-red-200", bgClass: "bg-red-950/50", borderClass: "border-red-500" }
+            ];
+
+            let priorityIndex = 0;
+            if (severityScore >= 10 || abnormalFindings.includes('critical_bp') || abnormalFindings.includes('severe_tachypnea')) priorityIndex = 4;
+            else if (severityScore >= 7) priorityIndex = 3;
+            else if (severityScore >= 4) priorityIndex = 2;
+            else if (severityScore >= 1) priorityIndex = 1;
+
+            const chosenPriority = priorityLevels[priorityIndex];
+
+            // Keep action list concise and relevant (2-4 items)
+            const uniqueActions = [...new Set(actions)];
+            if (uniqueActions.length < 2) {
+                uniqueActions.push("Reassess full vital signs within 15-30 minutes in simulation and compare trend.");
+                uniqueActions.push("Report significant trend changes to your clinical instructor during scenario debrief.");
+            }
+            const finalActions = uniqueActions.slice(0, 4);
+
+            // Build interpretation list with strongest findings first
+            const criticalInterpretations = interpretations.filter(item =>
+                item.includes("crisis") || item.includes("Stage 2") || item.includes("Severe") || item.includes("Marked")
+            );
+            const baselineInterpretations = interpretations.filter(item => !criticalInterpretations.includes(item));
+            const finalInterpretations = [...criticalInterpretations, ...baselineInterpretations].slice(0, 5);
+
+            let html = `<div class="w-full space-y-4 text-left not-italic">
+                <div class="rounded-lg border ${chosenPriority.borderClass} ${chosenPriority.bgClass} p-3">
+                    <p class="text-xs uppercase tracking-wide text-slate-300">Overall Priority Level</p>
+                    <p class="font-bold ${chosenPriority.textClass} text-sm mt-1">${chosenPriority.icon} ${chosenPriority.key}</p>
+                </div>
+
+                <div class="bg-slate-800/40 border border-slate-700 rounded-lg p-3">
+                    <p class="font-semibold text-slate-200 text-sm mb-2">Clinical Interpretation (Simulation)</p>
+                    <ul class="space-y-1 text-xs text-slate-200 list-disc pl-4">`;
+            finalInterpretations.forEach(item => {
+                html += `<li>${item}</li>`;
+            });
+            html += `</ul></div>
+
+                <div class="bg-slate-800/40 border border-slate-700 rounded-lg p-3">
+                    <p class="font-semibold text-slate-200 text-sm mb-2">Nursing Considerations / Actions</p>
+                    <ul class="space-y-1 text-xs text-cyan-200 list-disc pl-4">`;
+            finalActions.forEach(item => {
+                html += `<li>${item}</li>`;
+            });
+            html += `</ul></div>`;
+
+            if (context.length > 0) {
+                html += `<div class="bg-indigo-900/20 border border-indigo-700/50 rounded-lg p-3">
+                    <p class="font-semibold text-indigo-200 text-sm mb-2">Patient Context</p>
+                    <ul class="space-y-1 text-xs text-indigo-100 list-disc pl-4">`;
+                context.slice(0, 4).forEach(item => {
+                    html += `<li>${item}</li>`;
                 });
                 html += `</ul></div>`;
-                
-                // Citation Reference
-                html += `<div class="bg-amber-900/20 border border-amber-700/50 p-2 rounded-lg mt-3">
-                    <p class="text-[10px] text-amber-400 italic">📚 Ref: Standard Nursing Protocol / Textbook Validation Required</p>
-                </div>`;
-
-                // Recommendations
-                if (recommendations.length > 0) {
-                    html += `<div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700 space-y-3">`;
-                    recommendations.forEach((rec, idx) => {
-                        html += `<div class="space-y-2">
-                            <p class="font-bold text-cyan-400 text-sm">� Reference ${idx + 1}:</p>
-                            <p class="text-xs text-slate-300"><strong>Reference OTC:</strong> ${rec.meds.join(", ")}</p>
-                            <p class="text-xs text-slate-400"><strong>Consideration:</strong> ${rec.actions}</p>
-                            <p class="text-[10px] text-amber-400/70 italic">⚠️ Verify with CI before any application</p>
-                        </div>`;
-                    });
-                    html += `</div>`;
-                }
-
-                html += `</div>`;
-                box.innerHTML = html;
-                box.className = "p-6 bg-slate-700/20 rounded-xl border border-blue-500/50 min-h-[120px] flex items-center italic text-sm";
-                
-                // Map internal priority to simulation-friendly display text
-                let displayPriority = priority;
-                let badgeColor = color;
-                if (priority === "CRITICAL") {
-                    displayPriority = "⚠️ SIM ALERT";
-                    badgeColor = "text-amber-400";
-                }
-                else if (priority === "ELEVATED") {
-                    displayPriority = "📋 MONITOR REF";
-                    badgeColor = "text-amber-400";
-                }
-                else if (priority === "STABLE") displayPriority = "✓ BASELINE";
-                
-                badge.innerText = displayPriority;
-                badge.className = `px-4 py-2 rounded-full text-xs font-bold font-mono ${badgeColor} bg-slate-800 border border-current shadow-lg`;
-                return {
-                    ok: true,
-                    priority: displayPriority,
-                    findings_count: diagnosis.length,
-                    recommendation_count: recommendations.length,
-                    has_comorbidity: conditions !== 'none',
-                    pregnant
-                };
-            } else {
-                box.innerHTML = `<div class="text-center text-slate-400">
-                    <svg class="inline text-2xl text-green-500 mb-2" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                    <p class="text-sm">Vitals appear within reference range</p>
-                    <p class="text-[10px] text-amber-400 mt-2 italic">📚 Verify interpretation with CI & textbooks</p>
-                </div>`;
-                badge.innerText = "✓ BASELINE";
-                badge.className = `px-4 py-2 rounded-full text-xs font-bold font-mono text-green-400 bg-slate-800 border border-green-500 shadow-lg`;
-                return {
-                    ok: true,
-                    priority: 'BASELINE',
-                    findings_count: 0,
-                    recommendation_count: 0,
-                    has_comorbidity: conditions !== 'none',
-                    pregnant
-                };
             }
+
+            html += `<div class="bg-amber-900/20 border border-amber-700/50 rounded-lg p-2">
+                    <p class="text-[10px] text-amber-300 italic">Simulation-only educational output. Not real clinical advice. Always verify with your instructor and approved references.</p>
+                </div>
+            </div>`;
+
+            box.innerHTML = html;
+            box.className = "p-4 bg-slate-700/20 rounded-xl border border-blue-500/40 min-h-[120px] flex items-start text-sm";
+
+            badge.innerText = `${chosenPriority.icon} ${chosenPriority.key}`;
+            badge.className = `px-4 py-2 rounded-full text-xs font-bold font-mono ${chosenPriority.textClass} bg-slate-800 border ${chosenPriority.borderClass} shadow-lg`;
+
+            return {
+                ok: true,
+                priority: chosenPriority.key,
+                findings_count: finalInterpretations.length,
+                recommendation_count: finalActions.length,
+                has_comorbidity: conditions !== 'none',
+                pregnant
+            };
         }
 
-        // OPTIMIZATION: Keep button trigger for manual analysis with proper tracking
+        // Manual trigger for the same live analysis output, while keeping analytics behavior unchanged.
         function simulateVitalSigns() {
             const status = document.getElementById('vitals-record-status');
 
