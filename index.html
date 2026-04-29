@@ -451,6 +451,24 @@
         </div>
     </div>
 
+    <!-- ONE-TIME ONBOARDING OVERLAY -->
+    <div id="onboardingOverlay" style="display:none; position: fixed; inset: 0; background: rgba(2,6,23,0.92); z-index: 10010; justify-content: center; align-items: center; padding: 20px;">
+        <div style="background:#0f172a; border:1px solid #334155; border-radius:18px; max-width:520px; width:100%; padding:24px; box-shadow:0 20px 40px rgba(0,0,0,0.45);">
+            <h2 style="color:#22d3ee; font-size:24px; font-weight:800; margin-bottom:8px;">NursePath</h2>
+            <p style="color:#cbd5e1; font-size:14px; line-height:1.5; margin-bottom:14px;">
+                A simulation-only nursing learning tool for practicing assessment reasoning and decision support workflows.
+            </p>
+            <ul style="color:#94a3b8; font-size:13px; line-height:1.7; padding-left:20px; margin-bottom:18px;">
+                <li><strong style="color:#e2e8f0;">Vital Signs Simulator:</strong> Interpret trends and prioritize simulation responses.</li>
+                <li><strong style="color:#e2e8f0;">Calculators:</strong> Quickly compute IV flow rate, BMI, AOG, and EDD.</li>
+                <li><strong style="color:#e2e8f0;">OTC Reference:</strong> Review academic medication notes and safety reminders.</li>
+            </ul>
+            <button onclick="dismissOnboarding()" style="width:100%; padding:12px; border:none; border-radius:12px; background:linear-gradient(135deg,#06b6d4,#0284c7); color:white; font-size:14px; font-weight:700; cursor:pointer;">
+                Get Started
+            </button>
+        </div>
+    </div>
+
     <!-- Supabase Auth + Offline Session Gate -->
     <script>
         const SIMULATION_KEY = 'nursepath_simulation_agreed';
@@ -462,6 +480,7 @@
         const AUTH_EMAIL_LOG_KEY = 'nursepath_auth_email_log_v1';
         const AUTH_PENDING_LOG_KEY = 'nursepath_pending_auth_email_log_v1';
         const AUTH_EMAIL_LOG_TABLE = 'auth_email_log';
+        const ONBOARDING_DISMISSED_KEY = 'nursepath_onboarding_dismissed_v1';
         const USAGE_CONSENT_KEY = 'nursepath_usage_consent_v1';
         const USAGE_QUEUE_KEY = 'nursepath_usage_queue_v1';
         const USAGE_SESSION_KEY = 'nursepath_usage_session_v1';
@@ -1387,6 +1406,23 @@
             window.__nursepathAuthState.pendingBoot = true;
         }
 
+        function showOnboardingIfNeeded() {
+            const dismissed = localStorage.getItem(ONBOARDING_DISMISSED_KEY) === '1';
+            if (dismissed) return;
+            const overlay = document.getElementById('onboardingOverlay');
+            if (overlay) {
+                overlay.style.display = 'flex';
+            }
+        }
+
+        function dismissOnboarding() {
+            localStorage.setItem(ONBOARDING_DISMISSED_KEY, '1');
+            const overlay = document.getElementById('onboardingOverlay');
+            if (overlay) {
+                overlay.style.display = 'none';
+            }
+        }
+
         function checkAuth() {
             const ghostUser = readGhostUser();
             if (!ghostUser || !isValidEmailFormat(ghostUser.email)) {
@@ -1398,6 +1434,7 @@
             if (authOverlay) authOverlay.style.display = 'none';
             if (appShell) appShell.style.display = 'block';
             document.documentElement.setAttribute('data-ghost-auth', '1');
+            showOnboardingIfNeeded();
 
             window.__nursepathAuthState.authenticated = true;
 
@@ -1419,6 +1456,7 @@
                 appShell.style.display = 'block';
             }
             document.documentElement.setAttribute('data-ghost-auth', '1');
+            showOnboardingIfNeeded();
 
             window.__nursepathAuthState.authenticated = true;
 
