@@ -1292,6 +1292,8 @@
             clearTabSessionLogged();
             clearCurrentTabSessionId();
             clearTabAppInitLogged();
+            // OPTIMIZATION: Reset vital signs tracking flag on logout
+            hasTrackedVitalsOpen = false;
             showAuthOverlay('Logged out. Enter email or invite code to continue.', false);
             applyRoleVisibility();
             trackUsageEvent('auth', 'feature_use', { action: 'logout' }, { minIntervalMs: 500, rateKey: 'logout_action' });
@@ -1302,6 +1304,8 @@
             clearTabSessionLogged();
             clearCurrentTabSessionId();
             clearTabAppInitLogged();
+            // OPTIMIZATION: Reset vital signs tracking flag on device reset
+            hasTrackedVitalsOpen = false;
             localStorage.removeItem(AUTH_EMAIL_LOG_KEY);
             localStorage.removeItem(AUTH_PENDING_LOG_KEY);
             localStorage.removeItem(USAGE_QUEUE_KEY);
@@ -2429,8 +2433,17 @@
             }
         }
 
+        // OPTIMIZATION: Keep button trigger for manual analysis with proper tracking
         function simulateVitalSigns() {
             const status = document.getElementById('vitals-record-status');
+
+            // OPTIMIZATION: Track feature_open if not already tracked
+            if (!hasTrackedVitalsOpen) {
+                hasTrackedVitalsOpen = true;
+                trackUsageSafe('vitals', 'feature_open', {
+                    trigger: 'simulate_button'
+                }, { minIntervalMs: 5000, rateKey: 'vitals_feature_open' });
+            }
 
             const summary = liveAnalyze();
             if (!summary || !summary.ok) {
@@ -2439,6 +2452,7 @@
                 return;
             }
 
+            // OPTIMIZATION: Track button-triggered result_generated with source distinction
             trackUsageSafe('vitals', 'result_generated', {
                 source: 'simulate_button',
                 priority: summary.priority,
@@ -3663,22 +3677,46 @@
             return text.replace(re, m => `<strong style="font-weight: 800; color: #22d3ee;">${m}</strong>`);
         }
 
-        // OPTIMIZATION: Debounce timer for vital signs live analysis
+        // OPTIMIZATION: Live analysis with debounced tracking
         let vitalSignsDebounceTimer = null;
         const VITAL_SIGNS_DEBOUNCE_MS = 500;
+        let hasTrackedVitalsOpen = false;
 
-        // OPTIMIZATION: Initialize live vital signs analysis on field change
+        // OPTIMIZATION: Initialize live vital signs analysis on field change with proper event tracking
         function initVitalSignsLiveAnalysis() {
             const vitalFields = ['sys', 'dia', 'temp', 'hr', 'rr', 'age', 'pregnancies', 'pregnant', 'conditions'];
             vitalFields.forEach(fieldId => {
                 const field = document.getElementById(fieldId);
                 if (field) {
                     field.addEventListener('change', () => {
+                        // OPTIMIZATION: Track 'vitals', 'feature_open' on first interaction
+                        if (!hasTrackedVitalsOpen) {
+                            hasTrackedVitalsOpen = true;
+                            trackUsageSafe('vitals', 'feature_open', {
+                                trigger: 'field_changed',
+                                field: fieldId
+                            }, { minIntervalMs: 5000, rateKey: 'vitals_feature_open' });
+                        }
+
+                        // OPTIMIZATION: Debounce live analysis + tracking
                         if (vitalSignsDebounceTimer) {
                             clearTimeout(vitalSignsDebounceTimer);
                         }
                         vitalSignsDebounceTimer = setTimeout(() => {
-                            liveAnalyze();
+                            const analysisResult = liveAnalyze();
+                            
+                            // OPTIMIZATION: Track 'vitals', 'result_generated' on debounced live analysis run (NOT per keystroke)
+                            if (analysisResult && analysisResult.ok) {
+                                trackUsageSafe('vitals', 'result_generated', {
+                                    source: 'live_analysis',
+                                    priority: analysisResult.priority,
+                                    findings_count: analysisResult.findings_count,
+                                    recommendation_count: analysisResult.recommendation_count,
+                                    has_comorbidity: analysisResult.has_comorbidity,
+                                    pregnant: analysisResult.pregnant
+                                }, { minIntervalMs: 250, rateKey: `live_analysis_${Date.now()}` });
+                            }
+                            
                             vitalSignsDebounceTimer = null;
                         }, VITAL_SIGNS_DEBOUNCE_MS);
                     });
