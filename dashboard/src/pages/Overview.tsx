@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { UsageEvent, formatDuration } from '../lib/supabase'
-import { formatNumber } from '../lib/utils'
-import { fetchUsageEventsResilient } from '../lib/usageData'
+import { formatNumber, getFeatureLabel } from '../lib/utils'
+import { fetchUsageEventsResilient, subscribeToUsageEventChanges } from '../lib/usageData'
 import { Metric } from '../components/Metric'
 import {
   LineChart,
@@ -15,6 +15,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  Legend,
   ResponsiveContainer,
 } from 'recharts'
 
@@ -70,7 +71,7 @@ export function Overview() {
           .filter((e) => e !== 'session_null')
       )
       const uniqueSessions = new Set(events.map((e) => e.session_id))
-      const featureEvents = events.filter((e) => e.feature && e.feature !== 'session' && e.feature !== 'auth')
+      const featureEvents = events.filter((e) => e.feature && e.feature !== 'session' && e.feature !== 'auth' && e.feature !== 'consent')
       const avgDuration = featureEvents.length > 0
         ? featureEvents.reduce((sum, e) => sum + (e.duration_ms || 0), 0) / featureEvents.length
         : 0
@@ -100,15 +101,15 @@ export function Overview() {
       // Top features analysis
       const featureMap = new Map<string, number>()
       events.forEach((e) => {
-        if (e.feature && e.feature !== 'session' && e.feature !== 'auth') {
-          const key = `${e.feature}${e.action ? ':' + e.action : ''}`
+        if (e.feature && e.feature !== 'session' && e.feature !== 'auth' && e.feature !== 'consent') {
+          const key = getFeatureLabel(e.feature)
           featureMap.set(key, (featureMap.get(key) || 0) + 1)
         }
       })
       const topFeaturesArray = Array.from(featureMap.entries())
-        .map(([name, value]) => ({ name: name.substring(0, 20), value }))
+        .map(([name, value]) => ({ name, value }))
         .sort((a, b) => b.value - a.value)
-        .slice(0, 5)
+        .slice(0, 8)
       setTopFeatures(topFeaturesArray)
       setLastUpdated(new Date().toLocaleTimeString())
     } catch (err) {
@@ -134,10 +135,12 @@ export function Overview() {
 
     const onFocus = () => fetchData(true)
     window.addEventListener('focus', onFocus)
+    const unsubscribe = subscribeToUsageEventChanges(() => fetchData(true))
 
     return () => {
       window.clearInterval(intervalId)
       window.removeEventListener('focus', onFocus)
+      unsubscribe()
     }
   }, [fetchData])
 
@@ -232,16 +235,16 @@ export function Overview() {
 
         {/* Top Features Pie */}
         <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
-          <h2 className="text-lg font-semibold text-white mb-4">Top 5 Features</h2>
-          <ResponsiveContainer width="100%" height={300}>
+          <h2 className="text-lg font-semibold text-white mb-4">Top Features</h2>
+          <ResponsiveContainer width="100%" height={340}>
             <PieChart>
               <Pie
                 data={topFeatures}
                 cx="50%"
                 cy="50%"
-                labelLine={false}
-                label={({ name, value }) => `${name} (${value})`}
-                outerRadius={80}
+                innerRadius={42}
+                outerRadius={96}
+                paddingAngle={2}
                 fill="#06b6d4"
                 dataKey="value"
               >
@@ -253,6 +256,12 @@ export function Overview() {
                 contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #475569' }}
                 labelStyle={{ color: '#f1f5f9' }}
               />
+              <Legend
+                verticalAlign="bottom"
+                height={44}
+                iconType="circle"
+                formatter={(value) => <span className="text-slate-300 text-xs">{String(value)}</span>}
+              />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -261,10 +270,10 @@ export function Overview() {
       {/* Feature Usage Bar Chart */}
       <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
         <h2 className="text-lg font-semibold text-white mb-4">Feature Usage Breakdown</h2>
-        <ResponsiveContainer width="100%" height={250}>
-          <BarChart data={topFeatures}>
+        <ResponsiveContainer width="100%" height={320}>
+          <BarChart data={topFeatures} margin={{ top: 10, right: 10, left: 0, bottom: 28 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-            <XAxis dataKey="name" stroke="#94a3b8" fontSize={12} />
+            <XAxis dataKey="name" stroke="#94a3b8" fontSize={11} interval={0} angle={-18} textAnchor="end" height={52} />
             <YAxis stroke="#94a3b8" fontSize={12} />
             <Tooltip
               contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #475569' }}

@@ -43,6 +43,16 @@ export function Export() {
         'Duration (ms)',
       ]
 
+      const stringifyMetaForCsv = (value: unknown): string => {
+        if (value == null) return ''
+        if (typeof value === 'string') return value
+        try {
+          return JSON.stringify(value)
+        } catch {
+          return String(value)
+        }
+      }
+
       const rows = events.map((e) => [
         e.id,
         e.event_id,
@@ -50,7 +60,7 @@ export function Export() {
         e.session_id,
         e.feature,
         e.action,
-        (e.meta || '').replace(/"/g, '""'), // Escape quotes in CSV
+        stringifyMetaForCsv(e.meta).replace(/"/g, '""'),
         e.timestamp,
         e.online ? 'yes' : 'no',
         e.duration_ms || '',

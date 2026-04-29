@@ -1225,8 +1225,7 @@
         }
 
         function renderPilotMetrics() {
-            return;
-
+            // OPTIMIZATION: Re-enable pilot metrics panel - removed early return
             const queue = buildReportableEvents(readUsageQueue());
             const sessions = queue.filter((e) => e.feature === 'session' && e.action === 'session_start').length;
             const onlineCount = queue.filter((e) => e.online === true).length;
@@ -1480,15 +1479,7 @@
                 }
             }
 
-            if (!usageConsent || !usageConsent.checked) {
-                setUsageConsent(false);
-                setAuthStatus('You must consent to usage tracking to access formal testing.', true);
-                trackUsageEvent('consent', 'error_shown', { reason: 'consent_required' }, { minIntervalMs: 2000, rateKey: 'consent_required' });
-                releaseSubmitLock();
-                return;
-            }
-            setUsageConsent(true);
-
+            // OPTIMIZATION: Remove duplicate consent check (was repeated twice)
             if (!usageConsent || !usageConsent.checked) {
                 setUsageConsent(false);
                 setAuthStatus('You must consent to usage tracking to access formal testing.', true);
@@ -2088,6 +2079,7 @@
         };
 
         function trackUsageSafe(feature, action, meta = {}, options = {}) {
+            // OPTIMIZATION: Safe fallback in case trackUsageEvent is undefined
             if (typeof window.trackUsageEvent === 'function') {
                 window.trackUsageEvent(feature, action, meta, options);
             }
@@ -3671,24 +3663,115 @@
             return text.replace(re, m => `<strong style="font-weight: 800; color: #22d3ee;">${m}</strong>`);
         }
 
+        // OPTIMIZATION: Debounce timer for vital signs live analysis
+        let vitalSignsDebounceTimer = null;
+        const VITAL_SIGNS_DEBOUNCE_MS = 500;
+
+        // OPTIMIZATION: Initialize live vital signs analysis on field change
+        function initVitalSignsLiveAnalysis() {
+            const vitalFields = ['sys', 'dia', 'temp', 'hr', 'rr', 'age', 'pregnancies', 'pregnant', 'conditions'];
+            vitalFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.addEventListener('change', () => {
+                        if (vitalSignsDebounceTimer) {
+                            clearTimeout(vitalSignsDebounceTimer);
+                        }
+                        vitalSignsDebounceTimer = setTimeout(() => {
+                            liveAnalyze();
+                            vitalSignsDebounceTimer = null;
+                        }, VITAL_SIGNS_DEBOUNCE_MS);
+                    });
+                }
+            });
+        }
+
         // State for OTC list preview - incremental loading
         let otcVisibleCount = 3;
         const OTC_INCREMENT = 3;
+        // OPTIMIZATION: Debounce timer for OTC search input
+        let otcSearchDebounceTimer = null;
+        const OTC_SEARCH_DEBOUNCE_MS = 300;
+
+        // IMPROVED SEARCH: Fuzzy/smart search helper with relevance ranking
+        function smartSearch(query, item) {
+            const q = query.toLowerCase().trim();
+            if (!q) return { match: true, score: 0 };
+
+            let score = 0;
+            const name = item.name.toLowerCase();
+            const brands = (item.ph_brands || []).map(b => b.toLowerCase()).join(' ');
+            const uses = (item.uses || '').toLowerCase();
+            const tags = (item.tags || []).map(t => t.toLowerCase()).join(' ');
+            const additionalInfo = item.additionalInfo || {};
+            const usesExpanded = (additionalInfo.usesExpanded || '').toLowerCase();
+            const whenToGiveExpanded = (additionalInfo.whenToGiveExpanded || '').toLowerCase();
+
+            // Exact matches get highest score
+            if (name === q) return { match: true, score: 1000 };
+            if (brands.split(' ').includes(q)) return { match: true, score: 950 };
+
+            // Starts with query
+            if (name.startsWith(q)) score += 500;
+            if (uses.startsWith(q)) score += 300;
+            if (brands.startsWith(q)) score += 400;
+
+            // Contains query
+            if (name.includes(q)) score += 200;
+            if (brands.includes(q)) score += 150;
+            if (uses.includes(q)) score += 100;
+            if (usesExpanded.includes(q)) score += 80;
+            if (tags.includes(q)) score += 120;
+            if (whenToGiveExpanded.includes(q)) score += 70;
+
+            // Fuzzy: check for partial word matches (e.g. 'fever' matches 'antipyretic')
+            const queryWords = q.split(/\s+/);
+            const allText = `${name} ${brands} ${uses} ${tags} ${usesExpanded} ${whenToGiveExpanded}`;
+            queryWords.forEach(word => {
+                if (word.length > 2 && allText.includes(word)) score += 40;
+            });
+
+            // Related symptom mapping (e.g. 'cough' → 'antitussive', 'diarrhea' → 'antidiarrheal')
+            const symptomMap = {
+                'cough': ['antitussive', 'decongestant', 'cold'],
+                'asthma': ['bronchospasm', 'respiratory', 'breathing', 'broncho'],
+                'breathing': ['respiratory', 'broncho', 'asthma', 'dyspnea'],
+                'diarrhea': ['antidiarrheal', 'gastro', 'bowel', 'digestive'],
+                'fever': ['antipyretic', 'temperature', 'thermal'],
+                'pain': ['analgesic', 'ache', 'soreness', 'discomfort'],
+                'painkiller': ['analgesic', 'pain relief'],
+                'heartburn': ['antacid', 'reflux', 'gerd', 'acid'],
+                'allergy': ['antihistamine', 'allergic', 'hives'],
+                'nausea': ['antiemetic', 'vomiting', 'gastro']
+            };
+            if (symptomMap[q]) {
+                symptomMap[q].forEach(related => {
+                    if (allText.includes(related)) score += 60;
+                });
+            }
+
+            return { match: score > 0, score };
+        }
 
         function renderOTCList(filter){
             const q = (filter||'').trim().toLowerCase();
-            otcListEl.innerHTML = '';
-            const matches = otcDatabase.filter(item => {
-                if(!q) return true;
-                if(item.name.toLowerCase().includes(q)) return true;
-                if(item.ph_brands.join(' ').toLowerCase().includes(q)) return true;
-                if(item.uses.toLowerCase().includes(q)) return true;
-                if((item.tags||[]).some(t=>t.includes(q))) return true;
-                return false;
-            });
+            // OPTIMIZATION: Use DocumentFragment for efficient DOM rendering
+            const fragment = document.createDocumentFragment();
+            
+            // IMPROVED SEARCH: Smart search with relevance ranking
+            const matches = otcDatabase
+                .map(item => ({ item, ...smartSearch(q, item) }))
+                .filter(r => r.match)
+                .sort((a, b) => b.score - a.score)
+                .map(r => r.item);
 
             if(matches.length === 0){
-                otcListEl.innerHTML = `<div class="text-slate-400 text-sm">No matches found.</div>`;
+                const noMatch = document.createElement('div');
+                noMatch.className = 'text-slate-400 text-sm';
+                noMatch.textContent = 'No matches found.';
+                fragment.appendChild(noMatch);
+                otcListEl.innerHTML = '';
+                otcListEl.appendChild(fragment);
                 return;
             }
 
@@ -3717,7 +3800,7 @@
                         <div class="text-xs text-slate-500 whitespace-nowrap">More</div>
                     </div>`;
                 card.onclick = () => showOTCDetail(item);
-                otcListEl.appendChild(card);
+                fragment.appendChild(card);
             });
 
             // Show "Show More" button if not searching and there are more items to show
@@ -3733,7 +3816,7 @@
                     otcVisibleCount += OTC_INCREMENT;
                     renderOTCList('');
                 };
-                otcListEl.appendChild(showMoreBtn);
+                fragment.appendChild(showMoreBtn);
             }
             
             // Show "Show Less" button if showing more than initial amount
@@ -3749,8 +3832,12 @@
                     renderOTCList('');
                     otcListEl.scrollIntoView({behavior:'smooth', block:'start'});
                 };
-                otcListEl.appendChild(showLessBtn);
+                fragment.appendChild(showLessBtn);
             }
+            
+            // OPTIMIZATION: Use DocumentFragment to batch DOM updates
+            otcListEl.innerHTML = '';
+            otcListEl.appendChild(fragment);
         }
 
         function showOTCDetail(item){
@@ -3889,8 +3976,15 @@
             }
         }
 
+        // OPTIMIZATION: Add 300ms debounce to search input for better performance
         otcSearch.addEventListener('input', (e) => {
-            renderOTCList(e.target.value);
+            if (otcSearchDebounceTimer) {
+                clearTimeout(otcSearchDebounceTimer);
+            }
+            otcSearchDebounceTimer = setTimeout(() => {
+                renderOTCList(e.target.value);
+                otcSearchDebounceTimer = null;
+            }, OTC_SEARCH_DEBOUNCE_MS);
         });
 
         window.__nursepathBootApp = function () {
@@ -3899,6 +3993,8 @@
             }
             renderOTCList('');
             renderOTCSidebar();
+            // OPTIMIZATION: Initialize live vital signs analysis
+            initVitalSignsLiveAnalysis();
             applyRoleVisibility();
             window.__nursepathAuthState.booted = true;
             window.__nursepathAuthState.pendingBoot = false;

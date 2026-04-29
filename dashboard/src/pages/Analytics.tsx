@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { UsageEvent, formatTime, formatDuration, parseMeta } from '../lib/supabase'
-import { fetchUsageEventsResilient } from '../lib/usageData'
+import { getFeatureActionLabel, getFeatureLabel } from '../lib/utils'
+import { fetchUsageEventsResilient, subscribeToUsageEventChanges } from '../lib/usageData'
 
 interface FilterState {
   dateFrom: string
@@ -62,8 +63,8 @@ export function Analytics() {
       // Calculate top features
       const featureMap = new Map<string, number>()
       deduped.forEach((e) => {
-        if (e.feature && e.feature !== 'session' && e.feature !== 'auth') {
-          const key = `${e.feature}:${e.action || 'use'}`
+        if (e.feature && e.feature !== 'session' && e.feature !== 'auth' && e.feature !== 'consent') {
+          const key = getFeatureLabel(e.feature)
           featureMap.set(key, (featureMap.get(key) || 0) + 1)
         }
       })
@@ -97,10 +98,12 @@ export function Analytics() {
 
     const onFocus = () => fetchEvents(true)
     window.addEventListener('focus', onFocus)
+    const unsubscribe = subscribeToUsageEventChanges(() => fetchEvents(true))
 
     return () => {
       window.clearInterval(intervalId)
       window.removeEventListener('focus', onFocus)
+      unsubscribe()
     }
   }, [fetchEvents])
 
@@ -216,10 +219,10 @@ export function Analytics() {
             >
               <option value="">All Features</option>
               {Array.from(new Set(events.map((e) => e.feature)))
-                .filter((f) => f && f !== 'session' && f !== 'auth')
+                .filter((f) => f && f !== 'session' && f !== 'auth' && f !== 'consent')
                 .map((f) => (
                   <option key={f} value={f}>
-                    {f}
+                    {getFeatureLabel(f)}
                   </option>
                 ))}
             </select>
@@ -274,8 +277,8 @@ export function Analytics() {
                     <td className="px-4 py-3 text-slate-400 font-mono text-xs truncate max-w-xs">
                       {event.session_id.substring(0, 8)}…
                     </td>
-                    <td className="px-4 py-3 text-cyan-400 font-medium">{event.feature}</td>
-                    <td className="px-4 py-3 text-slate-300">{event.action}</td>
+                    <td className="px-4 py-3 text-cyan-400 font-medium">{getFeatureLabel(event.feature)}</td>
+                    <td className="px-4 py-3 text-slate-300">{getFeatureActionLabel(event.feature, event.action)}</td>
                     <td className="px-4 py-3 text-slate-300">{formatDuration(event.duration_ms)}</td>
                     <td className="px-4 py-3 text-slate-400 text-xs truncate max-w-xs">
                       {event.meta ? (

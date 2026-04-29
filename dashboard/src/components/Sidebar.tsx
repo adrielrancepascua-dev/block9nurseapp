@@ -4,9 +4,10 @@ interface SidebarProps {
   currentPage: string
   onNavigate: (page: string) => void
   onLogout: () => void
+  userLabel?: string
 }
 
-export function Sidebar({ currentPage, onNavigate, onLogout }: SidebarProps) {
+export function Sidebar({ currentPage, onNavigate, onLogout, userLabel }: SidebarProps) {
   return (
     <div className="w-64 bg-slate-900 border-r border-slate-700 flex flex-col h-screen sticky top-0">
       {/* Header */}
@@ -41,7 +42,7 @@ export function Sidebar({ currentPage, onNavigate, onLogout }: SidebarProps) {
         >
           Logout
         </button>
-        <p className="text-xs text-slate-500 text-center">Admin Dashboard v1.0</p>
+        <p className="text-xs text-slate-500 text-center">{userLabel ? `Signed in as ${userLabel}` : 'Admin Dashboard v1.0'}</p>
       </div>
     </div>
   )

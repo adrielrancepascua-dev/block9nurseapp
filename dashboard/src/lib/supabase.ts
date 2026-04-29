@@ -22,7 +22,7 @@ export interface UsageEvent {
   session_id: string
   feature: string
   action: string
-  meta: string | null
+  meta: unknown
   timestamp: string
   online: boolean
   duration_ms: number | null
@@ -39,13 +39,23 @@ export interface Session {
 }
 
 /** Parse JSON meta field safely */
-export function parseMeta(meta: string | null): Record<string, any> {
+export function parseMeta(meta: unknown): Record<string, any> {
   if (!meta) return {}
-  try {
-    return JSON.parse(meta)
-  } catch {
-    return {}
+
+  if (typeof meta === 'string') {
+    try {
+      const parsed = JSON.parse(meta)
+      return parsed && typeof parsed === 'object' ? parsed as Record<string, any> : {}
+    } catch {
+      return {}
+    }
   }
+
+  if (typeof meta === 'object') {
+    return meta as Record<string, any>
+  }
+
+  return {}
 }
 
 /** Format timestamp for display */
@@ -72,7 +82,6 @@ export function formatDuration(ms: number | null): string {
   return `${seconds}s`
 }
 
-/** Get or create admin user in local storage for simple auth demo */
 export function getAdminToken(): string | null {
   return localStorage.getItem('np_admin_token')
 }

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { UsageEvent, formatDuration } from '../lib/supabase'
 import { formatNumber, sortBy } from '../lib/utils'
-import { fetchUsageEventsResilient } from '../lib/usageData'
+import { fetchUsageEventsResilient, subscribeToUsageEventChanges } from '../lib/usageData'
 
 interface UserRow {
   identifier: string
@@ -96,10 +96,12 @@ export function Users() {
 
     const onFocus = () => fetchUsers(true)
     window.addEventListener('focus', onFocus)
+    const unsubscribe = subscribeToUsageEventChanges(() => fetchUsers(true))
 
     return () => {
       window.clearInterval(intervalId)
       window.removeEventListener('focus', onFocus)
+      unsubscribe()
     }
   }, [fetchUsers])
 

@@ -111,11 +111,15 @@ export async function fetchUsageEventsResilient(options?: {
       const deduped = dedupeEvents(fresh)
       writeCachedEvents(deduped)
 
+      const zeroRowWarning = deduped.length === 0
+        ? 'Live query returned 0 rows. If Supabase table has data, add a SELECT RLS policy for anon/authenticated on public.usage_events.'
+        : null
+
       return {
         events: deduped,
         source: 'live',
         cachedAt: new Date().toISOString(),
-        warning: null,
+        warning: zeroRowWarning,
       }
     } catch (err) {
       lastError = err instanceof Error ? err : new Error('Unknown Supabase fetch error')
@@ -137,4 +141,29 @@ export async function fetchUsageEventsResilient(options?: {
   }
 
   throw lastError || new Error('Failed to fetch usage data and no cache is available.')
+}
+
+export function subscribeToUsageEventChanges(onChange: () => void) {
+  if (!isSupabaseConfigured) {
+    return () => undefined
+  }
+
+  const channel = supabase
+    .channel('dashboard-usage-events')
+    .on(
+      'postgres_changes',
+      {
+        event: '*',
+        schema: 'public',
+        table: 'usage_events',
+      },
+      () => {
+        onChange()
+      }
+    )
+    .subscribe()
+
+  return () => {
+    supabase.removeChannel(channel)
+  }
 }

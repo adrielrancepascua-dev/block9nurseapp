@@ -4,7 +4,8 @@ import { Overview } from './pages/Overview'
 import { Analytics } from './pages/Analytics'
 import { Users } from './pages/Users'
 import { Export } from './pages/Export'
-import { getAdminToken, setAdminToken, clearAdminToken, isSupabaseConfigured } from './lib/supabase'
+import { isSupabaseConfigured } from './lib/supabase'
+import { getAdminToken, setAdminToken, clearAdminToken } from './lib/supabase'
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('overview')
@@ -14,7 +15,6 @@ export default function App() {
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    // Check for existing admin token
     const token = getAdminToken()
     if (token) {
       setIsAuthenticated(true)
@@ -28,8 +28,6 @@ export default function App() {
   }, [])
 
   const handleLogin = () => {
-    // Simple password-based auth (production: integrate with Supabase auth)
-    // Default: "admin" for demo purposes
     if (password === 'admin') {
       const token = 'admin_' + Date.now()
       setAdminToken(token)
@@ -58,7 +56,7 @@ export default function App() {
           </div>
 
           <div className="bg-slate-900 rounded p-4 border border-slate-700">
-            <p className="text-xs text-slate-400 mb-2">Demo Login</p>
+            <p className="text-xs text-slate-400 mb-2">Admin Login</p>
             <p className="text-sm text-slate-300">
               Enter the admin password to access the dashboard.
             </p>
@@ -76,7 +74,7 @@ export default function App() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
+              onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
               placeholder="Admin password"
               className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500"
             />
@@ -90,7 +88,7 @@ export default function App() {
           </div>
 
           <p className="text-xs text-slate-500 text-center">
-            Demo password: <code className="bg-slate-900 px-2 py-1 rounded">admin</code>
+            Password: <code className="bg-slate-900 px-2 py-1 rounded">admin</code>
           </p>
         </div>
       </div>
@@ -118,14 +116,14 @@ export default function App() {
               onClick={handleLogout}
               className="text-red-400 hover:text-red-300 text-sm"
             >
-              Logout
+              Sign out
             </button>
           </div>
         )}
 
         {/* Page Content */}
         <div className="flex-1 overflow-auto">
-          <div className="p-6 md:p-8 max-w-7xl mx-auto">
+          <div className={`p-6 md:p-8 max-w-7xl mx-auto ${isMobile ? 'pb-24' : ''}`}>
             {/* Page Header */}
             <div className="mb-8">
               {!isSupabaseConfigured && (

@@ -37,6 +37,7 @@ npm run build
 - **User Metrics:** Sessions per user, total time, last active, features used
 - **Anonymous Sessions:** "Ghost" users tracked via session_id
 - **Aggregate Stats:** Total users, avg sessions, avg time per user
+- **Live Updates:** Realtime refresh plus timed polling keeps tables current
 
 ### Export
 - **CSV Download:** Full raw export of usage_events table
@@ -45,9 +46,11 @@ npm run build
 
 ## 🔐 Authentication
 
-Demo login with password `admin` (update in `src/App.tsx` for production).
+The dashboard uses a single password gate. Enter `admin` to unlock the interface.
 
-Integrate Supabase Auth or your own IAM for production deployments.
+The password is stored locally so the same device stays signed in until you log out.
+
+Important: the dashboard reads from `public.usage_events` using the Supabase anon key. If your table has rows but charts are empty, add a `for select using (true)` RLS policy for `anon, authenticated` on `public.usage_events`.
 
 ## 📦 Tech Stack
 
@@ -55,7 +58,7 @@ Integrate Supabase Auth or your own IAM for production deployments.
 - **Vite** for fast builds
 - **Tailwind CSS** for styling
 - **Recharts** for data visualization
-- **Supabase JS Client** for database access
+- **Supabase JS Client** for database access and realtime change subscriptions
 
 ## 🎨 Design
 
