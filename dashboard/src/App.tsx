@@ -1,34 +1,43 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { Sidebar } from './components/Sidebar'
-import { Overview } from './pages/Overview'
-import { Analytics } from './pages/Analytics'
-import { Users } from './pages/Users'
-import { Export } from './pages/Export'
+const Overview = lazy(async () => {
+  const m = await import('./pages/Overview')
+  return { default: m.Overview }
+})
+const Analytics = lazy(async () => {
+  const m = await import('./pages/Analytics')
+  return { default: m.Analytics }
+})
+const Users = lazy(async () => {
+  const m = await import('./pages/Users')
+  return { default: m.Users }
+})
+const Export = lazy(async () => {
+  const m = await import('./pages/Export')
+  return { default: m.Export }
+})
 import { isSupabaseConfigured } from './lib/supabase'
 import { getAdminToken, setAdminToken, clearAdminToken } from './lib/supabase'
+import { useMobile } from './lib/hooks'
+
+const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || 'admin'
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('overview')
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-  const [isMobile, setIsMobile] = useState(false)
+  const isMobile = useMobile()
 
   useEffect(() => {
     const token = getAdminToken()
     if (token) {
       setIsAuthenticated(true)
     }
-
-    // Check mobile
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
   const handleLogin = () => {
-    if (password === 'admin') {
+    if (password === ADMIN_PASSWORD) {
       const token = 'admin_' + Date.now()
       setAdminToken(token)
       setIsAuthenticated(true)
@@ -80,6 +89,7 @@ export default function App() {
             />
             {error && <p className="text-red-400 text-sm">{error}</p>}
             <button
+              type="button"
               onClick={handleLogin}
               className="w-full px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white font-medium rounded-lg transition-colors"
             >
@@ -88,7 +98,7 @@ export default function App() {
           </div>
 
           <p className="text-xs text-slate-500 text-center">
-            Password: <code className="bg-slate-900 px-2 py-1 rounded">admin</code>
+            Use the faculty password from your pilot handout. Set <code className="bg-slate-900 px-1 rounded">VITE_ADMIN_PASSWORD</code> for production builds.
           </p>
         </div>
       </div>
@@ -145,11 +155,19 @@ export default function App() {
               </p>
             </div>
 
-            {/* Page Router */}
-            {currentPage === 'overview' && <Overview />}
-            {currentPage === 'analytics' && <Analytics />}
-            {currentPage === 'users' && <Users />}
-            {currentPage === 'export' && <Export />}
+            {/* Page Router — lazy-loaded so charts load only when opened */}
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center py-24 text-slate-400 text-sm" role="status">
+                  Loading…
+                </div>
+              }
+            >
+              {currentPage === 'overview' && <Overview />}
+              {currentPage === 'analytics' && <Analytics />}
+              {currentPage === 'users' && <Users />}
+              {currentPage === 'export' && <Export />}
+            </Suspense>
           </div>
         </div>
       </div>

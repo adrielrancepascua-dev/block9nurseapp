@@ -185,7 +185,6 @@
         .text-green-500 { color: #22c55e; }
         .text-yellow-400 { color: #facc15; }
         .text-emerald-400 { color: #34d399; }
-        .text-blue-400 { color: #60a5fa; }
         .font-bold { font-weight: 700; }
         .font-black { font-weight: 900; }
         .font-semibold { font-weight: 600; }
@@ -509,6 +508,21 @@
         };
         const SUPABASE_URL = window.NURSEPATH_SUPABASE_URL || 'https://oobrhmnvbxiqdbpjnnbn.supabase.co';
         const SUPABASE_ANON_KEY = window.NURSEPATH_SUPABASE_ANON_KEY || 'sb_publishable_wXKxmmY-s0c5yv7kDITMoA_jPmufAK2';
+
+        /** Set localStorage nursepath_debug=1 to enable verbose pilot diagnostics in the console. */
+        const NP_DEBUG = (function () {
+            try {
+                return localStorage.getItem('nursepath_debug') === '1';
+            } catch (e) {
+                return false;
+            }
+        })();
+        function npDebugLog() {
+            if (NP_DEBUG && typeof console !== 'undefined' && console.log) {
+                console.log.apply(console, arguments);
+            }
+        }
+        window.npDebugLog = npDebugLog;
 
         let supabaseClient = null;
         window.__nursepathAuthState = window.__nursepathAuthState || {
@@ -864,7 +878,7 @@
             }
 
             usageFlushInFlight = true;
-            console.log('📡 Attempting Supabase Sync:', queue.length);
+            npDebugLog('📡 Attempting Supabase Sync:', queue.length);
 
             try {
                 const { error } = await supabaseClient.from(USAGE_EVENTS_TABLE).insert(queue);
@@ -891,7 +905,7 @@
             }
 
             usageFlushInFlight = true;
-            console.log('📡 Attempting Supabase Sync:', queue.length);
+            npDebugLog('📡 Attempting Supabase Sync:', queue.length);
 
             const configured =
                 Boolean(SUPABASE_URL) &&
@@ -1571,10 +1585,10 @@
                             timestamp: new Date().toISOString()
                         });
                         if (error) {
-                            console.warn('Best-effort log insert failed:', error.message || error);
+                            npDebugLog('Best-effort log insert failed:', error.message || error);
                         }
                     } catch (err) {
-                        console.warn('Best-effort log insert exception:', err);
+                        npDebugLog('Best-effort log insert exception:', err);
                     }
                 }
 
@@ -2732,7 +2746,12 @@
                 }
 
                 document.getElementById('bmi-result').innerText = bmi;
-                document.getElementById('bmi-status').innerHTML = `<span class="${categoryColor} font-bold">Category: ${category}</span>`;
+                const bmiStatusEl = document.getElementById('bmi-status');
+                bmiStatusEl.textContent = '';
+                const catSpan = document.createElement('span');
+                catSpan.className = categoryColor + ' font-bold';
+                catSpan.textContent = 'Category: ' + category;
+                bmiStatusEl.appendChild(catSpan);
                 trackUsageSafe('bmi', 'result_generated', {
                     category,
                     has_value: true
@@ -4221,46 +4240,51 @@
 
     <!-- Service Worker Registration for PWA offline support -->
     <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js', { scope: '/' })
-                    .then((registration) => {
-                        console.log('✅ Service Worker registered successfully:', registration.scope);
-                        registration.update();
-                        
-                        // In standalone mode, ensure app functions work
-                        if (window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches) {
-                            console.log('📱 Running in standalone mode - app fully functional');
-                            // Ensure all event listeners are active
-                            if (typeof liveAnalyze !== 'undefined') {
-                                console.log('✅ Analysis functions loaded');
+        (function () {
+            var npLog = typeof window.npDebugLog === 'function' ? window.npDebugLog : function () {};
+
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function () {
+                    var swUrl = new URL('sw.js', window.location.href);
+                    navigator.serviceWorker.register(swUrl)
+                        .then(function (registration) {
+                            npLog('Service Worker registered:', registration.scope);
+                            registration.update();
+
+                            if (window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches) {
+                                npLog('Running in standalone PWA mode');
+                                if (typeof liveAnalyze !== 'undefined') {
+                                    npLog('Analysis functions loaded');
+                                }
                             }
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('⚠️ Service Worker registration failed:', error);
-                    });
-            });
+                        })
+                        .catch(function (error) {
+                            console.error('Service Worker registration failed:', error);
+                        });
+                });
 
-            // Handle SW update notifications
-            navigator.serviceWorker.addEventListener('controllerchange', () => {
-                console.log('🔄 Service Worker updated');
-                // Reload to get latest version
-                window.location.reload();
-            });
-        } else {
-            console.log('⚠️ Service Workers not supported - app will work in browser only');
-        }
+                var reloadedForController = false;
+                navigator.serviceWorker.addEventListener('controllerchange', function () {
+                    if (reloadedForController) {
+                        return;
+                    }
+                    reloadedForController = true;
+                    npLog('Service Worker updated; reloading');
+                    window.location.reload();
+                });
+            } else {
+                npLog('Service Workers not supported — browser-only mode');
+            }
 
-        // Check if app was launched from home screen
-        const isInStandaloneMode = () => 
-            (window.navigator.standalone === true) || 
-            (window.matchMedia('(display-mode: standalone)').matches);
-        
-        if (isInStandaloneMode()) {
-            console.log('📱 App running in standalone mode (installed PWA)');
-            console.log('✅ All offline features available');
-        }
+            var isInStandaloneMode = function () {
+                return window.navigator.standalone === true ||
+                    window.matchMedia('(display-mode: standalone)').matches;
+            };
+
+            if (isInStandaloneMode()) {
+                npLog('App in standalone / installed PWA mode');
+            }
+        })();
     </script>
 
     </div>

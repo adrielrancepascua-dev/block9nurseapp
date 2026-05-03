@@ -12,6 +12,7 @@ npm install
 # Create .env.local with:
 # VITE_SUPABASE_URL=your_supabase_url
 # VITE_SUPABASE_ANON_KEY=your_anon_key
+# VITE_ADMIN_PASSWORD=your_faculty_password   # optional; defaults to admin in dev
 
 # Start dev server
 npm run dev
@@ -46,9 +47,9 @@ npm run build
 
 ## 🔐 Authentication
 
-The dashboard uses a single password gate. Enter `admin` to unlock the interface.
+The dashboard uses a single password gate. For local development the default password is `admin` unless you set `VITE_ADMIN_PASSWORD` in `.env.local` or in your host’s environment (e.g. Vercel). **Do not ship the default password in production** — always set a strong `VITE_ADMIN_PASSWORD` for pilot or live deployments.
 
-The password is stored locally so the same device stays signed in until you log out.
+The session token is stored locally so the same device stays signed in until you log out.
 
 Important: the dashboard reads from `public.usage_events` using the Supabase anon key. If your table has rows but charts are empty, add a `for select using (true)` RLS policy for `anon, authenticated` on `public.usage_events`.
 
