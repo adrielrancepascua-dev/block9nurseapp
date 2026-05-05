@@ -2,6 +2,10 @@
 
 Professional admin dashboard for nursing faculty to analyze usage data from the NursePath simulation tool.
 
+## Faculty instructions
+
+Operational guide for login, pages, exports, and security: **[FACULTY_GUIDE.md](FACULTY_GUIDE.md)**.
+
 ## 🚀 Quick Start
 
 ```bash

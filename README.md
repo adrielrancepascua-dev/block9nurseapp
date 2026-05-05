@@ -14,6 +14,12 @@
 
 ---
 
+## User guide (students & pilot participants)
+
+Step-by-step help for installing the PWA, pilot access, consent, offline use, and resets: **[USER_GUIDE.md](USER_GUIDE.md)**.
+
+---
+
 ## Executive Summary
 
 **NursePath** is a Progressive Web Application (PWA) developed as an **academic learning tool** for nursing students. The application serves as a digital study companion that reinforces textbook concepts taught in the classroom.
