@@ -98,7 +98,7 @@ export default function App() {
           </div>
 
           <p className="text-xs text-slate-500 text-center">
-            Use the faculty password from your pilot handout. Set <code className="bg-slate-900 px-1 rounded">VITE_ADMIN_PASSWORD</code> for production builds.
+            Enter the dashboard password to continue.
           </p>
         </div>
       </div>
