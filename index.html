@@ -3933,6 +3933,12 @@
             const additionalInfo = item.additionalInfo || {};
             const usesExpanded = (additionalInfo.usesExpanded || '').toLowerCase();
             const whenToGiveExpanded = (additionalInfo.whenToGiveExpanded || '').toLowerCase();
+            
+            // Extract all string fields from additionalInfo into deepText
+            const deepText = Object.values(additionalInfo)
+                .filter(val => typeof val === 'string')
+                .map(val => val.toLowerCase())
+                .join(' ');
 
             // Exact matches get highest score
             if (name === q) return { match: true, score: 1000 };
@@ -3950,10 +3956,11 @@
             if (usesExpanded.includes(q)) score += 80;
             if (tags.includes(q)) score += 120;
             if (whenToGiveExpanded.includes(q)) score += 70;
+            if (deepText.includes(q)) score += 30;
 
             // Fuzzy: check for partial word matches (e.g. 'fever' matches 'antipyretic')
             const queryWords = q.split(/\s+/);
-            const allText = `${name} ${brands} ${uses} ${tags} ${usesExpanded} ${whenToGiveExpanded}`;
+            const allText = `${name} ${brands} ${uses} ${tags} ${usesExpanded} ${whenToGiveExpanded} ${deepText}`;
             queryWords.forEach(word => {
                 if (word.length > 2 && allText.includes(word)) score += 40;
             });
