@@ -619,11 +619,11 @@
         }
 
         function readUsageQueue() {
-            const raw = localStorage.getItem(USAGE_QUEUE_KEY);
-            if (!raw) return [];
             try {
+                const raw = localStorage.getItem(USAGE_QUEUE_KEY);
+                if (!raw) return [];
                 const parsed = JSON.parse(raw);
-                return Array.isArray(parsed) ? parsed : [];
+                return Array.isArray(parsed) ? parsed.filter(Boolean) : [];
             } catch (e) {
                 return [];
             }
@@ -642,7 +642,16 @@
                 }
                 deduped.push(item);
             }
-            localStorage.setItem(USAGE_QUEUE_KEY, JSON.stringify(deduped));
+
+            let nextQueue = deduped;
+            while (nextQueue.length > 0) {
+                try {
+                    localStorage.setItem(USAGE_QUEUE_KEY, JSON.stringify(nextQueue));
+                    return;
+                } catch (e) {
+                    nextQueue = nextQueue.slice(Math.ceil(nextQueue.length / 2));
+                }
+            }
         }
 
         function readUsageSessionState() {
@@ -736,12 +745,16 @@
         }
 
         function queueUsageEventRaw(event) {
-            const queue = readUsageQueue();
-            if (event && event.event_id && queue.some((item) => item && item.event_id === event.event_id)) {
-                return;
+            try {
+                const queue = readUsageQueue();
+                if (event && event.event_id && queue.some((item) => item && item.event_id === event.event_id)) {
+                    return;
+                }
+                queue.push(event);
+                writeUsageQueue(queue);
+            } catch (e) {
+                // Swallow storage failures so the app continues operating offline.
             }
-            queue.push(event);
-            writeUsageQueue(queue);
         }
 
         function getUsageSessionId(now = Date.now()) {
@@ -917,6 +930,7 @@
                 !SUPABASE_ANON_KEY.includes('YOUR_SUPABASE_ANON_KEY');
 
             if (!configured) {
+                usageFlushInFlight = false;
                 return;
             }
 
@@ -995,7 +1009,9 @@
             queueUsageEventRaw(event);
             renderPilotMetrics();
             if (navigator.onLine) {
-                void flushUsageEvents();
+                void flushUsageEvents().catch(() => {
+                    // Retry on the next online/visibility event.
+                });
             }
         }
 
@@ -1114,18 +1130,26 @@
         }
 
         function readPendingLogs() {
-            const raw = localStorage.getItem(AUTH_PENDING_LOG_KEY);
-            if (!raw) return [];
             try {
+                const raw = localStorage.getItem(AUTH_PENDING_LOG_KEY);
+                if (!raw) return [];
                 const parsed = JSON.parse(raw);
-                return Array.isArray(parsed) ? parsed : [];
+                return Array.isArray(parsed) ? parsed.filter(Boolean) : [];
             } catch (e) {
                 return [];
             }
         }
 
         function writePendingLogs(entries) {
-            localStorage.setItem(AUTH_PENDING_LOG_KEY, JSON.stringify(entries.slice(-300)));
+            let nextEntries = entries.slice(-300);
+            while (nextEntries.length > 0) {
+                try {
+                    localStorage.setItem(AUTH_PENDING_LOG_KEY, JSON.stringify(nextEntries));
+                    return;
+                } catch (e) {
+                    nextEntries = nextEntries.slice(Math.ceil(nextEntries.length / 2));
+                }
+            }
         }
 
         function queuePendingLog(entry) {
