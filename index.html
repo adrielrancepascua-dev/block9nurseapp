@@ -45,6 +45,9 @@
     <link rel="manifest" href="manifest.json">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%230f172a' width='192' height='192'/><text x='50%' y='50%' font-size='120' font-weight='bold' fill='%2306b6d4' text-anchor='middle' dy='.35em'>Rx</text></svg>">
+        <script src="assets/vitals-analysis.js"></script>
+        <script src="assets/ui-helpers.js"></script>
+
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%230f172a' width='180' height='180' rx='40'/><text x='50%' y='50%' font-size='100' font-weight='bold' fill='%2306b6d4' text-anchor='middle' dy='.35em'>Rx</text></svg>">
     <!-- OFFLINE-FIRST: Inlined CSS (no CDN) -->
     <style>
@@ -3887,6 +3890,7 @@
         // State for OTC list preview - incremental loading
         let otcVisibleCount = 3;
         const OTC_INCREMENT = 3;
+        window.otcDatabase = otcDatabase;
         // OPTIMIZATION: Debounce timer for OTC search input
         let otcSearchDebounceTimer = null;
         const OTC_SEARCH_DEBOUNCE_MS = 300;
@@ -4178,6 +4182,60 @@
                 tldrTab.style.color = '#94a3b8';
                 tldrContent.style.display = 'none';
                 additionalContent.style.display = 'block';
+            }
+        }
+
+        function renderOTCSidebar() {
+            if (window.NursePathUIHelpers && typeof window.NursePathUIHelpers.renderOTCSidebar === 'function') {
+                return window.NursePathUIHelpers.renderOTCSidebar();
+            }
+        }
+
+        function calcIV() {
+            if (window.NursePathUIHelpers && typeof window.NursePathUIHelpers.calcIV === 'function') {
+                return window.NursePathUIHelpers.calcIV();
+            }
+        }
+
+        function calcBMI() {
+            if (window.NursePathUIHelpers && typeof window.NursePathUIHelpers.calcBMI === 'function') {
+                return window.NursePathUIHelpers.calcBMI();
+            }
+        }
+
+        function calcAOGEDD() {
+            if (window.NursePathUIHelpers && typeof window.NursePathUIHelpers.calcAOGEDD === 'function') {
+                return window.NursePathUIHelpers.calcAOGEDD();
+            }
+        }
+
+        function showPregnancyMilestones(currentWeeks, currentDays, calcDate, lmp) {
+            if (window.NursePathUIHelpers && typeof window.NursePathUIHelpers.showPregnancyMilestones === 'function') {
+                return window.NursePathUIHelpers.showPregnancyMilestones(currentWeeks, currentDays, calcDate, lmp);
+            }
+        }
+
+        function showOTCDetail(item) {
+            if (window.NursePathUIHelpers && typeof window.NursePathUIHelpers.showOTCDetail === 'function') {
+                return window.NursePathUIHelpers.showOTCDetail(item);
+            }
+        }
+
+        function hideOTCDetail() {
+            if (window.NursePathUIHelpers && typeof window.NursePathUIHelpers.hideOTCDetail === 'function') {
+                return window.NursePathUIHelpers.hideOTCDetail();
+            }
+        }
+
+        async function copyOTCReference() {
+            if (window.NursePathUIHelpers && typeof window.NursePathUIHelpers.copyOTCReference === 'function') {
+                return window.NursePathUIHelpers.copyOTCReference();
+            }
+        }
+
+        function switchOTCTab(tab) {
+            if (window.NursePathUIHelpers && typeof window.NursePathUIHelpers.switchOTCTab === 'function') {
+                return window.NursePathUIHelpers.switchOTCTab(tab);
             }
         }
 
