@@ -390,16 +390,16 @@
             <p style="color: #94a3b8; font-size: 13px; margin-bottom: 14px;">Simulation-only academic tool. Not for real patient care decisions.</p>
 
             <div style="margin-bottom: 14px; padding: 10px 12px; border-radius: 10px; border: 1px solid #334155; background: #1e293b; color: #cbd5e1; font-size: 12px; font-weight: 600; text-align: left;">
-                Pilot access only. Enter a school email or valid invite code.
+                Use your CDD school email (@cdd.edu.ph) to sign in and get full Pilot access.
             </div>
 
-            <div style="display:grid; gap:8px; margin-bottom: 10px; text-align:left;">
-                <input id="accessCode" type="text" placeholder="Invite code (optional)" autocomplete="off" style="width:100%; padding:12px; font-size:14px; text-align:left; background:#1e293b; border:1px solid #334155; border-radius:12px; color:white;">
-                <p id="accessModeHelp" style="color:#93c5fd; font-size:11px; min-height:16px;">Pilot mode: use school email domain or invite code.</p>
+            <div style="display:none;">
+                <input id="accessCode" type="text" autocomplete="off">
+                <p id="accessModeHelp"></p>
             </div>
 
             <form id="authForm" style="display: grid; gap: 10px; margin-bottom: 8px;">
-                <input id="authEmail" type="email" placeholder="student@cdd.edu.ph or yourname@gmail.com (optional with valid code)" autocomplete="email" style="width: 100%; padding: 14px; font-size: 15px; text-align: left; background: #1e293b; border: 1px solid #334155; border-radius: 12px; color: white;">
+                <input id="authEmail" type="email" placeholder="student@cdd.edu.ph" autocomplete="email" style="width: 100%; padding: 14px; font-size: 15px; text-align: left; background: #1e293b; border: 1px solid #334155; border-radius: 12px; color: white;">
                 <button id="authSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 700; background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s;">Enter Pilot Workspace</button>
             </form>
 
@@ -1325,7 +1325,7 @@
             clearTabAppInitLogged();
             // OPTIMIZATION: Reset vital signs tracking flag on logout
             hasTrackedVitalsOpen = false;
-            showAuthOverlay('Logged out. Enter email or invite code to continue.', false);
+            showAuthOverlay('Logged out. Enter your CDD school email to continue.', false);
             applyRoleVisibility();
             trackUsageEvent('auth', 'feature_use', { action: 'logout' }, { minIntervalMs: 500, rateKey: 'logout_action' });
         }
@@ -1544,7 +1544,7 @@
             setUsageConsent(true);
 
             if (!isAllowedAuthEmail(email, accessMode, accessCode)) {
-                setAuthStatus('Pilot mode requires allowlisted school email or valid invite code.', true);
+                setAuthStatus('Pilot access requires a CDD school email (@cdd.edu.ph).', true);
                 void recordEmailAttempt(email, 'blocked_invalid_format', 'invalid_email_format');
                 releaseSubmitLock();
                 return;
@@ -1647,7 +1647,7 @@
 
             const isConfigured = !SUPABASE_URL.includes('YOUR-PROJECT') && !SUPABASE_ANON_KEY.includes('YOUR_SUPABASE_ANON_KEY');
             if (!window.supabase || !isConfigured) {
-                showAuthOverlay('Enter your school email or invite code to continue.', false);
+                showAuthOverlay('Enter your CDD school email to continue.', false);
                 return;
             }
 
@@ -1662,7 +1662,7 @@
             await flushUsageEvents();
             window.addEventListener('online', () => { void flushPendingEmailLogs(); });
 
-            showAuthOverlay('Enter your school email or invite code to continue.', false);
+            showAuthOverlay('Enter your CDD school email to continue.', false);
         }
 
         function initEmergencyReset() {
