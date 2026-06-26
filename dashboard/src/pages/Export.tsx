@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { supabase, UsageEvent } from '../lib/supabase'
-import { clearDashboardDataCache } from '../lib/usageData'
+import { clearDashboardDataCache, PILOT_METRICS_SINCE } from '../lib/usageData'
 
 const RESET_PILOT_SQL = `-- NursePath pilot telemetry reset
 truncate table public.usage_events restart identity;
@@ -25,9 +25,15 @@ export function Export() {
 
   async function loadEventCount() {
     try {
-      const { count, error: countError } = await supabase
+      let query = supabase
         .from('usage_events')
         .select('*', { count: 'exact', head: true })
+
+      if (PILOT_METRICS_SINCE) {
+        query = query.gte('timestamp', PILOT_METRICS_SINCE)
+      }
+
+      const { count, error: countError } = await query
 
       if (countError) throw countError
       setEventCount(count ?? 0)
@@ -205,7 +211,13 @@ export function Export() {
 
         <div className="bg-slate-900 rounded p-4 border border-slate-700 text-sm text-slate-300">
           <p>
-            Current Supabase rows:{' '}
+            Current pilot-wave rows (since{' '}
+            {new Date(PILOT_METRICS_SINCE).toLocaleDateString('en-US', {
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric',
+            })}
+            ):{' '}
             <strong className="text-white">{eventCount === null ? '—' : eventCount.toLocaleString('en-US')}</strong>
           </p>
         </div>

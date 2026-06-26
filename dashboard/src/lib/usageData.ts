@@ -9,8 +9,12 @@ export interface UsageFetchResult {
   warning: string | null
 }
 
-const USAGE_CACHE_KEY = 'np_dashboard_usage_events_cache_v1'
-const DASHBOARD_CACHE_KEYS = [USAGE_CACHE_KEY, 'np_last_export'] as const
+/** Ignore pre-pilot-wave telemetry (May/June legacy inflated sessions). Override via VITE_PILOT_METRICS_SINCE. */
+export const PILOT_METRICS_SINCE =
+  import.meta.env.VITE_PILOT_METRICS_SINCE || '2026-06-26T00:00:00.000Z'
+
+const USAGE_CACHE_KEY = 'np_dashboard_usage_events_cache_v2'
+const DASHBOARD_CACHE_KEYS = [USAGE_CACHE_KEY, 'np_last_export', 'np_dashboard_usage_events_cache_v1'] as const
 
 export function clearDashboardDataCache() {
   for (const key of DASHBOARD_CACHE_KEYS) {
@@ -38,6 +42,13 @@ function dedupeEvents(events: UsageEvent[]): UsageEvent[] {
   return deduped
 }
 
+export function filterPilotEvents(events: UsageEvent[]): UsageEvent[] {
+  if (!PILOT_METRICS_SINCE) {
+    return events
+  }
+  return events.filter((event) => event.timestamp >= PILOT_METRICS_SINCE)
+}
+
 function readCachedEvents(): { events: UsageEvent[]; cachedAt: string | null } {
   try {
     const raw = localStorage.getItem(USAGE_CACHE_KEY)
@@ -47,7 +58,7 @@ function readCachedEvents(): { events: UsageEvent[]; cachedAt: string | null } {
 
     const parsed = JSON.parse(raw) as { events?: UsageEvent[]; cachedAt?: string }
     return {
-      events: Array.isArray(parsed.events) ? parsed.events : [],
+      events: filterPilotEvents(Array.isArray(parsed.events) ? parsed.events : []),
       cachedAt: parsed.cachedAt || null,
     }
   } catch {
@@ -70,11 +81,15 @@ function writeCachedEvents(events: UsageEvent[]) {
 }
 
 async function queryUsageEvents(limit: number, timeoutMs: number): Promise<UsageEvent[]> {
-  const request = supabase
+  let request = supabase
     .from('usage_events')
     .select('*')
     .order('timestamp', { ascending: false })
     .limit(limit)
+
+  if (PILOT_METRICS_SINCE) {
+    request = request.gte('timestamp', PILOT_METRICS_SINCE)
+  }
 
   const timeoutPromise = new Promise<never>((_, reject) => {
     window.setTimeout(() => reject(new Error('Request timeout while fetching usage events.')), timeoutMs)
@@ -102,6 +117,9 @@ export async function fetchUsageEventsResilient(options?: {
   const skipCache = options?.skipCache ?? false
 
   const cached = skipCache ? { events: [], cachedAt: null } : readCachedEvents()
+  const pilotWarning = PILOT_METRICS_SINCE
+    ? `Showing pilot data from ${new Date(PILOT_METRICS_SINCE).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} onward.`
+    : null
 
   if (!isSupabaseConfigured) {
     return {
@@ -124,7 +142,7 @@ export async function fetchUsageEventsResilient(options?: {
         events: deduped,
         source: 'live',
         cachedAt: new Date().toISOString(),
-        warning: null,
+        warning: pilotWarning,
       }
     } catch (err) {
       lastError = err instanceof Error ? err : new Error('Unknown Supabase fetch error')
@@ -141,7 +159,9 @@ export async function fetchUsageEventsResilient(options?: {
       events: cached.events,
       source: 'cache',
       cachedAt: cached.cachedAt,
-      warning: 'Supabase temporarily unavailable. Showing cached data.',
+      warning: pilotWarning
+        ? `${pilotWarning} Supabase temporarily unavailable — showing cached data.`
+        : 'Supabase temporarily unavailable. Showing cached data.',
     }
   }
 

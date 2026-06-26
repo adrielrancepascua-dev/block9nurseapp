@@ -488,6 +488,8 @@
         const USAGE_SESSION_KEY = 'nursepath_usage_session_v1';
         const USAGE_EVENTS_TABLE = 'usage_events';
         const USAGE_QUEUE_LIMIT = 1000;
+        const USAGE_QUEUE_MAX_AGE_MS = 48 * 60 * 60 * 1000;
+        const PILOT_METRICS_SINCE_ISO = window.NURSEPATH_PILOT_METRICS_SINCE || '2026-06-26T00:00:00.000Z';
         const USAGE_SESSION_TIMEOUT_MS = 30 * 60 * 1000;
         const MAX_SESSION_ACTIVE_MS = 2 * 60 * 60 * 1000;
         const VISIBILITY_RESUME_THRESHOLD_MS = 30 * 1000;
@@ -625,9 +627,53 @@
                 const raw = localStorage.getItem(USAGE_QUEUE_KEY);
                 if (!raw) return [];
                 const parsed = JSON.parse(raw);
-                return Array.isArray(parsed) ? parsed.filter(Boolean) : [];
+                const queue = Array.isArray(parsed) ? parsed.filter(Boolean) : [];
+                const pruned = pruneUsageQueue(queue);
+                if (pruned.length !== queue.length) {
+                    writeUsageQueue(pruned);
+                }
+                return pruned;
             } catch (e) {
                 return [];
+            }
+        }
+
+        function pruneUsageQueue(queue, now = Date.now()) {
+            const purgeBeforeMs = new Date(PILOT_METRICS_SINCE_ISO).getTime();
+            const signedInEmail = resolveUsageUserEmail();
+            return (queue || []).filter((item) => {
+                if (!item || !item.timestamp) {
+                    return false;
+                }
+                const ts = new Date(item.timestamp).getTime();
+                if (!Number.isFinite(ts)) {
+                    return false;
+                }
+                if (Number.isFinite(purgeBeforeMs) && ts < purgeBeforeMs) {
+                    return false;
+                }
+                if (now - ts > USAGE_QUEUE_MAX_AGE_MS) {
+                    return false;
+                }
+                if (signedInEmail && !item.user_email) {
+                    return false;
+                }
+                return true;
+            });
+        }
+
+        function resetStaleUsageSessionIfNeeded() {
+            const session = readUsageSessionState();
+            if (!session || !session.started_at) {
+                return;
+            }
+            const startedMs = new Date(session.started_at).getTime();
+            const cutoffMs = new Date(PILOT_METRICS_SINCE_ISO).getTime();
+            if (Number.isFinite(startedMs) && Number.isFinite(cutoffMs) && startedMs < cutoffMs) {
+                localStorage.removeItem(USAGE_SESSION_KEY);
+                clearTabSessionLogged();
+                clearCurrentTabSessionId();
+                usageSessionEndingSent = false;
             }
         }
 
@@ -940,7 +986,7 @@
                 return;
             }
 
-            const queue = readUsageQueue();
+            const queue = pruneUsageQueue(readUsageQueue());
             if (!queue.length) {
                 return;
             }
@@ -967,7 +1013,7 @@
                 return;
             }
 
-            const queue = readUsageQueue();
+            const queue = pruneUsageQueue(readUsageQueue());
             if (!queue.length) {
                 return;
             }
@@ -1067,6 +1113,8 @@
         }
 
         function initUsageTracking() {
+            resetStaleUsageSessionIfNeeded();
+            writeUsageQueue(pruneUsageQueue(readUsageQueue()));
             getUsageSessionId();
 
             window.trackUsageEvent = trackUsageEvent;
