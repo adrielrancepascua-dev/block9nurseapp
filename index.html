@@ -489,6 +489,7 @@
         const USAGE_EVENTS_TABLE = 'usage_events';
         const USAGE_QUEUE_LIMIT = 1000;
         const USAGE_SESSION_TIMEOUT_MS = 30 * 60 * 1000;
+        const MAX_SESSION_ACTIVE_MS = 2 * 60 * 60 * 1000;
         const VISIBILITY_RESUME_THRESHOLD_MS = 30 * 1000;
         const SESSION_EVENT_DEBOUNCE_MS = 5 * 1000;
         const MIN_REPORTABLE_SESSION_MS = 2 * 1000;
@@ -670,6 +671,62 @@
             localStorage.setItem(USAGE_SESSION_KEY, JSON.stringify(state));
         }
 
+        function ensureSessionActiveFields(session) {
+            if (!session) {
+                return session;
+            }
+            if (!Number.isFinite(session.active_duration_ms)) {
+                session.active_duration_ms = 0;
+            }
+            if (!session.last_visible_at && session.started_at) {
+                session.last_visible_at = session.started_at;
+            }
+            return session;
+        }
+
+        function tickSessionActiveTime(session, now = Date.now()) {
+            session = ensureSessionActiveFields(session);
+            if (document.visibilityState !== 'visible' || !session.last_visible_at) {
+                return session;
+            }
+            const lastVisibleMs = new Date(session.last_visible_at).getTime();
+            if (!Number.isFinite(lastVisibleMs) || now <= lastVisibleMs) {
+                return session;
+            }
+            const delta = Math.min(now - lastVisibleMs, USAGE_SESSION_TIMEOUT_MS);
+            session.active_duration_ms = Math.min(
+                MAX_SESSION_ACTIVE_MS,
+                (session.active_duration_ms || 0) + delta
+            );
+            session.last_visible_at = new Date(now).toISOString();
+            return session;
+        }
+
+        function pauseSessionActiveTime(session, now = Date.now()) {
+            session = tickSessionActiveTime(session, now);
+            session.last_visible_at = null;
+            return session;
+        }
+
+        function computeSessionActiveDurationMs(session, now = Date.now()) {
+            return Math.max(0, Math.min(
+                tickSessionActiveTime(ensureSessionActiveFields({ ...session }), now).active_duration_ms || 0,
+                MAX_SESSION_ACTIVE_MS
+            ));
+        }
+
+        function createUsageSessionState(sessionId, now = Date.now()) {
+            const iso = new Date(now).toISOString();
+            return {
+                session_id: sessionId,
+                started_at: iso,
+                last_activity_at: iso,
+                last_visible_at: iso,
+                active_duration_ms: 0,
+                ended_at: null
+            };
+        }
+
         function hasTabSessionLogged() {
             try {
                 return Boolean(sessionStorage.getItem(TAB_SESSION_LOGGED_KEY));
@@ -768,12 +825,7 @@
 
             if (!session) {
                 const sessionId = tabSessionId;
-                session = {
-                    session_id: sessionId,
-                    started_at: new Date(now).toISOString(),
-                    last_activity_at: new Date(now).toISOString(),
-                    ended_at: null
-                };
+                session = createUsageSessionState(sessionId, now);
                 writeUsageSessionState(session);
                 writeCurrentTabSessionId(session.session_id);
                 if (!hasTabSessionLogged()) {
@@ -800,7 +852,7 @@
 
             if (timedOut || alreadyEnded) {
                 if (!alreadyEnded) {
-                    const startedMs = new Date(session.started_at).getTime();
+                    const durationMs = computeSessionActiveDurationMs(session, now);
                     queueUsageEventRaw({
                         event_id: safeUuid(),
                         user_email: resolveUsageUserEmail(),
@@ -809,18 +861,13 @@
                         action: 'session_end',
                         timestamp: new Date(now).toISOString(),
                         online: navigator.onLine,
-                        duration_ms: Number.isFinite(startedMs) ? Math.max(0, now - startedMs) : 0,
+                        duration_ms: durationMs,
                         meta: { reason: timedOut ? 'inactivity_timeout' : 'resume_after_end' }
                     });
                 }
 
                 const nextSessionId = safeUuid();
-                session = {
-                    session_id: nextSessionId,
-                    started_at: new Date(now).toISOString(),
-                    last_activity_at: new Date(now).toISOString(),
-                    ended_at: null
-                };
+                session = createUsageSessionState(nextSessionId, now);
                 writeUsageSessionState(session);
                 writeCurrentTabSessionId(session.session_id);
                 if (!hasTabSessionLogged()) {
@@ -845,6 +892,9 @@
                 session.session_id = tabSessionId;
             }
 
+            if (document.visibilityState === 'visible') {
+                session = tickSessionActiveTime(session, now);
+            }
             session.last_activity_at = new Date(now).toISOString();
             writeUsageSessionState(session);
             writeCurrentTabSessionId(session.session_id);
@@ -862,8 +912,7 @@
             }
 
             const now = Date.now();
-            const startedMs = new Date(session.started_at).getTime();
-            const durationMs = Number.isFinite(startedMs) ? Math.max(0, now - startedMs) : 0;
+            const durationMs = computeSessionActiveDurationMs(session, now);
             if (durationMs < MIN_REPORTABLE_SESSION_MS) {
                 return;
             }
@@ -878,6 +927,8 @@
                 duration_ms: durationMs,
                 meta: { reason: reason || 'page_exit' }
             });
+
+            session = pauseSessionActiveTime(session, now);
 
             session.ended_at = new Date(now).toISOString();
             writeUsageSessionState(session);
@@ -1026,17 +1077,32 @@
             });
 
             document.addEventListener('visibilitychange', () => {
+                const now = Date.now();
                 if (document.visibilityState === 'hidden') {
-                    hiddenSinceMs = Date.now();
+                    hiddenSinceMs = now;
+                    let session = readUsageSessionState();
+                    if (session && !session.ended_at) {
+                        session = pauseSessionActiveTime(session, now);
+                        writeUsageSessionState(session);
+                    }
                     void flushUsageEvents();
                 } else {
-                    const now = Date.now();
                     const hiddenMs = hiddenSinceMs ? (now - hiddenSinceMs) : 0;
                     hiddenSinceMs = null;
+                    const session = readUsageSessionState();
+                    if (session && !session.ended_at) {
+                        if (hiddenMs >= VISIBILITY_RESUME_THRESHOLD_MS) {
+                            usageSessionEndingSent = false;
+                            endUsageSession('background_pause');
+                            clearTabSessionLogged();
+                            getUsageSessionId(now);
+                        } else {
+                            let resumed = ensureSessionActiveFields(session);
+                            resumed.last_visible_at = new Date(now).toISOString();
+                            writeUsageSessionState(resumed);
+                        }
+                    }
                     if (hiddenMs > VISIBILITY_RESUME_THRESHOLD_MS) {
-                        usageSessionEndingSent = false;
-                        clearTabSessionLogged();
-                        getUsageSessionId();
                         trackUsageEvent('session', 'feature_open', {
                             reason: 'tab_resumed_after_hide',
                             hidden_ms: hiddenMs
@@ -1046,10 +1112,12 @@
             });
 
             window.addEventListener('pagehide', () => {
+                endUsageSession('page_exit');
                 emergencyFlushUsageEvents();
             });
 
             window.addEventListener('beforeunload', () => {
+                endUsageSession('page_exit');
                 emergencyFlushUsageEvents();
             });
         }

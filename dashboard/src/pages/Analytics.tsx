@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { UsageEvent, formatTime, formatDuration, parseMeta } from '../lib/supabase'
-import { getFeatureActionLabel, getFeatureLabel } from '../lib/utils'
+import { getFeatureActionLabel, getFeatureLabel, clampSessionDurationMs } from '../lib/utils'
 import { fetchUsageEventsResilient, subscribeToUsageEventChanges } from '../lib/usageData'
 
 interface FilterState {
@@ -279,7 +279,13 @@ export function Analytics() {
                     </td>
                     <td className="px-4 py-3 text-cyan-400 font-medium">{getFeatureLabel(event.feature)}</td>
                     <td className="px-4 py-3 text-slate-300">{getFeatureActionLabel(event.feature, event.action)}</td>
-                    <td className="px-4 py-3 text-slate-300">{formatDuration(event.duration_ms)}</td>
+                    <td className="px-4 py-3 text-slate-300">
+                      {formatDuration(
+                        event.feature === 'session' && event.action === 'session_end'
+                          ? clampSessionDurationMs(event.duration_ms)
+                          : event.duration_ms
+                      )}
+                    </td>
                     <td className="px-4 py-3 text-slate-400 text-xs truncate max-w-xs">
                       {event.meta ? (
                         <code>{Object.keys(parseMeta(event.meta)).join(', ').substring(0, 30)}</code>

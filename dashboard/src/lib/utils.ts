@@ -14,6 +14,14 @@ export function normalizeUserEmail(email: string | null | undefined): string | n
   return normalized || null
 }
 
+/** Cap inflated session durations from legacy wall-clock tracking */
+export const MAX_REPORTABLE_SESSION_MS = 2 * 60 * 60 * 1000
+
+export function clampSessionDurationMs(ms: number | null | undefined): number {
+  if (!ms || ms < 0) return 0
+  return Math.min(ms, MAX_REPORTABLE_SESSION_MS)
+}
+
 /** Get initials from email */
 export function getInitials(email: string | null): string {
   if (!email || email === 'ghost') return 'GU'

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { UsageEvent, formatDuration } from '../lib/supabase'
-import { formatNumber, normalizeUserEmail, sortBy } from '../lib/utils'
+import { formatNumber, normalizeUserEmail, sortBy, clampSessionDurationMs } from '../lib/utils'
 import { fetchUsageEventsResilient, subscribeToUsageEventChanges } from '../lib/usageData'
 
 interface UserRow {
@@ -31,7 +31,7 @@ function buildUserRows(events: UsageEvent[]): UserRow[] {
     const sessions = new Set(userEvents.map((e) => e.session_id).filter(Boolean)).size
     const totalDuration = userEvents
       .filter((e) => e.feature === 'session' && e.action === 'session_end')
-      .reduce((sum, e) => sum + (e.duration_ms || 0), 0)
+      .reduce((sum, e) => sum + clampSessionDurationMs(e.duration_ms), 0)
     const lastActive = userEvents.reduce((latest, e) => {
       return !latest || e.timestamp > latest ? e.timestamp : latest
     }, '')
@@ -154,8 +154,9 @@ export function Users() {
       )}
 
       <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 text-sm text-slate-300">
-        One row per <strong className="text-slate-100">@cdd.edu.ph</strong> email. Sessions are grouped across app
-        opens; the simulation agreement in the PWA is valid for <strong className="text-slate-100">30 days</strong>.
+        One row per <strong className="text-slate-100">@cdd.edu.ph</strong> email. Total time counts
+        foreground app use only (background/minimized time is excluded; legacy rows capped at 2h per session).
+        The simulation agreement in the PWA is valid for <strong className="text-slate-100">30 days</strong>.
         {legacyEventCount > 0 && (
           <span className="block mt-2 text-slate-400 text-xs">
             {formatNumber(legacyEventCount)} legacy events without email are excluded from this table.
