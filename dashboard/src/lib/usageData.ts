@@ -10,6 +10,13 @@ export interface UsageFetchResult {
 }
 
 const USAGE_CACHE_KEY = 'np_dashboard_usage_events_cache_v1'
+const DASHBOARD_CACHE_KEYS = [USAGE_CACHE_KEY, 'np_last_export'] as const
+
+export function clearDashboardDataCache() {
+  for (const key of DASHBOARD_CACHE_KEYS) {
+    localStorage.removeItem(key)
+  }
+}
 
 function delay(ms: number) {
   return new Promise((resolve) => window.setTimeout(resolve, ms))
@@ -87,12 +94,14 @@ export async function fetchUsageEventsResilient(options?: {
   limit?: number
   retries?: number
   timeoutMs?: number
+  skipCache?: boolean
 }): Promise<UsageFetchResult> {
   const limit = options?.limit ?? 10000
   const retries = options?.retries ?? 2
   const timeoutMs = options?.timeoutMs ?? 8000
+  const skipCache = options?.skipCache ?? false
 
-  const cached = readCachedEvents()
+  const cached = skipCache ? { events: [], cachedAt: null } : readCachedEvents()
 
   if (!isSupabaseConfigured) {
     return {
@@ -127,7 +136,7 @@ export async function fetchUsageEventsResilient(options?: {
     }
   }
 
-  if (cached.events.length > 0) {
+  if (cached.events.length > 0 && !skipCache) {
     return {
       events: cached.events,
       source: 'cache',

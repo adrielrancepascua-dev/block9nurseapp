@@ -51,6 +51,7 @@ export default function App() {
 
   const handleLogout = () => {
     clearAdminToken()
+    import('./lib/usageData').then(({ clearDashboardDataCache }) => clearDashboardDataCache())
     setIsAuthenticated(false)
     setPassword('')
   }

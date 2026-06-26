@@ -1,24 +1,46 @@
 import { useEffect, useState } from 'react'
 import { supabase, UsageEvent } from '../lib/supabase'
+import { clearDashboardDataCache } from '../lib/usageData'
+
+const RESET_PILOT_SQL = `-- NursePath pilot telemetry reset
+truncate table public.usage_events restart identity;
+truncate table public.auth_email_log restart identity;`
 
 export function Export() {
   const [loading, setLoading] = useState(false)
+  const [resetting, setResetting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [resetMessage, setResetMessage] = useState<string | null>(null)
   const [lastExport, setLastExport] = useState<string | null>(null)
+  const [eventCount, setEventCount] = useState<number | null>(null)
+  const [sqlCopied, setSqlCopied] = useState(false)
 
   useEffect(() => {
     const saved = localStorage.getItem('np_last_export')
     if (saved) {
       setLastExport(new Date(saved).toLocaleString())
     }
+    void loadEventCount()
   }, [])
+
+  async function loadEventCount() {
+    try {
+      const { count, error: countError } = await supabase
+        .from('usage_events')
+        .select('*', { count: 'exact', head: true })
+
+      if (countError) throw countError
+      setEventCount(count ?? 0)
+    } catch {
+      setEventCount(null)
+    }
+  }
 
   async function exportToCSV() {
     try {
       setLoading(true)
       setError(null)
 
-      // Fetch all events
       const { data, error: fetchError } = await supabase
         .from('usage_events')
         .select('*')
@@ -29,7 +51,6 @@ export function Export() {
 
       const events = (data || []) as UsageEvent[]
 
-      // Convert to CSV
       const headers = [
         'ID',
         'Event ID',
@@ -56,7 +77,7 @@ export function Export() {
       const rows = events.map((e) => [
         e.id,
         e.event_id,
-        e.user_email || 'ghost',
+        e.user_email || '',
         e.session_id,
         e.feature,
         e.action,
@@ -71,7 +92,6 @@ export function Export() {
         ...rows.map((row) => row.map((cell) => `"${cell}"`).join(',')),
       ].join('\n')
 
-      // Create download link
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
       const link = document.createElement('a')
       const url = URL.createObjectURL(blob)
@@ -83,6 +103,7 @@ export function Export() {
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
+      URL.revokeObjectURL(url)
 
       setLastExport(new Date().toLocaleString())
       localStorage.setItem('np_last_export', new Date().toISOString())
@@ -94,9 +115,31 @@ export function Export() {
     }
   }
 
+  async function copyResetSql() {
+    try {
+      await navigator.clipboard.writeText(RESET_PILOT_SQL)
+      setSqlCopied(true)
+      window.setTimeout(() => setSqlCopied(false), 2000)
+    } catch {
+      setResetMessage('Could not copy automatically. Select the SQL below and copy manually.')
+    }
+  }
+
+  async function refreshDashboardView() {
+    try {
+      setResetting(true)
+      setResetMessage(null)
+      clearDashboardDataCache()
+      await loadEventCount()
+      setResetMessage('Browser cache cleared. Reloading live Supabase data…')
+      window.setTimeout(() => window.location.reload(), 400)
+    } finally {
+      setResetting(false)
+    }
+  }
+
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      {/* Export Card */}
       <div className="bg-slate-800 border border-slate-700 rounded-lg p-8">
         <div className="space-y-4">
           <div>
@@ -119,6 +162,7 @@ export function Export() {
           </div>
 
           <button
+            type="button"
             onClick={exportToCSV}
             disabled={loading}
             className="w-full px-6 py-3 bg-cyan-600 hover:bg-cyan-700 disabled:bg-slate-700 text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
@@ -150,7 +194,62 @@ export function Export() {
         </div>
       </div>
 
-      {/* Info Section */}
+      <div className="bg-slate-800 border border-amber-700/60 rounded-lg p-8 space-y-4">
+        <div>
+          <h2 className="text-xl font-bold text-white mb-2">Fresh Pilot Start</h2>
+          <p className="text-slate-400 text-sm">
+            Wipe old telemetry (inflated times, legacy ghost rows) and reload the dashboard from a clean Supabase
+            state. Export a CSV backup first if you need records for your files.
+          </p>
+        </div>
+
+        <div className="bg-slate-900 rounded p-4 border border-slate-700 text-sm text-slate-300">
+          <p>
+            Current Supabase rows:{' '}
+            <strong className="text-white">{eventCount === null ? '—' : eventCount.toLocaleString('en-US')}</strong>
+          </p>
+        </div>
+
+        <ol className="list-decimal list-inside space-y-2 text-sm text-slate-300">
+          <li>Optional: download CSV backup above.</li>
+          <li>
+            Open <strong className="text-slate-100">Supabase → SQL Editor</strong> for this project and run:
+          </li>
+        </ol>
+
+        <pre className="bg-slate-950 border border-slate-700 rounded p-4 text-xs text-cyan-200 overflow-x-auto whitespace-pre-wrap">
+          {RESET_PILOT_SQL}
+        </pre>
+
+        <div className="flex flex-col sm:flex-row gap-3">
+          <button
+            type="button"
+            onClick={copyResetSql}
+            className="flex-1 px-4 py-2.5 bg-slate-700 hover:bg-slate-600 text-white text-sm font-medium rounded-lg transition-colors"
+          >
+            {sqlCopied ? 'SQL copied' : 'Copy reset SQL'}
+          </button>
+          <button
+            type="button"
+            onClick={refreshDashboardView}
+            disabled={resetting}
+            className="flex-1 px-4 py-2.5 bg-amber-700 hover:bg-amber-600 disabled:bg-slate-700 text-white text-sm font-medium rounded-lg transition-colors"
+          >
+            {resetting ? 'Refreshing…' : 'Clear cache & reload'}
+          </button>
+        </div>
+
+        {resetMessage && (
+          <div className="bg-green-900/20 border border-green-700 rounded p-4 text-green-200 text-sm">
+            {resetMessage}
+          </div>
+        )}
+
+        <p className="text-xs text-slate-500">
+          Full script with verification queries: <code className="text-slate-400">dashboard/supabase/reset-pilot-data.sql</code>
+        </p>
+      </div>
+
       <div className="bg-slate-800 border border-slate-700 rounded-lg p-8">
         <h3 className="text-lg font-semibold text-white mb-4">Data Processing Notes</h3>
         <ul className="space-y-2 text-sm text-slate-300">
@@ -159,8 +258,8 @@ export function Export() {
             includes all rows for audit trail.
           </li>
           <li>
-            <strong>Legacy rows:</strong> Older events without email may show as blank in the user email column; current
-            PWA builds attach the signed-in CDD email to every event.
+            <strong>Session time:</strong> Current PWA builds count foreground use only; legacy rows may still look high
+            until you reset pilot data.
           </li>
           <li>
             <strong>Meta Field:</strong> Complex metadata is stored as JSON strings; parse as needed in your
@@ -169,10 +268,6 @@ export function Export() {
           <li>
             <strong>Duration:</strong> Measured in milliseconds; convert to seconds/minutes as needed (divide by 1000
             or 60000).
-          </li>
-          <li>
-            <strong>Recommended Queries:</strong> Use SQL/Sheets to filter by feature, aggregate sessions,
-            calculate engagement metrics.
           </li>
         </ul>
       </div>
