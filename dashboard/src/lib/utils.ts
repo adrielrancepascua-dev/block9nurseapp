@@ -8,6 +8,12 @@ export function truncate(text: string, length: number = 30): string {
   return text.length > length ? text.substring(0, length) + '…' : text
 }
 
+/** Normalize CDD email for consistent user grouping */
+export function normalizeUserEmail(email: string | null | undefined): string | null {
+  const normalized = (email || '').trim().toLowerCase()
+  return normalized || null
+}
+
 /** Get initials from email */
 export function getInitials(email: string | null): string {
   if (!email || email === 'ghost') return 'GU'

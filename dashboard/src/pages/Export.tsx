@@ -110,7 +110,7 @@ export function Export() {
             <p className="text-xs text-slate-400 mb-2">CSV will include:</p>
             <ul className="text-xs text-slate-300 space-y-1">
               <li>✓ All usage events (up to 100,000 most recent records)</li>
-              <li>✓ User email or "ghost" for anonymous sessions</li>
+              <li>✓ User email (`@cdd.edu.ph`) on all current PWA events</li>
               <li>✓ Session IDs for grouping related events</li>
               <li>✓ Feature usage, actions, and metadata</li>
               <li>✓ Timestamps and duration metrics</li>
@@ -159,8 +159,8 @@ export function Export() {
             includes all rows for audit trail.
           </li>
           <li>
-            <strong>Ghost Users:</strong> Sessions without email (anonymous/offline-first) show as "ghost" in user
-            email column.
+            <strong>Legacy rows:</strong> Older events without email may show as blank in the user email column; current
+            PWA builds attach the signed-in CDD email to every event.
           </li>
           <li>
             <strong>Meta Field:</strong> Complex metadata is stored as JSON strings; parse as needed in your

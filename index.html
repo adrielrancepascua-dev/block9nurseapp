@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <meta name="theme-color" content="#0f172a">
-    <meta name="description" content="NursePath - Academic Simulation & Clinical Reference Tool for student nurses. Practice vital signs interpretation, dosage calculations, and clinical reasoning in a controlled educational environment.">
+    <meta name="description" content="NursePath is a digital clinical reference tool for nursing students. Vital sign interpretation, OTC medication reference, and clinical calculators — works offline on the ward.">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="NursePath">
@@ -13,7 +13,7 @@
     <meta name="msapplication-config" content="browserconfig.xml">
     <meta name="format-detection" content="telephone=no">
     <meta name="mobile-web-app-capable" content="yes">
-    <title>NursePath - Simulation Study Tool (Not For Patient Care)</title>
+    <title>NursePath — Clinical Reference Tool for Nursing Students</title>
     <script>
         // Ghost persistence pre-check: hide auth overlay as early as possible.
         (function () {
@@ -499,7 +499,8 @@
         const LAST_SYNC_KEY = 'nursepath_last_sync_v1';
         const PILOT_ALLOWLIST_DOMAINS = (window.NURSEPATH_PILOT_ALLOWLIST_DOMAINS || ['cdd.edu.ph']).map((d) => String(d).toLowerCase());
         const PILOT_INVITE_CODES = window.NURSEPATH_PILOT_INVITE_CODES || ['NP-PILOT-2026'];
-        const USAGE_INCLUDE_EMAIL = Boolean(window.NURSEPATH_USAGE_INCLUDE_EMAIL);
+        // CDD sign-in is required; attach sealed email to every event unless explicitly disabled.
+        const USAGE_INCLUDE_EMAIL = window.NURSEPATH_USAGE_INCLUDE_EMAIL !== false;
         const EMAIL_TYPO_HINTS = {
             'gmal.com': 'gmail.com',
             'gmial.com': 'gmail.com',
@@ -778,7 +779,7 @@
                 if (!hasTabSessionLogged()) {
                     queueUsageEventRaw({
                         event_id: safeUuid(),
-                        user_email: (readGhostUser() || {}).email || null,
+                        user_email: resolveUsageUserEmail(),
                         session_id: session.session_id,
                         feature: 'session',
                         action: 'session_start',
@@ -802,7 +803,7 @@
                     const startedMs = new Date(session.started_at).getTime();
                     queueUsageEventRaw({
                         event_id: safeUuid(),
-                        user_email: (readGhostUser() || {}).email || null,
+                        user_email: resolveUsageUserEmail(),
                         session_id: session.session_id,
                         feature: 'session',
                         action: 'session_end',
@@ -825,7 +826,7 @@
                 if (!hasTabSessionLogged()) {
                     queueUsageEventRaw({
                         event_id: safeUuid(),
-                        user_email: (readGhostUser() || {}).email || null,
+                        user_email: resolveUsageUserEmail(),
                         session_id: session.session_id,
                         feature: 'session',
                         action: 'session_start',
@@ -868,7 +869,7 @@
             }
             queueUsageEventRaw({
                 event_id: safeUuid(),
-                user_email: (readGhostUser() || {}).email || null,
+                user_email: resolveUsageUserEmail(),
                 session_id: session.session_id,
                 feature: 'session',
                 action: 'session_end',
@@ -989,14 +990,13 @@
                 usageRateLimitMap.set(key, now);
             }
 
-            const ghostUser = readGhostUser();
             const sessionId = getUsageSessionId(now) || readCurrentTabSessionId() || safeUuid();
             if (!readCurrentTabSessionId()) {
                 writeCurrentTabSessionId(sessionId);
             }
             const event = {
                 event_id: safeUuid(),
-                user_email: USAGE_INCLUDE_EMAIL ? (options.userEmail ? normalizeEmail(options.userEmail) : (ghostUser ? ghostUser.email : null)) : null,
+                user_email: resolveUsageUserEmail(options),
                 session_id: sessionId,
                 feature,
                 action,
@@ -1160,6 +1160,20 @@
 
         function normalizeEmail(email) {
             return (email || '').trim().toLowerCase();
+        }
+
+        function resolveUsageUserEmail(options = {}) {
+            if (!USAGE_INCLUDE_EMAIL) {
+                return null;
+            }
+            if (options.userEmail) {
+                return normalizeEmail(options.userEmail);
+            }
+            const ghostUser = readGhostUser();
+            if (ghostUser && ghostUser.email) {
+                return normalizeEmail(ghostUser.email);
+            }
+            return null;
         }
 
         function isValidEmailFormat(email) {

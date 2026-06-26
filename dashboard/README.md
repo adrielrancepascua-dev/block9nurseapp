@@ -39,8 +39,8 @@ npm run build
 - **Real-time Search:** Filter and find specific events
 
 ### Users
-- **User Metrics:** Sessions per user, total time, last active, features used
-- **Anonymous Sessions:** "Ghost" users tracked via session_id
+- **Per-student rollups** — One row per `@cdd.edu.ph` email with session count, total time, last active, and features used
+- **Cross-session grouping** — Same email across multiple app opens counts as one student
 - **Aggregate Stats:** Total users, avg sessions, avg time per user
 - **Live Updates:** Realtime refresh plus timed polling keeps tables current
 
@@ -115,7 +115,7 @@ dashboard/
 **usage_events table columns:**
 - `id`: UUID primary key
 - `event_id`: Unique event identifier
-- `user_email`: User email or null for ghost/anonymous
+- `user_email`: Student CDD email (`@cdd.edu.ph`); required for all new PWA events
 - `session_id`: Session grouping
 - `feature`: Feature name (vitals, calculator, etc.)
 - `action`: Action type (submit, view, etc.)

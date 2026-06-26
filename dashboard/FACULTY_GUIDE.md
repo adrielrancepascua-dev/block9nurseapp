@@ -50,7 +50,7 @@ If login works but all metrics are zero, verify Supabase URL/key, table name, an
 
 ### Overview
 
-- **Summary metrics** — Unique users (by email when present), sessions, feature usage, average session duration.
+- **Summary metrics** — Unique students (by `@cdd.edu.ph` email), sessions, feature usage, average session duration.
 - **Charts** — Recent daily trend and distribution of top features.
 
 Use this page for a **quick health check** of the pilot (“Are students actually using the tool this week?”).
@@ -64,7 +64,8 @@ Use this when you need **examples of behavior** or to debug a specific date rang
 
 ### Users
 
-- **Per-user (or session) rollups** — How many sessions, last active, features touched.
+- **Per-student rollups** — One row per `@cdd.edu.ph` email: sessions, last active, features touched, total session time.
+- Students accept the **simulation mode agreement** in the PWA; it remains valid for **30 days** before re-acknowledgment.
 
 Use this to identify **heavy vs light** participation or inactive accounts.
 
@@ -79,7 +80,7 @@ Use this for **offline analysis**, sharing with a statistician, or records reten
 ## 5. Interpreting the data
 
 - **feature** / **action** fields describe what happened (e.g. opening a module vs running a calculation). Exact strings match what the PWA emits.
-- **user_email** may be empty for some sessions; **session_id** still groups activity.
+- **user_email** identifies the signed-in CDD student (`@cdd.edu.ph`). The Users page groups strictly by email; legacy events without email are excluded from that table.
 - **meta** is JSON; the export includes it for context (counts, categories—**not** raw patient data if students followed instructions).
 - **timestamp** is server or client time depending on insert path; use ranges, not single-second precision, for research reporting.
 

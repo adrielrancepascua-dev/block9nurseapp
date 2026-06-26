@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { UsageEvent, formatDuration } from '../lib/supabase'
-import { formatNumber, getFeatureLabel } from '../lib/utils'
+import { formatNumber, getFeatureLabel, normalizeUserEmail } from '../lib/utils'
 import { fetchUsageEventsResilient, subscribeToUsageEventChanges } from '../lib/usageData'
 import { Metric } from '../components/Metric'
 import {
@@ -64,11 +64,11 @@ export function Overview() {
       setDataSource(result.source)
       setStatusMessage(result.warning)
 
-      // Calculate metrics
+      // Calculate metrics — one CDD email = one user
       const uniqueEmails = new Set(
         events
-          .map((e) => e.user_email || `session_${e.session_id}`)
-          .filter((e) => e !== 'session_null')
+          .map((e) => normalizeUserEmail(e.user_email))
+          .filter((email): email is string => Boolean(email))
       )
       const uniqueSessions = new Set(events.map((e) => e.session_id))
       const featureEvents = events.filter((e) => e.feature && e.feature !== 'session' && e.feature !== 'auth' && e.feature !== 'consent')
