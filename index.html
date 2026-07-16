@@ -52,6 +52,7 @@
         <script src="assets/ui-helpers.js"></script>
         <script src="assets/clinical-calculators.js"></script>
         <script src="assets/tool-guides.js"></script>
+        <script src="assets/study-drills.js"></script>
 
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%230f172a' width='180' height='180' rx='40'/><text x='50%' y='50%' font-size='100' font-weight='bold' fill='%2306b6d4' text-anchor='middle' dy='.35em'>Rx</text></svg>">
     <!-- OFFLINE-FIRST: Inlined CSS (no CDN) -->
@@ -391,6 +392,228 @@
             justify-content: space-between;
             gap: 10px;
             margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+        .tools-detail-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-left: auto;
+        }
+        .np-mode-toggle {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            gap: 2px;
+        }
+        .np-mode-toggle button {
+            min-height: 36px;
+            min-width: 0;
+            padding: 8px 12px;
+            border-radius: 9px;
+            border: none;
+            background: transparent;
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            letter-spacing: 0.02em;
+        }
+        .np-mode-toggle button.is-active {
+            background: #1e293b;
+            color: #e2e8f0;
+            box-shadow: inset 0 0 0 1px #475569;
+        }
+        .np-mode-toggle button[data-mode="study"].is-active {
+            background: rgba(14, 165, 233, 0.18);
+            color: #7dd3fc;
+            box-shadow: inset 0 0 0 1px #0ea5e9;
+        }
+        .tool-study-strip {
+            display: none;
+            margin: -4px 0 14px;
+            padding: 12px 14px;
+            border: 1px solid #334155;
+            border-radius: 14px;
+            background: linear-gradient(145deg, rgba(14, 165, 233, 0.1), rgba(15, 23, 42, 0.9));
+            gap: 10px;
+        }
+        #tools-detail[data-mode="study"] .tool-study-strip {
+            display: grid;
+        }
+        #tools-detail[data-mode="duty"] .np-learn {
+            display: none !important;
+        }
+        .tool-study-tip {
+            font-size: 12.5px;
+            line-height: 1.45;
+            color: #cbd5e1;
+        }
+        .tool-study-tip strong {
+            color: #7dd3fc;
+            font-weight: 800;
+        }
+        .tool-study-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .tool-study-streak {
+            font-size: 11px;
+            font-weight: 700;
+            color: #94a3b8;
+            font-variant-numeric: tabular-nums;
+        }
+        .tool-study-streak em {
+            color: #67e8f9;
+            font-style: normal;
+            font-weight: 800;
+        }
+        .tool-drill-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            min-height: 40px;
+            padding: 8px 14px;
+            border-radius: 10px;
+            border: 1px solid #0ea5e9;
+            background: rgba(14, 165, 233, 0.16);
+            color: #e0f2fe;
+            font-size: 12.5px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .tool-drill-btn:hover {
+            background: rgba(14, 165, 233, 0.28);
+        }
+        .tool-drill-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1210;
+            background: rgba(2, 6, 23, 0.72);
+            align-items: flex-end;
+            justify-content: center;
+            padding: 0;
+        }
+        .tool-drill-overlay.open { display: flex; }
+        .tool-drill-sheet {
+            width: 100%;
+            max-width: 560px;
+            max-height: min(88vh, 720px);
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-bottom: none;
+            border-radius: 18px 18px 0 0;
+            box-shadow: 0 -12px 40px rgba(2, 6, 23, 0.55);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: toolGuideSlideUp 0.22s ease;
+        }
+        .tool-drill-sheet-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 16px 16px 12px;
+            border-bottom: 1px solid #334155;
+            background: #1e293b;
+        }
+        .tool-drill-sheet-header h3 {
+            margin: 0;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #f8fafc;
+            line-height: 1.3;
+        }
+        .tool-drill-body {
+            padding: 14px 16px 22px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .tool-drill-prompt {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #e2e8f0;
+            margin: 0 0 14px;
+        }
+        .tool-drill-choices {
+            display: grid;
+            gap: 8px;
+        }
+        .tool-drill-choice {
+            text-align: left;
+            width: 100%;
+            min-height: 48px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            background: #1e293b;
+            color: #e2e8f0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            line-height: 1.4;
+            cursor: pointer;
+        }
+        .tool-drill-choice:hover:not(:disabled) {
+            border-color: #0ea5e9;
+            background: rgba(14, 165, 233, 0.12);
+        }
+        .tool-drill-choice:disabled { cursor: default; opacity: 1; }
+        .tool-drill-choice.is-correct {
+            border-color: #34d399;
+            background: rgba(16, 185, 129, 0.16);
+            color: #a7f3d0;
+        }
+        .tool-drill-choice.is-wrong {
+            border-color: #f87171;
+            background: rgba(248, 113, 113, 0.12);
+            color: #fecaca;
+        }
+        .tool-drill-feedback {
+            display: none;
+            margin-top: 14px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            background: #1e293b;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            color: #cbd5e1;
+        }
+        .tool-drill-feedback.open { display: block; }
+        .tool-drill-feedback.is-correct {
+            border-color: rgba(52, 211, 153, 0.45);
+            background: rgba(16, 185, 129, 0.12);
+            color: #a7f3d0;
+        }
+        .tool-drill-feedback.is-wrong {
+            border-color: rgba(248, 113, 113, 0.4);
+            background: rgba(248, 113, 113, 0.1);
+            color: #fecaca;
+        }
+        .tool-drill-feedback strong {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 800;
+        }
+        @media (min-width: 640px) {
+            .tool-drill-overlay {
+                align-items: center;
+                padding: 1.5rem;
+            }
+            .tool-drill-sheet {
+                border-radius: 16px;
+                border-bottom: 1px solid #334155;
+                max-height: min(85vh, 680px);
+            }
         }
         .tools-back-btn {
             display: inline-flex;
@@ -1052,6 +1275,17 @@
 
             <p id="authStatus" style="color: #f59e0b; font-size: 12px; min-height: 18px; margin-top: 8px;"></p>
             <p style="color:#475569; font-size:10px; margin-top:8px;">Google sign-in requires one online session. After that, NursePath stays available offline on this device.</p>
+        </div>
+    </div>
+
+    <!-- TOOL DRILL SHEET -->
+    <div id="toolDrillOverlay" class="tool-drill-overlay" role="dialog" aria-modal="true" aria-labelledby="toolDrillTitle" onclick="if(event.target===this)closeToolDrill()">
+        <div class="tool-drill-sheet">
+            <div class="tool-drill-sheet-header">
+                <h3 id="toolDrillTitle">Try a case</h3>
+                <button type="button" class="tool-guide-close" onclick="closeToolDrill()" aria-label="Close drill">×</button>
+            </div>
+            <div class="tool-drill-body" id="toolDrillBody"></div>
         </div>
     </div>
 
@@ -2790,7 +3024,7 @@
         <div id="tools-hub" class="mb-6">
             <div class="tools-hub-hero">
                 <h2>Clinical Tools</h2>
-                <p>Choose a calculator — each opens in a focused view. OTC medicines live in the OTC tab.</p>
+                <p>Duty for fast calcs. Study for the why + a quick case. OTC lives in the OTC tab.</p>
             </div>
             <div class="tools-hub-grid">
                 <button type="button" class="tool-hub-card" style="--accent:#f87171;" onclick="openClinicalTool('vitals')">
@@ -2841,13 +3075,26 @@
             </div>
         </div>
 
-        <div id="tools-detail" class="hidden">
+        <div id="tools-detail" class="hidden" data-mode="duty">
             <div class="tools-detail-header">
                 <button type="button" class="tools-back-btn" onclick="backToToolsHub()">← All Clinical Tools</button>
-                <button type="button" class="tool-guide-btn" id="toolGuideBtn" onclick="openToolGuide()" aria-label="Open tool guide">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8M8 11h6"/></svg>
-                    Guide
-                </button>
+                <div class="tools-detail-header-actions">
+                    <div class="np-mode-toggle" role="group" aria-label="Tool mode">
+                        <button type="button" data-mode="duty" id="modeDutyBtn" class="is-active" onclick="setToolMode('duty')">Duty</button>
+                        <button type="button" data-mode="study" id="modeStudyBtn" onclick="setToolMode('study')">Study</button>
+                    </div>
+                    <button type="button" class="tool-guide-btn" id="toolGuideBtn" onclick="openToolGuide()" aria-label="Open tool guide">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8M8 11h6"/></svg>
+                        Guide
+                    </button>
+                </div>
+            </div>
+            <div id="toolStudyStrip" class="tool-study-strip">
+                <div class="tool-study-tip" id="toolStudyTip"><strong>Study mode</strong> — formulas and meaning stay visible. Use Guide for the full walkthrough.</div>
+                <div class="tool-study-actions">
+                    <span class="tool-study-streak" id="toolStudyStreak">Streak <em>0</em></span>
+                    <button type="button" class="tool-drill-btn" onclick="openToolDrill()">Try a case</button>
+                </div>
             </div>
             <div id="tool-panel-vitals" class="tool-panel">                <!-- VITAL SIGNS INPUT & ANALYSIS -->
                 <section id="vital-signs-section" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
@@ -3976,6 +4223,71 @@
         };
 
         let currentClinicalToolId = null;
+        const TOOL_MODE_KEY = 'np_tool_mode_v1';
+        let currentToolMode = 'duty';
+
+        function readToolMode() {
+            try {
+                const m = localStorage.getItem(TOOL_MODE_KEY);
+                return m === 'study' ? 'study' : 'duty';
+            } catch (e) {
+                return 'duty';
+            }
+        }
+
+        function persistToolMode(mode) {
+            try {
+                localStorage.setItem(TOOL_MODE_KEY, mode);
+            } catch (e) { /* ignore */ }
+        }
+
+        function studyTipForTool(toolId) {
+            const tips = {
+                vitals: 'Compare entered vitals to age-aware simulation ranges — then decide what you would recheck or report.',
+                iv: 'Convert volume + time into mL/hr, then gtt/min with the tubing drop factor.',
+                bmi: 'BMI = kg ÷ m². Category is screening language, not a diagnosis.',
+                aog: 'Naegele: LMP + 7 days − 3 months + 1 year (≈ +280 days). Confirm dating source on chart.',
+                peds: 'Prefer mg/kg + monograph max. Clark’s / Young’s are classic exam cross-checks.',
+                apgar: 'Five domains × 0–2. Report components and timing (1 min / 5 min), not only the total.',
+                gcs: 'Report E + V + M components. Total alone hides the clinical picture.',
+                braden: 'Lower total = higher pressure-injury risk. Use subscales to target prevention.',
+                ron: 'Adult map: head 9, arms 9 each, trunk 18/18, legs 18 each, perineum 1.'
+            };
+            return tips[toolId] || 'Use Guide for formulas and examples. Try a case to check yourself.';
+        }
+
+        function refreshStudyStrip() {
+            const tipEl = document.getElementById('toolStudyTip');
+            const streakEl = document.getElementById('toolStudyStreak');
+            if (tipEl) {
+                tipEl.innerHTML = `<strong>Study</strong> — ${escapeGuideHtml(studyTipForTool(currentClinicalToolId))}`;
+            }
+            if (streakEl) {
+                const drills = window.NursePathStudyDrills;
+                const stats = drills && currentClinicalToolId ? drills.getToolStats(currentClinicalToolId) : { streak: 0, bestStreak: 0, attempts: 0 };
+                streakEl.innerHTML = `Streak <em>${stats.streak || 0}</em> · best ${stats.bestStreak || 0} · ${stats.attempts || 0} tries`;
+            }
+        }
+
+        function applyToolMode(mode, opts) {
+            const next = mode === 'study' ? 'study' : 'duty';
+            currentToolMode = next;
+            const detail = document.getElementById('tools-detail');
+            if (detail) detail.setAttribute('data-mode', next);
+            const dutyBtn = document.getElementById('modeDutyBtn');
+            const studyBtn = document.getElementById('modeStudyBtn');
+            if (dutyBtn) dutyBtn.classList.toggle('is-active', next === 'duty');
+            if (studyBtn) studyBtn.classList.toggle('is-active', next === 'study');
+            if (next === 'study') refreshStudyStrip();
+            if (!(opts && opts.silent)) {
+                persistToolMode(next);
+                trackUsageSafe('navigation', 'feature_use', { tool: currentClinicalToolId, mode: next }, { minIntervalMs: 500, rateKey: `mode_${next}` });
+            }
+        }
+
+        function setToolMode(mode) {
+            applyToolMode(mode);
+        }
 
         function openClinicalTool(toolId) {
             const hub = document.getElementById('tools-hub');
@@ -3991,7 +4303,8 @@
             const panelId = CLINICAL_TOOL_PANELS[toolId];
             const panel = panelId ? document.getElementById(panelId) : null;
             if (panel) panel.classList.add('is-active');
-            trackUsageSafe('navigation', 'feature_open', { tool: toolId }, { minIntervalMs: 700, rateKey: `tool_${toolId}` });
+            applyToolMode(readToolMode(), { silent: true });
+            trackUsageSafe('navigation', 'feature_open', { tool: toolId, mode: currentToolMode }, { minIntervalMs: 700, rateKey: `tool_${toolId}` });
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (toolId === 'apgar') initApgarInputs();
             if (toolId === 'braden') initBradenInputs();
@@ -4004,6 +4317,7 @@
             const detail = document.getElementById('tools-detail');
             currentClinicalToolId = null;
             closeToolGuide();
+            closeToolDrill();
             if (hub) hub.classList.remove('hidden');
             if (detail) detail.classList.add('hidden');
             Object.values(CLINICAL_TOOL_PANELS).forEach((id) => {
@@ -4043,6 +4357,7 @@
             const titleEl = document.getElementById('toolGuideTitle');
             const bodyEl = document.getElementById('toolGuideBody');
             if (!overlay || !titleEl || !bodyEl) return;
+            closeToolDrill();
             const guide = guides && currentClinicalToolId ? guides.getGuide(currentClinicalToolId) : null;
             if (!guide) {
                 titleEl.textContent = 'Guide unavailable';
@@ -4059,13 +4374,89 @@
         function closeToolGuide() {
             const overlay = document.getElementById('toolGuideOverlay');
             if (overlay) overlay.classList.remove('open');
-            document.body.style.overflow = '';
+            if (!document.getElementById('toolDrillOverlay')?.classList.contains('open')) {
+                document.body.style.overflow = '';
+            }
+        }
+
+        let drillAnswered = false;
+
+        function openToolDrill() {
+            const drills = window.NursePathStudyDrills;
+            const overlay = document.getElementById('toolDrillOverlay');
+            const titleEl = document.getElementById('toolDrillTitle');
+            const bodyEl = document.getElementById('toolDrillBody');
+            if (!overlay || !titleEl || !bodyEl) return;
+            if (currentToolMode !== 'study') applyToolMode('study');
+            closeToolGuide();
+            const drill = drills && currentClinicalToolId ? drills.getDrill(currentClinicalToolId) : null;
+            drillAnswered = false;
+            if (!drill) {
+                titleEl.textContent = 'Case unavailable';
+                bodyEl.innerHTML = '<p class="tool-drill-prompt">No case is available for this tool yet.</p>';
+            } else {
+                titleEl.textContent = drill.title || 'Try a case';
+                const choices = (drill.choices || []).map((label, idx) => {
+                    return `<button type="button" class="tool-drill-choice" data-idx="${idx}" onclick="submitToolDrill(${idx})">${escapeGuideHtml(label)}</button>`;
+                }).join('');
+                bodyEl.innerHTML = `
+                    <p class="tool-drill-prompt">${escapeGuideHtml(drill.prompt)}</p>
+                    <div class="tool-drill-choices">${choices}</div>
+                    <div class="tool-drill-feedback" id="toolDrillFeedback"></div>
+                `;
+            }
+            overlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            trackUsageSafe('study_drill', 'feature_open', { tool: currentClinicalToolId }, { minIntervalMs: 700, rateKey: `drill_open_${currentClinicalToolId || 'none'}` });
+        }
+
+        function submitToolDrill(choiceIndex) {
+            if (drillAnswered) return;
+            const drills = window.NursePathStudyDrills;
+            const drill = drills && currentClinicalToolId ? drills.getDrill(currentClinicalToolId) : null;
+            if (!drill) return;
+            drillAnswered = true;
+            const isCorrect = Number(choiceIndex) === Number(drill.correctIndex);
+            const stats = drills.recordAttempt(currentClinicalToolId, isCorrect);
+            const bodyEl = document.getElementById('toolDrillBody');
+            const feedback = document.getElementById('toolDrillFeedback');
+            if (bodyEl) {
+                bodyEl.querySelectorAll('.tool-drill-choice').forEach((btn) => {
+                    const idx = Number(btn.getAttribute('data-idx'));
+                    btn.disabled = true;
+                    if (idx === drill.correctIndex) btn.classList.add('is-correct');
+                    else if (idx === Number(choiceIndex) && !isCorrect) btn.classList.add('is-wrong');
+                });
+            }
+            if (feedback) {
+                feedback.className = `tool-drill-feedback open ${isCorrect ? 'is-correct' : 'is-wrong'}`;
+                feedback.innerHTML = `<strong>${isCorrect ? 'Correct' : 'Not quite'}</strong>${escapeGuideHtml(drill.explain || '')}`;
+            }
+            refreshStudyStrip();
+            trackUsageSafe('study_drill', 'result_generated', {
+                tool: currentClinicalToolId,
+                correct: isCorrect,
+                streak: stats.streak
+            }, { minIntervalMs: 400, rateKey: `drill_result_${currentClinicalToolId || 'none'}` });
+        }
+
+        function closeToolDrill() {
+            const overlay = document.getElementById('toolDrillOverlay');
+            if (overlay) overlay.classList.remove('open');
+            if (!document.getElementById('toolGuideOverlay')?.classList.contains('open')) {
+                document.body.style.overflow = '';
+            }
         }
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeToolGuide();
+            if (e.key === 'Escape') {
+                closeToolDrill();
+                closeToolGuide();
+            }
         });
 
+        // Restore preferred mode for next tool open
+        currentToolMode = readToolMode();
         function calcPediatricDose() {
             const calc = window.NursePathCalculators;
             if (!calc) return;
@@ -4446,6 +4837,10 @@
         window.backToToolsHub = backToToolsHub;
         window.openToolGuide = openToolGuide;
         window.closeToolGuide = closeToolGuide;
+        window.setToolMode = setToolMode;
+        window.openToolDrill = openToolDrill;
+        window.closeToolDrill = closeToolDrill;
+        window.submitToolDrill = submitToolDrill;
         window.calcPediatricDose = calcPediatricDose;
         window.calcApgar = calcApgar;
         window.calcGCS = calcGCS;
