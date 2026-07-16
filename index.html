@@ -629,6 +629,31 @@
             line-height: 1.45;
             color: #cbd5e1;
         }
+        .np-bullets {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: 6px;
+        }
+        .np-bullets li {
+            position: relative;
+            padding-left: 14px;
+            line-height: 1.45;
+            word-break: break-word;
+            overflow-wrap: anywhere;
+        }
+        .np-bullets li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.45em;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: currentColor;
+            opacity: 0.85;
+        }
         .np-year-path {
             display: grid;
             grid-template-columns: 1fr;
@@ -829,7 +854,7 @@
             </p>
             <ul class="auth-value-list">
                 <li><strong>Use on duty:</strong> Offline vitals, IV math, OTC brands — get the finding fast.</li>
-                <li><strong>Learn while you calculate:</strong> Every tool shows meaning, formula/criteria, and a CI check.</li>
+                <li><strong>Learn while you calculate:</strong> Every tool shows the meaning and how the result was derived.</li>
                 <li><strong>1st year → 4th year:</strong> Foundations through ward scoring tools in one companion.</li>
             </ul>
             <p style="color: #94a3b8; font-size: 12px; margin-bottom: 14px;">Simulation-only academic tool. Not for real patient care decisions.</p>
@@ -2729,7 +2754,6 @@
                     <div id="vitals-learn" class="np-learn" style="display:none;">
                         <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="vitals-learn-meaning">—</span></div>
                         <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="vitals-learn-how">Age-, pregnancy-, and comorbidity-aware reference ranges (simulation).</span></div>
-                        <div class="np-learn-row"><span class="np-learn-k">CI check</span><span class="np-learn-v" id="vitals-learn-ci">What trend would you report first, and what will you recheck in 15–30 min?</span></div>
                     </div>
 
                     <div class="mt-4" style="display:flex; flex-direction:column; gap:8px;">
@@ -2781,7 +2805,6 @@
                             <div id="iv-learn" class="np-learn">
                                 <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="iv-learn-meaning">Enter volume, time, and drop factor to compute.</span></div>
                                 <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="iv-learn-how">mL/hr = V÷T · gtt/min = (mL/hr÷60)×DF</span></div>
-                                <div class="np-learn-row"><span class="np-learn-k">CI check</span><span class="np-learn-v" id="iv-learn-ci">Does this match the doctor’s order and the tubing drop factor on the set?</span></div>
                             </div>
                             <button onclick="calcIV()" class="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 py-3 rounded-xl font-bold transition-all shadow-lg shadow-blue-900/30">
                                 <svg class="inline mr-2" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm2 4a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2H6zm4 0a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2h-1zm4 0a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2h-1zm-8 4a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2H6zm0 4a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2H6z"/></svg> Calculate Drip Rate
@@ -2818,7 +2841,6 @@
                             <div id="bmi-learn" class="np-learn">
                                 <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="bmi-learn-meaning">Underweight &lt;18.5 · Normal 18.5–24.9 · Overweight 25–29.9 · Obese ≥30</span></div>
                                 <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="bmi-learn-how">BMI = kg ÷ m² (height converted from cm).</span></div>
-                                <div class="np-learn-row"><span class="np-learn-k">CI check</span><span class="np-learn-v" id="bmi-learn-ci">BMI is a screen, not a diagnosis — what else in the clinical picture matters?</span></div>
                             </div>
                             <button onclick="calcBMI()" class="w-full bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 py-3 rounded-xl font-bold transition-all shadow-lg shadow-emerald-900/30">
                                 <svg class="inline mr-2" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm2 4a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2H6zm4 0a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2h-1zm4 0a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2h-1zm-8 4a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2H6zm0 4a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2H6z"/></svg> Calculate BMI
@@ -2877,7 +2899,6 @@
                             <div id="aog-learn" class="np-learn">
                                 <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="aog-learn-meaning">AOG from LMP; EDD ≈ LMP + 280 days (Naegele).</span></div>
                                 <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="aog-learn-how">EDD = LMP + 7 days − 3 months + 1 year (28-day cycle assumption).</span></div>
-                                <div class="np-learn-row"><span class="np-learn-k">CI check</span><span class="np-learn-v" id="aog-learn-ci">Ultrasound / OB dating overrides LMP math — what dating source is on the chart?</span></div>
                             </div>
                         </div>
                     </div>
@@ -2909,7 +2930,6 @@
                             <div id="peds-learn" class="np-learn">
                                 <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="peds-learn-meaning">mg/kg = clinical standard; Clark/Young = classic exam formulas.</span></div>
                                 <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="peds-learn-how">mg/kg = wt×dose · Clark = (lb/150)×adult · Young = [age/(age+12)]×adult</span></div>
-                                <div class="np-learn-row"><span class="np-learn-k">CI check</span><span class="np-learn-v" id="peds-learn-ci">Did you use the product monograph max dose and the right concentration?</span></div>
                             </div>
                         </div>
                     </div>
@@ -2930,7 +2950,6 @@
                         <div class="np-learn" style="margin-top:10px;">
                             <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="apgar-learn-meaning">0–3 depressed · 4–6 moderate · 7–10 reassuring</span></div>
                             <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="apgar-learn-how">Sum of Appearance + Pulse + Grimace + Activity + Respiration (each 0–2).</span></div>
-                            <div class="np-learn-row"><span class="np-learn-k">CI check</span><span class="np-learn-v" id="apgar-learn-ci">What will you document at 1 min and 5 min, and what support is already happening?</span></div>
                         </div>
                     </div>
                 </div>
@@ -2953,7 +2972,6 @@
                         <div class="np-learn" style="margin-top:10px;">
                             <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="gcs-learn-meaning">Mild 13–15 · Moderate 9–12 · Severe ≤8</span></div>
                             <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="gcs-learn-how">Total = E + V + M. Always report components, not only the sum.</span></div>
-                            <div class="np-learn-row"><span class="np-learn-k">CI check</span><span class="np-learn-v" id="gcs-learn-ci">What is the trend vs the last GCS, and is airway protected?</span></div>
                         </div>
                     </div>
                 </div>
@@ -2971,7 +2989,6 @@
                         <div class="np-learn" style="margin-top:10px;">
                             <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="braden-learn-meaning">Lower total = higher pressure-injury risk (6–23).</span></div>
                             <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="braden-learn-how">Sum of Sensory, Moisture, Activity, Mobility, Nutrition, Friction/Shear.</span></div>
-                            <div class="np-learn-row"><span class="np-learn-k">CI check</span><span class="np-learn-v" id="braden-learn-ci">Which subscale is dragging the score down, and what skin intervention matches it?</span></div>
                         </div>
                     </div>
                 </div>
@@ -2990,7 +3007,6 @@
                         <div class="np-learn" style="margin-top:10px;">
                             <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="ron-learn-meaning">Adult Rule of Nines TBSA estimate for teaching.</span></div>
                             <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="ron-learn-how">Head 9 · Arm 9 each · Trunk 18 front/back · Leg 18 each · Perineum 1 (half = ½ region).</span></div>
-                            <div class="np-learn-row"><span class="np-learn-k">CI check</span><span class="np-learn-v" id="ron-learn-ci">Is this adult proportions? Pediatric charts differ — confirm with CI/protocol.</span></div>
                         </div>
                         <button type="button" onclick="resetRuleOfNines()" class="w-full mt-3 py-3 rounded-xl font-bold bg-slate-800 text-slate-100 border border-slate-600">Reset Regions</button>
                     </div>
@@ -3543,7 +3559,7 @@
 
                 <div class="bg-slate-800/40 border border-slate-700 rounded-lg p-3">
                     <p class="font-semibold text-slate-200 text-sm mb-2">Clinical Interpretation (Simulation)</p>
-                    <ul class="space-y-1 text-xs text-slate-200 list-disc pl-4">`;
+                    <ul class="np-bullets text-xs text-slate-200">`;
             finalInterpretations.forEach(item => {
                 html += `<li>${item}</li>`;
             });
@@ -3551,7 +3567,7 @@
 
                 <div class="bg-slate-800/40 border border-slate-700 rounded-lg p-3">
                     <p class="font-semibold text-slate-200 text-sm mb-2">Nursing Considerations / Actions</p>
-                    <ul class="space-y-1 text-xs text-cyan-200 list-disc pl-4">`;
+                    <ul class="np-bullets text-xs text-cyan-200">`;
             finalActions.forEach(item => {
                 html += `<li>${item}</li>`;
             });
@@ -3560,7 +3576,7 @@
             if (context.length > 0) {
                 html += `<div class="bg-indigo-900/20 border border-indigo-700/50 rounded-lg p-3">
                     <p class="font-semibold text-indigo-200 text-sm mb-2">Patient Context</p>
-                    <ul class="space-y-1 text-xs text-indigo-100 list-disc pl-4">`;
+                    <ul class="np-bullets text-xs text-indigo-100">`;
                 context.slice(0, 4).forEach(item => {
                     html += `<li>${item}</li>`;
                 });
