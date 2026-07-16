@@ -1902,13 +1902,12 @@
             setAuthStatus('Opening Google sign-in...', false);
             trackUsageEvent('auth', 'feature_use', { action: 'google_oauth_start' }, { minIntervalMs: 1000, rateKey: 'google_oauth_start' });
 
-            const redirectTo = window.location.origin + window.location.pathname;
+            const redirectTo = window.location.origin + (window.location.pathname || '/');
             const { error } = await supabaseClient.auth.signInWithOAuth({
                 provider: 'google',
                 options: {
                     redirectTo,
                     queryParams: {
-                        access_type: 'offline',
                         prompt: 'select_account'
                     }
                 }
@@ -1917,6 +1916,45 @@
                 setAuthStatus(error.message || 'Google sign-in failed. Try email instead.', true);
                 trackUsageEvent('auth', 'error_shown', { reason: 'oauth_start_failed' }, { minIntervalMs: 2000, rateKey: 'oauth_start_failed' });
             }
+        }
+
+        function readOAuthRedirectError() {
+            try {
+                const params = new URLSearchParams(window.location.search || '');
+                const error = params.get('error');
+                if (!error) return null;
+                const code = params.get('error_code') || '';
+                const description = params.get('error_description') || '';
+                return { error, code, description: description.replace(/\+/g, ' ') };
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function clearOAuthRedirectParams() {
+            try {
+                const url = new URL(window.location.href);
+                const keys = ['error', 'error_code', 'error_description', 'code', 'state'];
+                let changed = false;
+                keys.forEach((key) => {
+                    if (url.searchParams.has(key)) {
+                        url.searchParams.delete(key);
+                        changed = true;
+                    }
+                });
+                if (changed) {
+                    window.history.replaceState({}, document.title, url.pathname + (url.search ? url.search : '') + url.hash);
+                }
+            } catch (e) { /* ignore */ }
+        }
+
+        function formatOAuthRedirectError(oauthError) {
+            const raw = String(oauthError && oauthError.description ? oauthError.description : '').toLowerCase();
+            if (raw.includes('unable to exchange external code') || oauthError.code === 'unexpected_failure') {
+                return 'Google sign-in reached NursePath, but Supabase could not finish the login. In Google Cloud → Credentials, confirm the OAuth client redirect URI is exactly https://oobrhmnvbxiqdbpjnnbn.supabase.co/auth/v1/callback, then re-copy Client ID + Client Secret into Supabase → Authentication → Sign In / Providers → Google (no extra spaces).';
+            }
+            if (oauthError.description) return oauthError.description;
+            return 'Google sign-in failed. Try again, or use email instead.';
         }
 
         async function initSupabaseAuth() {
@@ -1965,14 +2003,27 @@
                 renderPilotMetrics();
             }
 
+            const oauthRedirectError = readOAuthRedirectError();
+            if (oauthRedirectError) {
+                clearOAuthRedirectParams();
+                showAuthOverlay(formatOAuthRedirectError(oauthRedirectError), true);
+                trackUsageEvent('auth', 'error_shown', {
+                    reason: 'oauth_redirect_error',
+                    error: oauthRedirectError.error,
+                    error_code: oauthRedirectError.code
+                }, { minIntervalMs: 2000, rateKey: 'oauth_redirect_error' });
+            }
+
             // Returning device: offline-capable ghost session
-            if (checkAuth()) {
+            if (!oauthRedirectError && checkAuth()) {
                 return;
             }
 
             const isConfigured = !SUPABASE_URL.includes('YOUR-PROJECT') && !SUPABASE_ANON_KEY.includes('YOUR_SUPABASE_ANON_KEY');
             if (!window.supabase || !isConfigured) {
-                showAuthOverlay('Sign in with Google to continue.', false);
+                if (!oauthRedirectError) {
+                    showAuthOverlay('Sign in with Google to continue.', false);
+                }
                 return;
             }
 
@@ -1980,7 +2031,8 @@
                 auth: {
                     persistSession: true,
                     autoRefreshToken: true,
-                    detectSessionInUrl: true
+                    detectSessionInUrl: true,
+                    flowType: 'pkce'
                 }
             });
 
@@ -2027,7 +2079,9 @@
             await flushUsageEvents();
             window.addEventListener('online', () => { void flushPendingEmailLogs(); });
 
-            showAuthOverlay('Sign in with Google to continue.', false);
+            if (!oauthRedirectError) {
+                showAuthOverlay('Sign in with Google to continue.', false);
+            }
         }
 
         function isFacultyDebugEnabled() {
