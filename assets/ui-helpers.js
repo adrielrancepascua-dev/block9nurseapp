@@ -64,6 +64,21 @@
       trackUsageSafe('otc_ref', 'feature_open', { item_id: item.id || 'unknown' }, { minIntervalMs: 1000, rateKey: `otc_open_${item.id || 'unknown'}` });
     }
 
+    const nursingCheck = (item.additionalInfo && item.additionalInfo.nursingConsiderations)
+      ? String(item.additionalInfo.nursingConsiderations).split('.')[0]
+      : 'Check duplicates, allergies, pregnancy, and organ impairment before you cite this as reference.';
+    const nursingShort = String(nursingCheck).trim().slice(0, 180) + (String(nursingCheck).length > 180 ? '…' : '');
+
+    const dutyStrip = `
+      <div class="otc-duty-strip">
+        <div class="otc-duty-title">Duty quick take</div>
+        <p><strong>Use:</strong> ${item.uses}</p>
+        <p><strong>Caution:</strong> ${item.contraindications}</p>
+        <p><strong>Nursing check:</strong> ${nursingShort}</p>
+        <p style="color:#94a3b8;font-size:11px;">Reference only — apply your own judgment and verify with CI / protocol.</p>
+      </div>
+    `;
+
     const tldrContent = `
       <div class="space-y-2 text-sm text-slate-300">
         <div><strong class="text-slate-200">Uses:</strong> ${item.uses}</div>
@@ -104,11 +119,12 @@
     const html = `
       <h3 class="font-bold text-xl text-amber-300 mb-1">${item.name}</h3>
       <p class="text-xs text-slate-400 mb-3">Philippine Brand Names: ${item.ph_brands.join(', ')}</p>
+      ${dutyStrip}
       <button onclick="copyOTCReference()" class="mb-3 px-3 py-2 text-xs font-semibold rounded-lg transition" style="background: linear-gradient(135deg, #0e7490, #0f766e); color: white; border: 1px solid #14b8a6;">Copy Quick Reference</button>
       ${hasAdditionalInfo ? `
         <div class="flex gap-2 mb-4">
           <button id="tldr-tab" onclick="switchOTCTab('tldr')" class="px-4 py-2 text-sm font-semibold rounded-lg transition" style="background: linear-gradient(135deg, #06b6d4, #0891b2); color: white;">📋 TLDR</button>
-          <button id="additional-tab" onclick="switchOTCTab('additional')" class="px-4 py-2 text-sm font-semibold rounded-lg transition" style="background: #334155; color: #94a3b8;">📚 Additional Info</button>
+          <button id="additional-tab" onclick="switchOTCTab('additional')" class="px-4 py-2 text-sm font-semibold rounded-lg transition" style="background: #334155; color: #94a3b8;">📚 Study deeper</button>
         </div>
         <div id="tldr-content">${tldrContent}</div>
         <div id="additional-content" style="display: none;">${additionalContent}</div>
@@ -217,13 +233,22 @@
     const vol = parseFloat(document.getElementById('vol').value);
     const hours = parseFloat(document.getElementById('hours').value);
     const factor = parseFloat(document.getElementById('factor').value);
+    const meaningEl = document.getElementById('iv-learn-meaning');
+    const howEl = document.getElementById('iv-learn-how');
 
     if (vol && hours) {
       const mlPerHour = vol / hours;
       const gttPerMin = Math.round((mlPerHour / 60) * factor);
+      const dfLabel = factor === 60 ? 'micro drip (peds/meds)' : 'macro drip';
 
       document.getElementById('mlhr').innerText = mlPerHour.toFixed(1) + ' mL/hr';
       document.getElementById('iv-result').innerText = gttPerMin + ' gtt/min';
+      if (meaningEl) {
+        meaningEl.textContent = `${mlPerHour.toFixed(1)} mL/hr → ${gttPerMin} gtt/min using ${factor} gtt/mL (${dfLabel}).`;
+      }
+      if (howEl) {
+        howEl.textContent = `${vol}÷${hours} = ${mlPerHour.toFixed(1)} mL/hr; (${mlPerHour.toFixed(1)}÷60)×${factor} ≈ ${gttPerMin} gtt/min.`;
+      }
       const trackUsageSafe = getTrackUsageSafe();
       if (trackUsageSafe) {
         trackUsageSafe('iv_calc', 'result_generated', { result_state: 'computed', has_value: true }, { minIntervalMs: 1500, rateKey: 'iv_calc_computed' });
@@ -233,12 +258,17 @@
     } else {
       document.getElementById('iv-result').innerText = '-- gtt/min';
       document.getElementById('mlhr').innerText = '-- mL/hr';
+      if (meaningEl) meaningEl.textContent = 'Enter volume, time, and drop factor to compute.';
+      if (howEl) howEl.textContent = 'mL/hr = V÷T · gtt/min = (mL/hr÷60)×DF';
     }
   }
 
   function calcBMI() {
     const w = parseFloat(document.getElementById('weight').value);
-    const h = parseFloat(document.getElementById('height').value) / 100;
+    const hCm = parseFloat(document.getElementById('height').value);
+    const h = hCm / 100;
+    const meaningEl = document.getElementById('bmi-learn-meaning');
+    const howEl = document.getElementById('bmi-learn-how');
 
     if (w && h && h > 0) {
       const bmi = (w / (h * h)).toFixed(1);
@@ -266,6 +296,9 @@
       catSpan.className = categoryColor + ' font-bold';
       catSpan.textContent = 'Category: ' + category;
       bmiStatusEl.appendChild(catSpan);
+
+      if (meaningEl) meaningEl.textContent = `BMI ${bmi} → ${category} (WHO adult). BMI ≠ diagnosis.`;
+      if (howEl) howEl.textContent = `${w} ÷ (${hCm}/100)² = ${bmi}`;
 
       const trackUsageSafe = getTrackUsageSafe();
       if (trackUsageSafe) {
@@ -395,6 +428,15 @@
 
     document.getElementById('trimester-result').innerText = trimester;
     document.getElementById('trimester-info').innerText = trimesterInfo;
+
+    const meaningEl = document.getElementById('aog-learn-meaning');
+    const howEl = document.getElementById('aog-learn-how');
+    if (meaningEl) {
+      meaningEl.textContent = `AOG ${weeks}w ${days}d · ${trimester}. EDD ${eddFormatted}.`;
+    }
+    if (howEl) {
+      howEl.textContent = `LMP + 280 days = EDD. AOG = ${totalDays} days from LMP to calculation date.`;
+    }
 
     const trackUsageSafe = getTrackUsageSafe();
     if (trackUsageSafe) {

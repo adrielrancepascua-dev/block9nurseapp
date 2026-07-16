@@ -598,6 +598,94 @@
             gap: 10px;
         }
         .google-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+        .np-learn {
+            margin-top: 12px;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.72);
+            padding: 10px 12px;
+            display: grid;
+            gap: 8px;
+        }
+        .np-learn-row {
+            display: grid;
+            grid-template-columns: 88px 1fr;
+            gap: 8px;
+            align-items: start;
+        }
+        @media (max-width: 420px) {
+            .np-learn-row { grid-template-columns: 1fr; gap: 2px; }
+        }
+        .np-learn-k {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #67e8f9;
+            padding-top: 1px;
+        }
+        .np-learn-v {
+            font-size: 12px;
+            line-height: 1.45;
+            color: #cbd5e1;
+        }
+        .np-year-path {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        @media (min-width: 768px) {
+            .np-year-path { grid-template-columns: 1fr 1fr; }
+        }
+        .np-year-card {
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 10px 12px;
+            background: rgba(15, 23, 42, 0.65);
+        }
+        .np-year-card h3 {
+            font-size: 12px;
+            font-weight: 800;
+            color: #e2e8f0;
+            margin-bottom: 4px;
+        }
+        .np-year-card p {
+            font-size: 11.5px;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+        .np-hub-section-label {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #64748b;
+            margin: 14px 0 8px;
+        }
+        .otc-duty-strip {
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+            background: rgba(15, 23, 42, 0.8);
+            display: grid;
+            gap: 6px;
+        }
+        .otc-duty-strip .otc-duty-title {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #fbbf24;
+        }
+        .otc-duty-strip p {
+            font-size: 12px;
+            color: #e2e8f0;
+            line-height: 1.4;
+            margin: 0;
+        }
+
         .auth-value-list { text-align: left; color: #94a3b8; font-size: 13px; line-height: 1.7; padding-left: 18px; margin: 0 0 16px; }
         .auth-value-list strong { color: #e2e8f0; }
         @keyframes npFadeUp {
@@ -740,9 +828,9 @@
                 Your offline clinical learning companion for vital signs, dosing math, scoring tools, and OTC reference — built for student nurses.
             </p>
             <ul class="auth-value-list">
-                <li><strong>Vital Signs Simulator:</strong> Interpret trends and prioritize simulation responses.</li>
-                <li><strong>Clinical Calculators:</strong> IV flow, BMI, AOG/EDD, pediatric dosing, APGAR, GCS, Braden, Rule of Nines.</li>
-                <li><strong>OTC Reference:</strong> Philippine brand names, safety notes, offline smart search.</li>
+                <li><strong>Use on duty:</strong> Offline vitals, IV math, OTC brands — get the finding fast.</li>
+                <li><strong>Learn while you calculate:</strong> Every tool shows meaning, formula/criteria, and a CI check.</li>
+                <li><strong>1st year → 4th year:</strong> Foundations through ward scoring tools in one companion.</li>
             </ul>
             <p style="color: #94a3b8; font-size: 12px; margin-bottom: 14px;">Simulation-only academic tool. Not for real patient care decisions.</p>
 
@@ -2501,8 +2589,19 @@
         <div id="tools-hub" class="mb-6">
             <div class="tools-hub-hero">
                 <h2>Clinical Tools</h2>
-                <p>Choose a calculator — each opens in a focused view. OTC medicines live in the OTC tab.</p>
+                <p>Reference on duty + study while you calculate. Open a tool, get the number, and keep the why.</p>
             </div>
+            <div class="np-year-path">
+                <div class="np-year-card">
+                    <h3>1st–2nd year · Foundations</h3>
+                    <p>Vitals interpretation, IV math, BMI, AOG/EDD, pediatric dosing formulas.</p>
+                </div>
+                <div class="np-year-card">
+                    <h3>3rd–4th year · Ward & boards</h3>
+                    <p>APGAR, GCS, Braden, Rule of Nines, and OTC reference during clinical duties.</p>
+                </div>
+            </div>
+            <div class="np-hub-section-label">All tools</div>
             <div class="tools-hub-grid">
                 <button type="button" class="tool-hub-card" style="--accent:#f87171;" onclick="openClinicalTool('vitals')">
                     <span class="tool-hub-icon">VS</span>
@@ -2618,12 +2717,19 @@
                         </div>
                     </div>
 
+                    <div class="learn-tip"><strong>Learn + use:</strong> Enter vitals → read findings → decide what to report to your CI. This is a reference finding, not an order.</div>
+
                     <!-- DIAGNOSIS BOX -->
                     <div id="dx-box" class="p-6 bg-slate-900/70 rounded-xl border border-slate-700 min-h-[120px] flex items-center justify-center text-slate-500 italic text-center">
                         <div class="flex flex-col items-center space-y-2">
                             <svg class="inline text-3xl text-slate-600 opacity-50" width="1.3em" height="1.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3v18h18"/></svg>
                             <p class="text-sm">Enter all vital signs to generate assessment and medication recommendations...</p>
                         </div>
+                    </div>
+                    <div id="vitals-learn" class="np-learn" style="display:none;">
+                        <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="vitals-learn-meaning">—</span></div>
+                        <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="vitals-learn-how">Age-, pregnancy-, and comorbidity-aware reference ranges (simulation).</span></div>
+                        <div class="np-learn-row"><span class="np-learn-k">CI check</span><span class="np-learn-v" id="vitals-learn-ci">What trend would you report first, and what will you recheck in 15–30 min?</span></div>
                     </div>
 
                     <div class="mt-4" style="display:flex; flex-direction:column; gap:8px;">
@@ -2661,6 +2767,7 @@
                                     <option value="60">Micro Drip (60 gtt/mL) - Pediatric/Medication</option>
                                 </select>
                             </div>
+                            <div class="learn-tip"><strong>Formulas:</strong> mL/hr = Volume ÷ Hours · gtt/min = (mL/hr ÷ 60) × drop factor</div>
                             <div id="iv-calcs" class="space-y-3">
                                 <div class="bg-slate-700/30 p-3 rounded-lg border border-blue-500/30">
                                     <p class="text-[10px] text-slate-400 uppercase">Flow Rate (mL/hr)</p>
@@ -2670,9 +2777,11 @@
                                     <p class="text-[10px] text-slate-400 uppercase">Drop Rate (gtt/min)</p>
                                     <p id="iv-result" class="text-2xl font-mono font-bold text-cyan-400">-- gtt/min</p>
                                 </div>
-                                <div class="bg-amber-900/20 p-2 rounded-lg border border-amber-700/30">
-                                    <p class="text-[9px] text-amber-400 italic">📚 Ref: Standard IV formula / Verify with CI</p>
-                                </div>
+                            </div>
+                            <div id="iv-learn" class="np-learn">
+                                <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="iv-learn-meaning">Enter volume, time, and drop factor to compute.</span></div>
+                                <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="iv-learn-how">mL/hr = V÷T · gtt/min = (mL/hr÷60)×DF</span></div>
+                                <div class="np-learn-row"><span class="np-learn-k">CI check</span><span class="np-learn-v" id="iv-learn-ci">Does this match the doctor’s order and the tubing drop factor on the set?</span></div>
                             </div>
                             <button onclick="calcIV()" class="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 py-3 rounded-xl font-bold transition-all shadow-lg shadow-blue-900/30">
                                 <svg class="inline mr-2" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm2 4a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2H6zm4 0a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2h-1zm4 0a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2h-1zm-8 4a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2H6zm0 4a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2H6z"/></svg> Calculate Drip Rate
@@ -2698,23 +2807,22 @@
                                     <input type="number" id="height" placeholder="170" min="0" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-emerald-500 outline-none text-sm">
                                 </div>
                             </div>
+                            <div class="learn-tip"><strong>Formula:</strong> BMI = weight(kg) ÷ height(m)² · WHO adult cutoffs</div>
                             <div id="bmi-results" class="space-y-3">
                                 <div class="bg-slate-700/30 p-3 rounded-lg border border-emerald-500/30">
                                     <p class="text-[10px] text-slate-400 uppercase">BMI Score</p>
                                     <p id="bmi-result" class="text-2xl font-mono font-bold text-emerald-400">--</p>
                                     <p id="bmi-status" class="text-xs text-slate-400 mt-1">Category: --</p>
                                 </div>
-                                <div class="bg-amber-900/20 p-2 rounded-lg border border-amber-700/30">
-                                    <p class="text-[9px] text-amber-400 italic">📚 Ref: WHO BMI Classification / Textbook Validation Required</p>
-                                </div>
+                            </div>
+                            <div id="bmi-learn" class="np-learn">
+                                <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="bmi-learn-meaning">Underweight &lt;18.5 · Normal 18.5–24.9 · Overweight 25–29.9 · Obese ≥30</span></div>
+                                <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="bmi-learn-how">BMI = kg ÷ m² (height converted from cm).</span></div>
+                                <div class="np-learn-row"><span class="np-learn-k">CI check</span><span class="np-learn-v" id="bmi-learn-ci">BMI is a screen, not a diagnosis — what else in the clinical picture matters?</span></div>
                             </div>
                             <button onclick="calcBMI()" class="w-full bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 py-3 rounded-xl font-bold transition-all shadow-lg shadow-emerald-900/30">
                                 <svg class="inline mr-2" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm2 4a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2H6zm4 0a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2h-1zm4 0a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2h-1zm-8 4a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2H6zm0 4a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2H6z"/></svg> Calculate BMI
                             </button>
-                            <div class="bg-slate-700/20 p-3 rounded-lg border border-slate-600 text-[11px] text-slate-400">
-                                <p class="font-bold text-slate-300 mb-1">BMI Categories:</p>
-                                <p>Underweight: &lt;18.5 | Normal: 18.5-24.9 | Overweight: 25-29.9 | Obese: ≥30</p>
-                            </div>
                         </div>
                     </div>
 
@@ -2766,8 +2874,10 @@
                                 <p class="text-[10px] text-slate-400 uppercase mb-2">Key Milestones</p>
                                 <div id="milestones-list" class="text-xs text-slate-300 space-y-1"></div>
                             </div>
-                            <div class="bg-amber-900/20 p-2 rounded-lg border border-amber-700/30">
-                                <p class="text-[9px] text-amber-400 italic">📚 Educational reference only. Actual EDD should be confirmed by ultrasound & physician assessment.</p>
+                            <div id="aog-learn" class="np-learn">
+                                <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="aog-learn-meaning">AOG from LMP; EDD ≈ LMP + 280 days (Naegele).</span></div>
+                                <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="aog-learn-how">EDD = LMP + 7 days − 3 months + 1 year (28-day cycle assumption).</span></div>
+                                <div class="np-learn-row"><span class="np-learn-k">CI check</span><span class="np-learn-v" id="aog-learn-ci">Ultrasound / OB dating overrides LMP math — what dating source is on the chart?</span></div>
                             </div>
                         </div>
                     </div>
@@ -2796,6 +2906,11 @@
                             <div class="bg-slate-700/30 p-3 rounded-lg border border-fuchsia-500/30"><p class="text-[10px] text-slate-400 uppercase">Clark's Rule</p><p id="peds-clarks-result" class="text-xl font-mono font-bold text-fuchsia-300">--</p></div>
                             <div class="bg-slate-700/30 p-3 rounded-lg border border-pink-500/30"><p class="text-[10px] text-slate-400 uppercase">Young's Rule</p><p id="peds-youngs-result" class="text-xl font-mono font-bold text-pink-300">--</p></div>
                             <p id="peds-notes" class="text-[11px] text-amber-400">Educational reference only. Verify with CI and monograph.</p>
+                            <div id="peds-learn" class="np-learn">
+                                <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="peds-learn-meaning">mg/kg = clinical standard; Clark/Young = classic exam formulas.</span></div>
+                                <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="peds-learn-how">mg/kg = wt×dose · Clark = (lb/150)×adult · Young = [age/(age+12)]×adult</span></div>
+                                <div class="np-learn-row"><span class="np-learn-k">CI check</span><span class="np-learn-v" id="peds-learn-ci">Did you use the product monograph max dose and the right concentration?</span></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2812,6 +2927,11 @@
                         <div class="score-result-label">APGAR total</div>
                         <div id="apgar-total" class="score-result-value" style="color:#fda4af;">--</div>
                         <div id="apgar-interp" class="score-result-interp">Select all five domains to score.</div>
+                        <div class="np-learn" style="margin-top:10px;">
+                            <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="apgar-learn-meaning">0–3 depressed · 4–6 moderate · 7–10 reassuring</span></div>
+                            <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="apgar-learn-how">Sum of Appearance + Pulse + Grimace + Activity + Respiration (each 0–2).</span></div>
+                            <div class="np-learn-row"><span class="np-learn-k">CI check</span><span class="np-learn-v" id="apgar-learn-ci">What will you document at 1 min and 5 min, and what support is already happening?</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2830,6 +2950,11 @@
                         <div class="score-result-label">GCS total</div>
                         <div id="gcs-total" class="score-result-value" style="color:#7dd3fc;">--</div>
                         <div id="gcs-severity" class="score-result-interp">Select Eye, Verbal, and Motor.</div>
+                        <div class="np-learn" style="margin-top:10px;">
+                            <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="gcs-learn-meaning">Mild 13–15 · Moderate 9–12 · Severe ≤8</span></div>
+                            <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="gcs-learn-how">Total = E + V + M. Always report components, not only the sum.</span></div>
+                            <div class="np-learn-row"><span class="np-learn-k">CI check</span><span class="np-learn-v" id="gcs-learn-ci">What is the trend vs the last GCS, and is airway protected?</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2843,6 +2968,11 @@
                         <div class="score-result-label">Braden total</div>
                         <div id="braden-total" class="score-result-value" style="color:#5eead4;">--</div>
                         <div id="braden-risk" class="score-result-interp">Score all six subscales.</div>
+                        <div class="np-learn" style="margin-top:10px;">
+                            <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="braden-learn-meaning">Lower total = higher pressure-injury risk (6–23).</span></div>
+                            <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="braden-learn-how">Sum of Sensory, Moisture, Activity, Mobility, Nutrition, Friction/Shear.</span></div>
+                            <div class="np-learn-row"><span class="np-learn-k">CI check</span><span class="np-learn-v" id="braden-learn-ci">Which subscale is dragging the score down, and what skin intervention matches it?</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2857,6 +2987,11 @@
                         <div id="ron-tbsa" class="score-result-value" style="color:#fdba74;">0%</div>
                         <div id="ron-note" class="score-result-interp">Tap body regions above</div>
                         <div id="ron-breakdown" class="text-xs text-slate-400 mt-2"></div>
+                        <div class="np-learn" style="margin-top:10px;">
+                            <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="ron-learn-meaning">Adult Rule of Nines TBSA estimate for teaching.</span></div>
+                            <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="ron-learn-how">Head 9 · Arm 9 each · Trunk 18 front/back · Leg 18 each · Perineum 1 (half = ½ region).</span></div>
+                            <div class="np-learn-row"><span class="np-learn-k">CI check</span><span class="np-learn-v" id="ron-learn-ci">Is this adult proportions? Pediatric charts differ — confirm with CI/protocol.</span></div>
+                        </div>
                         <button type="button" onclick="resetRuleOfNines()" class="w-full mt-3 py-3 rounded-xl font-bold bg-slate-800 text-slate-100 border border-slate-600">Reset Regions</button>
                     </div>
                 </div>
@@ -2875,10 +3010,12 @@
                 <h2 class="text-lg sm:text-xl font-bold text-white flex items-center">
                     <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" class="mr-3 text-amber-400"><path d="M8 2a6 6 0 0 1 6 6v8a6 6 0 0 1-12 0V8a6 6 0 0 1 6-6zm8 0a6 6 0 0 1 0 12v-6a6 6 0 0 0-6-6h6z"/></svg> OTC Reference Directory
                 </h2>
+
                 <div class="w-full sm:w-1/2 md:w-1/3">
                     <input id="otc-search" type="search" placeholder="Search medicine, brand, or symptom (typo-tolerant)..." class="w-full border border-slate-700 p-3 rounded-xl text-sm outline-none" style="background-color: #0f172a;" />
                 </div>
             </div>
+            <div class="learn-tip" style="margin-bottom:12px;"><strong>Duty tip:</strong> Open a med for Use · Caution · Nursing check first. Use Study deeper when you need boards-level detail.</div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 <div id="otc-list-container" class="order-2 md:order-1">
@@ -3441,6 +3578,14 @@
             badge.innerText = `${chosenPriority.icon} ${chosenPriority.key}`;
             badge.className = `px-4 py-2 rounded-full text-xs font-bold font-mono ${chosenPriority.textClass} bg-slate-800 border ${chosenPriority.borderClass} shadow-lg`;
 
+            const learnWrap = document.getElementById('vitals-learn');
+            const learnMeaning = document.getElementById('vitals-learn-meaning');
+            if (learnWrap) learnWrap.style.display = 'grid';
+            if (learnMeaning) {
+                const topFinding = finalInterpretations[0] || 'No dominant finding yet';
+                learnMeaning.textContent = `Priority ${chosenPriority.key}. Lead finding: ${topFinding}`;
+            }
+
             return {
                 ok: true,
                 priority: chosenPriority.key,
@@ -3691,6 +3836,14 @@
             document.getElementById('peds-clarks-result').textContent = result.clarksMg != null ? `${result.clarksMg} mg` : '--';
             document.getElementById('peds-youngs-result').textContent = result.youngsMg != null ? `${result.youngsMg} mg` : '--';
             document.getElementById('peds-notes').textContent = (result.notes || []).join(' ');
+            const pedsMeaning = document.getElementById('peds-learn-meaning');
+            if (pedsMeaning) {
+                if (result.weightBasedMg != null) {
+                    pedsMeaning.textContent = `Prefer mg/kg for practice (${result.weightBasedMg} mg). Clark/Young are exam-style cross-checks.`;
+                } else {
+                    pedsMeaning.textContent = 'Enter weight + mg/kg (and adult dose for Clark/Young).';
+                }
+            }
             trackUsageSafe('peds_dose', 'result_generated', { has_value: result.weightBasedMg != null }, { minIntervalMs: 1500, rateKey: 'peds_dose' });
         }
 
@@ -3922,6 +4075,8 @@
             const result = calc.apgarScore(apgarState);
             if (totalEl) totalEl.textContent = String(result.total);
             if (interpEl) interpEl.textContent = result.interpretation;
+            const meaning = document.getElementById('apgar-learn-meaning');
+            if (meaning) meaning.textContent = `Total ${result.total}/10 — ${result.interpretation}`;
             trackUsageSafe('apgar', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'apgar' });
         }
 
@@ -3954,6 +4109,8 @@
             const result = calc.gcsScore(gcsState.eye, gcsState.verbal, gcsState.motor);
             if (totalEl) totalEl.textContent = `${result.total}`;
             if (sevEl) sevEl.textContent = `${result.severity} · Report as E${result.eye}V${result.verbal}M${result.motor}`;
+            const meaning = document.getElementById('gcs-learn-meaning');
+            if (meaning) meaning.textContent = `${result.severity} · Document E${result.eye}V${result.verbal}M${result.motor}`;
             trackUsageSafe('gcs', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'gcs' });
         }
 
@@ -3981,6 +4138,8 @@
             const result = calc.bradenScore(bradenState);
             if (totalEl) totalEl.textContent = String(result.total);
             if (riskEl) riskEl.textContent = result.risk;
+            const meaning = document.getElementById('braden-learn-meaning');
+            if (meaning) meaning.textContent = `Total ${result.total}/23 — ${result.risk}`;
             trackUsageSafe('braden', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'braden' });
         }
 
@@ -4021,6 +4180,8 @@
             document.getElementById('ron-breakdown').textContent = result.breakdown.length
                 ? result.breakdown.map((b) => `${b.label}: ${b.percent}%`).join(' · ')
                 : 'No regions selected';
+            const ronMeaning = document.getElementById('ron-learn-meaning');
+            if (ronMeaning) ronMeaning.textContent = result.tbsa > 0 ? `${result.tbsa}% TBSA — ${result.note}` : 'Adult Rule of Nines TBSA estimate for teaching.';
             document.querySelectorAll('#ron-grid .ron-region').forEach((btn) => {
                 const id = btn.getAttribute('data-region');
                 const frac = ronSelection[id] || 0;
