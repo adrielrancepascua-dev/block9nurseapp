@@ -52,6 +52,7 @@
         <script src="assets/ui-helpers.js"></script>
         <script src="assets/clinical-calculators.js"></script>
         <script src="assets/tool-guides.js"></script>
+        <script src="assets/study-lessons.js"></script>
         <script src="assets/study-drills.js"></script>
 
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%230f172a' width='180' height='180' rx='40'/><text x='50%' y='50%' font-size='100' font-weight='bold' fill='%2306b6d4' text-anchor='middle' dy='.35em'>Rx</text></svg>">
@@ -306,6 +307,218 @@
             font-size: 12.5px;
             line-height: 1.45;
             max-width: 40rem;
+            margin: 0;
+        }
+        .tools-hub-mode-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+        .tools-hub-mode-row .np-mode-toggle { margin-left: auto; }
+        .study-detail { margin-bottom: 1.5rem; }
+        .study-classroom {
+            border: 1px solid #334155;
+            border-radius: 18px;
+            background: linear-gradient(160deg, #1e293b 0%, #0f172a 55%);
+            overflow: hidden;
+            box-shadow: 0 12px 28px rgba(2, 6, 23, 0.35);
+        }
+        .study-classroom-head {
+            padding: 16px 16px 12px;
+            border-bottom: 1px solid #334155;
+            background: rgba(15, 23, 42, 0.65);
+        }
+        .study-classroom-head h2 {
+            margin: 0 0 4px;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #f8fafc;
+        }
+        .study-classroom-head p {
+            margin: 0;
+            font-size: 12.5px;
+            line-height: 1.45;
+            color: #94a3b8;
+        }
+        .study-classroom-tabs {
+            display: flex;
+            gap: 6px;
+            padding: 10px 12px;
+            border-bottom: 1px solid #334155;
+            background: #0f172a;
+        }
+        .study-tab-btn {
+            flex: 1;
+            min-height: 42px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+            background: transparent;
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .study-tab-btn.is-active {
+            background: rgba(14, 165, 233, 0.16);
+            border-color: #0ea5e9;
+            color: #7dd3fc;
+        }
+        .study-classroom-body { padding: 14px 16px 18px; }
+        .study-panel { display: none; }
+        .study-panel.is-active { display: block; }
+        .study-lesson-section {
+            margin-bottom: 1.1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.7);
+        }
+        .study-lesson-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .study-lesson-section h3 {
+            margin: 0 0 0.4rem;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #7dd3fc;
+        }
+        .study-lesson-section .study-lesson-body {
+            margin: 0;
+            font-size: 0.92rem;
+            line-height: 1.55;
+            color: #cbd5e1;
+            white-space: pre-wrap;
+        }
+        .study-lesson-formula,
+        .study-lesson-example {
+            margin-top: 0.35rem;
+            padding: 0.65rem 0.75rem;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+        .study-lesson-formula {
+            background: #1e293b;
+            border-left: 3px solid #38bdf8;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            color: #e2e8f0;
+        }
+        .study-lesson-example {
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(52, 211, 153, 0.35);
+            color: #a7f3d0;
+        }
+        .study-quiz-progress {
+            font-size: 12px;
+            font-weight: 700;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+        .study-quiz-progress em {
+            color: #67e8f9;
+            font-style: normal;
+            font-weight: 800;
+        }
+        .study-quiz-prompt {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #e2e8f0;
+            margin: 0 0 12px;
+        }
+        .study-quiz-choices { display: grid; gap: 8px; }
+        .study-quiz-choice {
+            text-align: left;
+            width: 100%;
+            min-height: 48px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            background: #1e293b;
+            color: #e2e8f0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            line-height: 1.4;
+            cursor: pointer;
+        }
+        .study-quiz-choice:hover:not(:disabled) {
+            border-color: #0ea5e9;
+            background: rgba(14, 165, 233, 0.12);
+        }
+        .study-quiz-choice:disabled { cursor: default; }
+        .study-quiz-choice.is-correct {
+            border-color: #34d399;
+            background: rgba(16, 185, 129, 0.16);
+            color: #a7f3d0;
+        }
+        .study-quiz-choice.is-wrong {
+            border-color: #f87171;
+            background: rgba(248, 113, 113, 0.12);
+            color: #fecaca;
+        }
+        .study-quiz-feedback {
+            display: none;
+            margin-top: 12px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+        .study-quiz-feedback.open { display: block; }
+        .study-quiz-feedback.is-correct {
+            border-color: rgba(52, 211, 153, 0.45);
+            background: rgba(16, 185, 129, 0.12);
+            color: #a7f3d0;
+        }
+        .study-quiz-feedback.is-wrong {
+            border-color: rgba(248, 113, 113, 0.4);
+            background: rgba(248, 113, 113, 0.1);
+            color: #fecaca;
+        }
+        .study-quiz-nav {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+        .study-quiz-nav button {
+            flex: 1;
+            min-height: 44px;
+            min-width: 120px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            background: #1e293b;
+            color: #e2e8f0;
+            font-weight: 800;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .study-quiz-nav button.primary {
+            background: rgba(14, 165, 233, 0.2);
+            border-color: #0ea5e9;
+            color: #e0f2fe;
+        }
+        .study-quiz-summary {
+            text-align: center;
+            padding: 18px 8px;
+        }
+        .study-quiz-summary .score {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #67e8f9;
+            margin: 8px 0;
+        }
+        .study-quiz-summary p {
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.45;
         }
         .tools-hub-grid {
             display: grid;
@@ -444,9 +657,6 @@
         }
         #tools-detail[data-mode="study"] .tool-study-strip {
             display: grid;
-        }
-        #tools-detail[data-mode="duty"] .np-learn {
-            display: none !important;
         }
         .tool-study-tip {
             font-size: 12.5px;
@@ -3021,79 +3231,94 @@
             <p id="metricFeatureTop" class="text-xs text-slate-400 mt-2">Top feature use: none yet</p>
         </section>
 
-        <div id="tools-hub" class="mb-6">
-            <div class="tools-hub-hero">
-                <h2>Clinical Tools</h2>
-                <p>Duty for fast calcs. Study for the why + a quick case. OTC lives in the OTC tab.</p>
+        <div id="tools-hub" class="mb-6" data-hub-mode="duty">
+            <div class="tools-hub-mode-row">
+                <div class="tools-hub-hero">
+                    <h2 id="toolsHubTitle">Clinical Tools</h2>
+                    <p id="toolsHubBlurb">Duty mode — fast calculators for simulation and ward pocket use. OTC lives in the OTC tab.</p>
+                </div>
+                <div class="np-mode-toggle" role="group" aria-label="Clinical tools mode">
+                    <button type="button" data-mode="duty" id="hubDutyBtn" class="is-active" onclick="setHubMode('duty')">Duty</button>
+                    <button type="button" data-mode="study" id="hubStudyBtn" onclick="setHubMode('study')">Study</button>
+                </div>
             </div>
             <div class="tools-hub-grid">
-                <button type="button" class="tool-hub-card" style="--accent:#f87171;" onclick="openClinicalTool('vitals')">
+                <button type="button" class="tool-hub-card" style="--accent:#f87171;" onclick="openHubTool('vitals')">
                     <span class="tool-hub-icon">VS</span>
-                    <span><span class="tool-hub-label">Vital Signs Simulation</span><span class="tool-hub-desc">Interpret age-aware vitals trends in sim mode</span></span>
+                    <span><span class="tool-hub-label">Vital Signs Simulation</span><span class="tool-hub-desc" data-duty-desc="Interpret age-aware vitals trends in sim mode" data-study-desc="Lesson + quiz on patterns, context, and reporting">Interpret age-aware vitals trends in sim mode</span></span>
                     <span class="tool-hub-tag">Assessment</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#60a5fa;" onclick="openClinicalTool('iv')">
+                <button type="button" class="tool-hub-card" style="--accent:#60a5fa;" onclick="openHubTool('iv')">
                     <span class="tool-hub-icon">IV</span>
-                    <span><span class="tool-hub-label">IV Flow Rate</span><span class="tool-hub-desc">mL/hr and gtt/min drip calculations</span></span>
+                    <span><span class="tool-hub-label">IV Flow Rate</span><span class="tool-hub-desc" data-duty-desc="mL/hr and gtt/min drip calculations" data-study-desc="Lesson + quiz on formulas, drop factors, rounding">mL/hr and gtt/min drip calculations</span></span>
                     <span class="tool-hub-tag">Math</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#34d399;" onclick="openClinicalTool('bmi')">
+                <button type="button" class="tool-hub-card" style="--accent:#34d399;" onclick="openHubTool('bmi')">
                     <span class="tool-hub-icon">BMI</span>
-                    <span><span class="tool-hub-label">BMI & Body Metrics</span><span class="tool-hub-desc">WHO BMI category from weight and height</span></span>
+                    <span><span class="tool-hub-label">BMI & Body Metrics</span><span class="tool-hub-desc" data-duty-desc="WHO BMI category from weight and height" data-study-desc="Lesson + quiz on formula, categories, limits">WHO BMI category from weight and height</span></span>
                     <span class="tool-hub-tag">Metrics</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#f472b6;" onclick="openClinicalTool('aog')">
+                <button type="button" class="tool-hub-card" style="--accent:#f472b6;" onclick="openHubTool('aog')">
                     <span class="tool-hub-icon">OB</span>
-                    <span><span class="tool-hub-label">AOG & EDD</span><span class="tool-hub-desc">Naegele's rule gestation dating</span></span>
+                    <span><span class="tool-hub-label">AOG & EDD</span><span class="tool-hub-desc" data-duty-desc="Naegele's rule gestation dating" data-study-desc="Lesson + quiz on Naegele, trimesters, dating source">Naegele's rule gestation dating</span></span>
                     <span class="tool-hub-tag">OB</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#c4b5fd;" onclick="openClinicalTool('peds')">
+                <button type="button" class="tool-hub-card" style="--accent:#c4b5fd;" onclick="openHubTool('peds')">
                     <span class="tool-hub-icon">PED</span>
-                    <span><span class="tool-hub-label">Pediatric Dosing</span><span class="tool-hub-desc">mg/kg plus Clark's & Young's Rules</span></span>
+                    <span><span class="tool-hub-label">Pediatric Dosing</span><span class="tool-hub-desc" data-duty-desc="mg/kg plus Clark's & Young's Rules" data-study-desc="Lesson + quiz on mg/kg, Clark, and Young">mg/kg plus Clark's & Young's Rules</span></span>
                     <span class="tool-hub-tag">Peds</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#fb7185;" onclick="openClinicalTool('apgar')">
+                <button type="button" class="tool-hub-card" style="--accent:#fb7185;" onclick="openHubTool('apgar')">
                     <span class="tool-hub-icon">APG</span>
-                    <span><span class="tool-hub-label">APGAR Score</span><span class="tool-hub-desc">1- and 5-minute newborn scoring with criteria</span></span>
+                    <span><span class="tool-hub-label">APGAR Score</span><span class="tool-hub-desc" data-duty-desc="1- and 5-minute newborn scoring with criteria" data-study-desc="Lesson + quiz on components, timing, bands">1- and 5-minute newborn scoring with criteria</span></span>
                     <span class="tool-hub-tag">Newborn</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#38bdf8;" onclick="openClinicalTool('gcs')">
+                <button type="button" class="tool-hub-card" style="--accent:#38bdf8;" onclick="openHubTool('gcs')">
                     <span class="tool-hub-icon">GCS</span>
-                    <span><span class="tool-hub-label">Glasgow Coma Scale</span><span class="tool-hub-desc">Eye / Verbal / Motor with clinical wording</span></span>
+                    <span><span class="tool-hub-label">Glasgow Coma Scale</span><span class="tool-hub-desc" data-duty-desc="Eye / Verbal / Motor with clinical wording" data-study-desc="Lesson + quiz on E/V/M and documentation">Eye / Verbal / Motor with clinical wording</span></span>
                     <span class="tool-hub-tag">Neuro</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#2dd4bf;" onclick="openClinicalTool('braden')">
+                <button type="button" class="tool-hub-card" style="--accent:#2dd4bf;" onclick="openHubTool('braden')">
                     <span class="tool-hub-icon">BRD</span>
-                    <span><span class="tool-hub-label">Braden Scale</span><span class="tool-hub-desc">Pressure injury risk with subscale meanings</span></span>
+                    <span><span class="tool-hub-label">Braden Scale</span><span class="tool-hub-desc" data-duty-desc="Pressure injury risk with subscale meanings" data-study-desc="Lesson + quiz on risk scoring and prevention">Pressure injury risk with subscale meanings</span></span>
                     <span class="tool-hub-tag">Skin</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#fb923c;" onclick="openClinicalTool('ron')">
+                <button type="button" class="tool-hub-card" style="--accent:#fb923c;" onclick="openHubTool('ron')">
                     <span class="tool-hub-icon">TBSA</span>
-                    <span><span class="tool-hub-label">Rule of Nines</span><span class="tool-hub-desc">Tap-body burn TBSA estimate</span></span>
+                    <span><span class="tool-hub-label">Rule of Nines</span><span class="tool-hub-desc" data-duty-desc="Tap-body burn TBSA estimate" data-study-desc="Lesson + quiz on adult map and pediatrics caution">Tap-body burn TBSA estimate</span></span>
                     <span class="tool-hub-tag">Trauma</span>
                 </button>
             </div>
         </div>
 
-        <div id="tools-detail" class="hidden" data-mode="duty">
+        <div id="study-detail" class="study-detail hidden">
+            <div class="tools-detail-header">
+                <button type="button" class="tools-back-btn" onclick="backToToolsHub()">← All Study Topics</button>
+            </div>
+            <div class="study-classroom">
+                <div class="study-classroom-head">
+                    <h2 id="studyClassTitle">Study</h2>
+                    <p id="studyClassSubtitle">Instructor-style lesson and quiz</p>
+                </div>
+                <div class="study-classroom-tabs" role="tablist">
+                    <button type="button" class="study-tab-btn is-active" id="studyTabLesson" onclick="setStudyTab('lesson')">Lesson</button>
+                    <button type="button" class="study-tab-btn" id="studyTabQuiz" onclick="setStudyTab('quiz')">Quiz</button>
+                </div>
+                <div class="study-classroom-body">
+                    <div id="studyPanelLesson" class="study-panel is-active"></div>
+                    <div id="studyPanelQuiz" class="study-panel"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tools-detail" class="hidden">
             <div class="tools-detail-header">
                 <button type="button" class="tools-back-btn" onclick="backToToolsHub()">← All Clinical Tools</button>
                 <div class="tools-detail-header-actions">
-                    <div class="np-mode-toggle" role="group" aria-label="Tool mode">
-                        <button type="button" data-mode="duty" id="modeDutyBtn" class="is-active" onclick="setToolMode('duty')">Duty</button>
-                        <button type="button" data-mode="study" id="modeStudyBtn" onclick="setToolMode('study')">Study</button>
-                    </div>
                     <button type="button" class="tool-guide-btn" id="toolGuideBtn" onclick="openToolGuide()" aria-label="Open tool guide">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8M8 11h6"/></svg>
                         Guide
                     </button>
-                </div>
-            </div>
-            <div id="toolStudyStrip" class="tool-study-strip">
-                <div class="tool-study-tip" id="toolStudyTip"><strong>Study mode</strong> — formulas and meaning stay visible. Use Guide for the full walkthrough.</div>
-                <div class="tool-study-actions">
-                    <span class="tool-study-streak" id="toolStudyStreak">Streak <em>0</em></span>
-                    <button type="button" class="tool-drill-btn" onclick="openToolDrill()">Try a case</button>
                 </div>
             </div>
             <div id="tool-panel-vitals" class="tool-panel">                <!-- VITAL SIGNS INPUT & ANALYSIS -->
@@ -4223,78 +4448,81 @@
         };
 
         let currentClinicalToolId = null;
-        const TOOL_MODE_KEY = 'np_tool_mode_v1';
-        let currentToolMode = 'duty';
+        const HUB_MODE_KEY = 'np_hub_mode_v1';
+        let currentHubMode = 'duty';
+        let currentStudyToolId = null;
+        let currentStudyTab = 'lesson';
+        let studyQuizState = null;
 
-        function readToolMode() {
+        function escapeGuideHtml(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        function readHubMode() {
             try {
-                const m = localStorage.getItem(TOOL_MODE_KEY);
-                return m === 'study' ? 'study' : 'duty';
+                return localStorage.getItem(HUB_MODE_KEY) === 'study' ? 'study' : 'duty';
             } catch (e) {
                 return 'duty';
             }
         }
 
-        function persistToolMode(mode) {
+        function persistHubMode(mode) {
             try {
-                localStorage.setItem(TOOL_MODE_KEY, mode);
+                localStorage.setItem(HUB_MODE_KEY, mode);
             } catch (e) { /* ignore */ }
         }
 
-        function studyTipForTool(toolId) {
-            const tips = {
-                vitals: 'Compare entered vitals to age-aware simulation ranges — then decide what you would recheck or report.',
-                iv: 'Convert volume + time into mL/hr, then gtt/min with the tubing drop factor.',
-                bmi: 'BMI = kg ÷ m². Category is screening language, not a diagnosis.',
-                aog: 'Naegele: LMP + 7 days − 3 months + 1 year (≈ +280 days). Confirm dating source on chart.',
-                peds: 'Prefer mg/kg + monograph max. Clark’s / Young’s are classic exam cross-checks.',
-                apgar: 'Five domains × 0–2. Report components and timing (1 min / 5 min), not only the total.',
-                gcs: 'Report E + V + M components. Total alone hides the clinical picture.',
-                braden: 'Lower total = higher pressure-injury risk. Use subscales to target prevention.',
-                ron: 'Adult map: head 9, arms 9 each, trunk 18/18, legs 18 each, perineum 1.'
-            };
-            return tips[toolId] || 'Use Guide for formulas and examples. Try a case to check yourself.';
-        }
-
-        function refreshStudyStrip() {
-            const tipEl = document.getElementById('toolStudyTip');
-            const streakEl = document.getElementById('toolStudyStreak');
-            if (tipEl) {
-                tipEl.innerHTML = `<strong>Study</strong> — ${escapeGuideHtml(studyTipForTool(currentClinicalToolId))}`;
-            }
-            if (streakEl) {
-                const drills = window.NursePathStudyDrills;
-                const stats = drills && currentClinicalToolId ? drills.getToolStats(currentClinicalToolId) : { streak: 0, bestStreak: 0, attempts: 0 };
-                streakEl.innerHTML = `Streak <em>${stats.streak || 0}</em> · best ${stats.bestStreak || 0} · ${stats.attempts || 0} tries`;
-            }
-        }
-
-        function applyToolMode(mode, opts) {
+        function applyHubMode(mode, opts) {
             const next = mode === 'study' ? 'study' : 'duty';
-            currentToolMode = next;
-            const detail = document.getElementById('tools-detail');
-            if (detail) detail.setAttribute('data-mode', next);
-            const dutyBtn = document.getElementById('modeDutyBtn');
-            const studyBtn = document.getElementById('modeStudyBtn');
+            currentHubMode = next;
+            const hub = document.getElementById('tools-hub');
+            if (hub) hub.setAttribute('data-hub-mode', next);
+            const dutyBtn = document.getElementById('hubDutyBtn');
+            const studyBtn = document.getElementById('hubStudyBtn');
             if (dutyBtn) dutyBtn.classList.toggle('is-active', next === 'duty');
             if (studyBtn) studyBtn.classList.toggle('is-active', next === 'study');
-            if (next === 'study') refreshStudyStrip();
+            const title = document.getElementById('toolsHubTitle');
+            const blurb = document.getElementById('toolsHubBlurb');
+            if (title) title.textContent = next === 'study' ? 'Study Classroom' : 'Clinical Tools';
+            if (blurb) {
+                blurb.textContent = next === 'study'
+                    ? 'Study mode — pick a topic for an instructor-style lesson and quiz. Fully offline.'
+                    : 'Duty mode — fast calculators for simulation and ward pocket use. OTC lives in the OTC tab.';
+            }
+            document.querySelectorAll('.tool-hub-desc').forEach((el) => {
+                const duty = el.getAttribute('data-duty-desc');
+                const study = el.getAttribute('data-study-desc');
+                if (next === 'study' && study) el.textContent = study;
+                else if (duty) el.textContent = duty;
+            });
             if (!(opts && opts.silent)) {
-                persistToolMode(next);
-                trackUsageSafe('navigation', 'feature_use', { tool: currentClinicalToolId, mode: next }, { minIntervalMs: 500, rateKey: `mode_${next}` });
+                persistHubMode(next);
+                trackUsageSafe('navigation', 'feature_use', { hub_mode: next }, { minIntervalMs: 500, rateKey: `hub_mode_${next}` });
             }
         }
 
-        function setToolMode(mode) {
-            applyToolMode(mode);
+        function setHubMode(mode) {
+            applyHubMode(mode);
+        }
+
+        function openHubTool(toolId) {
+            if (currentHubMode === 'study') openStudyTool(toolId);
+            else openClinicalTool(toolId);
         }
 
         function openClinicalTool(toolId) {
             const hub = document.getElementById('tools-hub');
             const detail = document.getElementById('tools-detail');
+            const study = document.getElementById('study-detail');
             if (!hub || !detail) return;
             currentClinicalToolId = toolId;
+            currentStudyToolId = null;
             hub.classList.add('hidden');
+            if (study) study.classList.add('hidden');
             detail.classList.remove('hidden');
             Object.values(CLINICAL_TOOL_PANELS).forEach((id) => {
                 const el = document.getElementById(id);
@@ -4303,8 +4531,7 @@
             const panelId = CLINICAL_TOOL_PANELS[toolId];
             const panel = panelId ? document.getElementById(panelId) : null;
             if (panel) panel.classList.add('is-active');
-            applyToolMode(readToolMode(), { silent: true });
-            trackUsageSafe('navigation', 'feature_open', { tool: toolId, mode: currentToolMode }, { minIntervalMs: 700, rateKey: `tool_${toolId}` });
+            trackUsageSafe('navigation', 'feature_open', { tool: toolId, hub_mode: 'duty' }, { minIntervalMs: 700, rateKey: `tool_${toolId}` });
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (toolId === 'apgar') initApgarInputs();
             if (toolId === 'braden') initBradenInputs();
@@ -4312,26 +4539,195 @@
             if (toolId === 'ron') initRuleOfNines();
         }
 
+        function renderStudyLesson(toolId) {
+            const panel = document.getElementById('studyPanelLesson');
+            const lessons = window.NursePathStudyLessons;
+            const lesson = lessons && lessons.getLesson(toolId);
+            if (!panel) return;
+            if (!lesson) {
+                panel.innerHTML = '<p class="study-lesson-body">Lesson coming soon for this topic.</p>';
+                return;
+            }
+            panel.innerHTML = (lesson.sections || []).map((section) => {
+                const heading = escapeGuideHtml(section.heading || '');
+                const body = escapeGuideHtml(section.body || '');
+                let bodyHtml;
+                if (section.type === 'formula') bodyHtml = `<div class="study-lesson-formula">${body}</div>`;
+                else if (section.type === 'example') bodyHtml = `<div class="study-lesson-example">${body}</div>`;
+                else bodyHtml = `<div class="study-lesson-body">${body}</div>`;
+                return `<section class="study-lesson-section"><h3>${heading}</h3>${bodyHtml}</section>`;
+            }).join('');
+        }
+
+        function startStudyQuiz(toolId) {
+            const drills = window.NursePathStudyDrills;
+            const quiz = drills && drills.getQuiz(toolId);
+            const questions = quiz && quiz.questions ? quiz.questions.slice() : [];
+            studyQuizState = {
+                toolId: toolId,
+                questions: questions,
+                index: 0,
+                score: 0,
+                answered: false,
+                finished: false
+            };
+            renderStudyQuiz();
+        }
+
+        function renderStudyQuiz() {
+            const panel = document.getElementById('studyPanelQuiz');
+            if (!panel || !studyQuizState) return;
+            const { questions, index, finished, score } = studyQuizState;
+            if (!questions.length) {
+                panel.innerHTML = '<p class="study-quiz-prompt">Quiz coming soon for this topic.</p>';
+                return;
+            }
+            if (finished) {
+                const drills = window.NursePathStudyDrills;
+                const stats = drills ? drills.getToolStats(studyQuizState.toolId) : {};
+                panel.innerHTML = `
+                    <div class="study-quiz-summary">
+                        <p>Quiz complete</p>
+                        <div class="score">${score} / ${questions.length}</div>
+                        <p>Best on this device: ${stats.bestScore || score}/${questions.length} · Attempts: ${stats.attempts || 1}</p>
+                        <div class="study-quiz-nav">
+                            <button type="button" class="primary" onclick="retakeStudyQuiz()">Retake quiz</button>
+                            <button type="button" onclick="setStudyTab('lesson')">Back to lesson</button>
+                        </div>
+                    </div>`;
+                return;
+            }
+            const q = questions[index];
+            const choices = (q.choices || []).map((label, idx) => {
+                return `<button type="button" class="study-quiz-choice" data-idx="${idx}" onclick="submitStudyQuizAnswer(${idx})">${escapeGuideHtml(label)}</button>`;
+            }).join('');
+            panel.innerHTML = `
+                <div class="study-quiz-progress">Question <em>${index + 1}</em> of ${questions.length}</div>
+                <p class="study-quiz-prompt">${escapeGuideHtml(q.prompt)}</p>
+                <div class="study-quiz-choices">${choices}</div>
+                <div class="study-quiz-feedback" id="studyQuizFeedback"></div>
+                <div class="study-quiz-nav" id="studyQuizNav" style="display:none;">
+                    <button type="button" class="primary" id="studyQuizNextBtn" onclick="advanceStudyQuiz()">Next</button>
+                </div>`;
+        }
+
+        function submitStudyQuizAnswer(choiceIndex) {
+            if (!studyQuizState || studyQuizState.answered || studyQuizState.finished) return;
+            const q = studyQuizState.questions[studyQuizState.index];
+            if (!q) return;
+            studyQuizState.answered = true;
+            const isCorrect = Number(choiceIndex) === Number(q.correctIndex);
+            if (isCorrect) studyQuizState.score += 1;
+            const panel = document.getElementById('studyPanelQuiz');
+            const feedback = document.getElementById('studyQuizFeedback');
+            const nav = document.getElementById('studyQuizNav');
+            const nextBtn = document.getElementById('studyQuizNextBtn');
+            if (panel) {
+                panel.querySelectorAll('.study-quiz-choice').forEach((btn) => {
+                    const idx = Number(btn.getAttribute('data-idx'));
+                    btn.disabled = true;
+                    if (idx === q.correctIndex) btn.classList.add('is-correct');
+                    else if (idx === Number(choiceIndex) && !isCorrect) btn.classList.add('is-wrong');
+                });
+            }
+            if (feedback) {
+                feedback.className = `study-quiz-feedback open ${isCorrect ? 'is-correct' : 'is-wrong'}`;
+                feedback.innerHTML = `<strong>${isCorrect ? 'Correct' : 'Not quite'}</strong> ${escapeGuideHtml(q.explain || '')}`;
+            }
+            if (nav) nav.style.display = 'flex';
+            if (nextBtn) {
+                const last = studyQuizState.index >= studyQuizState.questions.length - 1;
+                nextBtn.textContent = last ? 'See results' : 'Next question';
+            }
+            trackUsageSafe('study_quiz', 'feature_use', {
+                tool: studyQuizState.toolId,
+                q: studyQuizState.index,
+                correct: isCorrect
+            }, { minIntervalMs: 300, rateKey: `quiz_q_${studyQuizState.toolId}_${studyQuizState.index}` });
+        }
+
+        function advanceStudyQuiz() {
+            if (!studyQuizState || !studyQuizState.answered) return;
+            if (studyQuizState.index >= studyQuizState.questions.length - 1) {
+                studyQuizState.finished = true;
+                const drills = window.NursePathStudyDrills;
+                if (drills) {
+                    drills.recordQuizResult(studyQuizState.toolId, studyQuizState.score, studyQuizState.questions.length);
+                }
+                trackUsageSafe('study_quiz', 'result_generated', {
+                    tool: studyQuizState.toolId,
+                    score: studyQuizState.score,
+                    total: studyQuizState.questions.length
+                }, { minIntervalMs: 400, rateKey: `quiz_done_${studyQuizState.toolId}` });
+                renderStudyQuiz();
+                return;
+            }
+            studyQuizState.index += 1;
+            studyQuizState.answered = false;
+            renderStudyQuiz();
+        }
+
+        function retakeStudyQuiz() {
+            if (!currentStudyToolId) return;
+            startStudyQuiz(currentStudyToolId);
+        }
+
+        function setStudyTab(tab) {
+            currentStudyTab = tab === 'quiz' ? 'quiz' : 'lesson';
+            const lessonBtn = document.getElementById('studyTabLesson');
+            const quizBtn = document.getElementById('studyTabQuiz');
+            const lessonPanel = document.getElementById('studyPanelLesson');
+            const quizPanel = document.getElementById('studyPanelQuiz');
+            if (lessonBtn) lessonBtn.classList.toggle('is-active', currentStudyTab === 'lesson');
+            if (quizBtn) quizBtn.classList.toggle('is-active', currentStudyTab === 'quiz');
+            if (lessonPanel) lessonPanel.classList.toggle('is-active', currentStudyTab === 'lesson');
+            if (quizPanel) quizPanel.classList.toggle('is-active', currentStudyTab === 'quiz');
+            if (currentStudyTab === 'quiz' && currentStudyToolId) {
+                if (!studyQuizState || studyQuizState.toolId !== currentStudyToolId) {
+                    startStudyQuiz(currentStudyToolId);
+                }
+            }
+        }
+
+        function openStudyTool(toolId) {
+            const hub = document.getElementById('tools-hub');
+            const detail = document.getElementById('tools-detail');
+            const study = document.getElementById('study-detail');
+            if (!hub || !study) return;
+            currentStudyToolId = toolId;
+            currentClinicalToolId = toolId;
+            hub.classList.add('hidden');
+            if (detail) detail.classList.add('hidden');
+            study.classList.remove('hidden');
+            const lessons = window.NursePathStudyLessons;
+            const lesson = lessons && lessons.getLesson(toolId);
+            const titleEl = document.getElementById('studyClassTitle');
+            const subEl = document.getElementById('studyClassSubtitle');
+            if (titleEl) titleEl.textContent = (lesson && lesson.title) || 'Study';
+            if (subEl) subEl.textContent = (lesson && lesson.subtitle) || 'Instructor-style lesson and quiz';
+            renderStudyLesson(toolId);
+            studyQuizState = null;
+            setStudyTab('lesson');
+            trackUsageSafe('navigation', 'feature_open', { tool: toolId, hub_mode: 'study' }, { minIntervalMs: 700, rateKey: `study_${toolId}` });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         function backToToolsHub() {
             const hub = document.getElementById('tools-hub');
             const detail = document.getElementById('tools-detail');
+            const study = document.getElementById('study-detail');
             currentClinicalToolId = null;
+            currentStudyToolId = null;
+            studyQuizState = null;
             closeToolGuide();
             closeToolDrill();
             if (hub) hub.classList.remove('hidden');
             if (detail) detail.classList.add('hidden');
+            if (study) study.classList.add('hidden');
             Object.values(CLINICAL_TOOL_PANELS).forEach((id) => {
                 const el = document.getElementById(id);
                 if (el) el.classList.remove('is-active');
             });
-        }
-
-        function escapeGuideHtml(str) {
-            return String(str || '')
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;');
         }
 
         function renderGuideSection(section) {
@@ -4374,78 +4770,16 @@
         function closeToolGuide() {
             const overlay = document.getElementById('toolGuideOverlay');
             if (overlay) overlay.classList.remove('open');
-            if (!document.getElementById('toolDrillOverlay')?.classList.contains('open')) {
+            if (!document.getElementById('toolDrillOverlay') || !document.getElementById('toolDrillOverlay').classList.contains('open')) {
                 document.body.style.overflow = '';
             }
-        }
-
-        let drillAnswered = false;
-
-        function openToolDrill() {
-            const drills = window.NursePathStudyDrills;
-            const overlay = document.getElementById('toolDrillOverlay');
-            const titleEl = document.getElementById('toolDrillTitle');
-            const bodyEl = document.getElementById('toolDrillBody');
-            if (!overlay || !titleEl || !bodyEl) return;
-            if (currentToolMode !== 'study') applyToolMode('study');
-            closeToolGuide();
-            const drill = drills && currentClinicalToolId ? drills.getDrill(currentClinicalToolId) : null;
-            drillAnswered = false;
-            if (!drill) {
-                titleEl.textContent = 'Case unavailable';
-                bodyEl.innerHTML = '<p class="tool-drill-prompt">No case is available for this tool yet.</p>';
-            } else {
-                titleEl.textContent = drill.title || 'Try a case';
-                const choices = (drill.choices || []).map((label, idx) => {
-                    return `<button type="button" class="tool-drill-choice" data-idx="${idx}" onclick="submitToolDrill(${idx})">${escapeGuideHtml(label)}</button>`;
-                }).join('');
-                bodyEl.innerHTML = `
-                    <p class="tool-drill-prompt">${escapeGuideHtml(drill.prompt)}</p>
-                    <div class="tool-drill-choices">${choices}</div>
-                    <div class="tool-drill-feedback" id="toolDrillFeedback"></div>
-                `;
-            }
-            overlay.classList.add('open');
-            document.body.style.overflow = 'hidden';
-            trackUsageSafe('study_drill', 'feature_open', { tool: currentClinicalToolId }, { minIntervalMs: 700, rateKey: `drill_open_${currentClinicalToolId || 'none'}` });
-        }
-
-        function submitToolDrill(choiceIndex) {
-            if (drillAnswered) return;
-            const drills = window.NursePathStudyDrills;
-            const drill = drills && currentClinicalToolId ? drills.getDrill(currentClinicalToolId) : null;
-            if (!drill) return;
-            drillAnswered = true;
-            const isCorrect = Number(choiceIndex) === Number(drill.correctIndex);
-            const stats = drills.recordAttempt(currentClinicalToolId, isCorrect);
-            const bodyEl = document.getElementById('toolDrillBody');
-            const feedback = document.getElementById('toolDrillFeedback');
-            if (bodyEl) {
-                bodyEl.querySelectorAll('.tool-drill-choice').forEach((btn) => {
-                    const idx = Number(btn.getAttribute('data-idx'));
-                    btn.disabled = true;
-                    if (idx === drill.correctIndex) btn.classList.add('is-correct');
-                    else if (idx === Number(choiceIndex) && !isCorrect) btn.classList.add('is-wrong');
-                });
-            }
-            if (feedback) {
-                feedback.className = `tool-drill-feedback open ${isCorrect ? 'is-correct' : 'is-wrong'}`;
-                feedback.innerHTML = `<strong>${isCorrect ? 'Correct' : 'Not quite'}</strong>${escapeGuideHtml(drill.explain || '')}`;
-            }
-            refreshStudyStrip();
-            trackUsageSafe('study_drill', 'result_generated', {
-                tool: currentClinicalToolId,
-                correct: isCorrect,
-                streak: stats.streak
-            }, { minIntervalMs: 400, rateKey: `drill_result_${currentClinicalToolId || 'none'}` });
         }
 
         function closeToolDrill() {
             const overlay = document.getElementById('toolDrillOverlay');
             if (overlay) overlay.classList.remove('open');
-            if (!document.getElementById('toolGuideOverlay')?.classList.contains('open')) {
-                document.body.style.overflow = '';
-            }
+            const guideOpen = document.getElementById('toolGuideOverlay') && document.getElementById('toolGuideOverlay').classList.contains('open');
+            if (!guideOpen) document.body.style.overflow = '';
         }
 
         document.addEventListener('keydown', (e) => {
@@ -4455,8 +4789,9 @@
             }
         });
 
-        // Restore preferred mode for next tool open
-        currentToolMode = readToolMode();
+        // Restore hub mode on load
+        applyHubMode(readHubMode(), { silent: true });
+
         function calcPediatricDose() {
             const calc = window.NursePathCalculators;
             if (!calc) return;
@@ -4834,13 +5169,15 @@
         }
 
         window.openClinicalTool = openClinicalTool;
+        window.openHubTool = openHubTool;
         window.backToToolsHub = backToToolsHub;
         window.openToolGuide = openToolGuide;
         window.closeToolGuide = closeToolGuide;
-        window.setToolMode = setToolMode;
-        window.openToolDrill = openToolDrill;
-        window.closeToolDrill = closeToolDrill;
-        window.submitToolDrill = submitToolDrill;
+        window.setHubMode = setHubMode;
+        window.setStudyTab = setStudyTab;
+        window.submitStudyQuizAnswer = submitStudyQuizAnswer;
+        window.advanceStudyQuiz = advanceStudyQuiz;
+        window.retakeStudyQuiz = retakeStudyQuiz;
         window.calcPediatricDose = calcPediatricDose;
         window.calcApgar = calcApgar;
         window.calcGCS = calcGCS;
