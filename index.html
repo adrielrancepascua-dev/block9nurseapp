@@ -33,7 +33,7 @@
         html, body {
             background-color: #020617 !important;
             color: #e2e8f0 !important;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Figtree', 'Segoe UI', sans-serif;
         }
         * { box-sizing: border-box; }
         /* Prevent ANY white backgrounds */
@@ -43,6 +43,9 @@
     </style>
     
     <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%230f172a' width='192' height='192'/><text x='50%' y='50%' font-size='120' font-weight='bold' fill='%2306b6d4' text-anchor='middle' dy='.35em'>Rx</text></svg>">
         <script src="assets/vitals-analysis.js"></script>
@@ -53,7 +56,7 @@
     <!-- OFFLINE-FIRST: Inlined CSS (no CDN) -->
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { background: #020617 !important; color: #e2e8f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; scroll-behavior: smooth; }
+        html { background: #020617 !important; color: #e2e8f0; font-family: 'Figtree', 'Segoe UI', sans-serif; scroll-behavior: smooth; }
         body { background: #020617 !important; color: #e2e8f0; min-height: 100vh; padding-top: env(safe-area-inset-top); padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); padding-bottom: env(safe-area-inset-bottom); overflow-x: hidden; }
         /* Tab content visibility */
         .tab-content.hidden { display: none !important; }
@@ -261,46 +264,162 @@
             padding-bottom: env(safe-area-inset-bottom);
         }
         
+        :root {
+            --np-ink: #e8eef7;
+            --np-muted: #94a3b8;
+            --np-panel: rgba(15, 23, 42, 0.82);
+            --np-line: rgba(148, 163, 184, 0.22);
+            --np-cyan: #22d3ee;
+            --np-amber: #fbbf24;
+            --np-display: 'Syne', 'Segoe UI', sans-serif;
+            --np-body: 'Figtree', 'Segoe UI', sans-serif;
+        }
+        body {
+            font-family: var(--np-body);
+            background:
+                radial-gradient(1200px 600px at 10% -10%, rgba(34, 211, 238, 0.14), transparent 55%),
+                radial-gradient(900px 500px at 100% 0%, rgba(251, 191, 36, 0.08), transparent 50%),
+                radial-gradient(700px 400px at 50% 100%, rgba(14, 165, 233, 0.08), transparent 55%),
+                #020617 !important;
+        }
+        h1, h2, h3, .np-display {
+            font-family: var(--np-display);
+            letter-spacing: -0.02em;
+        }
+
         /* Clinical tools hub */
+        .tools-hub-hero {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--np-line);
+            border-radius: 22px;
+            padding: 18px 18px 16px;
+            margin-bottom: 16px;
+            background:
+                linear-gradient(135deg, rgba(8, 47, 73, 0.65), rgba(15, 23, 42, 0.9) 45%, rgba(30, 41, 59, 0.75)),
+                radial-gradient(circle at 90% 20%, rgba(34, 211, 238, 0.2), transparent 40%);
+            animation: npFadeUp 0.45s ease both;
+        }
+        .tools-hub-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #67e8f9;
+            margin-bottom: 8px;
+        }
+        .tools-hub-hero h2 {
+            font-size: clamp(1.4rem, 4vw, 1.85rem);
+            font-weight: 800;
+            color: #f8fafc;
+            margin-bottom: 6px;
+        }
+        .tools-hub-hero p {
+            color: #cbd5e1;
+            font-size: 13px;
+            line-height: 1.5;
+            max-width: 36rem;
+        }
         .tools-hub-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 12px;
         }
         @media (min-width: 768px) {
-            .tools-hub-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .tools-hub-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
         }
         .tool-hub-card {
+            --accent: #22d3ee;
             text-align: left;
-            padding: 16px;
-            border-radius: 16px;
-            border: 1px solid #334155;
-            background: linear-gradient(145deg, #1e293b, #0f172a);
+            padding: 14px 14px 16px;
+            border-radius: 18px;
+            border: 1px solid color-mix(in srgb, var(--accent) 28%, #334155);
+            background:
+                linear-gradient(160deg, color-mix(in srgb, var(--accent) 14%, #0f172a), #0b1220 55%, #0f172a);
             color: #e2e8f0;
             cursor: pointer;
-            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-            min-height: 110px;
+            transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+            min-height: 132px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            animation: npFadeUp 0.5s ease both;
+        }
+        .tool-hub-card:nth-child(1) { animation-delay: 0.02s; }
+        .tool-hub-card:nth-child(2) { animation-delay: 0.05s; }
+        .tool-hub-card:nth-child(3) { animation-delay: 0.08s; }
+        .tool-hub-card:nth-child(4) { animation-delay: 0.11s; }
+        .tool-hub-card:nth-child(5) { animation-delay: 0.14s; }
+        .tool-hub-card:nth-child(6) { animation-delay: 0.17s; }
+        .tool-hub-card:nth-child(7) { animation-delay: 0.2s; }
+        .tool-hub-card:nth-child(8) { animation-delay: 0.23s; }
+        .tool-hub-card:nth-child(9) { animation-delay: 0.26s; }
+        .tool-hub-card::after {
+            content: '';
+            position: absolute;
+            inset: auto -20% -40% auto;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, color-mix(in srgb, var(--accent) 35%, transparent), transparent 70%);
+            pointer-events: none;
         }
         .tool-hub-card:hover, .tool-hub-card:focus-visible {
-            transform: translateY(-2px);
-            border-color: #22d3ee;
-            box-shadow: 0 12px 24px rgba(6, 182, 212, 0.15);
+            transform: translateY(-3px) scale(1.01);
+            border-color: var(--accent);
+            box-shadow: 0 14px 28px color-mix(in srgb, var(--accent) 18%, transparent);
             outline: none;
         }
-        .tool-hub-card .tool-hub-label {
-            display: block;
-            font-size: 14px;
+        .tool-hub-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: color-mix(in srgb, var(--accent) 18%, #0f172a);
+            color: var(--accent);
+            font-size: 18px;
             font-weight: 800;
-            margin-bottom: 6px;
+            font-family: var(--np-display);
+            flex-shrink: 0;
         }
-        .tool-hub-card .tool-hub-desc {
+        .tool-hub-label {
             display: block;
-            font-size: 11px;
+            font-family: var(--np-display);
+            font-size: 14px;
+            font-weight: 700;
+            color: #f8fafc;
+            line-height: 1.25;
+            margin-bottom: 4px;
+        }
+        .tool-hub-desc {
+            display: block;
+            font-size: 11.5px;
             color: #94a3b8;
-            line-height: 1.4;
+            line-height: 1.45;
+        }
+        .tool-hub-tag {
+            margin-top: auto;
+            display: inline-flex;
+            align-self: flex-start;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: color-mix(in srgb, var(--accent) 80%, white);
+            background: color-mix(in srgb, var(--accent) 12%, transparent);
+            border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+            border-radius: 999px;
+            padding: 4px 8px;
+            min-height: 0 !important;
+            min-width: 0 !important;
         }
         .tool-panel { display: none; }
-        .tool-panel.is-active { display: block; }
+        .tool-panel.is-active { display: block; animation: npFadeUp 0.35s ease both; }
         .tools-back-btn {
             display: inline-flex;
             align-items: center;
@@ -308,13 +427,219 @@
             margin-bottom: 14px;
             padding: 10px 14px;
             min-height: 44px;
-            border-radius: 10px;
+            border-radius: 12px;
             border: 1px solid #475569;
-            background: #1e293b;
+            background: rgba(30, 41, 59, 0.9);
             color: #e2e8f0;
             font-size: 13px;
             font-weight: 700;
             cursor: pointer;
+        }
+        .learn-shell {
+            border: 1px solid var(--np-line);
+            border-radius: 22px;
+            background: linear-gradient(180deg, rgba(30,41,59,0.75), rgba(15,23,42,0.95));
+            padding: 18px 16px 20px;
+            box-shadow: 0 20px 40px rgba(2, 6, 23, 0.35);
+        }
+        .learn-title {
+            font-family: var(--np-display);
+            font-size: clamp(1.35rem, 4vw, 1.75rem);
+            font-weight: 800;
+            color: #f8fafc;
+            margin-bottom: 6px;
+        }
+        .learn-sub {
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+        .learn-tip {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            padding: 12px 14px;
+            border-radius: 14px;
+            border: 1px solid rgba(251, 191, 36, 0.28);
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(15, 23, 42, 0.4));
+            color: #fde68a;
+            font-size: 12.5px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        .learn-tip strong { color: #fff7ed; }
+        .score-criterion {
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 12px;
+            margin-bottom: 12px;
+            background: rgba(2, 6, 23, 0.45);
+        }
+        .score-criterion-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .score-criterion-letter {
+            font-family: var(--np-display);
+            font-size: 18px;
+            font-weight: 800;
+            color: #67e8f9;
+        }
+        .score-criterion-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #e2e8f0;
+        }
+        .score-criterion-hint {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+        .score-options {
+            display: grid;
+            gap: 8px;
+        }
+        .score-option {
+            text-align: left;
+            border: 1px solid #334155;
+            border-radius: 14px;
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 10px 12px !important;
+            min-height: 52px !important;
+            min-width: 0 !important;
+            cursor: pointer;
+            transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+            display: grid;
+            grid-template-columns: 34px 1fr;
+            gap: 10px;
+            align-items: start;
+        }
+        .score-option:hover { border-color: #64748b; }
+        .score-option.is-selected {
+            border-color: var(--accent, #22d3ee);
+            background: color-mix(in srgb, var(--accent, #22d3ee) 14%, #0f172a);
+            transform: translateY(-1px);
+        }
+        .score-option-num {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            font-family: var(--np-display);
+            font-weight: 800;
+            background: #1e293b;
+            color: #f8fafc;
+        }
+        .score-option.is-selected .score-option-num {
+            background: var(--accent, #22d3ee);
+            color: #0f172a;
+        }
+        .score-option-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #f1f5f9;
+            line-height: 1.3;
+        }
+        .score-option-desc {
+            font-size: 11.5px;
+            color: #94a3b8;
+            line-height: 1.4;
+            margin-top: 2px;
+        }
+        .score-result {
+            position: sticky;
+            bottom: 12px;
+            z-index: 20;
+            border-radius: 18px;
+            border: 1px solid var(--np-line);
+            padding: 14px 16px;
+            background: rgba(2, 6, 23, 0.92);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+            margin-top: 8px;
+        }
+        .score-result-label {
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #94a3b8;
+            font-weight: 700;
+        }
+        .score-result-value {
+            font-family: var(--np-display);
+            font-size: clamp(2.4rem, 8vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1;
+            margin: 4px 0 8px;
+        }
+        .score-result-interp {
+            font-size: 13px;
+            line-height: 1.45;
+            color: #cbd5e1;
+        }
+        .score-band {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-top: 12px;
+        }
+        .score-band span {
+            text-align: center;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 6px 4px;
+            border-radius: 999px;
+            border: 1px solid #334155;
+            color: #94a3b8;
+        }
+        .score-band span.is-active {
+            color: #0f172a;
+            border-color: transparent;
+        }
+        .score-band .band-low.is-active { background: #f87171; }
+        .score-band .band-mid.is-active { background: #fbbf24; }
+        .score-band .band-high.is-active { background: #34d399; }
+        .braden-risk-meter {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 4px;
+            margin-top: 12px;
+        }
+        .braden-risk-meter span {
+            font-size: 9px;
+            text-align: center;
+            padding: 6px 2px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            color: #64748b;
+            line-height: 1.2;
+        }
+        .braden-risk-meter span.is-active {
+            color: #0f172a;
+            font-weight: 800;
+            border-color: transparent;
+        }
+        .gcs-live-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .gcs-chip {
+            border-radius: 999px;
+            border: 1px solid #334155;
+            padding: 6px 10px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #cbd5e1;
+            background: #0f172a;
+            min-height: 0 !important;
+            min-width: 0 !important;
         }
         .ron-body-grid {
             display: grid;
@@ -323,12 +648,15 @@
         }
         .ron-region {
             border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 10px;
+            border-radius: 14px;
+            padding: 12px !important;
             background: #0f172a;
             cursor: pointer;
             user-select: none;
+            transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+            min-height: 72px !important;
         }
+        .ron-region:active { transform: scale(0.98); }
         .ron-region.is-full { border-color: #f97316; background: rgba(249, 115, 22, 0.18); }
         .ron-region.is-half { border-color: #fbbf24; background: rgba(251, 191, 36, 0.14); }
         .google-btn {
@@ -349,6 +677,15 @@
         .google-btn:disabled { opacity: 0.55; cursor: not-allowed; }
         .auth-value-list { text-align: left; color: #94a3b8; font-size: 13px; line-height: 1.7; padding-left: 18px; margin: 0 0 16px; }
         .auth-value-list strong { color: #e2e8f0; }
+        @keyframes npFadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 768px) {
+            .tool-hub-card { min-height: 124px; padding: 12px; }
+            .learn-shell { padding: 14px 12px 16px; border-radius: 18px; }
+            .score-result { bottom: calc(10px + env(safe-area-inset-bottom)); }
+        }
 
         /* Ensure tappable elements are at least 44x44px */
         button, a.btn, select, input[type="submit"], input[type="button"], input[type="number"], input[type="text"], input[type="date"] {
@@ -2188,10 +2525,10 @@
 
     <div class="max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
         <header class="mb-4 sm:mb-6 text-center">
-            <h1 id="nursepathHeaderLogo" title="NursePath" class="text-2xl sm:text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 mb-2" style="cursor: pointer;">
-                <svg class="inline mr-2 sm:mr-3" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v2h-2zm0-10h2v8h-2zm3-3h2v6h-2zm-6 3h2v6H7z"/></svg>NursePath
+            <h1 id="nursepathHeaderLogo" title="NursePath" class="np-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-300 to-amber-200 mb-2" style="cursor: default;">
+                NursePath
             </h1>
-            <p class="text-slate-400 text-xs sm:text-sm">Simulation/Reference only • Not Clinical Decision Support • Verify with faculty and textbooks</p>
+            <p class="text-slate-400 text-xs sm:text-sm">Offline clinical learning companion for student nurses — simulation reference, not decision support</p>
             <div class="mt-1" style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap;">
                 <button type="button" onclick="manualLogout()" style="padding:8px 12px; min-height:36px; background:#1f2937; color:#e2e8f0; border:1px solid #475569; border-radius:10px; font-size:12px; font-weight:700;">Logout</button>
                 <button id="facultyResetBtn" type="button" onclick="facultyResetDevice()" style="display:none; padding:8px 12px; min-height:36px; background:#7f1d1d; color:#fee2e2; border:1px solid #ef4444; border-radius:10px; font-size:12px; font-weight:700;">Faculty Reset</button>
@@ -2240,46 +2577,56 @@
         </section>
 
         <div id="tools-hub" class="mb-6">
-            <div class="mb-4">
-                <h2 class="text-xl font-bold text-white">Clinical Tools</h2>
-                <p class="text-sm text-slate-400 mt-1">Choose a calculator — each opens in a focused view. OTC medicines live in the OTC tab.</p>
+            <div class="tools-hub-hero">
+                <div class="tools-hub-kicker"><span>●</span> Ward-ready study tools</div>
+                <h2>Clinical Tools</h2>
+                <p>Tap a tool to practice the exact scoring language you need on duty and for exams — with criteria spelled out, not just blank numbers.</p>
             </div>
             <div class="tools-hub-grid">
-                <button type="button" class="tool-hub-card" onclick="openClinicalTool('vitals')" style="border-color:#f8717144;">
-                    <span class="tool-hub-label" style="color:#f87171;">Vital Signs Simulation</span>
-                    <span class="tool-hub-desc">Interpret age-aware vitals trends in sim mode</span>
+                <button type="button" class="tool-hub-card" style="--accent:#f87171;" onclick="openClinicalTool('vitals')">
+                    <span class="tool-hub-icon">VS</span>
+                    <span><span class="tool-hub-label">Vital Signs Simulation</span><span class="tool-hub-desc">Age-aware patterns, pregnancy context, and sim alerts you can defend to your CI.</span></span>
+                    <span class="tool-hub-tag">Assessment</span>
                 </button>
-                <button type="button" class="tool-hub-card" onclick="openClinicalTool('iv')" style="border-color:#60a5fa44;">
-                    <span class="tool-hub-label" style="color:#60a5fa;">IV Flow Rate</span>
-                    <span class="tool-hub-desc">mL/hr and gtt/min drip calculations</span>
+                <button type="button" class="tool-hub-card" style="--accent:#60a5fa;" onclick="openClinicalTool('iv')">
+                    <span class="tool-hub-icon">IV</span>
+                    <span><span class="tool-hub-label">IV Flow Rate</span><span class="tool-hub-desc">mL/hr and gtt/min with macro/micro drip factors.</span></span>
+                    <span class="tool-hub-tag">Math</span>
                 </button>
-                <button type="button" class="tool-hub-card" onclick="openClinicalTool('bmi')" style="border-color:#34d39944;">
-                    <span class="tool-hub-label" style="color:#34d399;">BMI & Body Metrics</span>
-                    <span class="tool-hub-desc">WHO BMI category from weight and height</span>
+                <button type="button" class="tool-hub-card" style="--accent:#34d399;" onclick="openClinicalTool('bmi')">
+                    <span class="tool-hub-icon">BMI</span>
+                    <span><span class="tool-hub-label">BMI & Body Metrics</span><span class="tool-hub-desc">WHO category from kg and cm — fast ward reference.</span></span>
+                    <span class="tool-hub-tag">Metrics</span>
                 </button>
-                <button type="button" class="tool-hub-card" onclick="openClinicalTool('aog')" style="border-color:#f472b644;">
-                    <span class="tool-hub-label" style="color:#f472b6;">AOG & EDD</span>
-                    <span class="tool-hub-desc">Naegele's rule gestation dating</span>
+                <button type="button" class="tool-hub-card" style="--accent:#f472b6;" onclick="openClinicalTool('aog')">
+                    <span class="tool-hub-icon">OB</span>
+                    <span><span class="tool-hub-label">AOG & EDD</span><span class="tool-hub-desc">Naegele dating, trimester, and milestone checkpoints.</span></span>
+                    <span class="tool-hub-tag">OB</span>
                 </button>
-                <button type="button" class="tool-hub-card" onclick="openClinicalTool('peds')" style="border-color:#a78bfa44;">
-                    <span class="tool-hub-label" style="color:#a78bfa;">Pediatric Dosing</span>
-                    <span class="tool-hub-desc">mg/kg plus Clark's & Young's Rules</span>
+                <button type="button" class="tool-hub-card" style="--accent:#c4b5fd;" onclick="openClinicalTool('peds')">
+                    <span class="tool-hub-icon">PED</span>
+                    <span><span class="tool-hub-label">Pediatric Dosing</span><span class="tool-hub-desc">mg/kg plus Clark’s & Young’s for board-style checks.</span></span>
+                    <span class="tool-hub-tag">Peds</span>
                 </button>
-                <button type="button" class="tool-hub-card" onclick="openClinicalTool('apgar')" style="border-color:#fb718544;">
-                    <span class="tool-hub-label" style="color:#fb7185;">APGAR Score</span>
-                    <span class="tool-hub-desc">1- and 5-minute newborn scoring</span>
+                <button type="button" class="tool-hub-card" style="--accent:#fb7185;" onclick="openClinicalTool('apgar')">
+                    <span class="tool-hub-icon">APG</span>
+                    <span><span class="tool-hub-label">APGAR Score</span><span class="tool-hub-desc">Learn what 0–2 means for each letter — then score live.</span></span>
+                    <span class="tool-hub-tag">Newborn</span>
                 </button>
-                <button type="button" class="tool-hub-card" onclick="openClinicalTool('gcs')" style="border-color:#38bdf844;">
-                    <span class="tool-hub-label" style="color:#38bdf8;">GCS</span>
-                    <span class="tool-hub-desc">Eye / Verbal / Motor coma scale</span>
+                <button type="button" class="tool-hub-card" style="--accent:#38bdf8;" onclick="openClinicalTool('gcs')">
+                    <span class="tool-hub-icon">GCS</span>
+                    <span><span class="tool-hub-label">Glasgow Coma Scale</span><span class="tool-hub-desc">Eye, verbal, motor with clinical wording for each level.</span></span>
+                    <span class="tool-hub-tag">Neuro</span>
                 </button>
-                <button type="button" class="tool-hub-card" onclick="openClinicalTool('braden')" style="border-color:#2dd4bf44;">
-                    <span class="tool-hub-label" style="color:#2dd4bf;">Braden Scale</span>
-                    <span class="tool-hub-desc">Pressure injury risk assessment</span>
+                <button type="button" class="tool-hub-card" style="--accent:#2dd4bf;" onclick="openClinicalTool('braden')">
+                    <span class="tool-hub-icon">BRD</span>
+                    <span><span class="tool-hub-label">Braden Scale</span><span class="tool-hub-desc">Pressure-injury risk with subscale meanings, not just 1–4.</span></span>
+                    <span class="tool-hub-tag">Skin</span>
                 </button>
-                <button type="button" class="tool-hub-card" onclick="openClinicalTool('ron')" style="border-color:#fb923c44;">
-                    <span class="tool-hub-label" style="color:#fb923c;">Rule of Nines</span>
-                    <span class="tool-hub-desc">Tap-body burn TBSA estimate</span>
+                <button type="button" class="tool-hub-card" style="--accent:#fb923c;" onclick="openClinicalTool('ron')">
+                    <span class="tool-hub-icon">TBSA</span>
+                    <span><span class="tool-hub-label">Rule of Nines</span><span class="tool-hub-desc">Tap body regions — half/full — for burn TBSA estimate.</span></span>
+                    <span class="tool-hub-tag">Trauma</span>
                 </button>
             </div>
         </div>
@@ -2535,67 +2882,80 @@
                 
             </div>
             <div id="tool-panel-apgar" class="tool-panel">
-<!-- APGAR -->
-                <div id="apgar-section" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
-                    <h3 class="font-bold text-rose-400 mb-2 text-lg">APGAR Score</h3>
-                    <p class="text-xs text-slate-400 mb-4">Score each domain 0–2 at 1 minute and 5 minutes (simulation).</p>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div class="space-y-2" id="apgar-inputs"></div>
-                        <div class="space-y-3">
-                            <div class="bg-slate-700/30 p-4 rounded-lg border border-rose-500/30"><p class="text-[10px] text-slate-400 uppercase">Total APGAR</p><p id="apgar-total" class="text-3xl font-mono font-bold text-rose-300">--</p><p id="apgar-interp" class="text-sm text-slate-300 mt-2">--</p></div>
-                            <button type="button" onclick="calcApgar()" class="w-full py-3 rounded-xl font-bold" style="background:linear-gradient(135deg,#f43f5e,#be123c);color:#fff;">Score APGAR</button>
+                <div id="apgar-section" class="learn-shell scroll-mt-20" style="--accent:#fb7185;">
+                    <div class="learn-title" style="color:#fda4af;">APGAR Score</div>
+                    <p class="learn-sub">Tap the clinical finding that matches what you observe. Each option teaches the 0 / 1 / 2 meaning — then the total updates live (simulation).</p>
+                    <div class="learn-tip"><span>📘</span><div><strong>How to learn this:</strong> Say the letter out loud (Appearance, Pulse, Grimace, Activity, Respiration), choose the matching finding, then check whether your total lands in 0–3, 4–6, or 7–10.</div></div>
+                    <div id="apgar-inputs"></div>
+                    <div class="score-result">
+                        <div class="score-result-label">Live APGAR total</div>
+                        <div id="apgar-total" class="score-result-value" style="color:#fda4af;">--</div>
+                        <div id="apgar-interp" class="score-result-interp">Select all five domains to score.</div>
+                        <div class="score-band">
+                            <span class="band-low" id="apgar-band-low">0–3 Depressed</span>
+                            <span class="band-mid" id="apgar-band-mid">4–6 Moderate</span>
+                            <span class="band-high" id="apgar-band-high">7–10 Reassuring</span>
                         </div>
                     </div>
                 </div>
-
-                
             </div>
             <div id="tool-panel-gcs" class="tool-panel">
-<!-- GCS -->
-                <div id="gcs-section" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
-                    <h3 class="font-bold text-sky-400 mb-4 text-lg">Glasgow Coma Scale (GCS)</h3>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div class="space-y-3">
-                            <div><label class="text-[10px] font-bold text-slate-500 uppercase">Eye Opening (1–4)</label>
-                                <select id="gcs-eye" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm"><option value="4">4 — Spontaneous</option><option value="3">3 — To speech</option><option value="2">2 — To pain</option><option value="1">1 — None</option></select></div>
-                            <div><label class="text-[10px] font-bold text-slate-500 uppercase">Verbal Response (1–5)</label>
-                                <select id="gcs-verbal" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm"><option value="5">5 — Oriented</option><option value="4">4 — Confused</option><option value="3">3 — Inappropriate words</option><option value="2">2 — Incomprehensible sounds</option><option value="1">1 — None</option></select></div>
-                            <div><label class="text-[10px] font-bold text-slate-500 uppercase">Motor Response (1–6)</label>
-                                <select id="gcs-motor" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm"><option value="6">6 — Obeys commands</option><option value="5">5 — Localizes pain</option><option value="4">4 — Withdraws</option><option value="3">3 — Abnormal flexion</option><option value="2">2 — Extension</option><option value="1">1 — None</option></select></div>
-                            <button type="button" onclick="calcGCS()" class="w-full py-3 rounded-xl font-bold" style="background:linear-gradient(135deg,#0ea5e9,#0369a1);color:#fff;">Calculate GCS</button>
+                <div id="gcs-section" class="learn-shell scroll-mt-20" style="--accent:#38bdf8;">
+                    <div class="learn-title" style="color:#7dd3fc;">Glasgow Coma Scale</div>
+                    <p class="learn-sub">Pick the best eye, verbal, and motor response. Report as E_V_M (example: E4V5M6 = 15).</p>
+                    <div class="learn-tip"><span>📘</span><div><strong>Study cue:</strong> Mild 13–15 · Moderate 9–12 · Severe ≤8. Always write the component scores, not only the total.</div></div>
+                    <div class="gcs-live-row">
+                        <span class="gcs-chip" id="gcs-chip-eye">E—</span>
+                        <span class="gcs-chip" id="gcs-chip-verbal">V—</span>
+                        <span class="gcs-chip" id="gcs-chip-motor">M—</span>
+                    </div>
+                    <div id="gcs-inputs"></div>
+                    <div class="score-result">
+                        <div class="score-result-label">Live GCS total</div>
+                        <div id="gcs-total" class="score-result-value" style="color:#7dd3fc;">--</div>
+                        <div id="gcs-severity" class="score-result-interp">Select Eye, Verbal, and Motor.</div>
+                        <div class="score-band">
+                            <span class="band-low" id="gcs-band-low">≤8 Severe</span>
+                            <span class="band-mid" id="gcs-band-mid">9–12 Moderate</span>
+                            <span class="band-high" id="gcs-band-high">13–15 Mild</span>
                         </div>
-                        <div class="bg-slate-700/30 p-4 rounded-lg border border-sky-500/30 self-start"><p class="text-[10px] text-slate-400 uppercase">GCS Total</p><p id="gcs-total" class="text-3xl font-mono font-bold text-sky-300">--</p><p id="gcs-severity" class="text-sm text-slate-300 mt-2">--</p><p class="text-[11px] text-amber-400 mt-3">Educational reference only. E+V+M = 3–15.</p></div>
                     </div>
                 </div>
-
-                
             </div>
             <div id="tool-panel-braden" class="tool-panel">
-<!-- Braden -->
-                <div id="braden-section" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
-                    <h3 class="font-bold text-teal-400 mb-2 text-lg">Braden Scale</h3>
-                    <p class="text-xs text-slate-400 mb-4">Pressure injury risk. Lower total = higher risk (6–23).</p>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div class="space-y-2" id="braden-inputs"></div>
-                        <div class="space-y-3">
-                            <div class="bg-slate-700/30 p-4 rounded-lg border border-teal-500/30"><p class="text-[10px] text-slate-400 uppercase">Braden Total</p><p id="braden-total" class="text-3xl font-mono font-bold text-teal-300">--</p><p id="braden-risk" class="text-sm text-slate-300 mt-2">--</p></div>
-                            <button type="button" onclick="calcBraden()" class="w-full py-3 rounded-xl font-bold" style="background:linear-gradient(135deg,#14b8a6,#0f766e);color:#fff;">Calculate Braden</button>
+                <div id="braden-section" class="learn-shell scroll-mt-20" style="--accent:#2dd4bf;">
+                    <div class="learn-title" style="color:#5eead4;">Braden Scale</div>
+                    <p class="learn-sub">Lower total = higher pressure-injury risk (6–23). Tap the wording that matches the patient — each choice teaches the subscale meaning.</p>
+                    <div class="learn-tip"><span>📘</span><div><strong>Memory hook:</strong> Sensory · Moisture · Activity · Mobility · Nutrition · Friction/Shear. Intervene earlier as the score drops.</div></div>
+                    <div id="braden-inputs"></div>
+                    <div class="score-result">
+                        <div class="score-result-label">Live Braden total</div>
+                        <div id="braden-total" class="score-result-value" style="color:#5eead4;">--</div>
+                        <div id="braden-risk" class="score-result-interp">Score all six subscales.</div>
+                        <div class="braden-risk-meter" id="braden-meter">
+                            <span data-band="veryhigh">≤9 Very high</span>
+                            <span data-band="high">10–12 High</span>
+                            <span data-band="mod">13–14 Mod</span>
+                            <span data-band="mild">15–18 Mild</span>
+                            <span data-band="low">19–23 Low</span>
                         </div>
                     </div>
                 </div>
-
-                
             </div>
             <div id="tool-panel-ron" class="tool-panel">
-<!-- Rule of Nines -->
-                <div id="ron-section" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
-                    <h3 class="font-bold text-orange-400 mb-2 text-lg">Rule of Nines — Burn TBSA</h3>
-                    <p class="text-xs text-slate-400 mb-4">Tap a region to cycle: none → half → full. Adult proportions (simulation).</p>
+                <div id="ron-section" class="learn-shell scroll-mt-20" style="--accent:#fb923c;">
+                    <div class="learn-title" style="color:#fdba74;">Rule of Nines</div>
+                    <p class="learn-sub">Tap a body region to cycle Off → Half → Full. Adult proportions for burn TBSA estimate (simulation).</p>
+                    <div class="learn-tip"><span>📘</span><div><strong>Quick map:</strong> Head 9% · Each arm 9% · Anterior trunk 18% · Posterior trunk 18% · Each leg 18% · Perineum 1%.</div></div>
                     <div id="ron-grid" class="ron-body-grid mb-4"></div>
-                    <div class="bg-slate-700/30 p-4 rounded-lg border border-orange-500/30 mb-3"><p class="text-[10px] text-slate-400 uppercase">Estimated TBSA</p><p id="ron-tbsa" class="text-3xl font-mono font-bold text-orange-300">0%</p><p id="ron-note" class="text-sm text-slate-300 mt-2">Tap body regions above</p><div id="ron-breakdown" class="text-xs text-slate-400 mt-2"></div></div>
-                    <button type="button" onclick="resetRuleOfNines()" class="w-full py-3 rounded-xl font-bold bg-slate-700 text-slate-100 border border-slate-500">Reset Regions</button>
+                    <div class="score-result">
+                        <div class="score-result-label">Estimated TBSA</div>
+                        <div id="ron-tbsa" class="score-result-value" style="color:#fdba74;">0%</div>
+                        <div id="ron-note" class="score-result-interp">Tap body regions above</div>
+                        <div id="ron-breakdown" class="text-xs text-slate-400 mt-2"></div>
+                        <button type="button" onclick="resetRuleOfNines()" class="w-full mt-3 py-3 rounded-xl font-bold bg-slate-800 text-slate-100 border border-slate-600">Reset Regions</button>
+                    </div>
                 </div>
-
             </div>
         </div>
 
@@ -3398,6 +3758,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (toolId === 'apgar') initApgarInputs();
             if (toolId === 'braden') initBradenInputs();
+            if (toolId === 'gcs') initGcsInputs();
             if (toolId === 'ron') initRuleOfNines();
         }
 
@@ -3429,93 +3790,313 @@
             trackUsageSafe('peds_dose', 'result_generated', { has_value: result.weightBasedMg != null }, { minIntervalMs: 1500, rateKey: 'peds_dose' });
         }
 
+        const APGAR_RUBRIC = [
+            {
+                id: 'appearance',
+                letter: 'A',
+                name: 'Appearance (Color)',
+                hint: 'Skin color of the newborn',
+                options: [
+                    { value: 2, label: 'Completely pink', desc: 'Entire body pink — good perfusion.' },
+                    { value: 1, label: 'Acrocyanosis', desc: 'Body pink, hands/feet blue — common at 1 min.' },
+                    { value: 0, label: 'Blue / pale', desc: 'Central cyanosis or pallor — needs support.' }
+                ]
+            },
+            {
+                id: 'pulse',
+                letter: 'P',
+                name: 'Pulse (Heart rate)',
+                hint: 'Count apical HR for 1 full minute when possible',
+                options: [
+                    { value: 2, label: '> 100 bpm', desc: 'Strong HR above 100.' },
+                    { value: 1, label: '< 100 bpm', desc: 'HR present but under 100.' },
+                    { value: 0, label: 'Absent', desc: 'No detectable heartbeat.' }
+                ]
+            },
+            {
+                id: 'grimace',
+                letter: 'G',
+                name: 'Grimace (Reflex irritability)',
+                hint: 'Response to suction or mild stimulus',
+                options: [
+                    { value: 2, label: 'Cry / sneeze / cough', desc: 'Vigorous response to stimulus.' },
+                    { value: 1, label: 'Grimace only', desc: 'Facial grimace without strong cry.' },
+                    { value: 0, label: 'No response', desc: 'No reflex to stimulus.' }
+                ]
+            },
+            {
+                id: 'activity',
+                letter: 'A',
+                name: 'Activity (Muscle tone)',
+                hint: 'Watch flexion and movement',
+                options: [
+                    { value: 2, label: 'Active motion', desc: 'Well-flexed with active movement.' },
+                    { value: 1, label: 'Some flexion', desc: 'Some flexion of extremities.' },
+                    { value: 0, label: 'Limp / flaccid', desc: 'No tone — floppy newborn.' }
+                ]
+            },
+            {
+                id: 'respiration',
+                letter: 'R',
+                name: 'Respiration',
+                hint: 'Effort and cry quality',
+                options: [
+                    { value: 2, label: 'Good cry / strong effort', desc: 'Strong cry, good respiratory effort.' },
+                    { value: 1, label: 'Slow / irregular / weak cry', desc: 'Weak, gasping, or irregular respirations.' },
+                    { value: 0, label: 'Absent', desc: 'No breathing effort.' }
+                ]
+            }
+        ];
+
+        const BRADEN_RUBRIC = [
+            {
+                id: 'sensory',
+                name: 'Sensory Perception',
+                hint: 'Ability to respond meaningfully to pressure-related discomfort',
+                options: [
+                    { value: 4, label: 'No impairment', desc: 'Feels and reports pain/discomfort normally.' },
+                    { value: 3, label: 'Slightly limited', desc: 'Responds to verbal commands; cannot always communicate discomfort.' },
+                    { value: 2, label: 'Very limited', desc: 'Responds only to pain; cannot communicate discomfort well.' },
+                    { value: 1, label: 'Completely limited', desc: 'Unresponsive or limited ability to feel pain over most of body.' }
+                ]
+            },
+            {
+                id: 'moisture',
+                name: 'Moisture',
+                hint: 'Degree to which skin is exposed to moisture',
+                options: [
+                    { value: 4, label: 'Rarely moist', desc: 'Skin usually dry; linen changed routinely.' },
+                    { value: 3, label: 'Occasionally moist', desc: 'Extra linen change about once a day.' },
+                    { value: 2, label: 'Very moist', desc: 'Often damp; linen changed at least once per shift.' },
+                    { value: 1, label: 'Constantly moist', desc: 'Skin almost always moist from perspiration/urine, etc.' }
+                ]
+            },
+            {
+                id: 'activity',
+                name: 'Activity',
+                hint: 'Degree of physical activity',
+                options: [
+                    { value: 4, label: 'Walks frequently', desc: 'Walks outside room at least twice a day.' },
+                    { value: 3, label: 'Walks occasionally', desc: 'Walks short distances with/without help; spends most of shift in bed/chair.' },
+                    { value: 2, label: 'Chairfast', desc: 'Ability to walk severely limited; cannot bear own weight.' },
+                    { value: 1, label: 'Bedfast', desc: 'Confined to bed.' }
+                ]
+            },
+            {
+                id: 'mobility',
+                name: 'Mobility',
+                hint: 'Ability to change and control body position',
+                options: [
+                    { value: 4, label: 'No limitations', desc: 'Makes major and frequent position changes independently.' },
+                    { value: 3, label: 'Slightly limited', desc: 'Makes frequent though slight changes independently.' },
+                    { value: 2, label: 'Very limited', desc: 'Makes occasional slight changes; unable to make frequent major changes alone.' },
+                    { value: 1, label: 'Completely immobile', desc: 'Does not make even slight position changes without assistance.' }
+                ]
+            },
+            {
+                id: 'nutrition',
+                name: 'Nutrition',
+                hint: 'Usual food intake pattern',
+                options: [
+                    { value: 4, label: 'Excellent', desc: 'Eats most of every meal; never refuses; eats protein sources.' },
+                    { value: 3, label: 'Adequate', desc: 'Eats over half of most meals; occasional supplement.' },
+                    { value: 2, label: 'Probably inadequate', desc: 'Rarely eats a complete meal; only about 1/2 of food offered.' },
+                    { value: 1, label: 'Very poor', desc: 'Never finishes a meal; little protein; NPO / clear liquids often.' }
+                ]
+            },
+            {
+                id: 'friction',
+                name: 'Friction & Shear',
+                hint: 'Scored 1–3 only',
+                options: [
+                    { value: 3, label: 'No apparent problem', desc: 'Moves in bed/chair independently; sufficient muscle strength.' },
+                    { value: 2, label: 'Potential problem', desc: 'Moves feebly or requires minimum assistance; skin may slide against sheets.' },
+                    { value: 1, label: 'Problem', desc: 'Requires moderate to max assist; frequent sliding / friction.' }
+                ]
+            }
+        ];
+
+        const GCS_RUBRIC = [
+            {
+                id: 'eye',
+                key: 'eye',
+                name: 'Eye Opening (E)',
+                hint: 'Best eye response',
+                options: [
+                    { value: 4, label: 'Spontaneous', desc: 'Opens eyes on own.' },
+                    { value: 3, label: 'To speech', desc: 'Opens to voice.' },
+                    { value: 2, label: 'To pain', desc: 'Opens only to pain.' },
+                    { value: 1, label: 'None', desc: 'No eye opening.' }
+                ]
+            },
+            {
+                id: 'verbal',
+                key: 'verbal',
+                name: 'Verbal Response (V)',
+                hint: 'Best verbal response',
+                options: [
+                    { value: 5, label: 'Oriented', desc: 'Knows person/place/time.' },
+                    { value: 4, label: 'Confused', desc: 'Converses but confused.' },
+                    { value: 3, label: 'Inappropriate words', desc: 'Random words, no conversation.' },
+                    { value: 2, label: 'Incomprehensible sounds', desc: 'Moaning / groaning only.' },
+                    { value: 1, label: 'None', desc: 'No verbal response.' }
+                ]
+            },
+            {
+                id: 'motor',
+                key: 'motor',
+                name: 'Motor Response (M)',
+                hint: 'Best motor response',
+                options: [
+                    { value: 6, label: 'Obeys commands', desc: 'Follows instructions.' },
+                    { value: 5, label: 'Localizes pain', desc: 'Purposeful movement toward pain.' },
+                    { value: 4, label: 'Withdraws from pain', desc: 'Pulls away from pain.' },
+                    { value: 3, label: 'Abnormal flexion', desc: 'Decorticate posturing.' },
+                    { value: 2, label: 'Extension', desc: 'Decerebrate posturing.' },
+                    { value: 1, label: 'None', desc: 'No motor response.' }
+                ]
+            }
+        ];
+
+        const apgarState = {};
+        const bradenState = {};
+        const gcsState = { eye: null, verbal: null, motor: null };
+
+        function renderScoreOptions(host, rubric, stateObj, onChange) {
+            if (!host) return;
+            host.innerHTML = rubric.map((item) => {
+                const selected = stateObj[item.id];
+                const optionsHtml = item.options.map((opt) => {
+                    const isSel = Number(selected) === Number(opt.value);
+                    return `<button type="button" class="score-option${isSel ? ' is-selected' : ''}" data-id="${item.id}" data-value="${opt.value}">
+                        <span class="score-option-num">${opt.value}</span>
+                        <span><span class="score-option-label">${opt.label}</span><span class="score-option-desc">${opt.desc}</span></span>
+                    </button>`;
+                }).join('');
+                const letter = item.letter ? `<span class="score-criterion-letter">${item.letter}</span>` : '';
+                return `<section class="score-criterion" data-criterion="${item.id}">
+                    <div class="score-criterion-head">
+                        <div>${letter}<div class="score-criterion-name">${item.name}</div></div>
+                        <div class="score-criterion-hint">${item.hint || ''}</div>
+                    </div>
+                    <div class="score-options">${optionsHtml}</div>
+                </section>`;
+            }).join('');
+
+            host.querySelectorAll('.score-option').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    const id = btn.getAttribute('data-id');
+                    const value = Number(btn.getAttribute('data-value'));
+                    stateObj[id] = value;
+                    renderScoreOptions(host, rubric, stateObj, onChange);
+                    onChange();
+                });
+            });
+        }
+
         function initApgarInputs() {
             const host = document.getElementById('apgar-inputs');
-            if (!host || host.dataset.ready === '1') return;
-            const fields = [
-                ['appearance', 'Appearance (color)'],
-                ['pulse', 'Pulse (HR)'],
-                ['grimace', 'Grimace (reflex)'],
-                ['activity', 'Activity (tone)'],
-                ['respiration', 'Respiration']
-            ];
-            host.innerHTML = fields.map(([id, label]) => `
-                <div>
-                    <label class="text-[10px] font-bold text-slate-500 uppercase">${label}</label>
-                    <select id="apgar-${id}" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm">
-                        <option value="2">2</option>
-                        <option value="1">1</option>
-                        <option value="0">0</option>
-                    </select>
-                </div>`).join('');
-            host.dataset.ready = '1';
+            if (!host) return;
+            if (!Object.keys(apgarState).length) {
+                APGAR_RUBRIC.forEach((r) => { apgarState[r.id] = null; });
+            }
+            renderScoreOptions(host, APGAR_RUBRIC, apgarState, calcApgar);
+            calcApgar();
         }
 
         function calcApgar() {
             const calc = window.NursePathCalculators;
             if (!calc) return;
-            initApgarInputs();
-            const scores = {
-                appearance: document.getElementById('apgar-appearance').value,
-                pulse: document.getElementById('apgar-pulse').value,
-                grimace: document.getElementById('apgar-grimace').value,
-                activity: document.getElementById('apgar-activity').value,
-                respiration: document.getElementById('apgar-respiration').value
-            };
-            const result = calc.apgarScore(scores);
-            document.getElementById('apgar-total').textContent = String(result.total);
-            document.getElementById('apgar-interp').textContent = result.interpretation;
+            const complete = APGAR_RUBRIC.every((r) => apgarState[r.id] != null);
+            const totalEl = document.getElementById('apgar-total');
+            const interpEl = document.getElementById('apgar-interp');
+            document.querySelectorAll('#apgar-band-low, #apgar-band-mid, #apgar-band-high').forEach((el) => el.classList.remove('is-active'));
+            if (!complete) {
+                if (totalEl) totalEl.textContent = '--';
+                if (interpEl) interpEl.textContent = 'Select all five domains to score.';
+                return;
+            }
+            const result = calc.apgarScore(apgarState);
+            if (totalEl) totalEl.textContent = String(result.total);
+            if (interpEl) interpEl.textContent = result.interpretation;
+            const band = result.total >= 7 ? 'high' : (result.total >= 4 ? 'mid' : 'low');
+            const bandEl = document.getElementById(`apgar-band-${band}`);
+            if (bandEl) bandEl.classList.add('is-active');
             trackUsageSafe('apgar', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'apgar' });
+        }
+
+        function initGcsInputs() {
+            const host = document.getElementById('gcs-inputs');
+            if (!host) return;
+            // Map rubric ids to gcsState keys
+            const mapped = GCS_RUBRIC.map((r) => ({ ...r, id: r.key }));
+            renderScoreOptions(host, mapped, gcsState, calcGCS);
+            calcGCS();
         }
 
         function calcGCS() {
             const calc = window.NursePathCalculators;
             if (!calc) return;
-            const result = calc.gcsScore(
-                document.getElementById('gcs-eye').value,
-                document.getElementById('gcs-verbal').value,
-                document.getElementById('gcs-motor').value
-            );
-            document.getElementById('gcs-total').textContent = `${result.total} (E${result.eye} V${result.verbal} M${result.motor})`;
-            document.getElementById('gcs-severity').textContent = result.severity;
+            const eyeChip = document.getElementById('gcs-chip-eye');
+            const verbalChip = document.getElementById('gcs-chip-verbal');
+            const motorChip = document.getElementById('gcs-chip-motor');
+            if (eyeChip) eyeChip.textContent = gcsState.eye != null ? `E${gcsState.eye}` : 'E—';
+            if (verbalChip) verbalChip.textContent = gcsState.verbal != null ? `V${gcsState.verbal}` : 'V—';
+            if (motorChip) motorChip.textContent = gcsState.motor != null ? `M${gcsState.motor}` : 'M—';
+
+            const totalEl = document.getElementById('gcs-total');
+            const sevEl = document.getElementById('gcs-severity');
+            document.querySelectorAll('#gcs-band-low, #gcs-band-mid, #gcs-band-high').forEach((el) => el.classList.remove('is-active'));
+            if (gcsState.eye == null || gcsState.verbal == null || gcsState.motor == null) {
+                if (totalEl) totalEl.textContent = '--';
+                if (sevEl) sevEl.textContent = 'Select Eye, Verbal, and Motor.';
+                return;
+            }
+            const result = calc.gcsScore(gcsState.eye, gcsState.verbal, gcsState.motor);
+            if (totalEl) totalEl.textContent = `${result.total}`;
+            if (sevEl) sevEl.textContent = `${result.severity} · Report as E${result.eye}V${result.verbal}M${result.motor}`;
+            const band = result.total >= 13 ? 'high' : (result.total >= 9 ? 'mid' : 'low');
+            const bandEl = document.getElementById(`gcs-band-${band}`);
+            if (bandEl) bandEl.classList.add('is-active');
             trackUsageSafe('gcs', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'gcs' });
         }
 
         function initBradenInputs() {
             const host = document.getElementById('braden-inputs');
-            if (!host || host.dataset.ready === '1') return;
-            const fields = [
-                ['sensory', 'Sensory Perception', 4],
-                ['moisture', 'Moisture', 4],
-                ['activity', 'Activity', 4],
-                ['mobility', 'Mobility', 4],
-                ['nutrition', 'Nutrition', 4],
-                ['friction', 'Friction & Shear', 3]
-            ];
-            host.innerHTML = fields.map(([id, label, max]) => {
-                const opts = Array.from({ length: max }, (_, i) => max - i)
-                    .map((v) => `<option value="${v}">${v}</option>`).join('');
-                return `<div><label class="text-[10px] font-bold text-slate-500 uppercase">${label} (1–${max})</label>
-                    <select id="braden-${id}" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm">${opts}</select></div>`;
-            }).join('');
-            host.dataset.ready = '1';
+            if (!host) return;
+            if (!Object.keys(bradenState).length) {
+                BRADEN_RUBRIC.forEach((r) => { bradenState[r.id] = null; });
+            }
+            renderScoreOptions(host, BRADEN_RUBRIC, bradenState, calcBraden);
+            calcBraden();
         }
 
         function calcBraden() {
             const calc = window.NursePathCalculators;
             if (!calc) return;
-            initBradenInputs();
-            const subscores = {
-                sensory: document.getElementById('braden-sensory').value,
-                moisture: document.getElementById('braden-moisture').value,
-                activity: document.getElementById('braden-activity').value,
-                mobility: document.getElementById('braden-mobility').value,
-                nutrition: document.getElementById('braden-nutrition').value,
-                friction: document.getElementById('braden-friction').value
-            };
-            const result = calc.bradenScore(subscores);
-            document.getElementById('braden-total').textContent = String(result.total);
-            document.getElementById('braden-risk').textContent = result.risk;
+            const complete = BRADEN_RUBRIC.every((r) => bradenState[r.id] != null);
+            const totalEl = document.getElementById('braden-total');
+            const riskEl = document.getElementById('braden-risk');
+            document.querySelectorAll('#braden-meter span').forEach((el) => el.classList.remove('is-active'));
+            if (!complete) {
+                if (totalEl) totalEl.textContent = '--';
+                if (riskEl) riskEl.textContent = 'Score all six subscales.';
+                return;
+            }
+            const result = calc.bradenScore(bradenState);
+            if (totalEl) totalEl.textContent = String(result.total);
+            if (riskEl) riskEl.textContent = result.risk + ' — lower scores need earlier skin interventions (simulation framing).';
+            let band = 'low';
+            if (result.total <= 9) band = 'veryhigh';
+            else if (result.total <= 12) band = 'high';
+            else if (result.total <= 14) band = 'mod';
+            else if (result.total <= 18) band = 'mild';
+            const active = document.querySelector(`#braden-meter span[data-band="${band}"]`);
+            if (active) {
+                active.classList.add('is-active');
+                const colors = { veryhigh: '#f87171', high: '#fb923c', mod: '#fbbf24', mild: '#a3e635', low: '#34d399' };
+                active.style.background = colors[band] || '#34d399';
+            }
             trackUsageSafe('braden', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'braden' });
         }
 
@@ -3577,6 +4158,7 @@
         window.calcPediatricDose = calcPediatricDose;
         window.calcApgar = calcApgar;
         window.calcGCS = calcGCS;
+        window.initGcsInputs = initGcsInputs;
         window.calcBraden = calcBraden;
         window.cycleRonRegion = cycleRonRegion;
         window.resetRuleOfNines = resetRuleOfNines;

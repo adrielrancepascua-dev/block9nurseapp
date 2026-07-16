@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nursepath-v2.0.1';
+const CACHE_NAME = 'nursepath-v2.0.2';
 
 // Paths relative to this script so the app works when hosted in a subdirectory (e.g. university pages).
 const BASE = new URL('./', self.location);
