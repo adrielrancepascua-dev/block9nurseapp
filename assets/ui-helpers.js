@@ -58,6 +58,12 @@
     });
   }
 
+  function otcFact(label, value, tone) {
+    if (!value) return '';
+    const toneClass = tone ? ` is-${tone}` : '';
+    return `<div class="otc-fact"><span class="otc-fact-k${toneClass}">${label}</span><span class="otc-fact-v">${value}</span></div>`;
+  }
+
   function showOTCDetail(item) {
     const trackUsageSafe = getTrackUsageSafe();
     if (trackUsageSafe) {
@@ -80,11 +86,11 @@
     `;
 
     const tldrContent = `
-      <div class="space-y-2 text-sm text-slate-300">
-        <div><strong class="text-slate-200">Uses:</strong> ${item.uses}</div>
-        <div><strong class="text-slate-200">Origin:</strong> ${item.origin}</div>
-        <div><strong class="text-slate-200">When to Give:</strong> ${item.whenToGive}</div>
-        <div><strong class="text-red-400">Contraindications / Cautions:</strong> ${item.contraindications}</div>
+      <div class="otc-fact-list">
+        ${otcFact('Uses', item.uses)}
+        ${otcFact('Origin', item.origin)}
+        ${otcFact('When to give', item.whenToGive)}
+        ${otcFact('Cautions', item.contraindications, 'warn')}
       </div>
     `;
 
@@ -93,20 +99,20 @@
     if (hasAdditionalInfo) {
       const info = item.additionalInfo;
       additionalContent = `
-        <div class="space-y-3 text-sm text-slate-300">
-          ${info.genericNames ? `<div><strong class="text-cyan-400">Generic Names:</strong> ${info.genericNames.join(', ')}</div>` : ''}
-          ${info.drugClass ? `<div><strong class="text-cyan-400">Drug Class:</strong> ${info.drugClass}</div>` : ''}
-          <div><strong class="text-slate-200">Uses:</strong> ${info.usesExpanded || item.uses}</div>
-          ${info.mechanismOfAction ? `<div><strong class="text-emerald-400">Mechanism of Action:</strong> ${info.mechanismOfAction}</div>` : ''}
-          <div><strong class="text-slate-200">Origin:</strong> ${info.originExpanded || item.origin}</div>
-          ${info.pharmacokinetics ? `<div><strong class="text-blue-400">Pharmacokinetics:</strong> ${info.pharmacokinetics}</div>` : ''}
-          ${info.dosing ? `<div><strong class="text-amber-400">Dosing:</strong> ${info.dosing}</div>` : ''}
-          <div><strong class="text-slate-200">When to Give:</strong> ${info.whenToGiveExpanded || item.whenToGive}</div>
-          ${info.sideEffects ? `<div><strong class="text-orange-400">Side Effects:</strong> ${info.sideEffects}</div>` : ''}
-          <div><strong class="text-red-400">Contraindications / Cautions:</strong> ${info.contraindicationsExpanded || item.contraindications}</div>
-          ${info.drugInteractions ? `<div><strong class="text-pink-400">Drug Interactions:</strong> ${info.drugInteractions}</div>` : ''}
-          ${info.nursingConsiderations ? `<div><strong class="text-green-400">Nursing Considerations:</strong> ${info.nursingConsiderations}</div>` : ''}
-          ${info.patientEducation ? `<div><strong class="text-blue-300">Patient Education:</strong> ${info.patientEducation}</div>` : ''}
+        <div class="otc-fact-list">
+          ${info.genericNames ? otcFact('Generics', info.genericNames.join(', ')) : ''}
+          ${info.drugClass ? otcFact('Drug class', info.drugClass, 'amber') : ''}
+          ${otcFact('Uses', info.usesExpanded || item.uses)}
+          ${info.mechanismOfAction ? otcFact('Mechanism', info.mechanismOfAction) : ''}
+          ${otcFact('Origin', info.originExpanded || item.origin)}
+          ${info.pharmacokinetics ? otcFact('PK', info.pharmacokinetics) : ''}
+          ${info.dosing ? otcFact('Dosing', info.dosing, 'amber') : ''}
+          ${otcFact('When to give', info.whenToGiveExpanded || item.whenToGive)}
+          ${info.sideEffects ? otcFact('Side effects', info.sideEffects) : ''}
+          ${otcFact('Cautions', info.contraindicationsExpanded || item.contraindications, 'warn')}
+          ${info.drugInteractions ? otcFact('Interactions', info.drugInteractions, 'warn') : ''}
+          ${info.nursingConsiderations ? otcFact('Nursing', info.nursingConsiderations, 'green') : ''}
+          ${info.patientEducation ? otcFact('Teach', info.patientEducation) : ''}
         </div>
       `;
     }
@@ -117,14 +123,14 @@
     }
 
     const html = `
-      <h3 class="font-bold text-xl text-amber-300 mb-1">${item.name}</h3>
-      <p class="text-xs text-slate-400 mb-3">Philippine Brand Names: ${item.ph_brands.join(', ')}</p>
+      <h3 class="otc-detail-title">${item.name}</h3>
+      <p class="otc-detail-brands"><strong>PH brands</strong>${item.ph_brands.join(', ')}</p>
       ${dutyStrip}
-      <button onclick="copyOTCReference()" class="mb-3 px-3 py-2 text-xs font-semibold rounded-lg transition" style="background: linear-gradient(135deg, #0e7490, #0f766e); color: white; border: 1px solid #14b8a6;">Copy Quick Reference</button>
+      <button type="button" onclick="copyOTCReference()" class="otc-copy-btn">Copy quick reference</button>
       ${hasAdditionalInfo ? `
-        <div class="flex gap-2 mb-4">
-          <button id="tldr-tab" onclick="switchOTCTab('tldr')" class="px-4 py-2 text-sm font-semibold rounded-lg transition" style="background: linear-gradient(135deg, #06b6d4, #0891b2); color: white;">📋 TLDR</button>
-          <button id="additional-tab" onclick="switchOTCTab('additional')" class="px-4 py-2 text-sm font-semibold rounded-lg transition" style="background: #334155; color: #94a3b8;">📚 Study deeper</button>
+        <div class="otc-detail-tabs" role="tablist">
+          <button type="button" id="tldr-tab" onclick="switchOTCTab('tldr')" class="study-tab-btn is-active">TLDR</button>
+          <button type="button" id="additional-tab" onclick="switchOTCTab('additional')" class="study-tab-btn">Study deeper</button>
         </div>
         <div id="tldr-content">${tldrContent}</div>
         <div id="additional-content" style="display: none;">${additionalContent}</div>
@@ -133,6 +139,10 @@
 
     detailEl.innerHTML = html;
     window.__nursepathSelectedOtc = item;
+
+    document.querySelectorAll('.otc-med-card').forEach((el) => {
+      el.classList.toggle('is-active', Boolean(item.id) && el.dataset.otcId === String(item.id));
+    });
 
     const isMobile = window.innerWidth < 768;
     if (isMobile) {
@@ -205,25 +215,13 @@
     }
 
     if (tab === 'tldr') {
-      if (tldrTab) {
-        tldrTab.style.background = 'linear-gradient(135deg, #06b6d4, #0891b2)';
-        tldrTab.style.color = 'white';
-      }
-      if (additionalTab) {
-        additionalTab.style.background = '#334155';
-        additionalTab.style.color = '#94a3b8';
-      }
+      if (tldrTab) tldrTab.classList.add('is-active');
+      if (additionalTab) additionalTab.classList.remove('is-active');
       if (tldrContent) tldrContent.style.display = 'block';
       if (additionalContent) additionalContent.style.display = 'none';
     } else {
-      if (additionalTab) {
-        additionalTab.style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
-        additionalTab.style.color = 'white';
-      }
-      if (tldrTab) {
-        tldrTab.style.background = '#334155';
-        tldrTab.style.color = '#94a3b8';
-      }
+      if (additionalTab) additionalTab.classList.add('is-active');
+      if (tldrTab) tldrTab.classList.remove('is-active');
       if (tldrContent) tldrContent.style.display = 'none';
       if (additionalContent) additionalContent.style.display = 'block';
     }

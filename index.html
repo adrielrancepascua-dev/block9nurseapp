@@ -1287,11 +1287,11 @@
             margin: 14px 0 8px;
         }
         .otc-duty-strip {
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 10px 12px;
-            margin-bottom: 12px;
-            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid color-mix(in srgb, #fbbf24 28%, #334155);
+            border-radius: 14px;
+            padding: 12px 14px;
+            margin-bottom: 14px;
+            background: linear-gradient(160deg, rgba(251, 191, 36, 0.1), rgba(15, 23, 42, 0.9));
             display: grid;
             gap: 6px;
         }
@@ -1303,10 +1303,276 @@
             color: #fbbf24;
         }
         .otc-duty-strip p {
-            font-size: 12px;
+            font-size: 12.5px;
             color: #e2e8f0;
-            line-height: 1.4;
+            line-height: 1.45;
             margin: 0;
+        }
+        .otc-hub { margin-bottom: 1.5rem; }
+        .otc-search-wrap { margin-bottom: 14px; }
+        .otc-search-input {
+            width: 100%;
+            min-height: 48px;
+            padding: 12px 14px !important;
+            border-radius: 14px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: #e2e8f0;
+            font-family: var(--np-body);
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .otc-search-input:focus {
+            border-color: #fbbf24;
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15);
+        }
+        .otc-search-input::placeholder { color: #64748b; }
+        .otc-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+        @media (min-width: 768px) {
+            .otc-layout {
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+                gap: 16px;
+                align-items: start;
+            }
+        }
+        .otc-list {
+            display: grid;
+            gap: 10px;
+            max-height: min(60vh, 520px);
+            overflow-y: auto;
+            padding-right: 4px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .otc-med-card {
+            --accent: #fbbf24;
+            text-align: left;
+            width: 100%;
+            padding: 12px 14px !important;
+            min-height: 0 !important;
+            min-width: 0 !important;
+            border-radius: 16px;
+            border: 1px solid color-mix(in srgb, var(--accent) 28%, #334155);
+            background:
+                linear-gradient(160deg, color-mix(in srgb, var(--accent) 12%, #0f172a), #0b1220 55%, #0f172a);
+            color: #e2e8f0;
+            cursor: pointer;
+            transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+            display: grid;
+            grid-template-columns: 34px 1fr auto;
+            gap: 10px;
+            align-items: start;
+            font-family: var(--np-body);
+        }
+        .otc-med-card:hover, .otc-med-card:focus-visible {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 20px color-mix(in srgb, var(--accent) 14%, transparent);
+            outline: none;
+        }
+        .otc-med-card.is-active {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 45%, transparent);
+        }
+        .otc-med-card .tool-hub-icon {
+            width: 34px;
+            height: 34px;
+            font-size: 10px;
+        }
+        .otc-med-meta { min-width: 0; }
+        .otc-med-card .tool-hub-label {
+            font-size: 13.5px;
+            margin-bottom: 2px;
+        }
+        .otc-med-card .tool-hub-desc {
+            font-size: 11px;
+            color: #cbd5e1;
+        }
+        .otc-med-uses {
+            display: block;
+            margin-top: 4px;
+            font-size: 11px;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+        .otc-med-card .tool-hub-tag {
+            align-self: start;
+            margin-top: 2px;
+        }
+        .otc-empty, .otc-fuzzy-hint {
+            padding: 14px;
+            border-radius: 14px;
+            border: 1px dashed #334155;
+            background: rgba(15, 23, 42, 0.65);
+            color: #94a3b8;
+            font-size: 12.5px;
+            line-height: 1.45;
+        }
+        .otc-fuzzy-hint {
+            border-style: solid;
+            border-color: color-mix(in srgb, #fbbf24 35%, #334155);
+            color: #fde68a;
+            margin-bottom: 2px;
+        }
+        .otc-more-btn, .otc-less-btn {
+            width: 100%;
+            min-height: 44px;
+            padding: 10px 14px !important;
+            border-radius: 12px;
+            font-family: var(--np-body);
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .otc-more-btn {
+            border: 1px solid #0ea5e9;
+            background: rgba(14, 165, 233, 0.16);
+            color: #e0f2fe;
+        }
+        .otc-less-btn {
+            border: 1px solid #475569;
+            background: #1e293b;
+            color: #cbd5e1;
+        }
+        .otc-more-btn .otc-remaining {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.12);
+            min-height: 0 !important;
+            min-width: 0 !important;
+        }
+        .otc-detail-shell {
+            border: 1px solid #334155;
+            border-radius: 18px;
+            background: linear-gradient(160deg, #1e293b 0%, #0f172a 55%);
+            overflow: hidden;
+            box-shadow: 0 12px 28px rgba(2, 6, 23, 0.35);
+            min-height: 240px;
+        }
+        .otc-detail-panel {
+            padding: 16px;
+            color: #cbd5e1;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+        .otc-detail-title {
+            margin: 0 0 4px;
+            font-family: var(--np-body);
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #f8fafc;
+            line-height: 1.25;
+        }
+        .otc-detail-brands {
+            margin: 0 0 12px;
+            font-size: 12px;
+            color: #94a3b8;
+            line-height: 1.45;
+        }
+        .otc-detail-brands strong {
+            color: #fbbf24;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            font-size: 10px;
+            margin-right: 6px;
+        }
+        .otc-copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            min-height: 40px;
+            padding: 8px 14px !important;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            border: 1px solid #0ea5e9;
+            background: rgba(14, 165, 233, 0.16);
+            color: #e0f2fe;
+            font-size: 12.5px;
+            font-weight: 800;
+            cursor: pointer;
+            font-family: var(--np-body);
+        }
+        .otc-detail-tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+        .otc-detail-tabs .study-tab-btn {
+            flex: 1;
+            min-height: 40px;
+            padding: 8px 10px !important;
+        }
+        .otc-detail-tabs .study-tab-btn.is-active {
+            background: rgba(251, 191, 36, 0.16);
+            border-color: #fbbf24;
+            color: #fde68a;
+        }
+        .otc-fact-list {
+            display: grid;
+            gap: 8px;
+        }
+        .otc-fact {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 8px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            background: rgba(15, 23, 42, 0.72);
+            align-items: start;
+        }
+        @media (max-width: 420px) {
+            .otc-fact { grid-template-columns: 1fr; gap: 2px; }
+        }
+        .otc-fact-k {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #67e8f9;
+            padding-top: 1px;
+        }
+        .otc-fact-k.is-warn { color: #f87171; }
+        .otc-fact-k.is-amber { color: #fbbf24; }
+        .otc-fact-k.is-green { color: #34d399; }
+        .otc-fact-v {
+            font-size: 12.5px;
+            line-height: 1.45;
+            color: #cbd5e1;
+        }
+        .otc-detail-placeholder {
+            color: #94a3b8;
+            font-size: 12.5px;
+            line-height: 1.5;
+            margin: 0;
+        }
+        .otc-back-btn {
+            display: none;
+            width: calc(100% - 24px);
+            margin: 12px 12px 0;
+            min-height: 44px;
+            border-radius: 12px;
+            border: 1px solid #475569;
+            background: rgba(30, 41, 59, 0.9);
+            color: #e2e8f0;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: var(--np-body);
+        }
+        @media (max-width: 767px) {
+            .otc-back-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
         }
 
         .auth-value-list { text-align: left; color: #94a3b8; font-size: 13px; line-height: 1.7; padding-left: 18px; margin: 0 0 16px; }
@@ -1409,6 +1675,9 @@
         /* OTC Detail container - always visible on desktop */
         @media (min-width: 768px) {
             #otc-detail-container {
+                display: block !important;
+            }
+            #otc-detail-container.hidden {
                 display: block !important;
             }
         }
@@ -3663,31 +3932,29 @@
     </div>
 
         <!-- ============ OTC MEDICINES TAB CONTENT ============ -->
-        <div id="content-otc" class="tab-content hidden max-w-7xl mx-auto px-3 sm:px-4 md:px-6">
-        <section id="otc-section" class="rounded-2xl p-4 sm:p-6 border border-slate-700 shadow-2xl scroll-mt-20" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-3">
-                <h2 class="text-lg sm:text-xl font-bold text-white flex items-center">
-                    <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" class="mr-3 text-amber-400"><path d="M8 2a6 6 0 0 1 6 6v8a6 6 0 0 1-12 0V8a6 6 0 0 1 6-6zm8 0a6 6 0 0 1 0 12v-6a6 6 0 0 0-6-6h6z"/></svg> OTC Reference Directory
-                </h2>
-
-                <div class="w-full sm:w-1/2 md:w-1/3">
-                    <input id="otc-search" type="search" placeholder="Search medicine, brand, or symptom (typo-tolerant)..." class="w-full border border-slate-700 p-3 rounded-xl text-sm outline-none" style="background-color: #0f172a;" />
+        <div id="content-otc" class="tab-content hidden">
+            <div class="otc-hub">
+                <div class="tools-hub-mode-row">
+                    <div class="tools-hub-hero">
+                        <h2>OTC Medicines</h2>
+                        <p>Search Philippine brands, generics, or symptoms. Pocket reference only — verify with your CI and protocol.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                <div id="otc-list-container" class="order-2 md:order-1">
-                    <div id="otc-list" class="space-y-3 max-h-[60vh] sm:max-h-[420px] overflow-y-auto pr-2"></div>
+                <div class="otc-search-wrap">
+                    <input id="otc-search" type="search" class="otc-search-input" placeholder="Search medicine, brand, or symptom (typo-tolerant)..." autocomplete="off" />
                 </div>
-                <div id="otc-detail-container" class="order-1 md:order-2 hidden md:block">
-                    <button id="otc-back-btn" onclick="hideOTCDetail()" class="md:hidden w-full mb-3 py-2 px-4 rounded-xl font-semibold text-sm flex items-center justify-center gap-2" style="background: linear-gradient(135deg, #475569, #334155); color: #cbd5e1; border: 1px solid #475569;">
-                        <span>←</span> Back to List
-                    </button>
-                    <div id="otc-detail" class="p-4 rounded-xl border border-slate-700 min-h-[200px] sm:min-h-[240px] text-slate-300 text-sm w-full" style="background-color: #0f172a;">
-                        <p class="text-slate-400 text-sm">Select an item to view full details. Use the search to find a condition or brand name.</p>
+                <div class="otc-layout">
+                    <div id="otc-list-container">
+                        <div id="otc-list" class="otc-list"></div>
+                    </div>
+                    <div id="otc-detail-container" class="otc-detail-shell hidden md:block">
+                        <button id="otc-back-btn" type="button" class="otc-back-btn" onclick="hideOTCDetail()">← Back to list</button>
+                        <div id="otc-detail" class="otc-detail-panel">
+                            <p class="otc-detail-placeholder">Select a medicine to view the duty quick take and study details.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
         </div> <!-- End content-otc -->
 
     <footer class="mt-12 py-6 text-center text-slate-500 border-t border-slate-800">
@@ -6435,7 +6702,7 @@
 
             if(matches.length === 0){
                 const noMatch = document.createElement('div');
-                noMatch.className = 'text-slate-400 text-sm';
+                noMatch.className = 'otc-empty';
                 noMatch.textContent = 'No matches found. Try a brand name, generic, or symptom (e.g. fever, cough, sore throat).';
                 fragment.appendChild(noMatch);
                 otcListEl.innerHTML = '';
@@ -6445,7 +6712,7 @@
 
             if (usedFuzzy) {
                 const hint = document.createElement('div');
-                hint.className = 'text-amber-300 text-xs mb-2';
+                hint.className = 'otc-fuzzy-hint';
                 hint.textContent = 'Showing close matches (typo-tolerant search).';
                 fragment.appendChild(hint);
             }
@@ -6454,26 +6721,38 @@
             const isSearching = q.length > 0;
             const itemsToShow = isSearching ? matches : matches.slice(0, otcVisibleCount);
             const hiddenCount = matches.length - otcVisibleCount;
+            const selectedId = window.__nursepathSelectedOtc && window.__nursepathSelectedOtc.id;
 
-            itemsToShow.forEach((item, idx) => {
+            itemsToShow.forEach((item) => {
                 const searchTerm = q;
                 const title = highlight(item.name, searchTerm);
                 const trade = highlight(item.ph_brands.join(', '), searchTerm);
                 const usesPreview = highlight(item.uses, searchTerm);
+                const initials = String(item.name || 'OTC')
+                    .split(/\s+/)
+                    .filter(Boolean)
+                    .slice(0, 2)
+                    .map((w) => w[0])
+                    .join('')
+                    .toUpperCase()
+                    .slice(0, 3) || 'OTC';
+                const tag = (item.additionalInfo && item.additionalInfo.drugClass)
+                    ? String(item.additionalInfo.drugClass).split(/[\/,]/)[0].trim().slice(0, 18)
+                    : 'OTC';
 
                 const card = document.createElement('button');
-                card.className = 'w-full text-left rounded-xl border transition';
-                card.style.backgroundColor = '#1e293b';
-                card.style.borderColor = '#1e293b';
-                card.style.padding = '0.25rem 0.5rem';
-                card.innerHTML = `<div class="flex flex-col sm:flex-row justify-between items-start gap-0 sm:gap-2">
-                        <div class="flex-1">
-                            <p class="font-bold text-white text-sm">${title}</p>
-                            <p class="text-[11px] text-slate-300 mt-0">${trade}</p>
-                            <p class="text-[11px] text-slate-400 mt-0.5">${usesPreview}</p>
-                        </div>
-                        <div class="text-xs text-slate-500 whitespace-nowrap">More</div>
-                    </div>`;
+                card.type = 'button';
+                card.className = 'otc-med-card' + (selectedId && item.id === selectedId ? ' is-active' : '');
+                card.dataset.otcId = item.id || '';
+                card.style.setProperty('--accent', '#fbbf24');
+                card.innerHTML = `
+                    <span class="tool-hub-icon">${initials}</span>
+                    <span class="otc-med-meta">
+                        <span class="tool-hub-label">${title}</span>
+                        <span class="tool-hub-desc">${trade}</span>
+                        <span class="otc-med-uses">${usesPreview}</span>
+                    </span>
+                    <span class="tool-hub-tag">${tag}</span>`;
                 card.onclick = () => showOTCDetail(item);
                 fragment.appendChild(card);
             });
@@ -6481,12 +6760,10 @@
             // Show "Show More" button if not searching and there are more items to show
             if (!isSearching && hiddenCount > 0) {
                 const showMoreBtn = document.createElement('button');
-                showMoreBtn.className = 'w-full mt-3 py-3 px-4 rounded-xl font-semibold text-sm transition flex items-center justify-center gap-2';
-                showMoreBtn.style.background = 'linear-gradient(135deg, #0891b2, #0e7490)';
-                showMoreBtn.style.color = 'white';
-                showMoreBtn.style.border = '1px solid #06b6d4';
+                showMoreBtn.type = 'button';
+                showMoreBtn.className = 'otc-more-btn';
                 const nextBatch = Math.min(OTC_INCREMENT, hiddenCount);
-                showMoreBtn.innerHTML = `<span>▼</span> Show ${nextBatch} More <span class="ml-1 px-2 py-0.5 bg-white/20 rounded-full text-xs">${hiddenCount} remaining</span>`;
+                showMoreBtn.innerHTML = `<span>Show ${nextBatch} more</span><span class="otc-remaining">${hiddenCount} left</span>`;
                 showMoreBtn.onclick = () => {
                     otcVisibleCount += OTC_INCREMENT;
                     renderOTCList('');
@@ -6497,11 +6774,9 @@
             // Show "Show Less" button if showing more than initial amount
             if (!isSearching && otcVisibleCount > OTC_INCREMENT) {
                 const showLessBtn = document.createElement('button');
-                showLessBtn.className = 'w-full mt-2 py-2 px-4 rounded-xl font-semibold text-sm transition flex items-center justify-center gap-2';
-                showLessBtn.style.background = 'linear-gradient(135deg, #475569, #334155)';
-                showLessBtn.style.color = '#cbd5e1';
-                showLessBtn.style.border = '1px solid #475569';
-                showLessBtn.innerHTML = `<span>▲</span> Show Less`;
+                showLessBtn.type = 'button';
+                showLessBtn.className = 'otc-less-btn';
+                showLessBtn.textContent = 'Show less';
                 showLessBtn.onclick = () => {
                     otcVisibleCount = OTC_INCREMENT;
                     renderOTCList('');
