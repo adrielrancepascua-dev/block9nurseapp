@@ -497,8 +497,8 @@
                 Continue with Google
             </button>
 
-            <p style="color:#64748b; font-size:11px; margin:12px 0 8px;">Prefer school email on this device?</p>
-            <button id="toggleEmailAuthBtn" type="button" style="width:100%; padding:10px; margin-bottom:8px; font-size:12px; font-weight:700; background:#1f2937; color:#cbd5e1; border:1px solid #475569; border-radius:10px; cursor:pointer;">Use school email instead</button>
+            <p style="color:#64748b; font-size:11px; margin:12px 0 8px;">Prefer email on this device?</p>
+            <button id="toggleEmailAuthBtn" type="button" style="width:100%; padding:10px; margin-bottom:8px; font-size:12px; font-weight:700; background:#1f2937; color:#cbd5e1; border:1px solid #475569; border-radius:10px; cursor:pointer;">Use email instead</button>
 
             <div id="emailAuthPanel" style="display:none;">
                 <div style="display:none;">
@@ -506,7 +506,7 @@
                     <p id="accessModeHelp"></p>
                 </div>
                 <form id="authForm" style="display: grid; gap: 10px; margin-bottom: 8px;">
-                    <input id="authEmail" type="email" placeholder="student@cdd.edu.ph" autocomplete="email" style="width: 100%; padding: 14px; font-size: 15px; text-align: left; background: #1e293b; border: 1px solid #334155; border-radius: 12px; color: white;">
+                    <input id="authEmail" type="email" placeholder="you@gmail.com" autocomplete="email" style="width: 100%; padding: 14px; font-size: 15px; text-align: left; background: #1e293b; border: 1px solid #334155; border-radius: 12px; color: white;">
                     <button id="authSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 700; background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s;" disabled>Continue with Email</button>
                 </form>
             </div>
@@ -591,7 +591,7 @@
         const LAST_SYNC_KEY = 'nursepath_last_sync_v1';
         const PILOT_ALLOWLIST_DOMAINS = (window.NURSEPATH_PILOT_ALLOWLIST_DOMAINS || ['cdd.edu.ph']).map((d) => String(d).toLowerCase());
         const PILOT_INVITE_CODES = window.NURSEPATH_PILOT_INVITE_CODES || ['NP-PILOT-2026'];
-        // CDD sign-in is required; attach sealed email to every event unless explicitly disabled.
+        // Attach signed-in email to usage events unless explicitly disabled.
         const USAGE_INCLUDE_EMAIL = window.NURSEPATH_USAGE_INCLUDE_EMAIL !== false;
         const EMAIL_TYPO_HINTS = {
             'gmal.com': 'gmail.com',
@@ -1414,22 +1414,10 @@
         }
 
         function isAllowedAuthEmail(email, accessMode, accessCode) {
-            const hasEmail = isValidEmailFormat(email);
-
             if (hasValidPilotInvite(accessCode)) {
                 return true;
             }
-
-            if (!hasEmail) {
-                return false;
-            }
-
-            const domain = getDomainFromEmail(email);
-            if (PILOT_ALLOWLIST_DOMAINS.includes(domain)) {
-                return true;
-            }
-
-            return false;
+            return isValidEmailFormat(email);
         }
 
         function renderAccessModeHelp() {
@@ -1443,7 +1431,7 @@
 
             const mode = modeEl.value;
             setAccessMode(mode);
-            helpEl.textContent = 'Use your school email (@cdd.edu.ph) or Google sign-in.';
+            helpEl.textContent = 'Sign in with Google, or enter any email on this device.';
             codeEl.placeholder = 'Enter invite code if needed';
             if (resetBtn) resetBtn.style.display = 'none';
         }
@@ -1550,7 +1538,7 @@
                 }
             } catch (e) { /* offline-safe */ }
             try { localStorage.removeItem(SESSION_CACHE_KEY); } catch (e) {}
-            showAuthOverlay('Signed out. Use Google or your school email to continue.', false);
+            showAuthOverlay('Signed out. Use Google or email to continue.', false);
             applyRoleVisibility();
             trackUsageEvent('auth', 'feature_use', { action: 'logout' }, { minIntervalMs: 500, rateKey: 'logout_action' });
         }
@@ -1770,7 +1758,7 @@
             setUsageConsent(true);
 
             if (!isAllowedAuthEmail(email, accessMode, accessCode)) {
-                setAuthStatus('Access requires a CDD school email (@cdd.edu.ph) or Google sign-in.', true);
+                setAuthStatus('Enter a valid email address, or sign in with Google.', true);
                 void recordEmailAttempt(email, 'blocked_invalid_format', 'invalid_email_format');
                 releaseSubmitLock();
                 return;
@@ -1868,24 +1856,10 @@
             return null;
         }
 
-        function emailAllowedForSchool(email) {
-            if (!isValidEmailFormat(email)) return false;
-            const domain = getDomainFromEmail(email);
-            return PILOT_ALLOWLIST_DOMAINS.includes(domain);
-        }
-
         async function completeOAuthLogin(session, source) {
             const email = session && session.user ? normalizeEmail(session.user.email || '') : '';
-            if (!email) {
+            if (!email || !isValidEmailFormat(email)) {
                 setAuthStatus('Google sign-in did not return an email.', true);
-                return false;
-            }
-            if (!emailAllowedForSchool(email)) {
-                setAuthStatus('Use your CDD Google account (@cdd.edu.ph).', true);
-                void recordEmailAttempt(email, 'blocked_oauth_domain', 'oauth_domain_not_allowlisted');
-                try {
-                    if (supabaseClient) await supabaseClient.auth.signOut({ scope: 'local' });
-                } catch (e) {}
                 return false;
             }
             setUsageConsent(true);
@@ -1911,7 +1885,7 @@
 
             if (!navigator.onLine) {
                 const ghost = readGhostUser();
-                if (ghost && emailAllowedForSchool(ghost.email)) {
+                if (ghost && isValidEmailFormat(ghost.email)) {
                     showAuthenticatedApp(ghost.email, 'ghost');
                     setAuthStatus('Offline session restored for this device.', false);
                     return;
@@ -1921,7 +1895,7 @@
             }
 
             if (!supabaseClient) {
-                setAuthStatus('Sign-in is not configured yet. Use school email, or ask faculty to enable Google Auth.', true);
+                setAuthStatus('Sign-in is not configured yet. Use email instead, or ask faculty to enable Google Auth.', true);
                 return;
             }
 
@@ -1935,13 +1909,12 @@
                     redirectTo,
                     queryParams: {
                         access_type: 'offline',
-                        prompt: 'select_account',
-                        hd: 'cdd.edu.ph'
+                        prompt: 'select_account'
                     }
                 }
             });
             if (error) {
-                setAuthStatus(error.message || 'Google sign-in failed. Try school email instead.', true);
+                setAuthStatus(error.message || 'Google sign-in failed. Try email instead.', true);
                 trackUsageEvent('auth', 'error_shown', { reason: 'oauth_start_failed' }, { minIntervalMs: 2000, rateKey: 'oauth_start_failed' });
             }
         }
@@ -1959,7 +1932,7 @@
                 toggleEmailBtn.addEventListener('click', () => {
                     const open = emailPanel.style.display !== 'none';
                     emailPanel.style.display = open ? 'none' : 'block';
-                    toggleEmailBtn.textContent = open ? 'Use school email instead' : 'Hide email sign-in';
+                    toggleEmailBtn.textContent = open ? 'Use email instead' : 'Hide email sign-in';
                 });
             }
 
@@ -1999,7 +1972,7 @@
 
             const isConfigured = !SUPABASE_URL.includes('YOUR-PROJECT') && !SUPABASE_ANON_KEY.includes('YOUR_SUPABASE_ANON_KEY');
             if (!window.supabase || !isConfigured) {
-                showAuthOverlay('Sign in with Google or your CDD school email to continue.', false);
+                showAuthOverlay('Sign in with Google to continue.', false);
                 return;
             }
 
@@ -2043,7 +2016,7 @@
             } catch (e) {
                 npDebugLog('getSession failed', e);
                 const cached = readCachedSupabaseSession();
-                if (cached && emailAllowedForSchool(cached.email)) {
+                if (cached && isValidEmailFormat(cached.email)) {
                     saveGhostUser(cached.email);
                     showAuthenticatedApp(cached.email, 'ghost');
                     return;
@@ -2054,7 +2027,7 @@
             await flushUsageEvents();
             window.addEventListener('online', () => { void flushPendingEmailLogs(); });
 
-            showAuthOverlay('Sign in with Google (@cdd.edu.ph) to continue.', false);
+            showAuthOverlay('Sign in with Google to continue.', false);
         }
 
         function isFacultyDebugEnabled() {

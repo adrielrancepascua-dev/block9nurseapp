@@ -95,7 +95,7 @@ All outputs are framed as reference findings — not clinical orders. The studen
 - Usage events queue locally and sync to Supabase automatically on reconnect
 
 ### 👻 Auth (Google + offline seal)
-- Primary: Google sign-in via Supabase OAuth (prefer `@cdd.edu.ph`)
+- Primary: Google sign-in via Supabase OAuth (any Google account)
 - After first online sign-in, identity is sealed on-device for offline use
 - Email fallback remains available for rollback / non-Workspace accounts
 - See [GOOGLE_OAUTH_SETUP.md](GOOGLE_OAUTH_SETUP.md)
@@ -199,7 +199,7 @@ All clinical reference content is derived from standard nursing textbooks and re
 ### Student Access
 
 1. Open [block9nurseapp.vercel.app](https://block9nurseapp.vercel.app/)
-2. Enter your school email (`@cdd.edu.ph`) or the invite code provided by your instructor
+2. Sign in with Google (or use email on this device if shown)
 3. Check the **Consent Box** for usage tracking (required for pilot evaluation)
 4. Tap **Enter Pilot Workspace**
 5. Accept the **Simulation Mode Agreement** (valid for 30 days)
@@ -451,7 +451,7 @@ All outputs are framed as reference findings — not clinical orders. The studen
 - Usage events queue locally and sync to Supabase automatically on reconnect
 
 ### 👻 Auth (Google + offline seal)
-- Primary: Google sign-in via Supabase OAuth (prefer `@cdd.edu.ph`)
+- Primary: Google sign-in via Supabase OAuth (any Google account)
 - After first online sign-in, identity is sealed on-device for offline use
 - Email fallback remains available for rollback / non-Workspace accounts
 - See [GOOGLE_OAUTH_SETUP.md](GOOGLE_OAUTH_SETUP.md)
@@ -555,7 +555,7 @@ All clinical reference content is derived from standard nursing textbooks and re
 ### Student Access
 
 1. Open [block9nurseapp.vercel.app](https://block9nurseapp.vercel.app/)
-2. Enter your school email (`@cdd.edu.ph`) or the invite code provided by your instructor
+2. Sign in with Google (or use email on this device if shown)
 3. Check the **Consent Box** for usage tracking (required for pilot evaluation)
 4. Tap **Enter Pilot Workspace**
 5. Accept the **Simulation Mode Agreement** (valid for 30 days)

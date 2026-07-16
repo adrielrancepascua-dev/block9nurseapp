@@ -1,6 +1,6 @@
 # Google OAuth setup (NursePath student app)
 
-NursePath now uses **Supabase Auth → Google** as the primary sign-in path. Email domain gating (`@cdd.edu.ph`) remains as a rollback.
+NursePath uses **Supabase Auth → Google** as the primary sign-in path. Any Google account works — there is no school-domain (`hd` / `@cdd.edu.ph`) filter. An optional email form remains as a device-local rollback.
 
 ## One-time dashboard setup
 
@@ -13,10 +13,11 @@ NursePath now uses **Supabase Auth → Google** as the primary sign-in path. Ema
    - Authentication → Providers → **Google** → enable.
    - Paste the Google Client ID and Client Secret.
    - Authentication → URL Configuration → add Site URL and Redirect URLs for the NursePath origin.
+   - Do **not** require a hosted domain restriction unless you intentionally want one later.
 
-3. **Workspace domain**
-   - If UdD student emails are Google Workspace accounts on `cdd.edu.ph`, the app already sends `hd=cdd.edu.ph` and rejects non-allowlisted domains after sign-in.
-   - If students only have `@cdd.edu.ph` mailboxes without Google accounts, keep using **Use school email instead** until Workspace is confirmed.
+3. **App behavior**
+   - Sign-in button calls `signInWithOAuth({ provider: 'google' })` with account picker only (`prompt=select_account`).
+   - After Google returns a session, NursePath seals that email on-device for offline use.
 
 ## Offline behavior
 
@@ -26,4 +27,4 @@ NursePath now uses **Supabase Auth → Google** as the primary sign-in path. Ema
 
 ## Rollback
 
-The email form remains behind **Use school email instead** until OAuth has survived real cohort use.
+The email form remains behind **Use email instead** if Google Auth is temporarily unavailable.
