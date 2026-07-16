@@ -271,7 +271,7 @@
             --np-line: rgba(148, 163, 184, 0.22);
             --np-cyan: #22d3ee;
             --np-amber: #fbbf24;
-            --np-display: 'Syne', 'Segoe UI', sans-serif;
+            --np-display: 'Figtree', 'Segoe UI', sans-serif;
             --np-body: 'Figtree', 'Segoe UI', sans-serif;
         }
         body {
@@ -289,39 +289,21 @@
 
         /* Clinical tools hub */
         .tools-hub-hero {
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--np-line);
-            border-radius: 22px;
-            padding: 18px 18px 16px;
-            margin-bottom: 16px;
-            background:
-                linear-gradient(135deg, rgba(8, 47, 73, 0.65), rgba(15, 23, 42, 0.9) 45%, rgba(30, 41, 59, 0.75)),
-                radial-gradient(circle at 90% 20%, rgba(34, 211, 238, 0.2), transparent 40%);
-            animation: npFadeUp 0.45s ease both;
+            margin-bottom: 12px;
         }
-        .tools-hub-kicker {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: #67e8f9;
-            margin-bottom: 8px;
-        }
+        .tools-hub-kicker { display: none; }
         .tools-hub-hero h2 {
-            font-size: clamp(1.4rem, 4vw, 1.85rem);
+            font-family: var(--np-body);
+            font-size: 1.25rem;
             font-weight: 800;
             color: #f8fafc;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         .tools-hub-hero p {
-            color: #cbd5e1;
-            font-size: 13px;
-            line-height: 1.5;
-            max-width: 36rem;
+            color: #94a3b8;
+            font-size: 12.5px;
+            line-height: 1.45;
+            max-width: 40rem;
         }
         .tools-hub-grid {
             display: grid;
@@ -342,59 +324,41 @@
             color: #e2e8f0;
             cursor: pointer;
             transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
-            min-height: 132px;
+            min-height: 108px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
             position: relative;
             overflow: hidden;
-            animation: npFadeUp 0.5s ease both;
-        }
-        .tool-hub-card:nth-child(1) { animation-delay: 0.02s; }
-        .tool-hub-card:nth-child(2) { animation-delay: 0.05s; }
-        .tool-hub-card:nth-child(3) { animation-delay: 0.08s; }
-        .tool-hub-card:nth-child(4) { animation-delay: 0.11s; }
-        .tool-hub-card:nth-child(5) { animation-delay: 0.14s; }
-        .tool-hub-card:nth-child(6) { animation-delay: 0.17s; }
-        .tool-hub-card:nth-child(7) { animation-delay: 0.2s; }
-        .tool-hub-card:nth-child(8) { animation-delay: 0.23s; }
-        .tool-hub-card:nth-child(9) { animation-delay: 0.26s; }
-        .tool-hub-card::after {
-            content: '';
-            position: absolute;
-            inset: auto -20% -40% auto;
-            width: 120px;
-            height: 120px;
-            background: radial-gradient(circle, color-mix(in srgb, var(--accent) 35%, transparent), transparent 70%);
-            pointer-events: none;
         }
         .tool-hub-card:hover, .tool-hub-card:focus-visible {
-            transform: translateY(-3px) scale(1.01);
+            transform: translateY(-2px);
             border-color: var(--accent);
-            box-shadow: 0 14px 28px color-mix(in srgb, var(--accent) 18%, transparent);
+            box-shadow: 0 10px 20px color-mix(in srgb, var(--accent) 14%, transparent);
             outline: none;
         }
         .tool-hub-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
             display: grid;
             place-items: center;
-            background: color-mix(in srgb, var(--accent) 18%, #0f172a);
+            background: color-mix(in srgb, var(--accent) 16%, #0f172a);
             color: var(--accent);
-            font-size: 18px;
+            font-size: 11px;
             font-weight: 800;
-            font-family: var(--np-display);
+            font-family: var(--np-body);
             flex-shrink: 0;
+            letter-spacing: 0.02em;
         }
         .tool-hub-label {
             display: block;
-            font-family: var(--np-display);
-            font-size: 14px;
-            font-weight: 700;
+            font-family: var(--np-body);
+            font-size: 13px;
+            font-weight: 800;
             color: #f8fafc;
             line-height: 1.25;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
         .tool-hub-desc {
             display: block;
@@ -436,58 +400,56 @@
             cursor: pointer;
         }
         .learn-shell {
-            border: 1px solid var(--np-line);
-            border-radius: 22px;
-            background: linear-gradient(180deg, rgba(30,41,59,0.75), rgba(15,23,42,0.95));
-            padding: 18px 16px 20px;
-            box-shadow: 0 20px 40px rgba(2, 6, 23, 0.35);
+            border: 1px solid #334155;
+            border-radius: 16px;
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            padding: 16px 14px 18px;
+            box-shadow: 0 10px 24px rgba(2, 6, 23, 0.28);
         }
         .learn-title {
-            font-family: var(--np-display);
-            font-size: clamp(1.35rem, 4vw, 1.75rem);
+            font-family: var(--np-body);
+            font-size: 1.25rem;
             font-weight: 800;
             color: #f8fafc;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         .learn-sub {
             color: #94a3b8;
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 14px;
+            font-size: 12.5px;
+            line-height: 1.45;
+            margin-bottom: 10px;
         }
         .learn-tip {
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
-            padding: 12px 14px;
-            border-radius: 14px;
-            border: 1px solid rgba(251, 191, 36, 0.28);
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(15, 23, 42, 0.4));
-            color: #fde68a;
-            font-size: 12.5px;
-            line-height: 1.5;
-            margin-bottom: 16px;
+            display: block;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid #475569;
+            background: rgba(15, 23, 42, 0.7);
+            color: #cbd5e1;
+            font-size: 12px;
+            line-height: 1.45;
+            margin-bottom: 12px;
         }
-        .learn-tip strong { color: #fff7ed; }
+        .learn-tip strong { color: #e2e8f0; }
         .score-criterion {
             border: 1px solid #334155;
-            border-radius: 16px;
-            padding: 12px;
-            margin-bottom: 12px;
-            background: rgba(2, 6, 23, 0.45);
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: rgba(15, 23, 42, 0.55);
         }
         .score-criterion-head {
             display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            gap: 8px;
-            margin-bottom: 10px;
+            flex-direction: column;
+            gap: 2px;
+            margin-bottom: 8px;
         }
         .score-criterion-letter {
-            font-family: var(--np-display);
-            font-size: 18px;
+            font-family: var(--np-body);
+            font-size: 12px;
             font-weight: 800;
             color: #67e8f9;
+            letter-spacing: 0.04em;
         }
         .score-criterion-name {
             font-size: 13px;
@@ -500,38 +462,38 @@
         }
         .score-options {
             display: grid;
-            gap: 8px;
+            gap: 6px;
         }
         .score-option {
             text-align: left;
             border: 1px solid #334155;
-            border-radius: 14px;
+            border-radius: 10px;
             background: #0f172a;
             color: #e2e8f0;
-            padding: 10px 12px !important;
-            min-height: 52px !important;
+            padding: 8px 10px !important;
+            min-height: 44px !important;
             min-width: 0 !important;
             cursor: pointer;
-            transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+            transition: border-color 0.15s ease, background 0.15s ease;
             display: grid;
-            grid-template-columns: 34px 1fr;
+            grid-template-columns: 28px 1fr;
             gap: 10px;
             align-items: start;
         }
         .score-option:hover { border-color: #64748b; }
         .score-option.is-selected {
             border-color: var(--accent, #22d3ee);
-            background: color-mix(in srgb, var(--accent, #22d3ee) 14%, #0f172a);
-            transform: translateY(-1px);
+            background: color-mix(in srgb, var(--accent, #22d3ee) 12%, #0f172a);
         }
         .score-option-num {
-            width: 34px;
-            height: 34px;
-            border-radius: 10px;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
             display: grid;
             place-items: center;
-            font-family: var(--np-display);
+            font-family: var(--np-body);
             font-weight: 800;
+            font-size: 13px;
             background: #1e293b;
             color: #f8fafc;
         }
@@ -539,90 +501,51 @@
             background: var(--accent, #22d3ee);
             color: #0f172a;
         }
+        .score-option-text {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            min-width: 0;
+        }
         .score-option-label {
+            display: block;
             font-size: 13px;
             font-weight: 700;
             color: #f1f5f9;
-            line-height: 1.3;
+            line-height: 1.35;
         }
         .score-option-desc {
+            display: block;
             font-size: 11.5px;
             color: #94a3b8;
             line-height: 1.4;
-            margin-top: 2px;
         }
         .score-result {
-            position: sticky;
-            bottom: 12px;
-            z-index: 20;
-            border-radius: 18px;
-            border: 1px solid var(--np-line);
-            padding: 14px 16px;
-            background: rgba(2, 6, 23, 0.92);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 16px 40px rgba(0,0,0,0.35);
-            margin-top: 8px;
+            border-radius: 16px;
+            border: 1px solid #334155;
+            padding: 14px;
+            background: rgba(15, 23, 42, 0.85);
+            margin-top: 12px;
         }
         .score-result-label {
             font-size: 10px;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
             color: #94a3b8;
             font-weight: 700;
         }
         .score-result-value {
-            font-family: var(--np-display);
-            font-size: clamp(2.4rem, 8vw, 3.2rem);
+            font-family: var(--np-body);
+            font-size: 2rem;
             font-weight: 800;
-            line-height: 1;
-            margin: 4px 0 8px;
+            line-height: 1.1;
+            margin: 4px 0 6px;
+            font-variant-numeric: tabular-nums;
         }
         .score-result-interp {
-            font-size: 13px;
+            font-size: 12.5px;
             line-height: 1.45;
             color: #cbd5e1;
-        }
-        .score-band {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
-            margin-top: 12px;
-        }
-        .score-band span {
-            text-align: center;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 6px 4px;
-            border-radius: 999px;
-            border: 1px solid #334155;
-            color: #94a3b8;
-        }
-        .score-band span.is-active {
-            color: #0f172a;
-            border-color: transparent;
-        }
-        .score-band .band-low.is-active { background: #f87171; }
-        .score-band .band-mid.is-active { background: #fbbf24; }
-        .score-band .band-high.is-active { background: #34d399; }
-        .braden-risk-meter {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 4px;
-            margin-top: 12px;
-        }
-        .braden-risk-meter span {
-            font-size: 9px;
-            text-align: center;
-            padding: 6px 2px;
-            border-radius: 8px;
-            border: 1px solid #334155;
-            color: #64748b;
-            line-height: 1.2;
-        }
-        .braden-risk-meter span.is-active {
-            color: #0f172a;
-            font-weight: 800;
-            border-color: transparent;
         }
         .gcs-live-row {
             display: flex;
@@ -682,9 +605,8 @@
             to { opacity: 1; transform: translateY(0); }
         }
         @media (max-width: 768px) {
-            .tool-hub-card { min-height: 124px; padding: 12px; }
-            .learn-shell { padding: 14px 12px 16px; border-radius: 18px; }
-            .score-result { bottom: calc(10px + env(safe-area-inset-bottom)); }
+            .tool-hub-card { min-height: 104px; padding: 12px; }
+            .learn-shell { padding: 14px 12px 16px; border-radius: 14px; }
         }
 
         /* Ensure tappable elements are at least 44x44px */
@@ -2525,10 +2447,10 @@
 
     <div class="max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
         <header class="mb-4 sm:mb-6 text-center">
-            <h1 id="nursepathHeaderLogo" title="NursePath" class="np-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-300 to-amber-200 mb-2" style="cursor: default;">
+            <h1 id="nursepathHeaderLogo" title="NursePath" class="text-2xl sm:text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 mb-2" style="cursor: default;">
                 NursePath
             </h1>
-            <p class="text-slate-400 text-xs sm:text-sm">Offline clinical learning companion for student nurses — simulation reference, not decision support</p>
+            <p class="text-slate-400 text-xs sm:text-sm">Simulation/Reference only • Not Clinical Decision Support • Verify with faculty and textbooks</p>
             <div class="mt-1" style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap;">
                 <button type="button" onclick="manualLogout()" style="padding:8px 12px; min-height:36px; background:#1f2937; color:#e2e8f0; border:1px solid #475569; border-radius:10px; font-size:12px; font-weight:700;">Logout</button>
                 <button id="facultyResetBtn" type="button" onclick="facultyResetDevice()" style="display:none; padding:8px 12px; min-height:36px; background:#7f1d1d; color:#fee2e2; border:1px solid #ef4444; border-radius:10px; font-size:12px; font-weight:700;">Faculty Reset</button>
@@ -2578,54 +2500,53 @@
 
         <div id="tools-hub" class="mb-6">
             <div class="tools-hub-hero">
-                <div class="tools-hub-kicker"><span>●</span> Ward-ready study tools</div>
                 <h2>Clinical Tools</h2>
-                <p>Tap a tool to practice the exact scoring language you need on duty and for exams — with criteria spelled out, not just blank numbers.</p>
+                <p>Choose a calculator — each opens in a focused view. OTC medicines live in the OTC tab.</p>
             </div>
             <div class="tools-hub-grid">
                 <button type="button" class="tool-hub-card" style="--accent:#f87171;" onclick="openClinicalTool('vitals')">
                     <span class="tool-hub-icon">VS</span>
-                    <span><span class="tool-hub-label">Vital Signs Simulation</span><span class="tool-hub-desc">Age-aware patterns, pregnancy context, and sim alerts you can defend to your CI.</span></span>
+                    <span><span class="tool-hub-label">Vital Signs Simulation</span><span class="tool-hub-desc">Interpret age-aware vitals trends in sim mode</span></span>
                     <span class="tool-hub-tag">Assessment</span>
                 </button>
                 <button type="button" class="tool-hub-card" style="--accent:#60a5fa;" onclick="openClinicalTool('iv')">
                     <span class="tool-hub-icon">IV</span>
-                    <span><span class="tool-hub-label">IV Flow Rate</span><span class="tool-hub-desc">mL/hr and gtt/min with macro/micro drip factors.</span></span>
+                    <span><span class="tool-hub-label">IV Flow Rate</span><span class="tool-hub-desc">mL/hr and gtt/min drip calculations</span></span>
                     <span class="tool-hub-tag">Math</span>
                 </button>
                 <button type="button" class="tool-hub-card" style="--accent:#34d399;" onclick="openClinicalTool('bmi')">
                     <span class="tool-hub-icon">BMI</span>
-                    <span><span class="tool-hub-label">BMI & Body Metrics</span><span class="tool-hub-desc">WHO category from kg and cm — fast ward reference.</span></span>
+                    <span><span class="tool-hub-label">BMI & Body Metrics</span><span class="tool-hub-desc">WHO BMI category from weight and height</span></span>
                     <span class="tool-hub-tag">Metrics</span>
                 </button>
                 <button type="button" class="tool-hub-card" style="--accent:#f472b6;" onclick="openClinicalTool('aog')">
                     <span class="tool-hub-icon">OB</span>
-                    <span><span class="tool-hub-label">AOG & EDD</span><span class="tool-hub-desc">Naegele dating, trimester, and milestone checkpoints.</span></span>
+                    <span><span class="tool-hub-label">AOG & EDD</span><span class="tool-hub-desc">Naegele's rule gestation dating</span></span>
                     <span class="tool-hub-tag">OB</span>
                 </button>
                 <button type="button" class="tool-hub-card" style="--accent:#c4b5fd;" onclick="openClinicalTool('peds')">
                     <span class="tool-hub-icon">PED</span>
-                    <span><span class="tool-hub-label">Pediatric Dosing</span><span class="tool-hub-desc">mg/kg plus Clark’s & Young’s for board-style checks.</span></span>
+                    <span><span class="tool-hub-label">Pediatric Dosing</span><span class="tool-hub-desc">mg/kg plus Clark's & Young's Rules</span></span>
                     <span class="tool-hub-tag">Peds</span>
                 </button>
                 <button type="button" class="tool-hub-card" style="--accent:#fb7185;" onclick="openClinicalTool('apgar')">
                     <span class="tool-hub-icon">APG</span>
-                    <span><span class="tool-hub-label">APGAR Score</span><span class="tool-hub-desc">Learn what 0–2 means for each letter — then score live.</span></span>
+                    <span><span class="tool-hub-label">APGAR Score</span><span class="tool-hub-desc">1- and 5-minute newborn scoring with criteria</span></span>
                     <span class="tool-hub-tag">Newborn</span>
                 </button>
                 <button type="button" class="tool-hub-card" style="--accent:#38bdf8;" onclick="openClinicalTool('gcs')">
                     <span class="tool-hub-icon">GCS</span>
-                    <span><span class="tool-hub-label">Glasgow Coma Scale</span><span class="tool-hub-desc">Eye, verbal, motor with clinical wording for each level.</span></span>
+                    <span><span class="tool-hub-label">Glasgow Coma Scale</span><span class="tool-hub-desc">Eye / Verbal / Motor with clinical wording</span></span>
                     <span class="tool-hub-tag">Neuro</span>
                 </button>
                 <button type="button" class="tool-hub-card" style="--accent:#2dd4bf;" onclick="openClinicalTool('braden')">
                     <span class="tool-hub-icon">BRD</span>
-                    <span><span class="tool-hub-label">Braden Scale</span><span class="tool-hub-desc">Pressure-injury risk with subscale meanings, not just 1–4.</span></span>
+                    <span><span class="tool-hub-label">Braden Scale</span><span class="tool-hub-desc">Pressure injury risk with subscale meanings</span></span>
                     <span class="tool-hub-tag">Skin</span>
                 </button>
                 <button type="button" class="tool-hub-card" style="--accent:#fb923c;" onclick="openClinicalTool('ron')">
                     <span class="tool-hub-icon">TBSA</span>
-                    <span><span class="tool-hub-label">Rule of Nines</span><span class="tool-hub-desc">Tap body regions — half/full — for burn TBSA estimate.</span></span>
+                    <span><span class="tool-hub-label">Rule of Nines</span><span class="tool-hub-desc">Tap-body burn TBSA estimate</span></span>
                     <span class="tool-hub-tag">Trauma</span>
                 </button>
             </div>
@@ -2885,17 +2806,12 @@
                 <div id="apgar-section" class="learn-shell scroll-mt-20" style="--accent:#fb7185;">
                     <div class="learn-title" style="color:#fda4af;">APGAR Score</div>
                     <p class="learn-sub">Tap the clinical finding that matches what you observe. Each option teaches the 0 / 1 / 2 meaning — then the total updates live (simulation).</p>
-                    <div class="learn-tip"><span>📘</span><div><strong>How to learn this:</strong> Say the letter out loud (Appearance, Pulse, Grimace, Activity, Respiration), choose the matching finding, then check whether your total lands in 0–3, 4–6, or 7–10.</div></div>
+                    <div class="learn-tip"><strong>Ref:</strong> 0–3 depressed · 4–6 moderate · 7–10 reassuring. Score at 1 min and 5 min.</div>
                     <div id="apgar-inputs"></div>
                     <div class="score-result">
-                        <div class="score-result-label">Live APGAR total</div>
+                        <div class="score-result-label">APGAR total</div>
                         <div id="apgar-total" class="score-result-value" style="color:#fda4af;">--</div>
                         <div id="apgar-interp" class="score-result-interp">Select all five domains to score.</div>
-                        <div class="score-band">
-                            <span class="band-low" id="apgar-band-low">0–3 Depressed</span>
-                            <span class="band-mid" id="apgar-band-mid">4–6 Moderate</span>
-                            <span class="band-high" id="apgar-band-high">7–10 Reassuring</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -2903,7 +2819,7 @@
                 <div id="gcs-section" class="learn-shell scroll-mt-20" style="--accent:#38bdf8;">
                     <div class="learn-title" style="color:#7dd3fc;">Glasgow Coma Scale</div>
                     <p class="learn-sub">Pick the best eye, verbal, and motor response. Report as E_V_M (example: E4V5M6 = 15).</p>
-                    <div class="learn-tip"><span>📘</span><div><strong>Study cue:</strong> Mild 13–15 · Moderate 9–12 · Severe ≤8. Always write the component scores, not only the total.</div></div>
+                    <div class="learn-tip"><strong>Ref:</strong> Mild 13–15 · Moderate 9–12 · Severe ≤8. Always report E_V_M, not only the total.</div>
                     <div class="gcs-live-row">
                         <span class="gcs-chip" id="gcs-chip-eye">E—</span>
                         <span class="gcs-chip" id="gcs-chip-verbal">V—</span>
@@ -2911,14 +2827,9 @@
                     </div>
                     <div id="gcs-inputs"></div>
                     <div class="score-result">
-                        <div class="score-result-label">Live GCS total</div>
+                        <div class="score-result-label">GCS total</div>
                         <div id="gcs-total" class="score-result-value" style="color:#7dd3fc;">--</div>
                         <div id="gcs-severity" class="score-result-interp">Select Eye, Verbal, and Motor.</div>
-                        <div class="score-band">
-                            <span class="band-low" id="gcs-band-low">≤8 Severe</span>
-                            <span class="band-mid" id="gcs-band-mid">9–12 Moderate</span>
-                            <span class="band-high" id="gcs-band-high">13–15 Mild</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -2926,19 +2837,12 @@
                 <div id="braden-section" class="learn-shell scroll-mt-20" style="--accent:#2dd4bf;">
                     <div class="learn-title" style="color:#5eead4;">Braden Scale</div>
                     <p class="learn-sub">Lower total = higher pressure-injury risk (6–23). Tap the wording that matches the patient — each choice teaches the subscale meaning.</p>
-                    <div class="learn-tip"><span>📘</span><div><strong>Memory hook:</strong> Sensory · Moisture · Activity · Mobility · Nutrition · Friction/Shear. Intervene earlier as the score drops.</div></div>
+                    <div class="learn-tip"><strong>Ref:</strong> Lower total = higher pressure-injury risk (6–23). Intervene earlier as the score drops.</div>
                     <div id="braden-inputs"></div>
                     <div class="score-result">
-                        <div class="score-result-label">Live Braden total</div>
+                        <div class="score-result-label">Braden total</div>
                         <div id="braden-total" class="score-result-value" style="color:#5eead4;">--</div>
                         <div id="braden-risk" class="score-result-interp">Score all six subscales.</div>
-                        <div class="braden-risk-meter" id="braden-meter">
-                            <span data-band="veryhigh">≤9 Very high</span>
-                            <span data-band="high">10–12 High</span>
-                            <span data-band="mod">13–14 Mod</span>
-                            <span data-band="mild">15–18 Mild</span>
-                            <span data-band="low">19–23 Low</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -2946,7 +2850,7 @@
                 <div id="ron-section" class="learn-shell scroll-mt-20" style="--accent:#fb923c;">
                     <div class="learn-title" style="color:#fdba74;">Rule of Nines</div>
                     <p class="learn-sub">Tap a body region to cycle Off → Half → Full. Adult proportions for burn TBSA estimate (simulation).</p>
-                    <div class="learn-tip"><span>📘</span><div><strong>Quick map:</strong> Head 9% · Each arm 9% · Anterior trunk 18% · Posterior trunk 18% · Each leg 18% · Perineum 1%.</div></div>
+                    <div class="learn-tip"><strong>Ref:</strong> Head 9% · Arm 9% each · Trunk 18% front/back · Leg 18% each · Perineum 1%.</div>
                     <div id="ron-grid" class="ron-body-grid mb-4"></div>
                     <div class="score-result">
                         <div class="score-result-label">Estimated TBSA</div>
@@ -3970,7 +3874,7 @@
                     const isSel = Number(selected) === Number(opt.value);
                     return `<button type="button" class="score-option${isSel ? ' is-selected' : ''}" data-id="${item.id}" data-value="${opt.value}">
                         <span class="score-option-num">${opt.value}</span>
-                        <span><span class="score-option-label">${opt.label}</span><span class="score-option-desc">${opt.desc}</span></span>
+                        <span class="score-option-text"><span class="score-option-label">${opt.label}</span><span class="score-option-desc">${opt.desc}</span></span>
                     </button>`;
                 }).join('');
                 const letter = item.letter ? `<span class="score-criterion-letter">${item.letter}</span>` : '';
@@ -4010,7 +3914,6 @@
             const complete = APGAR_RUBRIC.every((r) => apgarState[r.id] != null);
             const totalEl = document.getElementById('apgar-total');
             const interpEl = document.getElementById('apgar-interp');
-            document.querySelectorAll('#apgar-band-low, #apgar-band-mid, #apgar-band-high').forEach((el) => el.classList.remove('is-active'));
             if (!complete) {
                 if (totalEl) totalEl.textContent = '--';
                 if (interpEl) interpEl.textContent = 'Select all five domains to score.';
@@ -4019,9 +3922,6 @@
             const result = calc.apgarScore(apgarState);
             if (totalEl) totalEl.textContent = String(result.total);
             if (interpEl) interpEl.textContent = result.interpretation;
-            const band = result.total >= 7 ? 'high' : (result.total >= 4 ? 'mid' : 'low');
-            const bandEl = document.getElementById(`apgar-band-${band}`);
-            if (bandEl) bandEl.classList.add('is-active');
             trackUsageSafe('apgar', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'apgar' });
         }
 
@@ -4046,7 +3946,6 @@
 
             const totalEl = document.getElementById('gcs-total');
             const sevEl = document.getElementById('gcs-severity');
-            document.querySelectorAll('#gcs-band-low, #gcs-band-mid, #gcs-band-high').forEach((el) => el.classList.remove('is-active'));
             if (gcsState.eye == null || gcsState.verbal == null || gcsState.motor == null) {
                 if (totalEl) totalEl.textContent = '--';
                 if (sevEl) sevEl.textContent = 'Select Eye, Verbal, and Motor.';
@@ -4055,9 +3954,6 @@
             const result = calc.gcsScore(gcsState.eye, gcsState.verbal, gcsState.motor);
             if (totalEl) totalEl.textContent = `${result.total}`;
             if (sevEl) sevEl.textContent = `${result.severity} · Report as E${result.eye}V${result.verbal}M${result.motor}`;
-            const band = result.total >= 13 ? 'high' : (result.total >= 9 ? 'mid' : 'low');
-            const bandEl = document.getElementById(`gcs-band-${band}`);
-            if (bandEl) bandEl.classList.add('is-active');
             trackUsageSafe('gcs', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'gcs' });
         }
 
@@ -4077,7 +3973,6 @@
             const complete = BRADEN_RUBRIC.every((r) => bradenState[r.id] != null);
             const totalEl = document.getElementById('braden-total');
             const riskEl = document.getElementById('braden-risk');
-            document.querySelectorAll('#braden-meter span').forEach((el) => el.classList.remove('is-active'));
             if (!complete) {
                 if (totalEl) totalEl.textContent = '--';
                 if (riskEl) riskEl.textContent = 'Score all six subscales.';
@@ -4085,18 +3980,7 @@
             }
             const result = calc.bradenScore(bradenState);
             if (totalEl) totalEl.textContent = String(result.total);
-            if (riskEl) riskEl.textContent = result.risk + ' — lower scores need earlier skin interventions (simulation framing).';
-            let band = 'low';
-            if (result.total <= 9) band = 'veryhigh';
-            else if (result.total <= 12) band = 'high';
-            else if (result.total <= 14) band = 'mod';
-            else if (result.total <= 18) band = 'mild';
-            const active = document.querySelector(`#braden-meter span[data-band="${band}"]`);
-            if (active) {
-                active.classList.add('is-active');
-                const colors = { veryhigh: '#f87171', high: '#fb923c', mod: '#fbbf24', mild: '#a3e635', low: '#34d399' };
-                active.style.background = colors[band] || '#34d399';
-            }
+            if (riskEl) riskEl.textContent = result.risk;
             trackUsageSafe('braden', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'braden' });
         }
 
