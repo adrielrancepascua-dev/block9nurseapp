@@ -14,7 +14,7 @@
     const container = document.getElementById('otc-sidebar');
     const database = Array.isArray(window.otcDatabase) ? window.otcDatabase : [];
 
-    if (!conditionsEl || !container) {
+    if (!conditionsEl || !container || container.getAttribute('aria-hidden') === 'true') {
       return;
     }
 

@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <em>Version 1.4 | 2026 | Universidad de Dagupan — Officially Adopted</em>
+  <em>Version 2.0 | 2026 | Universidad de Dagupan — Officially Adopted</em>
 </p>
 
 ---
@@ -33,8 +33,9 @@ The application has been officially adopted by **Universidad de Dagupan's Colleg
 
 - Interprets vital sign readings against age-adjusted, pregnancy-aware, and comorbidity-specific reference ranges
 - Provides a searchable OTC medication reference with Philippine brand names and condition safety ratings
-- Computes IV flow rates, BMI, AOG, and EDD using standard clinical formulas
+- Computes IV flow rates, BMI, AOG/EDD, pediatric dosing, APGAR, GCS, Braden, and Rule of Nines
 - Operates fully offline after initial load — reliable on hospital wards with limited connectivity
+- Google sign-in (Supabase OAuth) with offline device seal after first successful login
 - Tracks anonymous usage telemetry for faculty evaluation via Supabase
 
 ### What It Does Not Do
@@ -93,11 +94,11 @@ All outputs are framed as reference findings — not clinical orders. The studen
 - Works on hospital wards after first load — no Wi-Fi required
 - Usage events queue locally and sync to Supabase automatically on reconnect
 
-### 👻 Ghost Persistence (Auth)
-- Email-based pilot identity — no password, no signup screen
-- Device-sealed on first entry for auto-bypass on subsequent launches
-- Built-in cooldown and typo-domain detection (e.g. `gmal.com → gmail.com`)
-- Access modes: `Demo` (open), `Pilot` (allowlisted domain or invite code), `Admin` (faculty token)
+### 👻 Auth (Google + offline seal)
+- Primary: Google sign-in via Supabase OAuth (prefer `@cdd.edu.ph`)
+- After first online sign-in, identity is sealed on-device for offline use
+- Email fallback remains available for rollback / non-Workspace accounts
+- See [GOOGLE_OAUTH_SETUP.md](GOOGLE_OAUTH_SETUP.md)
 - Emergency reset: tap the NursePath logo 5 times to clear local identity
 
 ### 📈 Usage Analytics
@@ -364,7 +365,7 @@ This software is the intellectual property of Rance Adriel M. Pascua. Non-commer
 </p>
 
 <p align="center">
-  <em>Version 1.4 | 2026 | Universidad de Dagupan — Officially Adopted</em>
+  <em>Version 2.0 | 2026 | Universidad de Dagupan — Officially Adopted</em>
 </p>
 
 ---
@@ -388,8 +389,9 @@ The application has been officially adopted by **Universidad de Dagupan's Colleg
 
 - Interprets vital sign readings against age-adjusted, pregnancy-aware, and comorbidity-specific reference ranges
 - Provides a searchable OTC medication reference with Philippine brand names and condition safety ratings
-- Computes IV flow rates, BMI, AOG, and EDD using standard clinical formulas
+- Computes IV flow rates, BMI, AOG/EDD, pediatric dosing, APGAR, GCS, Braden, and Rule of Nines
 - Operates fully offline after initial load — reliable on hospital wards with limited connectivity
+- Google sign-in (Supabase OAuth) with offline device seal after first successful login
 - Tracks anonymous usage telemetry for faculty evaluation via Supabase
 
 ### What It Does Not Do
@@ -448,11 +450,11 @@ All outputs are framed as reference findings — not clinical orders. The studen
 - Works on hospital wards after first load — no Wi-Fi required
 - Usage events queue locally and sync to Supabase automatically on reconnect
 
-### 👻 Ghost Persistence (Auth)
-- Email-based pilot identity — no password, no signup screen
-- Device-sealed on first entry for auto-bypass on subsequent launches
-- Built-in cooldown and typo-domain detection (e.g. `gmal.com → gmail.com`)
-- Access modes: `Demo` (open), `Pilot` (allowlisted domain or invite code), `Admin` (faculty token)
+### 👻 Auth (Google + offline seal)
+- Primary: Google sign-in via Supabase OAuth (prefer `@cdd.edu.ph`)
+- After first online sign-in, identity is sealed on-device for offline use
+- Email fallback remains available for rollback / non-Workspace accounts
+- See [GOOGLE_OAUTH_SETUP.md](GOOGLE_OAUTH_SETUP.md)
 - Emergency reset: tap the NursePath logo 5 times to clear local identity
 
 ### 📈 Usage Analytics

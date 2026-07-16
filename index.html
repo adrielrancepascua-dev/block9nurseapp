@@ -47,6 +47,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%230f172a' width='192' height='192'/><text x='50%' y='50%' font-size='120' font-weight='bold' fill='%2306b6d4' text-anchor='middle' dy='.35em'>Rx</text></svg>">
         <script src="assets/vitals-analysis.js"></script>
         <script src="assets/ui-helpers.js"></script>
+        <script src="assets/clinical-calculators.js"></script>
 
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%230f172a' width='180' height='180' rx='40'/><text x='50%' y='50%' font-size='100' font-weight='bold' fill='%2306b6d4' text-anchor='middle' dy='.35em'>Rx</text></svg>">
     <!-- OFFLINE-FIRST: Inlined CSS (no CDN) -->
@@ -260,6 +261,95 @@
             padding-bottom: env(safe-area-inset-bottom);
         }
         
+        /* Clinical tools hub */
+        .tools-hub-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+        @media (min-width: 768px) {
+            .tools-hub-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+        .tool-hub-card {
+            text-align: left;
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid #334155;
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            color: #e2e8f0;
+            cursor: pointer;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            min-height: 110px;
+        }
+        .tool-hub-card:hover, .tool-hub-card:focus-visible {
+            transform: translateY(-2px);
+            border-color: #22d3ee;
+            box-shadow: 0 12px 24px rgba(6, 182, 212, 0.15);
+            outline: none;
+        }
+        .tool-hub-card .tool-hub-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+        .tool-hub-card .tool-hub-desc {
+            display: block;
+            font-size: 11px;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+        .tool-panel { display: none; }
+        .tool-panel.is-active { display: block; }
+        .tools-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 14px;
+            padding: 10px 14px;
+            min-height: 44px;
+            border-radius: 10px;
+            border: 1px solid #475569;
+            background: #1e293b;
+            color: #e2e8f0;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .ron-body-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+        }
+        .ron-region {
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 10px;
+            background: #0f172a;
+            cursor: pointer;
+            user-select: none;
+        }
+        .ron-region.is-full { border-color: #f97316; background: rgba(249, 115, 22, 0.18); }
+        .ron-region.is-half { border-color: #fbbf24; background: rgba(251, 191, 36, 0.14); }
+        .google-btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            background: #fff;
+            color: #1f2937;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .google-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+        .auth-value-list { text-align: left; color: #94a3b8; font-size: 13px; line-height: 1.7; padding-left: 18px; margin: 0 0 16px; }
+        .auth-value-list strong { color: #e2e8f0; }
+
         /* Ensure tappable elements are at least 44x44px */
         button, a.btn, select, input[type="submit"], input[type="button"], input[type="number"], input[type="text"], input[type="date"] {
             min-height: 44px;
@@ -384,33 +474,47 @@
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen" style="background-color: #020617 !important;">
 
     <!-- AUTH OVERLAY -->
-    <div id="authOverlay" style="position: fixed; inset: 0; background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px;">
-        <div style="background: #0f172a; border: 2px solid #06b6d4; border-radius: 20px; padding: 32px 24px; max-width: 420px; width: 100%; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5);">
-            <h1 style="color: #06b6d4; font-size: 28px; font-weight: bold; margin-bottom: 8px;">NursePath Pilot Access</h1>
-            <p style="color: #94a3b8; font-size: 13px; margin-bottom: 14px;">Simulation-only academic tool. Not for real patient care decisions.</p>
+    <div id="authOverlay" style="position: fixed; inset: 0; background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px; overflow-y: auto;">
+        <div style="background: #0f172a; border: 2px solid #06b6d4; border-radius: 20px; padding: 28px 22px; max-width: 440px; width: 100%; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5); margin: auto;">
+            <h1 style="color: #06b6d4; font-size: 28px; font-weight: bold; margin-bottom: 6px;">NursePath</h1>
+            <p style="color: #cbd5e1; font-size: 14px; line-height: 1.5; margin-bottom: 14px;">
+                Your offline clinical learning companion for vital signs, dosing math, scoring tools, and OTC reference — built for student nurses.
+            </p>
+            <ul class="auth-value-list">
+                <li><strong>Vital Signs Simulator:</strong> Interpret trends and prioritize simulation responses.</li>
+                <li><strong>Clinical Calculators:</strong> IV flow, BMI, AOG/EDD, pediatric dosing, APGAR, GCS, Braden, Rule of Nines.</li>
+                <li><strong>OTC Reference:</strong> Philippine brand names, safety notes, offline smart search.</li>
+            </ul>
+            <p style="color: #94a3b8; font-size: 12px; margin-bottom: 14px;">Simulation-only academic tool. Not for real patient care decisions.</p>
 
-            <div style="margin-bottom: 14px; padding: 10px 12px; border-radius: 10px; border: 1px solid #334155; background: #1e293b; color: #cbd5e1; font-size: 12px; font-weight: 600; text-align: left;">
-                Use your CDD school email (@cdd.edu.ph) to sign in and get full Pilot access.
+            <label style="display:flex; align-items:flex-start; gap:8px; margin-bottom: 12px; text-align:left;">
+                <input id="usageConsent" type="checkbox" style="margin-top:2px; width:16px; height:16px; min-height:16px; min-width:16px; accent-color:#06b6d4; cursor:pointer;">
+                <span style="color:#94a3b8; font-size:12px; line-height:1.35;">I consent to anonymous usage tracking for academic evaluation.</span>
+            </label>
+
+            <button id="googleSignInBtn" type="button" class="google-btn" disabled>
+                <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.2 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.5-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 12 24 12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.2 6.1 29.3 4 24 4 16.1 4 9.2 8.5 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.3 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.1 39.5 16 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1.1 3.1-3.6 5.5-6.6 6.6l.1.1 6.2 5.2C36.1 41.3 44 36 44 24c0-1.3-.1-2.5-.4-3.5z"/></svg>
+                Continue with Google
+            </button>
+
+            <p style="color:#64748b; font-size:11px; margin:12px 0 8px;">Prefer school email on this device?</p>
+            <button id="toggleEmailAuthBtn" type="button" style="width:100%; padding:10px; margin-bottom:8px; font-size:12px; font-weight:700; background:#1f2937; color:#cbd5e1; border:1px solid #475569; border-radius:10px; cursor:pointer;">Use school email instead</button>
+
+            <div id="emailAuthPanel" style="display:none;">
+                <div style="display:none;">
+                    <input id="accessCode" type="text" autocomplete="off">
+                    <p id="accessModeHelp"></p>
+                </div>
+                <form id="authForm" style="display: grid; gap: 10px; margin-bottom: 8px;">
+                    <input id="authEmail" type="email" placeholder="student@cdd.edu.ph" autocomplete="email" style="width: 100%; padding: 14px; font-size: 15px; text-align: left; background: #1e293b; border: 1px solid #334155; border-radius: 12px; color: white;">
+                    <button id="authSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 700; background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s;" disabled>Continue with Email</button>
+                </form>
             </div>
-
-            <div style="display:none;">
-                <input id="accessCode" type="text" autocomplete="off">
-                <p id="accessModeHelp"></p>
-            </div>
-
-            <form id="authForm" style="display: grid; gap: 10px; margin-bottom: 8px;">
-                <input id="authEmail" type="email" placeholder="student@cdd.edu.ph" autocomplete="email" style="width: 100%; padding: 14px; font-size: 15px; text-align: left; background: #1e293b; border: 1px solid #334155; border-radius: 12px; color: white;">
-                <button id="authSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 700; background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s;">Enter Pilot Workspace</button>
-            </form>
 
             <button id="authResetBtn" type="button" style="display:none; width:100%; padding:10px; margin-bottom:8px; font-size:12px; font-weight:700; background:#1f2937; color:#cbd5e1; border:1px solid #475569; border-radius:10px; cursor:pointer;">Reset This Device</button>
 
-            <label style="display:flex; align-items:flex-start; gap:8px; margin-bottom: 10px; text-align:left;">
-                <input id="usageConsent" type="checkbox" style="margin-top:2px; width:16px; height:16px; min-height:16px; min-width:16px; accent-color:#06b6d4; cursor:pointer;">
-                <span style="color:#94a3b8; font-size:12px; line-height:1.35;">I consent to anonymous usage tracking for academic pilot evaluation.</span>
-            </label>
-
-            <p id="authStatus" style="color: #f59e0b; font-size: 12px; min-height: 18px; margin-bottom: 8px;"></p>
+            <p id="authStatus" style="color: #f59e0b; font-size: 12px; min-height: 18px; margin-top: 8px;"></p>
+            <p style="color:#475569; font-size:10px; margin-top:8px;">Google sign-in requires one online session. After that, NursePath stays available offline on this device.</p>
         </div>
     </div>
 
@@ -453,23 +557,8 @@
         </div>
     </div>
 
-    <!-- ONE-TIME ONBOARDING OVERLAY -->
-    <div id="onboardingOverlay" style="display:none; position: fixed; inset: 0; background: rgba(2,6,23,0.92); z-index: 10010; justify-content: center; align-items: center; padding: 20px;">
-        <div style="background:#0f172a; border:1px solid #334155; border-radius:18px; max-width:520px; width:100%; padding:24px; box-shadow:0 20px 40px rgba(0,0,0,0.45);">
-            <h2 style="color:#22d3ee; font-size:24px; font-weight:800; margin-bottom:8px;">NursePath</h2>
-            <p style="color:#cbd5e1; font-size:14px; line-height:1.5; margin-bottom:14px;">
-                A simulation-only nursing learning tool for practicing assessment reasoning and decision support workflows.
-            </p>
-            <ul style="color:#94a3b8; font-size:13px; line-height:1.7; padding-left:20px; margin-bottom:18px;">
-                <li><strong style="color:#e2e8f0;">Vital Signs Simulator:</strong> Interpret trends and prioritize simulation responses.</li>
-                <li><strong style="color:#e2e8f0;">Calculators:</strong> Quickly compute IV flow rate, BMI, AOG, and EDD.</li>
-                <li><strong style="color:#e2e8f0;">OTC Reference:</strong> Review academic medication notes and safety reminders.</li>
-            </ul>
-            <button onclick="dismissOnboarding()" style="width:100%; padding:12px; border:none; border-radius:12px; background:linear-gradient(135deg,#06b6d4,#0284c7); color:white; font-size:14px; font-weight:700; cursor:pointer;">
-                Get Started
-            </button>
-        </div>
-    </div>
+    <!-- Tips overlay kept for compatibility; value prop now lives on the auth screen -->
+    <div id="onboardingOverlay" style="display:none;" aria-hidden="true"></div>
 
     <!-- Supabase Auth + Offline Session Gate -->
     <script>
@@ -1354,7 +1443,7 @@
 
             const mode = modeEl.value;
             setAccessMode(mode);
-            helpEl.textContent = 'Pilot mode: use allowlisted school email domain or invite code.';
+            helpEl.textContent = 'Use your school email (@cdd.edu.ph) or Google sign-in.';
             codeEl.placeholder = 'Enter invite code if needed';
             if (resetBtn) resetBtn.style.display = 'none';
         }
@@ -1455,7 +1544,13 @@
             clearTabAppInitLogged();
             // OPTIMIZATION: Reset vital signs tracking flag on logout
             hasTrackedVitalsOpen = false;
-            showAuthOverlay('Logged out. Enter your CDD school email to continue.', false);
+            try {
+                if (supabaseClient) {
+                    void supabaseClient.auth.signOut({ scope: 'local' });
+                }
+            } catch (e) { /* offline-safe */ }
+            try { localStorage.removeItem(SESSION_CACHE_KEY); } catch (e) {}
+            showAuthOverlay('Signed out. Use Google or your school email to continue.', false);
             applyRoleVisibility();
             trackUsageEvent('auth', 'feature_use', { action: 'logout' }, { minIntervalMs: 500, rateKey: 'logout_action' });
         }
@@ -1474,6 +1569,7 @@
             localStorage.removeItem(SIMULATION_KEY);
             localStorage.removeItem(LAST_SYNC_KEY);
             localStorage.removeItem(ACCESS_MODE_KEY);
+            localStorage.removeItem(SESSION_CACHE_KEY);
             location.reload();
         }
 
@@ -1549,11 +1645,11 @@
         }
 
         function showOnboardingIfNeeded() {
-            const dismissed = localStorage.getItem(ONBOARDING_DISMISSED_KEY) === '1';
-            if (dismissed) return;
+            // Value proposition now appears on the auth screen; mark onboarding complete.
+            localStorage.setItem(ONBOARDING_DISMISSED_KEY, '1');
             const overlay = document.getElementById('onboardingOverlay');
             if (overlay) {
-                overlay.style.display = 'flex';
+                overlay.style.display = 'none';
             }
         }
 
@@ -1611,7 +1707,7 @@
             }
 
             if (source === 'ghost') {
-                setAuthStatus('Pilot session restored on this device.', false);
+                setAuthStatus('Session restored on this device.', false);
             }
             bootProtectedApp();
         }
@@ -1666,7 +1762,7 @@
             // OPTIMIZATION: Remove duplicate consent check (was repeated twice)
             if (!usageConsent || !usageConsent.checked) {
                 setUsageConsent(false);
-                setAuthStatus('You must consent to usage tracking to access formal testing.', true);
+                setAuthStatus('You must consent to usage tracking to continue.', true);
                 trackUsageEvent('consent', 'error_shown', { reason: 'consent_required' }, { minIntervalMs: 2000, rateKey: 'consent_required' });
                 releaseSubmitLock();
                 return;
@@ -1674,7 +1770,7 @@
             setUsageConsent(true);
 
             if (!isAllowedAuthEmail(email, accessMode, accessCode)) {
-                setAuthStatus('Pilot access requires a CDD school email (@cdd.edu.ph).', true);
+                setAuthStatus('Access requires a CDD school email (@cdd.edu.ph) or Google sign-in.', true);
                 void recordEmailAttempt(email, 'blocked_invalid_format', 'invalid_email_format');
                 releaseSubmitLock();
                 return;
@@ -1691,24 +1787,24 @@
             const remainingMs = readMagicLinkCooldownMs();
             if (remainingMs > 0) {
                 const remainingSeconds = Math.ceil(remainingMs / 1000);
-                setAuthStatus(`Please wait ${remainingSeconds}s before another pilot start attempt.`, true);
+                setAuthStatus(`Please wait ${remainingSeconds}s before another sign-in attempt.`, true);
                 releaseSubmitLock();
                 return;
             }
 
-            setAuthStatus('Sealing this device for pilot access...', false);
+            setAuthStatus('Saving this device for offline access...', false);
             trackUsageEvent('auth', 'feature_use', {
-                action: 'pilot_login_submit',
+                action: 'login_submit',
                 entered_with_code_only: !email
-            }, { userEmail: identityEmail, minIntervalMs: 1000, rateKey: `pilot_login_submit:${Date.now()}` });
+            }, { userEmail: identityEmail, minIntervalMs: 1000, rateKey: `login_submit:${Date.now()}` });
 
             try {
-                // Best-effort logging only. Pilot access should not be blocked by network errors.
+                // Best-effort logging only. Sign-in should not be blocked by network errors.
                 if (supabaseClient && navigator.onLine) {
                     try {
                         const { error } = await supabaseClient.from(AUTH_EMAIL_LOG_TABLE).insert({
                             email: identityEmail,
-                            status: 'pilot_login',
+                            status: 'email_login',
                             reason: 'best_effort_online',
                             timestamp: new Date().toISOString()
                         });
@@ -1722,30 +1818,153 @@
 
                 setMagicLinkCooldown(AUTH_MAGIC_LINK_COOLDOWN_DEFAULT_SECONDS);
                 saveGhostUser(identityEmail);
-                void recordEmailAttempt(identityEmail, 'pilot_login_sealed', navigator.onLine ? 'online_or_partial' : 'offline');
+                void recordEmailAttempt(identityEmail, 'email_login_sealed', navigator.onLine ? 'online_or_partial' : 'offline');
                 trackUsageEvent('auth', 'result_generated', {
-                    action: 'pilot_login_sealed',
+                    action: 'email_login_sealed',
                     entered_with_code_only: !email
-                }, { userEmail: identityEmail, minIntervalMs: 1000, rateKey: 'pilot_login_sealed' });
+                }, { userEmail: identityEmail, minIntervalMs: 1000, rateKey: 'email_login_sealed' });
                 showAuthenticatedApp(identityEmail, 'ghost');
             } finally {
                 releaseSubmitLock();
             }
         }
 
-        async function initSupabaseAuth() {
-            const form = document.getElementById('authForm');
-            form.addEventListener('submit', submitAuth);
-            const resetBtn = document.getElementById('authResetBtn');
+        function updateConsentRequirementUI() {
             const usageConsent = document.getElementById('usageConsent');
-
-            function updateConsentRequirementUI() {
-                const submitBtn = document.getElementById('authSubmitBtn');
-                if (!usageConsent || !submitBtn) return;
-                const allowed = usageConsent.checked;
+            const submitBtn = document.getElementById('authSubmitBtn');
+            const googleBtn = document.getElementById('googleSignInBtn');
+            const allowed = Boolean(usageConsent && usageConsent.checked);
+            if (submitBtn) {
                 submitBtn.disabled = !allowed;
                 submitBtn.style.opacity = allowed ? '1' : '0.55';
                 submitBtn.style.cursor = allowed ? 'pointer' : 'not-allowed';
+            }
+            if (googleBtn) {
+                googleBtn.disabled = !allowed;
+            }
+        }
+
+        function cacheSupabaseSession(session) {
+            try {
+                if (!session) {
+                    localStorage.removeItem(SESSION_CACHE_KEY);
+                    return;
+                }
+                localStorage.setItem(SESSION_CACHE_KEY, JSON.stringify({
+                    email: session.user && session.user.email ? normalizeEmail(session.user.email) : '',
+                    user_id: session.user && session.user.id ? session.user.id : '',
+                    cached_at: new Date().toISOString()
+                }));
+            } catch (e) { /* ignore */ }
+        }
+
+        function readCachedSupabaseSession() {
+            try {
+                const raw = localStorage.getItem(SESSION_CACHE_KEY);
+                if (!raw) return null;
+                const parsed = JSON.parse(raw);
+                if (parsed && parsed.email) return parsed;
+            } catch (e) {}
+            return null;
+        }
+
+        function emailAllowedForSchool(email) {
+            if (!isValidEmailFormat(email)) return false;
+            const domain = getDomainFromEmail(email);
+            return PILOT_ALLOWLIST_DOMAINS.includes(domain);
+        }
+
+        async function completeOAuthLogin(session, source) {
+            const email = session && session.user ? normalizeEmail(session.user.email || '') : '';
+            if (!email) {
+                setAuthStatus('Google sign-in did not return an email.', true);
+                return false;
+            }
+            if (!emailAllowedForSchool(email)) {
+                setAuthStatus('Use your CDD Google account (@cdd.edu.ph).', true);
+                void recordEmailAttempt(email, 'blocked_oauth_domain', 'oauth_domain_not_allowlisted');
+                try {
+                    if (supabaseClient) await supabaseClient.auth.signOut({ scope: 'local' });
+                } catch (e) {}
+                return false;
+            }
+            setUsageConsent(true);
+            cacheSupabaseSession(session);
+            saveGhostUser(email);
+            void recordEmailAttempt(email, 'oauth_google_ok', source || 'oauth');
+            trackUsageEvent('auth', 'result_generated', {
+                action: 'google_oauth_sealed',
+                source: source || 'oauth'
+            }, { userEmail: email, minIntervalMs: 1000, rateKey: 'google_oauth_sealed' });
+            showAuthenticatedApp(email, source || 'oauth');
+            return true;
+        }
+
+        async function startGoogleSignIn() {
+            const usageConsent = document.getElementById('usageConsent');
+            if (!usageConsent || !usageConsent.checked) {
+                setUsageConsent(false);
+                setAuthStatus('You must consent to usage tracking to continue.', true);
+                return;
+            }
+            setUsageConsent(true);
+
+            if (!navigator.onLine) {
+                const ghost = readGhostUser();
+                if (ghost && emailAllowedForSchool(ghost.email)) {
+                    showAuthenticatedApp(ghost.email, 'ghost');
+                    setAuthStatus('Offline session restored for this device.', false);
+                    return;
+                }
+                setAuthStatus('Google sign-in needs a network connection the first time. Open NursePath online once, then it works offline.', true);
+                return;
+            }
+
+            if (!supabaseClient) {
+                setAuthStatus('Sign-in is not configured yet. Use school email, or ask faculty to enable Google Auth.', true);
+                return;
+            }
+
+            setAuthStatus('Opening Google sign-in...', false);
+            trackUsageEvent('auth', 'feature_use', { action: 'google_oauth_start' }, { minIntervalMs: 1000, rateKey: 'google_oauth_start' });
+
+            const redirectTo = window.location.origin + window.location.pathname;
+            const { error } = await supabaseClient.auth.signInWithOAuth({
+                provider: 'google',
+                options: {
+                    redirectTo,
+                    queryParams: {
+                        access_type: 'offline',
+                        prompt: 'select_account',
+                        hd: 'cdd.edu.ph'
+                    }
+                }
+            });
+            if (error) {
+                setAuthStatus(error.message || 'Google sign-in failed. Try school email instead.', true);
+                trackUsageEvent('auth', 'error_shown', { reason: 'oauth_start_failed' }, { minIntervalMs: 2000, rateKey: 'oauth_start_failed' });
+            }
+        }
+
+        async function initSupabaseAuth() {
+            const form = document.getElementById('authForm');
+            if (form) form.addEventListener('submit', submitAuth);
+            const resetBtn = document.getElementById('authResetBtn');
+            const usageConsent = document.getElementById('usageConsent');
+            const googleBtn = document.getElementById('googleSignInBtn');
+            const toggleEmailBtn = document.getElementById('toggleEmailAuthBtn');
+            const emailPanel = document.getElementById('emailAuthPanel');
+
+            if (toggleEmailBtn && emailPanel) {
+                toggleEmailBtn.addEventListener('click', () => {
+                    const open = emailPanel.style.display !== 'none';
+                    emailPanel.style.display = open ? 'none' : 'block';
+                    toggleEmailBtn.textContent = open ? 'Use school email instead' : 'Hide email sign-in';
+                });
+            }
+
+            if (googleBtn) {
+                googleBtn.addEventListener('click', () => { void startGoogleSignIn(); });
             }
 
             if (usageConsent) {
@@ -1769,35 +1988,96 @@
 
             initUsageTracking();
             applyRoleVisibility();
-            renderPilotMetrics();
+            if (isFacultyDebugEnabled()) {
+                renderPilotMetrics();
+            }
 
+            // Returning device: offline-capable ghost session
             if (checkAuth()) {
                 return;
             }
 
             const isConfigured = !SUPABASE_URL.includes('YOUR-PROJECT') && !SUPABASE_ANON_KEY.includes('YOUR_SUPABASE_ANON_KEY');
             if (!window.supabase || !isConfigured) {
-                showAuthOverlay('Enter your CDD school email to continue.', false);
+                showAuthOverlay('Sign in with Google or your CDD school email to continue.', false);
                 return;
             }
 
             supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
                 auth: {
                     persistSession: true,
-                    autoRefreshToken: true
+                    autoRefreshToken: true,
+                    detectSessionInUrl: true
                 }
             });
+
+            // Offline-safe: never force logout solely because refresh failed while offline.
+            supabaseClient.auth.onAuthStateChange((event, session) => {
+                if (event === 'SIGNED_IN' && session) {
+                    cacheSupabaseSession(session);
+                    if (!window.__nursepathAuthState.authenticated) {
+                        void completeOAuthLogin(session, 'auth_state');
+                    }
+                }
+                if (event === 'TOKEN_REFRESHED' && session) {
+                    cacheSupabaseSession(session);
+                }
+                if (event === 'SIGNED_OUT') {
+                    // Keep ghost offline access unless the user explicitly logged out.
+                    if (!navigator.onLine) {
+                        npDebugLog('Ignoring SIGNED_OUT while offline to preserve offline access.');
+                    }
+                }
+            });
+
+            try {
+                const { data, error } = await supabaseClient.auth.getSession();
+                if (!error && data && data.session) {
+                    const ok = await completeOAuthLogin(data.session, 'get_session');
+                    if (ok) {
+                        await flushPendingEmailLogs();
+                        await flushUsageEvents();
+                        return;
+                    }
+                }
+            } catch (e) {
+                npDebugLog('getSession failed', e);
+                const cached = readCachedSupabaseSession();
+                if (cached && emailAllowedForSchool(cached.email)) {
+                    saveGhostUser(cached.email);
+                    showAuthenticatedApp(cached.email, 'ghost');
+                    return;
+                }
+            }
 
             await flushPendingEmailLogs();
             await flushUsageEvents();
             window.addEventListener('online', () => { void flushPendingEmailLogs(); });
 
-            showAuthOverlay('Enter your CDD school email to continue.', false);
+            showAuthOverlay('Sign in with Google (@cdd.edu.ph) to continue.', false);
+        }
+
+        function isFacultyDebugEnabled() {
+            try {
+                return localStorage.getItem('nursepath_debug') === '1' || window.NURSEPATH_ENABLE_FACULTY_TOOLS === true;
+            } catch (e) {
+                return false;
+            }
         }
 
         function initEmergencyReset() {
             const logo = document.getElementById('nursepathHeaderLogo');
             if (!logo) return;
+
+            // Production: no secret gesture. Faculty tools require nursepath_debug=1.
+            if (!isFacultyDebugEnabled()) {
+                logo.removeAttribute('title');
+                logo.style.cursor = 'default';
+                return;
+            }
+
+            logo.title = 'Faculty tools: tap 5 times';
+            logo.style.cursor = 'pointer';
 
             let taps = 0;
             let tapResetTimer = null;
@@ -1814,6 +2094,13 @@
                 }, 3000);
 
                 if (taps >= 5) {
+                    const metricsPanel = document.getElementById('pilotMetricsPanel');
+                    if (metricsPanel) {
+                        const showing = metricsPanel.style.display !== 'none' && metricsPanel.style.display !== '';
+                        metricsPanel.style.display = showing ? 'none' : 'block';
+                        if (!showing) renderPilotMetrics();
+                        return;
+                    }
                     clearGhostUser();
                     localStorage.removeItem(AUTH_EMAIL_LOG_KEY);
                     localStorage.removeItem(AUTH_PENDING_LOG_KEY);
@@ -1874,8 +2161,8 @@
 
     <div class="max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
         <header class="mb-4 sm:mb-6 text-center">
-            <h1 id="nursepathHeaderLogo" title="Pilot reset: tap 5 times" class="text-2xl sm:text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 mb-2" style="cursor: pointer;">
-                <svg class="inline mr-2 sm:mr-3" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v2h-2zm0-10h2v8h-2zm3-3h2v6h-2zm-6 3h2v6H7z"/></svg>NursePath Simulation Tool
+            <h1 id="nursepathHeaderLogo" title="NursePath" class="text-2xl sm:text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 mb-2" style="cursor: pointer;">
+                <svg class="inline mr-2 sm:mr-3" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v2h-2zm0-10h2v8h-2zm3-3h2v6h-2zm-6 3h2v6H7z"/></svg>NursePath
             </h1>
             <p class="text-slate-400 text-xs sm:text-sm">Simulation/Reference only • Not Clinical Decision Support • Verify with faculty and textbooks</p>
             <div class="mt-1" style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap;">
@@ -1909,7 +2196,7 @@
         <div id="content-tools" class="tab-content">
         <section id="pilotMetricsPanel" class="mb-4 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-4 border border-slate-700 shadow-xl" style="display:none;">
             <div class="flex items-center justify-between mb-2" style="gap:8px; flex-wrap:wrap;">
-                <h2 style="font-size:14px; font-weight:800; color:#93c5fd; letter-spacing:0.04em; text-transform:uppercase;">Pilot Metrics Snapshot</h2>
+                <h2 style="font-size:14px; font-weight:800; color:#93c5fd; letter-spacing:0.04em; text-transform:uppercase;">Usage Metrics Snapshot</h2>
                 <div style="display:flex; gap:8px;">
                     <button type="button" onclick="renderPilotMetrics()" style="padding:8px 10px; min-height:36px; background:#0f172a; color:#cbd5e1; border:1px solid #475569; border-radius:8px; font-size:11px; font-weight:700;">Refresh</button>
                     <button type="button" onclick="exportUsageCsv()" style="padding:8px 10px; min-height:36px; background:#1d4ed8; color:#eff6ff; border:1px solid #60a5fa; border-radius:8px; font-size:11px; font-weight:700;">Export CSV</button>
@@ -1924,24 +2211,55 @@
             </div>
             <p id="metricFeatureTop" class="text-xs text-slate-400 mt-2">Top feature use: none yet</p>
         </section>
-        <div class="grid lg:grid-cols-5 gap-6">
-            
-            <!-- SIDEBAR: OTC Drug Reference -->
-            <aside class="lg:col-span-1 space-y-4">
-                <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-5 border border-slate-700 shadow-xl sticky top-24">
-                    <h3 class="text-cyan-400 font-bold mb-4 flex items-center text-lg">
-                        <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" class="mr-2"><path d="M19 6h-2V4a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2v2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zm-7 12a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg> OTC Reference
-                    </h3>
-                    <div id="otc-sidebar" class="space-y-3 h-[600px] overflow-y-auto pr-2">
-                        <!-- Dynamic OTC cards will be rendered here -->
-                    </div>
-                </div>
-            </aside>
 
-            <!-- MAIN CONTENT -->
-            <main class="lg:col-span-4 space-y-6">
-                
-                <!-- VITAL SIGNS INPUT & ANALYSIS -->
+        <div id="tools-hub" class="mb-6">
+            <div class="mb-4">
+                <h2 class="text-xl font-bold text-white">Clinical Tools</h2>
+                <p class="text-sm text-slate-400 mt-1">Choose a calculator — each opens in a focused view. OTC medicines live in the OTC tab.</p>
+            </div>
+            <div class="tools-hub-grid">
+                <button type="button" class="tool-hub-card" onclick="openClinicalTool('vitals')" style="border-color:#f8717144;">
+                    <span class="tool-hub-label" style="color:#f87171;">Vital Signs Simulation</span>
+                    <span class="tool-hub-desc">Interpret age-aware vitals trends in sim mode</span>
+                </button>
+                <button type="button" class="tool-hub-card" onclick="openClinicalTool('iv')" style="border-color:#60a5fa44;">
+                    <span class="tool-hub-label" style="color:#60a5fa;">IV Flow Rate</span>
+                    <span class="tool-hub-desc">mL/hr and gtt/min drip calculations</span>
+                </button>
+                <button type="button" class="tool-hub-card" onclick="openClinicalTool('bmi')" style="border-color:#34d39944;">
+                    <span class="tool-hub-label" style="color:#34d399;">BMI & Body Metrics</span>
+                    <span class="tool-hub-desc">WHO BMI category from weight and height</span>
+                </button>
+                <button type="button" class="tool-hub-card" onclick="openClinicalTool('aog')" style="border-color:#f472b644;">
+                    <span class="tool-hub-label" style="color:#f472b6;">AOG & EDD</span>
+                    <span class="tool-hub-desc">Naegele's rule gestation dating</span>
+                </button>
+                <button type="button" class="tool-hub-card" onclick="openClinicalTool('peds')" style="border-color:#a78bfa44;">
+                    <span class="tool-hub-label" style="color:#a78bfa;">Pediatric Dosing</span>
+                    <span class="tool-hub-desc">mg/kg plus Clark's & Young's Rules</span>
+                </button>
+                <button type="button" class="tool-hub-card" onclick="openClinicalTool('apgar')" style="border-color:#fb718544;">
+                    <span class="tool-hub-label" style="color:#fb7185;">APGAR Score</span>
+                    <span class="tool-hub-desc">1- and 5-minute newborn scoring</span>
+                </button>
+                <button type="button" class="tool-hub-card" onclick="openClinicalTool('gcs')" style="border-color:#38bdf844;">
+                    <span class="tool-hub-label" style="color:#38bdf8;">GCS</span>
+                    <span class="tool-hub-desc">Eye / Verbal / Motor coma scale</span>
+                </button>
+                <button type="button" class="tool-hub-card" onclick="openClinicalTool('braden')" style="border-color:#2dd4bf44;">
+                    <span class="tool-hub-label" style="color:#2dd4bf;">Braden Scale</span>
+                    <span class="tool-hub-desc">Pressure injury risk assessment</span>
+                </button>
+                <button type="button" class="tool-hub-card" onclick="openClinicalTool('ron')" style="border-color:#fb923c44;">
+                    <span class="tool-hub-label" style="color:#fb923c;">Rule of Nines</span>
+                    <span class="tool-hub-desc">Tap-body burn TBSA estimate</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="tools-detail" class="hidden">
+            <button type="button" class="tools-back-btn" onclick="backToToolsHub()">← All Clinical Tools</button>
+            <div id="tool-panel-vitals" class="tool-panel">                <!-- VITAL SIGNS INPUT & ANALYSIS -->
                 <section id="vital-signs-section" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-bold text-white flex items-center">
@@ -1993,7 +2311,7 @@
                         </div>
                         <div class="space-y-1">
                             <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Known Conditions</label>
-                            <select id="conditions" oninput="renderOTCSidebar()" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
+                            <select id="conditions" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
                                 <option value="none">None</option>
                                 <option value="hypertension">Hypertension</option>
                                 <option value="diabetes">Diabetes</option>
@@ -2021,9 +2339,8 @@
                     </div>
                 </section>
 
-                <!-- TOOLS SECTION: IV CALCULATOR & BMI -->
-                <div class="grid md:grid-cols-2 gap-6">
-                    
+            </div>
+            <div id="tool-panel-iv" class="tool-panel">
                     <!-- IV FLOW RATE CALCULATOR -->
                     <div id="iv-calc-section" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
                         <h3 class="font-bold text-blue-400 mb-4 flex items-center text-lg">
@@ -2068,6 +2385,8 @@
                         </div>
                     </div>
 
+            </div>
+            <div id="tool-panel-bmi" class="tool-panel">
                     <!-- BMI & BODY METRICS -->
                     <div id="bmi-calc-section" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
                         <h3 class="font-bold text-emerald-400 mb-4 flex items-center text-lg">
@@ -2103,8 +2422,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
+            </div>
+            <div id="tool-panel-aog" class="tool-panel">
                 <!-- AOG & EDD CALCULATOR SECTION -->
                 <div id="aog-edd-section" class="mt-6 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
                     <h3 class="font-bold text-pink-400 mb-4 flex items-center text-lg">
@@ -2157,8 +2477,103 @@
                         </div>
                     </div>
                 </div>
-            </main>
+
+            </div>
+            <div id="tool-panel-peds" class="tool-panel">
+
+                <!-- Pediatric Dosing -->
+                <div id="peds-dose-section" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
+                    <h3 class="font-bold text-violet-400 mb-4 text-lg">Pediatric Dosing Calculator</h3>
+                    <p class="text-xs text-slate-400 mb-4">Weight-based mg/kg (clinical standard) plus Clark's and Young's Rules for NLE-style reference.</p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-3">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div><label class="text-[10px] font-bold text-slate-500 uppercase">Weight (kg)</label><input type="number" id="peds-weight" min="0" step="0.1" placeholder="12" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
+                                <div><label class="text-[10px] font-bold text-slate-500 uppercase">Age (years)</label><input type="number" id="peds-age" min="0" step="0.1" placeholder="3" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
+                                <div><label class="text-[10px] font-bold text-slate-500 uppercase">Dose (mg/kg)</label><input type="number" id="peds-mgkg" min="0" step="0.1" placeholder="15" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
+                                <div><label class="text-[10px] font-bold text-slate-500 uppercase">Adult dose (mg)</label><input type="number" id="peds-adult" min="0" step="1" placeholder="500" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
+                                <div class="col-span-2"><label class="text-[10px] font-bold text-slate-500 uppercase">Max single dose (mg, optional)</label><input type="number" id="peds-max" min="0" step="1" placeholder="1000" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
+                            </div>
+                            <button type="button" onclick="calcPediatricDose()" class="w-full py-3 rounded-xl font-bold" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;">Calculate Pediatric Dose</button>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="bg-slate-700/30 p-3 rounded-lg border border-violet-500/30"><p class="text-[10px] text-slate-400 uppercase">Weight-based (mg/kg)</p><p id="peds-weight-result" class="text-2xl font-mono font-bold text-violet-300">--</p></div>
+                            <div class="bg-slate-700/30 p-3 rounded-lg border border-fuchsia-500/30"><p class="text-[10px] text-slate-400 uppercase">Clark's Rule</p><p id="peds-clarks-result" class="text-xl font-mono font-bold text-fuchsia-300">--</p></div>
+                            <div class="bg-slate-700/30 p-3 rounded-lg border border-pink-500/30"><p class="text-[10px] text-slate-400 uppercase">Young's Rule</p><p id="peds-youngs-result" class="text-xl font-mono font-bold text-pink-300">--</p></div>
+                            <p id="peds-notes" class="text-[11px] text-amber-400">Educational reference only. Verify with CI and monograph.</p>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+            <div id="tool-panel-apgar" class="tool-panel">
+<!-- APGAR -->
+                <div id="apgar-section" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
+                    <h3 class="font-bold text-rose-400 mb-2 text-lg">APGAR Score</h3>
+                    <p class="text-xs text-slate-400 mb-4">Score each domain 0–2 at 1 minute and 5 minutes (simulation).</p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-2" id="apgar-inputs"></div>
+                        <div class="space-y-3">
+                            <div class="bg-slate-700/30 p-4 rounded-lg border border-rose-500/30"><p class="text-[10px] text-slate-400 uppercase">Total APGAR</p><p id="apgar-total" class="text-3xl font-mono font-bold text-rose-300">--</p><p id="apgar-interp" class="text-sm text-slate-300 mt-2">--</p></div>
+                            <button type="button" onclick="calcApgar()" class="w-full py-3 rounded-xl font-bold" style="background:linear-gradient(135deg,#f43f5e,#be123c);color:#fff;">Score APGAR</button>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+            <div id="tool-panel-gcs" class="tool-panel">
+<!-- GCS -->
+                <div id="gcs-section" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
+                    <h3 class="font-bold text-sky-400 mb-4 text-lg">Glasgow Coma Scale (GCS)</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-3">
+                            <div><label class="text-[10px] font-bold text-slate-500 uppercase">Eye Opening (1–4)</label>
+                                <select id="gcs-eye" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm"><option value="4">4 — Spontaneous</option><option value="3">3 — To speech</option><option value="2">2 — To pain</option><option value="1">1 — None</option></select></div>
+                            <div><label class="text-[10px] font-bold text-slate-500 uppercase">Verbal Response (1–5)</label>
+                                <select id="gcs-verbal" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm"><option value="5">5 — Oriented</option><option value="4">4 — Confused</option><option value="3">3 — Inappropriate words</option><option value="2">2 — Incomprehensible sounds</option><option value="1">1 — None</option></select></div>
+                            <div><label class="text-[10px] font-bold text-slate-500 uppercase">Motor Response (1–6)</label>
+                                <select id="gcs-motor" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm"><option value="6">6 — Obeys commands</option><option value="5">5 — Localizes pain</option><option value="4">4 — Withdraws</option><option value="3">3 — Abnormal flexion</option><option value="2">2 — Extension</option><option value="1">1 — None</option></select></div>
+                            <button type="button" onclick="calcGCS()" class="w-full py-3 rounded-xl font-bold" style="background:linear-gradient(135deg,#0ea5e9,#0369a1);color:#fff;">Calculate GCS</button>
+                        </div>
+                        <div class="bg-slate-700/30 p-4 rounded-lg border border-sky-500/30 self-start"><p class="text-[10px] text-slate-400 uppercase">GCS Total</p><p id="gcs-total" class="text-3xl font-mono font-bold text-sky-300">--</p><p id="gcs-severity" class="text-sm text-slate-300 mt-2">--</p><p class="text-[11px] text-amber-400 mt-3">Educational reference only. E+V+M = 3–15.</p></div>
+                    </div>
+                </div>
+
+                
+            </div>
+            <div id="tool-panel-braden" class="tool-panel">
+<!-- Braden -->
+                <div id="braden-section" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
+                    <h3 class="font-bold text-teal-400 mb-2 text-lg">Braden Scale</h3>
+                    <p class="text-xs text-slate-400 mb-4">Pressure injury risk. Lower total = higher risk (6–23).</p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-2" id="braden-inputs"></div>
+                        <div class="space-y-3">
+                            <div class="bg-slate-700/30 p-4 rounded-lg border border-teal-500/30"><p class="text-[10px] text-slate-400 uppercase">Braden Total</p><p id="braden-total" class="text-3xl font-mono font-bold text-teal-300">--</p><p id="braden-risk" class="text-sm text-slate-300 mt-2">--</p></div>
+                            <button type="button" onclick="calcBraden()" class="w-full py-3 rounded-xl font-bold" style="background:linear-gradient(135deg,#14b8a6,#0f766e);color:#fff;">Calculate Braden</button>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+            <div id="tool-panel-ron" class="tool-panel">
+<!-- Rule of Nines -->
+                <div id="ron-section" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
+                    <h3 class="font-bold text-orange-400 mb-2 text-lg">Rule of Nines — Burn TBSA</h3>
+                    <p class="text-xs text-slate-400 mb-4">Tap a region to cycle: none → half → full. Adult proportions (simulation).</p>
+                    <div id="ron-grid" class="ron-body-grid mb-4"></div>
+                    <div class="bg-slate-700/30 p-4 rounded-lg border border-orange-500/30 mb-3"><p class="text-[10px] text-slate-400 uppercase">Estimated TBSA</p><p id="ron-tbsa" class="text-3xl font-mono font-bold text-orange-300">0%</p><p id="ron-note" class="text-sm text-slate-300 mt-2">Tap body regions above</p><div id="ron-breakdown" class="text-xs text-slate-400 mt-2"></div></div>
+                    <button type="button" onclick="resetRuleOfNines()" class="w-full py-3 rounded-xl font-bold bg-slate-700 text-slate-100 border border-slate-500">Reset Regions</button>
+                </div>
+
+            </div>
         </div>
+
+        <!-- Hidden OTC sidebar host for legacy helpers -->
+        <div id="otc-sidebar" class="hidden" aria-hidden="true"></div>
         </div> <!-- End content-tools -->
     </div>
 
@@ -2170,7 +2585,7 @@
                     <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" class="mr-3 text-amber-400"><path d="M8 2a6 6 0 0 1 6 6v8a6 6 0 0 1-12 0V8a6 6 0 0 1 6-6zm8 0a6 6 0 0 1 0 12v-6a6 6 0 0 0-6-6h6z"/></svg> OTC Reference Directory
                 </h2>
                 <div class="w-full sm:w-1/2 md:w-1/3">
-                    <input id="otc-search" type="search" placeholder="Search conditions or medicine..." class="w-full border border-slate-700 p-3 rounded-xl text-sm outline-none" style="background-color: #0f172a;" />
+                    <input id="otc-search" type="search" placeholder="Search medicine, brand, or symptom (typo-tolerant)..." class="w-full border border-slate-700 p-3 rounded-xl text-sm outline-none" style="background-color: #0f172a;" />
                 </div>
             </div>
 
@@ -2191,7 +2606,7 @@
         </div> <!-- End content-otc -->
 
     <footer class="mt-12 py-6 text-center text-slate-500 border-t border-slate-800">
-        <p class="text-xs">This tool is for educational purposes only. Always consult qualified healthcare professionals. Pilot usage metadata may be logged with consent.</p>
+        <p class="text-xs">This tool is for educational purposes only. Always consult qualified healthcare professionals. Usage metadata may be logged with consent.</p>
     </footer>
 
     <script>
@@ -2786,8 +3201,12 @@
         }
 
         function renderOTCSidebar() {
-            const conditions = document.getElementById('conditions').value;
             const container = document.getElementById('otc-sidebar');
+            if (!container || container.getAttribute('aria-hidden') === 'true') {
+                return;
+            }
+            const conditionsEl = document.getElementById('conditions');
+            const conditions = conditionsEl ? conditionsEl.value : 'none';
             container.innerHTML = '';
             
             const colors = ['yellow-500', 'orange-500', 'purple-500', 'red-500', 'green-500', 'blue-500', 'pink-500', 'indigo-500'];
@@ -2907,6 +3326,7 @@
                 document.getElementById('content-tools').classList.remove('hidden');
                 document.getElementById('tab-tools').classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
                 document.getElementById('tab-tools').classList.add('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
+                if (typeof backToToolsHub === 'function') backToToolsHub();
             } else if (tab === 'otc') {
                 document.getElementById('content-otc').classList.remove('hidden');
                 document.getElementById('tab-otc').classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
@@ -2921,6 +3341,220 @@
         }
 
         // ============= AOG & EDD CALCULATOR =============
+
+        const CLINICAL_TOOL_PANELS = {
+            vitals: 'tool-panel-vitals',
+            iv: 'tool-panel-iv',
+            bmi: 'tool-panel-bmi',
+            aog: 'tool-panel-aog',
+            peds: 'tool-panel-peds',
+            apgar: 'tool-panel-apgar',
+            gcs: 'tool-panel-gcs',
+            braden: 'tool-panel-braden',
+            ron: 'tool-panel-ron'
+        };
+
+        function openClinicalTool(toolId) {
+            const hub = document.getElementById('tools-hub');
+            const detail = document.getElementById('tools-detail');
+            if (!hub || !detail) return;
+            hub.classList.add('hidden');
+            detail.classList.remove('hidden');
+            Object.values(CLINICAL_TOOL_PANELS).forEach((id) => {
+                const el = document.getElementById(id);
+                if (el) el.classList.remove('is-active');
+            });
+            const panelId = CLINICAL_TOOL_PANELS[toolId];
+            const panel = panelId ? document.getElementById(panelId) : null;
+            if (panel) panel.classList.add('is-active');
+            trackUsageSafe('navigation', 'feature_open', { tool: toolId }, { minIntervalMs: 700, rateKey: `tool_${toolId}` });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (toolId === 'apgar') initApgarInputs();
+            if (toolId === 'braden') initBradenInputs();
+            if (toolId === 'ron') initRuleOfNines();
+        }
+
+        function backToToolsHub() {
+            const hub = document.getElementById('tools-hub');
+            const detail = document.getElementById('tools-detail');
+            if (hub) hub.classList.remove('hidden');
+            if (detail) detail.classList.add('hidden');
+            Object.values(CLINICAL_TOOL_PANELS).forEach((id) => {
+                const el = document.getElementById(id);
+                if (el) el.classList.remove('is-active');
+            });
+        }
+
+        function calcPediatricDose() {
+            const calc = window.NursePathCalculators;
+            if (!calc) return;
+            const result = calc.pediatricDose({
+                weightKg: document.getElementById('peds-weight').value,
+                ageYears: document.getElementById('peds-age').value,
+                mgPerKg: document.getElementById('peds-mgkg').value,
+                adultDoseMg: document.getElementById('peds-adult').value,
+                maxDoseMg: document.getElementById('peds-max').value
+            });
+            document.getElementById('peds-weight-result').textContent = result.weightBasedMg != null ? `${result.weightBasedMg} mg` : '--';
+            document.getElementById('peds-clarks-result').textContent = result.clarksMg != null ? `${result.clarksMg} mg` : '--';
+            document.getElementById('peds-youngs-result').textContent = result.youngsMg != null ? `${result.youngsMg} mg` : '--';
+            document.getElementById('peds-notes').textContent = (result.notes || []).join(' ');
+            trackUsageSafe('peds_dose', 'result_generated', { has_value: result.weightBasedMg != null }, { minIntervalMs: 1500, rateKey: 'peds_dose' });
+        }
+
+        function initApgarInputs() {
+            const host = document.getElementById('apgar-inputs');
+            if (!host || host.dataset.ready === '1') return;
+            const fields = [
+                ['appearance', 'Appearance (color)'],
+                ['pulse', 'Pulse (HR)'],
+                ['grimace', 'Grimace (reflex)'],
+                ['activity', 'Activity (tone)'],
+                ['respiration', 'Respiration']
+            ];
+            host.innerHTML = fields.map(([id, label]) => `
+                <div>
+                    <label class="text-[10px] font-bold text-slate-500 uppercase">${label}</label>
+                    <select id="apgar-${id}" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm">
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                        <option value="0">0</option>
+                    </select>
+                </div>`).join('');
+            host.dataset.ready = '1';
+        }
+
+        function calcApgar() {
+            const calc = window.NursePathCalculators;
+            if (!calc) return;
+            initApgarInputs();
+            const scores = {
+                appearance: document.getElementById('apgar-appearance').value,
+                pulse: document.getElementById('apgar-pulse').value,
+                grimace: document.getElementById('apgar-grimace').value,
+                activity: document.getElementById('apgar-activity').value,
+                respiration: document.getElementById('apgar-respiration').value
+            };
+            const result = calc.apgarScore(scores);
+            document.getElementById('apgar-total').textContent = String(result.total);
+            document.getElementById('apgar-interp').textContent = result.interpretation;
+            trackUsageSafe('apgar', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'apgar' });
+        }
+
+        function calcGCS() {
+            const calc = window.NursePathCalculators;
+            if (!calc) return;
+            const result = calc.gcsScore(
+                document.getElementById('gcs-eye').value,
+                document.getElementById('gcs-verbal').value,
+                document.getElementById('gcs-motor').value
+            );
+            document.getElementById('gcs-total').textContent = `${result.total} (E${result.eye} V${result.verbal} M${result.motor})`;
+            document.getElementById('gcs-severity').textContent = result.severity;
+            trackUsageSafe('gcs', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'gcs' });
+        }
+
+        function initBradenInputs() {
+            const host = document.getElementById('braden-inputs');
+            if (!host || host.dataset.ready === '1') return;
+            const fields = [
+                ['sensory', 'Sensory Perception', 4],
+                ['moisture', 'Moisture', 4],
+                ['activity', 'Activity', 4],
+                ['mobility', 'Mobility', 4],
+                ['nutrition', 'Nutrition', 4],
+                ['friction', 'Friction & Shear', 3]
+            ];
+            host.innerHTML = fields.map(([id, label, max]) => {
+                const opts = Array.from({ length: max }, (_, i) => max - i)
+                    .map((v) => `<option value="${v}">${v}</option>`).join('');
+                return `<div><label class="text-[10px] font-bold text-slate-500 uppercase">${label} (1–${max})</label>
+                    <select id="braden-${id}" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm">${opts}</select></div>`;
+            }).join('');
+            host.dataset.ready = '1';
+        }
+
+        function calcBraden() {
+            const calc = window.NursePathCalculators;
+            if (!calc) return;
+            initBradenInputs();
+            const subscores = {
+                sensory: document.getElementById('braden-sensory').value,
+                moisture: document.getElementById('braden-moisture').value,
+                activity: document.getElementById('braden-activity').value,
+                mobility: document.getElementById('braden-mobility').value,
+                nutrition: document.getElementById('braden-nutrition').value,
+                friction: document.getElementById('braden-friction').value
+            };
+            const result = calc.bradenScore(subscores);
+            document.getElementById('braden-total').textContent = String(result.total);
+            document.getElementById('braden-risk').textContent = result.risk;
+            trackUsageSafe('braden', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'braden' });
+        }
+
+        const ronSelection = {};
+
+        function initRuleOfNines() {
+            const calc = window.NursePathCalculators;
+            const host = document.getElementById('ron-grid');
+            if (!calc || !host) return;
+            if (host.dataset.ready === '1') {
+                renderRuleOfNines();
+                return;
+            }
+            host.innerHTML = calc.RULE_OF_NINES_REGIONS.map((region) => `
+                <button type="button" class="ron-region" data-region="${region.id}" onclick="cycleRonRegion('${region.id}')">
+                    <div class="text-sm font-bold text-slate-100">${region.label}</div>
+                    <div class="text-[11px] text-slate-400">Full = ${region.full}%</div>
+                    <div class="text-xs text-orange-300 mt-1" data-state>Off</div>
+                </button>`).join('');
+            host.dataset.ready = '1';
+            renderRuleOfNines();
+        }
+
+        function cycleRonRegion(regionId) {
+            const current = ronSelection[regionId] || 0;
+            const next = current === 0 ? 0.5 : (current === 0.5 ? 1 : 0);
+            if (next === 0) delete ronSelection[regionId];
+            else ronSelection[regionId] = next;
+            renderRuleOfNines();
+        }
+
+        function renderRuleOfNines() {
+            const calc = window.NursePathCalculators;
+            if (!calc) return;
+            const result = calc.ruleOfNines(ronSelection);
+            document.getElementById('ron-tbsa').textContent = `${result.tbsa}%`;
+            document.getElementById('ron-note').textContent = result.note;
+            document.getElementById('ron-breakdown').textContent = result.breakdown.length
+                ? result.breakdown.map((b) => `${b.label}: ${b.percent}%`).join(' · ')
+                : 'No regions selected';
+            document.querySelectorAll('#ron-grid .ron-region').forEach((btn) => {
+                const id = btn.getAttribute('data-region');
+                const frac = ronSelection[id] || 0;
+                btn.classList.toggle('is-half', frac === 0.5);
+                btn.classList.toggle('is-full', frac === 1);
+                const state = btn.querySelector('[data-state]');
+                if (state) state.textContent = frac === 1 ? 'Full' : (frac === 0.5 ? 'Half' : 'Off');
+            });
+            trackUsageSafe('rule_of_nines', 'feature_use', { tbsa: result.tbsa }, { minIntervalMs: 2000, rateKey: 'ron_update' });
+        }
+
+        function resetRuleOfNines() {
+            Object.keys(ronSelection).forEach((k) => delete ronSelection[k]);
+            renderRuleOfNines();
+        }
+
+        window.openClinicalTool = openClinicalTool;
+        window.backToToolsHub = backToToolsHub;
+        window.calcPediatricDose = calcPediatricDose;
+        window.calcApgar = calcApgar;
+        window.calcGCS = calcGCS;
+        window.calcBraden = calcBraden;
+        window.cycleRonRegion = cycleRonRegion;
+        window.resetRuleOfNines = resetRuleOfNines;
+
+
         function calcAOGEDD() {
             const lmpInput = document.getElementById('lmp-date').value;
             const calcDateInput = document.getElementById('calc-date').value;
@@ -4001,7 +4635,31 @@
 
         // OPTIMIZATION: Initialize live vital signs analysis on field change with proper event tracking
         function initVitalSignsLiveAnalysis() {
-            const vitalFields = ['sys', 'dia', 'temp', 'hr', 'rr', 'age', 'pregnancies', 'pregnant', 'conditions'];
+            const vitalFields = ['sys', 'dia', 'temp', 'hr', 'rr', 'age', 'pregnancies', 'pregnant', 'conditions',
+            {
+                id: 'benzydamine',
+                name: 'Benzydamine',
+                ph_brands: ['Difflam', 'Tantum Verde', 'Benzydamine Gargle'],
+                uses: 'Sore throat pain relief, oral mucositis discomfort, local anti-inflammatory rinse',
+                origin: 'Locally acting NSAID used as oromucosal spray/gargle',
+                whenToGive: 'For sore throat or mouth pain as directed; do not swallow large amounts',
+                contraindications: 'Hypersensitivity to benzydamine or NSAIDs; caution if unable to gargle safely',
+                conditionSafety: { hypertension: 'SAFE', diabetes: 'SAFE', asthma: 'CAUTION', copd: 'SAFE', ckd: 'SAFE' },
+                tags: ['sore throat','throat','lozenge','pharyngitis','analgesic','antiseptic'],
+                additionalInfo: {
+                    genericNames: ['Benzydamine hydrochloride'],
+                    drugClass: 'Locally acting NSAID / analgesic-anti-inflammatory (oromucosal)',
+                    usesExpanded: 'Symptomatic relief of sore throat, pharyngitis-related pain, aphthous ulcers, and oral inflammation. Common in Philippine pharmacies as Difflam spray/gargle.',
+                    mechanismOfAction: 'Local prostaglandin inhibition and membrane-stabilizing analgesic effect on oropharyngeal mucosa with minimal systemic absorption when used correctly.',
+                    dosing: 'Follow product label. Typical adult gargle/spray intervals every 1.5–3 hours as needed. Spit out after gargling unless product instructs otherwise.',
+                    whenToGiveExpanded: 'Use at onset of sore throat discomfort. Not a substitute for evaluating bacterial pharyngitis red flags (high fever, drooling, trismus, difficulty breathing).',
+                    sideEffects: 'Oral numbness, stinging, dry mouth; rare hypersensitivity.',
+                    contraindicationsExpanded: 'Known hypersensitivity. Avoid in young children who cannot gargle/spit safely unless formulation is age-approved.',
+                    nursingConsiderations: '1) Assess airway and swallowing. 2) Teach spit-after-gargle technique. 3) Escalate red-flag throat symptoms to CI/MD. 4) Educational use only — not a prescription decision.',
+                    patientEducation: 'This relieves throat pain locally. Seek care for severe pain, high fever, rash, or breathing difficulty.',
+                    conditionSafetyExpanded: { hypertension: 'SAFE', diabetes: 'SAFE', asthma: 'CAUTION', copd: 'SAFE', ckd: 'SAFE', pregnancy: 'Ask CI/MD' }
+                }
+            }];
             vitalFields.forEach(fieldId => {
                 const field = document.getElementById(fieldId);
                 if (field) {
@@ -4105,7 +4763,16 @@
                 'painkiller': ['analgesic', 'pain relief'],
                 'heartburn': ['antacid', 'reflux', 'gerd', 'acid'],
                 'allergy': ['antihistamine', 'allergic', 'hives'],
-                'nausea': ['antiemetic', 'vomiting', 'gastro']
+                'nausea': ['antiemetic', 'vomiting', 'gastro'],
+                'sore throat': ['throat', 'lozenge', 'pharyngitis', 'analgesic', 'antiseptic'],
+                'throat': ['sore throat', 'lozenge', 'pharyngitis', 'analgesic'],
+                'toothache': ['dental', 'analgesic', 'pain', 'tooth'],
+                'constipation': ['laxative', 'stool', 'bowel', 'fiber'],
+                'motion sickness': ['antiemetic', 'nausea', 'dimenhydrinate', 'meclizine', 'travel'],
+                'rash': ['antihistamine', 'topical', 'skin', 'itch', 'dermatitis'],
+                'skin': ['topical', 'rash', 'itch', 'dermatitis', 'wound'],
+                'wound': ['antiseptic', 'wound', 'skin', 'iodine', 'povidone'],
+                'wound care': ['antiseptic', 'wound', 'dressing', 'povidone']
             };
             if (symptomMap[q]) {
                 symptomMap[q].forEach(related => {
@@ -4121,21 +4788,34 @@
             // OPTIMIZATION: Use DocumentFragment for efficient DOM rendering
             const fragment = document.createDocumentFragment();
             
-            // IMPROVED SEARCH: Smart search with relevance ranking
-            const matches = otcDatabase
+            // IMPROVED SEARCH: Smart search with relevance ranking + fuzzy fallback
+            let matches = otcDatabase
                 .map(item => ({ item, ...smartSearch(q, item) }))
                 .filter(r => r.match)
                 .sort((a, b) => b.score - a.score)
                 .map(r => r.item);
 
+            let usedFuzzy = false;
+            if (q && matches.length === 0 && window.NursePathCalculators && typeof window.NursePathCalculators.fuzzyDrugFallback === 'function') {
+                matches = window.NursePathCalculators.fuzzyDrugFallback(q, otcDatabase, 2);
+                usedFuzzy = matches.length > 0;
+            }
+
             if(matches.length === 0){
                 const noMatch = document.createElement('div');
                 noMatch.className = 'text-slate-400 text-sm';
-                noMatch.textContent = 'No matches found.';
+                noMatch.textContent = 'No matches found. Try a brand name, generic, or symptom (e.g. fever, cough, sore throat).';
                 fragment.appendChild(noMatch);
                 otcListEl.innerHTML = '';
                 otcListEl.appendChild(fragment);
                 return;
+            }
+
+            if (usedFuzzy) {
+                const hint = document.createElement('div');
+                hint.className = 'text-amber-300 text-xs mb-2';
+                hint.textContent = 'Showing close matches (typo-tolerant search).';
+                fragment.appendChild(hint);
             }
 
             // If searching, show all results; otherwise respect the visible count limit

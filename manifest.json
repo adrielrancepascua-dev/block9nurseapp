@@ -9,15 +9,8 @@
   "orientation": "portrait",
   "theme_color": "#0f172a",
   "background_color": "#0f172a",
-  "categories": ["medical", "productivity"],
-  "prefer_related_applications": true,
-  "related_applications": [
-    {
-      "platform": "play",
-      "url": "https://play.google.com/store/apps/details?id=com.block9.nurse",
-      "id": "com.block9.nurse"
-    }
-  ],
+  "categories": ["medical", "education", "productivity"],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect fill='%230f172a' width='192' height='192'/%3E%3Ctext x='50%25' y='50%25' font-size='120' font-weight='bold' fill='%2306b6d4' text-anchor='middle' dy='.35em'%3ERx%3C/text%3E%3C/svg%3E",
@@ -32,5 +25,34 @@
       "purpose": "maskable"
     }
   ],
-  "screenshots": []
+  "screenshots": [
+    {
+      "src": "assets/screenshots/tools-hub-narrow.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Clinical tools hub"
+    },
+    {
+      "src": "assets/screenshots/otc-search-narrow.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "OTC medicine search"
+    },
+    {
+      "src": "assets/screenshots/vitals-narrow.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Vital signs simulation"
+    },
+    {
+      "src": "assets/screenshots/tools-hub-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Clinical tools hub on desktop"
+    }
+  ]
 }

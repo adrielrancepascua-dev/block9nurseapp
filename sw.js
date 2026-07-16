@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nursepath-dean-demo-v1.4';
+const CACHE_NAME = 'nursepath-v2.0.0';
 
 // Paths relative to this script so the app works when hosted in a subdirectory (e.g. university pages).
 const BASE = new URL('./', self.location);
@@ -13,6 +13,12 @@ const STATIC_ASSETS = [
   new URL('index.html', BASE).href,
   new URL('manifest.json', BASE).href,
   new URL('browserconfig.xml', BASE).href,
+  new URL('assets/ui-helpers.js', BASE).href,
+  new URL('assets/vitals-analysis.js', BASE).href,
+  new URL('assets/clinical-calculators.js', BASE).href,
+  new URL('assets/screenshots/tools-hub-narrow.png', BASE).href,
+  new URL('assets/screenshots/otc-search-narrow.png', BASE).href,
+  new URL('assets/screenshots/vitals-narrow.png', BASE).href,
   self.location.href
 ];
 
