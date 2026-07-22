@@ -1308,7 +1308,7 @@
             line-height: 1.45;
             margin: 0;
         }
-        .otc-hub { margin-bottom: 1.5rem; }
+        .otc-hub { margin-bottom: 1.5rem; padding: 0 2px; }
         .otc-search-wrap { margin-bottom: 14px; }
         .otc-search-input {
             width: 100%;
@@ -1402,6 +1402,25 @@
         .otc-med-card .tool-hub-tag {
             align-self: start;
             margin-top: 2px;
+            max-width: 5.6rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        @media (max-width: 768px) {
+            button.otc-med-card,
+            button.tool-hub-card {
+                padding: 12px 14px !important;
+                min-height: 0 !important;
+                font-size: inherit !important;
+            }
+            button.otc-med-card .tool-hub-tag,
+            button.tool-hub-card .tool-hub-tag {
+                min-height: 0 !important;
+                min-width: 0 !important;
+                padding: 4px 8px !important;
+                font-size: 10px !important;
+            }
         }
         .otc-empty, .otc-fuzzy-hint {
             padding: 14px;
@@ -1607,10 +1626,10 @@
                 gap: 8px !important;
             }
             
-            /* Container padding */
+            /* Container padding — keep cards off the screen edge */
             .max-w-7xl, .container {
-                padding-left: 10px !important;
-                padding-right: 10px !important;
+                padding-left: 16px !important;
+                padding-right: 16px !important;
             }
             
             /* Smaller gaps */
@@ -4668,7 +4687,8 @@
         }
 
         // ============= TAB SWITCHING FUNCTION =============
-        function switchMainTab(tab) {
+        function switchMainTab(tab, opts) {
+            const skipHistory = !!(opts && opts.skipHistory);
             trackUsageSafe('navigation', 'feature_open', { tab }, { minIntervalMs: 700, rateKey: `tab_${tab}` });
 
             // Hide all tab contents
@@ -4686,14 +4706,17 @@
                 document.getElementById('content-tools').classList.remove('hidden');
                 document.getElementById('tab-tools').classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
                 document.getElementById('tab-tools').classList.add('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
-                if (typeof backToToolsHub === 'function') backToToolsHub();
+                if (typeof backToToolsHub === 'function') backToToolsHub({ skipHistory: true });
+                if (!skipHistory) pushNursePathState({ view: 'hub', tab: 'tools' });
             } else if (tab === 'otc') {
                 document.getElementById('content-otc').classList.remove('hidden');
                 document.getElementById('tab-otc').classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
                 document.getElementById('tab-otc').classList.add('active', 'bg-amber-900/50', 'border-amber-500/50', 'text-amber-400');
                 // Reset to initial preview count and re-render OTC list when switching to tab
+                if (typeof hideOTCDetail === 'function') hideOTCDetail({ skipHistory: true });
                 otcVisibleCount = OTC_INCREMENT;
                 renderOTCList('');
+                if (!skipHistory) pushNursePathState({ view: 'otc', tab: 'otc' });
             }
             
             // Scroll to top of content
@@ -4713,6 +4736,66 @@
             braden: 'tool-panel-braden',
             ron: 'tool-panel-ron'
         };
+
+        // Phone/system Back should return to hub/list instead of leaving the PWA.
+        function pushNursePathState(state) {
+            try {
+                const next = Object.assign({ np: 1 }, state || {});
+                const cur = window.history.state;
+                if (
+                    cur &&
+                    cur.np === 1 &&
+                    cur.view === next.view &&
+                    cur.tab === next.tab &&
+                    cur.toolId === next.toolId &&
+                    cur.otcId === next.otcId &&
+                    cur.overlay === next.overlay
+                ) {
+                    return;
+                }
+                window.history.pushState(next, '');
+            } catch (e) { /* ignore */ }
+        }
+
+        function replaceNursePathState(state) {
+            try {
+                window.history.replaceState(Object.assign({ np: 1 }, state || {}), '');
+            } catch (e) { /* ignore */ }
+        }
+
+        function ensureToolsTabVisible() {
+            const tools = document.getElementById('content-tools');
+            const otc = document.getElementById('content-otc');
+            if (tools) tools.classList.remove('hidden');
+            if (otc) otc.classList.add('hidden');
+            const tabTools = document.getElementById('tab-tools');
+            const tabOtc = document.getElementById('tab-otc');
+            if (tabTools) {
+                tabTools.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                tabTools.classList.add('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
+            }
+            if (tabOtc) {
+                tabOtc.classList.remove('active', 'bg-amber-900/50', 'border-amber-500/50', 'text-amber-400');
+                tabOtc.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
+        }
+
+        function ensureOtcTabVisible() {
+            const tools = document.getElementById('content-tools');
+            const otc = document.getElementById('content-otc');
+            if (otc) otc.classList.remove('hidden');
+            if (tools) tools.classList.add('hidden');
+            const tabTools = document.getElementById('tab-tools');
+            const tabOtc = document.getElementById('tab-otc');
+            if (tabOtc) {
+                tabOtc.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                tabOtc.classList.add('active', 'bg-amber-900/50', 'border-amber-500/50', 'text-amber-400');
+            }
+            if (tabTools) {
+                tabTools.classList.remove('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
+                tabTools.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
+        }
 
         let currentClinicalToolId = null;
         const HUB_MODE_KEY = 'np_hub_mode_v1';
@@ -4781,7 +4864,7 @@
             else openClinicalTool(toolId);
         }
 
-        function openClinicalTool(toolId) {
+        function openClinicalTool(toolId, opts) {
             const hub = document.getElementById('tools-hub');
             const detail = document.getElementById('tools-detail');
             const study = document.getElementById('study-detail');
@@ -4804,6 +4887,9 @@
             if (toolId === 'braden') initBradenInputs();
             if (toolId === 'gcs') initGcsInputs();
             if (toolId === 'ron') initRuleOfNines();
+            if (!(opts && opts.skipHistory)) {
+                pushNursePathState({ view: 'duty', tab: 'tools', toolId: toolId });
+            }
         }
 
         function renderStudyLesson(toolId) {
@@ -4956,7 +5042,7 @@
             }
         }
 
-        function openStudyTool(toolId) {
+        function openStudyTool(toolId, opts) {
             const hub = document.getElementById('tools-hub');
             const detail = document.getElementById('tools-detail');
             const study = document.getElementById('study-detail');
@@ -4977,16 +5063,19 @@
             setStudyTab('lesson');
             trackUsageSafe('navigation', 'feature_open', { tool: toolId, hub_mode: 'study' }, { minIntervalMs: 700, rateKey: `study_${toolId}` });
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (!(opts && opts.skipHistory)) {
+                pushNursePathState({ view: 'study', tab: 'tools', toolId: toolId });
+            }
         }
 
-        function backToToolsHub() {
+        function backToToolsHub(opts) {
             const hub = document.getElementById('tools-hub');
             const detail = document.getElementById('tools-detail');
             const study = document.getElementById('study-detail');
             currentClinicalToolId = null;
             currentStudyToolId = null;
             studyQuizState = null;
-            closeToolGuide();
+            closeToolGuide({ skipHistory: true });
             closeToolDrill();
             if (hub) hub.classList.remove('hidden');
             if (detail) detail.classList.add('hidden');
@@ -4995,6 +5084,14 @@
                 const el = document.getElementById(id);
                 if (el) el.classList.remove('is-active');
             });
+            if (!(opts && opts.skipHistory)) {
+                const cur = window.history.state;
+                if (cur && cur.np === 1 && (cur.view === 'duty' || cur.view === 'study' || cur.overlay)) {
+                    window.history.back();
+                    return;
+                }
+                replaceNursePathState({ view: 'hub', tab: 'tools' });
+            }
         }
 
         function renderGuideSection(section) {
@@ -5014,7 +5111,7 @@
             return `<section class="tool-guide-section"><h4>${escapeGuideHtml(heading)}</h4>${bodyHtml}</section>`;
         }
 
-        function openToolGuide() {
+        function openToolGuide(opts) {
             const guides = window.NursePathToolGuides;
             const overlay = document.getElementById('toolGuideOverlay');
             const titleEl = document.getElementById('toolGuideTitle');
@@ -5032,13 +5129,27 @@
             overlay.classList.add('open');
             document.body.style.overflow = 'hidden';
             trackUsageSafe('navigation', 'feature_open', { tool: currentClinicalToolId, view: 'guide' }, { minIntervalMs: 700, rateKey: `guide_${currentClinicalToolId || 'none'}` });
+            if (!(opts && opts.skipHistory)) {
+                pushNursePathState({
+                    view: currentStudyToolId ? 'study' : 'duty',
+                    tab: 'tools',
+                    toolId: currentClinicalToolId,
+                    overlay: 'guide'
+                });
+            }
         }
 
-        function closeToolGuide() {
+        function closeToolGuide(opts) {
             const overlay = document.getElementById('toolGuideOverlay');
             if (overlay) overlay.classList.remove('open');
             if (!document.getElementById('toolDrillOverlay') || !document.getElementById('toolDrillOverlay').classList.contains('open')) {
                 document.body.style.overflow = '';
+            }
+            if (!(opts && opts.skipHistory)) {
+                const cur = window.history.state;
+                if (cur && cur.np === 1 && cur.overlay === 'guide') {
+                    window.history.back();
+                }
             }
         }
 
@@ -5055,6 +5166,49 @@
                 closeToolGuide();
             }
         });
+
+        window.addEventListener('popstate', () => {
+            const state = window.history.state;
+            const guideEl = document.getElementById('toolGuideOverlay');
+            if (guideEl) guideEl.classList.remove('open');
+            closeToolDrill();
+            document.body.style.overflow = '';
+
+            if (!state || state.np !== 1 || state.view === 'hub' || !state.view) {
+                ensureToolsTabVisible();
+                backToToolsHub({ skipHistory: true });
+                return;
+            }
+
+            if (state.view === 'otc' || state.view === 'otc-detail') {
+                ensureOtcTabVisible();
+                if (state.view === 'otc-detail' && state.otcId && Array.isArray(window.otcDatabase)) {
+                    const item = window.otcDatabase.find((med) => med && med.id === state.otcId);
+                    if (item && typeof showOTCDetail === 'function') {
+                        showOTCDetail(item, { skipHistory: true });
+                        return;
+                    }
+                }
+                if (typeof hideOTCDetail === 'function') hideOTCDetail({ skipHistory: true });
+                return;
+            }
+
+            ensureToolsTabVisible();
+            if (state.view === 'study' && state.toolId) {
+                openStudyTool(state.toolId, { skipHistory: true });
+            } else if (state.view === 'duty' && state.toolId) {
+                openClinicalTool(state.toolId, { skipHistory: true });
+            } else {
+                backToToolsHub({ skipHistory: true });
+            }
+
+            if (state.overlay === 'guide') {
+                openToolGuide({ skipHistory: true });
+            }
+        });
+
+        // Seed history so the first in-app Back has a hub state to land on.
+        replaceNursePathState({ view: 'hub', tab: 'tools' });
 
         // Restore hub mode on load
         applyHubMode(readHubMode(), { silent: true });
@@ -5445,6 +5599,8 @@
         window.submitStudyQuizAnswer = submitStudyQuizAnswer;
         window.advanceStudyQuiz = advanceStudyQuiz;
         window.retakeStudyQuiz = retakeStudyQuiz;
+        window.pushNursePathState = pushNursePathState;
+        window.replaceNursePathState = replaceNursePathState;
         window.calcPediatricDose = calcPediatricDose;
         window.calcApgar = calcApgar;
         window.calcGCS = calcGCS;
@@ -6736,9 +6892,10 @@
                     .join('')
                     .toUpperCase()
                     .slice(0, 3) || 'OTC';
-                const tag = (item.additionalInfo && item.additionalInfo.drugClass)
-                    ? String(item.additionalInfo.drugClass).split(/[\/,]/)[0].trim().slice(0, 18)
+                const tagRaw = (item.additionalInfo && item.additionalInfo.drugClass)
+                    ? String(item.additionalInfo.drugClass).split(/[\/,(-]/)[0].trim()
                     : 'OTC';
+                const tag = tagRaw.length > 14 ? `${tagRaw.slice(0, 13)}…` : tagRaw;
 
                 const card = document.createElement('button');
                 card.type = 'button';
@@ -6790,142 +6947,6 @@
             otcListEl.appendChild(fragment);
         }
 
-        function showOTCDetail(item){
-            trackUsageSafe('otc_ref', 'feature_open', {
-                item_id: item.id || 'unknown'
-            }, { minIntervalMs: 1000, rateKey: `otc_open_${item.id || 'unknown'}` });
-
-            // TLDR (short) content - always uses the short fields
-            const tldrContent = `
-                <div class="space-y-2 text-sm text-slate-300">
-                    <div><strong class="text-slate-200">Uses:</strong> ${item.uses}</div>
-                    <div><strong class="text-slate-200">Origin:</strong> ${item.origin}</div>
-                    <div><strong class="text-slate-200">When to Give:</strong> ${item.whenToGive}</div>
-                    <div><strong class="text-red-400">Contraindications / Cautions:</strong> ${item.contraindications}</div>
-                </div>
-            `;
-            
-            // Check if this medicine has additional info
-            const hasAdditionalInfo = item.additionalInfo;
-            
-            // Additional Information (expanded) content - only if additionalInfo exists
-            let additionalContent = '';
-            if (hasAdditionalInfo) {
-                const info = item.additionalInfo;
-                additionalContent = `
-                    <div class="space-y-3 text-sm text-slate-300">
-                        ${info.genericNames ? `<div><strong class="text-cyan-400">Generic Names:</strong> ${info.genericNames.join(', ')}</div>` : ''}
-                        ${info.drugClass ? `<div><strong class="text-cyan-400">Drug Class:</strong> ${info.drugClass}</div>` : ''}
-                        <div><strong class="text-slate-200">Uses:</strong> ${info.usesExpanded || item.uses}</div>
-                        ${info.mechanismOfAction ? `<div><strong class="text-emerald-400">Mechanism of Action:</strong> ${info.mechanismOfAction}</div>` : ''}
-                        <div><strong class="text-slate-200">Origin:</strong> ${info.originExpanded || item.origin}</div>
-                        ${info.pharmacokinetics ? `<div><strong class="text-blue-400">Pharmacokinetics:</strong> ${info.pharmacokinetics}</div>` : ''}
-                        ${info.dosing ? `<div><strong class="text-amber-400">Dosing:</strong> ${info.dosing}</div>` : ''}
-                        <div><strong class="text-slate-200">When to Give:</strong> ${info.whenToGiveExpanded || item.whenToGive}</div>
-                        ${info.sideEffects ? `<div><strong class="text-orange-400">Side Effects:</strong> ${info.sideEffects}</div>` : ''}
-                        <div><strong class="text-red-400">Contraindications / Cautions:</strong> ${info.contraindicationsExpanded || item.contraindications}</div>
-                        ${info.drugInteractions ? `<div><strong class="text-pink-400">Drug Interactions:</strong> ${info.drugInteractions}</div>` : ''}
-                        ${info.nursingConsiderations ? `<div><strong class="text-green-400">Nursing Considerations:</strong> ${info.nursingConsiderations}</div>` : ''}
-                        ${info.patientEducation ? `<div><strong class="text-blue-300">Patient Education:</strong> ${info.patientEducation}</div>` : ''}
-                    </div>
-                `;
-            }
-            
-            let html = `
-                <h3 class="font-bold text-xl text-amber-300 mb-1">${item.name}</h3>
-                <p class="text-xs text-slate-400 mb-3">Philippine Brand Names: ${item.ph_brands.join(', ')}</p>
-                <button onclick="copyOTCReference()" class="mb-3 px-3 py-2 text-xs font-semibold rounded-lg transition" style="background: linear-gradient(135deg, #0e7490, #0f766e); color: white; border: 1px solid #14b8a6;">Copy Quick Reference</button>
-                
-                ${hasAdditionalInfo ? `
-                <!-- Tab Buttons -->
-                <div class="flex gap-2 mb-4">
-                    <button id="tldr-tab" onclick="switchOTCTab('tldr')" class="px-4 py-2 text-sm font-semibold rounded-lg transition" style="background: linear-gradient(135deg, #06b6d4, #0891b2); color: white;">
-                        📋 TLDR
-                    </button>
-                    <button id="additional-tab" onclick="switchOTCTab('additional')" class="px-4 py-2 text-sm font-semibold rounded-lg transition" style="background: #334155; color: #94a3b8;">
-                        📚 Additional Info
-                    </button>
-                </div>
-                
-                <!-- Tab Content -->
-                <div id="tldr-content">${tldrContent}</div>
-                <div id="additional-content" style="display: none;">${additionalContent}</div>
-                ` : tldrContent}
-            `;
-            otcDetailEl.innerHTML = html;
-            window.__nursepathSelectedOtc = item;
-            
-            // On mobile: hide list, show detail container full width
-            const isMobile = window.innerWidth < 768;
-            if (isMobile) {
-                document.getElementById('otc-list-container').classList.add('hidden');
-                document.getElementById('otc-detail-container').classList.remove('hidden');
-                document.getElementById('otc-detail-container').scrollIntoView({behavior:'smooth', block:'start'});
-            } else {
-                otcDetailEl.scrollIntoView({behavior:'smooth', block:'nearest'});
-            }
-        }
-        
-        function hideOTCDetail() {
-            // On mobile: show list again, hide detail container
-            document.getElementById('otc-list-container').classList.remove('hidden');
-            document.getElementById('otc-detail-container').classList.add('hidden');
-            document.getElementById('otc-list-container').scrollIntoView({behavior:'smooth', block:'start'});
-            trackUsageSafe('otc_ref', 'feature_use', { action: 'back_to_list' }, { minIntervalMs: 1000, rateKey: 'otc_back_to_list' });
-        }
-
-        async function copyOTCReference() {
-            const item = window.__nursepathSelectedOtc;
-            if (!item) return;
-
-            const info = item.additionalInfo || {};
-            const payload = [
-                `Medicine: ${item.name}`,
-                `Brands: ${item.ph_brands.join(', ')}`,
-                `Uses: ${item.uses}`,
-                `When to Give: ${item.whenToGive}`,
-                `Contraindications: ${item.contraindications}`,
-                info.drugClass ? `Drug Class: ${info.drugClass}` : ''
-            ].filter(Boolean).join('\n');
-
-            try {
-                await navigator.clipboard.writeText(payload);
-                trackUsageSafe('otc_ref', 'copy_reference', {
-                    item_id: item.id || 'unknown',
-                    source: 'otc_detail'
-                }, { minIntervalMs: 1200, rateKey: `otc_copy_${item.id || 'unknown'}` });
-            } catch (err) {
-                trackUsageSafe('otc_ref', 'error_shown', {
-                    reason: 'clipboard_failed'
-                }, { minIntervalMs: 1500, rateKey: 'otc_copy_error' });
-            }
-        }
-        
-        function switchOTCTab(tab) {
-            const tldrTab = document.getElementById('tldr-tab');
-            const additionalTab = document.getElementById('additional-tab');
-            const tldrContent = document.getElementById('tldr-content');
-            const additionalContent = document.getElementById('additional-content');
-
-            trackUsageSafe('otc_ref', 'feature_use', { tab }, { minIntervalMs: 500, rateKey: `otc_tab_${tab}` });
-            
-            if (tab === 'tldr') {
-                tldrTab.style.background = 'linear-gradient(135deg, #06b6d4, #0891b2)';
-                tldrTab.style.color = 'white';
-                additionalTab.style.background = '#334155';
-                additionalTab.style.color = '#94a3b8';
-                tldrContent.style.display = 'block';
-                additionalContent.style.display = 'none';
-            } else {
-                additionalTab.style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
-                additionalTab.style.color = 'white';
-                tldrTab.style.background = '#334155';
-                tldrTab.style.color = '#94a3b8';
-                tldrContent.style.display = 'none';
-                additionalContent.style.display = 'block';
-            }
-        }
-
         function renderOTCSidebar() {
             if (window.NursePathUIHelpers && typeof window.NursePathUIHelpers.renderOTCSidebar === 'function') {
                 return window.NursePathUIHelpers.renderOTCSidebar();
@@ -6956,15 +6977,15 @@
             }
         }
 
-        function showOTCDetail(item) {
+        function showOTCDetail(item, opts) {
             if (window.NursePathUIHelpers && typeof window.NursePathUIHelpers.showOTCDetail === 'function') {
-                return window.NursePathUIHelpers.showOTCDetail(item);
+                return window.NursePathUIHelpers.showOTCDetail(item, opts);
             }
         }
 
-        function hideOTCDetail() {
+        function hideOTCDetail(opts) {
             if (window.NursePathUIHelpers && typeof window.NursePathUIHelpers.hideOTCDetail === 'function') {
-                return window.NursePathUIHelpers.hideOTCDetail();
+                return window.NursePathUIHelpers.hideOTCDetail(opts);
             }
         }
 

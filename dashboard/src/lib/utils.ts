@@ -22,6 +22,46 @@ export function clampSessionDurationMs(ms: number | null | undefined): number {
   return Math.min(ms, MAX_REPORTABLE_SESSION_MS)
 }
 
+/**
+ * One capped duration per session_id (max of duplicate session_end rows).
+ * Prevents inflated totals when multiple ends were logged for the same session.
+ */
+export function sessionDurationsById(
+  events: Array<{ feature?: string | null; action?: string | null; session_id?: string | null; duration_ms?: number | null }>
+): Map<string, number> {
+  const durations = new Map<string, number>()
+  for (const event of events) {
+    if (event.feature !== 'session' || event.action !== 'session_end') continue
+    if (!event.session_id) continue
+    const duration = clampSessionDurationMs(event.duration_ms)
+    const previous = durations.get(event.session_id) ?? 0
+    durations.set(event.session_id, Math.max(previous, duration))
+  }
+  return durations
+}
+
+export function sumUniqueSessionDurations(
+  events: Array<{ feature?: string | null; action?: string | null; session_id?: string | null; duration_ms?: number | null }>
+): number {
+  let total = 0
+  sessionDurationsById(events).forEach((ms) => {
+    total += ms
+  })
+  return total
+}
+
+export function averageUniqueSessionDuration(
+  events: Array<{ feature?: string | null; action?: string | null; session_id?: string | null; duration_ms?: number | null }>
+): number {
+  const durations = sessionDurationsById(events)
+  if (durations.size === 0) return 0
+  let total = 0
+  durations.forEach((ms) => {
+    total += ms
+  })
+  return total / durations.size
+}
+
 /** Get initials from email */
 export function getInitials(email: string | null): string {
   if (!email || email === 'ghost') return 'GU'

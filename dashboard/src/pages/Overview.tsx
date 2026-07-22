@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { UsageEvent, formatDuration } from '../lib/supabase'
-import { formatNumber, getFeatureLabel, normalizeUserEmail, clampSessionDurationMs } from '../lib/utils'
+import { formatNumber, getFeatureLabel, normalizeUserEmail, averageUniqueSessionDuration } from '../lib/utils'
 import { fetchUsageEventsResilient, subscribeToUsageEventChanges } from '../lib/usageData'
 import { Metric } from '../components/Metric'
 import {
@@ -72,10 +72,7 @@ export function Overview() {
       )
       const uniqueSessions = new Set(events.map((e) => e.session_id))
       const featureEvents = events.filter((e) => e.feature && e.feature !== 'session' && e.feature !== 'auth' && e.feature !== 'consent')
-      const sessionEndEvents = events.filter((e) => e.feature === 'session' && e.action === 'session_end')
-      const avgDuration = sessionEndEvents.length > 0
-        ? sessionEndEvents.reduce((sum, e) => sum + clampSessionDurationMs(e.duration_ms), 0) / sessionEndEvents.length
-        : 0
+      const avgDuration = averageUniqueSessionDuration(events)
 
       setMetrics({
         uniqueUsers: uniqueEmails.size,

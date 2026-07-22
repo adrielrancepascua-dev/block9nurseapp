@@ -64,7 +64,7 @@
     return `<div class="otc-fact"><span class="otc-fact-k${toneClass}">${label}</span><span class="otc-fact-v">${value}</span></div>`;
   }
 
-  function showOTCDetail(item) {
+  function showOTCDetail(item, opts) {
     const trackUsageSafe = getTrackUsageSafe();
     if (trackUsageSafe) {
       trackUsageSafe('otc_ref', 'feature_open', { item_id: item.id || 'unknown' }, { minIntervalMs: 1000, rateKey: `otc_open_${item.id || 'unknown'}` });
@@ -144,6 +144,10 @@
       el.classList.toggle('is-active', Boolean(item.id) && el.dataset.otcId === String(item.id));
     });
 
+    if (!(opts && opts.skipHistory) && typeof window.pushNursePathState === 'function') {
+      window.pushNursePathState({ view: 'otc-detail', tab: 'otc', otcId: item.id || null });
+    }
+
     const isMobile = window.innerWidth < 768;
     if (isMobile) {
       const listContainer = document.getElementById('otc-list-container');
@@ -158,7 +162,7 @@
     }
   }
 
-  function hideOTCDetail() {
+  function hideOTCDetail(opts) {
     const listContainer = document.getElementById('otc-list-container');
     const detailContainer = document.getElementById('otc-detail-container');
     if (listContainer) {
@@ -169,9 +173,23 @@
       detailContainer.classList.add('hidden');
     }
 
+    window.__nursepathSelectedOtc = null;
+    document.querySelectorAll('.otc-med-card.is-active').forEach((el) => el.classList.remove('is-active'));
+
     const trackUsageSafe = getTrackUsageSafe();
     if (trackUsageSafe) {
       trackUsageSafe('otc_ref', 'feature_use', { action: 'back_to_list' }, { minIntervalMs: 1000, rateKey: 'otc_back_to_list' });
+    }
+
+    if (!(opts && opts.skipHistory)) {
+      const cur = window.history.state;
+      if (cur && cur.np === 1 && cur.view === 'otc-detail') {
+        window.history.back();
+        return;
+      }
+      if (typeof window.pushNursePathState === 'function') {
+        window.pushNursePathState({ view: 'otc', tab: 'otc' });
+      }
     }
   }
 
