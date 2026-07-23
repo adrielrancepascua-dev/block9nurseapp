@@ -51,4 +51,4 @@ Supabase could not trade Google’s auth code for tokens. Fix this checklist in 
 
 ## Rollback
 
-The email form remains behind **Use email instead** if Google Auth is temporarily unavailable.
+Google is the primary sign-in path. If Google Auth is temporarily unavailable, ask faculty to restore the Supabase Google provider configuration.
