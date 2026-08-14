@@ -3402,6 +3402,7 @@
                         <div class="np-learn" style="margin-top:10px;">
                             <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="gcs-learn-meaning">Mild 13–15 · Moderate 9–12 · Severe ≤8</span></div>
                             <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="gcs-learn-how">Total = E + V + M. Always report components, not only the sum.</span></div>
+                            <div class="np-learn-row"><span class="np-learn-k">Attention</span><span class="np-learn-v" id="gcs-learn-attention">Score Eye, Verbal, and Motor for a watch/report cue. Soft guidance only; confirm with your Clinical Instructor.</span></div>
                         </div>
                     </div>
                 </div>
@@ -3418,6 +3419,7 @@
                         <div class="np-learn" style="margin-top:10px;">
                             <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="braden-learn-meaning">Lower total = higher pressure-injury risk (6–23).</span></div>
                             <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="braden-learn-how">Sum of Sensory, Moisture, Activity, Mobility, Nutrition, Friction/Shear.</span></div>
+                            <div class="np-learn-row"><span class="np-learn-k">Attention</span><span class="np-learn-v" id="braden-learn-attention">Score all six subscales for risk-band and prevention-focus cues. Soft guidance only; confirm with your Clinical Instructor.</span></div>
                         </div>
                     </div>
                 </div>
@@ -4869,9 +4871,11 @@
 
             const totalEl = document.getElementById('gcs-total');
             const sevEl = document.getElementById('gcs-severity');
+            const attentionEl = document.getElementById('gcs-learn-attention');
             if (gcsState.eye == null || gcsState.verbal == null || gcsState.motor == null) {
                 if (totalEl) totalEl.textContent = '--';
                 if (sevEl) sevEl.textContent = 'Select Eye, Verbal, and Motor.';
+                if (attentionEl) attentionEl.textContent = 'Score Eye, Verbal, and Motor for a watch/report cue. Soft guidance only; confirm with your Clinical Instructor.';
                 return;
             }
             const result = calc.gcsScore(gcsState.eye, gcsState.verbal, gcsState.motor);
@@ -4879,6 +4883,7 @@
             if (sevEl) sevEl.textContent = `${result.severity} · Report as E${result.eye}V${result.verbal}M${result.motor}`;
             const meaning = document.getElementById('gcs-learn-meaning');
             if (meaning) meaning.textContent = `${result.severity} · Document E${result.eye}V${result.verbal}M${result.motor}`;
+            if (attentionEl) attentionEl.textContent = result.attention || '';
             trackUsageSafe('gcs', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'gcs' });
         }
 
@@ -4898,9 +4903,11 @@
             const complete = BRADEN_RUBRIC.every((r) => bradenState[r.id] != null);
             const totalEl = document.getElementById('braden-total');
             const riskEl = document.getElementById('braden-risk');
+            const attentionEl = document.getElementById('braden-learn-attention');
             if (!complete) {
                 if (totalEl) totalEl.textContent = '--';
                 if (riskEl) riskEl.textContent = 'Score all six subscales.';
+                if (attentionEl) attentionEl.textContent = 'Score all six subscales for risk-band and prevention-focus cues. Soft guidance only; confirm with your Clinical Instructor.';
                 return;
             }
             const result = calc.bradenScore(bradenState);
@@ -4908,6 +4915,7 @@
             if (riskEl) riskEl.textContent = result.risk;
             const meaning = document.getElementById('braden-learn-meaning');
             if (meaning) meaning.textContent = `Total ${result.total} of 23. ${result.risk}`;
+            if (attentionEl) attentionEl.textContent = result.attention || '';
             trackUsageSafe('braden', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'braden' });
         }
 

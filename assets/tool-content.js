@@ -284,6 +284,11 @@
           body: 'The patient opens eyes to speech (E3), holds a confused conversation (V4), and localises pain (M5).\nTotal is 3 + 4 + 5 = 12, which is the moderate band, but you write E3 V4 M5.'
         },
         {
+          heading: 'Duty attention cues',
+          pocket: true,
+          body: 'After you score, NursePath shows a short Attention line: report E/V/M, trend serial scores, and escalate a falling total. It is watch/report guidance for study and duty prep, not an order set.'
+        },
+        {
           heading: 'Remember',
           pocket: true,
           type: 'caveat',
@@ -320,6 +325,11 @@
         {
           heading: 'Reassessment',
           body: 'Risk changes after surgery, sedation, fever, diarrhoea, or declining intake. Braden is not a one time admission sticker, so reassess on the schedule your protocol sets.'
+        },
+        {
+          heading: 'Duty attention cues',
+          pocket: true,
+          body: 'After a full score, NursePath names the risk band and the weakest subscales so prevention thinking aims at moisture, mobility, nutrition, or friction rather than the total alone. Soft guidance only; follow your ward protocol.'
         },
         {
           heading: 'Remember',

@@ -66,6 +66,17 @@
     return { total, detail, interpretation };
   }
 
+  /** Soft nursing-attention cue for GCS bands (watch/report/trend — not orders). */
+  function gcsAttention(total) {
+    if (total >= 13) {
+      return 'Report E/V/M and trend serial scores. GCS is not a full neuro exam: pupils, glucose, and focal signs still matter.';
+    }
+    if (total >= 9) {
+      return 'Document E/V/M, trend closely, and escalate a falling score to your instructor or team. Reassess rather than trusting one snapshot.';
+    }
+    return 'Severe band: report components now and escalate per unit pathway. Think airway protection and frequent reassessment; confirm next steps with your Clinical Instructor.';
+  }
+
   /** Glasgow Coma Scale: Eye 1–4, Verbal 1–5, Motor 1–6. */
   function gcsScore(eye, verbal, motor) {
     const e = clamp(Number(eye) || 1, 1, 4);
@@ -75,7 +86,48 @@
     let severity = 'Severe (≤8)';
     if (total >= 13) severity = 'Mild (13–15)';
     else if (total >= 9) severity = 'Moderate (9–12)';
-    return { eye: e, verbal: v, motor: m, total, severity };
+    return { eye: e, verbal: v, motor: m, total, severity, attention: gcsAttention(total) };
+  }
+
+  const BRADEN_SUBSCALE_LABELS = {
+    sensory: 'sensory perception',
+    moisture: 'moisture',
+    activity: 'activity',
+    mobility: 'mobility',
+    nutrition: 'nutrition',
+    friction: 'friction/shear'
+  };
+
+  const BRADEN_SUBSCALE_FOCUS = {
+    sensory: 'Protect pressure areas the patient cannot report well, and keep skin checks thorough.',
+    moisture: 'Aim prevention at dryness, incontinence care, and timely linen changes.',
+    activity: 'Think offloading for chair or bed time, and safe progressive mobility when allowed.',
+    mobility: 'Prioritize repositioning rhythm and support surfaces in your prevention thinking.',
+    nutrition: 'Flag intake and nutrition support as part of risk discussion with the team.',
+    friction: 'Watch shear during transfers, boosts, and linen handling.'
+  };
+
+  /** Soft nursing-attention cue for Braden risk + weakest subscales. */
+  function bradenAttention(total, detail) {
+    const entries = Object.keys(BRADEN_SUBSCALE_LABELS).map((k) => ({ key: k, value: detail[k] }));
+    const minVal = Math.min(...entries.map((e) => e.value));
+    const weakest = entries.filter((e) => e.value === minVal);
+    const weakLabels = weakest.map((e) => BRADEN_SUBSCALE_LABELS[e.key]).join(', ');
+    const focusKey = weakest[0] && weakest[0].key;
+    const focus = (focusKey && BRADEN_SUBSCALE_FOCUS[focusKey]) || 'Use the lowest subscales to aim prevention.';
+
+    let bandCue = 'Very high risk: prioritize prevention thinking and escalate skin concerns early with your instructor or team.';
+    if (total >= 19) {
+      bandCue = 'Low total risk still needs routine skin assessment. Reassess when mobility, moisture, or intake changes.';
+    } else if (total >= 15) {
+      bandCue = 'Mild risk: start prevention thinking early rather than waiting for skin breakdown.';
+    } else if (total >= 13) {
+      bandCue = 'Moderate risk: keep prevention active and reassess on your unit schedule.';
+    } else if (total >= 10) {
+      bandCue = 'High risk: strengthen prevention focus and report skin changes promptly.';
+    }
+
+    return `${bandCue} Weakest: ${weakLabels}. ${focus}`;
   }
 
   /** Braden Scale: 6 subscales totalling 6 to 23. A lower total means higher risk. */
@@ -109,7 +161,7 @@
     else if (total >= 15) risk = 'Mild Risk (15–18)';
     else if (total >= 13) risk = 'Moderate Risk (13–14)';
     else if (total >= 10) risk = 'High Risk (10–12)';
-    return { total, detail, risk };
+    return { total, detail, risk, attention: bradenAttention(total, detail) };
   }
 
   /**
