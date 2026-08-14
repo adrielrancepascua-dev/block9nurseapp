@@ -1,5 +1,5 @@
 /**
- * Multi-question Study quizzes for NursePath (educational / simulation only).
+ * Multi-question Study quizzes for NursePath. Educational reference only.
  * Exposed on window.NursePathStudyDrills
  */
 (function (global) {
@@ -7,10 +7,10 @@
 
   const QUIZZES = {
     vitals: {
-      title: 'Vital Signs — Quiz',
+      title: 'Vital Signs quiz',
       questions: [
         {
-          prompt: 'Adult, not pregnant, no known comorbidity. BP 88/54, HR 128, RR 28, Temp 36.8°C. Best simulation priority pattern?',
+          prompt: 'Adult, not pregnant, no known comorbidity. BP 88/54, HR 128, RR 28, Temp 36.8°C. Which priority pattern fits best?',
           choices: [
             'Reassuring resting pattern',
             'Hypoperfusion / shock-pattern vitals',
@@ -23,13 +23,13 @@
         {
           prompt: 'Why does NursePath ask for age, pregnancy, and conditions with vitals?',
           choices: [
-            'To bill insurance in simulation',
+            'To calculate billing',
             'Because reference patterns change with context',
             'Because RR is irrelevant for adults',
             'Because BMI replaces vital signs'
           ],
           correctIndex: 1,
-          explain: 'Expected bands and interpretation shift with age, pregnancy, and comorbidity — context changes the story.'
+          explain: 'Expected bands and interpretation shift with age, pregnancy, and comorbidity, so context changes the story.'
         },
         {
           prompt: 'Which habit would your CI most likely praise?',
@@ -37,7 +37,7 @@
             'Treat one abnormal number in isolation every time',
             'Ignore trends if the latest value looks “okay”',
             'Read the whole pattern, then decide what to recheck or report',
-            'Skip reassessment once a simulation label appears'
+            'Skip reassessment once a label appears'
           ],
           correctIndex: 2,
           explain: 'Pattern + next action (recheck/report) beats single-number tunnel vision.'
@@ -45,7 +45,7 @@
       ]
     },
     iv: {
-      title: 'IV Flow Rate — Quiz',
+      title: 'IV Flow Rate quiz',
       questions: [
         {
           prompt: '1000 mL over 8 hours, drop factor 15. Nearest whole gtt/min?',
@@ -63,12 +63,12 @@
           prompt: 'Microdrip tubing is commonly which drop factor?',
           choices: ['10 gtt/mL', '15 gtt/mL', '20 gtt/mL', '60 gtt/mL'],
           correctIndex: 3,
-          explain: 'Microdrip is typically 60 gtt/mL — still verify the package.'
+          explain: 'Microdrip is typically 60 gtt/mL, but always verify the package.'
         },
         {
           prompt: 'You calculated gtt/min perfectly but used DF 20 when the set says 15. What happened?',
           choices: [
-            'Nothing — drop factor is optional',
+            'Nothing, because drop factor is optional',
             'The drip will be wrong despite correct algebra',
             'Only mL/hr is affected',
             'Young’s Rule fixes it'
@@ -79,7 +79,7 @@
       ]
     },
     bmi: {
-      title: 'BMI — Quiz',
+      title: 'BMI quiz',
       questions: [
         {
           prompt: '70 kg, 170 cm. WHO adult category?',
@@ -107,7 +107,7 @@
       ]
     },
     aog: {
-      title: 'AOG & EDD — Quiz',
+      title: 'AOG and EDD quiz',
       questions: [
         {
           prompt: 'Naegele’s rule is best summarized as:',
@@ -140,12 +140,12 @@
             'Switch to Clark’s Rule'
           ],
           correctIndex: 2,
-          explain: 'Ultrasound often overrides uncertain LMP — say which source you are using.'
+          explain: 'Ultrasound often overrides an uncertain LMP, so state which source you are using.'
         }
       ]
     },
     peds: {
-      title: 'Pediatric Dosing — Quiz',
+      title: 'Pediatric Dosing quiz',
       questions: [
         {
           prompt: 'Age 3 years, adult dose 500 mg. Young’s Rule child dose?',
@@ -179,7 +179,7 @@
       ]
     },
     apgar: {
-      title: 'APGAR — Quiz',
+      title: 'APGAR quiz',
       questions: [
         {
           prompt: '1 minute: acrocyanosis, HR 90, grimace to suction, some flexion, weak cry. Total?',
@@ -207,7 +207,7 @@
       ]
     },
     gcs: {
-      title: 'GCS — Quiz',
+      title: 'GCS quiz',
       questions: [
         {
           prompt: 'Eyes to speech, confused verbal, localizes pain. E+V+M?',
@@ -235,7 +235,7 @@
       ]
     },
     braden: {
-      title: 'Braden — Quiz',
+      title: 'Braden quiz',
       questions: [
         {
           prompt: 'About Braden totals:',
@@ -273,7 +273,7 @@
       ]
     },
     ron: {
-      title: 'Rule of Nines — Quiz',
+      title: 'Rule of Nines quiz',
       questions: [
         {
           prompt: 'Adult: entire right arm + entire anterior trunk. TBSA?',
@@ -296,7 +296,7 @@
             'Drop factor replaces TBSA'
           ],
           correctIndex: 1,
-          explain: 'Kids need pediatric burn charting — proportions are not adult nines.'
+          explain: 'Children need pediatric burn charting, because their proportions are not adult nines.'
         }
       ]
     }

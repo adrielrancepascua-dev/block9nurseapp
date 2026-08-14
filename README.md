@@ -64,7 +64,7 @@ All outputs are framed as reference findings — not clinical orders. The studen
 - Comorbidity-aware context notes: Hypertension, Diabetes, Asthma, COPD, CKD
 - Output language uses "SIM ALERT", "Simulation Finding", and "Ref Note" framing — never clinical orders
 - Real-time analysis via `liveAnalyze()` and explicit generation via `simulateVitalSigns()`
-- Core logic isolated in `assets/vitals-analysis.js` (`window.NursePathClinical` namespace)
+- Teaching content isolated in `assets/tool-content.js` (`window.NursePathToolContent` namespace)
 
 ### 💊 OTC Medication Reference
 - 34 OTC medications with Philippine brand names
@@ -131,7 +131,7 @@ Developed using AI-assisted programming, combining the developer's nursing educa
 |---|---|
 | Frontend | HTML5, CSS3, Vanilla JavaScript |
 | Styling | Tailwind CSS (inlined) |
-| Clinical Logic | `assets/vitals-analysis.js` |
+| Clinical Logic | inline in `index.html`; calculators in `assets/clinical-calculators.js` |
 | UI Helpers | `assets/ui-helpers.js` |
 | Offline | Service Worker (stale-while-revalidate) |
 | Analytics | Supabase (batch insert, anon RLS) |
@@ -149,7 +149,7 @@ Developed using AI-assisted programming, combining the developer's nursing educa
 ├── image-192.png               # PWA icon
 ├── image-512.png               # PWA icon / logo
 ├── assets/
-│   ├── vitals-analysis.js      # Vital signs engine (NursePathClinical namespace)
+│   ├── tool-content.js         # Guide + lesson content (one source, two depths)
 │   └── ui-helpers.js           # UI logic — OTC, calculators (NursePathUIHelpers namespace)
 └── dashboard/                  # Faculty dashboard (React + Vite + Supabase)
     ├── src/
@@ -420,7 +420,7 @@ All outputs are framed as reference findings — not clinical orders. The studen
 - Comorbidity-aware context notes: Hypertension, Diabetes, Asthma, COPD, CKD
 - Output language uses "SIM ALERT", "Simulation Finding", and "Ref Note" framing — never clinical orders
 - Real-time analysis via `liveAnalyze()` and explicit generation via `simulateVitalSigns()`
-- Core logic isolated in `assets/vitals-analysis.js` (`window.NursePathClinical` namespace)
+- Teaching content isolated in `assets/tool-content.js` (`window.NursePathToolContent` namespace)
 
 ### 💊 OTC Medication Reference
 - 34 OTC medications with Philippine brand names
@@ -487,7 +487,7 @@ Developed using AI-assisted programming, combining the developer's nursing educa
 |---|---|
 | Frontend | HTML5, CSS3, Vanilla JavaScript |
 | Styling | Tailwind CSS (inlined) |
-| Clinical Logic | `assets/vitals-analysis.js` |
+| Clinical Logic | inline in `index.html`; calculators in `assets/clinical-calculators.js` |
 | UI Helpers | `assets/ui-helpers.js` |
 | Offline | Service Worker (stale-while-revalidate) |
 | Analytics | Supabase (batch insert, anon RLS) |
@@ -505,7 +505,7 @@ Developed using AI-assisted programming, combining the developer's nursing educa
 ├── image-192.png               # PWA icon
 ├── image-512.png               # PWA icon / logo
 ├── assets/
-│   ├── vitals-analysis.js      # Vital signs engine (NursePathClinical namespace)
+│   ├── tool-content.js         # Guide + lesson content (one source, two depths)
 │   └── ui-helpers.js           # UI logic — OTC, calculators (NursePathUIHelpers namespace)
 └── dashboard/                  # Faculty dashboard (React + Vite + Supabase)
     ├── src/

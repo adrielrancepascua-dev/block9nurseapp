@@ -32,7 +32,7 @@
         <p><strong>Use:</strong> ${item.uses}</p>
         <p><strong>Caution:</strong> ${item.contraindications}</p>
         <p><strong>Nursing check:</strong> ${nursingShort}</p>
-        <p style="color:#94a3b8;font-size:11px;">Learning reference — apply your own judgment and verify with CI / protocol.</p>
+        <p style="color:#94a3b8;font-size:11px;">Learning reference. Apply your own judgment and confirm with your CI or ward protocol.</p>
       </div>
     `;
 

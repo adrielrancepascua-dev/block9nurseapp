@@ -1,5 +1,5 @@
 /**
- * NursePath clinical calculator helpers (educational / simulation only).
+ * NursePath clinical calculator helpers. Educational reference only.
  * Exposed on window.NursePathCalculators for offline use.
  */
 (function (global) {
@@ -50,7 +50,7 @@
     return result;
   }
 
-  /** APGAR: Appearance, Pulse, Grimace, Activity, Respiration — each 0–2. */
+  /** APGAR: Appearance, Pulse, Grimace, Activity, Respiration, each scored 0 to 2. */
   function apgarScore(scores) {
     const keys = ['appearance', 'pulse', 'grimace', 'activity', 'respiration'];
     let total = 0;
@@ -60,9 +60,9 @@
       detail[k] = v;
       total += v;
     });
-    let interpretation = 'Severely depressed — immediate resuscitation (simulation framing)';
-    if (total >= 7) interpretation = 'Reassuring — continue routine observation (simulation framing)';
-    else if (total >= 4) interpretation = 'Moderately depressed — stimulate / support airway (simulation framing)';
+    let interpretation = 'Severely depressed. Resuscitation priorities lead.';
+    if (total >= 7) interpretation = 'Reassuring. Continue routine observation.';
+    else if (total >= 4) interpretation = 'Moderately depressed. Stimulation and airway support are indicated.';
     return { total, detail, interpretation };
   }
 
@@ -78,7 +78,7 @@
     return { eye: e, verbal: v, motor: m, total, severity };
   }
 
-  /** Braden Scale — 6 subscales, total 6–23. Lower = higher pressure injury risk. */
+  /** Braden Scale: 6 subscales totalling 6 to 23. A lower total means higher risk. */
   function bradenScore(subscores) {
     const keys = [
       'sensory',
@@ -140,8 +140,8 @@
     });
     tbsa = Math.round(tbsa * 10) / 10;
     let note = 'Minor burn territory in many teaching frameworks (<10% adult)';
-    if (tbsa >= 25) note = 'Major burn territory (≥25% adult) — simulation framing only';
-    else if (tbsa >= 10) note = 'Moderate burn territory (10–24% adult) — simulation framing only';
+    if (tbsa >= 25) note = 'Major burn territory for an adult, at 25% or more.';
+    else if (tbsa >= 10) note = 'Moderate burn territory for an adult, at 10 to 24%.';
     return { tbsa, breakdown, note, regions: RULE_OF_NINES_REGIONS };
   }
 

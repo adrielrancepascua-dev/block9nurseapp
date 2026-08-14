@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <meta name="theme-color" content="#0f172a">
-    <meta name="description" content="NursePath — offline clinical companion for nursing students. Duty tools, OTC reference, and study practice for school and ward prep.">
+    <meta name="description" content="NursePath is an offline clinical companion for nursing students, with duty tools, OTC reference, and study practice for school and ward prep.">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="NursePath">
@@ -13,7 +13,7 @@
     <meta name="msapplication-config" content="browserconfig.xml">
     <meta name="format-detection" content="telephone=no">
     <meta name="mobile-web-app-capable" content="yes">
-    <title>NursePath — Offline Clinical Companion for Nursing Students</title>
+    <title>NursePath: Offline Clinical Companion for Nursing Students</title>
     <script>
         // Ghost persistence pre-check: hide auth overlay as early as possible.
         (function () {
@@ -50,8 +50,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%230f172a' width='192' height='192'/><text x='50%' y='50%' font-size='120' font-weight='bold' fill='%2306b6d4' text-anchor='middle' dy='.35em'>Rx</text></svg>">
         <script src="assets/ui-helpers.js"></script>
         <script src="assets/clinical-calculators.js"></script>
-        <script src="assets/tool-guides.js"></script>
-        <script src="assets/study-lessons.js"></script>
+        <script src="assets/tool-content.js"></script>
         <script src="assets/study-drills.js"></script>
 
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%230f172a' width='180' height='180' rx='40'/><text x='50%' y='50%' font-size='100' font-weight='bold' fill='%2306b6d4' text-anchor='middle' dy='.35em'>Rx</text></svg>">
@@ -837,18 +836,6 @@
             line-height: 1.45;
             margin-bottom: 10px;
         }
-        .learn-tip {
-            display: block;
-            padding: 10px 12px;
-            border-radius: 10px;
-            border: 1px solid #475569;
-            background: rgba(15, 23, 42, 0.7);
-            color: #cbd5e1;
-            font-size: 12px;
-            line-height: 1.45;
-            margin-bottom: 12px;
-        }
-        .learn-tip strong { color: #e2e8f0; }
         .score-criterion {
             border: 1px solid #334155;
             border-radius: 12px;
@@ -1031,8 +1018,8 @@
             gap: 8px;
             align-items: start;
         }
-        @media (max-width: 420px) {
-            .np-learn-row { grid-template-columns: 1fr; gap: 2px; }
+        @media (max-width: 520px) {
+            .np-learn-row { grid-template-columns: 1fr; gap: 3px; }
         }
         .np-learn-k {
             font-size: 10px;
@@ -1371,8 +1358,8 @@
             background: rgba(15, 23, 42, 0.72);
             align-items: start;
         }
-        @media (max-width: 420px) {
-            .otc-fact { grid-template-columns: 1fr; gap: 2px; }
+        @media (max-width: 520px) {
+            .otc-fact { grid-template-columns: 1fr; gap: 3px; }
         }
         .otc-fact-k {
             font-size: 10px;
@@ -1445,83 +1432,73 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @media (max-width: 768px) {
-            .tool-hub-card { min-height: 104px; padding: 12px; }
-            .learn-shell { padding: 14px 12px 16px; border-radius: 14px; }
-        }
-
         /* Ensure tappable elements are at least 44x44px */
         button, a.btn, select, input[type="submit"], input[type="button"], input[type="number"], input[type="text"], input[type="date"] {
             min-height: 44px;
             min-width: 44px;
             padding: 12px !important;
         }
-        
+
         /* Mobile Optimizations */
         @media (max-width: 768px) {
+            .tool-hub-card { padding: 12px; }
+            .learn-shell { padding: 14px 12px 16px; border-radius: 14px; }
+
             /* Force 16px inputs to prevent iOS zoom */
             input:not([type="checkbox"]):not([type="radio"]), select, textarea {
                 font-size: 16px !important;
                 min-height: 48px !important;
             }
-            
-            /* Stack all grids on mobile */
-            .grid, .grid.lg\:grid-cols-5, .grid.grid-cols-2, .md\:grid-cols-2, .md\:grid-cols-4, .md\:grid-cols-5 {
+
+            /* Only two-column input clusters stay two-up. Other grids keep
+               the columns they declare, instead of every .grid becoming 2-up. */
+            .grid.grid-cols-2,
+            .grid.md\:grid-cols-4,
+            .grid.md\:grid-cols-5 {
                 grid-template-columns: 1fr 1fr !important;
                 gap: 8px !important;
             }
-            
-            /* Container padding — keep cards off the screen edge */
+            .grid.md\:grid-cols-2:not(.grid-cols-2) {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* Container padding keeps cards clear of the screen edge */
             .max-w-7xl, .container {
                 padding-left: 16px !important;
                 padding-right: 16px !important;
             }
-            
-            /* Smaller gaps */
-            .gap-6, .gap-3 {
-                gap: 10px !important;
-            }
-            
-            /* Card padding on mobile */
+
+            .gap-6, .gap-3 { gap: 10px !important; }
+
             .bg-gradient-to-br, .card, .p-6, .p-5, .p-4 {
                 padding: 14px !important;
                 border-radius: 14px !important;
             }
-            
-            /* Smaller text on mobile */
-            h1, .text-3xl, .text-4xl { font-size: 1.4rem !important; }
-            h2, .text-2xl { font-size: 1.15rem !important; }
+
+            /* Headings scale down, but the NursePath wordmark keeps its own size */
+            h1:not(#nursepathHeaderLogo):not(.auth-brand),
+            .text-3xl, .text-4xl { font-size: 1.4rem !important; }
+            h2:not(.auth-brand), .text-2xl { font-size: 1.15rem !important; }
             h3, .text-xl, .text-lg { font-size: 1rem !important; }
-            
-            /* Full width on mobile - single column for some sections */
-            .md\:grid-cols-2 {
-                grid-template-columns: 1fr !important;
-            }
-            
-            /* Buttons */
-            button {
+
+            /* Generic button sizing must not fight component buttons */
+            button:not(.tool-hub-card):not(.otc-med-card):not(.study-tab-btn):not(.study-quiz-choice):not(.score-option):not(.tool-guide-close):not(.ron-region):not(.tool-hub-tag) {
                 padding: 12px 16px !important;
                 font-size: 14px !important;
                 min-height: 48px !important;
             }
-            
-            /* Hide OTC sidebar on mobile */
-            aside.lg\:col-span-1 {
-                display: none !important;
-            }
-            
-            /* Labels smaller */
+
+            /* Clinical labels stay readable rather than shrinking to 9px */
             label, .text-\[9px\], .text-\[10px\] {
-                font-size: 9px !important;
+                font-size: 10.5px !important;
+                letter-spacing: 0.02em;
             }
-            
-            /* Diagnosis box */
+
             #dx-box {
                 min-height: 70px !important;
                 padding: 12px !important;
             }
-            
-            /* Prevent text overflow */
+
             p, span, div, h1, h2, h3, h4, label {
                 word-wrap: break-word !important;
                 overflow-wrap: break-word !important;
@@ -1580,9 +1557,9 @@
     <div id="authOverlay" style="position: fixed; inset: 0; background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px; overflow-y: auto;">
         <div style="background: #0f172a; border: 2px solid #06b6d4; border-radius: 20px; padding: 32px 22px 26px; max-width: 440px; width: 100%; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5); margin: auto;">
             <h1 class="auth-brand">NursePath</h1>
-            <p class="auth-tagline">The offline clinical companion for nursing students — duty tools, OTC reference, and study practice in one place.</p>
+            <p class="auth-tagline">The offline clinical companion for nursing students. Duty tools, OTC reference, and study practice in one place.</p>
             <ul class="auth-value-list">
-                <li><strong>Duty:</strong> Fast vitals, IV math, scoring tools &amp; PH OTC brands — even offline.</li>
+                <li><strong>Duty:</strong> Fast vitals, IV math, scoring tools, and PH OTC brands, even offline.</li>
                 <li><strong>Study:</strong> Instructor-style lessons and quizzes for every tool.</li>
             </ul>
             <p class="auth-soft-note">Learning companion for school and ward prep. Always verify with your Clinical Instructor and approved textbooks.</p>
@@ -1624,7 +1601,7 @@
             
             <div style="background: #0f172a; border-radius: 12px; padding: 20px; margin-bottom: 22px; border: 1px solid #334155; text-align: left;">
                 <p style="color: #e2e8f0; font-size: 15px; line-height: 1.65; margin: 0 0 12px;">
-                    NursePath is your <strong style="color: #67e8f9;">offline learning and duty-reference companion</strong> for nursing school — tools, OTC reference, and study practice.
+                    NursePath is your <strong style="color: #67e8f9;">offline learning and duty-reference companion</strong> for nursing school, covering tools, OTC reference, and study practice.
                 </p>
                 <p style="color: #94a3b8; font-size: 13px; line-height: 1.6; margin: 0 0 8px;">
                     By continuing, I agree to:
@@ -2998,7 +2975,7 @@
             <h1 id="nursepathHeaderLogo" title="NursePath" class="np-display font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-sky-400 mb-1" style="cursor: default; font-size: clamp(2rem, 8vw, 2.75rem); letter-spacing: -0.03em; line-height: 1.05;">
                 NursePath
             </h1>
-            <p class="text-slate-400 text-xs sm:text-sm">Offline companion for nursing students · Verify with your CI &amp; textbooks</p>
+            <p class="text-slate-400 text-xs sm:text-sm">Duty tools, OTC reference, and study practice. Works offline.</p>
             <div class="mt-2" style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap;">
                 <button type="button" onclick="manualLogout()" style="padding:8px 12px; min-height:36px; background:#1f2937; color:#e2e8f0; border:1px solid #475569; border-radius:10px; font-size:12px; font-weight:700;">Logout</button>
                 <button id="facultyResetBtn" type="button" onclick="facultyResetDevice()" style="display:none; padding:8px 12px; min-height:36px; background:#7f1d1d; color:#fee2e2; border:1px solid #ef4444; border-radius:10px; font-size:12px; font-weight:700;">Faculty Reset</button>
@@ -3050,7 +3027,7 @@
             <div class="tools-hub-mode-row">
                 <div class="tools-hub-hero">
                     <h2 id="toolsHubTitle">Clinical Tools</h2>
-                    <p id="toolsHubBlurb">Duty mode — fast calculators for ward pocket use. OTC lives in the OTC tab.</p>
+                    <p id="toolsHubBlurb">Duty mode: fast calculators for ward pocket use. OTC lives in the OTC tab.</p>
                 </div>
                 <div class="np-mode-toggle" role="group" aria-label="Clinical tools mode">
                     <button type="button" data-mode="duty" id="hubDutyBtn" class="is-active" onclick="setHubMode('duty')">Duty</button>
@@ -3060,7 +3037,7 @@
             <div class="tools-hub-grid">
                 <button type="button" class="tool-hub-card" style="--accent:#f87171;" onclick="openHubTool('vitals')">
                     <span class="tool-hub-icon">VS</span>
-                    <span><span class="tool-hub-label">Vital Signs Simulation</span><span class="tool-hub-desc" data-duty-desc="Interpret age-aware vitals trends in sim mode" data-study-desc="Lesson + quiz on patterns, context, and reporting">Interpret age-aware vitals trends in sim mode</span></span>
+                    <span><span class="tool-hub-label">Vital Signs</span><span class="tool-hub-desc" data-duty-desc="Age-aware interpretation of a full vitals set" data-study-desc="Lesson and quiz on patterns, context, and reporting">Age-aware interpretation of a full vitals set</span></span>
                     <span class="tool-hub-tag">Assessment</span>
                 </button>
                 <button type="button" class="tool-hub-card" style="--accent:#60a5fa;" onclick="openHubTool('iv')">
@@ -3140,7 +3117,7 @@
                 <section id="vital-signs-section" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-bold text-white flex items-center">
-                            <svg width="1.3em" height="1.3em" viewBox="0 0 24 24" fill="currentColor" class="mr-3 text-red-500"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Vital Signs Simulation
+                            <svg width="1.3em" height="1.3em" viewBox="0 0 24 24" fill="currentColor" class="mr-3 text-red-500"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Vital Signs
                         </h2>
                         <span id="status-badge" class="px-4 py-2 bg-slate-700 rounded-full text-xs font-mono text-slate-400 font-bold">Enter Vitals</span>
                     </div>
@@ -3200,7 +3177,6 @@
                         </div>
                     </div>
 
-                    <div class="learn-tip"><strong>Learn + use:</strong> Enter vitals → read findings → decide what to report to your CI. This is a reference finding, not an order.</div>
 
                     <!-- DIAGNOSIS BOX -->
                     <div id="dx-box" class="p-6 bg-slate-900/70 rounded-xl border border-slate-700 min-h-[120px] flex items-center justify-center text-slate-500 italic text-center">
@@ -3211,12 +3187,12 @@
                     </div>
                     <div id="vitals-learn" class="np-learn" style="display:none;">
                         <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="vitals-learn-meaning">—</span></div>
-                        <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="vitals-learn-how">Age-, pregnancy-, and comorbidity-aware reference ranges (simulation).</span></div>
+                        <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="vitals-learn-how">Reference ranges adjusted for age, pregnancy, and comorbidity.</span></div>
                     </div>
 
                     <div class="mt-4" style="display:flex; flex-direction:column; gap:8px;">
                         <button id="simulate-vitals-btn" onclick="simulateVitalSigns()" class="w-full py-3 rounded-xl font-bold uppercase tracking-wider transition-all" style="background:linear-gradient(135deg,#f97316,#ea580c); color:#fff; border:2px solid #fdba74; box-shadow:0 10px 20px rgba(194,65,12,0.45);">
-                            <svg class="inline mr-2" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H5a2 2 0 0 0-2 2v14l4-4h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-6 9H9V7h2v5zm4-2h-2V7h2v3z"/></svg> Simulate Vital Signs
+                            <svg class="inline mr-2" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H5a2 2 0 0 0-2 2v14l4-4h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-6 9H9V7h2v5zm4-2h-2V7h2v3z"/></svg> Analyze Vital Signs
                         </button>
                         <p id="vitals-record-status" class="text-xs text-slate-400 min-h-[18px]"></p>
                     </div>
@@ -3249,7 +3225,6 @@
                                     <option value="60">Micro Drip (60 gtt/mL) - Pediatric/Medication</option>
                                 </select>
                             </div>
-                            <div class="learn-tip"><strong>Formulas:</strong> mL/hr = Volume ÷ Hours · gtt/min = (mL/hr ÷ 60) × drop factor</div>
                             <div id="iv-calcs" class="space-y-3">
                                 <div class="bg-slate-700/30 p-3 rounded-lg border border-blue-500/30">
                                     <p class="text-[10px] text-slate-400 uppercase">Flow Rate (mL/hr)</p>
@@ -3288,7 +3263,6 @@
                                     <input type="number" id="height" placeholder="170" min="0" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-emerald-500 outline-none text-sm">
                                 </div>
                             </div>
-                            <div class="learn-tip"><strong>Formula:</strong> BMI = weight(kg) ÷ height(m)² · WHO adult cutoffs</div>
                             <div id="bmi-results" class="space-y-3">
                                 <div class="bg-slate-700/30 p-3 rounded-lg border border-emerald-500/30">
                                     <p class="text-[10px] text-slate-400 uppercase">BMI Score</p>
@@ -3398,8 +3372,7 @@
             <div id="tool-panel-apgar" class="tool-panel">
                 <div id="apgar-section" class="learn-shell scroll-mt-20" style="--accent:#fb7185;">
                     <div class="learn-title" style="color:#fda4af;">APGAR Score</div>
-                    <p class="learn-sub">Tap the clinical finding that matches what you observe. Each option teaches the 0 / 1 / 2 meaning — then the total updates live (simulation).</p>
-                    <div class="learn-tip"><strong>Ref:</strong> 0–3 depressed · 4–6 moderate · 7–10 reassuring. Score at 1 min and 5 min.</div>
+                    <p class="learn-sub">Tap the clinical finding that matches what you observe. Each option explains what 0, 1, or 2 means, and the total updates as you go.</p>
                     <div id="apgar-inputs"></div>
                     <div class="score-result">
                         <div class="score-result-label">APGAR total</div>
@@ -3416,7 +3389,6 @@
                 <div id="gcs-section" class="learn-shell scroll-mt-20" style="--accent:#38bdf8;">
                     <div class="learn-title" style="color:#7dd3fc;">Glasgow Coma Scale</div>
                     <p class="learn-sub">Pick the best eye, verbal, and motor response. Report as E_V_M (example: E4V5M6 = 15).</p>
-                    <div class="learn-tip"><strong>Ref:</strong> Mild 13–15 · Moderate 9–12 · Severe ≤8. Always report E_V_M, not only the total.</div>
                     <div class="gcs-live-row">
                         <span class="gcs-chip" id="gcs-chip-eye">E—</span>
                         <span class="gcs-chip" id="gcs-chip-verbal">V—</span>
@@ -3437,8 +3409,7 @@
             <div id="tool-panel-braden" class="tool-panel">
                 <div id="braden-section" class="learn-shell scroll-mt-20" style="--accent:#2dd4bf;">
                     <div class="learn-title" style="color:#5eead4;">Braden Scale</div>
-                    <p class="learn-sub">Lower total = higher pressure-injury risk (6–23). Tap the wording that matches the patient — each choice teaches the subscale meaning.</p>
-                    <div class="learn-tip"><strong>Ref:</strong> Lower total = higher pressure-injury risk (6–23). Intervene earlier as the score drops.</div>
+                    <p class="learn-sub">A lower total means higher pressure-injury risk, on a scale of 6 to 23. Tap the wording that matches the patient and each choice explains the subscale.</p>
                     <div id="braden-inputs"></div>
                     <div class="score-result">
                         <div class="score-result-label">Braden total</div>
@@ -3454,8 +3425,7 @@
             <div id="tool-panel-ron" class="tool-panel">
                 <div id="ron-section" class="learn-shell scroll-mt-20" style="--accent:#fb923c;">
                     <div class="learn-title" style="color:#fdba74;">Rule of Nines</div>
-                    <p class="learn-sub">Tap a body region to cycle Off → Half → Full. Adult proportions for burn TBSA estimate (simulation).</p>
-                    <div class="learn-tip"><strong>Ref:</strong> Head 9% · Arm 9% each · Trunk 18% front/back · Leg 18% each · Perineum 1%.</div>
+                    <p class="learn-sub">Tap a body region to cycle Off, Half, then Full. Uses adult proportions for the TBSA estimate.</p>
                     <div id="ron-grid" class="ron-body-grid mb-4"></div>
                     <div class="score-result">
                         <div class="score-result-label">Estimated TBSA</div>
@@ -3481,7 +3451,7 @@
                 <div class="tools-hub-mode-row">
                     <div class="tools-hub-hero">
                         <h2>OTC Medicines</h2>
-                        <p>Search Philippine brands, generics, or symptoms. Pocket reference for duty and study — verify with your CI and protocol.</p>
+                        <p>Search Philippine brands, generics, or symptoms. A pocket reference for duty and study, so confirm anything that affects care with your CI.</p>
                     </div>
                 </div>
                 <div class="otc-search-wrap">
@@ -3561,16 +3531,16 @@
             }
         };
 
-        // ============= DIAGNOSIS DATABASE (Simulation Reference) =============
+        // ============= REFERENCE PATTERN DATABASE =============
         const diagnosisDatabase = {
-            fever: { symptoms: "High temperature (>38°C)", meds: ["Ref: Acetaminophen (500-1000mg)", "Ref: Ibuprofen (200-400mg with food)"], actions: "📚 In simulation, monitor for dehydration signs, document fluid intake, consider cooling measures if >40°C. Verify protocol with CI." },
-            hypothermia: { symptoms: "Low temperature (<35°C)", meds: ["Ref: Passive rewarming measures"], actions: "📋 Simulation Note: Indicates critical hypothermia; follow institutional thermal regulation protocols. Priority: Faculty notification required." },
-            hypertensiveCrisis: { symptoms: "BP ≥180/120", meds: ["No OTC intervention indicated"], actions: "📋 Simulation Note: In a clinical setting, this represents a hypertensive emergency. Priority: Instructor notification required for simulation guidance." },
-            hypertension: { symptoms: "BP 140-179 systolic or 90-119 diastolic", meds: ["Ref: Lifestyle modifications (sodium reduction, rest)"], actions: "📚 In simulation, recheck BP in 5-10 min. Document associated symptoms (headache, chest pain, SOB). Consult textbook for staging." },
-            tachycardia: { symptoms: "Heart rate >100 BPM", meds: ["Ref: Non-pharmacological interventions (positioning, environment)"], actions: "📚 In simulation, assess for contributing factors (pain, anxiety, fever). Document rhythm characteristics." },
-            bradycardia: { symptoms: "Heart rate <60 BPM (abnormal)", meds: ["Ref: Monitor and document"], actions: "📚 Academic Note: May be physiologic in athletes. In simulation, document associated symptoms (dizziness, weakness)." },
-            tachypnea: { symptoms: "Respiratory rate >20/min", meds: ["Ref: Supplemental O2 if SpO2 <94%", "Ref: Anxiety reduction techniques"], actions: "📚 In simulation, assess for underlying causes (anxiety, pain, infection). Document oxygen saturation if available." },
-            hypoxia: { symptoms: "SpO2 <94% (if measured)", meds: ["Ref: Oxygen therapy per protocol"], actions: "📚 In simulation, elevate HOB, ensure airway patency. Document SpO2 trend. Consult CI for intervention guidance." }
+            fever: { symptoms: "High temperature (>38°C)", meds: ["Ref: Acetaminophen (500-1000mg)", "Ref: Ibuprofen (200-400mg with food)"], actions: "Monitor for dehydration signs, document fluid intake, and note cooling measures if above 40°C." },
+            hypothermia: { symptoms: "Low temperature (<35°C)", meds: ["Ref: Passive rewarming measures"], actions: "Critical hypothermia pattern. Follow your institution's thermal regulation protocol and report immediately." },
+            hypertensiveCrisis: { symptoms: "BP ≥180/120", meds: ["No OTC intervention indicated"], actions: "This pattern is described as a hypertensive emergency. Report immediately." },
+            hypertension: { symptoms: "BP 140-179 systolic or 90-119 diastolic", meds: ["Ref: Lifestyle modifications (sodium reduction, rest)"], actions: "Recheck BP in 5 to 10 minutes and document associated symptoms such as headache, chest pain, or shortness of breath." },
+            tachycardia: { symptoms: "Heart rate >100 BPM", meds: ["Ref: Non-pharmacological interventions (positioning, environment)"], actions: "Assess for contributing factors such as pain, anxiety, or fever, and document rhythm characteristics." },
+            bradycardia: { symptoms: "Heart rate <60 BPM (abnormal)", meds: ["Ref: Monitor and document"], actions: "May be physiologic in athletes. Document associated symptoms such as dizziness or weakness." },
+            tachypnea: { symptoms: "Respiratory rate >20/min", meds: ["Ref: Supplemental O2 if SpO2 <94%", "Ref: Anxiety reduction techniques"], actions: "Assess for underlying causes such as anxiety, pain, or infection, and document oxygen saturation if available." },
+            hypoxia: { symptoms: "SpO2 <94% (if measured)", meds: ["Ref: Oxygen therapy per protocol"], actions: "Note head-of-bed position and airway patency, and document the SpO2 trend." }
         };
 
         function trackUsageSafe(feature, action, meta = {}, options = {}) {
@@ -3634,11 +3604,11 @@
                 diagnosis.push({ name: "⚠️ SIM ALERT: Severe Low Diastolic (DBP <40)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
                 priority = "CRITICAL";
                 color = "text-red-500";
-                contextNotes.push("📚 Ref Note: Diastolic <40 mmHg suggests severe hypoperfusion in simulation. Priority: Faculty/Instructor notification required for guidance.");
+                contextNotes.push("Diastolic below 40 mmHg suggests severe hypoperfusion. Report promptly.");
             } else if (dia > 0 && dia < 60) {
                 diagnosis.push({ name: "Low Diastolic Pressure (DBP <60)", severity: "MONITOR", icon: "fa-arrow-down" });
                 if (priority === "STABLE") priority = "ELEVATED";
-                contextNotes.push(`📋 Simulation Finding: Diastolic ${dia} mmHg is below reference range. In a clinical setting, this suggests monitoring for orthostatic symptoms.`);
+                contextNotes.push(`Diastolic ${dia} mmHg is below the reference range, which is associated with orthostatic symptoms.`);
             }
             
             // Systolic checks
@@ -3646,12 +3616,12 @@
                 diagnosis.push({ name: "⚠️ SIM ALERT: Severe Hypotension (SBP <70)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
                 priority = "CRITICAL";
                 color = "text-red-500";
-                contextNotes.push("📚 Ref Note: SBP <70 mmHg represents severe hypotension in simulation. In a clinical setting, this indicates hemodynamic instability. Priority: Faculty notification required.");
+                contextNotes.push("Systolic below 70 mmHg represents severe hypotension and indicates hemodynamic instability. Report immediately.");
             } else if (sys > 0 && sys < bpSysTarget.min) {
                 diagnosis.push({ name: `⚠️ SIM ALERT: Hypotension (Below ${ageGroup.name} Range)`, severity: "CRITICAL", icon: "fa-arrow-down" });
                 priority = "CRITICAL";
                 color = "text-red-500";
-                contextNotes.push(`📋 Simulation Finding: Systolic ${sys} is below reference for ${ageGroup.name} (normal: ${bpSysTarget.min}-${bpSysTarget.max}). Consult textbook for age-specific interventions.`);
+                contextNotes.push(`Systolic ${sys} is below the reference for ${ageGroup.name} (usual ${bpSysTarget.min} to ${bpSysTarget.max}).`);
             } else if (sys >= 180 || (dia && dia >= 120)) {
                 diagnosis.push({ name: "⚠️ SIM ALERT: Hypertensive Crisis Pattern (SBP ≥180/DBP ≥120)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
                 priority = "CRITICAL";
@@ -3661,12 +3631,12 @@
                 diagnosis.push({ name: "⚠️ SIM ALERT: Preeclampsia Pattern (BP ≥160/110)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
                 priority = "CRITICAL";
                 color = "text-red-500";
-                contextNotes.push("📚 Ref Note: In simulation, severely elevated BP in pregnancy suggests preeclampsia pattern. Assess for proteinuria, edema, headache. Priority: Instructor notification required.");
+                contextNotes.push("Severely elevated BP in pregnancy fits a preeclampsia pattern. Assess for proteinuria, edema, and headache, and report promptly.");
             } else if (isPregnant && sys >= vitalSignsReference.pregnancy.gestationalHypertension.sys) {
                 diagnosis.push({ name: "Gestational Hypertension Pattern (SBP ≥140/DBP ≥90)", severity: "ELEVATED", icon: "fa-arrow-up" });
                 priority = "ELEVATED";
                 color = "text-orange-500";
-                contextNotes.push("📋 Simulation Finding: In a clinical setting, this pattern requires monitoring for progression to preeclampsia.");
+                contextNotes.push("This pattern is monitored for progression to preeclampsia.");
             } else if (sys >= 160 || (dia && dia >= 100)) {
                 diagnosis.push({ name: "Severe Hypertension Pattern (SBP 160-179 or DBP 100-109)", severity: "ELEVATED", icon: "fa-arrow-up" });
                 priority = priority === "CRITICAL" ? "CRITICAL" : "ELEVATED";
@@ -3679,7 +3649,7 @@
                 if (!isPregnant) recommendations.push(diagnosisDatabase.hypertension);
             } else if (sys >= bpSysTarget.max) {
                 diagnosis.push({ name: `Mildly Elevated BP (Above ${ageGroup.name} Reference)`, severity: "MONITOR", icon: "fa-arrow-up-long" });
-                contextNotes.push(`📋 Simulation Finding: Systolic ${sys} is slightly above reference for ${ageGroup.name} (normal: ${bpSysTarget.min}-${bpSysTarget.max}).`);
+                contextNotes.push(`Systolic ${sys} is slightly above the reference for ${ageGroup.name} (usual ${bpSysTarget.min} to ${bpSysTarget.max}).`);
             }
 
             // ===== TEMPERATURE ASSESSMENT =====
@@ -3688,7 +3658,7 @@
                     diagnosis.push({ name: "⚠️ SIM ALERT: Severe Hypothermia (≤28°C)", severity: "CRITICAL", icon: "fa-snowflake" });
                     priority = "CRITICAL";
                     color = "text-blue-500";
-                    contextNotes.push("📋 Simulation Note: Temperature ≤28°C indicates critical hypothermia pattern. In simulation, this requires immediate faculty-led intervention per institutional thermal regulation protocols.");
+                    contextNotes.push("Temperature at or below 28°C indicates a critical hypothermia pattern. Follow your institution's thermal regulation protocol and report immediately.");
                 } else if (temp <= 35.0) {
                     diagnosis.push({ name: "⚠️ SIM ALERT: Hypothermia (28-35°C)", severity: "CRITICAL", icon: "fa-snowflake" });
                     priority = "CRITICAL";
@@ -3698,7 +3668,7 @@
                     diagnosis.push({ name: "⚠️ SIM ALERT: Severe Hyperthermia (≥40.5°C)", severity: "CRITICAL", icon: "fa-fire" });
                     priority = "CRITICAL";
                     color = "text-red-500";
-                    contextNotes.push("📋 Simulation Note: Temperature ≥40.5°C suggests heat stroke pattern. In a clinical setting, this requires immediate cooling interventions. Priority: Instructor notification required.");
+                    contextNotes.push("Temperature at or above 40.5°C suggests a heat stroke pattern, which calls for immediate cooling measures. Report immediately.");
                 } else if (temp >= 40.0) {
                     diagnosis.push({ name: "⚠️ SIM ALERT: Very High Fever (40.0-40.4°C)", severity: "CRITICAL", icon: "fa-fire" });
                     priority = "CRITICAL";
@@ -3714,7 +3684,7 @@
                         diagnosis.push({ name: "High Fever Pattern (39.5-39.9°C)", severity: "CRITICAL", icon: "fa-fire" });
                         color = "text-red-500";
                         recommendations.push(diagnosisDatabase.fever);
-                        if (conditions === 'diabetes') contextNotes.push("📚 Academic Note: Diabetic patient with fever pattern - in simulation, monitor for DKA signs and infection indicators.");
+                        if (conditions === 'diabetes') contextNotes.push("Diabetic patient with a fever pattern. Monitor for DKA signs and infection indicators.");
                     } else if (temp >= 38.5) {
                         diagnosis.push({ name: "Moderate Fever Pattern (38.5-39.4°C)", severity: "MONITOR", icon: "fa-fire" });
                         color = "text-orange-500";
@@ -3731,33 +3701,33 @@
                 diagnosis.push({ name: "⚠️ SIM ALERT: Severe Bradycardia (HR <30)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
                 priority = "CRITICAL";
                 color = "text-red-500";
-                contextNotes.push("📚 Ref Note: HR <30 indicates severe bradycardia pattern. In simulation, assess consciousness & pulse quality. Priority: Faculty notification required.");
+                contextNotes.push("HR below 30 indicates a severe bradycardia pattern. Assess consciousness and pulse quality, and report immediately.");
             } else if (hr > 200) {
                 diagnosis.push({ name: "⚠️ SIM ALERT: Severe Tachycardia (HR >200)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
                 priority = "CRITICAL";
                 color = "text-red-500";
-                contextNotes.push("📚 Ref Note: HR >200 indicates severe tachycardia pattern. In a clinical setting, this suggests arrhythmia, sepsis, or shock. Priority: Instructor notification required.");
+                contextNotes.push("HR above 200 indicates a severe tachycardia pattern associated with arrhythmia, sepsis, or shock. Report immediately.");
             } else if (hr > 0 && hr < hrTarget.min) {
                 diagnosis.push({ name: `Bradycardia Pattern (Below ${ageGroup.name} Reference: HR ${hr})`, severity: "MONITOR", icon: "fa-heart" });
-                contextNotes.push(`📋 Simulation Finding: HR ${hr} is below reference for ${ageGroup.name} (normal: ${hrTarget.min}-${hrTarget.max}). Consult textbook for assessment criteria.`);
+                contextNotes.push(`HR ${hr} is below the reference for ${ageGroup.name} (usual ${hrTarget.min} to ${hrTarget.max}).`);
                 recommendations.push(diagnosisDatabase.bradycardia);
             } else if (hr > hrTarget.max && hr <= hrTarget.max + 20) {
                 let note = `Mild Tachycardia Pattern (HR ${hr})`;
                 if (isPregnant) note += " (within pregnancy range)";
                 if (temp >= 38.0) note += " (fever-related)";
                 diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-heart" });
-                contextNotes.push(`📋 Simulation Finding: HR ${hr} is slightly above reference for ${ageGroup.name} (normal: ${hrTarget.min}-${hrTarget.max}).`);
+                contextNotes.push(`HR ${hr} is slightly above the reference for ${ageGroup.name} (usual ${hrTarget.min} to ${hrTarget.max}).`);
             } else if (hr > hrTarget.max + 20 && hr <= hrTarget.max + 40) {
                 let note = `Tachycardia Pattern (HR ${hr})`;
                 if (temp >= 38.0) note += " (fever-related)";
                 diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-heart" });
-                contextNotes.push(`📋 Simulation Finding: HR ${hr} exceeds reference for ${ageGroup.name} (normal: ${hrTarget.min}-${hrTarget.max}).`);
+                contextNotes.push(`HR ${hr} exceeds the reference for ${ageGroup.name} (usual ${hrTarget.min} to ${hrTarget.max}).`);
                 recommendations.push(diagnosisDatabase.tachycardia);
             } else if (hr > hrTarget.max + 40) {
                 diagnosis.push({ name: `⚠️ SIM ALERT: Severe Tachycardia (HR ${hr})`, severity: "CRITICAL", icon: "fa-exclamation-triangle" });
                 priority = priority === "STABLE" ? "CRITICAL" : priority;
                 color = "text-red-500";
-                contextNotes.push(`📚 Ref Note: HR ${hr} is significantly elevated. In a clinical setting, this suggests shock, sepsis, or severe underlying condition.`);
+                contextNotes.push(`HR ${hr} is significantly elevated, a pattern associated with shock, sepsis, or a severe underlying condition.`);
             }
 
             // ===== RESPIRATORY RATE ASSESSMENT (Age-Group Adjusted) =====
@@ -3765,25 +3735,25 @@
                 diagnosis.push({ name: "⚠️ SIM ALERT: Severe Respiratory Depression (RR <8)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
                 priority = "CRITICAL";
                 color = "text-red-500";
-                contextNotes.push("📋 Simulation Note: RR <8 indicates severe respiratory depression pattern. In simulation, this represents respiratory failure risk requiring immediate faculty-led intervention.");
+                contextNotes.push("RR below 8 indicates a severe respiratory depression pattern with respiratory failure risk. Report immediately.");
             } else if (rr > 50) {
                 diagnosis.push({ name: "⚠️ SIM ALERT: Severe Tachypnea (RR >50)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
                 priority = "CRITICAL";
                 color = "text-red-500";
-                contextNotes.push("📚 Ref Note: RR >50 indicates severe respiratory distress pattern. Priority: Faculty/Instructor notification required for simulation guidance.");
+                contextNotes.push("RR above 50 indicates a severe respiratory distress pattern. Report immediately.");
             } else if (rr > 0 && rr < rrTarget.min) {
                 diagnosis.push({ name: `Bradypnea Pattern (Below ${ageGroup.name} Reference: RR ${rr})`, severity: "MONITOR", icon: "fa-wind" });
-                contextNotes.push(`📋 Simulation Finding: RR ${rr} is below reference for ${ageGroup.name} (normal: ${rrTarget.min}-${rrTarget.max}).`);
+                contextNotes.push(`RR ${rr} is below the reference for ${ageGroup.name} (usual ${rrTarget.min} to ${rrTarget.max}).`);
             } else if (rr > rrTarget.max && rr <= rrTarget.max + 5) {
                 let note = `Mild Tachypnea Pattern (RR ${rr})`;
                 if (conditions === 'asthma' || conditions === 'copd') note += " (monitor for exacerbation)";
                 diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-wind" });
-                contextNotes.push(`📋 Simulation Finding: RR ${rr} is slightly above reference for ${ageGroup.name} (normal: ${rrTarget.min}-${rrTarget.max}).`);
+                contextNotes.push(`RR ${rr} is slightly above the reference for ${ageGroup.name} (usual ${rrTarget.min} to ${rrTarget.max}).`);
             } else if (rr > rrTarget.max + 5 && rr <= rrTarget.max + 15) {
                 let note = `Tachypnea Pattern (RR ${rr})`;
                 if (conditions === 'asthma' || conditions === 'copd') note += " (exacerbation indicator)";
                 diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-wind" });
-                contextNotes.push(`📋 Simulation Finding: RR ${rr} exceeds reference for ${ageGroup.name} (normal: ${rrTarget.min}-${rrTarget.max}).`);
+                contextNotes.push(`RR ${rr} exceeds the reference for ${ageGroup.name} (usual ${rrTarget.min} to ${rrTarget.max}).`);
                 recommendations.push(diagnosisDatabase.tachypnea);
             } else if (rr > rrTarget.max + 15) {
                 let note = `⚠️ SIM ALERT: Severe Tachypnea (RR ${rr})`;
@@ -3791,19 +3761,19 @@
                 diagnosis.push({ name: note, severity: "CRITICAL", icon: "fa-exclamation-triangle" });
                 priority = priority === "STABLE" ? "CRITICAL" : priority;
                 color = "text-red-500";
-                contextNotes.push(`📚 Ref Note: RR ${rr} is significantly elevated. In a clinical setting, this suggests respiratory distress or hypoxia.`);
+                contextNotes.push(`RR ${rr} is significantly elevated, a pattern associated with respiratory distress or hypoxia.`);
             }
 
             // ===== COMORBIDITY-SPECIFIC CHECKS =====
             if (hasComorbidity) {
                 if (conditions === 'ckd' && sys > vitalSignsReference.comorbidities.ckd.systolicTarget) {
-                    contextNotes.push("� Academic Note: CKD patient - in simulation, strict BP control is emphasized. Current reading exceeds textbook target. Ref: Avoid NSAIDs in CKD.");
+                    contextNotes.push("CKD patient. Stricter BP control is emphasized and this reading exceeds the usual target. NSAIDs are generally avoided in CKD.");
                 }
                 if (conditions === 'asthma' && rr > 25) {
-                    contextNotes.push("📚 Academic Note: Asthma patient with elevated RR - in simulation, auscultate for wheeze. This pattern may indicate exacerbation.");
+                    contextNotes.push("Asthma patient with elevated RR. Auscultate for wheeze, since this pattern can indicate exacerbation.");
                 }
                 if (conditions === 'copd' && rr > 25) {
-                    contextNotes.push("📚 Academic Note: COPD patient - RR elevated. In simulation, compare to patient's baseline. Consider COPD exacerbation pattern.");
+                    contextNotes.push("COPD patient with elevated RR. Compare against the patient's baseline and consider an exacerbation pattern.");
                 }
             }
 
@@ -3811,7 +3781,7 @@
         }
 
         function liveAnalyze() {
-            // Improved simulation-focused interpretation with clear priority, actions, and context.
+            // Interpretation grouped into priority, actions, and patient context.
             const sys = parseInt(document.getElementById('sys').value);
             const dia = parseInt(document.getElementById('dia').value);
             const temp = parseFloat(document.getElementById('temp').value);
@@ -3827,7 +3797,7 @@
             if (!sys && !temp && !hr && !rr) {
                 box.innerHTML = `<div class="flex flex-col items-center space-y-2">
                     <svg class="inline text-3xl text-slate-600 opacity-50" width="1.3em" height="1.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3v18h18"/></svg>
-                    <p class="text-sm text-slate-500">Enter all vital signs to generate a simulation assessment.</p>
+                    <p class="text-sm text-slate-500">Enter all vital signs to generate the findings.</p>
                 </div>`;
                 badge.innerText = "Enter Vitals";
                 badge.className = "px-4 py-2 bg-slate-700 rounded-full text-xs font-mono text-slate-400 font-bold";
@@ -3854,12 +3824,12 @@
                 interpretations.push(`Stage 2 hypertension pattern (${sys}/${dia} mmHg)`);
                 abnormalFindings.push('stage2_bp');
                 severityScore += 3;
-                actions.push("Monitor blood pressure every 15 minutes in simulation and observe for headache, chest pain, or neurologic changes.");
+                actions.push("Monitor blood pressure every 15 minutes and observe for headache, chest pain, or neurologic changes.");
             } else if (sys >= 130 || dia >= 80) {
                 interpretations.push(`Stage 1 hypertension pattern (${sys}/${dia} mmHg)`);
                 abnormalFindings.push('stage1_bp');
                 severityScore += 2;
-                actions.push("Repeat BP after a brief rest and compare trend with previous simulation readings.");
+                actions.push("Repeat the BP after a brief rest and compare it against earlier readings.");
             } else if (sys >= 120 && dia < 80) {
                 interpretations.push(`Elevated blood pressure pattern (${sys}/${dia} mmHg)`);
                 abnormalFindings.push('elevated_bp');
@@ -3868,7 +3838,7 @@
                 interpretations.push(`Hypotension pattern (${sys}/${dia} mmHg)`);
                 abnormalFindings.push('low_bp');
                 severityScore += 2;
-                actions.push("Assess perfusion indicators in simulation (mental status, skin signs, capillary refill) and reassess vitals promptly.");
+                actions.push("Assess perfusion indicators such as mental status, skin signs, and capillary refill, then reassess vitals promptly.");
             } else {
                 interpretations.push(`Blood pressure within reference range (${sys}/${dia} mmHg)`);
             }
@@ -3891,19 +3861,19 @@
                 interpretations.push(`Hypothermia pattern (${temp.toFixed(1)}°C)`);
                 abnormalFindings.push('hypothermia');
                 severityScore += 3;
-                actions.push("Prioritize warming interventions in simulation and reassess core vital trends.");
+                actions.push("Prioritize warming measures and reassess the core vital trends.");
             } else {
                 interpretations.push(`Temperature within reference range (${temp.toFixed(1)}°C)`);
             }
 
-            // Heart rate interpretation (age-adjusted simplification for simulation)
+            // Heart rate interpretation, simplified against age-adjusted bands
             const hrLow = isChild ? 70 : 60;
             const hrHigh = isChild ? 120 : 100;
             if (hr > hrHigh + 20) {
                 interpretations.push(`Marked tachycardia pattern (HR ${hr} bpm)`);
                 abnormalFindings.push('severe_tachy');
                 severityScore += 3;
-                actions.push("Assess for contributing simulation causes (pain, fever, anxiety, dehydration) and trend HR closely.");
+                actions.push("Assess for contributing causes such as pain, fever, anxiety, or dehydration, and trend the HR closely.");
             } else if (hr > hrHigh) {
                 interpretations.push(`Tachycardia pattern (HR ${hr} bpm)`);
                 abnormalFindings.push('tachy');
@@ -3912,19 +3882,19 @@
                 interpretations.push(`Bradycardia pattern (HR ${hr} bpm)`);
                 abnormalFindings.push('brady');
                 severityScore += 2;
-                actions.push("Reassess perfusion and symptoms in simulation; verify reading quality and repeat HR.");
+                actions.push("Reassess perfusion and symptoms, verify reading quality, and repeat the HR.");
             } else {
                 interpretations.push(`Heart rate within expected range for age (HR ${hr} bpm)`);
             }
 
-            // Respiratory rate interpretation (age-adjusted simplification for simulation)
+            // Respiratory rate interpretation, simplified against age-adjusted bands
             const rrLow = isChild ? 18 : 12;
             const rrHigh = isChild ? 30 : 20;
             if (rr > rrHigh + 10) {
                 interpretations.push(`Severe tachypnea pattern (RR ${rr}/min)`);
                 abnormalFindings.push('severe_tachypnea');
                 severityScore += 3;
-                actions.push("Reassess airway and breathing immediately in simulation and check oxygenation if available.");
+                actions.push("Reassess airway and breathing immediately, and check oxygenation if available.");
             } else if (rr > rrHigh) {
                 interpretations.push(`Tachypnea pattern (RR ${rr}/min)`);
                 abnormalFindings.push('tachypnea');
@@ -3933,18 +3903,18 @@
                 interpretations.push(`Bradypnea pattern (RR ${rr}/min)`);
                 abnormalFindings.push('bradypnea');
                 severityScore += 2;
-                actions.push("Observe depth and effort of breathing in simulation and repeat respiratory assessment.");
+                actions.push("Observe the depth and effort of breathing, then repeat the respiratory assessment.");
             } else {
                 interpretations.push(`Respiratory rate within expected range for age (RR ${rr}/min)`);
             }
 
             // Combined pattern interpretation
             if ((hr > hrHigh || hr > 100) && temp >= 38.0) {
-                interpretations.push("Tachycardia with fever pattern (possible systemic stress response in simulation)");
+                interpretations.push("Tachycardia with fever pattern (possible systemic stress response)");
                 severityScore += 1;
             }
             if ((rr > rrHigh || rr > 20) && temp >= 38.0) {
-                interpretations.push("Tachypnea with fever pattern (monitor for increasing work of breathing in simulation)");
+                interpretations.push("Tachypnea with fever pattern (watch for increasing work of breathing)");
                 severityScore += 1;
             }
 
@@ -3957,12 +3927,12 @@
                 severityScore += 1;
             }
             if (pregnant === 'yes') {
-                context.push("Pregnancy factor: monitor maternal trends closely and correlate with gestational context in simulation.");
+                context.push("Pregnancy factor: monitor maternal trends closely and correlate with the gestational context.");
                 if (!Number.isNaN(pregnancies) && pregnancies > 0) {
                     context.push(`Obstetric history noted: G${pregnancies}.`);
                 }
                 if (sys >= 140 || dia >= 90) {
-                    context.push("Pregnancy + elevated BP pattern: discuss preeclampsia screening workflow with your instructor in simulation.");
+                    context.push("Pregnancy with an elevated BP pattern: discuss preeclampsia screening with your instructor.");
                     severityScore += 1;
                 }
             }
@@ -3991,7 +3961,7 @@
             // Keep action list concise and relevant (2-4 items)
             const uniqueActions = [...new Set(actions)];
             if (uniqueActions.length < 2) {
-                uniqueActions.push("Reassess full vital signs within 15-30 minutes in simulation and compare trend.");
+                uniqueActions.push("Reassess the full vital signs within 15 to 30 minutes and compare the trend.");
                 uniqueActions.push("Report significant trend changes to your clinical instructor during scenario debrief.");
             }
             const finalActions = uniqueActions.slice(0, 4);
@@ -4010,7 +3980,7 @@
                 </div>
 
                 <div class="bg-slate-800/40 border border-slate-700 rounded-lg p-3">
-                    <p class="font-semibold text-slate-200 text-sm mb-2">Clinical Interpretation (Simulation)</p>
+                    <p class="font-semibold text-slate-200 text-sm mb-2">Clinical Interpretation</p>
                     <ul class="np-bullets text-xs text-slate-200">`;
             finalInterpretations.forEach(item => {
                 html += `<li>${item}</li>`;
@@ -4036,7 +4006,7 @@
             }
 
             html += `<div class="bg-amber-900/20 border border-amber-700/50 rounded-lg p-2">
-                    <p class="text-[10px] text-amber-300 italic">Learning reference for simulation and study. Always verify with your instructor and approved textbooks.</p>
+                    <p class="text-[10px] text-amber-300 italic">Reference findings for study. Confirm anything that affects care with your Clinical Instructor.</p>
                 </div>
             </div>`;
 
@@ -4078,7 +4048,7 @@
 
             const summary = liveAnalyze();
             if (!summary || !summary.ok) {
-                if (status) status.textContent = 'Enter required vital signs first, then tap Simulate Vital Signs.';
+                if (status) status.textContent = 'Enter the required vital signs first, then tap Analyze Vital Signs.';
                 trackUsageSafe('vitals', 'error_shown', { reason: 'simulate_missing_required_inputs' }, { minIntervalMs: 2000, rateKey: 'simulate_missing_required_inputs' });
                 return;
             }
@@ -4258,8 +4228,8 @@
             if (title) title.textContent = next === 'study' ? 'Study Classroom' : 'Clinical Tools';
             if (blurb) {
                 blurb.textContent = next === 'study'
-                    ? 'Study mode — pick a topic for an instructor-style lesson and quiz. Fully offline.'
-                    : 'Duty mode — fast calculators for ward pocket use. OTC lives in the OTC tab.';
+                    ? 'Study mode: pick a topic for an instructor-style lesson and quiz. Fully offline.'
+                    : 'Duty mode: fast calculators for ward pocket use. OTC lives in the OTC tab.';
             }
             document.querySelectorAll('.tool-hub-desc').forEach((el) => {
                 const duty = el.getAttribute('data-duty-desc');
@@ -4312,14 +4282,14 @@
 
         function renderStudyLesson(toolId) {
             const panel = document.getElementById('studyPanelLesson');
-            const lessons = window.NursePathStudyLessons;
-            const lesson = lessons && lessons.getLesson(toolId);
+            const content = window.NursePathToolContent;
+            const sections = content ? content.getLessonSections(toolId) : [];
             if (!panel) return;
-            if (!lesson) {
+            if (!sections.length) {
                 panel.innerHTML = '<p class="study-lesson-body">Lesson coming soon for this topic.</p>';
                 return;
             }
-            panel.innerHTML = (lesson.sections || []).map((section) => {
+            panel.innerHTML = sections.map((section) => {
                 const heading = escapeGuideHtml(section.heading || '');
                 const body = escapeGuideHtml(section.body || '');
                 let bodyHtml;
@@ -4470,12 +4440,12 @@
             hub.classList.add('hidden');
             if (detail) detail.classList.add('hidden');
             study.classList.remove('hidden');
-            const lessons = window.NursePathStudyLessons;
-            const lesson = lessons && lessons.getLesson(toolId);
+            const content = window.NursePathToolContent;
+            const tool = content && content.getTool(toolId);
             const titleEl = document.getElementById('studyClassTitle');
             const subEl = document.getElementById('studyClassSubtitle');
-            if (titleEl) titleEl.textContent = (lesson && lesson.title) || 'Study';
-            if (subEl) subEl.textContent = (lesson && lesson.subtitle) || 'Instructor-style lesson and quiz';
+            if (titleEl) titleEl.textContent = (tool && tool.title) || 'Study';
+            if (subEl) subEl.textContent = (tool && tool.subtitle) || 'Lesson and quiz';
             renderStudyLesson(toolId);
             studyQuizState = null;
             setStudyTab('lesson');
@@ -4511,16 +4481,17 @@
             }
         }
 
+        // Sections carry an explicit type so the Guide and the lesson render alike.
         function renderGuideSection(section) {
             const heading = (section && section.heading) || '';
             const body = (section && section.body) || '';
-            const h = heading.toLowerCase();
+            const type = (section && section.type) || '';
             let bodyHtml;
-            if (/^example/.test(h)) {
+            if (type === 'example') {
                 bodyHtml = `<div class="tool-guide-example">${escapeGuideHtml(body)}</div>`;
-            } else if (/^remember|^caveat|^warning|^limit/.test(h)) {
+            } else if (type === 'caveat') {
                 bodyHtml = `<div class="tool-guide-caveat">${escapeGuideHtml(body)}</div>`;
-            } else if (/formula|rule|map|scoring|prefer|drop factor|who adult|trimester|letter|adult map|half region/.test(h)) {
+            } else if (type === 'formula') {
                 bodyHtml = `<div class="tool-guide-formula">${escapeGuideHtml(body)}</div>`;
             } else {
                 bodyHtml = `<p>${escapeGuideHtml(body)}</p>`;
@@ -4529,18 +4500,18 @@
         }
 
         function openToolGuide(opts) {
-            const guides = window.NursePathToolGuides;
+            const content = window.NursePathToolContent;
             const overlay = document.getElementById('toolGuideOverlay');
             const titleEl = document.getElementById('toolGuideTitle');
             const bodyEl = document.getElementById('toolGuideBody');
             if (!overlay || !titleEl || !bodyEl) return;
-            const guide = guides && currentClinicalToolId ? guides.getGuide(currentClinicalToolId) : null;
-            if (!guide) {
+            const tool = content && currentClinicalToolId ? content.getTool(currentClinicalToolId) : null;
+            if (!tool) {
                 titleEl.textContent = 'Guide unavailable';
                 bodyEl.innerHTML = '<section class="tool-guide-section"><p>No guide is available for this tool yet.</p></section>';
             } else {
-                titleEl.textContent = guide.title || 'Tool Guide';
-                bodyEl.innerHTML = (guide.sections || []).map(renderGuideSection).join('');
+                titleEl.textContent = `${tool.title}: pocket guide`;
+                bodyEl.innerHTML = content.getPocketSections(currentClinicalToolId).map(renderGuideSection).join('');
             }
             overlay.classList.add('open');
             document.body.style.overflow = 'hidden';
@@ -4573,8 +4544,9 @@
             }
         });
 
-        window.addEventListener('popstate', () => {
-            const state = window.history.state;
+        window.addEventListener('popstate', (event) => {
+            // Prefer the popped entry's state; history.state can lag behind it.
+            const state = event && 'state' in event ? event.state : window.history.state;
             const guideEl = document.getElementById('toolGuideOverlay');
             if (guideEl) guideEl.classList.remove('open');
             document.body.style.overflow = '';
@@ -4650,9 +4622,9 @@
                 name: 'Appearance (Color)',
                 hint: 'Skin color of the newborn',
                 options: [
-                    { value: 2, label: 'Completely pink', desc: 'Entire body pink — good perfusion.' },
-                    { value: 1, label: 'Acrocyanosis', desc: 'Body pink, hands/feet blue — common at 1 min.' },
-                    { value: 0, label: 'Blue / pale', desc: 'Central cyanosis or pallor — needs support.' }
+                    { value: 2, label: 'Completely pink', desc: 'Entire body pink, good perfusion.' },
+                    { value: 1, label: 'Acrocyanosis', desc: 'Body pink with blue hands and feet, common at 1 minute.' },
+                    { value: 0, label: 'Blue / pale', desc: 'Central cyanosis or pallor, needs support.' }
                 ]
             },
             {
@@ -4685,7 +4657,7 @@
                 options: [
                     { value: 2, label: 'Active motion', desc: 'Well-flexed with active movement.' },
                     { value: 1, label: 'Some flexion', desc: 'Some flexion of extremities.' },
-                    { value: 0, label: 'Limp / flaccid', desc: 'No tone — floppy newborn.' }
+                    { value: 0, label: 'Limp / flaccid', desc: 'No tone, a floppy newborn.' }
                 ]
             },
             {
@@ -4872,7 +4844,7 @@
             if (totalEl) totalEl.textContent = String(result.total);
             if (interpEl) interpEl.textContent = result.interpretation;
             const meaning = document.getElementById('apgar-learn-meaning');
-            if (meaning) meaning.textContent = `Total ${result.total}/10 — ${result.interpretation}`;
+            if (meaning) meaning.textContent = `Total ${result.total} of 10. ${result.interpretation}`;
             trackUsageSafe('apgar', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'apgar' });
         }
 
@@ -4935,7 +4907,7 @@
             if (totalEl) totalEl.textContent = String(result.total);
             if (riskEl) riskEl.textContent = result.risk;
             const meaning = document.getElementById('braden-learn-meaning');
-            if (meaning) meaning.textContent = `Total ${result.total}/23 — ${result.risk}`;
+            if (meaning) meaning.textContent = `Total ${result.total} of 23. ${result.risk}`;
             trackUsageSafe('braden', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'braden' });
         }
 
@@ -4977,7 +4949,7 @@
                 ? result.breakdown.map((b) => `${b.label}: ${b.percent}%`).join(' · ')
                 : 'No regions selected';
             const ronMeaning = document.getElementById('ron-learn-meaning');
-            if (ronMeaning) ronMeaning.textContent = result.tbsa > 0 ? `${result.tbsa}% TBSA — ${result.note}` : 'Adult Rule of Nines TBSA estimate for teaching.';
+            if (ronMeaning) ronMeaning.textContent = result.tbsa > 0 ? `${result.tbsa}% TBSA. ${result.note}` : 'Adult Rule of Nines TBSA estimate for teaching.';
             document.querySelectorAll('#ron-grid .ron-region').forEach((btn) => {
                 const id = btn.getAttribute('data-region');
                 const frac = ronSelection[id] || 0;
@@ -5021,7 +4993,7 @@
             document.getElementById('calc-date').value = today;
         });
 
-        // Calculators are intentionally button-driven for explicit simulation logging.
+        // Calculators stay button-driven so each result is an explicit, logged action.
 
         // ------------------ OTC Medicines Data + Search ------------------
         const otcDatabase = [
@@ -6338,7 +6310,7 @@
                     window.location.reload();
                 });
             } else {
-                npLog('Service Workers not supported — browser-only mode');
+                npLog('Service Workers not supported, running browser-only');
             }
 
             var isInStandaloneMode = function () {
