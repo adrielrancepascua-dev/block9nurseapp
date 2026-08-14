@@ -9,55 +9,6 @@
     return typeof window.requestTelemetryFlush === 'function' ? window.requestTelemetryFlush : null;
   }
 
-  function renderOTCSidebar() {
-    const conditionsEl = document.getElementById('conditions');
-    const container = document.getElementById('otc-sidebar');
-    const database = Array.isArray(window.otcDatabase) ? window.otcDatabase : [];
-
-    if (!conditionsEl || !container || container.getAttribute('aria-hidden') === 'true') {
-      return;
-    }
-
-    const conditions = conditionsEl.value;
-    container.innerHTML = '';
-
-    const colors = ['yellow-500', 'orange-500', 'purple-500', 'red-500', 'green-500', 'blue-500', 'pink-500', 'indigo-500'];
-
-    database.forEach((med, index) => {
-      const color = colors[index % colors.length];
-      const borderClass = `border-l-4 border-${color}`;
-      const hoverClass = `hover:border-${color.replace('500', '400')}`;
-
-      let safetyStatus = 'SAFE';
-      let safetyIcon = '🟢';
-      let warningText = '';
-
-      if (conditions && med.conditionSafety && med.conditionSafety[conditions]) {
-        safetyStatus = med.conditionSafety[conditions];
-        if (safetyStatus === '⚠️ CONTRAINDICATED') {
-          safetyIcon = '🔴';
-          warningText = `⚠️ AVOID with ${conditions.toUpperCase()}`;
-        } else if (safetyStatus === 'CAUTION') {
-          safetyIcon = '🟡';
-          warningText = `⚠️ USE WITH CAUTION with ${conditions.toUpperCase()}`;
-        }
-      }
-
-      const brandNames = med.ph_brands ? med.ph_brands.join(' • ') : 'N/A';
-      const card = document.createElement('div');
-      card.className = `bg-slate-700/50 p-3 rounded-xl ${borderClass} ${hoverClass} transition-all cursor-pointer hover:bg-slate-700/70`;
-      card.innerHTML = `
-        <p class="font-bold text-sm text-sky-300">${safetyIcon} ${med.name}</p>
-        <p class="text-[10px] text-slate-500 font-semibold">PH Brands: ${brandNames}</p>
-        ${warningText ? `<p class="text-[10px] mt-1 text-red-400 font-bold">${warningText}</p>` : ''}
-        <p class="text-[11px] mt-1 text-slate-300">${med.uses}</p>
-        <p class="text-[10px] text-slate-400 italic mt-1">When: ${med.whenToGive}</p>
-      `;
-      card.onclick = () => showOTCDetail(med);
-      container.appendChild(card);
-    });
-  }
-
   function otcFact(label, value, tone) {
     if (!value) return '';
     const toneClass = tone ? ` is-${tone}` : '';
@@ -465,7 +416,6 @@
   }
 
   window.NursePathUIHelpers = {
-    renderOTCSidebar,
     showOTCDetail,
     hideOTCDetail,
     copyOTCReference,

@@ -14,7 +14,6 @@ const STATIC_ASSETS = [
   new URL('manifest.json', BASE).href,
   new URL('browserconfig.xml', BASE).href,
   new URL('assets/ui-helpers.js', BASE).href,
-  new URL('assets/vitals-analysis.js', BASE).href,
   new URL('assets/clinical-calculators.js', BASE).href,
   new URL('assets/tool-guides.js', BASE).href,
   new URL('assets/study-lessons.js', BASE).href,

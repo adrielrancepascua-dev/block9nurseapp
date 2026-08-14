@@ -48,7 +48,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%230f172a' width='192' height='192'/><text x='50%' y='50%' font-size='120' font-weight='bold' fill='%2306b6d4' text-anchor='middle' dy='.35em'>Rx</text></svg>">
-        <script src="assets/vitals-analysis.js"></script>
         <script src="assets/ui-helpers.js"></script>
         <script src="assets/clinical-calculators.js"></script>
         <script src="assets/tool-guides.js"></script>
@@ -645,185 +644,6 @@
             background: rgba(14, 165, 233, 0.18);
             color: #7dd3fc;
             box-shadow: inset 0 0 0 1px #0ea5e9;
-        }
-        .tool-study-strip {
-            display: none;
-            margin: -4px 0 14px;
-            padding: 12px 14px;
-            border: 1px solid #334155;
-            border-radius: 14px;
-            background: linear-gradient(145deg, rgba(14, 165, 233, 0.1), rgba(15, 23, 42, 0.9));
-            gap: 10px;
-        }
-        #tools-detail[data-mode="study"] .tool-study-strip {
-            display: grid;
-        }
-        .tool-study-tip {
-            font-size: 12.5px;
-            line-height: 1.45;
-            color: #cbd5e1;
-        }
-        .tool-study-tip strong {
-            color: #7dd3fc;
-            font-weight: 800;
-        }
-        .tool-study-actions {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .tool-study-streak {
-            font-size: 11px;
-            font-weight: 700;
-            color: #94a3b8;
-            font-variant-numeric: tabular-nums;
-        }
-        .tool-study-streak em {
-            color: #67e8f9;
-            font-style: normal;
-            font-weight: 800;
-        }
-        .tool-drill-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            min-height: 40px;
-            padding: 8px 14px;
-            border-radius: 10px;
-            border: 1px solid #0ea5e9;
-            background: rgba(14, 165, 233, 0.16);
-            color: #e0f2fe;
-            font-size: 12.5px;
-            font-weight: 800;
-            cursor: pointer;
-        }
-        .tool-drill-btn:hover {
-            background: rgba(14, 165, 233, 0.28);
-        }
-        .tool-drill-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 1210;
-            background: rgba(2, 6, 23, 0.72);
-            align-items: flex-end;
-            justify-content: center;
-            padding: 0;
-        }
-        .tool-drill-overlay.open { display: flex; }
-        .tool-drill-sheet {
-            width: 100%;
-            max-width: 560px;
-            max-height: min(88vh, 720px);
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-bottom: none;
-            border-radius: 18px 18px 0 0;
-            box-shadow: 0 -12px 40px rgba(2, 6, 23, 0.55);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            animation: toolGuideSlideUp 0.22s ease;
-        }
-        .tool-drill-sheet-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 12px;
-            padding: 16px 16px 12px;
-            border-bottom: 1px solid #334155;
-            background: #1e293b;
-        }
-        .tool-drill-sheet-header h3 {
-            margin: 0;
-            font-size: 1.05rem;
-            font-weight: 800;
-            color: #f8fafc;
-            line-height: 1.3;
-        }
-        .tool-drill-body {
-            padding: 14px 16px 22px;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        .tool-drill-prompt {
-            font-size: 0.95rem;
-            line-height: 1.55;
-            color: #e2e8f0;
-            margin: 0 0 14px;
-        }
-        .tool-drill-choices {
-            display: grid;
-            gap: 8px;
-        }
-        .tool-drill-choice {
-            text-align: left;
-            width: 100%;
-            min-height: 48px;
-            padding: 12px 14px;
-            border-radius: 12px;
-            border: 1px solid #334155;
-            background: #1e293b;
-            color: #e2e8f0;
-            font-size: 0.9rem;
-            font-weight: 600;
-            line-height: 1.4;
-            cursor: pointer;
-        }
-        .tool-drill-choice:hover:not(:disabled) {
-            border-color: #0ea5e9;
-            background: rgba(14, 165, 233, 0.12);
-        }
-        .tool-drill-choice:disabled { cursor: default; opacity: 1; }
-        .tool-drill-choice.is-correct {
-            border-color: #34d399;
-            background: rgba(16, 185, 129, 0.16);
-            color: #a7f3d0;
-        }
-        .tool-drill-choice.is-wrong {
-            border-color: #f87171;
-            background: rgba(248, 113, 113, 0.12);
-            color: #fecaca;
-        }
-        .tool-drill-feedback {
-            display: none;
-            margin-top: 14px;
-            padding: 12px 14px;
-            border-radius: 12px;
-            border: 1px solid #334155;
-            background: #1e293b;
-            font-size: 0.88rem;
-            line-height: 1.5;
-            color: #cbd5e1;
-        }
-        .tool-drill-feedback.open { display: block; }
-        .tool-drill-feedback.is-correct {
-            border-color: rgba(52, 211, 153, 0.45);
-            background: rgba(16, 185, 129, 0.12);
-            color: #a7f3d0;
-        }
-        .tool-drill-feedback.is-wrong {
-            border-color: rgba(248, 113, 113, 0.4);
-            background: rgba(248, 113, 113, 0.1);
-            color: #fecaca;
-        }
-        .tool-drill-feedback strong {
-            display: block;
-            margin-bottom: 4px;
-            font-weight: 800;
-        }
-        @media (min-width: 640px) {
-            .tool-drill-overlay {
-                align-items: center;
-                padding: 1.5rem;
-            }
-            .tool-drill-sheet {
-                border-radius: 16px;
-                border-bottom: 1px solid #334155;
-                max-height: min(85vh, 680px);
-            }
         }
         .tools-back-btn {
             display: inline-flex;
@@ -1777,33 +1597,10 @@
                 Continue with Google
             </button>
 
-            <!-- Email auth kept hidden for legacy/debug wiring; Google is the primary path -->
-            <div id="emailAuthPanel" style="display:none;" aria-hidden="true">
-                <div style="display:none;">
-                    <input id="accessCode" type="text" autocomplete="off">
-                    <p id="accessModeHelp"></p>
-                </div>
-                <form id="authForm" style="display: grid; gap: 10px; margin-bottom: 8px;">
-                    <input id="authEmail" type="email" placeholder="you@gmail.com" autocomplete="email" style="width: 100%; padding: 14px; font-size: 15px; text-align: left; background: #1e293b; border: 1px solid #334155; border-radius: 12px; color: white;">
-                    <button id="authSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 700; background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; border: none; border-radius: 12px; cursor: pointer;" disabled>Continue with Email</button>
-                </form>
-            </div>
-
             <button id="authResetBtn" type="button" style="display:none; width:100%; padding:10px; margin-bottom:8px; font-size:12px; font-weight:700; background:#1f2937; color:#cbd5e1; border:1px solid #475569; border-radius:10px; cursor:pointer;">Reset This Device</button>
 
             <p id="authStatus" style="color: #f59e0b; font-size: 12px; min-height: 18px; margin-top: 10px;"></p>
             <p style="color:#475569; font-size:10px; margin-top:8px;">Sign in once online. After that, NursePath stays available offline on this device.</p>
-        </div>
-    </div>
-
-    <!-- TOOL DRILL SHEET -->
-    <div id="toolDrillOverlay" class="tool-drill-overlay" role="dialog" aria-modal="true" aria-labelledby="toolDrillTitle" onclick="if(event.target===this)closeToolDrill()">
-        <div class="tool-drill-sheet">
-            <div class="tool-drill-sheet-header">
-                <h3 id="toolDrillTitle">Try a case</h3>
-                <button type="button" class="tool-guide-close" onclick="closeToolDrill()" aria-label="Close drill">×</button>
-            </div>
-            <div class="tool-drill-body" id="toolDrillBody"></div>
         </div>
     </div>
 
@@ -1850,9 +1647,6 @@
         </div>
     </div>
 
-    <!-- Tips overlay kept for compatibility; value prop now lives on the auth screen -->
-    <div id="onboardingOverlay" style="display:none;" aria-hidden="true"></div>
-
     <!-- Supabase Auth + Offline Session Gate -->
     <script>
         const SIMULATION_KEY = 'nursepath_simulation_agreed';
@@ -1860,11 +1654,9 @@
         const SESSION_CACHE_KEY = 'nursepath_supabase_session_cache_v1';
         const DEMO_USER_KEY = 'nursepath_user';
         const AUTH_MAGIC_LINK_COOLDOWN_KEY = 'nursepath_magic_link_cooldown_until_v1';
-        const AUTH_MAGIC_LINK_COOLDOWN_DEFAULT_SECONDS = 45;
         const AUTH_EMAIL_LOG_KEY = 'nursepath_auth_email_log_v1';
         const AUTH_PENDING_LOG_KEY = 'nursepath_pending_auth_email_log_v1';
         const AUTH_EMAIL_LOG_TABLE = 'auth_email_log';
-        const ONBOARDING_DISMISSED_KEY = 'nursepath_onboarding_dismissed_v1';
         const USAGE_CONSENT_KEY = 'nursepath_usage_consent_v1';
         const USAGE_QUEUE_KEY = 'nursepath_usage_queue_v1';
         const USAGE_SESSION_KEY = 'nursepath_usage_session_v1';
@@ -1882,19 +1674,8 @@
         const TAB_APP_INIT_LOGGED_KEY = 'np_app_init_logged';
         const ACCESS_MODE_KEY = 'nursepath_access_mode_v1';
         const LAST_SYNC_KEY = 'nursepath_last_sync_v1';
-        const PILOT_ALLOWLIST_DOMAINS = (window.NURSEPATH_PILOT_ALLOWLIST_DOMAINS || ['cdd.edu.ph']).map((d) => String(d).toLowerCase());
-        const PILOT_INVITE_CODES = window.NURSEPATH_PILOT_INVITE_CODES || ['NP-PILOT-2026'];
         // Attach signed-in email to usage events unless explicitly disabled.
         const USAGE_INCLUDE_EMAIL = window.NURSEPATH_USAGE_INCLUDE_EMAIL !== false;
-        const EMAIL_TYPO_HINTS = {
-            'gmal.com': 'gmail.com',
-            'gmial.com': 'gmail.com',
-            'gmai.com': 'gmail.com',
-            'yaho.com': 'yahoo.com',
-            'yahho.com': 'yahoo.com',
-            'outlok.com': 'outlook.com',
-            'hotnail.com': 'hotmail.com'
-        };
         const SUPABASE_URL = window.NURSEPATH_SUPABASE_URL || 'https://oobrhmnvbxiqdbpjnnbn.supabase.co';
         const SUPABASE_ANON_KEY = window.NURSEPATH_SUPABASE_ANON_KEY || 'sb_publishable_wXKxmmY-s0c5yv7kDITMoA_jPmufAK2';
 
@@ -1986,10 +1767,6 @@
 
         function readAccessMode() {
             return 'pilot';
-        }
-
-        function setAccessMode(mode) {
-            localStorage.setItem(ACCESS_MODE_KEY, 'pilot');
         }
 
         function readLastSyncAt() {
@@ -2552,44 +2329,6 @@
             });
         }
 
-        function parseRetrySeconds(message) {
-            const text = (message || '').toLowerCase();
-            const minuteMatch = text.match(/(\d+)\s*minute/);
-            if (minuteMatch) {
-                return parseInt(minuteMatch[1], 10) * 60;
-            }
-            const secondMatch = text.match(/(\d+)\s*second/);
-            if (secondMatch) {
-                return parseInt(secondMatch[1], 10);
-            }
-            return AUTH_MAGIC_LINK_COOLDOWN_DEFAULT_SECONDS;
-        }
-
-        function readMagicLinkCooldownMs() {
-            const raw = localStorage.getItem(AUTH_MAGIC_LINK_COOLDOWN_KEY);
-            if (!raw) {
-                return 0;
-            }
-            const until = Number(raw);
-            if (!Number.isFinite(until)) {
-                localStorage.removeItem(AUTH_MAGIC_LINK_COOLDOWN_KEY);
-                return 0;
-            }
-            const remaining = until - Date.now();
-            if (remaining <= 0) {
-                localStorage.removeItem(AUTH_MAGIC_LINK_COOLDOWN_KEY);
-                return 0;
-            }
-            return remaining;
-        }
-
-        function setMagicLinkCooldown(seconds) {
-            const safeSeconds = Math.max(10, Number(seconds) || AUTH_MAGIC_LINK_COOLDOWN_DEFAULT_SECONDS);
-            const until = Date.now() + (safeSeconds * 1000);
-            localStorage.setItem(AUTH_MAGIC_LINK_COOLDOWN_KEY, String(until));
-            return safeSeconds;
-        }
-
         function readGhostUser() {
             const raw = localStorage.getItem(DEMO_USER_KEY);
             if (!raw) return null;
@@ -2678,55 +2417,9 @@
             return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(normalizeEmail(email));
         }
 
-        function getDomainTypoSuggestion(email) {
-            const parts = normalizeEmail(email).split('@');
-            if (parts.length !== 2) return null;
-            return EMAIL_TYPO_HINTS[parts[1]] || null;
-        }
-
         function getDomainFromEmail(email) {
             const parts = normalizeEmail(email).split('@');
             return parts.length === 2 ? parts[1] : '';
-        }
-
-        function hasValidPilotInvite(code) {
-            const normalizedCode = String(code || '').trim();
-            return normalizedCode.length > 0 && PILOT_INVITE_CODES.includes(normalizedCode);
-        }
-
-        function resolveAuthIdentityEmail(email, accessMode, accessCode) {
-            if (isValidEmailFormat(email)) {
-                return normalizeEmail(email);
-            }
-
-            if (accessMode === 'pilot' && hasValidPilotInvite(accessCode)) {
-                return `pilot-${safeUuid().slice(0, 8)}@nursepath.local`;
-            }
-
-            return '';
-        }
-
-        function isAllowedAuthEmail(email, accessMode, accessCode) {
-            if (hasValidPilotInvite(accessCode)) {
-                return true;
-            }
-            return isValidEmailFormat(email);
-        }
-
-        function renderAccessModeHelp() {
-            const modeEl = document.getElementById('accessMode');
-            const helpEl = document.getElementById('accessModeHelp');
-            const codeEl = document.getElementById('accessCode');
-            const resetBtn = document.getElementById('authResetBtn');
-            if (!modeEl || !helpEl || !codeEl) {
-                return;
-            }
-
-            const mode = modeEl.value;
-            setAccessMode(mode);
-            helpEl.textContent = 'Sign in with Google, or enter any email on this device.';
-            codeEl.placeholder = 'Enter invite code if needed';
-            if (resetBtn) resetBtn.style.display = 'none';
         }
 
         function applyRoleVisibility() {
@@ -2734,9 +2427,6 @@
             const facultyResetBtn = document.getElementById('facultyResetBtn');
             if (metricsPanel) metricsPanel.style.display = 'none';
             if (facultyResetBtn) facultyResetBtn.style.display = 'none';
-
-            // Keep auth reset scoped to selector state while on auth overlay.
-            renderAccessModeHelp();
         }
 
         function summarizeFeatureUsage(queue) {
@@ -2925,23 +2615,6 @@
             window.__nursepathAuthState.pendingBoot = true;
         }
 
-        function showOnboardingIfNeeded() {
-            // Value proposition now appears on the auth screen; mark onboarding complete.
-            localStorage.setItem(ONBOARDING_DISMISSED_KEY, '1');
-            const overlay = document.getElementById('onboardingOverlay');
-            if (overlay) {
-                overlay.style.display = 'none';
-            }
-        }
-
-        function dismissOnboarding() {
-            localStorage.setItem(ONBOARDING_DISMISSED_KEY, '1');
-            const overlay = document.getElementById('onboardingOverlay');
-            if (overlay) {
-                overlay.style.display = 'none';
-            }
-        }
-
         function checkAuth() {
             const ghostUser = readGhostUser();
             if (!ghostUser || !isValidEmailFormat(ghostUser.email)) {
@@ -2953,7 +2626,6 @@
             if (authOverlay) authOverlay.style.display = 'none';
             if (appShell) appShell.style.display = 'block';
             document.documentElement.setAttribute('data-ghost-auth', '1');
-            showOnboardingIfNeeded();
 
             window.__nursepathAuthState.authenticated = true;
 
@@ -2975,7 +2647,6 @@
                 appShell.style.display = 'block';
             }
             document.documentElement.setAttribute('data-ghost-auth', '1');
-            showOnboardingIfNeeded();
 
             window.__nursepathAuthState.authenticated = true;
 
@@ -3010,116 +2681,10 @@
             }
         }
 
-        async function submitAuth(event) {
-            event.preventDefault();
-            const emailInput = document.getElementById('authEmail');
-            const submitBtn = document.getElementById('authSubmitBtn');
-            const usageConsent = document.getElementById('usageConsent');
-            const accessCodeEl = document.getElementById('accessCode');
-
-            const email = normalizeEmail(emailInput.value || '');
-            const accessMode = 'pilot';
-            const accessCode = accessCodeEl ? String(accessCodeEl.value || '').trim() : '';
-            const identityEmail = resolveAuthIdentityEmail(email, accessMode, accessCode);
-            setAccessMode('pilot');
-
-            if (isSubmittingAuth) {
-                return;
-            }
-            isSubmittingAuth = true;
-            if (submitBtn) {
-                submitBtn.disabled = true;
-                submitBtn.style.opacity = '0.7';
-            }
-
-            function releaseSubmitLock() {
-                isSubmittingAuth = false;
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.style.opacity = '1';
-                }
-            }
-
-            // OPTIMIZATION: Remove duplicate consent check (was repeated twice)
-            if (!usageConsent || !usageConsent.checked) {
-                setUsageConsent(false);
-                setAuthStatus('You must consent to usage tracking to continue.', true);
-                trackUsageEvent('consent', 'error_shown', { reason: 'consent_required' }, { minIntervalMs: 2000, rateKey: 'consent_required' });
-                releaseSubmitLock();
-                return;
-            }
-            setUsageConsent(true);
-
-            if (!isAllowedAuthEmail(email, accessMode, accessCode)) {
-                setAuthStatus('Enter a valid email address, or sign in with Google.', true);
-                void recordEmailAttempt(email, 'blocked_invalid_format', 'invalid_email_format');
-                releaseSubmitLock();
-                return;
-            }
-
-            const typoSuggestion = getDomainTypoSuggestion(email);
-            if (email && typoSuggestion) {
-                setAuthStatus(`Did you mean @${typoSuggestion}? Please fix your email to avoid bounce errors.`, true);
-                void recordEmailAttempt(email, 'blocked_domain_typo', `suggested:${typoSuggestion}`);
-                releaseSubmitLock();
-                return;
-            }
-
-            const remainingMs = readMagicLinkCooldownMs();
-            if (remainingMs > 0) {
-                const remainingSeconds = Math.ceil(remainingMs / 1000);
-                setAuthStatus(`Please wait ${remainingSeconds}s before another sign-in attempt.`, true);
-                releaseSubmitLock();
-                return;
-            }
-
-            setAuthStatus('Saving this device for offline access...', false);
-            trackUsageEvent('auth', 'feature_use', {
-                action: 'login_submit',
-                entered_with_code_only: !email
-            }, { userEmail: identityEmail, minIntervalMs: 1000, rateKey: `login_submit:${Date.now()}` });
-
-            try {
-                // Best-effort logging only. Sign-in should not be blocked by network errors.
-                if (supabaseClient && navigator.onLine) {
-                    try {
-                        const { error } = await supabaseClient.from(AUTH_EMAIL_LOG_TABLE).insert({
-                            email: identityEmail,
-                            status: 'email_login',
-                            reason: 'best_effort_online',
-                            timestamp: new Date().toISOString()
-                        });
-                        if (error) {
-                            npDebugLog('Best-effort log insert failed:', error.message || error);
-                        }
-                    } catch (err) {
-                        npDebugLog('Best-effort log insert exception:', err);
-                    }
-                }
-
-                setMagicLinkCooldown(AUTH_MAGIC_LINK_COOLDOWN_DEFAULT_SECONDS);
-                saveGhostUser(identityEmail);
-                void recordEmailAttempt(identityEmail, 'email_login_sealed', navigator.onLine ? 'online_or_partial' : 'offline');
-                trackUsageEvent('auth', 'result_generated', {
-                    action: 'email_login_sealed',
-                    entered_with_code_only: !email
-                }, { userEmail: identityEmail, minIntervalMs: 1000, rateKey: 'email_login_sealed' });
-                showAuthenticatedApp(identityEmail, 'ghost');
-            } finally {
-                releaseSubmitLock();
-            }
-        }
-
         function updateConsentRequirementUI() {
             const usageConsent = document.getElementById('usageConsent');
-            const submitBtn = document.getElementById('authSubmitBtn');
             const googleBtn = document.getElementById('googleSignInBtn');
             const allowed = Boolean(usageConsent && usageConsent.checked);
-            if (submitBtn) {
-                submitBtn.disabled = !allowed;
-                submitBtn.style.opacity = allowed ? '1' : '0.55';
-                submitBtn.style.cursor = allowed ? 'pointer' : 'not-allowed';
-            }
             if (googleBtn) {
                 googleBtn.disabled = !allowed;
             }
@@ -3251,8 +2816,6 @@
         }
 
         async function initSupabaseAuth() {
-            const form = document.getElementById('authForm');
-            if (form) form.addEventListener('submit', submitAuth);
             const resetBtn = document.getElementById('authResetBtn');
             const usageConsent = document.getElementById('usageConsent');
             const googleBtn = document.getElementById('googleSignInBtn');
@@ -3429,45 +2992,6 @@
     <div class="bg-slate-900 text-cyan-100 py-2 px-4 text-[10px] md:text-[11px] font-bold text-center tracking-widest uppercase border-b border-slate-700 sticky top-0 z-50 shadow-lg">
         NursePath · Learning &amp; duty companion · Verify with faculty &amp; textbooks
     </div>
-
-    <!-- SVG Icon Helper (no Font Awesome) -->
-    <svg style="display:none;">
-        <defs>
-            <symbol id="icon-stethoscope" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v2h-2zm0-10h2v8h-2zm3-3h2v6h-2zm-6 3h2v6H7z"/></symbol>
-            <symbol id="icon-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
-            <symbol id="icon-droplet" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.69l5.66 5.66a8 8 0 1 1-11.32 0z"/></symbol>
-            <symbol id="icon-scale" viewBox="0 0 24 24"><path fill="currentColor" d="M13 6.3V5a2 2 0 1 0-4 0v1.3M4 14h16M5 9h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2z"/></symbol>
-            <symbol id="icon-pills" viewBox="0 0 24 24"><path fill="currentColor" d="M19 6h-2V4a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2v2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zm-7 12a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></symbol>
-            <symbol id="icon-wind" viewBox="0 0 24 24"><path fill="currentColor" d="M9.59 4.59A2 2 0 1 1 7.98 6.98H12m4 0a2 2 0 1 1-3.59 2.59H6m7 9a2 2 0 1 1-3.59 2.59M6 13a2 2 0 1 1-3.59-2.59M20 2a2 2 0 1 1-3.59 2.59"/></symbol>
-            <symbol id="icon-chart" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3v18h18m-2-17V7h-4m-5 0v10h-4m5-5v5h-4"/></symbol>
-            <symbol id="icon-check" viewBox="0 0 24 24"><path fill="currentColor" d="M20 6L9 17l-5-5"/></symbol>
-            <symbol id="icon-calculator" viewBox="0 0 24 24"><path fill="currentColor" d="M4 6h16v2H4V6zm0 4h16v2H4v-2zm0 4h16v2H4v-2zm0 4h16v2H4v-2zM4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/></symbol>
-            <symbol id="icon-capsules" viewBox="0 0 24 24"><path fill="currentColor" d="M8 2a6 6 0 0 1 6 6v8a6 6 0 0 1-12 0V8a6 6 0 0 1 6-6zm8 0a6 6 0 0 1 0 12v-6a6 6 0 0 0-6-6h6z"/></symbol>
-            <symbol id="icon-exclamation" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></symbol>
-        </defs>
-    </svg>
-
-    <!-- Icon Component (replace i.fa-solid with svg) -->
-    <script>
-        function svg(iconId, classList='') {
-            return `<svg class="inline ${classList}" width="1em" height="1em" viewBox="0 0 24 24"><use href="#${iconId}"/></svg>`;
-        }
-
-        // Map Font Awesome icons to inline SVG
-        function getIconSvg(faIcon) {
-            const iconMap = {
-                'fa-exclamation-triangle': '<svg class="inline mr-2 text-yellow-400" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>',
-                'fa-arrow-down': '<svg class="inline mr-2 text-yellow-400" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>',
-                'fa-arrow-up': '<svg class="inline mr-2 text-yellow-400" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14l5-5 5 5z"/></svg>',
-                'fa-arrow-up-long': '<svg class="inline mr-2 text-yellow-400" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14l5-5 5 5M12 21V3"/></svg>',
-                'fa-snowflake': '<svg class="inline mr-2 text-yellow-400" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M20.79 13.12l-1.07-1.07-1.41 1.41L17.64 11H13v-1h5.64l1.07-1.07-1.41-1.41 1.07-1.07L23 12l-2.21 2.12M2.21 10.88L3.28 12l-2.21 2.12 1.07 1.07 1.41-1.41L6.36 13H11v1H5.36l-1.07 1.07 1.41 1.41-1.07 1.07L1 12l1.21-1.12M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2m0-2C6.48 0 2 4.48 2 10s4.48 10 10 10 10-4.48 10-10S17.52 0 12 0z"/></svg>',
-                'fa-fire': '<svg class="inline mr-2 text-yellow-400" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.3 4 13c0 4.08 3.32 8 7.5 8s7.5-3.92 7.5-8C19 9.86 17.55 7.54 16 5.65"/></svg>',
-                'fa-thermometer': '<svg class="inline mr-2 text-yellow-400" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13c0 3.86 3.14 7 7 7s7-3.14 7-7M12 2v9m0 0v9m7-4h-3m-8 0H2"/></svg>',
-                'fa-heart': '<svg class="inline mr-2 text-yellow-400" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>'
-            };
-            return iconMap[faIcon] || '<svg class="inline mr-2 text-yellow-400" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>';
-        }
-    </script>
 
     <div class="max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
         <header class="mb-4 sm:mb-6 text-center">
@@ -3948,8 +3472,6 @@
             </div>
         </div>
 
-        <!-- Hidden OTC sidebar host for legacy helpers -->
-        <div id="otc-sidebar" class="hidden" aria-hidden="true"></div>
         </div> <!-- End content-tools -->
     </div>
 
@@ -4582,113 +4104,6 @@
             requestTelemetryFlush();
         }
 
-        function renderOTCSidebar() {
-            const container = document.getElementById('otc-sidebar');
-            if (!container || container.getAttribute('aria-hidden') === 'true') {
-                return;
-            }
-            const conditionsEl = document.getElementById('conditions');
-            const conditions = conditionsEl ? conditionsEl.value : 'none';
-            container.innerHTML = '';
-            
-            const colors = ['yellow-500', 'orange-500', 'purple-500', 'red-500', 'green-500', 'blue-500', 'pink-500', 'indigo-500'];
-            
-            otcDatabase.forEach((med, index) => {
-                const color = colors[index % colors.length];
-                const borderClass = `border-l-4 border-${color}`;
-                const hoverClass = `hover:border-${color.replace('500', '400')}`;
-                
-                let safetyStatus = 'SAFE';
-                let safetyIcon = '🟢';
-                let warningText = '';
-                
-                if (conditions && med.conditionSafety[conditions]) {
-                    safetyStatus = med.conditionSafety[conditions];
-                    if (safetyStatus === '⚠️ CONTRAINDICATED') {
-                        safetyIcon = '🔴';
-                        warningText = `⚠️ AVOID with ${conditions.toUpperCase()}`;
-                    } else if (safetyStatus === 'CAUTION') {
-                        safetyIcon = '🟡';
-                        warningText = `⚠️ USE WITH CAUTION with ${conditions.toUpperCase()}`;
-                    }
-                }
-                
-                const brandNames = med.ph_brands ? med.ph_brands.join(' • ') : 'N/A';
-                
-                const card = document.createElement('div');
-                card.className = `bg-slate-700/50 p-3 rounded-xl ${borderClass} ${hoverClass} transition-all cursor-pointer hover:bg-slate-700/70`;
-                card.innerHTML = `
-                    <p class="font-bold text-sm text-sky-300">${med.name}</p>
-                    <p class="text-[10px] text-slate-500 font-semibold">PH Brands: ${brandNames}</p>
-                    ${warningText ? `<p class="text-[10px] mt-1 text-red-400 font-bold">${warningText}</p>` : ''}
-                    <p class="text-[11px] mt-1 text-slate-300">${med.uses}</p>
-                    <p class="text-[10px] text-slate-400 italic mt-1">When: ${med.whenToGive}</p>
-                `;
-                card.onclick = () => showOTCDetail(med);
-                container.appendChild(card);
-            });
-        }
-
-        function calcIV() {
-            const vol = parseFloat(document.getElementById('vol').value);
-            const hours = parseFloat(document.getElementById('hours').value);
-            const factor = parseFloat(document.getElementById('factor').value);
-            
-            if(vol && hours) {
-                const mlPerHour = vol / hours;
-                const gttPerMin = Math.round((mlPerHour / 60) * factor);
-                
-                document.getElementById('mlhr').innerText = mlPerHour.toFixed(1) + " mL/hr";
-                document.getElementById('iv-result').innerText = gttPerMin + " gtt/min";
-                trackUsageSafe('iv_calc', 'result_generated', {
-                    result_state: 'computed',
-                    has_value: true
-                }, { minIntervalMs: 1500, rateKey: 'iv_calc_computed' });
-                requestTelemetryFlush();
-            } else {
-                document.getElementById('iv-result').innerText = "-- gtt/min";
-                document.getElementById('mlhr').innerText = "-- mL/hr";
-            }
-        }
-
-        function calcBMI() {
-            const w = parseFloat(document.getElementById('weight').value);
-            const h = parseFloat(document.getElementById('height').value) / 100;
-            
-            if(w && h && h > 0) {
-                const bmi = (w / (h * h)).toFixed(1);
-                let category = "Normal Weight";
-                let categoryColor = "text-green-400";
-
-                if (bmi < 18.5) {
-                    category = "Underweight";
-                    categoryColor = "text-blue-400";
-                } else if (bmi < 25) {
-                    category = "Normal Weight";
-                    categoryColor = "text-green-400";
-                } else if (bmi < 30) {
-                    category = "Overweight";
-                    categoryColor = "text-yellow-400";
-                } else {
-                    category = "Obese";
-                    categoryColor = "text-red-400";
-                }
-
-                document.getElementById('bmi-result').innerText = bmi;
-                const bmiStatusEl = document.getElementById('bmi-status');
-                bmiStatusEl.textContent = '';
-                const catSpan = document.createElement('span');
-                catSpan.className = categoryColor + ' font-bold';
-                catSpan.textContent = 'Category: ' + category;
-                bmiStatusEl.appendChild(catSpan);
-                trackUsageSafe('bmi', 'result_generated', {
-                    category,
-                    has_value: true
-                }, { minIntervalMs: 1500, rateKey: `bmi_${category}` });
-                requestTelemetryFlush();
-            }
-        }
-
         // ============= TAB SWITCHING FUNCTION =============
         function switchMainTab(tab, opts) {
             const skipHistory = !!(opts && opts.skipHistory);
@@ -5079,7 +4494,6 @@
             currentStudyToolId = null;
             studyQuizState = null;
             closeToolGuide({ skipHistory: true });
-            closeToolDrill();
             if (hub) hub.classList.remove('hidden');
             if (detail) detail.classList.add('hidden');
             if (study) study.classList.add('hidden');
@@ -5120,7 +4534,6 @@
             const titleEl = document.getElementById('toolGuideTitle');
             const bodyEl = document.getElementById('toolGuideBody');
             if (!overlay || !titleEl || !bodyEl) return;
-            closeToolDrill();
             const guide = guides && currentClinicalToolId ? guides.getGuide(currentClinicalToolId) : null;
             if (!guide) {
                 titleEl.textContent = 'Guide unavailable';
@@ -5145,9 +4558,7 @@
         function closeToolGuide(opts) {
             const overlay = document.getElementById('toolGuideOverlay');
             if (overlay) overlay.classList.remove('open');
-            if (!document.getElementById('toolDrillOverlay') || !document.getElementById('toolDrillOverlay').classList.contains('open')) {
-                document.body.style.overflow = '';
-            }
+            document.body.style.overflow = '';
             if (!(opts && opts.skipHistory)) {
                 const cur = window.history.state;
                 if (cur && cur.np === 1 && cur.overlay === 'guide') {
@@ -5156,16 +4567,8 @@
             }
         }
 
-        function closeToolDrill() {
-            const overlay = document.getElementById('toolDrillOverlay');
-            if (overlay) overlay.classList.remove('open');
-            const guideOpen = document.getElementById('toolGuideOverlay') && document.getElementById('toolGuideOverlay').classList.contains('open');
-            if (!guideOpen) document.body.style.overflow = '';
-        }
-
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                closeToolDrill();
                 closeToolGuide();
             }
         });
@@ -5174,7 +4577,6 @@
             const state = window.history.state;
             const guideEl = document.getElementById('toolGuideOverlay');
             if (guideEl) guideEl.classList.remove('open');
-            closeToolDrill();
             document.body.style.overflow = '';
 
             if (!state || state.np !== 1 || state.view === 'hub' || !state.view) {
@@ -5613,136 +5015,6 @@
         window.resetRuleOfNines = resetRuleOfNines;
 
 
-        function calcAOGEDD() {
-            const lmpInput = document.getElementById('lmp-date').value;
-            const calcDateInput = document.getElementById('calc-date').value;
-            
-            if (!lmpInput) {
-                document.getElementById('aog-result').innerText = 'Please enter LMP date';
-                document.getElementById('aog-result').className = 'text-lg font-mono font-bold text-red-400';
-                trackUsageSafe('aog_edd', 'error_shown', { reason: 'missing_lmp' }, { minIntervalMs: 2000, rateKey: 'aog_missing_lmp' });
-                return;
-            }
-            
-            const lmp = new Date(lmpInput);
-            const calcDate = calcDateInput ? new Date(calcDateInput) : new Date();
-            
-            // Validate dates
-            if (lmp > calcDate) {
-                document.getElementById('aog-result').innerText = 'LMP cannot be after calculation date';
-                document.getElementById('aog-result').className = 'text-lg font-mono font-bold text-red-400';
-                trackUsageSafe('aog_edd', 'error_shown', { reason: 'lmp_after_calc_date' }, { minIntervalMs: 2000, rateKey: 'aog_invalid_dates' });
-                return;
-            }
-            
-            // Calculate AOG (Age of Gestation)
-            const diffTime = calcDate - lmp;
-            const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-            const weeks = Math.floor(totalDays / 7);
-            const days = totalDays % 7;
-            
-            // Calculate EDD using Naegele's Rule: LMP + 7 days - 3 months + 1 year (or LMP + 280 days)
-            const edd = new Date(lmp);
-            edd.setDate(edd.getDate() + 280); // 40 weeks = 280 days
-            
-            // Days remaining until EDD
-            const daysRemaining = Math.floor((edd - calcDate) / (1000 * 60 * 60 * 24));
-            
-            // Determine trimester
-            let trimester = '';
-            let trimesterInfo = '';
-            if (weeks < 13) {
-                trimester = '1st Trimester';
-                trimesterInfo = 'Weeks 1-12: Embryonic development, organ formation';
-            } else if (weeks < 27) {
-                trimester = '2nd Trimester';
-                trimesterInfo = 'Weeks 13-26: Fetal growth, movement felt, viability threshold';
-            } else if (weeks <= 42) {
-                trimester = '3rd Trimester';
-                trimesterInfo = 'Weeks 27-40: Rapid growth, lung maturation, preparation for birth';
-            } else {
-                trimester = 'Post-term';
-                trimesterInfo = 'Beyond 42 weeks: Requires immediate medical evaluation';
-            }
-            
-            // Format EDD display
-            const eddOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const eddFormatted = edd.toLocaleDateString('en-US', eddOptions);
-            
-            // Update display
-            document.getElementById('aog-result').innerText = `${weeks} weeks, ${days} days`;
-            document.getElementById('aog-result').className = 'text-2xl font-mono font-bold text-pink-400';
-            document.getElementById('aog-days').innerText = `Total: ${totalDays} days`;
-            
-            document.getElementById('edd-result').innerText = eddFormatted;
-            if (daysRemaining > 0) {
-                document.getElementById('edd-remaining').innerText = `${daysRemaining} days remaining`;
-            } else if (daysRemaining === 0) {
-                document.getElementById('edd-remaining').innerText = 'Due date is today!';
-                document.getElementById('edd-remaining').className = 'text-xs text-pink-400 mt-1 font-bold';
-            } else {
-                document.getElementById('edd-remaining').innerText = `${Math.abs(daysRemaining)} days past due date`;
-                document.getElementById('edd-remaining').className = 'text-xs text-red-400 mt-1 font-bold';
-            }
-            
-            document.getElementById('trimester-result').innerText = trimester;
-            document.getElementById('trimester-info').innerText = trimesterInfo;
-
-            trackUsageSafe('aog_edd', 'result_generated', {
-                trimester,
-                due_state: daysRemaining > 0 ? 'future' : (daysRemaining === 0 ? 'today' : 'past_due')
-            }, { minIntervalMs: 1500, rateKey: `aog_${trimester}` });
-            requestTelemetryFlush();
-            
-            // Show pregnancy milestones
-            showPregnancyMilestones(weeks, days, calcDate, lmp);
-        }
-        
-        function showPregnancyMilestones(currentWeeks, currentDays, calcDate, lmp) {
-            const milestonesDiv = document.getElementById('pregnancy-milestones');
-            const milestonesList = document.getElementById('milestones-list');
-            
-            const milestones = [
-                { week: 6, name: 'Heartbeat detectable on ultrasound', icon: '💓' },
-                { week: 8, name: 'All major organs forming', icon: '🫀' },
-                { week: 10, name: 'End of embryonic period (now fetus)', icon: '👶' },
-                { week: 12, name: 'First trimester screening (NT scan)', icon: '🔬' },
-                { week: 13, name: 'Second trimester begins', icon: '📅' },
-                { week: 16, name: 'Quickening (may feel movement)', icon: '✨' },
-                { week: 18, name: 'Anomaly scan (18-22 weeks)', icon: '🩺' },
-                { week: 24, name: 'Viability threshold', icon: '⭐' },
-                { week: 27, name: 'Third trimester begins', icon: '📅' },
-                { week: 28, name: 'GDM screening / Anti-D if Rh negative', icon: '💉' },
-                { week: 32, name: 'Growth scan recommended', icon: '📊' },
-                { week: 34, name: 'Group B Strep screening (35-37 wks)', icon: '🧫' },
-                { week: 37, name: 'Early term (safe for delivery)', icon: '✅' },
-                { week: 39, name: 'Full term', icon: '🎯' },
-                { week: 40, name: 'Estimated due date', icon: '🗓️' },
-                { week: 41, name: 'Late term - monitoring recommended', icon: '⚠️' },
-                { week: 42, name: 'Post-term - induction usually recommended', icon: '🚨' }
-            ];
-            
-            let html = '';
-            milestones.forEach(m => {
-                const milestoneDate = new Date(lmp);
-                milestoneDate.setDate(milestoneDate.getDate() + (m.week * 7));
-                const dateStr = milestoneDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-                
-                if (currentWeeks >= m.week) {
-                    html += `<div class="flex items-center text-green-400"><span class="mr-2">✓</span><span class="flex-1">${m.icon} ${m.name}</span><span class="text-slate-500 text-[10px]">${dateStr}</span></div>`;
-                } else if (currentWeeks >= m.week - 4) {
-                    html += `<div class="flex items-center text-yellow-400"><span class="mr-2">○</span><span class="flex-1">${m.icon} ${m.name}</span><span class="text-slate-500 text-[10px]">${dateStr}</span></div>`;
-                }
-            });
-            
-            if (html) {
-                milestonesList.innerHTML = html;
-                milestonesDiv.classList.remove('hidden');
-            } else {
-                milestonesDiv.classList.add('hidden');
-            }
-        }
-        
         // Initialize calc date to today
         document.addEventListener('DOMContentLoaded', function() {
             const today = new Date().toISOString().split('T')[0];
@@ -6669,7 +5941,31 @@
                     drugInteractions: 'Vitamin K: Antagonizes warfarin. Iron: Reduces absorption of levothyroxine, tetracyclines, fluoroquinolones. Calcium: Interferes with iron and some antibiotics. Vitamin C: May interfere with certain lab tests. Folic acid: May mask B12 deficiency.',
                     nursingConsiderations: '1) Assess dietary intake and nutritional status. 2) Identify specific deficiencies before recommending. 3) Educate that supplements don\'t replace balanced diet. 4) Check for interactions with medications (especially warfarin). 5) Recommend appropriate formulation for patient population. 6) Monitor for signs of vitamin toxicity with excessive intake. 7) Special considerations for pregnancy (avoid excess Vitamin A).',
                     patientEducation: 'Take with food for better absorption. Not a substitute for healthy eating. One tablet daily is usually sufficient - more is not better. Fat-soluble vitamins (A, D, E, K) can accumulate if taken in excess. Bright yellow urine is normal (B2/riboflavin). If taking blood thinners, consult doctor (Vitamin K interaction). Store away from children (iron-containing vitamins are poisoning risk). Choose appropriate formula for your needs.',
-                    conditionSafetyExpanded: { hypertension: 'SAFE', diabetes: 'SAFE', asthma: 'SAFE', copd: 'SAFE', ckd: 'CAUTION - avoid high mineral content', pregnancy: 'Use PRENATAL formula', liver_disease: 'CAUTION - avoid excess Vitamin A', warfarin_use: '⚠️ CAUTION - Vitamin K interaction' }
+                    conditionSafetyExpanded: { hypertension: 'SAFE', diabetes: 'SAFE', asthma: 'SAFE', copd: 'SAFE', ckd: 'CAUTION - avoid high mineral content', pregnancy: 'Use PRENATAL formula', liver_disease: 'CAUTION - avoid excess Vitamin A', warfarin_use: 'CAUTION - Vitamin K interaction' }
+                }
+            },
+            {
+                id: 'benzydamine',
+                name: 'Benzydamine',
+                ph_brands: ['Difflam', 'Tantum Verde', 'Benzydamine Gargle'],
+                uses: 'Sore throat pain relief, oral mucositis discomfort, local anti-inflammatory rinse',
+                origin: 'Locally acting NSAID used as oromucosal spray or gargle',
+                whenToGive: 'For sore throat or mouth pain as directed; do not swallow large amounts',
+                contraindications: 'Hypersensitivity to benzydamine or NSAIDs; caution if unable to gargle safely',
+                conditionSafety: { hypertension: 'SAFE', diabetes: 'SAFE', asthma: 'CAUTION', copd: 'SAFE', ckd: 'SAFE' },
+                tags: ['sore throat','throat','lozenge','pharyngitis','analgesic','antiseptic','gargle'],
+                additionalInfo: {
+                    genericNames: ['Benzydamine hydrochloride'],
+                    drugClass: 'Locally acting NSAID (oromucosal analgesic and anti-inflammatory)',
+                    usesExpanded: 'Symptomatic relief of sore throat, pharyngitis-related pain, aphthous ulcers, and oral inflammation. Common in Philippine pharmacies as Difflam spray or gargle.',
+                    mechanismOfAction: 'Local prostaglandin inhibition plus a membrane-stabilizing analgesic effect on oropharyngeal mucosa, with minimal systemic absorption when used correctly.',
+                    dosing: 'Follow the product label. Typical adult gargle or spray intervals are every 1.5 to 3 hours as needed. Spit out after gargling unless the product instructs otherwise.',
+                    whenToGiveExpanded: 'Use at the onset of sore throat discomfort. This does not replace checking for bacterial pharyngitis red flags such as high fever, drooling, trismus, or difficulty breathing.',
+                    sideEffects: 'Oral numbness, stinging, dry mouth; rare hypersensitivity.',
+                    contraindicationsExpanded: 'Known hypersensitivity. Avoid in young children who cannot gargle or spit safely unless the formulation is age-approved.',
+                    nursingConsiderations: '1) Assess airway and swallowing. 2) Teach the spit-after-gargle technique. 3) Escalate red-flag throat symptoms to your CI or the physician. 4) Study reference only, not a prescribing decision.',
+                    patientEducation: 'This relieves throat pain locally. Seek care for severe pain, high fever, rash, or breathing difficulty.',
+                    conditionSafetyExpanded: { hypertension: 'SAFE', diabetes: 'SAFE', asthma: 'CAUTION', copd: 'SAFE', ckd: 'SAFE', pregnancy: 'Ask CI or physician' }
                 }
             }
         ];
@@ -6693,31 +5989,7 @@
 
         // OPTIMIZATION: Initialize live vital signs analysis on field change with proper event tracking
         function initVitalSignsLiveAnalysis() {
-            const vitalFields = ['sys', 'dia', 'temp', 'hr', 'rr', 'age', 'pregnancies', 'pregnant', 'conditions',
-            {
-                id: 'benzydamine',
-                name: 'Benzydamine',
-                ph_brands: ['Difflam', 'Tantum Verde', 'Benzydamine Gargle'],
-                uses: 'Sore throat pain relief, oral mucositis discomfort, local anti-inflammatory rinse',
-                origin: 'Locally acting NSAID used as oromucosal spray/gargle',
-                whenToGive: 'For sore throat or mouth pain as directed; do not swallow large amounts',
-                contraindications: 'Hypersensitivity to benzydamine or NSAIDs; caution if unable to gargle safely',
-                conditionSafety: { hypertension: 'SAFE', diabetes: 'SAFE', asthma: 'CAUTION', copd: 'SAFE', ckd: 'SAFE' },
-                tags: ['sore throat','throat','lozenge','pharyngitis','analgesic','antiseptic'],
-                additionalInfo: {
-                    genericNames: ['Benzydamine hydrochloride'],
-                    drugClass: 'Locally acting NSAID / analgesic-anti-inflammatory (oromucosal)',
-                    usesExpanded: 'Symptomatic relief of sore throat, pharyngitis-related pain, aphthous ulcers, and oral inflammation. Common in Philippine pharmacies as Difflam spray/gargle.',
-                    mechanismOfAction: 'Local prostaglandin inhibition and membrane-stabilizing analgesic effect on oropharyngeal mucosa with minimal systemic absorption when used correctly.',
-                    dosing: 'Follow product label. Typical adult gargle/spray intervals every 1.5–3 hours as needed. Spit out after gargling unless product instructs otherwise.',
-                    whenToGiveExpanded: 'Use at onset of sore throat discomfort. Not a substitute for evaluating bacterial pharyngitis red flags (high fever, drooling, trismus, difficulty breathing).',
-                    sideEffects: 'Oral numbness, stinging, dry mouth; rare hypersensitivity.',
-                    contraindicationsExpanded: 'Known hypersensitivity. Avoid in young children who cannot gargle/spit safely unless formulation is age-approved.',
-                    nursingConsiderations: '1) Assess airway and swallowing. 2) Teach spit-after-gargle technique. 3) Escalate red-flag throat symptoms to CI/MD. 4) Educational use only — not a prescription decision.',
-                    patientEducation: 'This relieves throat pain locally. Seek care for severe pain, high fever, rash, or breathing difficulty.',
-                    conditionSafetyExpanded: { hypertension: 'SAFE', diabetes: 'SAFE', asthma: 'CAUTION', copd: 'SAFE', ckd: 'SAFE', pregnancy: 'Ask CI/MD' }
-                }
-            }];
+            const vitalFields = ['sys', 'dia', 'temp', 'hr', 'rr', 'age', 'pregnancies', 'pregnant', 'conditions'];
             vitalFields.forEach(fieldId => {
                 const field = document.getElementById(fieldId);
                 if (field) {
@@ -6950,12 +6222,6 @@
             otcListEl.appendChild(fragment);
         }
 
-        function renderOTCSidebar() {
-            if (window.NursePathUIHelpers && typeof window.NursePathUIHelpers.renderOTCSidebar === 'function') {
-                return window.NursePathUIHelpers.renderOTCSidebar();
-            }
-        }
-
         function calcIV() {
             if (window.NursePathUIHelpers && typeof window.NursePathUIHelpers.calcIV === 'function') {
                 return window.NursePathUIHelpers.calcIV();
@@ -7020,8 +6286,6 @@
                 return;
             }
             renderOTCList('');
-            renderOTCSidebar();
-            // OPTIMIZATION: Initialize live vital signs analysis
             initVitalSignsLiveAnalysis();
             applyRoleVisibility();
             window.__nursepathAuthState.booted = true;
