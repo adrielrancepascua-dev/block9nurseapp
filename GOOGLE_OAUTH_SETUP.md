@@ -29,6 +29,19 @@ NursePath uses **Supabase Auth → Google** as the primary sign-in path. Any Goo
 - After success, identity is sealed on-device (`nursepath_user` + session cache) so the PWA shell and tools keep working offline.
 - Token refresh failures while offline do **not** force logout.
 
+## Troubleshooting: Google button says project unreachable / sign-in not ready
+
+NursePath talks to the Supabase project hard-coded in `index.html` (`oobrhmnvbxiqdbpjnnbn` historically). Free-tier projects **pause** after inactivity and can later be **deleted**. When the project host is gone, DNS for `*.supabase.co` returns NXDOMAIN and Google sign-in cannot start.
+
+1. Open [supabase.com/dashboard](https://supabase.com/dashboard) and find the NursePath project.
+2. If it is **paused**, restore/unpause it and wait until the project URL loads again.
+3. If it is **missing**, create a new project, then:
+   - Authentication → Providers → **Google** → enable, paste Google Client ID + Secret
+   - Authentication → URL Configuration: Site URL + Redirect URLs for `https://block9nurseapp.vercel.app`
+   - Copy the new Project URL and anon/`sb_publishable` key into `index.html` (`SUPABASE_URL` / `SUPABASE_ANON_KEY`)
+   - In Google Cloud, set the redirect URI to `https://<NEW-REF>.supabase.co/auth/v1/callback`
+4. Hard-refresh the Vercel app (or bump the service worker cache) and try **Continue with Google** again.
+
 ## Troubleshooting: `Unable to exchange external code`
 
 If Google consent succeeds but you bounce back to NursePath still signed out, with a URL like:

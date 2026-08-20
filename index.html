@@ -1672,6 +1672,8 @@
         window.npDebugLog = npDebugLog;
 
         let supabaseClient = null;
+        /** Why Google sign-in cannot start (library missing, project unreachable, etc.). */
+        let authBackendBlocker = '';
         window.__nursepathAuthState = window.__nursepathAuthState || {
             authenticated: false,
             booted: false,
@@ -2729,8 +2731,16 @@
                 return;
             }
 
+            if (authBackendBlocker) {
+                setAuthStatus(authBackendBlocker, true);
+                return;
+            }
+
             if (!supabaseClient) {
-                setAuthStatus('Sign-in is not configured yet. Ask faculty to enable Google Auth.', true);
+                setAuthStatus(
+                    'Sign-in is not ready. Hard-refresh once online, or ask faculty to check the Supabase project.',
+                    true
+                );
                 return;
             }
 
@@ -2843,11 +2853,33 @@
             }
 
             const isConfigured = !SUPABASE_URL.includes('YOUR-PROJECT') && !SUPABASE_ANON_KEY.includes('YOUR_SUPABASE_ANON_KEY');
-            if (!window.supabase || !isConfigured) {
+            if (!isConfigured) {
+                authBackendBlocker = 'Supabase keys are missing in this build. Ask faculty to set the project URL and anon key.';
                 if (!oauthRedirectError) {
-                    showAuthOverlay('Sign in with Google to continue.', false);
+                    showAuthOverlay(authBackendBlocker, true);
                 }
                 return;
+            }
+            if (!window.supabase || typeof window.supabase.createClient !== 'function') {
+                authBackendBlocker = 'Auth library failed to load (CDN blocked or offline). Connect to the internet and hard-refresh, then try Google again.';
+                if (!oauthRedirectError) {
+                    showAuthOverlay(authBackendBlocker, true);
+                }
+                return;
+            }
+
+            // Fail fast if the Supabase project host is paused/deleted (common on free-tier inactivity).
+            try {
+                const probe = await fetch(`${SUPABASE_URL}/auth/v1/settings`, {
+                    method: 'GET',
+                    headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` }
+                });
+                if (!probe.ok) {
+                    authBackendBlocker = `Supabase responded ${probe.status}. Confirm the project is active and the anon key matches Project Settings → API.`;
+                }
+            } catch (probeErr) {
+                authBackendBlocker = 'Supabase project is unreachable (paused, deleted, or DNS missing). Open supabase.com, restore or recreate the project, re-enable Google provider, then update NursePath keys. See GOOGLE_OAUTH_SETUP.md.';
+                npDebugLog('Supabase settings probe failed', probeErr);
             }
 
             supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
@@ -2858,6 +2890,13 @@
                     flowType: 'pkce'
                 }
             });
+
+            if (authBackendBlocker) {
+                if (!oauthRedirectError) {
+                    showAuthOverlay(authBackendBlocker, true);
+                }
+                return;
+            }
 
             // Offline-safe: never force logout solely because refresh failed while offline.
             supabaseClient.auth.onAuthStateChange((event, session) => {
