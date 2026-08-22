@@ -42,18 +42,24 @@
         }
     </style>
     
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%230f172a' width='192' height='192'/><text x='50%' y='50%' font-size='120' font-weight='bold' fill='%2306b6d4' text-anchor='middle' dy='.35em'>Rx</text></svg>">
-        <script src="assets/ui-helpers.js"></script>
-        <script src="assets/clinical-calculators.js"></script>
-        <script src="assets/tool-content.js"></script>
-        <script src="assets/study-drills.js"></script>
-
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%230f172a' width='180' height='180' rx='40'/><text x='50%' y='50%' font-size='100' font-weight='bold' fill='%2306b6d4' text-anchor='middle' dy='.35em'>Rx</text></svg>">
+    <script src="assets/ui-helpers.js"></script>
+    <script src="assets/clinical-calculators.js"></script>
+    <script src="assets/tool-content.js"></script>
+    <script src="assets/study-drills.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(function () {});
+            });
+        }
+    </script>
     <!-- OFFLINE-FIRST: Inlined CSS (no CDN) -->
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -6322,24 +6328,20 @@
         }
     </script>
 
-    <!-- Service Worker Registration for PWA offline support -->
+    <!-- Service Worker: duplicate register kept for debug logging after auth boot -->
     <script>
         (function () {
             var npLog = typeof window.npDebugLog === 'function' ? window.npDebugLog : function () {};
 
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function () {
-                    var swUrl = new URL('sw.js', window.location.href);
-                    navigator.serviceWorker.register(swUrl)
+                    navigator.serviceWorker.register('/sw.js', { scope: '/' })
                         .then(function (registration) {
                             npLog('Service Worker registered:', registration.scope);
                             registration.update();
 
                             if (window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches) {
                                 npLog('Running in standalone PWA mode');
-                                if (typeof liveAnalyze !== 'undefined') {
-                                    npLog('Analysis functions loaded');
-                                }
                             }
                         })
                         .catch(function (error) {
