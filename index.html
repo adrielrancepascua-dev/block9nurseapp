@@ -43,6 +43,7 @@
     </style>
     
     <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-192.png">
     <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1421,6 +1422,45 @@
             background-clip: text;
             color: transparent;
         }
+        .auth-brand-lockup {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 14px;
+        }
+        .auth-brand-lockup img {
+            width: min(280px, 78vw);
+            height: auto;
+            display: block;
+        }
+        .np-header-lockup {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 0 auto 6px;
+            cursor: default;
+            user-select: none;
+        }
+        .np-header-lockup img.np-header-mark {
+            width: clamp(40px, 10vw, 52px);
+            height: clamp(40px, 10vw, 52px);
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+        .np-header-lockup .np-header-word {
+            font-family: var(--np-display);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            font-size: clamp(2rem, 8vw, 2.75rem);
+            background: linear-gradient(120deg, #67e8f9 0%, #22d3ee 45%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0;
+        }
         .auth-tagline {
             color: #cbd5e1;
             font-size: 14px;
@@ -1562,7 +1602,9 @@
     <!-- AUTH OVERLAY -->
     <div id="authOverlay" style="position: fixed; inset: 0; background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px; overflow-y: auto;">
         <div style="background: #0f172a; border: 2px solid #06b6d4; border-radius: 20px; padding: 32px 22px 26px; max-width: 440px; width: 100%; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5); margin: auto;">
-            <h1 class="auth-brand">NursePath</h1>
+            <div class="auth-brand-lockup">
+                <img src="/assets/brand/logo-wordmark-dark.png" alt="NursePath" width="680" height="192">
+            </div>
             <p class="auth-tagline">The offline clinical companion for nursing students. Duty tools, OTC reference, and study practice in one place.</p>
             <ul class="auth-value-list">
                 <li><strong>Duty:</strong> Fast vitals, IV math, scoring tools, and PH OTC brands, even offline.</li>
@@ -1602,6 +1644,7 @@
     <div id="simulationModeOverlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center; padding: 20px;">
         <div style="background: linear-gradient(135deg, #1e293b, #0f172a); border-radius: 20px; padding: 32px 28px; max-width: 500px; width: 100%; text-align: center; border: 2px solid #06b6d4; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);">
             
+            <img src="/assets/icons/icon-192.png" alt="NursePath" width="72" height="72" style="display:block; margin:0 auto 14px; border-radius:16px;">
             <h2 class="auth-brand" style="font-size: 2rem; margin-bottom: 8px;">NursePath</h2>
             <p style="font-size: 13px; font-weight: 700; color: #7dd3fc; margin-bottom: 18px; letter-spacing: 0.04em; text-transform: uppercase;">Academic companion agreement</p>
             
@@ -3017,9 +3060,10 @@
 
     <div class="max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
         <header class="mb-4 sm:mb-6 text-center">
-            <h1 id="nursepathHeaderLogo" title="NursePath" class="np-display font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-sky-400 mb-1" style="cursor: default; font-size: clamp(2rem, 8vw, 2.75rem); letter-spacing: -0.03em; line-height: 1.05;">
-                NursePath
-            </h1>
+            <div id="nursepathHeaderLogo" class="np-header-lockup" title="NursePath">
+                <img class="np-header-mark" src="/assets/icons/icon-192.png" alt="" width="52" height="52">
+                <h1 class="np-header-word">NursePath</h1>
+            </div>
             <p class="text-slate-400 text-xs sm:text-sm">Duty tools, OTC reference, and study practice. Works offline.</p>
             <div class="mt-2" style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap;">
                 <button type="button" onclick="manualLogout()" style="padding:8px 12px; min-height:36px; background:#1f2937; color:#e2e8f0; border:1px solid #475569; border-radius:10px; font-size:12px; font-weight:700;">Logout</button>

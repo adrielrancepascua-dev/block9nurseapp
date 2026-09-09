@@ -1,7 +1,11 @@
 # NursePath: Clinical Reference Tool for Nursing Students
 
 <p align="center">
-  <img src="image-512.png" alt="NursePath Logo" width="120" height="120">
+  <img src="assets/brand/logo-icon.png" alt="NursePath Logo" width="120" height="120">
+</p>
+
+<p align="center">
+  <img src="assets/brand/logo-wordmark.png" alt="NursePath" width="320">
 </p>
 
 <p align="center">
