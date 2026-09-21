@@ -199,10 +199,19 @@
     });
   }
 
-  function labFact(label, value, tone) {
-    if (!value) return '';
-    const toneClass = tone ? ` is-${tone}` : '';
-    return `<div class="otc-fact"><span class="otc-fact-k${toneClass}">${escapeHtml(label)}</span><span class="otc-fact-v">${escapeHtml(value)}</span></div>`;
+  function howToTest(item) {
+    const parts = [];
+    if (item.specimen) parts.push('Specimen: ' + item.specimen);
+    if (item.notes) parts.push(item.notes);
+    return parts.join(' ');
+  }
+
+  function labBlock(kind, title, body) {
+    if (!body) return '';
+    return `<section class="lab-block lab-block-${kind}">
+      <h4>${escapeHtml(title)}</h4>
+      <p>${escapeHtml(body)}</p>
+    </section>`;
   }
 
   function showLabDetail(item, opts) {
@@ -214,51 +223,19 @@
     const detailEl = document.getElementById('lab-detail');
     if (!detailEl) return;
 
-    const dutyStrip = `
-      <div class="lab-duty-strip">
-        <div class="lab-duty-title">Duty quick take</div>
-        <p><strong>Adult range:</strong> ${escapeHtml(item.adultRange)}</p>
-        <p><strong>High:</strong> ${escapeHtml(item.high)}</p>
-        <p><strong>Low:</strong> ${escapeHtml(item.low)}</p>
-        <p><strong>Nursing check:</strong> ${escapeHtml(item.nursing)}</p>
-        <p class="lab-duty-note">Learning reference. Hospital reference columns vary. Confirm with your CI and the printed slip.</p>
-      </div>
-    `;
-
     detailEl.innerHTML = `
+      <p class="lab-detail-kicker">${escapeHtml(item.abbrev)} · ${escapeHtml(item.panel)}</p>
       <h3 class="lab-detail-title">${escapeHtml(item.name)}</h3>
-      <p class="lab-detail-meta"><strong>${escapeHtml(item.abbrev)}</strong>${escapeHtml(item.panel)} · ${escapeHtml(item.specimen)}</p>
-      <div class="lab-range-hero">${escapeHtml(item.adultRange)}</div>
-      ${dutyStrip}
-      <button type="button" onclick="copyLabReference()" class="lab-copy-btn">Copy range + clues</button>
-      <div class="otc-detail-tabs" role="tablist">
-        <button type="button" id="lab-tldr-tab" onclick="switchLabStudyTab('tldr')" class="study-tab-btn is-active">TLDR</button>
-        <button type="button" id="lab-study-tab" onclick="switchLabStudyTab('study')" class="study-tab-btn">Study deeper</button>
-      </div>
-      <div id="lab-tldr-content">
-        <div class="otc-fact-list">
-          ${labFact('Range', item.adultRange, 'green')}
-          ${labFact('Units', item.units)}
-          ${labFact('High suggests', item.high, 'warn')}
-          ${labFact('Low suggests', item.low, 'amber')}
-          ${labFact('Nursing', item.nursing, 'green')}
-        </div>
-      </div>
-      <div id="lab-study-content" style="display:none;">
-        <div class="otc-fact-list">
-          ${labFact('Specimen', item.specimen)}
-          ${labFact('Panel', item.panel, 'amber')}
-          ${(item.aliases || []).length ? labFact('Also search', item.aliases.join(', ')) : ''}
-          ${labFact('Why it matters', item.notes)}
-          ${labFact('High', item.high, 'warn')}
-          ${labFact('Low', item.low, 'amber')}
-          ${labFact('Nursing', item.nursing, 'green')}
-        </div>
-      </div>
+      ${labBlock('ok', 'Normal', item.adultRange)}
+      ${labBlock('high', 'Too high', item.high)}
+      ${labBlock('low', 'Too low', item.low)}
+      ${labBlock('how', 'How to test', howToTest(item))}
+      ${item.nursing ? labBlock('watch', 'Watch', item.nursing) : ''}
+      <p class="lab-duty-note">Teaching ranges. Confirm with the printed slip and your CI.</p>
     `;
     window.__nursepathSelectedLab = item;
 
-    document.querySelectorAll('.lab-card').forEach((el) => {
+    document.querySelectorAll('.lab-row').forEach((el) => {
       el.classList.toggle('is-active', Boolean(item.id) && el.dataset.labId === String(item.id));
     });
 
@@ -290,11 +267,11 @@
     }
     if (detailContainer) detailContainer.classList.add('hidden');
     if (detailEl) {
-      detailEl.innerHTML = '<p class="lab-detail-placeholder">Select a test to see the adult range, high/low clues, and nursing checks.</p>';
+      detailEl.innerHTML = '<p class="lab-detail-placeholder">Tap a test for normal, too high, too low, and how it is drawn.</p>';
     }
 
     window.__nursepathSelectedLab = null;
-    document.querySelectorAll('.lab-card.is-active').forEach((el) => el.classList.remove('is-active'));
+    document.querySelectorAll('.lab-row.is-active').forEach((el) => el.classList.remove('is-active'));
 
     const trackUsageSafe = getTrackUsageSafe();
     if (trackUsageSafe) {
@@ -361,7 +338,7 @@
 
     if (!items.length) {
       const empty = document.createElement('div');
-      empty.className = 'otc-empty';
+      empty.className = 'lab-empty';
       empty.textContent = 'No matches. Try an abbreviation (K, Hgb, INR), a panel (ABG, CBC), or a clue (hyponatremia, DKA).';
       fragment.appendChild(empty);
       host.innerHTML = '';
@@ -378,21 +355,16 @@
         label.textContent = item.panel;
         fragment.appendChild(label);
       }
-      const card = document.createElement('button');
-      card.type = 'button';
-      card.className = 'lab-card' + (selectedId && item.id === selectedId ? ' is-active' : '');
-      card.dataset.labId = item.id || '';
-      card.style.setProperty('--accent', ACCENT);
-      card.innerHTML = `
-        <span class="tool-hub-icon">${escapeHtml(String(item.abbrev).slice(0, 4))}</span>
-        <span class="lab-card-meta">
-          <span class="tool-hub-label">${escapeHtml(item.name)}</span>
-          <span class="tool-hub-desc">${escapeHtml(item.abbrev)} · ${escapeHtml(item.panel)}</span>
-          <span class="lab-range">${escapeHtml(item.adultRange)}</span>
-        </span>
-        <span class="tool-hub-tag">${escapeHtml(item.category.toUpperCase())}</span>`;
-      card.onclick = () => showLabDetail(item);
-      fragment.appendChild(card);
+      const row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'lab-row' + (selectedId && item.id === selectedId ? ' is-active' : '');
+      row.dataset.labId = item.id || '';
+      row.innerHTML = `
+        <span class="lab-row-abbr">${escapeHtml(item.abbrev)}</span>
+        <span class="lab-row-name">${escapeHtml(item.name)}</span>
+        <span class="lab-row-value">${escapeHtml(item.adultRange)}</span>`;
+      row.onclick = () => showLabDetail(item);
+      fragment.appendChild(row);
     });
 
     host.innerHTML = '';
