@@ -1514,7 +1514,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             line-height: 1.45;
             margin: 0;
         }
-        .otc-hub { margin-bottom: 1.5rem; padding: 0 2px; }
+        .otc-hub { margin-bottom: 0.75rem; padding: 0 2px; }
         .otc-search-wrap { margin-bottom: 14px; }
         .otc-search-input {
             width: 100%;
@@ -1549,10 +1549,8 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         .otc-list {
             display: grid;
             gap: 10px;
-            max-height: min(60vh, 520px);
-            overflow-y: auto;
-            padding-right: 4px;
-            -webkit-overflow-scrolling: touch;
+            max-height: none;
+            overflow: visible;
         }
         .otc-med-card {
             --accent: #fbbf24;
@@ -1959,6 +1957,26 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             }
             #otc-detail-container.hidden {
                 display: block !important;
+            }
+            .otc-detail-shell {
+                position: sticky;
+                top: 48px;
+                max-height: calc(100vh - 72px);
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+        /* Keep the unused detail shell out of the mobile page flow */
+        @media (max-width: 767px) {
+            #otc-detail-container.hidden {
+                display: none !important;
+                min-height: 0 !important;
+            }
+            .otc-layout {
+                gap: 0;
+            }
+            #content-otc:not(.hidden) + footer.mt-12 {
+                margin-top: 1.25rem;
             }
         }
         
