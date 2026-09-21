@@ -6,6 +6,7 @@
 
         (function () {
             var THEME_KEY = 'nursepath_theme';
+            var TOUCH_QUERY = window.matchMedia('(hover: none), (pointer: coarse), (max-width: 760px)');
 
             function getTheme() {
                 try {
@@ -52,11 +53,8 @@
                 applyTheme(getTheme() === 'light' ? 'dark' : 'light');
             };
 
-            function markTouchUi(event) {
-                if (event && event.pointerType && event.pointerType !== 'touch') {
-                    return;
-                }
-                document.documentElement.classList.add('np-touch');
+            function syncTouchMode() {
+                document.documentElement.classList.toggle('np-touch', TOUCH_QUERY.matches);
             }
 
             function initSidebarDrawer() {
@@ -69,15 +67,20 @@
                     return sidebar.classList.contains('is-open');
                 }
 
+                function blurSidebar() {
+                    var active = document.activeElement;
+                    if (active && sidebar.contains(active) && typeof active.blur === 'function') {
+                        active.blur();
+                    }
+                }
+
                 function setOpen(open) {
                     sidebar.classList.toggle('is-open', !!open);
+                    sidebar.classList.toggle('is-collapsed-lock', !open);
                     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
                     toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
                     if (!open) {
-                        var active = document.activeElement;
-                        if (active && sidebar.contains(active) && typeof active.blur === 'function') {
-                            active.blur();
-                        }
+                        blurSidebar();
                     }
                 }
 
@@ -85,36 +88,54 @@
                     setOpen(false);
                 }
 
-                toggle.addEventListener('click', function (event) {
+                function isMenuAction(target) {
+                    var action = target && target.closest ? target.closest('.np-sidebar-link, .np-action-btn') : null;
+                    if (!action || action.classList.contains('np-sidebar-placeholder')) {
+                        return null;
+                    }
+                    return action;
+                }
+
+                toggle.addEventListener('pointerup', function (event) {
                     event.preventDefault();
                     event.stopPropagation();
                     setOpen(!isOpen());
                 });
 
                 if (backdrop) {
-                    backdrop.addEventListener('pointerdown', function (event) {
+                    backdrop.addEventListener('pointerup', function (event) {
                         event.preventDefault();
                         event.stopPropagation();
                         closeSidebar();
                     });
                 }
 
-                sidebar.addEventListener('click', function (event) {
-                    var action = event.target.closest('.np-sidebar-link, .np-action-btn');
-                    if (!action || action.classList.contains('np-sidebar-placeholder')) {
+                sidebar.addEventListener('pointerup', function (event) {
+                    if (event.target.closest('#npSidebarToggle')) {
+                        return;
+                    }
+                    if (!isMenuAction(event.target)) {
                         return;
                     }
                     closeSidebar();
                 });
 
                 document.addEventListener('pointerdown', function (event) {
-                    markTouchUi(event);
+                    if (TOUCH_QUERY.matches || (event && event.pointerType === 'touch')) {
+                        document.documentElement.classList.add('np-touch');
+                    }
                     if (!isOpen()) return;
-                    if (sidebar.contains(event.target) || (backdrop && event.target === backdrop)) {
+                    if (sidebar.contains(event.target) || (backdrop && backdrop.contains(event.target))) {
                         return;
                     }
                     closeSidebar();
                 }, true);
+
+                sidebar.addEventListener('pointerleave', function () {
+                    if (!isOpen()) {
+                        sidebar.classList.remove('is-collapsed-lock');
+                    }
+                });
 
                 document.addEventListener('keydown', function (event) {
                     if (event.key === 'Escape') {
@@ -125,7 +146,15 @@
                 window.closeNursePathSidebar = closeSidebar;
             }
 
+            syncTouchMode();
+            if (TOUCH_QUERY.addEventListener) {
+                TOUCH_QUERY.addEventListener('change', syncTouchMode);
+            } else if (TOUCH_QUERY.addListener) {
+                TOUCH_QUERY.addListener(syncTouchMode);
+            }
+
             window.addEventListener('DOMContentLoaded', function () {
+                syncTouchMode();
                 var theme = getTheme();
                 applyTheme(theme);
                 var btn = document.getElementById('npThemeToggle');
@@ -134,6 +163,4 @@
                 }
                 initSidebarDrawer();
             });
-
-            window.addEventListener('pointerdown', markTouchUi, { passive: true });
         })();

@@ -254,6 +254,15 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             width: var(--np-sidebar-expanded);
             box-shadow: 24px 0 42px rgba(2, 6, 23, 0.48);
         }
+        .np-sidebar.is-collapsed-lock,
+        .np-sidebar.is-collapsed-lock:hover,
+        .np-sidebar.is-collapsed-lock:focus-within,
+        html.np-touch .np-sidebar.is-collapsed-lock,
+        html.np-touch .np-sidebar.is-collapsed-lock:hover,
+        html.np-touch .np-sidebar.is-collapsed-lock:focus-within {
+            width: var(--np-sidebar-collapsed) !important;
+            box-shadow: 16px 0 34px rgba(2, 6, 23, 0.28) !important;
+        }
         .np-sidebar-backdrop {
             display: none;
             position: fixed;
@@ -361,6 +370,13 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             visibility: visible;
             transform: translateX(0);
             pointer-events: auto;
+        }
+        .np-sidebar.is-collapsed-lock .np-sidebar-link > span:not(.np-placeholder-icon),
+        .np-sidebar.is-collapsed-lock .np-action-label {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            transform: translateX(-4px) !important;
+            pointer-events: none !important;
         }
         .np-sidebar-placeholder {
             color: #64748b;
@@ -470,6 +486,31 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             .np-app-layout {
                 --np-sidebar-collapsed: 52px;
                 --np-sidebar-expanded: min(84vw, 238px);
+            }
+            .np-sidebar:hover,
+            .np-sidebar:focus-within {
+                width: var(--np-sidebar-collapsed);
+                box-shadow: 16px 0 34px rgba(2, 6, 23, 0.28);
+            }
+            .np-sidebar.is-open,
+            .np-sidebar.is-open:hover,
+            .np-sidebar.is-open:focus-within {
+                width: var(--np-sidebar-expanded);
+                box-shadow: 24px 0 42px rgba(2, 6, 23, 0.48);
+            }
+            .np-sidebar:hover .np-sidebar-link > span:not(.np-placeholder-icon),
+            .np-sidebar:focus-within .np-sidebar-link > span:not(.np-placeholder-icon),
+            .np-sidebar:hover .np-action-label,
+            .np-sidebar:focus-within .np-action-label {
+                opacity: 0 !important;
+                visibility: hidden !important;
+                transform: translateX(-4px) !important;
+            }
+            .np-sidebar.is-open .np-sidebar-link > span:not(.np-placeholder-icon),
+            .np-sidebar.is-open .np-action-label {
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: translateX(0) !important;
             }
             .np-sidebar {
                 padding: 16px 6px 12px;
