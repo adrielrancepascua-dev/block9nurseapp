@@ -2,6 +2,12 @@
 
 This document summarizes the frontend code changes made to improve structure, layout, responsiveness, navigation, and theme support for the NursePath web app.
 
+## Update Date
+
+- **Date added:** September 21, 2026
+- **Documentation created:** September 21, 2026
+- **Scope:** Frontend structure, responsive UI layout, sidebar navigation, and light/dark theme support
+
 ## Summary
 
 The frontend was reorganized from a single large HTML file into separate HTML, CSS, and JavaScript files. The user interface was also improved with a collapsible sidebar, centered responsive content, mobile-friendly layouts, and a light/dark mode toggle.
@@ -9,6 +15,8 @@ The frontend was reorganized from a single large HTML file into separate HTML, C
 These changes are focused on maintainability and user experience. The existing clinical tool logic, OTC reference behavior, authentication flow, and calculator functions were preserved.
 
 ## Files Added
+
+Date added: September 21, 2026
 
 - `frontend/css/styles.css`
   - Contains the extracted CSS from the original inline style blocks.
@@ -35,6 +43,8 @@ These changes are focused on maintainability and user experience. The existing c
   - Documents the frontend restructuring and UI improvements.
 
 ## Files Changed
+
+Date changed: September 21, 2026
 
 - `frontend/index.html`
   - Removed inline CSS and inline JavaScript.
