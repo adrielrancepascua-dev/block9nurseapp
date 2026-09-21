@@ -283,18 +283,19 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             border: 0;
             background: transparent;
             cursor: pointer;
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             display: grid;
             align-content: center;
-            gap: 6px;
-            margin: 0 auto 8px;
+            justify-content: center;
+            gap: 5px;
+            margin: 0 auto;
             flex-shrink: 0;
-            padding: 4px;
+            padding: 11px 10px;
         }
         .np-sidebar-toggle span {
             display: block;
-            height: 4px;
+            height: 3px;
             width: 100%;
             border-radius: 999px;
             background: #f8fafc;
@@ -303,18 +304,22 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         .np-sidebar-nav {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
             min-height: 0;
         }
-        .np-sidebar-link {
-            width: 100%;
-            min-height: 48px;
+        .np-sidebar-link,
+        .np-action-btn {
+            width: 42px;
+            height: 42px;
+            min-height: 42px;
+            margin: 0 auto;
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 11px 12px;
+            justify-content: center;
+            gap: 0;
+            padding: 0;
             border: 1px solid rgba(51, 65, 85, 0.9);
-            border-radius: 10px;
+            border-radius: 12px;
             background: rgba(15, 23, 42, 0.72);
             color: #cbd5e1;
             font-size: 12px;
@@ -324,34 +329,67 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             overflow: hidden;
         }
         .np-sidebar-link svg,
+        .np-action-icon,
         .np-placeholder-icon {
-            width: 18px;
-            height: 18px;
-            flex: 0 0 18px;
+            width: 20px;
+            height: 20px;
+            flex: 0 0 20px;
         }
         .np-sidebar-link > span:not(.np-placeholder-icon),
         .np-action-label {
             opacity: 0;
             visibility: hidden;
-            transform: translateX(-4px);
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            flex: 0 0 0;
+            margin: 0;
+            padding: 0;
             pointer-events: none;
-            transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease;
+        }
+        .np-sidebar.is-open .np-sidebar-link,
+        .np-sidebar.is-open .np-action-btn {
+            width: 100%;
+            height: auto;
+            min-height: 48px;
+            margin: 0;
+            justify-content: flex-start;
+            gap: 12px;
+            padding: 11px 12px;
         }
         .np-sidebar.is-open .np-sidebar-link > span:not(.np-placeholder-icon),
         .np-sidebar.is-open .np-action-label {
             opacity: 1;
             visibility: visible;
-            transform: translateX(0);
+            width: auto;
+            height: auto;
+            overflow: visible;
+            flex: 1 1 auto;
             pointer-events: auto;
         }
         @media (hover: hover) and (pointer: fine) {
+            html:not(.np-touch) .np-sidebar:hover .np-sidebar-link,
+            html:not(.np-touch) .np-sidebar:focus-within .np-sidebar-link,
+            html:not(.np-touch) .np-sidebar:hover .np-action-btn,
+            html:not(.np-touch) .np-sidebar:focus-within .np-action-btn {
+                width: 100%;
+                height: auto;
+                min-height: 48px;
+                margin: 0;
+                justify-content: flex-start;
+                gap: 12px;
+                padding: 11px 12px;
+            }
             html:not(.np-touch) .np-sidebar:hover .np-sidebar-link > span:not(.np-placeholder-icon),
             html:not(.np-touch) .np-sidebar:focus-within .np-sidebar-link > span:not(.np-placeholder-icon),
             html:not(.np-touch) .np-sidebar:hover .np-action-label,
             html:not(.np-touch) .np-sidebar:focus-within .np-action-label {
                 opacity: 1;
                 visibility: visible;
-                transform: translateX(0);
+                width: auto;
+                height: auto;
+                overflow: visible;
+                flex: 1 1 auto;
                 pointer-events: auto;
             }
         }
@@ -361,59 +399,68 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         html.np-touch .np-sidebar:focus-within .np-action-label {
             opacity: 0;
             visibility: hidden;
-            transform: translateX(-4px);
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            flex: 0 0 0;
             pointer-events: none;
         }
         html.np-touch .np-sidebar.is-open .np-sidebar-link > span:not(.np-placeholder-icon),
         html.np-touch .np-sidebar.is-open .np-action-label {
             opacity: 1;
             visibility: visible;
-            transform: translateX(0);
+            width: auto;
+            height: auto;
+            overflow: visible;
+            flex: 1 1 auto;
             pointer-events: auto;
+        }
+        .np-sidebar.is-collapsed-lock .np-sidebar-link,
+        .np-sidebar.is-collapsed-lock .np-action-btn {
+            width: 42px !important;
+            height: 42px !important;
+            min-height: 42px !important;
+            margin: 0 auto !important;
+            justify-content: center !important;
+            gap: 0 !important;
+            padding: 0 !important;
         }
         .np-sidebar.is-collapsed-lock .np-sidebar-link > span:not(.np-placeholder-icon),
         .np-sidebar.is-collapsed-lock .np-action-label {
             opacity: 0 !important;
             visibility: hidden !important;
-            transform: translateX(-4px) !important;
+            width: 0 !important;
+            height: 0 !important;
+            overflow: hidden !important;
+            flex: 0 0 0 !important;
             pointer-events: none !important;
+        }
+        .np-sidebar.is-collapsed-lock .np-sidebar-placeholder {
+            display: none !important;
         }
         .np-sidebar-placeholder {
             color: #64748b;
             border-style: dashed;
             cursor: default;
-            opacity: 0.68;
+            opacity: 0.72;
         }
-        .np-placeholder-icon {
-            border-radius: 6px;
-            border: 1px dashed rgba(148, 163, 184, 0.42);
-            background: rgba(15, 23, 42, 0.65);
+        .np-sidebar:not(.is-open) .np-sidebar-placeholder {
+            display: none;
+        }
+        @media (hover: hover) and (pointer: fine) {
+            html:not(.np-touch) .np-sidebar:hover .np-sidebar-placeholder,
+            html:not(.np-touch) .np-sidebar:focus-within .np-sidebar-placeholder {
+                display: flex;
+            }
+        }
+        html.np-touch .np-sidebar:not(.is-open) .np-sidebar-placeholder {
+            display: none !important;
         }
         .np-sidebar-actions {
             margin-top: auto;
             display: grid;
             grid-template-columns: 1fr;
             gap: 8px;
-        }
-        .np-action-btn {
-            width: 100%;
-            min-height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 12px;
-            padding: 10px 12px;
-            border-radius: 10px;
-            overflow: hidden;
-            white-space: nowrap;
-            font-size: 12px;
-            font-weight: 800;
-            text-align: left;
-        }
-        .np-action-icon {
-            width: 18px;
-            height: 18px;
-            flex: 0 0 18px;
         }
         .np-theme-toggle-btn {
             border: 1px solid rgba(34, 211, 238, 0.32);
@@ -504,28 +551,39 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             .np-sidebar:focus-within .np-action-label {
                 opacity: 0 !important;
                 visibility: hidden !important;
-                transform: translateX(-4px) !important;
+                width: 0 !important;
+                height: 0 !important;
+                overflow: hidden !important;
+                flex: 0 0 0 !important;
             }
             .np-sidebar.is-open .np-sidebar-link > span:not(.np-placeholder-icon),
             .np-sidebar.is-open .np-action-label {
                 opacity: 1 !important;
                 visibility: visible !important;
-                transform: translateX(0) !important;
+                width: auto !important;
+                height: auto !important;
+                overflow: visible !important;
+                flex: 1 1 auto !important;
             }
             .np-sidebar {
-                padding: 16px 6px 12px;
+                padding: 14px 5px 12px;
             }
-            .np-sidebar-toggle {
-                width: 32px;
-                height: 26px;
-            }
-            .np-sidebar-toggle span {
-                height: 3px;
-            }
-            .np-sidebar-link {
+            .np-sidebar-toggle,
+            .np-sidebar-link,
+            .np-action-btn {
+                width: 42px;
+                height: 42px;
                 min-height: 42px;
-                padding: 9px;
-                gap: 9px;
+                padding: 0;
+                gap: 0;
+            }
+            .np-sidebar.is-open .np-sidebar-link,
+            .np-sidebar.is-open .np-action-btn {
+                width: 100%;
+                height: auto;
+                min-height: 44px;
+                padding: 10px 12px;
+                gap: 10px;
             }
             .np-main {
                 margin-left: var(--np-sidebar-collapsed);
@@ -545,11 +603,6 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             }
             .np-sidebar-actions {
                 grid-template-columns: 1fr;
-            }
-            .np-action-btn {
-                min-height: 42px;
-                padding: 9px;
-                gap: 9px;
             }
             .np-header-lockup {
                 gap: 8px;
@@ -1969,12 +2022,8 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             .tool-hub-card {
                 width: 100% !important;
             }
-            .np-sidebar button {
-                min-height: 42px !important;
-                padding: 9px !important;
-            }
-            .np-sidebar.is-open .np-action-btn,
-            html:not(.np-touch) .np-sidebar:hover .np-action-btn {
+            .np-sidebar.is-open button:not(.np-sidebar-toggle) {
+                min-height: 44px !important;
                 padding: 10px 12px !important;
             }
         }
@@ -2024,10 +2073,6 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         html[data-theme="light"] .np-sidebar-placeholder {
             color: #64748b !important;
             background: rgba(241, 245, 249, 0.8) !important;
-        }
-        html[data-theme="light"] .np-placeholder-icon {
-            background: #e2e8f0 !important;
-            border-color: rgba(100, 116, 139, 0.46) !important;
         }
         html[data-theme="light"] .np-header-word,
         html[data-theme="light"] h1,
