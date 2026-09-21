@@ -287,19 +287,31 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             height: 42px;
             display: grid;
             align-content: center;
-            justify-content: center;
-            gap: 5px;
+            justify-items: center;
+            gap: 5px !important;
             margin: 0 auto;
             flex-shrink: 0;
-            padding: 11px 10px;
+            padding: 0 !important;
         }
         .np-sidebar-toggle span {
             display: block;
-            height: 3px;
-            width: 100%;
+            height: 2px;
+            width: 18px;
+            min-width: 18px;
+            max-width: 18px;
             border-radius: 999px;
             background: #f8fafc;
             box-shadow: 0 0 10px rgba(125, 211, 252, 0.15);
+            transition: transform 0.18s ease, opacity 0.18s ease;
+        }
+        .np-sidebar.is-open .np-sidebar-toggle span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        .np-sidebar.is-open .np-sidebar-toggle span:nth-child(2) {
+            opacity: 0;
+        }
+        .np-sidebar.is-open .np-sidebar-toggle span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
         }
         .np-sidebar-nav {
             display: flex;
@@ -584,7 +596,6 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             .np-sidebar {
                 padding: 14px 5px 12px;
             }
-            .np-sidebar-toggle,
             .np-sidebar-link,
             .np-action-btn {
                 width: 42px;
@@ -592,6 +603,13 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
                 min-height: 42px;
                 padding: 0;
                 gap: 0;
+            }
+            .np-sidebar-toggle {
+                width: 42px;
+                height: 42px;
+                min-height: 42px;
+                padding: 0 !important;
+                gap: 5px !important;
             }
             .np-sidebar.is-open .np-sidebar-link,
             .np-sidebar.is-open .np-action-btn {
