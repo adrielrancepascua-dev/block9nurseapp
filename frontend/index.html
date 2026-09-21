@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="description" content="NursePath is an offline clinical companion for nursing students, with duty tools, OTC reference, and study practice for school and ward prep.">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="NursePath">
+    <meta name="application-name" content="NursePath">
+    <meta name="msapplication-TileColor" content="#0f172a">
+    <meta name="msapplication-config" content="browserconfig.xml">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>NursePath: Offline Clinical Companion for Nursing Students</title>
+    <script src="js/script-1.js"></script>
+    
+    <!-- CRITICAL: Force dark mode immediately to prevent white flash -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/ui-helpers.js"></script>
+    <script src="assets/clinical-calculators.js"></script>
+    <script src="assets/tool-content.js"></script>
+    <script src="assets/study-drills.js"></script>
+    <script src="js/script-2.js"></script>
+    <!-- OFFLINE-FIRST: Inlined CSS (no CDN) -->
+    
+    
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen" style="background-color: #020617 !important;">
+
+    <!-- AUTH OVERLAY -->
+    <div id="authOverlay" style="position: fixed; inset: 0; background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px; overflow-y: auto;">
+        <div style="background: #0f172a; border: 2px solid #06b6d4; border-radius: 20px; padding: 32px 22px 26px; max-width: 440px; width: 100%; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5); margin: auto;">
+            <div class="auth-brand-lockup">
+                <img src="/assets/brand/logo-wordmark-dark.png" alt="NursePath" width="680" height="192">
+            </div>
+            <p class="auth-tagline">The offline clinical companion for nursing students. Duty tools, OTC reference, and study practice in one place.</p>
+            <ul class="auth-value-list">
+                <li><strong>Duty:</strong> Fast vitals, IV math, scoring tools, and PH OTC brands, even offline.</li>
+                <li><strong>Study:</strong> Instructor-style lessons and quizzes for every tool.</li>
+            </ul>
+            <p class="auth-soft-note">Learning companion for school and ward prep. Always verify with your Clinical Instructor and approved textbooks.</p>
+
+            <label style="display:flex; align-items:flex-start; gap:8px; margin-bottom: 14px; text-align:left;">
+                <input id="usageConsent" type="checkbox" style="margin-top:2px; width:16px; height:16px; min-height:16px; min-width:16px; accent-color:#06b6d4; cursor:pointer;">
+                <span style="color:#94a3b8; font-size:12px; line-height:1.35;">I consent to anonymous usage tracking for academic evaluation.</span>
+            </label>
+
+            <button id="googleSignInBtn" type="button" class="google-btn" disabled>
+                <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.2 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.5-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 12 24 12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.2 6.1 29.3 4 24 4 16.1 4 9.2 8.5 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.3 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.1 39.5 16 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1.1 3.1-3.6 5.5-6.6 6.6l.1.1 6.2 5.2C36.1 41.3 44 36 44 24c0-1.3-.1-2.5-.4-3.5z"/></svg>
+                Continue with Google
+            </button>
+
+            <button id="authResetBtn" type="button" style="display:none; width:100%; padding:10px; margin-bottom:8px; font-size:12px; font-weight:700; background:#1f2937; color:#cbd5e1; border:1px solid #475569; border-radius:10px; cursor:pointer;">Reset This Device</button>
+
+            <p id="authStatus" style="color: #f59e0b; font-size: 12px; min-height: 18px; margin-top: 10px;"></p>
+            <p style="color:#475569; font-size:10px; margin-top:8px;">Sign in once online. After that, NursePath stays available offline on this device.</p>
+        </div>
+    </div>
+
+    <!-- TOOL GUIDE SHEET -->
+    <div id="toolGuideOverlay" class="tool-guide-overlay" role="dialog" aria-modal="true" aria-labelledby="toolGuideTitle" onclick="if(event.target===this)closeToolGuide()">
+        <div class="tool-guide-sheet">
+            <div class="tool-guide-sheet-header">
+                <h3 id="toolGuideTitle">Tool Guide</h3>
+                <button type="button" class="tool-guide-close" onclick="closeToolGuide()" aria-label="Close guide">×</button>
+            </div>
+            <div class="tool-guide-body" id="toolGuideBody"></div>
+        </div>
+    </div>
+
+    <!-- ACADEMIC USE AGREEMENT OVERLAY -->
+    <div id="simulationModeOverlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center; padding: 20px;">
+        <div style="background: linear-gradient(135deg, #1e293b, #0f172a); border-radius: 20px; padding: 32px 28px; max-width: 500px; width: 100%; text-align: center; border: 2px solid #06b6d4; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);">
+            
+            <img src="/assets/icons/icon-192.png" alt="NursePath" width="72" height="72" style="display:block; margin:0 auto 14px; border-radius:16px;">
+            <h2 class="auth-brand" style="font-size: 2rem; margin-bottom: 8px;">NursePath</h2>
+            <p style="font-size: 13px; font-weight: 700; color: #7dd3fc; margin-bottom: 18px; letter-spacing: 0.04em; text-transform: uppercase;">Academic companion agreement</p>
+            
+            <div style="background: #0f172a; border-radius: 12px; padding: 20px; margin-bottom: 22px; border: 1px solid #334155; text-align: left;">
+                <p style="color: #e2e8f0; font-size: 15px; line-height: 1.65; margin: 0 0 12px;">
+                    NursePath is your <strong style="color: #67e8f9;">offline learning and duty-reference companion</strong> for nursing school, covering tools, OTC reference, and study practice.
+                </p>
+                <p style="color: #94a3b8; font-size: 13px; line-height: 1.6; margin: 0 0 8px;">
+                    By continuing, I agree to:
+                </p>
+                <ul style="color: #94a3b8; font-size: 13px; line-height: 1.75; margin: 0; padding-left: 18px;">
+                    <li>Use NursePath as a <strong style="color:#e2e8f0;">study and pocket reference</strong></li>
+                    <li>Apply my <strong style="color:#e2e8f0;">own clinical judgment</strong> to anything shown</li>
+                    <li>Verify findings with my <strong style="color:#e2e8f0;">Clinical Instructor</strong> and approved textbooks</li>
+                </ul>
+            </div>
+            
+            <button onclick="acceptSimulationMode()" 
+                style="width: 100%; padding: 16px; font-size: 15px; font-weight: 800; background: linear-gradient(135deg, #06b6d4, #0284c7); color: #0f172a; border: none; border-radius: 12px; cursor: pointer; letter-spacing: 0.02em;">
+                Continue to NursePath
+            </button>
+            
+            <p style="color: #475569; font-size: 11px; margin-top: 14px;">
+                This agreement is remembered on this device for 30 days
+            </p>
+        </div>
+    </div>
+
+    <!-- Supabase Auth + Offline Session Gate -->
+    <script src="js/script-3.js"></script>
+
+    <div id="app-shell" style="display: none;">
+    <div class="np-app-layout">
+        <aside class="np-sidebar" aria-label="Primary navigation">
+            <div class="np-sidebar-toggle" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <nav id="quick-nav" class="np-sidebar-nav" aria-label="NursePath sections">
+                <button onclick="switchMainTab('tools')" id="tab-tools" class="tab-btn np-sidebar-link active bg-cyan-900/50 border-cyan-500/50 text-cyan-400 transition-all">
+                    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
+                    <span>Clinical Tools</span>
+                </button>
+
+                <button onclick="switchMainTab('otc')" id="tab-otc" class="tab-btn np-sidebar-link bg-slate-800 hover:bg-amber-900/50 border-slate-700 hover:border-amber-500/50 text-slate-300 hover:text-amber-400 transition-all">
+                    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" class="text-amber-400" aria-hidden="true"><path d="M8 2a6 6 0 0 1 6 6v8a6 6 0 0 1-12 0V8a6 6 0 0 1 6-6zm8 0a6 6 0 0 1 0 12v-6a6 6 0 0 0-6-6h6z"/></svg>
+                    <span>OTC Medicines</span>
+                </button>
+
+                <button type="button" class="np-sidebar-link np-sidebar-placeholder" disabled>
+                    <span class="np-placeholder-icon"></span>
+                    <span>Coming soon</span>
+                </button>
+                <button type="button" class="np-sidebar-link np-sidebar-placeholder" disabled>
+                    <span class="np-placeholder-icon"></span>
+                    <span>Coming soon</span>
+                </button>
+            </nav>
+
+            <div class="np-sidebar-actions">
+                <button type="button" id="npThemeToggle" class="np-theme-toggle-btn" aria-pressed="false">Light mode</button>
+                <button type="button" class="np-switch-account-btn" disabled>Switch account</button>
+                <button type="button" class="np-logout-btn" onclick="manualLogout()">Logout</button>
+            </div>
+        </aside>
+
+        <main class="np-main">
+    <div class="np-top-banner">
+        NursePath · Learning &amp; duty companion · Verify with faculty &amp; textbooks
+    </div>
+
+    <div class="np-content max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
+        <header class="mb-4 sm:mb-6 text-center">
+            <div id="nursepathHeaderLogo" class="np-header-lockup" title="NursePath">
+                <img class="np-header-mark" src="/assets/icons/icon-192.png" alt="" width="52" height="52">
+                <h1 class="np-header-word">NursePath</h1>
+            </div>
+            <p class="text-slate-400 text-xs sm:text-sm">Duty tools, OTC reference, and study practice. Works offline.</p>
+        </header>
+
+        <!-- ============ TOOLS TAB CONTENT ============ -->
+        <div id="content-tools" class="tab-content">
+        <section id="pilotMetricsPanel" class="mb-4 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-4 border border-slate-700 shadow-xl" style="display:none;">
+            <div class="flex items-center justify-between mb-2" style="gap:8px; flex-wrap:wrap;">
+                <h2 style="font-size:14px; font-weight:800; color:#93c5fd; letter-spacing:0.04em; text-transform:uppercase;">Usage Metrics Snapshot</h2>
+                <div style="display:flex; gap:8px;">
+                    <button type="button" onclick="renderPilotMetrics()" style="padding:8px 10px; min-height:36px; background:#0f172a; color:#cbd5e1; border:1px solid #475569; border-radius:8px; font-size:11px; font-weight:700;">Refresh</button>
+                    <button type="button" onclick="exportUsageCsv()" style="padding:8px 10px; min-height:36px; background:#1d4ed8; color:#eff6ff; border:1px solid #60a5fa; border-radius:8px; font-size:11px; font-weight:700;">Export CSV</button>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
+                <div class="bg-slate-900/70 p-2 rounded-lg border border-slate-700"><p class="text-[10px] text-slate-500">Total Sessions</p><p id="metricSessions" class="text-sm font-bold text-cyan-300">0</p></div>
+                <div class="bg-slate-900/70 p-2 rounded-lg border border-slate-700"><p class="text-[10px] text-slate-500">Online Events</p><p id="metricOnline" class="text-sm font-bold text-emerald-300">0</p></div>
+                <div class="bg-slate-900/70 p-2 rounded-lg border border-slate-700"><p class="text-[10px] text-slate-500">Offline Events</p><p id="metricOffline" class="text-sm font-bold text-amber-300">0</p></div>
+                <div class="bg-slate-900/70 p-2 rounded-lg border border-slate-700"><p class="text-[10px] text-slate-500">Last Sync</p><p id="metricLastSync" class="text-sm font-bold text-slate-200">Never</p></div>
+                <div class="bg-slate-900/70 p-2 rounded-lg border border-slate-700"><p class="text-[10px] text-slate-500">Consent</p><p id="metricConsent" class="text-sm font-bold text-slate-200">Off</p></div>
+            </div>
+            <p id="metricFeatureTop" class="text-xs text-slate-400 mt-2">Top feature use: none yet</p>
+        </section>
+
+        <div id="tools-hub" class="mb-6" data-hub-mode="duty">
+            <div class="tools-hub-mode-row">
+                <div class="tools-hub-hero">
+                    <h2 id="toolsHubTitle">Clinical Tools</h2>
+                    <p id="toolsHubBlurb">Duty mode: fast calculators for ward pocket use. OTC lives in the OTC tab.</p>
+                </div>
+                <div class="np-mode-toggle" role="group" aria-label="Clinical tools mode">
+                    <button type="button" data-mode="duty" id="hubDutyBtn" class="is-active" onclick="setHubMode('duty')">Duty</button>
+                    <button type="button" data-mode="study" id="hubStudyBtn" onclick="setHubMode('study')">Study</button>
+                </div>
+            </div>
+            <div class="tools-hub-grid">
+                <button type="button" class="tool-hub-card" style="--accent:#f87171;" onclick="openHubTool('vitals')">
+                    <span class="tool-hub-icon">VS</span>
+                    <span><span class="tool-hub-label">Vital Signs</span><span class="tool-hub-desc" data-duty-desc="Age-aware interpretation of a full vitals set" data-study-desc="Lesson and quiz on patterns, context, and reporting">Age-aware interpretation of a full vitals set</span></span>
+                    <span class="tool-hub-tag">Assessment</span>
+                </button>
+                <button type="button" class="tool-hub-card" style="--accent:#60a5fa;" onclick="openHubTool('iv')">
+                    <span class="tool-hub-icon">IV</span>
+                    <span><span class="tool-hub-label">IV Flow Rate</span><span class="tool-hub-desc" data-duty-desc="mL/hr and gtt/min drip calculations" data-study-desc="Lesson + quiz on formulas, drop factors, rounding">mL/hr and gtt/min drip calculations</span></span>
+                    <span class="tool-hub-tag">Math</span>
+                </button>
+                <button type="button" class="tool-hub-card" style="--accent:#34d399;" onclick="openHubTool('bmi')">
+                    <span class="tool-hub-icon">BMI</span>
+                    <span><span class="tool-hub-label">BMI & Body Metrics</span><span class="tool-hub-desc" data-duty-desc="WHO BMI category from weight and height" data-study-desc="Lesson + quiz on formula, categories, limits">WHO BMI category from weight and height</span></span>
+                    <span class="tool-hub-tag">Metrics</span>
+                </button>
+                <button type="button" class="tool-hub-card" style="--accent:#f472b6;" onclick="openHubTool('aog')">
+                    <span class="tool-hub-icon">OB</span>
+                    <span><span class="tool-hub-label">AOG & EDD</span><span class="tool-hub-desc" data-duty-desc="Naegele's rule gestation dating" data-study-desc="Lesson + quiz on Naegele, trimesters, dating source">Naegele's rule gestation dating</span></span>
+                    <span class="tool-hub-tag">OB</span>
+                </button>
+                <button type="button" class="tool-hub-card" style="--accent:#c4b5fd;" onclick="openHubTool('peds')">
+                    <span class="tool-hub-icon">PED</span>
+                    <span><span class="tool-hub-label">Pediatric Dosing</span><span class="tool-hub-desc" data-duty-desc="mg/kg plus Clark's & Young's Rules" data-study-desc="Lesson + quiz on mg/kg, Clark, and Young">mg/kg plus Clark's & Young's Rules</span></span>
+                    <span class="tool-hub-tag">Peds</span>
+                </button>
+                <button type="button" class="tool-hub-card" style="--accent:#fb7185;" onclick="openHubTool('apgar')">
+                    <span class="tool-hub-icon">APG</span>
+                    <span><span class="tool-hub-label">APGAR Score</span><span class="tool-hub-desc" data-duty-desc="1- and 5-minute newborn scoring with criteria" data-study-desc="Lesson + quiz on components, timing, bands">1- and 5-minute newborn scoring with criteria</span></span>
+                    <span class="tool-hub-tag">Newborn</span>
+                </button>
+                <button type="button" class="tool-hub-card" style="--accent:#38bdf8;" onclick="openHubTool('gcs')">
+                    <span class="tool-hub-icon">GCS</span>
+                    <span><span class="tool-hub-label">Glasgow Coma Scale</span><span class="tool-hub-desc" data-duty-desc="Eye / Verbal / Motor with clinical wording" data-study-desc="Lesson + quiz on E/V/M and documentation">Eye / Verbal / Motor with clinical wording</span></span>
+                    <span class="tool-hub-tag">Neuro</span>
+                </button>
+                <button type="button" class="tool-hub-card" style="--accent:#2dd4bf;" onclick="openHubTool('braden')">
+                    <span class="tool-hub-icon">BRD</span>
+                    <span><span class="tool-hub-label">Braden Scale</span><span class="tool-hub-desc" data-duty-desc="Pressure injury risk with subscale meanings" data-study-desc="Lesson + quiz on risk scoring and prevention">Pressure injury risk with subscale meanings</span></span>
+                    <span class="tool-hub-tag">Skin</span>
+                </button>
+                <button type="button" class="tool-hub-card" style="--accent:#fb923c;" onclick="openHubTool('ron')">
+                    <span class="tool-hub-icon">TBSA</span>
+                    <span><span class="tool-hub-label">Rule of Nines</span><span class="tool-hub-desc" data-duty-desc="Tap-body burn TBSA estimate" data-study-desc="Lesson + quiz on adult map and pediatrics caution">Tap-body burn TBSA estimate</span></span>
+                    <span class="tool-hub-tag">Trauma</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="study-detail" class="study-detail hidden">
+            <div class="tools-detail-header">
+                <button type="button" class="tools-back-btn" onclick="backToToolsHub()">← All Study Topics</button>
+            </div>
+            <div class="study-classroom">
+                <div class="study-classroom-head">
+                    <h2 id="studyClassTitle">Study</h2>
+                    <p id="studyClassSubtitle">Instructor-style lesson and quiz</p>
+                </div>
+                <div class="study-classroom-tabs" role="tablist">
+                    <button type="button" class="study-tab-btn is-active" id="studyTabLesson" onclick="setStudyTab('lesson')">Lesson</button>
+                    <button type="button" class="study-tab-btn" id="studyTabQuiz" onclick="setStudyTab('quiz')">Quiz</button>
+                </div>
+                <div class="study-classroom-body">
+                    <div id="studyPanelLesson" class="study-panel is-active"></div>
+                    <div id="studyPanelQuiz" class="study-panel"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tools-detail" class="hidden">
+            <div class="tools-detail-header">
+                <button type="button" class="tools-back-btn" onclick="backToToolsHub()">← All Clinical Tools</button>
+                <div class="tools-detail-header-actions">
+                    <button type="button" class="tool-guide-btn" id="toolGuideBtn" onclick="openToolGuide()" aria-label="Open tool guide">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8M8 11h6"/></svg>
+                        Guide
+                    </button>
+                </div>
+            </div>
+            <div id="tool-panel-vitals" class="tool-panel">                <!-- VITAL SIGNS INPUT & ANALYSIS -->
+                <section id="vital-signs-section" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-white flex items-center">
+                            <svg width="1.3em" height="1.3em" viewBox="0 0 24 24" fill="currentColor" class="mr-3 text-red-500"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Vital Signs
+                        </h2>
+                        <span id="status-badge" class="px-4 py-2 bg-slate-700 rounded-full text-xs font-mono text-slate-400 font-bold">Enter Vitals</span>
+                    </div>
+                    
+                    <!-- Vital Signs Row -->
+                    <div class="grid grid-cols-2 gap-2 mb-4 pb-4 border-b border-slate-700">
+                        <div class="space-y-1">
+                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Systolic (mmHg)</label>
+                            <input type="number" id="sys" placeholder="120" min="0" max="300" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold text-cyan-400">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Diastolic (mmHg)</label>
+                            <input type="number" id="dia" placeholder="80" min="0" max="200" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold text-cyan-400">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Temp (°C)</label>
+                            <input type="number" id="temp" placeholder="37.0" min="35" max="42" step="0.1" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold text-cyan-400">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Pulse (BPM)</label>
+                            <input type="number" id="hr" placeholder="80" min="0" max="300" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold text-cyan-400">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Resp (Rate)</label>
+                            <input type="number" id="rr" placeholder="16" min="0" max="60" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold text-cyan-400">
+                        </div>
+                    </div>
+
+                    <!-- Patient Demographics Row -->
+                    <div class="grid grid-cols-2 gap-2 mb-4 pb-4 border-b border-slate-700">
+                        <div class="space-y-1">
+                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Age (years)</label>
+                            <input type="number" id="age" placeholder="30" min="0" max="120" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Pregnancies</label>
+                            <input type="number" id="pregnancies" placeholder="0" min="0" max="20" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Currently Pregnant</label>
+                            <select id="pregnant" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Known Conditions</label>
+                            <select id="conditions" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
+                                <option value="none">None</option>
+                                <option value="hypertension">Hypertension</option>
+                                <option value="diabetes">Diabetes</option>
+                                <option value="asthma">Asthma</option>
+                                <option value="copd">COPD</option>
+                                <option value="ckd">Chronic Kidney Disease</option>
+                                <option value="multiple">Multiple Conditions</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <!-- DIAGNOSIS BOX -->
+                    <div id="dx-box" class="p-6 bg-slate-900/70 rounded-xl border border-slate-700 min-h-[120px] flex items-center justify-center text-slate-500 italic text-center">
+                        <div class="flex flex-col items-center space-y-2">
+                            <svg class="inline text-3xl text-slate-600 opacity-50" width="1.3em" height="1.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3v18h18"/></svg>
+                            <p class="text-sm">Enter all vital signs to generate assessment and medication recommendations...</p>
+                        </div>
+                    </div>
+                    <div id="vitals-learn" class="np-learn" style="display:none;">
+                        <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="vitals-learn-meaning">—</span></div>
+                        <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="vitals-learn-how">Reference ranges adjusted for age, pregnancy, and comorbidity.</span></div>
+                    </div>
+
+                    <div class="mt-4" style="display:flex; flex-direction:column; gap:8px;">
+                        <button id="simulate-vitals-btn" onclick="simulateVitalSigns()" class="w-full py-3 rounded-xl font-bold uppercase tracking-wider transition-all" style="background:linear-gradient(135deg,#f97316,#ea580c); color:#fff; border:2px solid #fdba74; box-shadow:0 10px 20px rgba(194,65,12,0.45);">
+                            <svg class="inline mr-2" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H5a2 2 0 0 0-2 2v14l4-4h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-6 9H9V7h2v5zm4-2h-2V7h2v3z"/></svg> Analyze Vital Signs
+                        </button>
+                        <p id="vitals-record-status" class="text-xs text-slate-400 min-h-[18px]"></p>
+                    </div>
+                </section>
+
+            </div>
+            <div id="tool-panel-iv" class="tool-panel">
+                    <!-- IV FLOW RATE CALCULATOR -->
+                    <div id="iv-calc-section" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
+                        <h3 class="font-bold text-blue-400 mb-4 flex items-center text-lg">
+                            <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" class="mr-2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.32 0z"/></svg> IV Flow Rate Calculator
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase">Volume (mL)</label>
+                                    <input type="number" id="vol" placeholder="1000" min="0" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-blue-500 outline-none text-sm">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase">Time (Hours)</label>
+                                    <input type="number" id="hours" placeholder="8" min="0" step="0.5" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-blue-500 outline-none text-sm">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-bold text-slate-500 uppercase">Drop Factor (gtt/mL)</label>
+                                <select id="factor" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-blue-500">
+                                    <option value="10">Macro Drip (10 gtt/mL) - Blood/Colloids</option>
+                                    <option value="15">Macro Drip (15 gtt/mL) - Standard</option>
+                                    <option value="20">Macro Drip (20 gtt/mL) - Fast Flow</option>
+                                    <option value="60">Micro Drip (60 gtt/mL) - Pediatric/Medication</option>
+                                </select>
+                            </div>
+                            <div id="iv-calcs" class="space-y-3">
+                                <div class="bg-slate-700/30 p-3 rounded-lg border border-blue-500/30">
+                                    <p class="text-[10px] text-slate-400 uppercase">Flow Rate (mL/hr)</p>
+                                    <p id="mlhr" class="text-2xl font-mono font-bold text-blue-400">--</p>
+                                </div>
+                                <div class="bg-slate-700/30 p-3 rounded-lg border border-cyan-500/30">
+                                    <p class="text-[10px] text-slate-400 uppercase">Drop Rate (gtt/min)</p>
+                                    <p id="iv-result" class="text-2xl font-mono font-bold text-cyan-400">-- gtt/min</p>
+                                </div>
+                            </div>
+                            <div id="iv-learn" class="np-learn">
+                                <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="iv-learn-meaning">Enter volume, time, and drop factor to compute.</span></div>
+                                <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="iv-learn-how">mL/hr = V÷T · gtt/min = (mL/hr÷60)×DF</span></div>
+                            </div>
+                            <button onclick="calcIV()" class="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 py-3 rounded-xl font-bold transition-all shadow-lg shadow-blue-900/30">
+                                <svg class="inline mr-2" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm2 4a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2H6zm4 0a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2h-1zm4 0a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2h-1zm-8 4a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2H6zm0 4a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2H6z"/></svg> Calculate Drip Rate
+                            </button>
+                        </div>
+                    </div>
+
+            </div>
+            <div id="tool-panel-bmi" class="tool-panel">
+                    <!-- BMI & BODY METRICS -->
+                    <div id="bmi-calc-section" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
+                        <h3 class="font-bold text-emerald-400 mb-4 flex items-center text-lg">
+                            <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" class="mr-2"><path d="M13 6.3V5a2 2 0 1 0-4 0v1.3M4 14h16M5 9h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2z"/></svg> BMI & Body Metrics
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase">Weight (kg)</label>
+                                    <input type="number" id="weight" placeholder="70" min="0" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-emerald-500 outline-none text-sm">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase">Height (cm)</label>
+                                    <input type="number" id="height" placeholder="170" min="0" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-emerald-500 outline-none text-sm">
+                                </div>
+                            </div>
+                            <div id="bmi-results" class="space-y-3">
+                                <div class="bg-slate-700/30 p-3 rounded-lg border border-emerald-500/30">
+                                    <p class="text-[10px] text-slate-400 uppercase">BMI Score</p>
+                                    <p id="bmi-result" class="text-2xl font-mono font-bold text-emerald-400">--</p>
+                                    <p id="bmi-status" class="text-xs text-slate-400 mt-1">Category: --</p>
+                                </div>
+                            </div>
+                            <div id="bmi-learn" class="np-learn">
+                                <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="bmi-learn-meaning">Underweight &lt;18.5 · Normal 18.5–24.9 · Overweight 25–29.9 · Obese ≥30</span></div>
+                                <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="bmi-learn-how">BMI = kg ÷ m² (height converted from cm).</span></div>
+                            </div>
+                            <button onclick="calcBMI()" class="w-full bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 py-3 rounded-xl font-bold transition-all shadow-lg shadow-emerald-900/30">
+                                <svg class="inline mr-2" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm2 4a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2H6zm4 0a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2h-1zm4 0a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2h-1zm-8 4a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2H6zm0 4a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2H6z"/></svg> Calculate BMI
+                            </button>
+                        </div>
+                    </div>
+
+            </div>
+            <div id="tool-panel-aog" class="tool-panel">
+                <!-- AOG & EDD CALCULATOR SECTION -->
+                <div id="aog-edd-section" class="mt-6 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
+                    <h3 class="font-bold text-pink-400 mb-4 flex items-center text-lg">
+                        <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor" class="mr-2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg> AOG & EDD Calculator
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Input Section -->
+                        <div class="space-y-4">
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-bold text-slate-500 uppercase">Last Menstrual Period (LMP)</label>
+                                <input type="date" id="lmp-date" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-pink-500 outline-none text-sm text-slate-200" style="color-scheme: dark;">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-bold text-slate-500 uppercase">Calculation Date</label>
+                                <input type="date" id="calc-date" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-pink-500 outline-none text-sm text-slate-200" style="color-scheme: dark;">
+                            </div>
+                            <button onclick="calcAOGEDD()" class="w-full py-3 rounded-xl font-bold transition-all" style="background:linear-gradient(135deg,#f43f5e,#e11d48); color:#fff; border:2px solid #fda4af; box-shadow:0 10px 20px rgba(190,24,93,0.35);">
+                                <svg class="inline mr-2" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg> Calculate AOG & EDD
+                            </button>
+                            <div class="bg-slate-700/20 p-3 rounded-lg border border-slate-600 text-[11px] text-slate-400">
+                                <p class="font-bold text-slate-300 mb-1">📋 Naegele's Rule:</p>
+                                <p>EDD = LMP + 7 days − 3 months + 1 year</p>
+                                <p class="mt-1 text-[10px]">Assumes 28-day cycle with ovulation on day 14. Full term: 37-42 weeks.</p>
+                            </div>
+                        </div>
+                        <!-- Results Section -->
+                        <div class="space-y-3">
+                            <div class="bg-slate-700/30 p-4 rounded-lg border border-pink-500/30">
+                                <p class="text-[10px] text-slate-400 uppercase">Age of Gestation (AOG)</p>
+                                <p id="aog-result" class="text-2xl font-mono font-bold text-pink-400">-- weeks, -- days</p>
+                                <p id="aog-days" class="text-xs text-slate-500 mt-1">Total: -- days</p>
+                            </div>
+                            <div class="bg-slate-700/30 p-4 rounded-lg border border-purple-500/30">
+                                <p class="text-[10px] text-slate-400 uppercase">Estimated Date of Delivery (EDD)</p>
+                                <p id="edd-result" class="text-2xl font-mono font-bold text-purple-400">--</p>
+                                <p id="edd-remaining" class="text-xs text-slate-500 mt-1">-- days remaining</p>
+                            </div>
+                            <div class="bg-slate-700/30 p-3 rounded-lg border border-cyan-500/30">
+                                <p class="text-[10px] text-slate-400 uppercase">Current Trimester</p>
+                                <p id="trimester-result" class="text-lg font-bold text-cyan-400">--</p>
+                                <p id="trimester-info" class="text-xs text-slate-500 mt-1">--</p>
+                            </div>
+                            <div id="pregnancy-milestones" class="bg-slate-900/50 p-3 rounded-lg border border-slate-700 hidden">
+                                <p class="text-[10px] text-slate-400 uppercase mb-2">Key Milestones</p>
+                                <div id="milestones-list" class="text-xs text-slate-300 space-y-1"></div>
+                            </div>
+                            <div id="aog-learn" class="np-learn">
+                                <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="aog-learn-meaning">AOG from LMP; EDD ≈ LMP + 280 days (Naegele).</span></div>
+                                <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="aog-learn-how">EDD = LMP + 7 days − 3 months + 1 year (28-day cycle assumption).</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="tool-panel-peds" class="tool-panel">
+
+                <!-- Pediatric Dosing -->
+                <div id="peds-dose-section" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
+                    <h3 class="font-bold text-violet-400 mb-4 text-lg">Pediatric Dosing Calculator</h3>
+                    <p class="text-xs text-slate-400 mb-4">Weight-based mg/kg (clinical standard) plus Clark's and Young's Rules for NLE-style reference.</p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-3">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div><label class="text-[10px] font-bold text-slate-500 uppercase">Weight (kg)</label><input type="number" id="peds-weight" min="0" step="0.1" placeholder="12" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
+                                <div><label class="text-[10px] font-bold text-slate-500 uppercase">Age (years)</label><input type="number" id="peds-age" min="0" step="0.1" placeholder="3" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
+                                <div><label class="text-[10px] font-bold text-slate-500 uppercase">Dose (mg/kg)</label><input type="number" id="peds-mgkg" min="0" step="0.1" placeholder="15" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
+                                <div><label class="text-[10px] font-bold text-slate-500 uppercase">Adult dose (mg)</label><input type="number" id="peds-adult" min="0" step="1" placeholder="500" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
+                                <div class="col-span-2"><label class="text-[10px] font-bold text-slate-500 uppercase">Max single dose (mg, optional)</label><input type="number" id="peds-max" min="0" step="1" placeholder="1000" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
+                            </div>
+                            <button type="button" onclick="calcPediatricDose()" class="w-full py-3 rounded-xl font-bold" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;">Calculate Pediatric Dose</button>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="bg-slate-700/30 p-3 rounded-lg border border-violet-500/30"><p class="text-[10px] text-slate-400 uppercase">Weight-based (mg/kg)</p><p id="peds-weight-result" class="text-2xl font-mono font-bold text-violet-300">--</p></div>
+                            <div class="bg-slate-700/30 p-3 rounded-lg border border-fuchsia-500/30"><p class="text-[10px] text-slate-400 uppercase">Clark's Rule</p><p id="peds-clarks-result" class="text-xl font-mono font-bold text-fuchsia-300">--</p></div>
+                            <div class="bg-slate-700/30 p-3 rounded-lg border border-pink-500/30"><p class="text-[10px] text-slate-400 uppercase">Young's Rule</p><p id="peds-youngs-result" class="text-xl font-mono font-bold text-pink-300">--</p></div>
+                            <p id="peds-notes" class="text-[11px] text-amber-400">Educational reference only. Verify with CI and monograph.</p>
+                            <div id="peds-learn" class="np-learn">
+                                <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="peds-learn-meaning">mg/kg = clinical standard; Clark/Young = classic exam formulas.</span></div>
+                                <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="peds-learn-how">mg/kg = wt×dose · Clark = (lb/150)×adult · Young = [age/(age+12)]×adult</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+            <div id="tool-panel-apgar" class="tool-panel">
+                <div id="apgar-section" class="learn-shell scroll-mt-20" style="--accent:#fb7185;">
+                    <div class="learn-title" style="color:#fda4af;">APGAR Score</div>
+                    <p class="learn-sub">Tap the clinical finding that matches what you observe. Each option explains what 0, 1, or 2 means, and the total updates as you go.</p>
+                    <div id="apgar-inputs"></div>
+                    <div class="score-result">
+                        <div class="score-result-label">APGAR total</div>
+                        <div id="apgar-total" class="score-result-value" style="color:#fda4af;">--</div>
+                        <div id="apgar-interp" class="score-result-interp">Select all five domains to score.</div>
+                        <div class="np-learn" style="margin-top:10px;">
+                            <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="apgar-learn-meaning">0–3 depressed · 4–6 moderate · 7–10 reassuring</span></div>
+                            <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="apgar-learn-how">Sum of Appearance + Pulse + Grimace + Activity + Respiration (each 0–2).</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="tool-panel-gcs" class="tool-panel">
+                <div id="gcs-section" class="learn-shell scroll-mt-20" style="--accent:#38bdf8;">
+                    <div class="learn-title" style="color:#7dd3fc;">Glasgow Coma Scale</div>
+                    <p class="learn-sub">Pick the best eye, verbal, and motor response. Report as E_V_M (example: E4V5M6 = 15).</p>
+                    <div class="gcs-live-row">
+                        <span class="gcs-chip" id="gcs-chip-eye">E—</span>
+                        <span class="gcs-chip" id="gcs-chip-verbal">V—</span>
+                        <span class="gcs-chip" id="gcs-chip-motor">M—</span>
+                    </div>
+                    <div id="gcs-inputs"></div>
+                    <div class="score-result">
+                        <div class="score-result-label">GCS total</div>
+                        <div id="gcs-total" class="score-result-value" style="color:#7dd3fc;">--</div>
+                        <div id="gcs-severity" class="score-result-interp">Select Eye, Verbal, and Motor.</div>
+                        <div class="np-learn" style="margin-top:10px;">
+                            <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="gcs-learn-meaning">Mild 13–15 · Moderate 9–12 · Severe ≤8</span></div>
+                            <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="gcs-learn-how">Total = E + V + M. Always report components, not only the sum.</span></div>
+                            <div class="np-learn-row"><span class="np-learn-k">Attention</span><span class="np-learn-v" id="gcs-learn-attention">Score Eye, Verbal, and Motor for a watch/report cue. Soft guidance only; confirm with your Clinical Instructor.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="tool-panel-braden" class="tool-panel">
+                <div id="braden-section" class="learn-shell scroll-mt-20" style="--accent:#2dd4bf;">
+                    <div class="learn-title" style="color:#5eead4;">Braden Scale</div>
+                    <p class="learn-sub">A lower total means higher pressure-injury risk, on a scale of 6 to 23. Tap the wording that matches the patient and each choice explains the subscale.</p>
+                    <div id="braden-inputs"></div>
+                    <div class="score-result">
+                        <div class="score-result-label">Braden total</div>
+                        <div id="braden-total" class="score-result-value" style="color:#5eead4;">--</div>
+                        <div id="braden-risk" class="score-result-interp">Score all six subscales.</div>
+                        <div class="np-learn" style="margin-top:10px;">
+                            <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="braden-learn-meaning">Lower total = higher pressure-injury risk (6–23).</span></div>
+                            <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="braden-learn-how">Sum of Sensory, Moisture, Activity, Mobility, Nutrition, Friction/Shear.</span></div>
+                            <div class="np-learn-row"><span class="np-learn-k">Attention</span><span class="np-learn-v" id="braden-learn-attention">Score all six subscales for risk-band and prevention-focus cues. Soft guidance only; confirm with your Clinical Instructor.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="tool-panel-ron" class="tool-panel">
+                <div id="ron-section" class="learn-shell scroll-mt-20" style="--accent:#fb923c;">
+                    <div class="learn-title" style="color:#fdba74;">Rule of Nines</div>
+                    <p class="learn-sub">Tap a body region to cycle Off, Half, then Full. Uses adult proportions for the TBSA estimate.</p>
+                    <div id="ron-grid" class="ron-body-grid mb-4"></div>
+                    <div class="score-result">
+                        <div class="score-result-label">Estimated TBSA</div>
+                        <div id="ron-tbsa" class="score-result-value" style="color:#fdba74;">0%</div>
+                        <div id="ron-note" class="score-result-interp">Tap body regions above</div>
+                        <div id="ron-breakdown" class="text-xs text-slate-400 mt-2"></div>
+                        <div class="np-learn" style="margin-top:10px;">
+                            <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="ron-learn-meaning">Adult Rule of Nines TBSA estimate for teaching.</span></div>
+                            <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="ron-learn-how">Head 9 · Arm 9 each · Trunk 18 front/back · Leg 18 each · Perineum 1 (half = ½ region).</span></div>
+                        </div>
+                        <button type="button" onclick="resetRuleOfNines()" class="w-full mt-3 py-3 rounded-xl font-bold bg-slate-800 text-slate-100 border border-slate-600">Reset Regions</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div> <!-- End content-tools -->
+    </div>
+
+        <!-- ============ OTC MEDICINES TAB CONTENT ============ -->
+        <div id="content-otc" class="tab-content hidden">
+            <div class="otc-hub">
+                <div class="tools-hub-mode-row">
+                    <div class="tools-hub-hero">
+                        <h2>OTC Medicines</h2>
+                        <p>Search Philippine brands, generics, or symptoms. A pocket reference for duty and study, so confirm anything that affects care with your CI.</p>
+                    </div>
+                </div>
+                <div class="otc-search-wrap">
+                    <input id="otc-search" type="search" class="otc-search-input" placeholder="Search medicine, brand, or symptom (typo-tolerant)..." autocomplete="off" />
+                </div>
+                <div class="otc-layout">
+                    <div id="otc-list-container">
+                        <div id="otc-list" class="otc-list"></div>
+                    </div>
+                    <div id="otc-detail-container" class="otc-detail-shell hidden md:block">
+                        <button id="otc-back-btn" type="button" class="otc-back-btn" onclick="hideOTCDetail()">← Back to list</button>
+                        <div id="otc-detail" class="otc-detail-panel">
+                            <p class="otc-detail-placeholder">Select a medicine to view the duty quick take and study details.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End content-otc -->
+
+    <footer class="mt-12 py-6 text-center text-slate-500 border-t border-slate-800">
+        <p class="text-xs">NursePath is a learning companion for nursing students. Always verify with your Clinical Instructor and approved references. Usage metadata may be logged with consent.</p>
+    </footer>
+    </div>
+
+    <script src="js/script-4.js"></script>
+
+    <!-- Service Worker: duplicate register kept for debug logging after auth boot -->
+    <script src="js/script-5.js"></script>
+
+        </main>
+    </div>
+    </div>
+</body>
+</html>
