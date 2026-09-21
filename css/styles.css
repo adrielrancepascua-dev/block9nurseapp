@@ -232,19 +232,56 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             overflow: hidden;
             transition: width 180ms ease, box-shadow 180ms ease;
         }
-        .np-sidebar:hover,
-        .np-sidebar:focus-within {
+        .np-sidebar.is-open {
             width: var(--np-sidebar-expanded);
             box-shadow: 24px 0 42px rgba(2, 6, 23, 0.48);
         }
+        @media (hover: hover) and (pointer: fine) {
+            html:not(.np-touch) .np-sidebar:hover,
+            html:not(.np-touch) .np-sidebar:focus-within {
+                width: var(--np-sidebar-expanded);
+                box-shadow: 24px 0 42px rgba(2, 6, 23, 0.48);
+            }
+        }
+        html.np-touch .np-sidebar:hover,
+        html.np-touch .np-sidebar:focus-within {
+            width: var(--np-sidebar-collapsed);
+            box-shadow: 16px 0 34px rgba(2, 6, 23, 0.28);
+        }
+        html.np-touch .np-sidebar.is-open,
+        html.np-touch .np-sidebar.is-open:hover,
+        html.np-touch .np-sidebar.is-open:focus-within {
+            width: var(--np-sidebar-expanded);
+            box-shadow: 24px 0 42px rgba(2, 6, 23, 0.48);
+        }
+        .np-sidebar-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 70;
+            border: 0;
+            padding: 0;
+            margin: 0;
+            background: rgba(2, 6, 23, 0.55);
+            cursor: pointer;
+        }
+        .np-sidebar.is-open + .np-sidebar-backdrop {
+            display: block;
+        }
         .np-sidebar-toggle {
+            appearance: none;
+            -webkit-appearance: none;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
             width: 40px;
-            height: 32px;
+            height: 40px;
             display: grid;
             align-content: center;
             gap: 6px;
             margin: 0 auto 8px;
             flex-shrink: 0;
+            padding: 4px;
         }
         .np-sidebar-toggle span {
             display: block;
@@ -283,15 +320,47 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             height: 18px;
             flex: 0 0 18px;
         }
-        .np-sidebar-link > span:not(.np-placeholder-icon) {
+        .np-sidebar-link > span:not(.np-placeholder-icon),
+        .np-action-label {
             opacity: 0;
+            visibility: hidden;
             transform: translateX(-4px);
-            transition: opacity 160ms ease, transform 160ms ease;
+            pointer-events: none;
+            transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease;
         }
-        .np-sidebar:hover .np-sidebar-link > span:not(.np-placeholder-icon),
-        .np-sidebar:focus-within .np-sidebar-link > span:not(.np-placeholder-icon) {
+        .np-sidebar.is-open .np-sidebar-link > span:not(.np-placeholder-icon),
+        .np-sidebar.is-open .np-action-label {
             opacity: 1;
+            visibility: visible;
             transform: translateX(0);
+            pointer-events: auto;
+        }
+        @media (hover: hover) and (pointer: fine) {
+            html:not(.np-touch) .np-sidebar:hover .np-sidebar-link > span:not(.np-placeholder-icon),
+            html:not(.np-touch) .np-sidebar:focus-within .np-sidebar-link > span:not(.np-placeholder-icon),
+            html:not(.np-touch) .np-sidebar:hover .np-action-label,
+            html:not(.np-touch) .np-sidebar:focus-within .np-action-label {
+                opacity: 1;
+                visibility: visible;
+                transform: translateX(0);
+                pointer-events: auto;
+            }
+        }
+        html.np-touch .np-sidebar:hover .np-sidebar-link > span:not(.np-placeholder-icon),
+        html.np-touch .np-sidebar:focus-within .np-sidebar-link > span:not(.np-placeholder-icon),
+        html.np-touch .np-sidebar:hover .np-action-label,
+        html.np-touch .np-sidebar:focus-within .np-action-label {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-4px);
+            pointer-events: none;
+        }
+        html.np-touch .np-sidebar.is-open .np-sidebar-link > span:not(.np-placeholder-icon),
+        html.np-touch .np-sidebar.is-open .np-action-label {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+            pointer-events: auto;
         }
         .np-sidebar-placeholder {
             color: #64748b;
@@ -310,36 +379,37 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             grid-template-columns: 1fr;
             gap: 8px;
         }
-        .np-sidebar:hover .np-sidebar-actions,
-        .np-sidebar:focus-within .np-sidebar-actions {
-            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-        }
-        .np-theme-toggle-btn {
-            grid-column: 1 / -1;
+        .np-action-btn {
+            width: 100%;
             min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
             padding: 10px 12px;
             border-radius: 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 12px;
+            font-weight: 800;
+            text-align: left;
+        }
+        .np-action-icon {
+            width: 18px;
+            height: 18px;
+            flex: 0 0 18px;
+        }
+        .np-theme-toggle-btn {
             border: 1px solid rgba(34, 211, 238, 0.32);
             background: rgba(8, 47, 73, 0.88);
             color: #cffafe;
-            font-size: 12px;
             font-weight: 900;
-            overflow: hidden;
-            white-space: nowrap;
         }
         .np-switch-account-btn,
         .np-logout-btn {
-            min-height: 44px;
-            padding: 10px 12px;
-            border-radius: 10px;
             border: 1px solid rgba(62, 39, 39, 0.9);
             background: rgba(75, 89, 111, 0.92);
             color: #e2e8f0;
-            font-size: 12px;
-            font-weight: 800;
-            overflow: hidden;
-            text-overflow: clip;
-            white-space: nowrap;
         }
         .np-switch-account-btn {
             color: #94a3b8;
@@ -432,9 +502,13 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
                 padding-left: 8px !important;
                 padding-right: 8px !important;
             }
-            .np-sidebar:hover .np-sidebar-actions,
-            .np-sidebar:focus-within .np-sidebar-actions {
+            .np-sidebar-actions {
                 grid-template-columns: 1fr;
+            }
+            .np-action-btn {
+                min-height: 42px;
+                padding: 9px;
+                gap: 9px;
             }
             .np-header-lockup {
                 gap: 8px;
@@ -1857,10 +1931,9 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             .np-sidebar button {
                 min-height: 42px !important;
                 padding: 9px !important;
-                font-size: 12px !important;
             }
-            .np-sidebar:hover .np-sidebar-actions button,
-            .np-sidebar:focus-within .np-sidebar-actions button {
+            .np-sidebar.is-open .np-action-btn,
+            html:not(.np-touch) .np-sidebar:hover .np-action-btn {
                 padding: 10px 12px !important;
             }
         }
