@@ -203,7 +203,7 @@
     const parts = [];
     if (item.specimen) parts.push('Specimen: ' + item.specimen);
     if (item.notes) parts.push(item.notes);
-    return parts.join(' ');
+    return parts.join('. ');
   }
 
   function labBlock(kind, title, body) {
@@ -235,6 +235,8 @@
     `;
     window.__nursepathSelectedLab = item;
 
+    const hub = document.querySelector('.lab-hub');
+    if (hub) hub.classList.add('is-detail');
     document.querySelectorAll('.lab-row').forEach((el) => {
       el.classList.toggle('is-active', Boolean(item.id) && el.dataset.labId === String(item.id));
     });
@@ -271,6 +273,8 @@
     }
 
     window.__nursepathSelectedLab = null;
+    const hub = document.querySelector('.lab-hub');
+    if (hub) hub.classList.remove('is-detail');
     document.querySelectorAll('.lab-row.is-active').forEach((el) => el.classList.remove('is-active'));
 
     const trackUsageSafe = getTrackUsageSafe();
