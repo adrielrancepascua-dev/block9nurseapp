@@ -219,7 +219,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         }
         .np-sidebar {
             position: fixed;
-            inset: 25px auto 0 0;
+            inset: 32px auto 0 0;
             z-index: 80;
             width: var(--np-sidebar-collapsed);
             display: flex;
@@ -331,9 +331,17 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         .np-sidebar-link svg,
         .np-action-icon,
         .np-placeholder-icon {
-            width: 20px;
-            height: 20px;
-            flex: 0 0 20px;
+            width: 20px !important;
+            height: 20px !important;
+            flex: 0 0 20px !important;
+            display: block;
+        }
+        .np-sidebar-toggle,
+        .np-sidebar-link,
+        .np-action-btn {
+            padding: 0 !important;
+            min-width: 42px !important;
+            min-height: 42px !important;
         }
         .np-sidebar-link > span:not(.np-placeholder-icon),
         .np-action-label {
@@ -351,11 +359,12 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         .np-sidebar.is-open .np-action-btn {
             width: 100%;
             height: auto;
-            min-height: 48px;
+            min-height: 48px !important;
+            min-width: 0 !important;
             margin: 0;
             justify-content: flex-start;
             gap: 12px;
-            padding: 11px 12px;
+            padding: 11px 12px !important;
         }
         .np-sidebar.is-open .np-sidebar-link > span:not(.np-placeholder-icon),
         .np-sidebar.is-open .np-action-label {
@@ -374,11 +383,12 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             html:not(.np-touch) .np-sidebar:focus-within .np-action-btn {
                 width: 100%;
                 height: auto;
-                min-height: 48px;
+                min-height: 48px !important;
+                min-width: 0 !important;
                 margin: 0;
                 justify-content: flex-start;
                 gap: 12px;
-                padding: 11px 12px;
+                padding: 11px 12px !important;
             }
             html:not(.np-touch) .np-sidebar:hover .np-sidebar-link > span:not(.np-placeholder-icon),
             html:not(.np-touch) .np-sidebar:focus-within .np-sidebar-link > span:not(.np-placeholder-icon),
@@ -420,6 +430,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             width: 42px !important;
             height: 42px !important;
             min-height: 42px !important;
+            min-width: 42px !important;
             margin: 0 auto !important;
             justify-content: center !important;
             gap: 0 !important;
@@ -487,7 +498,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             min-width: 0;
             min-height: 100vh;
             margin-left: var(--np-sidebar-collapsed);
-            padding-top: 25px;
+            padding-top: 32px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -498,9 +509,10 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             top: 0;
             left: 0;
             right: 0;
-            z-index: 60;
-            min-height: 25px;
-            padding: 6px 16px;
+            z-index: 90;
+            height: 32px;
+            min-height: 32px;
+            padding: 0 12px;
             border-bottom: 1px solid rgba(51, 65, 85, 0.85);
             background: rgba(15, 23, 42, 0.96);
             box-shadow: 0 10px 24px rgba(2, 6, 23, 0.24);
@@ -510,6 +522,10 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             font-weight: 900;
             letter-spacing: 0.1em;
             text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 32px;
         }
         .np-content {
             width: min(100%, 1180px);
@@ -581,19 +597,20 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             .np-sidebar.is-open .np-action-btn {
                 width: 100%;
                 height: auto;
-                min-height: 44px;
-                padding: 10px 12px;
+                min-height: 44px !important;
+                min-width: 0 !important;
+                padding: 10px 12px !important;
                 gap: 10px;
             }
             .np-main {
                 margin-left: var(--np-sidebar-collapsed);
             }
             .np-top-banner {
-                padding: 5px 8px;
+                padding: 0 8px;
                 font-size: 8px;
-                letter-spacing: 0.07em;
-                line-height: 1.25;
-                white-space: normal;
+                letter-spacing: 0.06em;
+                line-height: 32px;
+                white-space: nowrap;
             }
             .np-content {
                 width: 100%;
@@ -1854,7 +1871,8 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             to { opacity: 1; transform: translateY(0); }
         }
         /* Ensure tappable elements are at least 44x44px */
-        button, a.btn, select, input[type="submit"], input[type="button"], input[type="number"], input[type="text"], input[type="date"] {
+        button:not(.np-sidebar-toggle):not(.np-sidebar-link):not(.np-action-btn):not(.np-sidebar-backdrop),
+        a.btn, select, input[type="submit"], input[type="button"], input[type="number"], input[type="text"], input[type="date"] {
             min-height: 44px;
             min-width: 44px;
             padding: 12px !important;
@@ -1903,7 +1921,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             h3, .text-xl, .text-lg { font-size: 1rem !important; }
 
             /* Generic button sizing must not fight component buttons */
-            button:not(.tool-hub-card):not(.otc-med-card):not(.study-tab-btn):not(.study-quiz-choice):not(.score-option):not(.tool-guide-close):not(.ron-region):not(.tool-hub-tag) {
+            button:not(.tool-hub-card):not(.otc-med-card):not(.study-tab-btn):not(.study-quiz-choice):not(.score-option):not(.tool-guide-close):not(.ron-region):not(.tool-hub-tag):not(.np-sidebar-toggle):not(.np-sidebar-link):not(.np-action-btn):not(.np-sidebar-backdrop) {
                 padding: 12px 16px !important;
                 font-size: 14px !important;
                 min-height: 48px !important;
