@@ -1837,7 +1837,8 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
         .lab-search-input:focus {
-            border-color: #34d399;
+            outline: none !important;
+            border-color: #34d399 !important;
             box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.16);
         }
         .lab-search-input::placeholder { color: #64748b; }

@@ -175,7 +175,7 @@
         const pa = PANEL_ORDER.indexOf(a.item.panel);
         const pb = PANEL_ORDER.indexOf(b.item.panel);
         if (pa !== pb) return pa - pb;
-        return a.item.name.localeCompare(b.item.name);
+        return labDatabase.indexOf(a.item) - labDatabase.indexOf(b.item);
       });
     }
     return rows.map((r) => r.item);
