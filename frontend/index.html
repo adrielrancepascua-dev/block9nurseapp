@@ -31,8 +31,9 @@
     <script src="/assets/clinical-calculators.js"></script>
     <script src="/assets/tool-content.js"></script>
     <script src="/assets/study-drills.js"></script>
+    <script src="/assets/lab-values.js"></script>
     <script src="/js/script-2.js"></script>
-    <!-- OFFLINE-FIRST: Inlined CSS (no CDN) -->
+    <!-- Styles live in /css/styles.css for the split frontend -->
     
     
 </head>
@@ -135,10 +136,11 @@
                     <span>OTC Medicines</span>
                 </button>
 
-                <button type="button" class="np-sidebar-link np-sidebar-placeholder" disabled>
-                    <svg class="np-action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/></svg>
-                    <span>Coming soon</span>
+                <button onclick="switchMainTab('labs')" id="tab-labs" class="tab-btn np-sidebar-link bg-slate-800 hover:bg-emerald-900/50 border-slate-700 hover:border-emerald-500/50 text-slate-300 hover:text-emerald-400 transition-all">
+                    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" class="text-emerald-400" aria-hidden="true"><path d="M10 2h4v3h-1v5.2l6.2 10.3A2 2 0 0 1 17.4 23H6.6a2 2 0 0 1-1.8-2.5L11 10.2V5h-1V2z"/></svg>
+                    <span>Lab Ranges</span>
                 </button>
+
                 <button type="button" class="np-sidebar-link np-sidebar-placeholder" disabled>
                     <svg class="np-action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/></svg>
                     <span>Coming soon</span>
@@ -173,7 +175,7 @@
                 <img class="np-header-mark" src="/assets/icons/icon-192.png" alt="" width="52" height="52">
                 <h1 class="np-header-word">NursePath</h1>
             </div>
-            <p class="text-slate-400 text-xs sm:text-sm">Duty tools, OTC reference, and study practice. Works offline.</p>
+            <p class="text-slate-400 text-xs sm:text-sm">Duty tools, OTC reference, lab ranges, and study practice. Works offline.</p>
         </header>
 
         <!-- ============ TOOLS TAB CONTENT ============ -->
@@ -645,6 +647,33 @@
                 </div>
             </div>
         </div> <!-- End content-otc -->
+
+        <!-- ============ LAB RANGES TAB CONTENT ============ -->
+        <div id="content-labs" class="tab-content hidden">
+            <div class="lab-hub">
+                <div class="tools-hub-mode-row">
+                    <div class="tools-hub-hero">
+                        <h2>Lab Ranges</h2>
+                        <p>Adult pocket ranges for common ward labs. Search a test, abbreviation, or clue. The printed slip and your CI always win.</p>
+                    </div>
+                </div>
+                <div class="lab-search-wrap">
+                    <input id="lab-search" type="search" class="lab-search-input" placeholder="Search test, abbreviation, or clue (K, INR, hyponatremia)..." autocomplete="off" />
+                </div>
+                <div id="lab-chips" class="lab-chips" role="tablist" aria-label="Lab panels"></div>
+                <div class="lab-layout">
+                    <div id="lab-list-container">
+                        <div id="lab-list" class="lab-list"></div>
+                    </div>
+                    <div id="lab-detail-container" class="lab-detail-shell hidden md:block">
+                        <button id="lab-back-btn" type="button" class="lab-back-btn" onclick="hideLabDetail()">← Back to list</button>
+                        <div id="lab-detail" class="lab-detail-panel">
+                            <p class="lab-detail-placeholder">Select a test to see the adult range, high/low clues, and nursing checks.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End content-labs -->
 
     <footer class="mt-12 py-6 text-center text-slate-500 border-t border-slate-800">
         <p class="text-xs">NursePath is a learning companion for nursing students. Always verify with your Clinical Instructor and approved references. Usage metadata may be logged with consent.</p>

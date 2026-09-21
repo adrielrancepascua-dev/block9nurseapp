@@ -604,12 +604,19 @@
             // Hide all tab contents
             document.getElementById('content-tools').classList.add('hidden');
             document.getElementById('content-otc').classList.add('hidden');
+            const contentLabs = document.getElementById('content-labs');
+            if (contentLabs) contentLabs.classList.add('hidden');
             
             // Remove active state from all tab buttons
             document.getElementById('tab-tools').classList.remove('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
             document.getElementById('tab-tools').classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
             document.getElementById('tab-otc').classList.remove('active', 'bg-amber-900/50', 'border-amber-500/50', 'text-amber-400');
             document.getElementById('tab-otc').classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            const tabLabs = document.getElementById('tab-labs');
+            if (tabLabs) {
+                tabLabs.classList.remove('active', 'text-emerald-400');
+                tabLabs.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
             
             // Show selected tab content and activate button
             if (tab === 'tools') {
@@ -627,6 +634,15 @@
                 otcVisibleCount = OTC_INCREMENT;
                 renderOTCList('');
                 if (!skipHistory) pushNursePathState({ view: 'otc', tab: 'otc' });
+            } else if (tab === 'labs') {
+                if (contentLabs) contentLabs.classList.remove('hidden');
+                if (tabLabs) {
+                    tabLabs.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                    tabLabs.classList.add('active', 'text-emerald-400');
+                }
+                if (typeof resetLabView === 'function') resetLabView();
+                else if (typeof initLabRanges === 'function') initLabRanges();
+                if (!skipHistory) pushNursePathState({ view: 'labs', tab: 'labs' });
             }
             
             // Scroll to top of content
@@ -659,6 +675,7 @@
                     cur.tab === next.tab &&
                     cur.toolId === next.toolId &&
                     cur.otcId === next.otcId &&
+                    cur.labId === next.labId &&
                     cur.overlay === next.overlay
                 ) {
                     return;
@@ -673,37 +690,66 @@
             } catch (e) { /* ignore */ }
         }
 
-        function ensureToolsTabVisible() {
-            const tools = document.getElementById('content-tools');
-            const otc = document.getElementById('content-otc');
-            if (tools) tools.classList.remove('hidden');
-            if (otc) otc.classList.add('hidden');
+        function clearMainTabButtons() {
             const tabTools = document.getElementById('tab-tools');
             const tabOtc = document.getElementById('tab-otc');
+            const tabLabs = document.getElementById('tab-labs');
             if (tabTools) {
-                tabTools.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
-                tabTools.classList.add('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
+                tabTools.classList.remove('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
+                tabTools.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
             }
             if (tabOtc) {
                 tabOtc.classList.remove('active', 'bg-amber-900/50', 'border-amber-500/50', 'text-amber-400');
                 tabOtc.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
             }
+            if (tabLabs) {
+                tabLabs.classList.remove('active', 'text-emerald-400');
+                tabLabs.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
+        }
+
+        function hideAllMainTabs() {
+            const tools = document.getElementById('content-tools');
+            const otc = document.getElementById('content-otc');
+            const labs = document.getElementById('content-labs');
+            if (tools) tools.classList.add('hidden');
+            if (otc) otc.classList.add('hidden');
+            if (labs) labs.classList.add('hidden');
+        }
+
+        function ensureToolsTabVisible() {
+            hideAllMainTabs();
+            clearMainTabButtons();
+            const tools = document.getElementById('content-tools');
+            const tabTools = document.getElementById('tab-tools');
+            if (tools) tools.classList.remove('hidden');
+            if (tabTools) {
+                tabTools.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                tabTools.classList.add('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
+            }
         }
 
         function ensureOtcTabVisible() {
-            const tools = document.getElementById('content-tools');
+            hideAllMainTabs();
+            clearMainTabButtons();
             const otc = document.getElementById('content-otc');
-            if (otc) otc.classList.remove('hidden');
-            if (tools) tools.classList.add('hidden');
-            const tabTools = document.getElementById('tab-tools');
             const tabOtc = document.getElementById('tab-otc');
+            if (otc) otc.classList.remove('hidden');
             if (tabOtc) {
                 tabOtc.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
                 tabOtc.classList.add('active', 'bg-amber-900/50', 'border-amber-500/50', 'text-amber-400');
             }
-            if (tabTools) {
-                tabTools.classList.remove('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
-                tabTools.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+        }
+
+        function ensureLabsTabVisible() {
+            hideAllMainTabs();
+            clearMainTabButtons();
+            const labs = document.getElementById('content-labs');
+            const tabLabs = document.getElementById('tab-labs');
+            if (labs) labs.classList.remove('hidden');
+            if (tabLabs) {
+                tabLabs.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                tabLabs.classList.add('active', 'text-emerald-400');
             }
         }
 
@@ -1089,6 +1135,19 @@
                     }
                 }
                 if (typeof hideOTCDetail === 'function') hideOTCDetail({ skipHistory: true });
+                return;
+            }
+
+            if (state.view === 'labs' || state.view === 'labs-detail') {
+                ensureLabsTabVisible();
+                if (state.view === 'labs-detail' && state.labId && Array.isArray(window.labDatabase)) {
+                    const item = window.labDatabase.find((lab) => lab && lab.id === state.labId);
+                    if (item && typeof showLabDetail === 'function') {
+                        showLabDetail(item, { skipHistory: true });
+                        return;
+                    }
+                }
+                if (typeof hideLabDetail === 'function') hideLabDetail({ skipHistory: true });
                 return;
             }
 
@@ -2786,6 +2845,7 @@
                 return;
             }
             renderOTCList('');
+            if (typeof initLabRanges === 'function') initLabRanges();
             initVitalSignsLiveAnalysis();
             applyRoleVisibility();
             window.__nursepathAuthState.booted = true;
