@@ -606,6 +606,10 @@
             document.getElementById('content-otc').classList.add('hidden');
             const contentLabs = document.getElementById('content-labs');
             if (contentLabs) contentLabs.classList.add('hidden');
+            const contentAbbrev = document.getElementById('content-abbrev');
+            if (contentAbbrev) contentAbbrev.classList.add('hidden');
+            const contentSizes = document.getElementById('content-sizes');
+            if (contentSizes) contentSizes.classList.add('hidden');
             
             // Remove active state from all tab buttons
             document.getElementById('tab-tools').classList.remove('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
@@ -616,6 +620,16 @@
             if (tabLabs) {
                 tabLabs.classList.remove('active', 'text-emerald-400');
                 tabLabs.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
+            const tabAbbrev = document.getElementById('tab-abbrev');
+            if (tabAbbrev) {
+                tabAbbrev.classList.remove('active', 'text-violet-300');
+                tabAbbrev.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
+            const tabSizes = document.getElementById('tab-sizes');
+            if (tabSizes) {
+                tabSizes.classList.remove('active', 'text-sky-300');
+                tabSizes.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
             }
             
             // Show selected tab content and activate button
@@ -643,6 +657,24 @@
                 if (typeof resetLabView === 'function') resetLabView();
                 else if (typeof initLabRanges === 'function') initLabRanges();
                 if (!skipHistory) pushNursePathState({ view: 'labs', tab: 'labs' });
+            } else if (tab === 'abbrev') {
+                if (contentAbbrev) contentAbbrev.classList.remove('hidden');
+                if (tabAbbrev) {
+                    tabAbbrev.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                    tabAbbrev.classList.add('active', 'text-violet-300');
+                }
+                if (typeof resetAbbrevView === 'function') resetAbbrevView();
+                else if (typeof initAbbreviations === 'function') initAbbreviations();
+                if (!skipHistory) pushNursePathState({ view: 'abbrev', tab: 'abbrev' });
+            } else if (tab === 'sizes') {
+                if (contentSizes) contentSizes.classList.remove('hidden');
+                if (tabSizes) {
+                    tabSizes.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                    tabSizes.classList.add('active', 'text-sky-300');
+                }
+                if (typeof resetSizeView === 'function') resetSizeView();
+                else if (typeof initSizes === 'function') initSizes();
+                if (!skipHistory) pushNursePathState({ view: 'sizes', tab: 'sizes' });
             }
             
             // Scroll to top of content
@@ -676,6 +708,8 @@
                     cur.toolId === next.toolId &&
                     cur.otcId === next.otcId &&
                     cur.labId === next.labId &&
+                    cur.abbrevId === next.abbrevId &&
+                    cur.sizeId === next.sizeId &&
                     cur.overlay === next.overlay
                 ) {
                     return;
@@ -706,6 +740,16 @@
                 tabLabs.classList.remove('active', 'text-emerald-400');
                 tabLabs.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
             }
+            const tabAbbrev = document.getElementById('tab-abbrev');
+            const tabSizes = document.getElementById('tab-sizes');
+            if (tabAbbrev) {
+                tabAbbrev.classList.remove('active', 'text-violet-300');
+                tabAbbrev.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
+            if (tabSizes) {
+                tabSizes.classList.remove('active', 'text-sky-300');
+                tabSizes.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
         }
 
         function hideAllMainTabs() {
@@ -715,6 +759,10 @@
             if (tools) tools.classList.add('hidden');
             if (otc) otc.classList.add('hidden');
             if (labs) labs.classList.add('hidden');
+            const abbrev = document.getElementById('content-abbrev');
+            const sizes = document.getElementById('content-sizes');
+            if (abbrev) abbrev.classList.add('hidden');
+            if (sizes) sizes.classList.add('hidden');
         }
 
         function ensureToolsTabVisible() {
@@ -750,6 +798,30 @@
             if (tabLabs) {
                 tabLabs.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
                 tabLabs.classList.add('active', 'text-emerald-400');
+            }
+        }
+
+        function ensureAbbrevTabVisible() {
+            hideAllMainTabs();
+            clearMainTabButtons();
+            const pane = document.getElementById('content-abbrev');
+            const tab = document.getElementById('tab-abbrev');
+            if (pane) pane.classList.remove('hidden');
+            if (tab) {
+                tab.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                tab.classList.add('active', 'text-violet-300');
+            }
+        }
+
+        function ensureSizesTabVisible() {
+            hideAllMainTabs();
+            clearMainTabButtons();
+            const pane = document.getElementById('content-sizes');
+            const tab = document.getElementById('tab-sizes');
+            if (pane) pane.classList.remove('hidden');
+            if (tab) {
+                tab.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                tab.classList.add('active', 'text-sky-300');
             }
         }
 
@@ -1148,6 +1220,32 @@
                     }
                 }
                 if (typeof hideLabDetail === 'function') hideLabDetail({ skipHistory: true });
+                return;
+            }
+
+            if (state.view === 'abbrev' || state.view === 'abbrev-detail') {
+                ensureAbbrevTabVisible();
+                if (state.view === 'abbrev-detail' && state.abbrevId && Array.isArray(window.abbrevDatabase)) {
+                    const item = window.abbrevDatabase.find((row) => row && row.id === state.abbrevId);
+                    if (item && typeof showAbbrevDetail === 'function') {
+                        showAbbrevDetail(item, { skipHistory: true });
+                        return;
+                    }
+                }
+                if (typeof hideAbbrevDetail === 'function') hideAbbrevDetail({ skipHistory: true });
+                return;
+            }
+
+            if (state.view === 'sizes' || state.view === 'sizes-detail') {
+                ensureSizesTabVisible();
+                if (state.view === 'sizes-detail' && state.sizeId && Array.isArray(window.sizeDatabase)) {
+                    const item = window.sizeDatabase.find((row) => row && row.id === state.sizeId);
+                    if (item && typeof showSizeDetail === 'function') {
+                        showSizeDetail(item, { skipHistory: true });
+                        return;
+                    }
+                }
+                if (typeof hideSizeDetail === 'function') hideSizeDetail({ skipHistory: true });
                 return;
             }
 
@@ -2846,6 +2944,8 @@
             }
             renderOTCList('');
             if (typeof initLabRanges === 'function') initLabRanges();
+            if (typeof initAbbreviations === 'function') initAbbreviations();
+            if (typeof initSizes === 'function') initSizes();
             initVitalSignsLiveAnalysis();
             applyRoleVisibility();
             window.__nursepathAuthState.booted = true;
