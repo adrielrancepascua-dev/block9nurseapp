@@ -2592,6 +2592,22 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         .ab-empty, .sz-empty { padding: 16px 14px; }
         .ab-back, .sz-back { display: none; margin: 12px 12px 0; border-radius: 12px; border: 1px solid #475569; background: rgba(30, 41, 59, 0.9); color: #e2e8f0; font-weight: 700; cursor: pointer; font-family: var(--np-body); }
         @media (max-width: 767px) {
+            .ab-back, .sz-back {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 4px;
+                width: auto;
+                min-width: 0;
+                min-height: 32px;
+                margin: 10px 12px 0;
+                padding: 4px 10px !important;
+                border-radius: 999px;
+                border: 1px solid #334155;
+                background: transparent;
+                color: #94a3b8;
+                font-size: 12px !important;
+            }
             .ab-hub.is-detail .ab-search-wrap, .ab-hub.is-detail .ab-chips, .ab-hub.is-detail .tools-hub-hero,
             .sz-hub.is-detail .sz-search-wrap, .sz-hub.is-detail .sz-chips, .sz-hub.is-detail .tools-hub-hero { display: none; }
             .sz-row { grid-template-columns: 16px minmax(0, 1fr); }
