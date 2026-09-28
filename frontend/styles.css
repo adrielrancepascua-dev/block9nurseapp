@@ -3199,6 +3199,11 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             color: #0f172a !important;
             border-color: rgba(148, 163, 184, 0.55) !important;
         }
+        html[data-theme="light"] .np-settings-close {
+            background: #ffffff !important;
+            color: #0f172a !important;
+            border-color: rgba(100, 116, 139, 0.7) !important;
+        }
         html[data-theme="light"] .np-settings-row-label,
         html[data-theme="light"] .np-settings-head h2 {
             color: #0f172a !important;
