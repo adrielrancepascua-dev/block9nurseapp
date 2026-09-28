@@ -82,6 +82,14 @@
                 if (openBtn) {
                     openBtn.addEventListener('click', function () {
                         setSettingsOpen(true);
+                        if (typeof window.updateNpStatusMeta === 'function') {
+                            window.updateNpStatusMeta();
+                        } else {
+                            var onlineEl = document.getElementById('npOnlineStatus');
+                            if (onlineEl) {
+                                onlineEl.textContent = navigator.onLine ? 'Online' : 'Offline — cached copy in use';
+                            }
+                        }
                     });
                 }
                 if (closeBtn) {

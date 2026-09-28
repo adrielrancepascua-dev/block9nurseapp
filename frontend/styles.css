@@ -1014,15 +1014,15 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             margin-top: auto;
             display: inline-flex;
             align-self: flex-start;
-            font-size: 11px;
-            font-weight: 700;
+            font-size: 13.5px;
+            font-weight: 800;
             letter-spacing: 0.04em;
             text-transform: uppercase;
-            color: color-mix(in srgb, var(--accent) 88%, white);
-            background: color-mix(in srgb, var(--accent) 14%, transparent);
-            border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+            color: color-mix(in srgb, var(--accent) 92%, white);
+            background: color-mix(in srgb, var(--accent) 16%, transparent);
+            border: 1px solid color-mix(in srgb, var(--accent) 34%, transparent);
             border-radius: 8px;
-            padding: 4px 8px;
+            padding: 6px 12px;
             min-height: 0 !important;
             min-width: 0 !important;
         }
@@ -3054,7 +3054,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             }
             .np-main {
                 margin-left: 0 !important;
-                padding-bottom: calc(var(--np-tabbar-height) + env(safe-area-inset-bottom));
+                padding-bottom: 0 !important;
             }
             .np-content {
                 width: 100% !important;
@@ -3062,6 +3062,13 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
                 padding-left: 12px !important;
                 padding-right: 12px !important;
                 padding-top: 10px !important;
+                padding-bottom: calc(var(--np-tabbar-height) + env(safe-area-inset-bottom) + 28px) !important;
+            }
+            html.np-tool-active .np-page-header {
+                display: none !important;
+            }
+            html.np-vitals-open .np-content {
+                padding-bottom: calc(var(--np-tabbar-height) + env(safe-area-inset-bottom) + 88px) !important;
             }
             .np-settings-open {
                 display: inline-flex;
@@ -3118,8 +3125,12 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
                 z-index: 100;
                 height: calc(var(--np-tabbar-height) + env(safe-area-inset-bottom));
                 padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
-                border-top: 1px solid #1e293b;
-                background: rgba(15, 23, 42, 0.98);
+                border-top: 1px solid #64748b;
+                background: #0f172a !important;
+                opacity: 1 !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                box-shadow: 0 -8px 20px rgba(2, 6, 23, 0.55);
                 gap: 2px;
             }
             .np-tabbar-link {
@@ -3182,8 +3193,8 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             color: #334155 !important;
         }
         html[data-theme="light"] .np-tabbar {
-            background: rgba(255, 255, 255, 0.98) !important;
-            border-top-color: rgba(148, 163, 184, 0.45) !important;
+            background: #ffffff !important;
+            border-top-color: rgba(100, 116, 139, 0.55) !important;
         }
         html[data-theme="light"] .np-tabbar-link {
             color: #64748b !important;
@@ -3224,4 +3235,133 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         }
         html[data-theme="light"] .tool-hub-desc {
             color: #334155 !important;
+        }
+
+        /* Vital Signs duty form */
+        .vitals-title-badge {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            display: inline-grid;
+            place-items: center;
+            margin-right: 10px;
+            background: rgba(248, 113, 113, 0.16);
+            color: #f87171;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            flex-shrink: 0;
+        }
+        #vital-signs-section input[type="number"],
+        #vital-signs-section select {
+            color: #f8fafc !important;
+            -webkit-text-fill-color: #f8fafc;
+            font-weight: 700;
+            caret-color: #67e8f9;
+        }
+        #vital-signs-section input::placeholder {
+            color: #64748b !important;
+            -webkit-text-fill-color: #64748b;
+            font-weight: 500;
+            opacity: 1;
+        }
+        #vital-signs-section select:invalid,
+        #vital-signs-section select.np-empty {
+            color: #64748b !important;
+            -webkit-text-fill-color: #64748b;
+            font-weight: 500;
+        }
+        #status-badge {
+            background: rgba(34, 211, 238, 0.14) !important;
+            border: 1px solid rgba(34, 211, 238, 0.45) !important;
+            color: #67e8f9 !important;
+        }
+        #status-badge.is-result {
+            background: #0f172a !important;
+        }
+        .vitals-action-bar {
+            margin-top: 12px;
+        }
+        #simulate-vitals-btn {
+            background: #06b6d4 !important;
+            color: #082f49 !important;
+            border: 1px solid #67e8f9 !important;
+            box-shadow: none !important;
+            text-transform: none !important;
+            letter-spacing: 0.01em !important;
+            font-weight: 800 !important;
+        }
+        @media (max-width: 767px) {
+            html.np-vitals-open .vitals-action-bar {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: calc(var(--np-tabbar-height) + env(safe-area-inset-bottom));
+                z-index: 95;
+                margin: 0;
+                padding: 8px 12px;
+                background: #020617;
+                border-top: 1px solid #334155;
+            }
+            html.np-vitals-open #simulate-vitals-btn {
+                margin: 0;
+            }
+            #vital-signs-section {
+                padding: 14px !important;
+            }
+            #vital-signs-section h2 {
+                font-size: 1.15rem !important;
+            }
+        }
+        html[data-theme="light"] #vital-signs-section input[type="number"],
+        html[data-theme="light"] #vital-signs-section select {
+            color: #0f172a !important;
+            -webkit-text-fill-color: #0f172a;
+        }
+        html[data-theme="light"] #vital-signs-section input::placeholder {
+            color: #94a3b8 !important;
+            -webkit-text-fill-color: #94a3b8;
+        }
+        html[data-theme="light"] #vital-signs-section select:invalid,
+        html[data-theme="light"] #vital-signs-section select.np-empty {
+            color: #94a3b8 !important;
+            -webkit-text-fill-color: #94a3b8;
+        }
+        html[data-theme="light"] #status-badge {
+            background: rgba(8, 145, 178, 0.12) !important;
+            border-color: rgba(8, 145, 178, 0.4) !important;
+            color: #0e7490 !important;
+        }
+        html[data-theme="light"] #simulate-vitals-btn {
+            background: #0e7490 !important;
+            color: #ffffff !important;
+            border-color: #0891b2 !important;
+        }
+        html[data-theme="light"].np-vitals-open .vitals-action-bar {
+            background: #f8fafc !important;
+            border-top-color: rgba(148, 163, 184, 0.55) !important;
+        }
+        .np-status-meta {
+            margin: 0 0 10px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            background: #111827;
+            color: #cbd5e1;
+            font-size: 12.5px;
+            line-height: 1.4;
+        }
+        .np-status-meta strong {
+            display: block;
+            color: #f8fafc;
+            font-size: 13px;
+            margin-bottom: 2px;
+        }
+        html[data-theme="light"] .np-status-meta {
+            background: #ffffff !important;
+            border-color: rgba(148, 163, 184, 0.55) !important;
+            color: #475569 !important;
+        }
+        html[data-theme="light"] .np-status-meta strong {
+            color: #0f172a !important;
         }

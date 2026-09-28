@@ -322,7 +322,8 @@
                     <p class="text-sm text-slate-500">Enter all vital signs to generate the findings.</p>
                 </div>`;
                 badge.innerText = "Enter Vitals";
-                badge.className = "px-4 py-2 bg-slate-700 rounded-full text-xs font-mono text-slate-400 font-bold";
+                badge.className = "px-4 py-2 rounded-full text-xs font-mono font-bold";
+                badge.classList.remove('is-result');
                 return { ok: false, reason: 'missing_inputs' };
             }
 
@@ -536,7 +537,7 @@
             box.className = "p-4 bg-slate-700/20 rounded-xl border border-blue-500/40 min-h-[120px] flex items-start text-sm";
 
             badge.innerText = `${chosenPriority.icon} ${chosenPriority.key}`;
-            badge.className = `px-4 py-2 rounded-full text-xs font-bold font-mono ${chosenPriority.textClass} bg-slate-800 border ${chosenPriority.borderClass} shadow-lg`;
+            badge.className = `px-4 py-2 rounded-full text-xs font-bold font-mono is-result ${chosenPriority.textClass} bg-slate-800 border ${chosenPriority.borderClass}`;
 
             const learnWrap = document.getElementById('vitals-learn');
             const learnMeaning = document.getElementById('vitals-learn-meaning');
@@ -897,6 +898,27 @@
             else openClinicalTool(toolId);
         }
 
+        function setToolChrome(active, vitalsOpen) {
+            document.documentElement.classList.toggle('np-tool-active', !!active);
+            document.documentElement.classList.toggle('np-vitals-open', !!vitalsOpen);
+        }
+
+        function syncVitalsObFields() {
+            const wrap = document.getElementById('vitals-ob-fields');
+            const sexEl = document.getElementById('sex');
+            const ageEl = document.getElementById('age');
+            const pregCount = document.getElementById('pregnancies');
+            const pregnant = document.getElementById('pregnant');
+            if (!wrap || !sexEl || !ageEl) return;
+            const age = parseInt(ageEl.value, 10);
+            const show = sexEl.value === 'female' && Number.isFinite(age) && age >= 12 && age <= 55;
+            wrap.classList.toggle('hidden', !show);
+            if (!show) {
+                if (pregCount) pregCount.value = '';
+                if (pregnant) pregnant.value = 'no';
+            }
+        }
+
         function openClinicalTool(toolId, opts) {
             const hub = document.getElementById('tools-hub');
             const detail = document.getElementById('tools-detail');
@@ -907,6 +929,7 @@
             hub.classList.add('hidden');
             if (study) study.classList.add('hidden');
             detail.classList.remove('hidden');
+            setToolChrome(true, toolId === 'vitals');
             Object.values(CLINICAL_TOOL_PANELS).forEach((id) => {
                 const el = document.getElementById(id);
                 if (el) el.classList.remove('is-active');
@@ -914,6 +937,7 @@
             const panelId = CLINICAL_TOOL_PANELS[toolId];
             const panel = panelId ? document.getElementById(panelId) : null;
             if (panel) panel.classList.add('is-active');
+            if (toolId === 'vitals') syncVitalsObFields();
             trackUsageSafe('navigation', 'feature_open', { tool: toolId, hub_mode: 'duty' }, { minIntervalMs: 700, rateKey: `tool_${toolId}` });
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (toolId === 'apgar') initApgarInputs();
@@ -1085,6 +1109,7 @@
             hub.classList.add('hidden');
             if (detail) detail.classList.add('hidden');
             study.classList.remove('hidden');
+            setToolChrome(true, false);
             const content = window.NursePathToolContent;
             const tool = content && content.getTool(toolId);
             const titleEl = document.getElementById('studyClassTitle');
@@ -1109,6 +1134,7 @@
             currentStudyToolId = null;
             studyQuizState = null;
             closeToolGuide({ skipHistory: true });
+            setToolChrome(false, false);
             if (hub) hub.classList.remove('hidden');
             if (detail) detail.classList.add('hidden');
             if (study) study.classList.add('hidden');
@@ -2645,11 +2671,12 @@
 
         // OPTIMIZATION: Initialize live vital signs analysis on field change with proper event tracking
         function initVitalSignsLiveAnalysis() {
-            const vitalFields = ['sys', 'dia', 'temp', 'hr', 'rr', 'age', 'pregnancies', 'pregnant', 'conditions'];
+            const vitalFields = ['sys', 'dia', 'temp', 'hr', 'rr', 'age', 'sex', 'pregnancies', 'pregnant', 'conditions'];
             vitalFields.forEach(fieldId => {
                 const field = document.getElementById(fieldId);
                 if (field) {
-                    field.addEventListener('change', () => {
+                    const onChange = () => {
+                        if (fieldId === 'age' || fieldId === 'sex') syncVitalsObFields();
                         // OPTIMIZATION: Track 'vitals', 'feature_open' on first interaction
                         if (!hasTrackedVitalsOpen) {
                             hasTrackedVitalsOpen = true;
@@ -2680,10 +2707,27 @@
                             
                             vitalSignsDebounceTimer = null;
                         }, VITAL_SIGNS_DEBOUNCE_MS);
+                    };
+                    field.addEventListener('change', onChange);
+                    field.addEventListener('input', () => {
+                        if (fieldId === 'age' || fieldId === 'sex') syncVitalsObFields();
                     });
                 }
             });
+            syncVitalsObFields();
         }
+
+        function updateNpStatusMeta() {
+            const onlineEl = document.getElementById('npOnlineStatus');
+            const packEl = document.getElementById('npPackStamp');
+            if (onlineEl) {
+                onlineEl.textContent = navigator.onLine ? 'Online' : 'Offline — cached copy in use';
+            }
+            if (packEl) {
+                packEl.textContent = 'Reference pack nursepath-v2.4.7';
+            }
+        }
+        window.updateNpStatusMeta = updateNpStatusMeta;
 
         // State for OTC list preview - incremental loading
         let otcVisibleCount = 3;
@@ -2946,6 +2990,9 @@
             if (typeof initAbbreviations === 'function') initAbbreviations();
             if (typeof initSizes === 'function') initSizes();
             initVitalSignsLiveAnalysis();
+            updateNpStatusMeta();
+            window.addEventListener('online', updateNpStatusMeta);
+            window.addEventListener('offline', updateNpStatusMeta);
             applyRoleVisibility();
             window.__nursepathAuthState.booted = true;
             window.__nursepathAuthState.pendingBoot = false;
