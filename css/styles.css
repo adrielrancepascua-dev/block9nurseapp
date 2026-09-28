@@ -2040,6 +2040,16 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             line-height: 1.45;
             color: #e2e8f0;
         }
+        .lab-block p + p { margin-top: 6px; }
+        .lab-block .lab-k {
+            display: block;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #94a3b8;
+            margin-bottom: 2px;
+        }
         .lab-block-ok {
             background: rgba(16, 185, 129, 0.12);
             border: 1px solid rgba(52, 211, 153, 0.28);
@@ -2130,20 +2140,26 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         }
         @media (max-width: 767px) {
             .lab-back-btn, .otc-back-btn, .ab-back, .sz-back {
-                display: flex;
+                display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                gap: 6px;
-                position: fixed;
-                left: 16px;
-                right: 16px;
-                bottom: calc(12px + env(safe-area-inset-bottom));
+                gap: 4px;
+                position: static;
                 width: auto;
-                margin: 0;
-                z-index: 40;
-                box-shadow: 0 10px 28px rgba(2, 6, 23, 0.45);
+                min-width: 0;
+                min-height: 32px;
+                margin: 10px 12px 0;
+                padding: 4px 10px !important;
+                border-radius: 999px;
+                border: 1px solid #334155;
+                background: transparent;
+                color: #94a3b8;
+                font-size: 12px !important;
+                font-weight: 700;
+                line-height: 1;
+                z-index: 1;
+                box-shadow: none;
             }
-            .lab-detail-panel, .otc-detail-panel, .ab-detail, .sz-detail { padding-bottom: 88px; }
             button.lab-row {
                 padding: 11px 12px !important;
                 min-height: 48px !important;
@@ -2558,9 +2574,8 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         .ab-block-stop h4 { color: #fda4af; }
         .ab-note, .sz-note, .ab-placeholder, .sz-placeholder, .ab-empty, .sz-empty { margin: 4px 0 0; font-size: 12px; line-height: 1.45; color: #94a3b8; }
         .ab-empty, .sz-empty { padding: 16px 14px; }
-        .ab-back, .sz-back { display: none; width: calc(100% - 24px); margin: 12px 12px 0; min-height: 44px; border-radius: 12px; border: 1px solid #475569; background: rgba(30, 41, 59, 0.9); color: #e2e8f0; font-weight: 700; cursor: pointer; font-family: var(--np-body); }
+        .ab-back, .sz-back { display: none; margin: 12px 12px 0; border-radius: 12px; border: 1px solid #475569; background: rgba(30, 41, 59, 0.9); color: #e2e8f0; font-weight: 700; cursor: pointer; font-family: var(--np-body); }
         @media (max-width: 767px) {
-            .ab-back, .sz-back { display: flex; align-items: center; justify-content: center; }
             .ab-hub.is-detail .ab-search-wrap, .ab-hub.is-detail .ab-chips, .ab-hub.is-detail .tools-hub-hero,
             .sz-hub.is-detail .sz-search-wrap, .sz-hub.is-detail .sz-chips, .sz-hub.is-detail .tools-hub-hero { display: none; }
             .sz-row { grid-template-columns: 16px minmax(0, 1fr); }
@@ -2690,6 +2705,15 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         html[data-theme="light"] .lab-empty { color: #64748b !important; }
         html[data-theme="light"] .lab-detail-kicker { color: #047857 !important; }
         html[data-theme="light"] .lab-block p { color: #0f172a !important; }
+        html[data-theme="light"] .lab-block .lab-k { color: #64748b !important; }
+        html[data-theme="light"] .lab-back-btn,
+        html[data-theme="light"] .otc-back-btn,
+        html[data-theme="light"] .ab-back,
+        html[data-theme="light"] .sz-back {
+            background: transparent !important;
+            color: #475569 !important;
+            border-color: #cbd5e1 !important;
+        }
         html[data-theme="light"] .lab-block-ok {
             background: rgba(16, 185, 129, 0.12) !important;
             border-color: rgba(5, 150, 105, 0.28) !important;

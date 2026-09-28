@@ -214,6 +214,100 @@
     </section>`;
   }
 
+  const bodyEffect = {
+    wbc: ['The body is mounting a defense or the marrow is overproducing white cells.', 'Fewer cells to fight infection. Fever can be the first sign, and ordinary bugs become dangerous.'],
+    rbc: ['Blood is thicker and carries more oxygen capacity, often from low plasma volume.', 'Less oxygen-carrying capacity. Fatigue, pallor, and a fast heart rate are the usual picture.'],
+    hgb: ['More hemoglobin in circulation, or the same cells packed into less plasma.', 'Tissues get less oxygen. The person tires, looks pale, and breathes harder on effort.'],
+    hct: ['Red cells make up more of the blood volume, often because plasma is low.', 'Red cells make up less of the blood. Oxygen delivery drops, or the blood was diluted by fluid.'],
+    plt: ['More platelets are available for clotting. Flow can be sluggish if the count is extreme.', 'Clots form poorly. Gums, nose, skin, and IV sites bleed or bruise more easily.'],
+    mcv: ['Red cells are larger than usual, so each one holds more volume.', 'Red cells are smaller than usual. Oxygen delivery per cell is weaker.'],
+    mch: ['Each red cell holds more hemoglobin, usually because the cell itself is large.', 'Each red cell holds less hemoglobin, so the blood looks pale under the microscope.'],
+    mchc: ['Hemoglobin is packed tightly in the cell. A very high number is often a lab artifact.', 'Hemoglobin is diluted inside the cell. The cells look pale.'],
+    rdw: ['Red cells are uneven in size. The marrow is mixing old and new populations.', 'Cells are uniform. By itself this rarely makes the person feel anything.'],
+    neut: ['More neutrophils are ready for bacteria. Bands on the differential mean the marrow is rushing.', 'Bacterial defense is thin. Infection can spread with very few outward signs.'],
+    lymph: ['The adaptive immune line is up, often from a virus.', 'Antibody and cellular immunity are thinner. Viral control and vaccine response suffer.'],
+    mono: ['Cleanup cells are increased, often while the body is recovering from infection.', 'A low percent alone rarely changes how the person feels.'],
+    eos: ['Allergy and parasite pathways are active. Itch, wheeze, or a rash may show up.', 'Steroids or stress suppressed this line. The person usually feels the steroid effect, not the low count.'],
+    baso: ['A rare high count can track with allergy or a marrow disorder.', 'A zero reading is common and usually means nothing by itself.'],
+    esr: ['Red cells settle faster because inflammation proteins are up. It is a slow, nonspecific signal.', 'Cells settle slowly. This does not rule out illness.'],
+    na: ['Brain cells shrink as water is pulled out. Thirst, confusion, and seizures appear if it rises fast.', 'Brain cells swell. Headache, confusion, and seizures appear if it falls fast.'],
+    k: ['Heart muscle becomes irritable. Peaked T waves and a slow, wide rhythm can follow.', 'Muscles and the heart get weak. Cramps, ileus, and flat T waves or extra beats show up.'],
+    cl: ['Often travels with a saline load or a metabolic acidosis. The person feels the acid–base problem more than the chloride.', 'Often follows vomiting or volume loss. The story is alkalosis or low sodium, not chloride alone.'],
+    hco3: ['Blood is relatively alkaline, or the kidneys are holding bicarbonate to buffer a high CO₂.', 'Blood is relatively acidic, or the kidneys dumped bicarbonate to buffer a low CO₂. Breathing often changes to compensate.'],
+    ag: ['Unmeasured acids are in the blood: lactate, ketones, toxins, or retained waste.', 'The gap looks small, often because albumin (a normal unmeasured acid) is low. The person feels the albumin problem.'],
+    ca: ['Nerves fire less easily. Constipation, thirst, stones, and slow reflexes are the classic picture. The heart can slow.', 'Nerves fire too easily. Tingling, cramps, tetany, and a prolonged QT can follow.'],
+    ica: ['Same body picture as a true high calcium: sluggish nerves and gut, risk to the heart rhythm.', 'Same body picture as a true low calcium: tingling, cramps, tetany. Massive transfusion citrate can cause this quickly.'],
+    mg: ['Reflexes go quiet, then breathing can weaken. In obstetrics this can be the intended effect of a magnesium drip.', 'Potassium and calcium stay hard to fix. Muscles cramp and the heart is more irritable.'],
+    phos: ['Usually a kidney or cell-breakdown story. Itching and calcium dropping are the longer-term effects.', 'Muscles, including the diaphragm, run out of fuel. Weakness and shallow breathing are the danger.'],
+    bun: ['Waste and protein breakdown products are building, or the blood is concentrated. Appetite falls and thinking can dull if it is very high.', 'Little protein is being broken down, or the liver is not making urea. The person feels the liver or nutrition problem, not the low number.'],
+    crea: ['Filtration is down or muscle is breaking down. Nausea, swelling, and low urine output follow if the kidneys are failing.', 'Little muscle is producing creatinine. The number looks “healthy” even when the kidneys are not.'],
+    egfr: ['The estimate is high. Early diabetes can hyperfilter; low muscle mass can fake a high number.', 'Less filtrate is formed. Drugs and contrast linger, and waste builds as the stage falls.'],
+    uric: ['Urate can crystallize in joints and kidneys. A hot joint is gout until proven otherwise.', 'A low value rarely makes the person feel anything specific.'],
+    'glu-fast': ['Cells are bathed in sugar they cannot use well. Thirst, frequent urine, and blurry vision follow if it stays high.', 'The brain is short of fuel. Sweat, tremor, confusion, and unconsciousness come on fast.'],
+    'glu-random': ['Same fuel problem as a high fasting sugar if it stays up. A single post-meal bump is expected.', 'Same brain-fuel emergency as a low fasting sugar.'],
+    hba1c: ['Red cells have been carrying extra sugar for about three months. Vessels, eyes, kidneys, and nerves pay for that over years.', 'The average looks low because red cells did not live long enough to collect sugar, not because control was perfect.'],
+    ast: ['Liver or muscle cells leaked this enzyme. The person feels the hepatitis, the drink, or the muscle injury.', 'A low value does not protect the liver and rarely changes symptoms.'],
+    alt: ['Liver cells leaked a more liver-specific enzyme. Nausea, jaundice, or a tender liver may be present.', 'A low value does not mean the liver is extra healthy.'],
+    alp: ['Bile flow is blocked, or bone is turning over. Itch and pale stool suggest bile. Bone pain suggests bone.', 'Rare. It tracks with poor nutrition or low zinc more than an acute feeling.'],
+    ggt: ['The liver is induced or cholestatic, often alongside alcohol or a blocked bile duct.', 'A low value is not a clinical problem by itself.'],
+    tbili: ['Pigment is up in the blood. Sclera and skin turn yellow. Urine may darken and stool may pale if the bile duct is blocked.', 'A low value is not something the body feels.'],
+    dbili: ['Conjugated pigment is spilling into blood and urine. Stools go pale when bile cannot reach the gut.', 'A low value is the expected finding.'],
+    alb: ['The blood is concentrated. It does not mean nutrition suddenly improved.', 'Fluid leaks into tissues, so ankles and abdomen swell. Drugs that bind albumin hit harder, and total calcium looks lower than it is.'],
+    tp: ['The blood is concentrated, or an extra protein (such as an antibody) is being made.', 'Oncotic pressure falls with the albumin. Edema and a weaker immune protein pool follow.'],
+    amy: ['Pancreas or salivary gland is irritated. Severe epigastric pain radiating to the back is the pancreas story.', 'A low value does not rule out pancreatitis and is not felt on its own.'],
+    lip: ['Pancreatic cells leaked lipase. The pain pattern is the same epigastric-to-back story.', 'A low value is not protective and is not felt on its own.'],
+    nh3: ['The brain is sensitive to ammonia. Sleepiness, confusion, and a flapping tremor are the encephalopathy picture.', 'A low value is not a treatment goal the body feels.'],
+    ldh: ['Many tissues can leak this. Hemolysis makes the person pale and jaundiced. A heart or tumor source feels like that organ.', 'A low value is quiet. It does not clear a tissue injury and the person does not feel “low LDH.”'],
+    ph: ['Enzymes and the brain prefer a narrow band. Alkalosis causes tingling, cramps, and a light head.', 'The heart and brain slow down as acid rises. Breathing gets deep if the body is trying to blow off CO₂.'],
+    paco2: ['CO₂ is retained. The person is drowsy, and the drive to breathe may be weak.', 'CO₂ is being blown off. Lightheadedness and tingling come from the resulting alkalosis.'],
+    pao2: ['Extra oxygen is dissolved in blood. In a few patients who chronically retain CO₂, a sudden high oxygen can slow their drive to breathe.', 'Tissues run short of oxygen. Restlessness, a fast heart, and blue mucous membranes follow.'],
+    'abg-hco3': ['The metabolic side is alkaline, or the kidneys have saved bicarbonate for a chronic lung problem.', 'The metabolic side is acidic. Breathing usually speeds up to compensate.'],
+    sao2: ['Hemoglobin is nearly full of oxygen. The COPD order may want a lower target on purpose.', 'Hemoglobin is underfilled. The person is short of breath and may look dusky. A poor probe can fake this.'],
+    be: ['Metabolic alkali is in excess.', 'Metabolic acid has used up buffer. This is the “base deficit” people quote in shock.'],
+    lactate: ['Tissues are making energy without enough oxygen, or the liver cannot clear lactate. The person is often cold, confused, or hypotensive.', 'A low lactate is the ordinary resting state.'],
+    pt: ['The extrinsic clotting path is slow. Bleeding from gums, nose, or puncture sites takes longer to stop.', 'A short time is not a useful finding and is not felt.'],
+    inr: ['Clotting is delayed on the same scale labs share. Bleeding risk rises as the number climbs past the intended range.', 'Off warfarin, a low-normal INR is the usual state. On warfarin, a low INR means clots are forming more easily than the team wanted.'],
+    aptt: ['The intrinsic path is slow. Heparin effect or a missing factor shows up as oozing from lines and wounds.', 'A short time can mean the blood is sticky, or the sample was imperfect. It is not felt as a symptom.'],
+    ddimer: ['Clot has been formed and broken down somewhere. The test cannot say whether that somewhere is a dangerous clot or just surgery, pregnancy, or infection.', 'Little clot breakdown is detectable. In the right low-risk person that argues against a new VTE.'],
+    fib: ['An acute-phase protein is up. The person feels the infection or inflammation, not the fibrinogen.', 'The final fibrin mesh is scarce. Bleeding is harder to stop, especially in DIC or after a massive transfusion.'],
+    tropi: ['Heart muscle has been injured and leaked troponin. Chest pain, breathlessness, or a silent equivalent may be the story.', 'Serial negatives make an acute injury less likely. The person feels the chest pain workup, not a “low troponin.”'],
+    ckmb: ['Some heart or muscle injury leaked the MB fraction. Troponin is the clearer heart signal.', 'A low value does not prove the heart is fine.'],
+    ck: ['Skeletal muscle is breaking down. Pain, weakness, and tea-colored urine are the rhabdo picture. The kidneys can clog.', 'A low value is the usual resting state. It is not felt, and it does not prove the muscle is healthy.'],
+    bnp: ['The ventricle is stretched. The person is often breathless, swollen, and orthopneic.', 'A low value makes acute heart failure a weaker explanation for the breathlessness.'],
+    chol: ['More cholesterol is available for plaque over years. One high reading is not felt today.', 'Very low cholesterol usually means illness or poor intake, not a healthier heart that day.'],
+    ldl: ['The particle that loads arteries is up. Harm is measured in years of plaque, not today’s symptoms.', 'Lower is usually the aim. Extremely low values can reflect malnutrition.'],
+    hdl: ['More of the particle linked with carrying cholesterol away. It is not something you feel.', 'Less of that particle. Cardiovascular risk over years is higher. Smoking and inactivity are common partners.'],
+    tg: ['Very high levels make the blood milky and the pancreas angry. Mid-range highs are a long-term risk, not a feeling.', 'Usually a nutrition or thyroid story. The low number itself is quiet.'],
+    tsh: ['The pituitary is shouting at a thyroid that is underdoing it. The person may feel cold, slow, heavy, and constipated.', 'The pituitary has gone quiet because thyroid hormone is already high, or replacement is too strong. Heat, tremor, and a fast heart follow if the person is actually hyperthyroid.'],
+    ft4: ['Metabolism is pushed up. Heat intolerance, weight loss, tremor, and tachycardia are the body picture.', 'Metabolism is slowed. Cold intolerance, weight gain, dry skin, and a slow heart are the body picture.'],
+    ft3: ['The active thyroid hormone is up. The body picture matches hyperthyroidism.', 'The active hormone is down. In ordinary illness it falls before the person has a thyroid disease.'],
+    crp: ['Inflammation is active right now. Fever, pain, or a wound is usually already obvious.', 'Little acute inflammation is detectable. It does not prove the person is well.'],
+    pct: ['A bacterial infection is a stronger suspect. Fever and a sick circulation are the body picture.', 'A bacterial source is less likely. Viral illness can still make the person miserable.'],
+    uasg: ['Urine is concentrated. Thirst and a dry mouth match true dehydration. Sugar or contrast can raise it without that.', 'Urine is dilute. Volumes are large. Sodium in the blood may swing with it.'],
+    uaph: ['Urine is alkaline. A urease infection can form stones. A sample left sitting also drifts alkaline.', 'Urine is acidic. It matches a high-protein meal or an acidosis. The person feels the cause, not the pH.'],
+    uaprot: ['Protein is leaking into urine. Foamy urine, swelling, or a preeclampsia picture may be present.', 'No protein on the dipstick is the expected finding.'],
+    uaglu: ['Sugar is spilling because blood sugar is above the kidney’s threshold, or an SGLT2 drug is forcing the spill.', 'A negative dipstick is expected. It does not prove the blood sugar is normal.'],
+    uaket: ['Fat is being burned for fuel. A sweet breath and deep breathing plus high sugar is the DKA emergency. Starvation ketones are milder.', 'No ketones on the strip is the expected finding.'],
+    uanit: ['Bacteria that convert nitrate have been in the bladder long enough. Burning urine and frequency may already be there.', 'A negative nitrite does not clear the bladder. Some bacteria never make it.'],
+    uale: ['White cells are in the urine. Burning, frequency, or a dirty catch are the usual stories.', 'A negative pad does not fully clear an infection.'],
+    uawbc: ['White cells are seen under the microscope. The bladder or urethra is inflamed or contaminated.', 'Few white cells is the expected finding.'],
+    uarbc: ['Red cells are in the urine. Pink urine, clots, or silent blood on the dipstick are the pictures. Stones hurt. Menses can fake it.', 'Few red cells is the expected finding.'],
+    fe: ['Iron in the serum is high. The tissues that store it, especially liver and heart, are the long-term target.', 'Less iron is circulating for new red cells. Fatigue follows if hemoglobin falls.'],
+    ferritin: ['Stores are high, or the body is inflamed and ferritin rose as an acute-phase protein.', 'Stores are empty. Hair, nails, energy, and eventually hemoglobin suffer.'],
+    bhcg: ['A pregnancy, or rarely a tumor, is producing this hormone. A missed period is the usual first body clue.', 'No hormone is detected. A very early pregnancy can still be missed, especially in dilute urine.']
+  };
+
+  function causeBodyBlock(kind, title, cause, body) {
+    if (!cause && !body) return '';
+    const causeHtml = cause ? `<p><span class="lab-k">Why</span>${escapeHtml(cause)}</p>` : '';
+    const bodyHtml = body ? `<p><span class="lab-k">In the body</span>${escapeHtml(body)}</p>` : '';
+    return `<section class="lab-block lab-block-${kind}">
+      <h4>${escapeHtml(title)}</h4>
+      ${causeHtml}
+      ${bodyHtml}
+    </section>`;
+  }
+
   function showLabDetail(item, opts) {
     const trackUsageSafe = getTrackUsageSafe();
     if (trackUsageSafe) {
@@ -227,8 +321,8 @@
       <p class="lab-detail-kicker">${escapeHtml(item.abbrev)} · ${escapeHtml(item.panel)}</p>
       <h3 class="lab-detail-title">${escapeHtml(item.name)}</h3>
       ${labBlock('ok', 'Normal', item.adultRange)}
-      ${labBlock('high', 'Too high', item.high)}
-      ${labBlock('low', 'Too low', item.low)}
+      ${causeBodyBlock('high', 'Too high', item.high, (bodyEffect[item.id] || [])[0])}
+      ${causeBodyBlock('low', 'Too low', item.low, (bodyEffect[item.id] || [])[1])}
       ${labBlock('how', 'How to test', howToTest(item))}
       ${item.nursing ? labBlock('watch', 'Watch', item.nursing) : ''}
       <p class="lab-duty-note">Teaching ranges. Confirm with the printed slip and your CI.</p>
