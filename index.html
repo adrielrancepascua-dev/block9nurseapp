@@ -121,31 +121,26 @@
     <div id="app-shell" style="display: none;">
     <div class="np-app-layout">
         <aside class="np-sidebar" id="npSidebar" aria-label="Primary navigation">
-            <button type="button" class="np-sidebar-toggle" id="npSidebarToggle" aria-label="Open navigation" aria-expanded="false" aria-controls="quick-nav">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-
+            <p class="np-sidebar-brand">NursePath</p>
             <nav id="quick-nav" class="np-sidebar-nav" aria-label="NursePath sections">
                 <button onclick="switchMainTab('tools')" id="tab-tools" class="tab-btn np-sidebar-link active bg-cyan-900/50 border-cyan-500/50 text-cyan-400 transition-all">
                     <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
-                    <span>Clinical Tools</span>
+                    <span>Tools</span>
                 </button>
 
                 <button onclick="switchMainTab('otc')" id="tab-otc" class="tab-btn np-sidebar-link bg-slate-800 hover:bg-amber-900/50 border-slate-700 hover:border-amber-500/50 text-slate-300 hover:text-amber-400 transition-all">
                     <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" class="text-amber-400" aria-hidden="true"><path d="M8 2a6 6 0 0 1 6 6v8a6 6 0 0 1-12 0V8a6 6 0 0 1 6-6zm8 0a6 6 0 0 1 0 12v-6a6 6 0 0 0-6-6h6z"/></svg>
-                    <span>OTC Medicines</span>
+                    <span>OTC</span>
                 </button>
 
                 <button onclick="switchMainTab('labs')" id="tab-labs" class="tab-btn np-sidebar-link bg-slate-800 hover:bg-emerald-900/50 border-slate-700 hover:border-emerald-500/50 text-slate-300 hover:text-emerald-400 transition-all">
                     <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" class="text-emerald-400" aria-hidden="true"><path d="M10 2h4v3h-1v5.2l6.2 10.3A2 2 0 0 1 17.4 23H6.6a2 2 0 0 1-1.8-2.5L11 10.2V5h-1V2z"/></svg>
-                    <span>Lab Ranges</span>
+                    <span>Labs</span>
                 </button>
 
                 <button onclick="switchMainTab('abbrev')" id="tab-abbrev" class="tab-btn np-sidebar-link bg-slate-800 hover:bg-violet-900/50 border-slate-700 hover:border-violet-500/50 text-slate-300 hover:text-violet-300 transition-all">
                     <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" class="text-violet-300" aria-hidden="true"><path d="M4 5h10.5a4.5 4.5 0 0 1 0 9H8v5H4V5zm4 4v3h6.2a1.5 1.5 0 0 0 0-3H8zM16.5 13.2 20 19h-4l-1.2-2.2h-1.6L16.5 13.2z"/></svg>
-                    <span>Abbreviations</span>
+                    <span>Abbr</span>
                 </button>
                 <button onclick="switchMainTab('sizes')" id="tab-sizes" class="tab-btn np-sidebar-link bg-slate-800 hover:bg-sky-900/50 border-slate-700 hover:border-sky-500/50 text-slate-300 hover:text-sky-300 transition-all">
                     <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" class="text-sky-300" aria-hidden="true"><path d="M14.5 3.2 20.8 9.5l-1.4 1.4-1.7-1.7-2.2 2.2 1.6 1.6-1.4 1.4-1.6-1.6-2.1 2.1 1.7 1.7-1.4 1.4L6.5 12.2l1.4-1.4 1.7 1.7 2.1-2.1-1.6-1.6 1.4-1.4 1.6 1.6 2.2-2.2-1.7-1.7 1.4-1.4z"/></svg>
@@ -154,34 +149,29 @@
             </nav>
 
             <div class="np-sidebar-actions">
+                <p class="np-sidebar-section">Settings</p>
                 <button type="button" id="npThemeToggle" class="np-action-btn np-theme-toggle-btn" aria-pressed="false" title="Switch to light mode">
                     <svg class="np-action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
                     <span class="np-action-label">Light mode</span>
                 </button>
-                <button type="button" class="np-action-btn np-switch-account-btn" disabled title="Switch account">
-                    <svg class="np-action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="3"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    <span class="np-action-label">Switch account</span>
-                </button>
-                <button type="button" class="np-action-btn np-logout-btn" onclick="manualLogout()" title="Logout">
+                <button type="button" class="np-action-btn np-logout-btn" onclick="manualLogout()" title="Log out">
                     <svg class="np-action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
-                    <span class="np-action-label">Logout</span>
+                    <span class="np-action-label">Log out</span>
                 </button>
             </div>
         </aside>
-        <button type="button" class="np-sidebar-backdrop" id="npSidebarBackdrop" aria-label="Close navigation" tabindex="-1"></button>
 
         <main class="np-main">
-    <div class="np-top-banner">
-        NursePath · Learning &amp; duty companion · Verify with faculty &amp; textbooks
-    </div>
-
     <div class="np-content max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
-        <header class="mb-4 sm:mb-6 text-center">
+        <header class="np-page-header">
             <div id="nursepathHeaderLogo" class="np-header-lockup" title="NursePath">
-                <img class="np-header-mark" src="/assets/icons/icon-192.png" alt="" width="52" height="52">
+                <img class="np-header-mark" src="/assets/icons/icon-192.png" alt="" width="36" height="36">
                 <h1 class="np-header-word">NursePath</h1>
             </div>
-            <p class="text-slate-400 text-xs sm:text-sm">Duty tools, OTC reference, lab ranges, and study practice. Works offline.</p>
+            <button type="button" class="np-settings-open" id="npSettingsOpen" aria-haspopup="dialog" aria-controls="npSettingsSheet" aria-label="Open settings">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                <span>Settings</span>
+            </button>
         </header>
 
         <!-- ============ TOOLS TAB CONTENT ============ -->
@@ -208,7 +198,7 @@
             <div class="tools-hub-mode-row">
                 <div class="tools-hub-hero">
                     <h2 id="toolsHubTitle">Clinical Tools</h2>
-                    <p id="toolsHubBlurb">Duty mode: fast calculators for ward pocket use. OTC lives in the OTC tab.</p>
+                    <p id="toolsHubBlurb">Fast ward calculators.</p>
                 </div>
                 <div class="np-mode-toggle" role="group" aria-label="Clinical tools mode">
                     <button type="button" data-mode="duty" id="hubDutyBtn" class="is-active" onclick="setHubMode('duty')">Duty</button>
@@ -733,8 +723,8 @@
             </div>
         </div>
 
-    <footer class="mt-12 py-6 text-center text-slate-500 border-t border-slate-800">
-        <p class="text-xs">Learning companion. Verify with your CI. Usage may be logged with consent.</p>
+    <footer class="np-footer">
+        <p>Verify findings with your Clinical Instructor and approved textbooks before care decisions. Usage metadata may be logged with consent.</p>
     </footer>
     </div>
 
@@ -744,6 +734,47 @@
     <script src="/js/script-5.js"></script>
 
         </main>
+
+        <nav class="np-tabbar" id="npTabbar" aria-label="Primary sections">
+            <button type="button" class="np-tabbar-link is-active" data-tab="tools" onclick="switchMainTab('tools')">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
+                <span>Tools</span>
+            </button>
+            <button type="button" class="np-tabbar-link" data-tab="otc" onclick="switchMainTab('otc')">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 2a6 6 0 0 1 6 6v8a6 6 0 0 1-12 0V8a6 6 0 0 1 6-6zm8 0a6 6 0 0 1 0 12v-6a6 6 0 0 0-6-6h6z"/></svg>
+                <span>OTC</span>
+            </button>
+            <button type="button" class="np-tabbar-link" data-tab="labs" onclick="switchMainTab('labs')">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10 2h4v3h-1v5.2l6.2 10.3A2 2 0 0 1 17.4 23H6.6a2 2 0 0 1-1.8-2.5L11 10.2V5h-1V2z"/></svg>
+                <span>Labs</span>
+            </button>
+            <button type="button" class="np-tabbar-link" data-tab="abbrev" onclick="switchMainTab('abbrev')">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 5h10.5a4.5 4.5 0 0 1 0 9H8v5H4V5zm4 4v3h6.2a1.5 1.5 0 0 0 0-3H8zM16.5 13.2 20 19h-4l-1.2-2.2h-1.6L16.5 13.2z"/></svg>
+                <span>Abbr</span>
+            </button>
+            <button type="button" class="np-tabbar-link" data-tab="sizes" onclick="switchMainTab('sizes')">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.5 3.2 20.8 9.5l-1.4 1.4-1.7-1.7-2.2 2.2 1.6 1.6-1.4 1.4-1.6-1.6-2.1 2.1 1.7 1.7-1.4 1.4L6.5 12.2l1.4-1.4 1.7 1.7 2.1-2.1-1.6-1.6 1.4-1.4 1.6 1.6 2.2-2.2-1.7-1.7 1.4-1.4z"/></svg>
+                <span>Sizes</span>
+            </button>
+        </nav>
+
+        <div class="np-settings-sheet" id="npSettingsSheet" hidden>
+            <button type="button" class="np-settings-backdrop" id="npSettingsBackdrop" aria-label="Close settings"></button>
+            <div class="np-settings-panel" role="dialog" aria-modal="true" aria-labelledby="npSettingsTitle">
+                <div class="np-settings-head">
+                    <h2 id="npSettingsTitle">Settings</h2>
+                    <button type="button" class="np-settings-close" id="npSettingsClose" aria-label="Close settings">Close</button>
+                </div>
+                <button type="button" id="npThemeToggleMobile" class="np-settings-row" aria-pressed="false">
+                    <span class="np-settings-row-label">Appearance</span>
+                    <span class="np-settings-row-value" data-theme-label>Light mode</span>
+                </button>
+                <button type="button" class="np-settings-row np-settings-logout" onclick="manualLogout()">
+                    <span class="np-settings-row-label">Log out</span>
+                    <span class="np-settings-row-value">End this session</span>
+                </button>
+            </div>
+        </div>
     </div>
     </div>
 </body>

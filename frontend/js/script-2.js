@@ -21,17 +21,26 @@
                 document.body.style.setProperty('background-color', theme === 'light' ? '#f8fafc' : '#020617', 'important');
             }
 
+            function themeActionText(theme) {
+                return theme === 'light' ? 'Dark mode' : 'Light mode';
+            }
+
             function updateThemeButton(theme) {
-                var btn = document.getElementById('npThemeToggle');
-                if (!btn) return;
+                var text = themeActionText(theme);
                 var isLight = theme === 'light';
-                var label = btn.querySelector('.np-action-label');
-                var text = isLight ? 'Dark mode' : 'Light mode';
-                if (label) {
-                    label.textContent = text;
+                var desktop = document.getElementById('npThemeToggle');
+                if (desktop) {
+                    var label = desktop.querySelector('.np-action-label');
+                    if (label) label.textContent = text;
+                    desktop.setAttribute('aria-pressed', isLight ? 'true' : 'false');
+                    desktop.setAttribute('title', isLight ? 'Switch to dark mode' : 'Switch to light mode');
                 }
-                btn.setAttribute('aria-pressed', isLight ? 'true' : 'false');
-                btn.setAttribute('title', isLight ? 'Switch to dark mode' : 'Switch to light mode');
+                var mobile = document.getElementById('npThemeToggleMobile');
+                if (mobile) {
+                    var value = mobile.querySelector('[data-theme-label]');
+                    if (value) value.textContent = text;
+                    mobile.setAttribute('aria-pressed', isLight ? 'true' : 'false');
+                }
             }
 
             function applyTheme(theme) {
@@ -57,93 +66,43 @@
                 document.documentElement.classList.toggle('np-touch', TOUCH_QUERY.matches);
             }
 
-            function initSidebarDrawer() {
-                var sidebar = document.getElementById('npSidebar');
-                var toggle = document.getElementById('npSidebarToggle');
-                var backdrop = document.getElementById('npSidebarBackdrop');
-                if (!sidebar || !toggle) return;
+            function setSettingsOpen(open) {
+                var sheet = document.getElementById('npSettingsSheet');
+                if (!sheet) return;
+                if (open) sheet.removeAttribute('hidden');
+                else sheet.setAttribute('hidden', '');
+                document.documentElement.classList.toggle('np-settings-open', !!open);
+            }
 
-                function isOpen() {
-                    return sidebar.classList.contains('is-open');
-                }
-
-                function blurSidebar() {
-                    var active = document.activeElement;
-                    if (active && sidebar.contains(active) && typeof active.blur === 'function') {
-                        active.blur();
-                    }
-                }
-
-                function setOpen(open) {
-                    sidebar.classList.toggle('is-open', !!open);
-                    sidebar.classList.toggle('is-collapsed-lock', !open);
-                    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-                    toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
-                    if (!open) {
-                        blurSidebar();
-                    }
-                }
-
-                function closeSidebar() {
-                    setOpen(false);
-                }
-
-                function isMenuAction(target) {
-                    var action = target && target.closest ? target.closest('.np-sidebar-link, .np-action-btn') : null;
-                    if (!action || action.classList.contains('np-sidebar-placeholder')) {
-                        return null;
-                    }
-                    return action;
-                }
-
-                toggle.addEventListener('pointerup', function (event) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    setOpen(!isOpen());
-                });
-
-                if (backdrop) {
-                    backdrop.addEventListener('pointerup', function (event) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        closeSidebar();
+            function initSettingsSheet() {
+                var openBtn = document.getElementById('npSettingsOpen');
+                var closeBtn = document.getElementById('npSettingsClose');
+                var backdrop = document.getElementById('npSettingsBackdrop');
+                var mobileTheme = document.getElementById('npThemeToggleMobile');
+                if (openBtn) {
+                    openBtn.addEventListener('click', function () {
+                        setSettingsOpen(true);
                     });
                 }
-
-                sidebar.addEventListener('pointerup', function (event) {
-                    if (event.target.closest('#npSidebarToggle')) {
-                        return;
-                    }
-                    if (!isMenuAction(event.target)) {
-                        return;
-                    }
-                    closeSidebar();
-                });
-
-                document.addEventListener('pointerdown', function (event) {
-                    if (TOUCH_QUERY.matches || (event && event.pointerType === 'touch')) {
-                        document.documentElement.classList.add('np-touch');
-                    }
-                    if (!isOpen()) return;
-                    if (sidebar.contains(event.target) || (backdrop && backdrop.contains(event.target))) {
-                        return;
-                    }
-                    closeSidebar();
-                }, true);
-
-                sidebar.addEventListener('pointerleave', function () {
-                    if (!isOpen()) {
-                        sidebar.classList.remove('is-collapsed-lock');
-                    }
-                });
-
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', function () {
+                        setSettingsOpen(false);
+                    });
+                }
+                if (backdrop) {
+                    backdrop.addEventListener('click', function () {
+                        setSettingsOpen(false);
+                    });
+                }
+                if (mobileTheme) {
+                    mobileTheme.addEventListener('click', window.toggleNursePathTheme);
+                }
                 document.addEventListener('keydown', function (event) {
-                    if (event.key === 'Escape') {
-                        closeSidebar();
-                    }
+                    if (event.key === 'Escape') setSettingsOpen(false);
                 });
-
-                window.closeNursePathSidebar = closeSidebar;
+                window.closeNursePathSettings = function () {
+                    setSettingsOpen(false);
+                };
             }
 
             syncTouchMode();
@@ -161,6 +120,6 @@
                 if (btn) {
                     btn.addEventListener('click', window.toggleNursePathTheme);
                 }
-                initSidebarDrawer();
+                initSettingsSheet();
             });
         })();

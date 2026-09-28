@@ -677,6 +677,11 @@
                 if (!skipHistory) pushNursePathState({ view: 'sizes', tab: 'sizes' });
             }
             
+            document.querySelectorAll('.np-tabbar-link').forEach((el) => {
+                el.classList.toggle('is-active', el.getAttribute('data-tab') === tab);
+            });
+            if (typeof window.closeNursePathSettings === 'function') window.closeNursePathSettings();
+
             // Scroll to top of content
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -868,8 +873,8 @@
             if (title) title.textContent = next === 'study' ? 'Study Classroom' : 'Clinical Tools';
             if (blurb) {
                 blurb.textContent = next === 'study'
-                    ? 'Study mode: pick a topic for an instructor-style lesson and quiz. Fully offline.'
-                    : 'Duty mode: fast calculators for ward pocket use. OTC lives in the OTC tab.';
+                    ? 'Lessons and quizzes, offline.'
+                    : 'Fast ward calculators.';
             }
             document.querySelectorAll('.tool-hub-desc').forEach((el) => {
                 const duty = el.getAttribute('data-duty-desc');
