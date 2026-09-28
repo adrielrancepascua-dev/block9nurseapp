@@ -337,7 +337,6 @@
     renderChips();
     const items = filtered();
     const fragment = document.createDocumentFragment();
-    const selected = window.__nursepathSelectedAbbrev && window.__nursepathSelectedAbbrev.id;
     const q = searchTerm.trim();
     if (!items.length) {
       const empty = document.createElement('div');
@@ -355,12 +354,10 @@
           label.textContent = letter;
           fragment.appendChild(label);
         }
-        const row = document.createElement('button');
-        row.type = 'button';
-        row.className = 'ab-row' + (item.danger ? ' is-danger' : '') + (selected === item.id ? ' is-active' : '');
-        row.dataset.abId = item.id;
-        row.innerHTML = `<span class="ab-row-short">${escapeHtml(item.abbrev)}</span><span class="ab-row-mean">${escapeHtml(item.meaning)}</span>`;
-        row.onclick = () => showAbbrevDetail(item);
+        const row = document.createElement('div');
+        row.className = 'ab-row' + (item.danger ? ' is-danger' : '');
+        const note = item.caution ? `<span class="ab-row-note">${escapeHtml(item.caution)}</span>` : '';
+        row.innerHTML = `<span class="ab-row-short">${escapeHtml(item.abbrev)}</span><span class="ab-row-mean">${escapeHtml(item.meaning)}${note}</span>`;
         fragment.appendChild(row);
       });
     }

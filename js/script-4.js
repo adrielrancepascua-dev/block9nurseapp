@@ -1225,13 +1225,6 @@
 
             if (state.view === 'abbrev' || state.view === 'abbrev-detail') {
                 ensureAbbrevTabVisible();
-                if (state.view === 'abbrev-detail' && state.abbrevId && Array.isArray(window.abbrevDatabase)) {
-                    const item = window.abbrevDatabase.find((row) => row && row.id === state.abbrevId);
-                    if (item && typeof showAbbrevDetail === 'function') {
-                        showAbbrevDetail(item, { skipHistory: true });
-                        return;
-                    }
-                }
                 if (typeof hideAbbrevDetail === 'function') hideAbbrevDetail({ skipHistory: true });
                 return;
             }
