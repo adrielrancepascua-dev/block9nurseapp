@@ -3068,7 +3068,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
                 display: none !important;
             }
             html.np-vitals-open .np-content {
-                padding-bottom: calc(var(--np-tabbar-height) + env(safe-area-inset-bottom) + 88px) !important;
+                padding-bottom: calc(var(--np-tabbar-height) + env(safe-area-inset-bottom) + 28px) !important;
             }
             .np-settings-open {
                 display: inline-flex;
@@ -3280,7 +3280,8 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             background: #0f172a !important;
         }
         .vitals-action-bar {
-            margin-top: 12px;
+            margin: 4px 0 14px;
+            position: static;
         }
         #simulate-vitals-btn {
             background: #06b6d4 !important;
@@ -3292,25 +3293,16 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             font-weight: 800 !important;
         }
         @media (max-width: 767px) {
-            html.np-vitals-open .vitals-action-bar {
-                position: fixed;
-                left: 0;
-                right: 0;
-                bottom: calc(var(--np-tabbar-height) + env(safe-area-inset-bottom));
-                z-index: 95;
-                margin: 0;
-                padding: 8px 12px;
-                background: #020617;
-                border-top: 1px solid #334155;
-            }
-            html.np-vitals-open #simulate-vitals-btn {
-                margin: 0;
-            }
             #vital-signs-section {
                 padding: 14px !important;
+                padding-bottom: 18px !important;
             }
             #vital-signs-section h2 {
                 font-size: 1.15rem !important;
+            }
+            #dx-box {
+                min-height: 88px !important;
+                padding: 14px !important;
             }
         }
         html[data-theme="light"] #vital-signs-section input[type="number"],
@@ -3336,10 +3328,6 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             background: #0e7490 !important;
             color: #ffffff !important;
             border-color: #0891b2 !important;
-        }
-        html[data-theme="light"].np-vitals-open .vitals-action-bar {
-            background: #f8fafc !important;
-            border-top-color: rgba(148, 163, 184, 0.55) !important;
         }
         .np-status-meta {
             margin: 0 0 10px;

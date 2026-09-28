@@ -358,6 +358,13 @@
                         </div>
                     </div>
 
+                    <div class="vitals-action-bar">
+                        <button id="simulate-vitals-btn" type="button" onclick="simulateVitalSigns()" class="w-full py-3 rounded-xl font-bold transition-all">
+                            Analyze Vital Signs
+                        </button>
+                        <p id="vitals-record-status" class="text-xs text-slate-400 min-h-[18px] mt-2"></p>
+                    </div>
+
                     <div id="dx-box" class="p-6 bg-slate-900/70 rounded-xl border border-slate-700 min-h-[120px] flex items-center justify-center text-slate-500 italic text-center">
                         <div class="flex flex-col items-center space-y-2">
                             <svg class="inline text-3xl text-slate-600 opacity-50" width="1.3em" height="1.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3v18h18"/></svg>
@@ -367,13 +374,6 @@
                     <div id="vitals-learn" class="np-learn" style="display:none;">
                         <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="vitals-learn-meaning">—</span></div>
                         <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="vitals-learn-how">Reference ranges adjusted for age, pregnancy, and comorbidity.</span></div>
-                    </div>
-
-                    <div class="vitals-action-bar">
-                        <button id="simulate-vitals-btn" type="button" onclick="simulateVitalSigns()" class="w-full py-3 rounded-xl font-bold transition-all">
-                            Analyze Vital Signs
-                        </button>
-                        <p id="vitals-record-status" class="text-xs text-slate-400 min-h-[18px] mt-2"></p>
                     </div>
                 </section>
 
