@@ -918,6 +918,7 @@
                 if (pregnant) pregnant.value = 'no';
             }
         }
+        window.syncVitalsObFields = syncVitalsObFields;
 
         function openClinicalTool(toolId, opts) {
             const hub = document.getElementById('tools-hub');
