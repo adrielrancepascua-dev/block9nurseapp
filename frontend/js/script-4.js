@@ -647,7 +647,8 @@
                 // Reset to initial preview count and re-render OTC list when switching to tab
                 if (typeof hideOTCDetail === 'function') hideOTCDetail({ skipHistory: true });
                 otcVisibleCount = OTC_INCREMENT;
-                renderOTCList('');
+                renderOtcChips();
+                renderOTCList(otcSearch ? otcSearch.value : '');
                 if (!skipHistory) pushNursePathState({ view: 'otc', tab: 'otc' });
             } else if (tab === 'labs') {
                 if (contentLabs) contentLabs.classList.remove('hidden');
@@ -1710,7 +1711,7 @@
         const otcDatabase = [
             {
                 id: 'acetaminophen',
-                name: 'Acetaminophen',
+                name: 'Paracetamol (Acetaminophen)',
                 ph_brands: ['Biogesic', 'Tempra', 'Calpol', 'Tylenol', 'Panadol'],
                 uses: 'Fever, mild to moderate pain relief (headache, myalgia)',
                 origin: 'Synthetic analgesic discovered in the late 19th century',
@@ -1720,7 +1721,7 @@
                 tags: ['fever','pain','analgesic'],
                 // Additional Information (only shown in OTC Reference Directory when tab is clicked)
                 additionalInfo: {
-                    genericNames: ['Paracetamol', 'APAP', 'N-acetyl-p-aminophenol'],
+                    genericNames: ['Paracetamol', 'Acetaminophen', 'APAP', 'N-acetyl-p-aminophenol'],
                     drugClass: 'Analgesic, Antipyretic (Non-opioid)',
                     usesExpanded: 'Fever reduction (antipyretic), mild to moderate pain relief including headache, toothache, muscle aches, backache, menstrual cramps, arthritis pain, post-vaccination fever, and post-operative pain management',
                     mechanismOfAction: 'Inhibits cyclooxygenase (COX) enzymes primarily in the central nervous system, reducing prostaglandin synthesis. Unlike NSAIDs, it has minimal peripheral anti-inflammatory activity. Also activates descending serotonergic pathways and may interact with the endocannabinoid system for pain modulation.',
@@ -2725,18 +2726,93 @@
                 onlineEl.textContent = navigator.onLine ? 'Online' : 'Offline — cached copy in use';
             }
             if (packEl) {
-                packEl.textContent = 'Reference pack nursepath-v2.4.7';
+                packEl.textContent = 'Reference pack nursepath-v2.4.8';
             }
+            const otcStamp = document.getElementById('otcPackStamp');
+            if (otcStamp) otcStamp.textContent = 'Reference pack nursepath-v2.4.8';
         }
         window.updateNpStatusMeta = updateNpStatusMeta;
 
         // State for OTC list preview - incremental loading
         let otcVisibleCount = 3;
         const OTC_INCREMENT = 3;
+        let otcBrowseFilter = 'all';
         window.otcDatabase = otcDatabase;
         // OPTIMIZATION: Debounce timer for OTC search input
         let otcSearchDebounceTimer = null;
         const OTC_SEARCH_DEBOUNCE_MS = 300;
+
+        const OTC_BROWSE_FILTERS = [
+            { id: 'all', label: 'All' },
+            { id: 'pain', label: 'Pain', tags: ['pain', 'fever', 'analgesic', 'nsaid', 'dysmenorrhea', 'inflammation', 'arthritis'] },
+            { id: 'allergy', label: 'Allergy', tags: ['allergy', 'antihistamine', 'urticaria', 'rhinitis'] },
+            { id: 'cough', label: 'Cough/Cold', tags: ['cough', 'cold', 'expectorant', 'decongestant', 'antitussive', 'sinus', 'congestion'] },
+            { id: 'gi', label: 'GI', tags: ['reflux', 'heartburn', 'diarrhea', 'constipation', 'antacid', 'nausea', 'gas', 'ppi', 'h2blocker', 'laxative', 'antidiarrheal', 'digestive'] },
+            { id: 'skin', label: 'Skin', tags: ['skin', 'topical', 'fungal', 'antiseptic', 'wound', 'rash', 'itching', 'steroid'] }
+        ];
+
+        function otcShortClass(item) {
+            const tags = (item.tags || []).map((t) => String(t).toLowerCase());
+            const rules = [
+                { keys: ['nsaid'], label: 'NSAID', color: '#fb923c' },
+                { keys: ['antihistamine', 'allergy'], label: 'Antihistamine', color: '#a78bfa' },
+                { keys: ['ppi'], label: 'PPI', color: '#34d399' },
+                { keys: ['h2blocker'], label: 'H2 blocker', color: '#2dd4bf' },
+                { keys: ['antacid'], label: 'Antacid', color: '#4ade80' },
+                { keys: ['antitussive'], label: 'Antitussive', color: '#38bdf8' },
+                { keys: ['expectorant'], label: 'Expectorant', color: '#22d3ee' },
+                { keys: ['decongestant', 'cold'], label: 'Cold', color: '#60a5fa' },
+                { keys: ['laxative', 'stool softener', 'constipation'], label: 'Laxative', color: '#c084fc' },
+                { keys: ['antidiarrheal', 'diarrhea'], label: 'Antidiarrheal', color: '#f472b6' },
+                { keys: ['bronchodilator', 'asthma'], label: 'Bronchodilator', color: '#67e8f9' },
+                { keys: ['herbal', 'doh-approved'], label: 'Herbal', color: '#86efac' },
+                { keys: ['antifungal'], label: 'Antifungal', color: '#fbbf24' },
+                { keys: ['antiseptic', 'wound'], label: 'Antiseptic', color: '#facc15' },
+                { keys: ['antibiotic'], label: 'Antibiotic', color: '#f59e0b' },
+                { keys: ['rehydration', 'electrolytes'], label: 'ORS', color: '#2dd4bf' },
+                { keys: ['gas', 'bloating'], label: 'Antigas', color: '#a3e635' },
+                { keys: ['antiemetic', 'nausea', 'motion sickness'], label: 'Nausea', color: '#e879f9' },
+                { keys: ['supplement', 'vitamin', 'iron', 'zinc'], label: 'Supplement', color: '#94a3b8' },
+                { keys: ['skin', 'steroid', 'topical'], label: 'Topical', color: '#fdba74' },
+                { keys: ['analgesic', 'pain', 'fever'], label: 'Analgesic', color: '#f87171' },
+                { keys: ['cough'], label: 'Cough', color: '#38bdf8' }
+            ];
+            for (const rule of rules) {
+                if (rule.keys.some((k) => tags.includes(k) || tags.some((t) => t.includes(k)))) {
+                    return rule;
+                }
+            }
+            return { label: 'OTC', color: '#fbbf24' };
+        }
+
+        function otcMatchesBrowseFilter(item) {
+            if (otcBrowseFilter === 'all') return true;
+            const filter = OTC_BROWSE_FILTERS.find((f) => f.id === otcBrowseFilter);
+            if (!filter || !filter.tags) return true;
+            const tags = (item.tags || []).map((t) => String(t).toLowerCase());
+            return filter.tags.some((t) => tags.includes(t) || tags.some((x) => x.includes(t)));
+        }
+
+        function renderOtcChips() {
+            const wrap = document.getElementById('otc-chips');
+            if (!wrap) return;
+            wrap.innerHTML = '';
+            OTC_BROWSE_FILTERS.forEach((filter) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'otc-chip' + (otcBrowseFilter === filter.id ? ' is-active' : '');
+                btn.textContent = filter.label;
+                btn.setAttribute('role', 'tab');
+                btn.setAttribute('aria-selected', otcBrowseFilter === filter.id ? 'true' : 'false');
+                btn.onclick = () => {
+                    otcBrowseFilter = filter.id;
+                    otcVisibleCount = OTC_INCREMENT;
+                    renderOtcChips();
+                    renderOTCList(otcSearch ? otcSearch.value : '');
+                };
+                wrap.appendChild(btn);
+            });
+        }
 
         // IMPROVED SEARCH: Fuzzy/smart search helper with relevance ranking
         function smartSearch(query, item) {
@@ -2749,6 +2825,7 @@
             const uses = (item.uses || '').toLowerCase();
             const tags = (item.tags || []).map(t => t.toLowerCase()).join(' ');
             const additionalInfo = item.additionalInfo || {};
+            const generics = (additionalInfo.genericNames || []).map((g) => String(g).toLowerCase()).join(' ');
             const usesExpanded = (additionalInfo.usesExpanded || '').toLowerCase();
             const whenToGiveExpanded = (additionalInfo.whenToGiveExpanded || '').toLowerCase();
             
@@ -2760,10 +2837,12 @@
 
             // Exact matches get highest score
             if (name === q) return { match: true, score: 1000 };
+            if (generics.split(/[,\s]+/).includes(q)) return { match: true, score: 980 };
             if (brands.split(' ').includes(q)) return { match: true, score: 950 };
 
             // Starts with query
             if (name.startsWith(q)) score += 500;
+            if (generics.includes(q)) score += 450;
             if (uses.startsWith(q)) score += 300;
             if (brands.startsWith(q)) score += 400;
 
@@ -2778,7 +2857,7 @@
 
             // Fuzzy: check for partial word matches (e.g. 'fever' matches 'antipyretic')
             const queryWords = q.split(/\s+/);
-            const allText = `${name} ${brands} ${uses} ${tags} ${usesExpanded} ${whenToGiveExpanded} ${deepText}`;
+            const allText = `${name} ${generics} ${brands} ${uses} ${tags} ${usesExpanded} ${whenToGiveExpanded} ${deepText}`;
             queryWords.forEach(word => {
                 if (word.length > 2 && allText.includes(word)) score += 40;
             });
@@ -2821,6 +2900,7 @@
             
             // IMPROVED SEARCH: Smart search with relevance ranking + fuzzy fallback
             let matches = otcDatabase
+                .filter(otcMatchesBrowseFilter)
                 .map(item => ({ item, ...smartSearch(q, item) }))
                 .filter(r => r.match)
                 .sort((a, b) => b.score - a.score)
@@ -2828,7 +2908,7 @@
 
             let usedFuzzy = false;
             if (q && matches.length === 0 && window.NursePathCalculators && typeof window.NursePathCalculators.fuzzyDrugFallback === 'function') {
-                matches = window.NursePathCalculators.fuzzyDrugFallback(q, otcDatabase, 2);
+                matches = window.NursePathCalculators.fuzzyDrugFallback(q, otcDatabase.filter(otcMatchesBrowseFilter), 2);
                 usedFuzzy = matches.length > 0;
             }
 
@@ -2860,33 +2940,55 @@
                 const title = highlight(item.name, searchTerm);
                 const trade = highlight(item.ph_brands.join(', '), searchTerm);
                 const usesPreview = highlight(item.uses, searchTerm);
-                const initials = String(item.name || 'OTC')
-                    .split(/\s+/)
-                    .filter(Boolean)
-                    .slice(0, 2)
-                    .map((w) => w[0])
-                    .join('')
-                    .toUpperCase()
-                    .slice(0, 3) || 'OTC';
-                const tagRaw = (item.additionalInfo && item.additionalInfo.drugClass)
-                    ? String(item.additionalInfo.drugClass).split(/[\/,(-]/)[0].trim()
-                    : 'OTC';
-                const tag = tagRaw.length > 14 ? `${tagRaw.slice(0, 13)}…` : tagRaw;
+                const klass = otcShortClass(item);
+                const dose = (item.additionalInfo && item.additionalInfo.dosing)
+                    ? String(item.additionalInfo.dosing).split('.')[0].trim()
+                    : (item.whenToGive || '');
+                const caution = item.contraindications || '';
 
-                const card = document.createElement('button');
-                card.type = 'button';
+                const card = document.createElement('article');
                 card.className = 'otc-med-card' + (selectedId && item.id === selectedId ? ' is-active' : '');
                 card.dataset.otcId = item.id || '';
-                card.style.setProperty('--accent', '#fbbf24');
+                card.style.setProperty('--accent', klass.color);
                 card.innerHTML = `
-                    <span class="tool-hub-icon">${initials}</span>
-                    <span class="otc-med-meta">
-                        <span class="tool-hub-label">${title}</span>
-                        <span class="tool-hub-desc">${trade}</span>
-                        <span class="otc-med-uses">${usesPreview}</span>
-                    </span>
-                    <span class="tool-hub-tag">${tag}</span>`;
-                card.onclick = () => showOTCDetail(item);
+                    <button type="button" class="otc-med-main" aria-expanded="false">
+                        <span class="otc-class-swatch" aria-hidden="true"></span>
+                        <span class="otc-med-meta">
+                            <span class="tool-hub-label">${title}</span>
+                            <span class="tool-hub-desc">${trade}</span>
+                            <span class="otc-med-tag">${klass.label}</span>
+                            <span class="otc-med-uses">${usesPreview}</span>
+                        </span>
+                        <span class="otc-expand-chevron" aria-hidden="true"></span>
+                    </button>
+                    <div class="otc-med-panel" hidden>
+                        <div class="otc-med-fact"><span>Dose</span><p>${dose || 'See full details.'}</p></div>
+                        <div class="otc-med-fact"><span>Caution</span><p>${caution || 'See full details.'}</p></div>
+                        <div class="otc-med-fact"><span>Use</span><p>${item.uses || '—'}</p></div>
+                        <button type="button" class="otc-full-detail">Full details</button>
+                    </div>`;
+                const mainBtn = card.querySelector('.otc-med-main');
+                const panel = card.querySelector('.otc-med-panel');
+                const fullBtn = card.querySelector('.otc-full-detail');
+                mainBtn.addEventListener('click', () => {
+                    const open = card.classList.toggle('is-expanded');
+                    mainBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    if (panel) panel.hidden = !open;
+                    if (open) {
+                        document.querySelectorAll('.otc-med-card.is-expanded').forEach((other) => {
+                            if (other === card) return;
+                            other.classList.remove('is-expanded');
+                            const otherMain = other.querySelector('.otc-med-main');
+                            const otherPanel = other.querySelector('.otc-med-panel');
+                            if (otherMain) otherMain.setAttribute('aria-expanded', 'false');
+                            if (otherPanel) otherPanel.hidden = true;
+                        });
+                    }
+                });
+                fullBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showOTCDetail(item);
+                });
                 fragment.appendChild(card);
             });
 
@@ -2986,6 +3088,7 @@
             if (!window.__nursepathAuthState || !window.__nursepathAuthState.authenticated || window.__nursepathAuthState.booted) {
                 return;
             }
+            renderOtcChips();
             renderOTCList('');
             if (typeof initLabRanges === 'function') initLabRanges();
             if (typeof initAbbreviations === 'function') initAbbreviations();

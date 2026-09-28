@@ -624,20 +624,23 @@
         </div>
 
         </div> <!-- End content-tools -->
-    </div>
 
         <!-- ============ OTC MEDICINES TAB CONTENT ============ -->
         <div id="content-otc" class="tab-content hidden">
             <div class="otc-hub">
-                <div class="tools-hub-mode-row">
+                <div class="tools-hub-mode-row ref-hub-head">
                     <div class="tools-hub-hero">
                         <h2>OTC Medicines</h2>
-                        <p>Search Philippine brands, generics, or symptoms. A pocket reference for duty and study, so confirm anything that affects care with your CI.</p>
+                        <p>PH brands &amp; generics. Confirm with your CI.</p>
                     </div>
                 </div>
-                <div class="otc-search-wrap">
-                    <input id="otc-search" type="search" class="otc-search-input" placeholder="Search medicine, brand, or symptom (typo-tolerant)..." autocomplete="off" />
+                <div class="otc-sticky-chrome">
+                    <div class="otc-search-wrap">
+                        <input id="otc-search" type="search" class="otc-search-input" placeholder="Search brand, generic, symptom" autocomplete="off" />
+                    </div>
+                    <div id="otc-chips" class="otc-chips" role="tablist" aria-label="OTC categories"></div>
                 </div>
+                <p class="otc-pack-stamp" id="otcPackStamp">Reference pack nursepath-v2.4.8</p>
                 <div class="otc-layout">
                     <div id="otc-list-container">
                         <div id="otc-list" class="otc-list"></div>
@@ -658,7 +661,7 @@
                 <div class="tools-hub-mode-row">
                     <div class="tools-hub-hero">
                         <h2>Lab Ranges</h2>
-                        <p>Adult pocket ranges. Tap a test for normal, too high, too low, and how it is drawn. The printed slip and your CI always win.</p>
+                        <p>Adult pocket ranges. Slip &amp; CI win.</p>
                     </div>
                 </div>
                 <div class="lab-search-wrap">
@@ -684,7 +687,7 @@
                 <div class="tools-hub-mode-row">
                     <div class="tools-hub-hero">
                         <h2>Abbreviations</h2>
-                        <p>Ward short forms, A to Z. The short form is on the left and the meaning is on the right. Your hospital list wins.</p>
+                        <p>Ward short forms. Hospital list wins.</p>
                     </div>
                 </div>
                 <div class="ab-search-wrap">
@@ -710,7 +713,7 @@
                 <div class="tools-hub-mode-row">
                     <div class="tools-hub-hero">
                         <h2>Sizes</h2>
-                        <p>Needles, syringes, IV cannulas, and common tubes. Colors are memory aids. The package and your CI win.</p>
+                        <p>Needles, syringes, cannulas, tubes. Package &amp; CI win.</p>
                     </div>
                 </div>
                 <div class="sz-search-wrap">
@@ -734,12 +737,7 @@
     <footer class="np-footer">
         <p>Verify findings with your Clinical Instructor and approved textbooks before care decisions. Usage metadata may be logged with consent.</p>
     </footer>
-    </div>
-
-    <script src="/js/script-4.js"></script>
-
-    <!-- Service Worker: duplicate register kept for debug logging after auth boot -->
-    <script src="/js/script-5.js"></script>
+    </div> <!-- End np-content -->
 
         </main>
 
@@ -775,7 +773,7 @@
                 </div>
                 <div class="np-status-meta" id="npStatusMeta">
                     <strong id="npOnlineStatus">Checking connection…</strong>
-                    <span id="npPackStamp">Reference pack nursepath-v2.4.7</span>
+                    <span id="npPackStamp">Reference pack nursepath-v2.4.8</span>
                 </div>
                 <button type="button" id="npThemeToggleMobile" class="np-settings-row" aria-pressed="false">
                     <span class="np-settings-row-label">Appearance</span>
@@ -789,5 +787,8 @@
         </div>
     </div>
     </div>
+
+    <script src="/js/script-4.js"></script>
+    <script src="/js/script-5.js"></script>
 </body>
 </html>

@@ -687,13 +687,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             }
         }
 
-        /* Mobile-first safe area for notches */
-        body {
-            padding-top: env(safe-area-inset-top);
-            padding-left: env(safe-area-inset-left);
-            padding-right: env(safe-area-inset-right);
-            padding-bottom: env(safe-area-inset-bottom);
-        }
+        /* Safe-area is already on the first body rule — avoid doubling insets. */
         
         :root {
             --np-ink: #e8eef7;
@@ -1547,12 +1541,21 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             margin: 0;
         }
         .otc-hub { margin-bottom: 0.75rem; padding: 0 2px; }
-        .otc-search-wrap { margin-bottom: 14px; }
+        .otc-sticky-chrome {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            padding: 6px 0 8px;
+            margin: 0 0 6px;
+            background: #020617;
+            border-bottom: 1px solid #1e293b;
+        }
+        .otc-search-wrap { margin-bottom: 8px; }
         .otc-search-input {
             width: 100%;
-            min-height: 48px;
-            padding: 12px 14px !important;
-            border-radius: 14px;
+            min-height: 44px;
+            padding: 10px 12px !important;
+            border-radius: 12px;
             border: 1px solid #334155;
             background: #0f172a;
             color: #e2e8f0;
@@ -1566,6 +1569,39 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15);
         }
         .otc-search-input::placeholder { color: #64748b; }
+        .otc-chips {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 2px 2px 4px;
+            scrollbar-width: none;
+        }
+        .otc-chips::-webkit-scrollbar { display: none; }
+        .otc-chip {
+            flex: 0 0 auto;
+            min-height: 34px !important;
+            min-width: 0 !important;
+            padding: 6px 12px !important;
+            border-radius: 999px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: #cbd5e1;
+            font-size: 12.5px;
+            font-weight: 700;
+            font-family: var(--np-body);
+            cursor: pointer;
+        }
+        .otc-chip.is-active {
+            border-color: #fbbf24;
+            color: #fde68a;
+            background: rgba(251, 191, 36, 0.12);
+        }
+        .otc-pack-stamp {
+            margin: 0 0 10px;
+            font-size: 11px;
+            color: #64748b;
+        }
         .otc-layout {
             display: grid;
             grid-template-columns: 1fr;
@@ -1586,71 +1622,141 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         }
         .otc-med-card {
             --accent: #fbbf24;
-            text-align: left;
             width: 100%;
-            padding: 12px 14px !important;
-            min-height: 0 !important;
-            min-width: 0 !important;
             border-radius: 16px;
             border: 1px solid color-mix(in srgb, var(--accent) 28%, #334155);
             background:
                 linear-gradient(160deg, color-mix(in srgb, var(--accent) 12%, #0f172a), #0b1220 55%, #0f172a);
             color: #e2e8f0;
+            transition: border-color 0.22s ease, box-shadow 0.22s ease;
+            font-family: var(--np-body);
+            overflow: hidden;
+        }
+        .otc-med-card.is-active,
+        .otc-med-card.is-expanded {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent);
+        }
+        .otc-med-main {
+            text-align: left;
+            width: 100%;
+            padding: 12px 14px !important;
+            min-height: 0 !important;
+            min-width: 0 !important;
+            border: 0;
+            background: transparent;
+            color: inherit;
             cursor: pointer;
-            transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
             display: grid;
-            grid-template-columns: 34px 1fr auto;
+            grid-template-columns: 10px 1fr 16px;
             gap: 10px;
             align-items: start;
-            font-family: var(--np-body);
+            font-family: inherit;
         }
-        .otc-med-card:hover, .otc-med-card:focus-visible {
-            transform: translateY(-2px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 20px color-mix(in srgb, var(--accent) 14%, transparent);
-            outline: none;
+        .otc-med-main:focus-visible {
+            outline: 2px solid color-mix(in srgb, var(--accent) 70%, white);
+            outline-offset: -2px;
         }
-        .otc-med-card.is-active {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 45%, transparent);
-        }
-        .otc-med-card .tool-hub-icon {
-            width: 34px;
+        .otc-class-swatch {
+            width: 10px;
             height: 34px;
-            font-size: 10px;
+            border-radius: 999px;
+            background: var(--accent);
+            margin-top: 2px;
         }
-        .otc-med-meta { min-width: 0; }
+        .otc-med-meta { min-width: 0; display: grid; gap: 3px; }
         .otc-med-card .tool-hub-label {
-            font-size: 13.5px;
-            margin-bottom: 2px;
+            font-size: 14px;
+            font-weight: 800;
+            color: #f8fafc;
+            margin-bottom: 0;
+            line-height: 1.25;
         }
         .otc-med-card .tool-hub-desc {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #e2e8f0;
+            line-height: 1.35;
+        }
+        .otc-med-tag {
+            display: inline-flex;
+            align-self: start;
+            margin-top: 2px;
+            padding: 3px 8px;
+            border-radius: 999px;
+            border: 1px solid color-mix(in srgb, var(--accent) 40%, #334155);
+            background: color-mix(in srgb, var(--accent) 14%, transparent);
+            color: color-mix(in srgb, var(--accent) 88%, white);
             font-size: 11px;
-            color: #cbd5e1;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            text-transform: none;
+            max-width: 100%;
+            white-space: nowrap;
         }
         .otc-med-uses {
             display: block;
-            margin-top: 4px;
-            font-size: 11px;
-            color: #94a3b8;
+            margin-top: 2px;
+            font-size: 12.5px;
+            color: #cbd5e1;
             line-height: 1.4;
         }
-        .otc-med-card .tool-hub-tag {
-            align-self: start;
+        .otc-expand-chevron {
+            width: 10px;
+            height: 10px;
+            margin-top: 8px;
+            border-right: 2px solid #94a3b8;
+            border-bottom: 2px solid #94a3b8;
+            transform: rotate(45deg);
+            transition: transform 0.15s ease;
+            justify-self: end;
+        }
+        .otc-med-card.is-expanded .otc-expand-chevron {
+            transform: rotate(-135deg);
+            margin-top: 12px;
+        }
+        .otc-med-panel {
+            padding: 0 14px 12px 34px;
+            display: grid;
+            gap: 8px;
+        }
+        .otc-med-panel[hidden] { display: none !important; }
+        .otc-med-fact span {
+            display: block;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #94a3b8;
+            margin-bottom: 2px;
+        }
+        .otc-med-fact p {
+            margin: 0;
+            font-size: 12.5px;
+            line-height: 1.4;
+            color: #e2e8f0;
+        }
+        .otc-full-detail {
+            width: 100%;
+            min-height: 40px !important;
+            min-width: 0 !important;
             margin-top: 2px;
-            max-width: 5.6rem;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            padding: 8px 12px !important;
+            border-radius: 10px;
+            border: 1px solid color-mix(in srgb, var(--accent) 45%, #334155);
+            background: color-mix(in srgb, var(--accent) 12%, #0f172a);
+            color: #f8fafc;
+            font-size: 12.5px;
+            font-weight: 800;
+            font-family: var(--np-body);
+            cursor: pointer;
         }
         @media (max-width: 768px) {
-            button.otc-med-card,
             button.tool-hub-card {
                 padding: 12px 14px !important;
                 min-height: 0 !important;
                 font-size: inherit !important;
             }
-            button.otc-med-card .tool-hub-tag,
             button.tool-hub-card .tool-hub-tag {
                 min-height: 0 !important;
                 min-width: 0 !important;
@@ -2287,7 +2393,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             h3, .text-xl, .text-lg { font-size: 1rem !important; }
 
             /* Generic button sizing must not fight component buttons */
-            button:not(.tool-hub-card):not(.otc-med-card):not(.lab-row):not(.lab-chip):not(.lab-back-btn):not(.ab-row):not(.ab-chip):not(.ab-back):not(.sz-row):not(.sz-chip):not(.sz-back):not(.study-tab-btn):not(.study-quiz-choice):not(.score-option):not(.tool-guide-close):not(.ron-region):not(.tool-hub-tag):not(.np-sidebar-toggle):not(.np-sidebar-link):not(.np-action-btn):not(.np-sidebar-backdrop):not(.np-tabbar-link):not(.np-settings-open):not(.np-settings-close):not(.np-settings-row):not(.np-settings-backdrop):not(.np-mode-toggle button) {
+            button:not(.tool-hub-card):not(.otc-med-main):not(.otc-full-detail):not(.otc-chip):not(.lab-row):not(.lab-chip):not(.lab-back-btn):not(.ab-row):not(.ab-chip):not(.ab-back):not(.sz-row):not(.sz-chip):not(.sz-back):not(.study-tab-btn):not(.study-quiz-choice):not(.score-option):not(.tool-guide-close):not(.ron-region):not(.tool-hub-tag):not(.np-sidebar-toggle):not(.np-sidebar-link):not(.np-action-btn):not(.np-sidebar-backdrop):not(.np-tabbar-link):not(.np-settings-open):not(.np-settings-close):not(.np-settings-row):not(.np-settings-backdrop):not(.np-mode-toggle button) {
                 padding: 12px 16px !important;
                 font-size: 14px !important;
                 min-height: 48px !important;
@@ -2673,6 +2779,23 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         html[data-theme="light"] .text-slate-400,
         html[data-theme="light"] .text-slate-500,
         html[data-theme="light"] .tool-hub-desc,
+        html[data-theme="light"] .otc-sticky-chrome,
+        html[data-theme="light"] .lab-search-wrap,
+        html[data-theme="light"] .ab-search-wrap,
+        html[data-theme="light"] .sz-search-wrap {
+            background: #f8fafc !important;
+            border-bottom-color: rgba(148, 163, 184, 0.35) !important;
+        }
+        html[data-theme="light"] .otc-chip {
+            background: #ffffff !important;
+            border-color: rgba(148, 163, 184, 0.55) !important;
+            color: #334155 !important;
+        }
+        html[data-theme="light"] .otc-chip.is-active {
+            border-color: #d97706 !important;
+            color: #92400e !important;
+            background: rgba(251, 191, 36, 0.16) !important;
+        }
         html[data-theme="light"] .otc-med-uses,
         html[data-theme="light"] .otc-detail-placeholder,
         html[data-theme="light"] .lab-detail-placeholder,
@@ -3061,7 +3184,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
                 max-width: 100% !important;
                 padding-left: 12px !important;
                 padding-right: 12px !important;
-                padding-top: 10px !important;
+                padding-top: 4px !important;
                 padding-bottom: calc(var(--np-tabbar-height) + env(safe-area-inset-bottom) + 28px) !important;
             }
             html.np-tool-active .np-page-header {
@@ -3074,10 +3197,55 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
                 display: inline-flex;
             }
             .np-page-header {
-                margin-bottom: 10px;
+                margin: 0 0 6px;
+                min-height: 0;
+            }
+            .np-header-lockup {
+                gap: 6px;
+            }
+            .np-header-lockup img.np-header-mark {
+                width: 26px;
+                height: 26px;
             }
             .np-header-lockup .np-header-word {
-                font-size: 1.2rem;
+                font-size: 1.05rem;
+            }
+            .ref-hub-head,
+            #content-otc .tools-hub-mode-row,
+            #content-labs .tools-hub-mode-row,
+            #content-abbrev .tools-hub-mode-row,
+            #content-sizes .tools-hub-mode-row {
+                margin-bottom: 6px !important;
+            }
+            #content-otc .tools-hub-hero,
+            #content-labs .tools-hub-hero,
+            #content-abbrev .tools-hub-hero,
+            #content-sizes .tools-hub-hero {
+                margin-bottom: 0;
+            }
+            #content-otc .tools-hub-hero h2,
+            #content-labs .tools-hub-hero h2,
+            #content-abbrev .tools-hub-hero h2,
+            #content-sizes .tools-hub-hero h2 {
+                font-size: 1.15rem;
+                margin-bottom: 2px;
+            }
+            #content-otc .tools-hub-hero p,
+            #content-labs .tools-hub-hero p,
+            #content-abbrev .tools-hub-hero p,
+            #content-sizes .tools-hub-hero p {
+                font-size: 12px;
+                color: #94a3b8;
+            }
+            .lab-search-wrap,
+            .ab-search-wrap,
+            .sz-search-wrap {
+                position: sticky;
+                top: 0;
+                z-index: 40;
+                padding: 6px 0 8px;
+                margin-bottom: 8px !important;
+                background: #020617;
             }
             .tools-hub-mode-row {
                 display: flex !important;
@@ -3160,11 +3328,11 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
                 color: #f8fafc;
                 background: rgba(148, 163, 184, 0.14);
             }
-            .np-tabbar-link[data-tab="tools"].is-active { color: #67e8f9; background: rgba(8, 47, 73, 0.7); }
-            .np-tabbar-link[data-tab="otc"].is-active { color: #fbbf24; background: rgba(69, 26, 3, 0.55); }
-            .np-tabbar-link[data-tab="labs"].is-active { color: #6ee7b7; background: rgba(6, 78, 59, 0.55); }
-            .np-tabbar-link[data-tab="abbrev"].is-active { color: #ddd6fe; background: rgba(76, 29, 149, 0.45); }
-            .np-tabbar-link[data-tab="sizes"].is-active { color: #bae6fd; background: rgba(12, 74, 110, 0.5); }
+            .np-tabbar-link[data-tab="tools"].is-active { color: #67e8f9; background: rgba(8, 47, 73, 0.55); }
+            .np-tabbar-link[data-tab="otc"].is-active { color: #fbbf24; background: rgba(120, 53, 15, 0.35); }
+            .np-tabbar-link[data-tab="labs"].is-active { color: #6ee7b7; background: rgba(6, 78, 59, 0.4); }
+            .np-tabbar-link[data-tab="abbrev"].is-active { color: #ddd6fe; background: rgba(76, 29, 149, 0.35); }
+            .np-tabbar-link[data-tab="sizes"].is-active { color: #bae6fd; background: rgba(12, 74, 110, 0.4); }
             .np-footer {
                 margin-top: 1.25rem;
                 padding-bottom: 4px;
