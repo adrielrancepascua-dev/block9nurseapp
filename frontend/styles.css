@@ -1654,8 +1654,8 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             button.tool-hub-card .tool-hub-tag {
                 min-height: 0 !important;
                 min-width: 0 !important;
-                padding: 4px 8px !important;
-                font-size: 10px !important;
+                padding: 6px 11px !important;
+                font-size: 12.5px !important;
             }
         }
         .otc-empty, .otc-fuzzy-hint {
