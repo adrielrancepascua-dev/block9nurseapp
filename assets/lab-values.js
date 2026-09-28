@@ -249,13 +249,10 @@
     const listContainer = document.getElementById('lab-list-container');
     const detailContainer = document.getElementById('lab-detail-container');
     if (isMobile) {
+      window.__npListScroll = window.scrollY;
       if (listContainer) listContainer.classList.add('hidden');
-      if (detailContainer) {
-        detailContainer.classList.remove('hidden');
-        detailContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    } else if (detailEl.scrollIntoView) {
-      detailEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      if (detailContainer) detailContainer.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'auto' });
     }
   }
 
@@ -263,11 +260,10 @@
     const listContainer = document.getElementById('lab-list-container');
     const detailContainer = document.getElementById('lab-detail-container');
     const detailEl = document.getElementById('lab-detail');
-    if (listContainer) {
-      listContainer.classList.remove('hidden');
-      listContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (listContainer) listContainer.classList.remove('hidden');
     if (detailContainer) detailContainer.classList.add('hidden');
+    const savedScroll = window.__npListScroll;
+    window.__npListScroll = null;
     if (detailEl) {
       detailEl.innerHTML = '<p class="lab-detail-placeholder">Tap a test for normal, too high, too low, and how it is drawn.</p>';
     }
@@ -286,11 +282,14 @@
       const cur = window.history.state;
       if (cur && cur.np === 1 && cur.view === 'labs-detail') {
         window.history.back();
-        return;
-      }
-      if (typeof window.pushNursePathState === 'function') {
+      } else if (typeof window.pushNursePathState === 'function') {
         window.pushNursePathState({ view: 'labs', tab: 'labs' });
       }
+    }
+    if (window.innerWidth < 768 && typeof savedScroll === 'number') {
+      const apply = () => window.scrollTo({ top: savedScroll, behavior: 'auto' });
+      apply();
+      requestAnimationFrame(apply);
     }
   }
 

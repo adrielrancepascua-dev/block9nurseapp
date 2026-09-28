@@ -103,26 +103,20 @@
     if (isMobile) {
       const listContainer = document.getElementById('otc-list-container');
       const detailContainer = document.getElementById('otc-detail-container');
+      window.__npListScroll = window.scrollY;
       if (listContainer) listContainer.classList.add('hidden');
-      if (detailContainer) {
-        detailContainer.classList.remove('hidden');
-        detailContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    } else {
-      detailEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      if (detailContainer) detailContainer.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'auto' });
     }
   }
 
   function hideOTCDetail(opts) {
     const listContainer = document.getElementById('otc-list-container');
     const detailContainer = document.getElementById('otc-detail-container');
-    if (listContainer) {
-      listContainer.classList.remove('hidden');
-      listContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    if (detailContainer) {
-      detailContainer.classList.add('hidden');
-    }
+    if (listContainer) listContainer.classList.remove('hidden');
+    if (detailContainer) detailContainer.classList.add('hidden');
+    const savedScroll = window.__npListScroll;
+    window.__npListScroll = null;
 
     window.__nursepathSelectedOtc = null;
     document.querySelectorAll('.otc-med-card.is-active').forEach((el) => el.classList.remove('is-active'));
@@ -134,13 +128,13 @@
 
     if (!(opts && opts.skipHistory)) {
       const cur = window.history.state;
-      if (cur && cur.np === 1 && cur.view === 'otc-detail') {
-        window.history.back();
-        return;
-      }
-      if (typeof window.pushNursePathState === 'function') {
-        window.pushNursePathState({ view: 'otc', tab: 'otc' });
-      }
+      if (cur && cur.np === 1 && cur.view === 'otc-detail') window.history.back();
+      else if (typeof window.pushNursePathState === 'function') window.pushNursePathState({ view: 'otc', tab: 'otc' });
+    }
+    if (window.innerWidth < 768 && typeof savedScroll === 'number') {
+      const apply = () => window.scrollTo({ top: savedScroll, behavior: 'auto' });
+      apply();
+      requestAnimationFrame(apply);
     }
   }
 

@@ -1264,6 +1264,7 @@
         });
 
         // Seed history so the first in-app Back has a hub state to land on.
+        try { window.history.scrollRestoration = 'manual'; } catch (e) { /* ignore */ }
         replaceNursePathState({ view: 'hub', tab: 'tools' });
 
         // Restore hub mode on load
@@ -2869,7 +2870,7 @@
                 showLessBtn.onclick = () => {
                     otcVisibleCount = OTC_INCREMENT;
                     renderOTCList('');
-                    otcListEl.scrollIntoView({behavior:'smooth', block:'start'});
+                    otcListEl.scrollIntoView({ behavior: 'auto', block: 'nearest' });
                 };
                 fragment.appendChild(showLessBtn);
             }

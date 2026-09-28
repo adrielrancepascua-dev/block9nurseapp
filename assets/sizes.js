@@ -111,12 +111,11 @@
     const list = document.getElementById('sz-list-container');
     const detail = document.getElementById('sz-detail-container');
     if (window.innerWidth < 768) {
+      window.__npListScroll = window.scrollY;
       if (hub) hub.classList.add('is-detail');
       if (list) list.classList.add('hidden');
-      if (detail) {
-        detail.classList.remove('hidden');
-        detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      if (detail) detail.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'auto' });
     }
   }
 
@@ -128,16 +127,20 @@
     if (hub) hub.classList.remove('is-detail');
     if (list) list.classList.remove('hidden');
     if (detail) detail.classList.add('hidden');
+    const savedScroll = window.__npListScroll;
+    window.__npListScroll = null;
     if (detailEl) detailEl.innerHTML = '<p class="sz-placeholder">Tap a size for the usual job, the angle, and what to read on the package.</p>';
     window.__nursepathSelectedSize = null;
     document.querySelectorAll('.sz-row.is-active').forEach((el) => el.classList.remove('is-active'));
     if (!(opts && opts.skipHistory)) {
       const cur = window.history.state;
-      if (cur && cur.np === 1 && cur.view === 'sizes-detail') {
-        window.history.back();
-        return;
-      }
-      if (typeof window.pushNursePathState === 'function') window.pushNursePathState({ view: 'sizes', tab: 'sizes' });
+      if (cur && cur.np === 1 && cur.view === 'sizes-detail') window.history.back();
+      else if (typeof window.pushNursePathState === 'function') window.pushNursePathState({ view: 'sizes', tab: 'sizes' });
+    }
+    if (window.innerWidth < 768 && typeof savedScroll === 'number') {
+      const apply = () => window.scrollTo({ top: savedScroll, behavior: 'auto' });
+      apply();
+      requestAnimationFrame(apply);
     }
   }
 

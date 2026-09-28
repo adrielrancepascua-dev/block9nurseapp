@@ -298,12 +298,11 @@
     const list = document.getElementById('ab-list-container');
     const detail = document.getElementById('ab-detail-container');
     if (window.innerWidth < 768) {
+      window.__npListScroll = window.scrollY;
       if (hub) hub.classList.add('is-detail');
       if (list) list.classList.add('hidden');
-      if (detail) {
-        detail.classList.remove('hidden');
-        detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      if (detail) detail.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'auto' });
     }
   }
 
@@ -315,16 +314,20 @@
     if (hub) hub.classList.remove('is-detail');
     if (list) list.classList.remove('hidden');
     if (detail) detail.classList.add('hidden');
+    const savedScroll = window.__npListScroll;
+    window.__npListScroll = null;
     if (detailEl) detailEl.innerHTML = '<p class="ab-placeholder">Tap a short form for the meaning, where it shows up, and when to write the words instead.</p>';
     window.__nursepathSelectedAbbrev = null;
     document.querySelectorAll('.ab-row.is-active').forEach((el) => el.classList.remove('is-active'));
     if (!(opts && opts.skipHistory)) {
       const cur = window.history.state;
-      if (cur && cur.np === 1 && cur.view === 'abbrev-detail') {
-        window.history.back();
-        return;
-      }
-      if (typeof window.pushNursePathState === 'function') window.pushNursePathState({ view: 'abbrev', tab: 'abbrev' });
+      if (cur && cur.np === 1 && cur.view === 'abbrev-detail') window.history.back();
+      else if (typeof window.pushNursePathState === 'function') window.pushNursePathState({ view: 'abbrev', tab: 'abbrev' });
+    }
+    if (window.innerWidth < 768 && typeof savedScroll === 'number') {
+      const apply = () => window.scrollTo({ top: savedScroll, behavior: 'auto' });
+      apply();
+      requestAnimationFrame(apply);
     }
   }
 
