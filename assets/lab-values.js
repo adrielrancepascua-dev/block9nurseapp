@@ -45,7 +45,7 @@
     { id: 'ag', name: 'Anion Gap', abbrev: 'AG', panel: 'Electrolytes', category: 'chem', specimen: 'Calculated from electrolytes', adultRange: '8–12 mmol/L (lab formula varies)', units: 'mmol/L', aliases: ['high anion gap', 'hagmet', 'mudpiles'], high: 'Lactic acidosis, ketoacidosis, toxins, renal failure.', low: 'Low albumin, lithium, lab error.', nursing: 'Always check albumin — a low albumin shrinks the gap.', notes: 'Formula is usually Na − (Cl + HCO₃). Confirm your lab’s version.' },
     { id: 'ca', name: 'Calcium (total)', abbrev: 'Ca', panel: 'Electrolytes', category: 'chem', specimen: 'Serum', adultRange: '8.5–10.5 mg/dL', units: 'mg/dL', aliases: ['hypocalcemia', 'hypercalcemia', 'corrected calcium'], high: 'Hyperparathyroidism, malignancy, excess vitamin D, thiazides.', low: 'Hypoparathyroidism, CKD, vitamin D deficiency, low albumin, pancreatitis.', nursing: 'Correct for albumin or look at ionized Ca. Chvostek/Trousseau if symptomatic.', notes: 'Total Ca falls when albumin is low even if ionized Ca is fine.' },
     { id: 'ica', name: 'Ionized Calcium', abbrev: 'iCa', panel: 'Electrolytes', category: 'chem', specimen: 'Whole blood / serum (anaerobic)', adultRange: '1.12–1.32 mmol/L', units: 'mmol/L', aliases: ['free calcium'], high: 'Same drivers as total hypercalcemia.', low: 'True hypocalcemia, citrate from massive transfusion, alkalosis.', nursing: 'Preferred when albumin is abnormal or the patient is unstable.', notes: 'Handle like a blood gas — air in the syringe changes it.' },
-    { id: 'mg', name: 'Magnesium', abbrev: 'Mg', panel: 'Electrolytes', category: 'chem', specimen: 'Serum', adultRange: '1.7–2.2 mg/dL', units: 'mg/dL', aliases: ['hypomagnesemia', 'hypermagnesemia'], high: 'CKD, Mg-containing antacids/cathartics, treatment of preeclampsia.', low: 'GI loss, alcohol, diuretics, PPIs, refeeding.', nursing: 'Low Mg often keeps K and Ca from correcting. Watch DTRs on Mg drips.', notes: 'OB MgSO₄ patients can run “high” on purpose — know the indication.' },
+    { id: 'mg', name: 'Magnesium', abbrev: 'Mg', panel: 'Electrolytes', category: 'chem', specimen: 'Serum', adultRange: '1.7–2.2 mg/dL', units: 'mg/dL', aliases: ['hypomagnesemia', 'hypermagnesemia', 'magnesium sulfate', 'mgso4'], high: 'CKD, Mg-containing antacids/cathartics, treatment of preeclampsia.', low: 'GI loss, alcohol, diuretics, PPIs, refeeding.', nursing: 'Low Mg often keeps K and Ca from correcting. On a preeclampsia drip, a “high” level can be the goal — watch reflexes and breathing.', notes: 'OB MgSO₄ patients can run above the usual band on purpose.', rangeNote: 'Not on a magnesium drip.', targets: [{ label: 'On MgSO₄', range: '4–7 mg/dL', note: 'Common textbook band for preeclampsia seizure prevention. Reflexes fade as the level climbs past it. The order wins.' }] },
     { id: 'phos', name: 'Phosphorus', abbrev: 'PO₄', panel: 'Electrolytes', category: 'chem', specimen: 'Serum', adultRange: '2.5–4.5 mg/dL', units: 'mg/dL', aliases: ['phosphate', 'hypophosphatemia'], high: 'CKD, hypoparathyroidism, rhabdo, phosphate enemas.', low: 'Refeeding, insulin, alcohol, hungry-bone, malabsorption.', nursing: 'Very low phosphate → weakness and respiratory failure risk. Recheck after feeding starts.', notes: 'Kids run higher than adults.' },
 
     { id: 'bun', name: 'Blood Urea Nitrogen', abbrev: 'BUN', panel: 'Renal', category: 'chem', specimen: 'Serum / plasma', adultRange: '7–20 mg/dL', units: 'mg/dL', aliases: ['urea', 'azotemia'], high: 'Dehydration, GI bleed, high protein, AKI/CKD, steroids.', low: 'Low protein, overhydration, severe liver disease.', nursing: 'BUN:creatinine ratio helps sort pre-renal vs intrinsic — still confirm with the team.', notes: 'PH slips usually print mg/dL.' },
@@ -55,7 +55,7 @@
 
     { id: 'glu-fast', name: 'Glucose (fasting)', abbrev: 'FBS', panel: 'Glucose', category: 'endo', specimen: 'Serum / plasma (fasting 8h)', adultRange: '70–99 mg/dL', units: 'mg/dL', aliases: ['fbs', 'fasting blood sugar', 'hypoglycemia', 'hyperglycemia'], high: 'Diabetes, steroids, stress, pancreatitis.', low: 'Insulin/OHA excess, sepsis, liver failure, skipped meals.', nursing: 'Treat the patient, not only the strip. Recheck after you treat a low.', notes: '100–125 mg/dL fasting is impaired; ≥126 on two tests suggests diabetes (textbook).' },
     { id: 'glu-random', name: 'Glucose (random)', abbrev: 'RBS', panel: 'Glucose', category: 'endo', specimen: 'Serum / capillary', adultRange: '70–140 mg/dL (context-dependent)', units: 'mg/dL', aliases: ['rbs', 'random blood sugar', 'cbg'], high: 'Diabetes, steroids, post-meal, stress.', low: 'Same as fasting hypoglycemia.', nursing: 'Know if it is fasting, post-meal, or CBG. Document the timing.', notes: 'A random ≥200 mg/dL with classic symptoms is a diabetes clue, not a solo diagnosis here.' },
-    { id: 'hba1c', name: 'Glycated Hemoglobin', abbrev: 'HbA1c', panel: 'Glucose', category: 'endo', specimen: 'Whole blood (EDTA)', adultRange: '<5.7% (no diabetes)', units: '%', aliases: ['a1c', 'glycated hb'], high: '5.7–6.4% prediabetes; ≥6.5% diabetes category (textbook). Poor control if already diabetic.', low: 'Hemolysis, blood loss, some hemoglobinopathies (assay-dependent).', nursing: 'Reflects ~3 months. Do not use it for hour-to-hour insulin decisions.', notes: 'Target for a known diabetic is individualized with the team.' },
+    { id: 'hba1c', name: 'Glycated Hemoglobin', abbrev: 'HbA1c', panel: 'Glucose', category: 'endo', specimen: 'Whole blood (EDTA)', adultRange: '<5.7%', units: '%', aliases: ['a1c', 'glycated hb'], high: '5.7–6.4% prediabetes; ≥6.5% diabetes category (textbook). Poor control if already diabetic.', low: 'Hemolysis, blood loss, some hemoglobinopathies (assay-dependent).', nursing: 'Reflects ~3 months. Do not use it for hour-to-hour insulin decisions.', notes: 'A treatment target is not the same as the no-diabetes band.', rangeNote: 'No diabetes.', targets: [{ label: 'Many adults with diabetes', range: 'Often <7%', note: 'A common textbook aim. Pregnancy, older adults, and frequent lows change it. The plan wins.' }] },
 
     { id: 'ast', name: 'Aspartate Aminotransferase', abbrev: 'AST', panel: 'Liver', category: 'chem', specimen: 'Serum', adultRange: '10–40 U/L', units: 'U/L', aliases: ['sgot'], high: 'Hepatitis, alcohol, ischemia, rhabdo, MI (less specific).', low: 'Rarely useful alone.', nursing: 'AST:ALT ratio and CK help sort liver vs muscle.', notes: 'Not liver-specific. Read with ALT.' },
     { id: 'alt', name: 'Alanine Aminotransferase', abbrev: 'ALT', panel: 'Liver', category: 'chem', specimen: 'Serum', adultRange: '7–56 U/L', units: 'U/L', aliases: ['sgpt'], high: 'Viral/drug hepatitis, fatty liver, ischemia.', low: 'Rarely useful alone.', nursing: 'More liver-specific than AST. Watch hepatotoxic meds.', notes: 'Mild bumps are common; trend and symptoms matter.' },
@@ -74,13 +74,13 @@
     { id: 'paco2', name: 'Arterial PaCO₂', abbrev: 'PaCO₂', panel: 'ABG', category: 'abg', specimen: 'Arterial blood', adultRange: '35–45 mmHg', units: 'mmHg', aliases: ['pco2', 'hypercapnia', 'hypocapnia'], high: 'Hypoventilation, COPD, over-sedation.', low: 'Hyperventilation, anxiety, compensation for metabolic acidosis, PE.', nursing: 'This is ventilation, not oxygenation.', notes: 'Acute vs chronic compensation changes the expected HCO₃.' },
     { id: 'pao2', name: 'Arterial PaO₂', abbrev: 'PaO₂', panel: 'ABG', category: 'abg', specimen: 'Arterial blood', adultRange: '80–100 mmHg (room air)', units: 'mmHg', aliases: ['po2', 'hypoxemia'], high: 'Supplemental oxygen.', low: 'Lung disease, hypoventilation, shunt, high altitude.', nursing: 'Interpret with FiO₂. A PaO₂ of 90 on 100% O₂ is not “normal.”', notes: 'Age lowers expected PaO₂ a bit.' },
     { id: 'abg-hco3', name: 'ABG Bicarbonate', abbrev: 'HCO₃ (ABG)', panel: 'ABG', category: 'abg', specimen: 'Arterial blood (calculated)', adultRange: '22–26 mmol/L', units: 'mmol/L', aliases: ['abg bicarb'], high: 'Metabolic alkalosis or renal compensation for chronic CO₂ retention.', low: 'Metabolic acidosis or compensation for hyperventilation.', nursing: 'Should be close to the chemistry CO₂, not identical.', notes: 'ROME: Respiratory opposite, metabolic equal.' },
-    { id: 'sao2', name: 'Arterial SaO₂', abbrev: 'SaO₂', panel: 'ABG', category: 'abg', specimen: 'Arterial blood / pulse ox (SpO₂)', adultRange: '95–100%', units: '%', aliases: ['spo2', 'oxygen sat'], high: 'Supplemental O₂ (watch COPD targets).', low: 'Hypoxemia, poor perfusion, nail polish artifact on SpO₂.', nursing: 'SpO₂ is a probe; SaO₂ is the ABG. Confirm a weird sat with the patient and the waveform.', notes: 'Many COPD orders use 88–92% — follow the order, not this adult band.' },
+    { id: 'sao2', name: 'Arterial SaO₂', abbrev: 'SaO₂', panel: 'ABG', category: 'abg', specimen: 'Arterial blood / pulse ox (SpO₂)', adultRange: '95–100%', units: '%', aliases: ['spo2', 'oxygen sat', 'copd'], high: 'Supplemental O₂ (watch COPD targets).', low: 'Hypoxemia, poor perfusion, nail polish artifact on SpO₂.', nursing: 'SpO₂ is a probe; SaO₂ is the ABG. Confirm a weird sat with the patient and the waveform.', notes: 'A COPD oxygen order is a target, not the healthy-adult band.', rangeNote: 'Healthy adult.', targets: [{ label: 'Some COPD orders', range: '88–92%', note: 'Follow the written oxygen order. A sat in this band can be the goal, not a low.' }] },
     { id: 'be', name: 'Base Excess', abbrev: 'BE', panel: 'ABG', category: 'abg', specimen: 'Arterial blood (calculated)', adultRange: '−2 to +2 mmol/L', units: 'mmol/L', aliases: ['base deficit'], high: 'Metabolic alkalosis.', low: 'Metabolic acidosis (base deficit).', nursing: 'A quick metabolic snapshot next to HCO₃.', notes: 'Sign convention: negative = deficit.' },
     { id: 'lactate', name: 'Lactate', abbrev: 'Lac', panel: 'ABG', category: 'abg', specimen: 'Arterial or venous plasma, on ice', adultRange: '0.5–2.0 mmol/L', units: 'mmol/L', aliases: ['lactic acid', 'sepsis'], high: 'Shock, sepsis, ischemia, metformin, seizures, poor draw.', low: 'Not usually a problem.', nursing: 'Trend clearance after fluids/source control. A rising lactate is a shout, not a whisper.', notes: 'Do not leave the sample sitting on the ward.' },
 
     { id: 'pt', name: 'Prothrombin Time', abbrev: 'PT', panel: 'Coagulation', category: 'coag', specimen: 'Citrate tube, filled to the line', adultRange: '11–13.5 sec', units: 'sec', aliases: ['protime'], high: 'Warfarin, vitamin K deficiency, liver failure, DIC, factor VII.', low: 'Not usually clinically useful (short PT).', nursing: 'A short-filled blue top falsely prolongs PT/aPTT. Fill it.', notes: 'INR is how we compare PT across labs.' },
-    { id: 'inr', name: 'International Normalized Ratio', abbrev: 'INR', panel: 'Coagulation', category: 'coag', specimen: 'Citrate tube', adultRange: '0.8–1.1 (not on warfarin)', units: '', aliases: ['warfarin', 'coumadin'], high: 'Anticoagulation, liver disease, DIC, vitamin K deficiency.', low: 'Not usually a problem off warfarin.', nursing: 'Therapeutic INR is indication-specific (often ~2–3). Know why the patient is anticoagulated.', notes: 'Do not use the “normal” band for a patient on warfarin.' },
-    { id: 'aptt', name: 'Activated Partial Thromboplastin Time', abbrev: 'aPTT', panel: 'Coagulation', category: 'coag', specimen: 'Citrate tube, filled to the line', adultRange: '25–35 sec', units: 'sec', aliases: ['ptt', 'heparin'], high: 'Heparin, lupus anticoagulant, hemophilia, DIC, liver disease.', low: 'Possible hypercoagulable state or lab artifact.', nursing: 'Heparin protocols follow aPTT or anti-Xa, not a guess. Recheck after a bad draw.', notes: 'Reagent ranges differ — use your hospital’s heparin nomogram.' },
+    { id: 'inr', name: 'International Normalized Ratio', abbrev: 'INR', panel: 'Coagulation', category: 'coag', specimen: 'Citrate tube', adultRange: '0.8–1.1', units: '', aliases: ['warfarin', 'coumadin'], high: 'Above the intended band: liver disease, DIC, vitamin K deficiency, or too much warfarin.', low: 'Off warfarin, a low-normal INR is usual. On warfarin, below the target means clots form more easily than the team wanted.', nursing: 'Read the usual band only if the patient is not on warfarin. On warfarin, use the therapeutic card that matches the indication.', notes: 'Do not call 2.4 “too high” on a typical warfarin order.', rangeNote: 'Not on warfarin.', targets: [{ label: 'Most warfarin', range: '2.0–3.0', note: 'Atrial fibrillation, DVT, and PE in most textbooks.' }, { label: 'Some mechanical valves', range: '2.5–3.5', note: 'A higher target on some valve orders. The prescription wins.' }] },
+    { id: 'aptt', name: 'Activated Partial Thromboplastin Time', abbrev: 'aPTT', panel: 'Coagulation', category: 'coag', specimen: 'Citrate tube, filled to the line', adultRange: '25–35 sec', units: 'sec', aliases: ['ptt', 'heparin'], high: 'Heparin, lupus anticoagulant, hemophilia, DIC, liver disease.', low: 'Possible hypercoagulable state or lab artifact.', nursing: 'Off heparin, use the usual band. On a heparin drip, use the hospital nomogram or anti-Xa, not this estimate alone.', notes: 'Reagent ranges differ. A short-filled blue top falsely prolongs the time.', rangeNote: 'Not on heparin.', targets: [{ label: 'Unfractionated heparin', range: '1.5–2.5 × control', note: 'A common teaching multiple. Your lab’s nomogram is the number that counts.' }] },
     { id: 'ddimer', name: 'D-dimer', abbrev: 'D-D', panel: 'Coagulation', category: 'coag', specimen: 'Citrate plasma', adultRange: '<0.5 µg/mL FEU (kit-dependent)', units: 'µg/mL FEU', aliases: ['dimer', 'pe', 'dvt'], high: 'VTE, DIC, pregnancy, cancer, inflammation, age, post-op.', low: 'Helps argue against VTE when pre-test probability is low.', nursing: 'A high D-dimer is not a PE. A negative one is more useful in the right patient.', notes: 'Units and cutoffs differ a lot. Read the slip.' },
     { id: 'fib', name: 'Fibrinogen', abbrev: 'Fib', panel: 'Coagulation', category: 'coag', specimen: 'Citrate plasma', adultRange: '200–400 mg/dL', units: 'mg/dL', aliases: ['factor i'], high: 'Inflammation, pregnancy, acute phase.', low: 'DIC, thrombolysis, liver failure, massive transfusion.', nursing: 'A falling fibrinogen with rising PT/aPTT/D-dimer is a DIC pattern to escalate.', notes: 'Replacement is a team decision.' },
 
@@ -214,6 +214,35 @@
     </section>`;
   }
 
+  function labRangeCard(kind, title, range, note) {
+    if (!range) return '';
+    const noteHtml = note ? `<p class="lab-range-note">${escapeHtml(note)}</p>` : '';
+    return `<section class="lab-block lab-block-${kind}">
+      <h4>${escapeHtml(title)}</h4>
+      <p class="lab-range-value">${escapeHtml(range)}</p>
+      ${noteHtml}
+    </section>`;
+  }
+
+  function rangeCards(item) {
+    const targets = Array.isArray(item.targets) ? item.targets : [];
+    const usual = labRangeCard(
+      'ok',
+      targets.length ? 'Usual' : 'Normal',
+      item.adultRange,
+      targets.length ? (item.rangeNote || '') : ''
+    );
+    const extra = targets.map((t) => labRangeCard('target', t.label, t.range, t.note)).join('');
+    return usual + extra;
+  }
+
+  function targetListHint(item) {
+    const targets = Array.isArray(item.targets) ? item.targets : [];
+    if (!targets.length) return '';
+    if (targets.length === 1) return targets[0].label + ' ' + targets[0].range;
+    return 'On treatment ' + targets.map((t) => t.range).join(' · ');
+  }
+
   const bodyEffect = {
     wbc: ['The body is mounting a defense or the marrow is overproducing white cells.', 'Fewer cells to fight infection. Fever can be the first sign, and ordinary bugs become dangerous.'],
     rbc: ['Blood is thicker and carries more oxygen capacity, often from low plasma volume.', 'Less oxygen-carrying capacity. Fatigue, pallor, and a fast heart rate are the usual picture.'],
@@ -320,7 +349,7 @@
     detailEl.innerHTML = `
       <p class="lab-detail-kicker">${escapeHtml(item.abbrev)} · ${escapeHtml(item.panel)}</p>
       <h3 class="lab-detail-title">${escapeHtml(item.name)}</h3>
-      ${labBlock('ok', 'Normal', item.adultRange)}
+      ${rangeCards(item)}
       ${causeBodyBlock('high', 'Too high', item.high, (bodyEffect[item.id] || [])[0])}
       ${causeBodyBlock('low', 'Too low', item.low, (bodyEffect[item.id] || [])[1])}
       ${labBlock('how', 'How to test', howToTest(item))}
@@ -403,9 +432,12 @@
   async function copyLabReference() {
     const item = window.__nursepathSelectedLab;
     if (!item) return;
+    const targetLines = (Array.isArray(item.targets) ? item.targets : [])
+      .map((t) => `${t.label}: ${t.range}${t.note ? ' — ' + t.note : ''}`);
     const text = [
       `${item.name} (${item.abbrev})`,
-      `Adult range: ${item.adultRange}`,
+      `Usual range: ${item.adultRange}${item.rangeNote ? ' (' + item.rangeNote + ')' : ''}`,
+      ...targetLines,
       `High: ${item.high}`,
       `Low: ${item.low}`,
       `Nursing: ${item.nursing}`,
@@ -456,10 +488,14 @@
       row.type = 'button';
       row.className = 'lab-row' + (selectedId && item.id === selectedId ? ' is-active' : '');
       row.dataset.labId = item.id || '';
+      const hint = targetListHint(item);
       row.innerHTML = `
         <span class="lab-row-abbr">${escapeHtml(item.abbrev)}</span>
         <span class="lab-row-name">${escapeHtml(item.name)}</span>
-        <span class="lab-row-value">${escapeHtml(item.adultRange)}</span>`;
+        <span class="lab-row-ranges">
+          <span class="lab-row-value">${escapeHtml(item.adultRange)}</span>
+          ${hint ? `<span class="lab-row-target">${escapeHtml(hint)}</span>` : ''}
+        </span>`;
       row.onclick = () => showLabDetail(item);
       fragment.appendChild(row);
     });
