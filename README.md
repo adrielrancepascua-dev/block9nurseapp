@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <em>Version 2.0 | 2026 | Universidad de Dagupan — Demo / Faculty Review</em>
+  <em>Reference pack nursepath-v2.4.9 | 2026 | Universidad de Dagupan — Demo / Faculty Review</em>
 </p>
 
 ---
@@ -36,11 +36,12 @@ NursePath is currently in **demo / faculty-review** with **Universidad de Dagupa
 ### What It Does
 
 - Interprets vital sign readings against age-adjusted, pregnancy-aware, and comorbidity-specific reference ranges
-- Provides a searchable OTC medication reference with Philippine brand names and condition safety ratings
+- Provides a searchable OTC medication reference with Philippine brand names (including Paracetamol / acetaminophen) and condition safety ratings
 - Computes IV flow rates, BMI, AOG/EDD, pediatric dosing, APGAR, GCS, Braden, and Rule of Nines
+- Includes lab pocket ranges, a ward abbreviation glossary, and a sizes tray (needles, syringes, cannulas, tubes)
 - Operates fully offline after initial load — reliable on hospital wards with limited connectivity
 - Google sign-in (Supabase OAuth) with offline device seal after first successful login
-- Tracks anonymous usage telemetry for faculty evaluation via Supabase
+- Tracks usage for faculty evaluation via Supabase, including the signed-in email, only after the student consents
 
 ### What It Does Not Do
 
@@ -71,7 +72,8 @@ All outputs are framed as reference findings — not clinical orders. The studen
 - Teaching content isolated in `assets/tool-content.js` (`window.NursePathToolContent` namespace)
 
 ### 💊 OTC Medication Reference
-- 34 OTC medications with Philippine brand names
+- Philippine OTC entries (about 35), including DOH-recognized herbals such as lagundi and sambong
+- Paracetamol is listed as "Paracetamol (Acetaminophen)"; search matches either name
 - Condition-specific safety ratings (Safe / Caution / Contraindicated)
 - TLDR and expanded detail tabs per medication
 - Drug class, mechanism of action, pharmacokinetics, nursing considerations
@@ -94,9 +96,15 @@ All outputs are framed as reference findings — not clinical orders. The studen
 - WHO category classification with color-coded output
 
 ### 📴 Offline Capability
-- Full PWA with Service Worker (stale-while-revalidate strategy)
+- Full PWA. The service worker is cache-first: a saved copy is served immediately, then refreshed in the background when the network is available (`sw.js`, cache `nursepath-v2.4.9`)
 - Works on hospital wards after first load — no Wi-Fi required
 - Usage events queue locally and sync to Supabase automatically on reconnect
+
+### Lab ranges, abbreviations, and sizes
+- **Labs:** adult pocket ranges with high/low meaning and how the specimen is drawn
+- **Abbreviations:** A–Z glossary, including a "Do not use" group for short forms that should be written out
+- **Sizes:** needles, syringes, IV cannulas, and common tubes
+- **Tools hub:** Duty mode for fast calculators, Study mode for a lesson and quiz on the same tool
 
 ### 👻 Auth (Google + offline seal)
 - Primary: Google sign-in via Supabase OAuth (any Google account)
@@ -107,11 +115,11 @@ All outputs are framed as reference findings — not clinical orders. The studen
 
 ### 📈 Usage Analytics
 - Event types: `session_start`, `session_end`, `feature_open`, `feature_use`, `result_generated`, `copy_reference`, `help_opened`, `error_shown`
-- Button-driven telemetry only — no keystroke tracking
+- Action-based telemetry — not per keystroke, and never the vital-sign numbers a student types
 - Local queue first (`nursepath_usage_queue_v1`) with batch sync to Supabase
-- Anonymous by default; consent-controlled toggle on auth overlay
+- Consent is required before sign-in. The checkbox states that events include the signed-in email, features opened, and session length. It is not anonymous.
 - Session IDs, duration tracking, and CSV export for faculty reporting
-- Faculty dashboard: [nursepath-dashboard.vercel.app](https://nursepath-dashboard.vercel.app/)
+- Faculty dashboard: [nursepath-dashboard.vercel.app](https://nursepath-dashboard.vercel.app/) (unique students are grouped by email)
 
 ---
 
@@ -133,38 +141,40 @@ Developed using AI-assisted programming, combining the developer's nursing educa
 
 | Layer | Technology |
 |---|---|
-| Frontend | HTML5, CSS3, Vanilla JavaScript |
-| Styling | Tailwind CSS (inlined) |
-| Clinical Logic | inline in `index.html`; calculators in `assets/clinical-calculators.js` |
-| UI Helpers | `assets/ui-helpers.js` |
-| Offline | Service Worker (stale-while-revalidate) |
-| Analytics | Supabase (batch insert, anon RLS) |
-| Auth | Ghost Persistence (localStorage device seal) |
-| Hosting | Vercel |
+| Frontend | HTML5, CSS3, Vanilla JavaScript (`index.html`, `css/styles.css`, `js/script-1.js`–`script-5.js`) |
+| Styling | `css/styles.css` (some Tailwind-style class names remain in the markup) |
+| Clinical logic | Vitals and OTC data in `js/script-4.js`; calculators in `assets/clinical-calculators.js` |
+| Reference data | `assets/lab-values.js`, `assets/abbreviations.js`, `assets/sizes.js` |
+| UI helpers | `assets/ui-helpers.js` (OTC detail sheet) |
+| Offline | Service worker, cache-first with background refresh (`sw.js`) |
+| Analytics | Supabase `usage_events` (includes `user_email` after consent) |
+| Auth | Google via Supabase, then a local device seal (`nursepath_user`) |
+| Hosting | Vercel (repo root is production; `/frontend` redirects to `/`) |
 
 ### File Structure
 
 ```
 /
-├── index.html                  # Main application (~4,350 lines)
-├── sw.js                       # Service Worker (v1.4)
+├── index.html                  # App shell, tabs, forms
+├── css/styles.css              # Layout, phone tab bar, light theme
+├── sw.js                       # Service worker (cache nursepath-v2.4.9)
 ├── manifest.json               # PWA manifest
-├── browserconfig.xml           # Windows tile config
-├── image-192.png               # PWA icon
-├── image-512.png               # PWA icon / logo
+├── js/
+│   ├── script-1.js             # Early auth/theme flags
+│   ├── script-2.js             # Theme and settings sheet
+│   ├── script-3.js             # Auth, consent, usage queue
+│   ├── script-4.js             # Vitals engine, OTC list, tab switching
+│   └── script-5.js             # Service-worker update logging
 ├── assets/
-│   ├── tool-content.js         # Guide + lesson content (one source, two depths)
-│   └── ui-helpers.js           # UI logic — OTC, calculators (NursePathUIHelpers namespace)
+│   ├── clinical-calculators.js
+│   ├── tool-content.js         # Guides and lessons
+│   ├── study-drills.js
+│   ├── lab-values.js
+│   ├── abbreviations.js
+│   ├── sizes.js
+│   └── ui-helpers.js           # OTC detail sheet
+├── frontend/                   # Mirror of the student app; keep in sync with the root
 └── dashboard/                  # Faculty dashboard (React + Vite + Supabase)
-    ├── src/
-    │   ├── App.tsx
-    │   ├── pages/
-    │   │   ├── Overview.tsx
-    │   │   ├── Analytics.tsx
-    │   │   ├── Users.tsx
-    │   │   └── Export.tsx
-    │   └── lib/supabase.ts
-    └── vite.config.ts
 ```
 
 ---
@@ -204,7 +214,7 @@ All clinical reference content is derived from standard nursing textbooks and re
 
 1. Open [block9nurseapp.vercel.app](https://block9nurseapp.vercel.app/)
 2. Sign in with Google (or use email on this device if shown)
-3. Check the **Consent Box** for usage tracking (helps faculty evaluate the demo)
+3. Check the consent box. It is required. It says tracking includes your signed-in email, features opened, and session length — not vital signs or patient details.
 4. Tap **Continue with Google**
 5. Accept the academic companion agreement (remembered on this device for 30 days)
 6. Install as a PWA for best offline experience
@@ -325,6 +335,7 @@ NursePath is a reference tool — use it the way you would use a pocket drug han
 - Never input patient names, initials, room numbers, or any identifying information
 - Your CI's guidance and the hospital's protocols always take precedence
 - Vital sign values you enter are never stored on any server
+- Usage tracking is not anonymous. After you consent, events sent to Supabase include your signed-in email, the feature you opened, and session length. They do not include vital-sign numbers or anything you type into a calculator.
 
 ### For Developers / Contributors
 

@@ -2726,10 +2726,10 @@
                 onlineEl.textContent = navigator.onLine ? 'Online' : 'Offline — cached copy in use';
             }
             if (packEl) {
-                packEl.textContent = 'Reference pack nursepath-v2.4.8';
+                packEl.textContent = 'Reference pack nursepath-v2.4.9';
             }
             const otcStamp = document.getElementById('otcPackStamp');
-            if (otcStamp) otcStamp.textContent = 'Reference pack nursepath-v2.4.8';
+            if (otcStamp) otcStamp.textContent = 'Reference pack nursepath-v2.4.9';
         }
         window.updateNpStatusMeta = updateNpStatusMeta;
 

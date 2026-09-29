@@ -1,91 +1,70 @@
-# NursePath — User guide (students & pilot participants)
+# NursePath — User guide (students and pilot participants)
 
-NursePath is a **Progressive Web App (PWA)** for nursing education: calculators, OTC reference, and vital-sign study material. It is **not** for real patient care—only for classroom and self-study practice.
+NursePath is an offline clinical companion for nursing school: duty calculators, a Philippine OTC reference, lab ranges, abbreviations, and equipment sizes. It is a **learning and duty-prep reference**. It does not diagnose, prescribe, or replace your Clinical Instructor or hospital protocol.
 
----
-
-## 1. Install or open the app
-
-**Option A — Use in the browser**  
-Open your program’s NursePath link (for example the deployed site your instructor shared). Bookmark it if you like.
-
-**Option B — Install as an app (recommended for offline study)**
-
-- **Android (Chrome):** Menu (⋮) → *Install app* or *Add to Home screen*.
-- **iPhone/iPad (Safari):** Share → *Add to Home Screen*.
-- **Windows / Mac (Chrome or Edge):** Install icon in the address bar, or menu → *Install NursePath* / *Apps* → *Install this site as an app*.
-
-After the first successful load, core content can work **offline** thanks to the service worker.
+App: [block9nurseapp.vercel.app](https://block9nurseapp.vercel.app/)
 
 ---
 
-## 2. First-time access (pilot gate)
+## 1. Open or install
 
-When you first open NursePath (or after a full reset), you see **NursePath Pilot Access**.
+**In the browser.** Open the link your instructor shared and bookmark it.
 
-1. **Usage tracking consent** — Check *I consent to anonymous usage tracking for academic pilot evaluation* if your program requires it. Without this box checked, you cannot submit the form (formal pilot/testing).
-2. **Email** — Enter the address your program asked for (often a school domain). The app may also accept entry with only an **invite code** when your instructor enables that.
-3. **Invite code (optional)** — If you were given a code, enter it in *Invite code*.
-4. Tap **Enter Pilot Workspace**.
+**Install (better for offline duty).**
 
-The app **remembers this device** so you are not asked every time. Internet helps log activity but is **not** required to stay “logged in” locally.
+- **Android (Chrome):** Menu (⋮) → Install app or Add to Home screen.
+- **iPhone (Safari):** Share → Add to Home Screen.
+- **Windows or Mac (Chrome or Edge):** Install icon in the address bar.
 
----
-
-## 3. Simulation mode agreement
-
-You may see **Simulation Mode** with a short checklist. Read it and tap **I Understand — Enter Simulation Mode**.  
-This acknowledgment is stored for a limited time (about 24 hours), then you may be asked again.
+After one successful online load, the tools keep working without Wi-Fi.
 
 ---
 
-## 4. Short onboarding
+## 2. Sign in
 
-A one-time **NursePath** intro screen can appear. Tap **Get Started** to enter the main app.
+1. Read the consent line. Checking it is required. It means usage events may include **your signed-in email**, which features you open, and how long you use the app. Vital signs and patient details are not stored. This is not anonymous tracking.
+2. Tap **Continue with Google** while you are online.
+3. Accept the academic companion agreement. The app remembers that agreement on this device for about 30 days.
 
----
-
-## 5. What you can do inside the app
-
-Use the navigation to move between sections (exact labels match what you see on screen). Typical areas include:
-
-- **Vital signs** — Age-related reference ranges for study.
-- **Calculators** — IV flow rate, BMI, AOG/EDD, and related practice.
-- **OTC reference** — Searchable notes on common OTC products (academic context).
-- **Help / disclaimers** — Read the in-app notices; your textbook and instructors remain the authority.
-
-Many **results** are recorded for pilot analytics only when you use explicit actions (for example **Simulate** / **Calculate**), not on every keystroke.
+After the first sign-in, this phone can open NursePath offline. The app keeps a local copy of your sign-in so it does not ask every time.
 
 ---
 
-## 6. Offline use
+## 3. What is inside
 
-- After at least one online load, you can often open the installed PWA or the same URL **without network**.
-- Usage events may **queue on the device** and sync when you are online again (if consent and configuration allow).
+Phone navigation is a bottom bar. Desktop uses a left sidebar.
 
----
+- **Tools** — Duty mode (fast calculators) or Study mode (lesson and quiz). Vital signs, IV flow rate, BMI, AOG/EDD, pediatric dosing, APGAR, GCS, Braden, and Rule of Nines.
+- **OTC** — Philippine brand names. Search "paracetamol" or "acetaminophen". Tap a card for dose and cautions, then Full details if you need the longer note.
+- **Labs** — Adult pocket ranges. The printed slip and your CI win.
+- **Abbr** — Short forms, A to Z, including ones you should write out instead of abbreviating.
+- **Sizes** — Needles, syringes, cannulas, and tubes. The package label wins.
 
-## 7. Sign out, reset, and troubleshooting
-
-- **Logout** — Use the in-app logout control when you want to clear the session on this device.
-- **Faculty Reset** — If your build shows **Faculty Reset**, it clears local pilot state (useful for shared devices or wrong account).
-- **Wrong email sealed on this device** — Tap the **NursePath header logo five times** to trigger an emergency clear and reload (see the main README for details).
-- **Simulation gate keeps returning** — Accept the simulation agreement again; it expires after the stored duration.
+**Settings** (gear) has light/dark mode, log out, and an Online/Offline line with the reference-pack stamp.
 
 ---
 
-## 8. Privacy and pilot data (plain language)
+## 4. Offline
 
-- Pilot builds may send **anonymous or limited-identify usage events** (features used, session length, etc.) to a backend when online, depending on your program’s setup.
-- Do **not** enter real patient identifiers into any study tool.
-- For technical and policy detail, see the project **README** and your instructor’s handout.
+- Open NursePath once online so it can save itself.
+- Later, wards and sim labs with no signal can still use the tools.
+- If you consented, usage records wait on the phone and upload when you are back online.
 
 ---
 
-## 9. If something fails
+## 5. Privacy, in plain language
 
-- Confirm **consent** is checked if the pilot gate says tracking is required.
-- Check **email format** and any **cooldown** message if you tapped enter too quickly.
-- Try **closing all NursePath tabs** and reopening, or reinstalling the PWA after a reset.
+- Do not type real patient names, initials, room numbers, or case numbers.
+- Numbers you type into vital signs or calculators stay on the screen. They are not saved as part of usage tracking.
+- What faculty can see, if you consented, is your Google email, which parts of the app you opened, and session length. That is how the pilot counts students and features.
+- Log out from Settings when you are done on a shared phone. Tapping the NursePath logo five times clears the saved sign-in on this device.
 
-For faculty and administrators: deployment, Supabase tables, and dashboard access are documented in the repository **README** and the separate **Faculty Dashboard** repository.
+---
+
+## 6. If something fails
+
+- The consent box must be checked before Google sign-in.
+- If the screen looks old after an update, close the app and open it once while online (or hard-refresh). The current pack is **nursepath-v2.4.9**.
+- Faculty dashboard access is separate. Ask your instructor. Students do not use the dashboard.
+
+Technical setup for faculty and developers is in the repository **README**.
