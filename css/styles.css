@@ -1400,7 +1400,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 8px;
         }
-        .ron-region {
+        .ron-body-grid .ron-region {
             border: 1px solid #334155;
             border-radius: 14px;
             padding: 12px !important;
@@ -1410,9 +1410,9 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
             min-height: 72px !important;
         }
-        .ron-region:active { transform: scale(0.98); }
-        .ron-region.is-full { border-color: #f97316; background: rgba(249, 115, 22, 0.18); }
-        .ron-region.is-half { border-color: #fbbf24; background: rgba(251, 191, 36, 0.14); }
+        .ron-body-grid .ron-region:active { transform: scale(0.98); }
+        .ron-body-grid .ron-region.is-full { border-color: #f97316; background: rgba(249, 115, 22, 0.18); }
+        .ron-body-grid .ron-region.is-half { border-color: #fbbf24; background: rgba(251, 191, 36, 0.14); }
 
         .scale-sticky {
             position: sticky;
@@ -1663,43 +1663,57 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             margin: 0 auto;
             overflow: visible;
         }
-        .ron-figure svg {
+        .ron-figure svg.ron-body {
             display: block;
-            width: auto;
-            max-width: 100%;
-            height: calc(100svh - 240px);
-            max-height: 460px;
+            width: 100%;
+            max-width: 340px;
+            height: auto;
             margin: 0 auto;
         }
-        @media (max-width: 767px) {
-            .ron-figure svg {
-                height: calc(100svh - var(--np-tabbar-height, 64px) - env(safe-area-inset-bottom, 0px) - 390px);
-                max-height: none;
-            }
-        }
-        .ron-part { cursor: pointer; }
-        .ron-part[data-state="off"] { fill: #1e293b; stroke: #94a3b8; stroke-width: 1.6; }
-        .ron-part[data-state="half"] { fill: #fbbf24; fill-opacity: 0.78; stroke: #fde68a; stroke-width: 2; }
-        .ron-part[data-state="full"] { fill: #fb923c; fill-opacity: 0.92; stroke: #ffedd5; stroke-width: 2; }
-        .ron-neck {
+        .ron-body .ron-region { cursor: pointer; }
+        .ron-body .ron-region path,
+        .ron-body .ron-region circle,
+        .ron-body .ron-region rect {
             fill: #1e293b;
             stroke: #94a3b8;
             stroke-width: 1.6;
+        }
+        .ron-body .ron-region[data-state="half"] path,
+        .ron-body .ron-region[data-state="half"] circle,
+        .ron-body .ron-region[data-state="half"] rect {
+            fill: #fbbf24;
+            fill-opacity: 0.9;
+            stroke: #fde68a;
+            stroke-width: 2;
+        }
+        .ron-body .ron-region[data-state="full"] path,
+        .ron-body .ron-region[data-state="full"] circle,
+        .ron-body .ron-region[data-state="full"] rect {
+            fill: #fb923c;
+            fill-opacity: 0.95;
+            stroke: #ffedd5;
+            stroke-width: 2;
+        }
+        .ron-body .ron-region .ron-hitpad {
+            fill: transparent !important;
+            stroke: none !important;
+        }
+        .ron-body .ron-region text {
+            fill: #f8fafc;
+            font-size: 14px;
+            font-weight: 800;
+            text-anchor: middle;
             pointer-events: none;
         }
-        .ron-ink { pointer-events: none; }
-        .ron-label, .ron-state {
-            fill: #f8fafc;
-            font-size: 12px;
+        .ron-body .ron-region .ron-small { font-size: 11px; }
+        .ron-body .ron-region[data-state="half"] text,
+        .ron-body .ron-region[data-state="full"] text { fill: #0f172a; }
+        .ron-side {
+            fill: #94a3b8;
+            font-size: 16px;
             font-weight: 800;
             pointer-events: none;
         }
-        .ron-state { font-size: 11px; }
-        .ron-ink[data-state="half"] .ron-label,
-        .ron-ink[data-state="half"] .ron-state,
-        .ron-ink[data-state="full"] .ron-label,
-        .ron-ink[data-state="full"] .ron-state { fill: #0f172a; }
-        .ron-caption { fill: #94a3b8; font-size: 11px; font-weight: 800; pointer-events: none; }
         .ron-breakdown {
             margin: 8px 0 0;
             font-size: 14px;
@@ -3294,11 +3308,14 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             background: color-mix(in srgb, var(--accent, #0e7490) 18%, #ffffff) !important;
             color: #0f172a !important;
         }
-        html[data-theme="light"] .ron-part[data-state="off"] { fill: #e2e8f0; stroke: #64748b; }
-        html[data-theme="light"] .ron-neck { fill: #e2e8f0; stroke: #64748b; }
-        html[data-theme="light"] .ron-label,
-        html[data-theme="light"] .ron-state { fill: #0f172a; }
-        html[data-theme="light"] .ron-caption { fill: #334155; }
+        html[data-theme="light"] .ron-body .ron-region[data-state="off"] path,
+        html[data-theme="light"] .ron-body .ron-region[data-state="off"] circle,
+        html[data-theme="light"] .ron-body .ron-region[data-state="off"] rect {
+            fill: #e2e8f0;
+            stroke: #64748b;
+        }
+        html[data-theme="light"] .ron-body .ron-region text,
+        html[data-theme="light"] .ron-side { fill: #0f172a; }
         html[data-theme="light"] .ron-peds-note { color: #92400e !important; }
         html[data-theme="light"] .lab-chip {
             background: #ffffff !important;
