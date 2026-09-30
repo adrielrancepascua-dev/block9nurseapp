@@ -22,9 +22,17 @@
         'recheckSet': { text: 'Recheck the full vital sign set.', type: 'clinical', source: 'TODO: cite' },
         'spo2Reminder': { text: 'Check SpO2 and mental status if not assessed.', type: 'clinical', source: 'TODO: cite' },
         'asthmaTachypnea': { text: 'Asthma with tachypnea: reassess breathing and oxygenation.', type: 'clinical', source: 'TODO: cite' },
-        'preeclampsiaScreen': {
-            text: 'Pregnancy with an elevated BP pattern: discuss preeclampsia screening with your instructor.',
-            type: 'clinical', source: 'TODO: cite'
+        'pregnancyHypertension': {
+            text: 'Pregnancy with BP at or above 140/90 mm Hg meets the hypertension-in-pregnancy threshold. Preeclampsia also needs proteinuria or an end-organ finding.',
+            type: 'clinical', source: 'aha-2025-guideline-landing.md section 5.5 and Table 24'
+        },
+        'pregnancySevere': {
+            text: 'Pregnancy with BP at or above 160/110 mm Hg is severe-range hypertension. Verify within 15 minutes.',
+            type: 'clinical', source: 'aha-2025-guideline-landing.md section 5.5'
+        },
+        'bp.under13': {
+            text: 'Blood pressure under age 13 uses height-percentile charts. This tool does not collect height percentile.',
+            type: 'clinical', source: 'aap-2017-flynn-pediatric-bp.md Table 3'
         },
         'priority.0.icon': { text: '🟢', type: 'ui', source: 'TODO: cite' },
         'priority.0.text': { text: 'Normal / Green', type: 'clinical', source: 'TODO: cite' },
@@ -61,8 +69,8 @@
             type: 'clinical', source: 'TODO: cite'
         },
         'action.bpCrisis': {
-            text: 'Recheck BP manually within 5 minutes and escalate to the clinical instructor immediately.',
-            type: 'clinical', source: 'TODO: cite'
+            text: 'Blood pressure is above 180/120 mm Hg. Tell your instructor. Emergency status also needs acute target organ damage, which this tool does not assess.',
+            type: 'clinical', source: 'aha-2025-guideline-landing.md section 6.2'
         },
         'action.bpStage2': {
             text: 'Monitor blood pressure every 15 minutes and observe for headache, chest pain, or neurologic changes.',
@@ -119,12 +127,16 @@
         'flag.weightZero': { text: 'weight is not above 0 kg', type: 'clinical', source: 'TODO: cite' },
         'bmi.meaningScale': {
             text: 'WHO adult categories: Underweight <18.5, Normal Weight 18.5–24.9, Overweight 25–29.9, Obese ≥30.',
-            type: 'clinical', source: 'WHO adult BMI classification'
+            type: 'clinical', source: 'who-adult-bmi-classification.md adult BMI list'
         },
         'bmi.notCalculated': { text: 'BMI not calculated.', type: 'ui', source: 'TODO: cite' },
         'bmi.priorityIncomplete': { text: 'Incomplete', type: 'ui', source: 'TODO: cite' },
-        'bmi.adultReference': { text: 'adult reference', type: 'ui', source: 'WHO adult BMI classification' },
+        'bmi.adultReference': { text: 'adult reference', type: 'ui', source: 'who-adult-bmi-classification.md adult BMI list' },
         'ref.adult': { text: 'adult reference', type: 'ui', source: 'TODO: cite' },
+        'ref.bpUnder13': {
+            text: 'Heart rate and respiratory rate use this tool\'s adult bands. Blood pressure under age 13 needs a height-percentile chart.',
+            type: 'clinical', source: 'aap-2017-flynn-pediatric-bp.md Table 3'
+        },
         'ref.under12': { text: 'under 12 reference', type: 'ui', source: 'TODO: cite' },
         'copy.priority': { text: 'Priority', type: 'ui', source: 'TODO: cite' },
         'copy.lead': { text: 'Lead finding', type: 'ui', source: 'TODO: cite' },
@@ -141,12 +153,12 @@
         'sec.priority': { text: 'Priority', type: 'ui', source: 'TODO: cite' },
         'sec.leadCheck': { text: 'Lead finding (check entry first)', type: 'ui', source: 'TODO: cite' },
         'sec.entryChecks': { text: 'Entry checks ({n})', type: 'ui', source: 'TODO: cite' },
-        'pattern.bpCrisis': { text: 'Hypertensive crisis pattern ({pair} mmHg)', type: 'clinical', source: 'TODO: cite' },
-        'pattern.bpStage2': { text: 'Stage 2 hypertension pattern ({pair} mmHg)', type: 'clinical', source: 'TODO: cite' },
-        'pattern.bpStage1': { text: 'Stage 1 hypertension pattern ({pair} mmHg)', type: 'clinical', source: 'TODO: cite' },
-        'pattern.bpElevated': { text: 'Elevated blood pressure pattern ({pair} mmHg)', type: 'clinical', source: 'TODO: cite' },
+        'pattern.bpCrisis': { text: 'Severe hypertension pattern ({pair} mmHg)', type: 'clinical', source: 'aha-2025-guideline-landing.md section 6.2' },
+        'pattern.bpStage2': { text: 'Stage 2 hypertension pattern ({pair} mmHg)', type: 'clinical', source: 'aha-2025-guideline-landing.md Table 4' },
+        'pattern.bpStage1': { text: 'Stage 1 hypertension pattern ({pair} mmHg)', type: 'clinical', source: 'aha-2025-guideline-landing.md Table 4' },
+        'pattern.bpElevated': { text: 'Elevated blood pressure pattern ({pair} mmHg)', type: 'clinical', source: 'aha-2025-guideline-landing.md Table 4' },
         'pattern.bpLow': { text: 'Hypotension pattern ({pair} mmHg)', type: 'clinical', source: 'TODO: cite' },
-        'pattern.bpInRange': { text: 'Blood pressure within reference range ({pair} mmHg)', type: 'clinical', source: 'TODO: cite' },
+        'pattern.bpInRange': { text: 'Blood pressure within reference range ({pair} mmHg)', type: 'clinical', source: 'aha-2025-guideline-landing.md Table 4' },
         'pattern.bpSysOnly': { text: 'Systolic {sys} mmHg. Diastolic {missing}.', type: 'clinical', source: 'TODO: cite' },
         'pattern.bpDiaOnly': { text: 'Diastolic {dia} mmHg. Systolic {missing}.', type: 'clinical', source: 'TODO: cite' },
         'pattern.bpMissing': { text: 'Blood pressure: {missing}', type: 'ui', source: 'TODO: cite' },
@@ -177,7 +189,7 @@
         'context.pregnant': { text: 'Currently pregnant.', type: 'ui', source: 'TODO: cite' },
         'context.pregnancies': { text: 'Previous pregnancies: {n}.', type: 'ui', source: 'TODO: cite' },
         'context.condition': { text: 'Known condition: {name}.', type: 'ui', source: 'TODO: cite' },
-        'bmi.lead': { text: 'BMI {bmi}, {category}', type: 'clinical', source: 'WHO adult BMI classification' },
+        'bmi.lead': { text: 'BMI {bmi}, {category}', type: 'clinical', source: 'who-adult-bmi-classification.md adult BMI list' },
         'bmi.heightMissing': { text: 'Height {missing}.', type: 'ui', source: 'TODO: cite' },
         'bmi.weightMissing': { text: 'Weight {missing}.', type: 'ui', source: 'TODO: cite' },
         'bmi.bothMissing': { text: 'Height {missing}. Weight {missing}.', type: 'ui', source: 'TODO: cite' }

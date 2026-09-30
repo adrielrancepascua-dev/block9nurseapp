@@ -346,7 +346,7 @@
       sections: [
         {
           heading: 'Why TBSA matters',
-          body: 'Total body surface area burned guides fluid resuscitation teaching, referral decisions, and how urgent the injury looks at a glance. Rule of Nines is a rapid adult estimate that formal burn charts later refine.'
+          body: 'Total body surface area burned guides fluid resuscitation teaching, referral decisions, and how urgent the injury looks at a glance. Rule of Nines is a rapid adult estimate that formal burn charts later refine. The 2004 BMJ article starts formal fluid resuscitation above 15% TBSA in adults and above 10% in children.'
         },
         {
           heading: 'Adult map',
@@ -368,7 +368,7 @@
         {
           heading: 'Pediatric caution',
           pocket: true,
-          body: 'Children have proportionally larger heads and different limb percentages, so the adult map does not transfer to a toddler. Use the pediatric burn chart your course provides.'
+          body: 'Children have proportionally larger heads and different limb percentages, so the adult map does not transfer to a toddler. The 2004 BMJ article starts formal resuscitation above 10% TBSA in children. Use the pediatric burn chart your course provides.'
         },
         {
           heading: 'Remember',

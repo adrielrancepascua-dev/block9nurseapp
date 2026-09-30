@@ -191,9 +191,8 @@
       tbsa += pct;
     });
     tbsa = Math.round(tbsa * 10) / 10;
-    let note = 'Minor burn territory in many teaching frameworks (<10% adult)';
-    if (tbsa >= 25) note = 'Major burn territory for an adult, at 25% or more.';
-    else if (tbsa >= 10) note = 'Moderate burn territory for an adult, at 10 to 24%.';
+    let note = 'At or below 15% TBSA. The 2004 BMJ article reserves formal fluid resuscitation for adults above 15%.';
+    if (tbsa > 15) note = 'Above 15% TBSA. The 2004 BMJ article says adults at this size warrant formal fluid resuscitation.';
     return { tbsa, breakdown, note, regions: RULE_OF_NINES_REGIONS };
   }
 

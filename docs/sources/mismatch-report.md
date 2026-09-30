@@ -1,6 +1,6 @@
 # Mismatch report
 
-Access date: 2026-09-30. Thresholds, scoring, and `assets/clinical-calculators.js` were not edited.
+Access date: 2026-09-30. After the sources below opened, these values were updated to match them. Heart rate, respiratory rate, temperature, low blood pressure, APGAR, and the Rule of Nines region percentages were not changed, because those numbers are still missing from the fetched pages. Pediatric percentile tables, Lund-Browder, and NEWS2 scoring were not built.
 
 Fetch status:
 
@@ -28,7 +28,7 @@ The 2025 Circulation text is now in `aha-2025-guideline-landing.md`. Table 4 use
 | Elevated: systolic ≥120 and diastolic <80 | Elevated: 120 to 129 mm Hg and <80 mm Hg | aha-2025-guideline-landing.md, Table 4 | js/script-4.js, elevated branch | Match for 120–129 with diastolic <80. |
 | Stage 1: systolic ≥130 or diastolic ≥80 | Stage 1: 130 to 139 mm Hg or 80 to 89 mm Hg | aha-2025-guideline-landing.md, Table 4 | js/script-4.js, stage 1 branch | Match for those ranges. |
 | Stage 2: systolic ≥140 or diastolic ≥90 | Stage 2: ≥140 mm Hg or ≥90 mm Hg | aha-2025-guideline-landing.md, Table 4 | js/script-4.js, stage 2 branch | Match, except crisis is checked first, so those readings are not labeled stage 2. |
-| Crisis: systolic ≥180 or diastolic ≥120 | Severe hypertension and hypertensive emergency: >180/120 mm Hg. Emergency also requires acute target organ damage. | aha-2025-guideline-landing.md, section 6.2 | js/script-4.js, crisis branch | Reconsider. The number is in the 2025 text. Our code uses ≥180 or ≥120, fires without target-organ damage, and does not use the guideline’s “>180/120” wording. |
+| Severe hypertension: systolic >180 or diastolic >120. A reading of exactly 180 or exactly 120 stays in stage 2. The label is “Severe hypertension pattern.” The action says emergency status also needs target organ damage, which this tool does not assess. | Severe hypertension and hypertensive emergency: >180/120 mm Hg. Emergency also requires acute target organ damage. | aha-2025-guideline-landing.md, section 6.2 | js/script-4.js, severe-hypertension branch; assets/interpretation-content.js `pattern.bpCrisis` and `action.bpCrisis` | Updated to the source cut and wording. |
 | Low: systolic <90 or diastolic <60 | NOT FOUND | aha-2025-guideline-landing.md, Table 4 and a search of that text | js/script-4.js, low-BP branch | TODO |
 | Did 2025 change the 2017 category cutoffs? | No. Table 4 matches the 2017 summary rows and says it is adapted from Whelton et al. | aha-2025-guideline-landing.md, Table 4; aha-2017-top-things.md | — | Category cuts match. Crisis and low BP were not rows in either category table. |
 
@@ -46,7 +46,7 @@ No primary source in the requested set states these adult bands. Marked TODO. NE
 
 | Current value | Source value | Source file + section | Location in our code | Match? |
 |---|---|---|---|---|
-| Pregnancy plus systolic ≥140 or diastolic ≥90 adds 1 severity point and shows preeclampsiaScreen: “Pregnancy with an elevated BP pattern: discuss preeclampsia screening with your instructor.” | ACOG, as printed in the 2025 guideline: hypertension in pregnancy is SBP ≥140 or DBP ≥90 on 2 occasions at least 4 hours apart. Severe-range is sustained ≥160 or ≥110, verified in 15 minutes. Table 24 preeclampsia also requires proteinuria or a listed end-organ finding. | aha-2025-guideline-landing.md, section 5.5 and Table 24 | js/script-4.js pregnancy tests at `sys >= 140` or `dia >= 90`; assets/interpretation-content.js `preeclampsiaScreen` | Reconsider. 140/90 is the pregnancy hypertension threshold in that section. The screen sentence is not in the source, and BP alone is not Table 24 preeclampsia. Severe-range in the source is 160/110, which our screen does not use. |
+| Pregnancy plus systolic ≥140 or diastolic ≥90 still adds 1 severity point. The context line is the hypertension-in-pregnancy threshold, and it says preeclampsia also needs proteinuria or an end-organ finding. At ≥160 or ≥110 the line is severe-range hypertension, verify within 15 minutes. | ACOG, as printed in the 2025 guideline: hypertension in pregnancy is SBP ≥140 or DBP ≥90 on 2 occasions at least 4 hours apart. Severe-range is sustained ≥160 or ≥110, verified in 15 minutes. Table 24 preeclampsia also requires proteinuria or a listed end-organ finding. | aha-2025-guideline-landing.md, section 5.5 and Table 24 | js/script-4.js pregnancy context; assets/interpretation-content.js `pregnancyHypertension` and `pregnancySevere` | Updated. The tool still does not collect the second reading, the 4-hour gap, or proteinuria. |
 
 ## APGAR
 
@@ -61,7 +61,7 @@ No primary source in the requested set states these adult bands. Marked TODO. NE
 | Current value | Source value | Source file | Location in our code | Match? |
 |---|---|---|---|---|
 | Head and neck 9; each arm 9; anterior trunk 18; posterior trunk 18; each leg 18; perineum 1 | NOT FOUND as numbers. The page says the Wallace rule divides the adult body into areas of 9% and is not accurate in children. The drawing is Figure 1 and is not transcribed. | bmj-pmc449823-burns.md | assets/clinical-calculators.js `RULE_OF_NINES_REGIONS`; assets/tool-content.js Rule of Nines body | TODO until the figure cells are read. The “areas of 9%” sentence is consistent with a nines map and does not prove 18 or 1. |
-| Notes at <10 minor, 10 to 24 moderate, ≥25 major | Formal resuscitation: more than 15% TBSA in adults and more than 10% in children. Palmar surface roughly 0.8%. | bmj-pmc449823-burns.md | assets/clinical-calculators.js `ruleOfNines` | Reconsider. Those 10 / 25 teaching notes are not the resuscitation cuts in this article. |
+| Note: at or below 15% is below the adult formal-resuscitation threshold; above 15% warrants formal fluid resuscitation. The learn text also states the child cut above 10%. Region percentages were not changed. | Formal resuscitation: more than 15% TBSA in adults and more than 10% in children. Palmar surface roughly 0.8%. | bmj-pmc449823-burns.md | assets/clinical-calculators.js `ruleOfNines` note; assets/tool-content.js Rule of Nines | Updated. The 10 / 25 teaching notes are gone. Region percentages remain TODO until the figure cells are read. |
 | Lund-Browder | Named as the age-adjusted chart (Figure 2). Age rows NOT FOUND in the text. | bmj-pmc449823-burns.md | — | Not built, as requested |
 
 ## Adult BMI
@@ -81,17 +81,17 @@ Not implemented. CDC categories are saved in cdc-child-teen-bmi-categories.md (u
 
 ## Pediatric BP
 
-Not implemented. Age under 12 echoes BP, heart rate, and respiratory rate (`js/script-4.js`, `pediatric` branch, `isChild` fixed false).
+Not implemented as percentile tables. Age under 12 still echoes BP, heart rate, and respiratory rate. Age 12 now echoes blood pressure and does not receive an adult category, because Table 3 uses height percentiles until age 13. Heart rate and respiratory rate at age 12 still use this tool’s adult bands. Those bands have no pediatric source in this set.
 
-Flynn Table 3 is now in `aap-2017-flynn-pediatric-bp.md`. Ages 1 to <13 use height-specific percentiles. Ages ≥13 use <120/<80, 120/<80 to 129/<80, 130/80 to 139/89, and ≥140/90. Our adult bands start at age 12, so a 12-year-old is classified with adult cuts while Table 3 still uses percentiles until age 13. Tables 4 and 5 require height percentile, which this app does not collect. No pediatric BP tool was added. The page says the guideline expires 5 years after the 2017 publication unless reaffirmed.
+Flynn Table 3 is in `aap-2017-flynn-pediatric-bp.md`. Ages 1 to <13 use height-specific percentiles. Ages ≥13 use <120/<80, 120/<80 to 129/<80, 130/80 to 139/89, and ≥140/90. Tables 4 and 5 require height percentile, which this app does not collect. No pediatric BP tool was added. The page says the guideline expires 5 years after the 2017 publication unless reaffirmed.
 
-## action.* and preeclampsiaScreen
+## action.* and pregnancy lines
 
-None of these sentences appear in a fetched source. They stay `TODO: cite`.
+`action.bpCrisis`, `pregnancyHypertension`, and `pregnancySevere` now cite the 2025 guideline sections above. The other action lines still do not appear in a fetched source. They stay `TODO: cite`.
 
 | id | Text | Support in a fetched source |
 |---|---|---|
-| action.bpCrisis | Recheck BP manually within 5 minutes and escalate to the clinical instructor immediately. | Not this sentence. Section 6.2 says emergencies need immediate BP reduction. Pregnancy severe-range hypertension says verify within 15 minutes. TODO: cite |
+| action.bpCrisis | Blood pressure is above 180/120 mm Hg. Tell your instructor. Emergency status also needs acute target organ damage, which this tool does not assess. | aha-2025-guideline-landing.md section 6.2 |
 | action.bpStage2 | Monitor blood pressure every 15 minutes and observe for headache, chest pain, or neurologic changes. | None. TODO: cite |
 | action.bpStage1 | Repeat the BP after a brief rest and compare it against earlier readings. | None. TODO: cite |
 | action.bpLow | Assess perfusion indicators such as mental status, skin signs, and capillary refill, then reassess vitals promptly. | None. TODO: cite |
@@ -101,6 +101,7 @@ None of these sentences appear in a fetched source. They stay `TODO: cite`.
 | action.hrBrady | Reassess perfusion and symptoms, verify reading quality, and repeat the heart rate. | None. TODO: cite |
 | action.rrSevere | Reassess airway and breathing immediately, and check oxygenation if available. | None. TODO: cite |
 | action.rrLow | Observe the depth and effort of breathing, then repeat the respiratory assessment. | None. TODO: cite |
-| preeclampsiaScreen | Pregnancy with an elevated BP pattern: discuss preeclampsia screening with your instructor. | The 140/90 threshold is the pregnancy hypertension cut in section 5.5. This sentence, and calling that pattern preeclampsia by itself, is not in Table 24. TODO: cite |
+| pregnancyHypertension | Pregnancy with BP at or above 140/90 mm Hg meets the hypertension-in-pregnancy threshold. Preeclampsia also needs proteinuria or an end-organ finding. | aha-2025-guideline-landing.md section 5.5 and Table 24 |
+| pregnancySevere | Pregnancy with BP at or above 160/110 mm Hg is severe-range hypertension. Verify within 15 minutes. | aha-2025-guideline-landing.md section 5.5 |
 
 NEWS2 Chart 2 describes aggregate-score responses (ward-based, urgent, emergency). Those sentences are not the `action.*` lines above, and NEWS2 is comparison only.

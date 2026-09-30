@@ -97,6 +97,8 @@
             let severityScore = 0;
 
             const pediatric = ageOn && age < 12;
+            // 2017 AAP Table 3 uses adult BP categories from age 13. Younger children need height percentiles.
+            const bpUnder13 = ageOn && age < 13;
             // TODO: cite a pediatric age-based chart before classifying BP, HR, or RR under 12.
             // The under-12 bands stay in this function but isChild is fixed false, so they are unreachable.
             const isChild = false;
@@ -135,9 +137,9 @@
                 }
                 bpFlag = pushFlag('Blood pressure', bpSentences);
                 const pair = (sysOn && diaOn) ? (sys + '/' + dia) : (sysOn ? (sys + '/—') : ('—/' + dia));
-                if (pediatric) {
+                if (bpUnder13) {
                     interpretations.push({ text: ixFill('pattern.bpEcho', { pair: pair }), flag: bpFlag, rank: 0 });
-                } else if ((sysOn && sys >= 180) || (diaOn && dia >= 120)) {
+                } else if ((sysOn && sys > 180) || (diaOn && dia > 120)) {
                     interpretations.push({ text: ixFill('pattern.bpCrisis', { pair: pair }), flag: bpFlag, rank: 2 });
                     abnormalFindings.push('critical_bp');
                     severityScore += 4;
@@ -264,6 +266,8 @@
 
             if (pediatric) {
                 interpretations.push({ text: ixText('pediatric.reference'), flag: null, rank: 1 });
+            } else if (bpUnder13 && (sysOn || diaOn)) {
+                interpretations.push({ text: ixText('bp.under13'), flag: null, rank: 0 });
             }
 
             if (!pediatric && hrOn && (hr > hrHigh || hr > 100) && tempOn && temp >= 38.0) {
@@ -316,7 +320,11 @@
             if (sex === 'female' || sex === 'male') context.push(ixFill('context.sex', { sex: sex }));
             if (pregnant === 'yes') context.push(ixText('context.pregnant'));
             if (pregnant === 'yes' && pregCountField.entered) context.push(ixFill('context.pregnancies', { n: pregCountField.n }));
-            if (pregnant === 'yes' && ((sysOn && sys >= 140) || (diaOn && dia >= 90))) context.push(ixText('preeclampsiaScreen'));
+            if (pregnant === 'yes' && ((sysOn && sys >= 160) || (diaOn && dia >= 110))) {
+                context.push(ixText('pregnancySevere'));
+            } else if (pregnant === 'yes' && ((sysOn && sys >= 140) || (diaOn && dia >= 90))) {
+                context.push(ixText('pregnancyHypertension'));
+            }
             if (hasComorbidity) {
                 const conditionLabels = {
                     hypertension: 'Hypertension',
@@ -356,12 +364,13 @@
             const olderChanged = noteShift(olderPoint, 'Older age');
             const pregnancyChanged = noteShift(pregnancyPoint, 'Pregnancy');
             const noted = [];
-            if (ageOn && !pediatric && !olderChanged) noted.push('age');
+            if (ageOn && !pediatric && !olderChanged && !(bpUnder13 && (sysOn || diaOn))) noted.push('age');
             if (sex === 'female' || sex === 'male') noted.push('sex');
             if (pregnant === 'yes' && !pregnancyChanged) noted.push('pregnancy');
             if (hasComorbidity && !conditionChanged) noted.push('condition');
             const howParts = [];
             if (pediatric) howParts.push(ixText('pediatric.reference'));
+            else if (bpUnder13 && (sysOn || diaOn)) howParts.push(ixText('bp.under13'));
             // TODO: cite a pediatric chart. Under-12 band text stays unreachable while isChild is false.
             if (isChild) howParts.push(ixText('how.childBands'));
             shifts.forEach(function (line) { if (line) howParts.push(line); });
@@ -371,7 +380,9 @@
 
             const referenceLabel = pediatric
                 ? (ixText('pediatric.reference') || 'Pediatric reference not included')
-                : (ixText('ref.adult') || 'adult reference');
+                : (bpUnder13 && (sysOn || diaOn)
+                    ? (ixText('ref.bpUnder13') || 'Blood pressure under age 13 needs a height-percentile chart')
+                    : (ixText('ref.adult') || 'adult reference'));
             const inputs = [];
             if (sysOn && diaOn) inputs.push('BP ' + sys + '/' + dia + ' mmHg');
             else if (sysOn) inputs.push('Systolic ' + sys + ' mmHg; diastolic ' + notEntered);
@@ -381,7 +392,7 @@
             inputs.push(hrOn ? ('HR ' + hr + ' bpm') : ('HR ' + notEntered));
             inputs.push(rrOn ? ('RR ' + rr + '/min') : ('RR ' + notEntered));
 
-            const quietPartial = setIncomplete && priorityIndex === 0 && !pediatric;
+            const quietPartial = setIncomplete && priorityIndex === 0 && !pediatric && !(bpUnder13 && (sysOn || diaOn));
             let priority;
             let incomplete = '';
             let meaning = (priorityIndex === 1 && abnormalFindings.length === 0)
@@ -401,6 +412,15 @@
                 lead = ixText('pediatric.reference');
                 leadFlag = null;
                 meaning = ixText('pediatric.reference');
+            } else if (bpUnder13 && (sysOn || diaOn) && priorityIndex === 0) {
+                priority = {
+                    icon: '',
+                    text: setIncomplete ? incompleteLabel : ixText('bp.under13'),
+                    neutral: true
+                };
+                lead = ixText('bp.under13');
+                leadFlag = null;
+                meaning = ixText('bp.under13');
             } else {
                 priority = {
                     icon: ixText('priority.' + priorityIndex + '.icon'),
@@ -1931,7 +1951,7 @@
             const result = calc.ruleOfNines(ronCalculatorFractions());
             const totalEl = document.getElementById('ron-tbsa');
             if (totalEl) totalEl.textContent = `${result.tbsa}% TBSA`;
-            const band = result.tbsa >= 25 ? 'severe' : (result.tbsa >= 10 ? 'moderate' : (result.tbsa > 0 ? 'mild' : 'pending'));
+            const band = result.tbsa > 15 ? 'severe' : (result.tbsa > 0 ? 'mild' : 'pending');
             setScaleBand('ron-sticky', band);
             const breakdownEl = document.getElementById('ron-breakdown');
             const breakdown = result.breakdown.length
@@ -3003,10 +3023,10 @@
                 onlineEl.textContent = navigator.onLine ? 'Online' : 'Offline — cached copy in use';
             }
             if (packEl) {
-                packEl.textContent = 'Reference pack nursepath-v2.4.16';
+                packEl.textContent = 'Reference pack nursepath-v2.4.17';
             }
             const otcStamp = document.getElementById('otcPackStamp');
-            if (otcStamp) otcStamp.textContent = 'Reference pack nursepath-v2.4.16';
+            if (otcStamp) otcStamp.textContent = 'Reference pack nursepath-v2.4.17';
         }
         window.updateNpStatusMeta = updateNpStatusMeta;
 
