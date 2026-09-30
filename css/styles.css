@@ -1798,9 +1798,93 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             padding-top: 1px;
         }
         .np-learn-v {
-            font-size: 12px;
+            font-size: 13px;
             line-height: 1.45;
-            color: #cbd5e1;
+            color: #e2e8f0;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            overflow: visible;
+            white-space: normal;
+            overflow-wrap: anywhere;
+        }
+        #tool-panel-apgar .np-learn-v,
+        #tool-panel-gcs .np-learn-v,
+        #tool-panel-braden .np-learn-v,
+        #tool-panel-ron .np-learn-v,
+        .np-disclaimer {
+            font-size: 13px !important;
+            line-height: 1.45;
+            width: 100%;
+            max-width: 100%;
+            overflow: visible;
+            white-space: normal;
+            overflow-wrap: anywhere;
+        }
+        .np-disclaimer {
+            display: block;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 8px 10px;
+            border-radius: 8px;
+            color: #e2e8f0;
+            background: #1e293b;
+            font-style: normal;
+        }
+        .np-interp-host { width: 100%; font-style: normal; text-align: left; }
+        .np-interp { width: 100%; display: grid; gap: 10px; color: #e2e8f0; font-style: normal; }
+        .np-interp-priority {
+            border: 1px solid #475569;
+            border-radius: 10px;
+            padding: 10px 12px;
+            background: rgba(15, 23, 42, 0.72);
+        }
+        .np-interp-k, .np-interp-h {
+            margin: 0 0 4px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #67e8f9;
+        }
+        .np-interp-h { font-size: 13px; letter-spacing: 0.02em; }
+        .np-interp-priority-line, .np-interp-lead, .np-interp p { margin: 0; font-size: 14px; line-height: 1.45; }
+        .np-interp-priority-text { font-weight: 800; }
+        .np-interp-incomplete { margin: 6px 0 0; font-size: 13px; font-weight: 700; color: #fde68a; }
+        .np-interp-sec { margin: 0; }
+        .np-interp .np-bullets li {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+        }
+        .np-check {
+            display: inline-flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;
+            max-width: 100%;
+            margin-left: 0;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: #451a03;
+            color: #fde68a;
+            font-size: 13px;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+        .np-check-icon { width: 14px; height: 14px; flex: 0 0 auto; }
+        .np-check-label { white-space: nowrap; }
+        .np-check-reason { font-weight: 700; white-space: normal; }
+        .np-copy-btn {
+            justify-self: start;
+            min-height: 44px;
+            padding: 8px 14px;
+            border-radius: 10px;
+            border: 1px solid #67e8f9;
+            background: #0f172a;
+            color: #e2e8f0;
+            font-weight: 800;
         }
         .np-bullets {
             list-style: none;
@@ -3306,6 +3390,43 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             border-color: rgba(100, 116, 139, 0.28) !important;
         }
         html[data-theme="light"] .lab-block-watch h4 { color: #334155 !important; }
+        html[data-theme="light"] .np-learn {
+            background: #f8fafc !important;
+            border-color: #cbd5e1 !important;
+        }
+        html[data-theme="light"] .np-learn-v,
+        html[data-theme="light"] #tool-panel-apgar .np-learn-v,
+        html[data-theme="light"] #tool-panel-gcs .np-learn-v,
+        html[data-theme="light"] #tool-panel-braden .np-learn-v,
+        html[data-theme="light"] #tool-panel-ron .np-learn-v {
+            color: #1e293b !important;
+        }
+        html[data-theme="light"] .np-disclaimer {
+            color: #1e293b !important;
+            background: #f8fafc !important;
+            border: 1px solid #cbd5e1;
+        }
+        html[data-theme="light"] .np-interp,
+        html[data-theme="light"] .np-interp-priority-line,
+        html[data-theme="light"] .np-interp-lead,
+        html[data-theme="light"] .np-interp p {
+            color: #1e293b !important;
+        }
+        html[data-theme="light"] .np-interp-priority {
+            background: #ffffff !important;
+            border-color: #cbd5e1 !important;
+        }
+        html[data-theme="light"] .np-interp-incomplete { color: #92400e !important; }
+        html[data-theme="light"] .np-check {
+            background: #fff7ed !important;
+            color: #9a3412 !important;
+            border: 1px solid #fdba74;
+        }
+        html[data-theme="light"] .np-copy-btn {
+            background: #ffffff !important;
+            color: #0f172a !important;
+            border-color: #0891b2 !important;
+        }
         html[data-theme="light"] .scale-sticky { background: #ffffff !important; }
         html[data-theme="light"] .scale-sticky-band { color: #1e293b !important; }
         html[data-theme="light"] .scale-sticky[data-band="severe"] .scale-sticky-band { color: #be123c !important; }

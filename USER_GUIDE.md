@@ -64,7 +64,7 @@ Phone navigation is a bottom bar. Desktop uses a left sidebar.
 ## 6. If something fails
 
 - The consent box must be checked before Google sign-in.
-- If the screen looks old after an update, close the app and open it once while online (or hard-refresh). The current pack is **nursepath-v2.4.14**.
+- If the screen looks old after an update, close the app and open it once while online (or hard-refresh). The current pack is **nursepath-v2.4.15**.
 - Faculty dashboard access is separate. Ask your instructor. Students do not use the dashboard.
 
 Technical setup for faculty and developers is in the repository **README**.

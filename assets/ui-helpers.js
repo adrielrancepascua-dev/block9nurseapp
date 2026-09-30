@@ -224,18 +224,47 @@
     }
   }
 
+  function readBodyMetric(id) {
+    const el = document.getElementById(id);
+    const raw = el ? String(el.value).trim() : '';
+    if (raw === '' || !Number.isFinite(Number(raw))) return { entered: false, n: null };
+    return { entered: true, n: Number(raw) };
+  }
+
   function calcBMI() {
-    const w = parseFloat(document.getElementById('weight').value);
-    const hCm = parseFloat(document.getElementById('height').value);
-    const h = hCm / 100;
+    const weightField = readBodyMetric('weight');
+    const heightField = readBodyMetric('height');
     const meaningEl = document.getElementById('bmi-learn-meaning');
     const howEl = document.getElementById('bmi-learn-how');
+    const pack = window.NursePathInterpretation;
+    const ix = function (id) { return pack && pack.text ? pack.text(id) : ''; };
+    const notEntered = ix('notEntered') || 'not entered';
+    const flags = [];
+    let bmiText = '';
+    let category = '';
+    let categoryColor = '';
 
-    if (w && h && h > 0) {
-      const bmi = (w / (h * h)).toFixed(1);
-      let category = 'Normal Weight';
-      let categoryColor = 'text-green-400';
+    if (!heightField.entered) {
+      document.getElementById('bmi-result').innerText = notEntered;
+    }
+    if (!weightField.entered && heightField.entered) {
+      document.getElementById('bmi-result').innerText = notEntered;
+    }
 
+    if (weightField.entered && (weightField.n < 1 || weightField.n > 350)) {
+      flags.push({ label: 'Weight', reason: weightField.n <= 0 ? (ix('flag.weightZero') || 'weight is not above 0 kg') : (ix('flag.weightRange') || 'outside 1–350 kg') });
+    }
+    if (heightField.entered && (heightField.n < 30 || heightField.n > 250)) {
+      flags.push({ label: 'Height', reason: heightField.n <= 0 ? (ix('flag.heightZero') || 'height is not above 0 cm') : (ix('flag.heightRange') || 'outside 30–250 cm') });
+    }
+
+    const canCalculate = weightField.entered && heightField.entered && weightField.n > 0 && heightField.n > 0;
+    if (canCalculate) {
+      const h = heightField.n / 100;
+      const bmi = (weightField.n / (h * h)).toFixed(1);
+      bmiText = bmi;
+      category = 'Normal Weight';
+      categoryColor = 'text-green-400';
       if (bmi < 18.5) {
         category = 'Underweight';
         categoryColor = 'text-blue-400';
@@ -249,7 +278,6 @@
         category = 'Obese';
         categoryColor = 'text-red-400';
       }
-
       document.getElementById('bmi-result').innerText = bmi;
       const bmiStatusEl = document.getElementById('bmi-status');
       bmiStatusEl.textContent = '';
@@ -257,10 +285,57 @@
       catSpan.className = categoryColor + ' font-bold';
       catSpan.textContent = 'Category: ' + category;
       bmiStatusEl.appendChild(catSpan);
+      if (meaningEl) meaningEl.textContent = 'BMI ' + bmi + ' → ' + category + '. ' + (ix('bmi.meaningScale') || '');
+      if (howEl) howEl.textContent = weightField.n + ' ÷ (' + heightField.n + '/100)² = ' + bmi + '. ' + (ix('how.noted') || 'noted, thresholds not changed');
+    } else {
+      document.getElementById('bmi-result').innerText = notEntered;
+      const bmiStatusEl = document.getElementById('bmi-status');
+      if (bmiStatusEl) bmiStatusEl.textContent = '';
+      if (meaningEl) meaningEl.textContent = ix('bmi.meaningScale') || '';
+      if (howEl) howEl.textContent = ix('bmi.notCalculated') || 'BMI not calculated.';
+    }
 
-      if (meaningEl) meaningEl.textContent = `BMI ${bmi} → ${category} (WHO adult). BMI ≠ diagnosis.`;
-      if (howEl) howEl.textContent = `${w} ÷ (${hCm}/100)² = ${bmi}`;
+    const inputs = [
+      weightField.entered ? ('Weight ' + weightField.n + ' kg') : ('Weight ' + notEntered),
+      heightField.entered ? ('Height ' + heightField.n + ' cm') : ('Height ' + notEntered)
+    ];
+    const interpretation = [
+      { text: inputs[0], flag: flags.find(function (flag) { return flag.label === 'Weight'; }) || null },
+      { text: inputs[1], flag: flags.find(function (flag) { return flag.label === 'Height'; }) || null }
+    ];
+    const fill = function (id, map) { return pack && pack.fill ? pack.fill(id, map) : ''; };
+    const lead = category
+      ? (fill('bmi.lead', { bmi: bmiText, category: category }) || ('BMI ' + bmiText + ', ' + category))
+      : (!heightField.entered && !weightField.entered
+        ? (fill('bmi.bothMissing', { missing: notEntered }) || ('Height ' + notEntered + '. Weight ' + notEntered + '.'))
+        : (!heightField.entered
+          ? (fill('bmi.heightMissing', { missing: notEntered }) || ('Height ' + notEntered + '.'))
+          : (fill('bmi.weightMissing', { missing: notEntered }) || ('Weight ' + notEntered + '.'))));
+    const howDerived = canCalculate
+      ? (weightField.n + ' ÷ (' + heightField.n + '/100)² = ' + bmiText + '. ' + (ix('how.noted') || 'noted, thresholds not changed'))
+      : (ix('bmi.notCalculated') || 'BMI not calculated.');
+    const priority = category
+      ? { icon: '⚖', text: category }
+      : { icon: '—', text: ix('bmi.priorityIncomplete') || 'Incomplete' };
+    if (typeof window.renderInterpretation === 'function') {
+      window.renderInterpretation({
+        container: 'bmi-interp',
+        priority: priority,
+        incomplete: category ? '' : '',
+        lead: lead,
+        interpretation: interpretation,
+        considerations: [],
+        context: [],
+        meaning: ix('bmi.meaningScale'),
+        howDerived: howDerived,
+        disclaimer: ix('disclaimer'),
+        inputs: inputs,
+        referenceLabel: ix('bmi.adultReference') || 'adult reference',
+        flags: flags
+      });
+    }
 
+    if (canCalculate) {
       const trackUsageSafe = getTrackUsageSafe();
       if (trackUsageSafe) {
         trackUsageSafe('bmi', 'result_generated', { category, has_value: true }, { minIntervalMs: 1500, rateKey: `bmi_${category}` });

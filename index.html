@@ -30,6 +30,7 @@
     <script src="/assets/ui-helpers.js"></script>
     <script src="/assets/clinical-calculators.js"></script>
     <script src="/assets/tool-content.js"></script>
+    <script src="/assets/interpretation-content.js"></script>
     <script src="/assets/study-drills.js"></script>
     <script src="/assets/lab-values.js"></script>
     <script src="/assets/abbreviations.js"></script>
@@ -373,7 +374,7 @@
                     </div>
                     <div id="vitals-learn" class="np-learn" style="display:none;">
                         <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="vitals-learn-meaning">—</span></div>
-                        <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="vitals-learn-how">Reference ranges adjusted for age, pregnancy, and comorbidity.</span></div>
+                        <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="vitals-learn-how">—</span></div>
                     </div>
                 </section>
 
@@ -449,6 +450,7 @@
                                     <p id="bmi-status" class="text-xs text-slate-400 mt-1">Category: --</p>
                                 </div>
                             </div>
+                            <div id="bmi-interp" class="np-interp-host"></div>
                             <div id="bmi-learn" class="np-learn">
                                 <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="bmi-learn-meaning">Underweight &lt;18.5 · Normal 18.5–24.9 · Overweight 25–29.9 · Obese ≥30</span></div>
                                 <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="bmi-learn-how">BMI = kg ÷ m² (height converted from cm).</span></div>
@@ -651,7 +653,7 @@
                     </div>
                     <div id="otc-chips" class="otc-chips" role="tablist" aria-label="OTC categories"></div>
                 </div>
-                <p class="otc-pack-stamp" id="otcPackStamp">Reference pack nursepath-v2.4.14</p>
+                <p class="otc-pack-stamp" id="otcPackStamp">Reference pack nursepath-v2.4.15</p>
                 <div class="otc-layout">
                     <div id="otc-list-container">
                         <div id="otc-list" class="otc-list"></div>
@@ -784,7 +786,7 @@
                 </div>
                 <div class="np-status-meta" id="npStatusMeta">
                     <strong id="npOnlineStatus">Checking connection…</strong>
-                    <span id="npPackStamp">Reference pack nursepath-v2.4.14</span>
+                    <span id="npPackStamp">Reference pack nursepath-v2.4.15</span>
                 </div>
                 <button type="button" id="npThemeToggleMobile" class="np-settings-row" aria-pressed="false">
                     <span class="np-settings-row-label">Appearance</span>
