@@ -1653,9 +1653,29 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         }
         .ron-views {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 6px;
             margin-bottom: 8px;
+        }
+        .ron-view {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px !important;
+            min-width: 0 !important;
+            padding: 8px 4px !important;
+            border-radius: 10px;
+            border: 1px solid #475569;
+            background: #1e293b;
+            color: #e2e8f0;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .ron-view.is-selected {
+            border-color: var(--accent, #fb923c);
+            background: var(--accent, #fb923c);
+            color: #0f172a;
         }
         .ron-perineum-btn { width: 100%; margin-top: 8px; }
         .ron-figure {
@@ -1665,10 +1685,15 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         }
         .ron-figure svg.ron-body {
             display: block;
-            width: 100%;
-            max-width: 340px;
-            height: auto;
+            width: auto;
+            max-width: 100%;
+            height: calc(100dvh - 300px);
             margin: 0 auto;
+        }
+        @media (max-width: 767px) {
+            .ron-figure svg.ron-body {
+                height: calc(100dvh - var(--np-tabbar-height, 64px) - env(safe-area-inset-bottom, 0px) - 370px);
+            }
         }
         .ron-body .ron-region { cursor: pointer; }
         .ron-body .ron-region path,
@@ -1680,7 +1705,10 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         }
         .ron-body .ron-region[data-state="half"] path,
         .ron-body .ron-region[data-state="half"] circle,
-        .ron-body .ron-region[data-state="half"] rect {
+        .ron-body .ron-region[data-state="half"] rect,
+        .ron-body .ron-region[data-state="mixed"] path,
+        .ron-body .ron-region[data-state="mixed"] circle,
+        .ron-body .ron-region[data-state="mixed"] rect {
             fill: #fbbf24;
             fill-opacity: 0.9;
             stroke: #fde68a;
@@ -1707,6 +1735,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         }
         .ron-body .ron-region .ron-small { font-size: 11px; }
         .ron-body .ron-region[data-state="half"] text,
+        .ron-body .ron-region[data-state="mixed"] text,
         .ron-body .ron-region[data-state="full"] text { fill: #0f172a; }
         .ron-side {
             fill: #94a3b8;
@@ -2706,7 +2735,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             to { opacity: 1; }
         }
         /* Ensure tappable elements are at least 44x44px */
-        button:not(.np-sidebar-toggle):not(.np-sidebar-link):not(.np-action-btn):not(.np-sidebar-backdrop):not(.lab-chip):not(.lab-row):not(.ab-chip):not(.ab-row):not(.sz-chip):not(.sz-row):not(.scale-opt):not(.scale-sec-head):not(.scale-action):not(.apgar-cell):not(.apgar-min),
+        button:not(.np-sidebar-toggle):not(.np-sidebar-link):not(.np-action-btn):not(.np-sidebar-backdrop):not(.lab-chip):not(.lab-row):not(.ab-chip):not(.ab-row):not(.sz-chip):not(.sz-row):not(.scale-opt):not(.scale-sec-head):not(.scale-action):not(.apgar-cell):not(.apgar-min):not(.ron-view),
         a.btn, select, input[type="submit"], input[type="button"], input[type="number"], input[type="text"], input[type="date"] {
             min-height: 44px;
             min-width: 44px;
@@ -2756,7 +2785,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             h3, .text-xl, .text-lg { font-size: 1rem !important; }
 
             /* Generic button sizing must not fight component buttons */
-            button:not(.tool-hub-card):not(.otc-med-main):not(.otc-full-detail):not(.otc-chip):not(.lab-row):not(.lab-chip):not(.lab-back-btn):not(.ab-row):not(.ab-chip):not(.ab-back):not(.sz-row):not(.sz-chip):not(.sz-back):not(.study-tab-btn):not(.study-quiz-choice):not(.score-option):not(.scale-opt):not(.scale-sec-head):not(.scale-action):not(.apgar-cell):not(.apgar-min):not(.tool-guide-close):not(.ron-region):not(.tool-hub-tag):not(.np-sidebar-toggle):not(.np-sidebar-link):not(.np-action-btn):not(.np-sidebar-backdrop):not(.np-tabbar-link):not(.np-settings-open):not(.np-settings-close):not(.np-settings-row):not(.np-settings-backdrop):not(.np-mode-toggle button) {
+            button:not(.tool-hub-card):not(.otc-med-main):not(.otc-full-detail):not(.otc-chip):not(.lab-row):not(.lab-chip):not(.lab-back-btn):not(.ab-row):not(.ab-chip):not(.ab-back):not(.sz-row):not(.sz-chip):not(.sz-back):not(.study-tab-btn):not(.study-quiz-choice):not(.score-option):not(.scale-opt):not(.scale-sec-head):not(.scale-action):not(.apgar-cell):not(.apgar-min):not(.ron-view):not(.tool-guide-close):not(.ron-region):not(.tool-hub-tag):not(.np-sidebar-toggle):not(.np-sidebar-link):not(.np-action-btn):not(.np-sidebar-backdrop):not(.np-tabbar-link):not(.np-settings-open):not(.np-settings-close):not(.np-settings-row):not(.np-settings-backdrop):not(.np-mode-toggle button) {
                 padding: 12px 16px !important;
                 font-size: 14px !important;
                 min-height: 48px !important;
@@ -3301,6 +3330,16 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         html[data-theme="light"] .scale-opt-desc,
         html[data-theme="light"] .apgar-row-desc,
         html[data-theme="light"] .ron-breakdown { color: #334155 !important; }
+        html[data-theme="light"] .ron-view {
+            background: #ffffff !important;
+            color: #0f172a !important;
+            border-color: #cbd5e1 !important;
+        }
+        html[data-theme="light"] .ron-view.is-selected {
+            background: var(--accent, #c2410c) !important;
+            color: #0f172a !important;
+            border-color: var(--accent, #c2410c) !important;
+        }
         html[data-theme="light"] .apgar-min.is-selected,
         html[data-theme="light"] .scale-opt.is-selected,
         html[data-theme="light"] .apgar-cell.is-selected {

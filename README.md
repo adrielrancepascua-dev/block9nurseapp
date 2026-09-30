@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <em>Reference pack nursepath-v2.4.13 | 2026 | Universidad de Dagupan — Demo / Faculty Review</em>
+  <em>Reference pack nursepath-v2.4.14 | 2026 | Universidad de Dagupan — Demo / Faculty Review</em>
 </p>
 
 ---
@@ -96,7 +96,7 @@ All outputs are framed as reference findings — not clinical orders. The studen
 - WHO category classification with color-coded output
 
 ### 📴 Offline Capability
-- Full PWA. The service worker is cache-first: a saved copy is served immediately, then refreshed in the background when the network is available (`sw.js`, cache `nursepath-v2.4.13`)
+- Full PWA. The service worker is cache-first: a saved copy is served immediately, then refreshed in the background when the network is available (`sw.js`, cache `nursepath-v2.4.14`)
 - Works on hospital wards after first load — no Wi-Fi required
 - Usage events queue locally and sync to Supabase automatically on reconnect
 
@@ -157,7 +157,7 @@ Developed using AI-assisted programming, combining the developer's nursing educa
 /
 ├── index.html                  # App shell, tabs, forms
 ├── css/styles.css              # Layout, phone tab bar, light theme
-├── sw.js                       # Service worker (cache nursepath-v2.4.13)
+├── sw.js                       # Service worker (cache nursepath-v2.4.14)
 ├── manifest.json               # PWA manifest
 ├── js/
 │   ├── script-1.js             # Early auth/theme flags

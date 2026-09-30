@@ -1878,31 +1878,54 @@
             };
         }
 
+        function ronBackKey(regionId) {
+            const swap = {
+                armViewerLeft: 'armViewerRight',
+                armViewerRight: 'armViewerLeft',
+                legViewerLeft: 'legViewerRight',
+                legViewerRight: 'legViewerLeft'
+            };
+            return swap[regionId] || regionId;
+        }
+
+        function ronDisplay(id) {
+            if (id === 'head' || id === 'perineum' || ronView !== 'both') {
+                const frac = ronStoredFrac(id, ronView === 'both' ? 'front' : ronView);
+                const state = frac === 1 ? 'full' : (frac === 0.5 ? 'half' : 'off');
+                return { state, word: ronStateWord(frac) };
+            }
+            const front = ronViewState.front[id] || 0;
+            const back = ronViewState.back[ronBackKey(id)] || 0;
+            if (front !== back) return { state: 'mixed', word: 'Mixed' };
+            const state = front === 1 ? 'full' : (front === 0.5 ? 'half' : 'off');
+            return { state, word: ronStateWord(front) };
+        }
+
         function ronRegionLabel(id) {
-            const patientRightOnLeft = ronView === 'front';
+            const patientRightOnLeft = ronView !== 'back';
             const side = (viewerLeft) => ((viewerLeft ? patientRightOnLeft : !patientRightOnLeft) ? 'Right' : 'Left');
+            const where = ronView === 'both' ? 'both sides' : ronView;
             const names = {
                 head: 'Head',
-                trunkUpper: ronView === 'front' ? 'Upper trunk, front' : 'Upper trunk, back',
-                trunkLower: ronView === 'front' ? 'Lower trunk, front' : 'Lower trunk, back',
-                armViewerLeft: `${side(true)} arm, ${ronView}`,
-                armViewerRight: `${side(false)} arm, ${ronView}`,
-                legViewerLeft: `${side(true)} leg, ${ronView}`,
-                legViewerRight: `${side(false)} leg, ${ronView}`,
+                trunkUpper: ronView === 'both' ? 'Upper trunk, both sides' : `Upper trunk, ${ronView}`,
+                trunkLower: ronView === 'both' ? 'Lower trunk, both sides' : `Lower trunk, ${ronView}`,
+                armViewerLeft: `${side(true)} arm, ${where}`,
+                armViewerRight: `${side(false)} arm, ${where}`,
+                legViewerLeft: `${side(true)} leg, ${where}`,
+                legViewerRight: `${side(false)} leg, ${where}`,
                 perineum: 'Perineum'
             };
             return names[id] || id;
         }
 
         function ronGroup(id, shape, percent, labelX, labelY, small) {
-            const frac = ronStoredFrac(id, ronView);
-            const state = frac === 1 ? 'full' : (frac === 0.5 ? 'half' : 'off');
-            const word = ronStateWord(frac);
+            const shown = ronDisplay(id);
+            const word = shown.word;
             const stateText = word && id !== 'perineum'
                 ? `<text class="ron-state${small ? ' ron-small' : ''}" x="${labelX}" y="${labelY + (small ? 14 : 16)}">${word}</text>`
                 : '';
             const spoken = `${ronRegionLabel(id)} ${percent}${word ? ', ' + word : ', off'}`;
-            return `<g class="ron-region" data-region="${id}" data-state="${state}" tabindex="0" role="button" aria-label="${escapeGuideHtml(spoken)}" aria-pressed="${state === 'off' ? 'false' : 'true'}">
+            return `<g class="ron-region" data-region="${id}" data-state="${shown.state}" tabindex="0" role="button" aria-label="${escapeGuideHtml(spoken)}" aria-pressed="${shown.state === 'off' ? 'false' : 'true'}">
                 ${shape}
                 <text x="${labelX}" y="${labelY}"${small ? ' class="ron-small"' : ''}>${percent}</text>
                 ${stateText}
@@ -1910,28 +1933,38 @@
         }
 
         function ronFigureMarkup() {
-            const leftMark = ronView === 'front' ? 'R' : 'L';
-            const rightMark = ronView === 'front' ? 'L' : 'R';
-            const perineumWord = ronStateWord(ronViewState.perineum);
-            const perineumLine = `Perineum 1%${perineumWord ? ' · ' + perineumWord : ''}`;
-            const viewName = ronView === 'front' ? 'front' : 'back';
+            const whole = ronView === 'both';
+            const leftMark = ronView === 'back' ? 'L' : 'R';
+            const rightMark = ronView === 'back' ? 'R' : 'L';
+            const perineumShown = ronDisplay('perineum');
+            const perineumLine = `Perineum 1%${perineumShown.word ? ' · ' + perineumShown.word : ''}`;
+            const viewName = ronView === 'both' ? 'both sides' : ronView;
+            const pct = {
+                head: '9%',
+                trunkUpper: whole ? '18%' : '9%',
+                trunkLower: whole ? '18%' : '9%',
+                arm: whole ? '9%' : '4.5%',
+                leg: whole ? '18%' : '9%',
+                perineum: '1%'
+            };
             const viewBtn = (view, label) => {
                 const on = ronView === view;
-                return `<button type="button" class="apgar-min${on ? ' is-selected' : ''}" data-view="${view}" aria-pressed="${on ? 'true' : 'false'}">${label}${on ? ' <span class="scale-opt-mark" aria-hidden="true">✓</span>' : ''}</button>`;
+                return `<button type="button" class="ron-view${on ? ' is-selected' : ''}" data-view="${view}" aria-pressed="${on ? 'true' : 'false'}">${label}</button>`;
             };
             return `<div class="ron-views" role="group" aria-label="Body view">
                 ${viewBtn('front', 'Front')}
                 ${viewBtn('back', 'Back')}
+                ${viewBtn('both', 'Both')}
             </div>
-            <svg viewBox="0 0 240 440" class="ron-body" role="group" aria-label="Rule of Nines body, ${viewName} view">
-                ${ronGroup('head', '<circle cx="120" cy="32" r="26"/><rect x="109" y="55" width="22" height="18" rx="6" pointer-events="none"/>', '9%', 120, 36, false)}
-                ${ronGroup('trunkUpper', '<path d="M82 82 Q120 70 158 82 L154 150 L86 150 Z"/>', '9%', 120, 120, false)}
-                ${ronGroup('trunkLower', '<path d="M86 153 L154 153 L150 214 L90 214 Z"/>', '9%', 120, 188, false)}
-                ${ronGroup('armViewerLeft', '<path d="M78 86 Q54 88 46 106 L24 222 Q22 240 38 242 Q52 242 54 226 L72 130 Z"/>', '4.5%', 46, 180, true)}
-                ${ronGroup('armViewerRight', '<path d="M162 86 Q186 88 194 106 L216 222 Q218 240 202 242 Q188 242 186 226 L168 130 Z"/>', '4.5%', 194, 180, true)}
-                ${ronGroup('perineum', '<rect class="ron-hitpad" x="86" y="216" width="68" height="21" rx="8"/><rect x="106" y="217" width="28" height="18" rx="8"/>', '1%', 120, 230, true)}
-                ${ronGroup('legViewerLeft', '<rect class="ron-hitpad" x="78" y="238" width="41" height="192"/><path d="M86 238 L118 238 L116 330 L112 418 Q111 430 97 430 Q82 430 82 418 L80 330 Z"/>', '9%', 100, 330, false)}
-                ${ronGroup('legViewerRight', '<rect class="ron-hitpad" x="121" y="238" width="41" height="192"/><path d="M154 238 L122 238 L124 330 L128 418 Q129 430 143 430 Q158 430 158 418 L160 330 Z"/>', '9%', 140, 330, false)}
+            <svg viewBox="0 0 240 440" class="ron-body" role="group" aria-label="Rule of Nines body, ${viewName}">
+                ${ronGroup('head', '<circle cx="120" cy="32" r="26"/><rect x="109" y="55" width="22" height="18" rx="6" pointer-events="none"/>', pct.head, 120, 36, false)}
+                ${ronGroup('trunkUpper', '<path d="M82 82 Q120 70 158 82 L154 150 L86 150 Z"/>', pct.trunkUpper, 120, 120, false)}
+                ${ronGroup('trunkLower', '<path d="M86 153 L154 153 L150 214 L90 214 Z"/>', pct.trunkLower, 120, 188, false)}
+                ${ronGroup('armViewerLeft', '<path d="M78 86 Q54 88 46 106 L24 222 Q22 240 38 242 Q52 242 54 226 L72 130 Z"/>', pct.arm, 46, 170, true)}
+                ${ronGroup('armViewerRight', '<path d="M162 86 Q186 88 194 106 L216 222 Q218 240 202 242 Q188 242 186 226 L168 130 Z"/>', pct.arm, 194, 170, true)}
+                ${ronGroup('perineum', '<rect class="ron-hitpad" x="86" y="216" width="68" height="21" rx="8"/><rect x="106" y="217" width="28" height="18" rx="8"/>', pct.perineum, 120, 230, true)}
+                ${ronGroup('legViewerLeft', '<rect class="ron-hitpad" x="78" y="238" width="41" height="192"/><path d="M86 238 L118 238 L116 330 L112 418 Q111 430 97 430 Q82 430 82 418 L80 330 Z"/>', pct.leg, 100, 320, false)}
+                ${ronGroup('legViewerRight', '<rect class="ron-hitpad" x="121" y="238" width="41" height="192"/><path d="M154 238 L122 238 L124 330 L128 418 Q129 430 143 430 Q158 430 158 418 L160 330 Z"/>', pct.leg, 140, 320, false)}
                 <text class="ron-side" x="12" y="24">${leftMark}</text>
                 <text class="ron-side" x="228" y="24" text-anchor="end">${rightMark}</text>
             </svg>
@@ -1949,7 +1982,8 @@
                 host.addEventListener('click', (e) => {
                     const viewBtn = e.target.closest('[data-view]');
                     if (viewBtn && host.contains(viewBtn)) {
-                        ronView = viewBtn.getAttribute('data-view') === 'back' ? 'back' : 'front';
+                        const nextView = viewBtn.getAttribute('data-view');
+                        ronView = nextView === 'back' || nextView === 'both' ? nextView : 'front';
                         renderRuleOfNines();
                         return;
                     }
@@ -1968,12 +2002,34 @@
             renderRuleOfNines();
         }
 
+        function cycleRonBoth(regionId) {
+            if (regionId === 'head' || regionId === 'perineum') {
+                const current = ronViewState[regionId] || 0;
+                ronViewState[regionId] = current === 0 ? 0.5 : (current === 0.5 ? 1 : 0);
+                return;
+            }
+            const frontKey = regionId;
+            const backKey = ronBackKey(regionId);
+            const front = ronViewState.front[frontKey] || 0;
+            const back = ronViewState.back[backKey] || 0;
+            let next;
+            if (front !== back) next = 1;
+            else if (ronCyclesHalf(regionId)) next = front === 0 ? 0.5 : (front === 0.5 ? 1 : 0);
+            else next = front === 1 ? 0 : 1;
+            ronViewState.front[frontKey] = next;
+            ronViewState.back[backKey] = next;
+        }
+
         function cycleRonRegion(regionId) {
-            const current = ronStoredFrac(regionId, ronView);
-            const next = ronCyclesHalf(regionId)
-                ? (current === 0 ? 0.5 : (current === 0.5 ? 1 : 0))
-                : (current === 1 ? 0 : 1);
-            ronSetFrac(regionId, ronView, next);
+            if (ronView === 'both') {
+                cycleRonBoth(regionId);
+            } else {
+                const current = ronStoredFrac(regionId, ronView);
+                const next = ronCyclesHalf(regionId)
+                    ? (current === 0 ? 0.5 : (current === 0.5 ? 1 : 0))
+                    : (current === 1 ? 0 : 1);
+                ronSetFrac(regionId, ronView, next);
+            }
             renderRuleOfNines();
         }
 
@@ -1984,9 +2040,7 @@
             if (host && host.dataset.ready === '1') host.innerHTML = ronFigureMarkup();
             const result = calc.ruleOfNines(ronCalculatorFractions());
             const totalEl = document.getElementById('ron-tbsa');
-            const noteEl = document.getElementById('ron-note');
             if (totalEl) totalEl.textContent = `${result.tbsa}% TBSA`;
-            if (noteEl) noteEl.textContent = result.tbsa > 0 ? result.note : 'Head and trunk: off, half, full. Arms and legs: off or full.';
             const band = result.tbsa >= 25 ? 'severe' : (result.tbsa >= 10 ? 'moderate' : (result.tbsa > 0 ? 'mild' : 'pending'));
             setScaleBand('ron-sticky', band);
             const breakdownEl = document.getElementById('ron-breakdown');
@@ -3059,10 +3113,10 @@
                 onlineEl.textContent = navigator.onLine ? 'Online' : 'Offline — cached copy in use';
             }
             if (packEl) {
-                packEl.textContent = 'Reference pack nursepath-v2.4.13';
+                packEl.textContent = 'Reference pack nursepath-v2.4.14';
             }
             const otcStamp = document.getElementById('otcPackStamp');
-            if (otcStamp) otcStamp.textContent = 'Reference pack nursepath-v2.4.13';
+            if (otcStamp) otcStamp.textContent = 'Reference pack nursepath-v2.4.14';
         }
         window.updateNpStatusMeta = updateNpStatusMeta;
 
