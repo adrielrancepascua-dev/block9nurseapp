@@ -1852,30 +1852,31 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         .np-interp-priority-text { font-weight: 800; }
         .np-interp-incomplete { margin: 6px 0 0; font-size: 13px; font-weight: 700; color: #fde68a; }
         .np-interp-sec { margin: 0; }
-        .np-interp .np-bullets li {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 4px;
+        .np-interp-priority.is-neutral {
+            border-color: #64748b;
+            background: rgba(51, 65, 85, 0.45);
+        }
+        .np-interp-priority.is-neutral .np-interp-priority-text {
+            color: #e2e8f0;
+            font-weight: 800;
         }
         .np-check {
             display: inline-flex;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 4px;
-            max-width: 100%;
-            margin-left: 0;
-            padding: 2px 8px;
+            gap: 3px;
+            margin-left: 6px;
+            padding: 0 6px;
             border-radius: 999px;
-            background: #451a03;
-            color: #fde68a;
+            background: transparent;
+            color: #fbbf24;
             font-size: 13px;
             font-weight: 800;
-            line-height: 1.3;
+            line-height: 1.2;
+            white-space: nowrap;
+            vertical-align: baseline;
         }
         .np-check-icon { width: 14px; height: 14px; flex: 0 0 auto; }
         .np-check-label { white-space: nowrap; }
-        .np-check-reason { font-weight: 700; white-space: normal; }
         .np-copy-btn {
             justify-self: start;
             min-height: 44px;
@@ -3417,10 +3418,17 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             border-color: #cbd5e1 !important;
         }
         html[data-theme="light"] .np-interp-incomplete { color: #92400e !important; }
+        html[data-theme="light"] .np-interp-priority.is-neutral {
+            background: #f8fafc !important;
+            border-color: #94a3b8 !important;
+        }
+        html[data-theme="light"] .np-interp-priority.is-neutral .np-interp-priority-text {
+            color: #334155 !important;
+        }
         html[data-theme="light"] .np-check {
-            background: #fff7ed !important;
+            background: transparent !important;
             color: #9a3412 !important;
-            border: 1px solid #fdba74;
+            border: 0;
         }
         html[data-theme="light"] .np-copy-btn {
             background: #ffffff !important;

@@ -69,10 +69,10 @@
   /** Soft nursing-attention cue for GCS bands (watch/report/trend — not orders). */
   function gcsAttention(total) {
     if (total >= 13) {
-      return 'Report E/V/M and trend serial scores. GCS is not a full neuro exam: pupils, glucose, and focal signs still matter.';
+      return 'GCS is not a full neuro exam: pupils, glucose, and focal signs still matter.';
     }
     if (total >= 9) {
-      return 'Document E/V/M, trend closely, and escalate a falling score to your instructor or team. Reassess rather than trusting one snapshot.';
+      return 'Document E/V/M and escalate a falling score to your instructor or team.';
     }
     return 'Severe band: report components now and escalate per unit pathway. Think airway protection and frequent reassessment; confirm next steps with your Clinical Instructor.';
   }

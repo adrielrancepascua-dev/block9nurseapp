@@ -47,7 +47,7 @@
           heading: 'Remember',
           pocket: true,
           type: 'caveat',
-          body: 'One snapshot is not the whole patient, and trends beat single values. Confirm anything that changes care with your Clinical Instructor and ward protocol.'
+          body: 'Confirm anything that changes care with your Clinical Instructor and ward protocol.'
         }
       ]
     },
@@ -286,13 +286,13 @@
         {
           heading: 'Duty attention cues',
           pocket: true,
-          body: 'After you score, NursePath shows a short Attention line: report E/V/M, trend serial scores, and escalate a falling total. It is watch/report guidance for study and duty prep, not an order set.'
+          body: 'After you score, NursePath shows a short Attention line: report E/V/M and escalate a falling total. It is watch/report guidance for study and duty prep, not an order set.'
         },
         {
           heading: 'Remember',
           pocket: true,
           type: 'caveat',
-          body: 'GCS is not a full neurological exam. Pupils, focal deficits, glucose, substances, and seizure activity still matter. Reassess and trend.'
+          body: 'GCS is not a full neurological exam. Pupils, focal deficits, glucose, substances, and seizure activity still matter.'
         }
       ]
     },

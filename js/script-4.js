@@ -1,58 +1,5 @@
-        // ============= VITAL SIGNS REFERENCE DATABASE =============
-        const vitalSignsReference = {
-            ageGroups: {
-                infant: { name: "Infant (0-1y)", range: [0, 1], pulse: { min: 100, max: 160 }, rr: { min: 30, max: 60 }, bpSys: { min: 70, max: 90 }, bpDia: { min: 45, max: 55 } },
-                toddler: { name: "Toddler (1-3y)", range: [1, 3], pulse: { min: 90, max: 150 }, rr: { min: 24, max: 40 }, bpSys: { min: 80, max: 100 }, bpDia: { min: 55, max: 65 } },
-                preschool: { name: "Preschool (3-6y)", range: [3, 6], pulse: { min: 80, max: 120 }, rr: { min: 22, max: 34 }, bpSys: { min: 85, max: 110 }, bpDia: { min: 60, max: 70 } },
-                schoolAge: { name: "School Age (6-12y)", range: [6, 12], pulse: { min: 70, max: 110 }, rr: { min: 18, max: 30 }, bpSys: { min: 90, max: 110 }, bpDia: { min: 60, max: 75 } },
-                adolescent: { name: "Adolescent (12-18y)", range: [12, 18], pulse: { min: 60, max: 100 }, rr: { min: 12, max: 20 }, bpSys: { min: 100, max: 130 }, bpDia: { min: 65, max: 85 } },
-                adult: { name: "Adult (18+y)", range: [18, 120], pulse: { min: 60, max: 100 }, rr: { min: 12, max: 20 }, bpSys: { min: 110, max: 120 }, bpDia: { min: 70, max: 80 } },
-                elderly: { name: "Elderly (65+y)", range: [65, 120], pulse: { min: 55, max: 100 }, rr: { min: 12, max: 22 }, bpSys: { min: 130, max: 150 }, bpDia: { min: 70, max: 90 } }
-            },
-            pregnancy: {
-                notes: "Pregnant women typically have 15-20% increased cardiac output and blood volume",
-                pulseIncrease: 10, // BPM increase during pregnancy
-                systolicIncrease: 0, // Usually stays same or slightly lower
-                diastolicDecrease: 5, // Often drops slightly
-                respiratoryIncrease: 1, // Slight increase
-                normalBP: { sys: [110, 135], dia: [70, 85] },
-                gestationalHypertension: { sys: 140, dia: 90 }, // ≥140/90
-                preeclampsia: { sys: 160, dia: 110 } // ≥160/110
-            },
-            comorbidities: {
-                hypertension: {
-                    name: "Hypertension",
-                    systolicTarget: 140,
-                    diastolicTarget: 90,
-                    severity: "ELEVATED",
-                    notes: "Persistent elevation; aim for <130/80 if tolerated"
-                },
-                diabetes: {
-                    name: "Diabetes",
-                    systolicTarget: 140,
-                    diastolicTarget: 90,
-                    fever: "Monitor for DKA (fever + tachycardia + tachypnea)",
-                    notes: "May have reduced fever response; check glucose"
-                },
-                asthma: {
-                    name: "Asthma",
-                    rrAlert: 25,
-                    notes: "Increased RR may indicate asthma exacerbation; listen for wheeze"
-                },
-                copd: {
-                    name: "COPD",
-                    rrAlert: 25,
-                    notes: "Chronic baseline elevation; major change concerning; watch for exacerbation"
-                },
-                ckd: {
-                    name: "Chronic Kidney Disease",
-                    systolicTarget: 130,
-                    diastolicTarget: 80,
-                    notes: "Stricter BP control needed; avoid NSAIDs; monitor fluid balance"
-                }
-            }
-        };
-
+        // UNUSED: nothing calls diagnosisDatabase. generateDiagnosis was removed.
+        // Do not surface these strings.
         // ============= REFERENCE PATTERN DATABASE =============
         const diagnosisDatabase = {
             fever: { symptoms: "High temperature (>38°C)", meds: ["Ref: Acetaminophen (500-1000mg)", "Ref: Ibuprofen (200-400mg with food)"], actions: "Monitor for dehydration signs, document fluid intake, and note cooling measures if above 40°C." },
@@ -76,230 +23,6 @@
             if (navigator.onLine && typeof window.flushUsageEvents === 'function') {
                 void window.flushUsageEvents();
             }
-        }
-
-        // Helper: Get age group from age
-        function getAgeGroup(age) {
-            if (age < 1) return vitalSignsReference.ageGroups.infant;
-            if (age < 3) return vitalSignsReference.ageGroups.toddler;
-            if (age < 6) return vitalSignsReference.ageGroups.preschool;
-            if (age < 12) return vitalSignsReference.ageGroups.schoolAge;
-            if (age < 18) return vitalSignsReference.ageGroups.adolescent;
-            if (age >= 65) return vitalSignsReference.ageGroups.elderly;
-            return vitalSignsReference.ageGroups.adult;
-        }
-
-        function generateDiagnosis(sys, dia, temp, hr, rr, age, pregnancies, pregnant, conditions) {
-            let diagnosis = [];
-            let priority = "STABLE";
-            let color = "text-slate-400";
-            let recommendations = [];
-            let contextNotes = [];
-
-            // ===== PATIENT PROFILE SETUP =====
-            const isPregnant = pregnant === 'yes';
-            const ageGroup = getAgeGroup(age);
-            const hasComorbidity = conditions !== 'none';
-            const comorbidityData = hasComorbidity ? vitalSignsReference.comorbidities[conditions] : null;
-
-            // Add patient context
-            contextNotes.push(`📋 Patient: ${ageGroup.name}${isPregnant ? ' | PREGNANT (' + pregnancies + ' previous)' : ''}`);
-            if (hasComorbidity) contextNotes.push(`⚠️ Known condition: ${comorbidityData.name}`);
-
-            // Adjust vital sign targets based on pregnancy
-            let hrTarget = { min: ageGroup.pulse.min, max: ageGroup.pulse.max };
-            let rrTarget = { min: ageGroup.rr.min, max: ageGroup.rr.max };
-            let bpSysTarget = { min: ageGroup.bpSys.min, max: ageGroup.bpSys.max };
-            let bpDiaTarget = { min: ageGroup.bpDia.min, max: ageGroup.bpDia.max };
-
-            if (isPregnant) {
-                hrTarget.max += vitalSignsReference.pregnancy.pulseIncrease; // Allow +10 BPM
-                bpSysTarget.min = vitalSignsReference.pregnancy.normalBP.sys[0];
-                bpSysTarget.max = vitalSignsReference.pregnancy.normalBP.sys[1];
-                bpDiaTarget.min = vitalSignsReference.pregnancy.normalBP.dia[0];
-                bpDiaTarget.max = vitalSignsReference.pregnancy.normalBP.dia[1];
-            }
-
-            // ===== BP ASSESSMENT =====
-            // Check for critically low diastolic first
-            if (dia > 0 && dia < 40) {
-                diagnosis.push({ name: "⚠️ SIM ALERT: Severe Low Diastolic (DBP <40)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = "CRITICAL";
-                color = "text-red-500";
-                contextNotes.push("Diastolic below 40 mmHg suggests severe hypoperfusion. Report promptly.");
-            } else if (dia > 0 && dia < 60) {
-                diagnosis.push({ name: "Low Diastolic Pressure (DBP <60)", severity: "MONITOR", icon: "fa-arrow-down" });
-                if (priority === "STABLE") priority = "ELEVATED";
-                contextNotes.push(`Diastolic ${dia} mmHg is below the reference range, which is associated with orthostatic symptoms.`);
-            }
-            
-            // Systolic checks
-            if (sys > 0 && sys < 70) {
-                diagnosis.push({ name: "⚠️ SIM ALERT: Severe Hypotension (SBP <70)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = "CRITICAL";
-                color = "text-red-500";
-                contextNotes.push("Systolic below 70 mmHg represents severe hypotension and indicates hemodynamic instability. Report immediately.");
-            } else if (sys > 0 && sys < bpSysTarget.min) {
-                diagnosis.push({ name: `⚠️ SIM ALERT: Hypotension (Below ${ageGroup.name} Range)`, severity: "CRITICAL", icon: "fa-arrow-down" });
-                priority = "CRITICAL";
-                color = "text-red-500";
-                contextNotes.push(`Systolic ${sys} is below the reference for ${ageGroup.name} (usual ${bpSysTarget.min} to ${bpSysTarget.max}).`);
-            } else if (sys >= 180 || (dia && dia >= 120)) {
-                diagnosis.push({ name: "⚠️ SIM ALERT: Hypertensive Crisis Pattern (SBP ≥180/DBP ≥120)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = "CRITICAL";
-                color = "text-red-500";
-                recommendations.push(diagnosisDatabase.hypertensiveCrisis);
-            } else if (isPregnant && sys >= vitalSignsReference.pregnancy.preeclampsia.sys) {
-                diagnosis.push({ name: "⚠️ SIM ALERT: Preeclampsia Pattern (BP ≥160/110)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = "CRITICAL";
-                color = "text-red-500";
-                contextNotes.push("Severely elevated BP in pregnancy fits a preeclampsia pattern. Assess for proteinuria, edema, and headache, and report promptly.");
-            } else if (isPregnant && sys >= vitalSignsReference.pregnancy.gestationalHypertension.sys) {
-                diagnosis.push({ name: "Gestational Hypertension Pattern (SBP ≥140/DBP ≥90)", severity: "ELEVATED", icon: "fa-arrow-up" });
-                priority = "ELEVATED";
-                color = "text-orange-500";
-                contextNotes.push("This pattern is monitored for progression to preeclampsia.");
-            } else if (sys >= 160 || (dia && dia >= 100)) {
-                diagnosis.push({ name: "Severe Hypertension Pattern (SBP 160-179 or DBP 100-109)", severity: "ELEVATED", icon: "fa-arrow-up" });
-                priority = priority === "CRITICAL" ? "CRITICAL" : "ELEVATED";
-                color = "text-orange-500";
-                if (!isPregnant) recommendations.push(diagnosisDatabase.hypertension);
-            } else if (sys >= 140 || (dia && dia >= 90)) {
-                diagnosis.push({ name: "Hypertension Pattern (SBP 140-159 or DBP 90-99)", severity: "ELEVATED", icon: "fa-arrow-up" });
-                priority = priority === "CRITICAL" ? "CRITICAL" : "ELEVATED";
-                color = "text-orange-500";
-                if (!isPregnant) recommendations.push(diagnosisDatabase.hypertension);
-            } else if (sys >= bpSysTarget.max) {
-                diagnosis.push({ name: `Mildly Elevated BP (Above ${ageGroup.name} Reference)`, severity: "MONITOR", icon: "fa-arrow-up-long" });
-                contextNotes.push(`Systolic ${sys} is slightly above the reference for ${ageGroup.name} (usual ${bpSysTarget.min} to ${bpSysTarget.max}).`);
-            }
-
-            // ===== TEMPERATURE ASSESSMENT =====
-            if (temp > 0) {
-                if (temp <= 28) {
-                    diagnosis.push({ name: "⚠️ SIM ALERT: Severe Hypothermia (≤28°C)", severity: "CRITICAL", icon: "fa-snowflake" });
-                    priority = "CRITICAL";
-                    color = "text-blue-500";
-                    contextNotes.push("Temperature at or below 28°C indicates a critical hypothermia pattern. Follow your institution's thermal regulation protocol and report immediately.");
-                } else if (temp <= 35.0) {
-                    diagnosis.push({ name: "⚠️ SIM ALERT: Hypothermia (28-35°C)", severity: "CRITICAL", icon: "fa-snowflake" });
-                    priority = "CRITICAL";
-                    color = "text-blue-400";
-                    recommendations.push(diagnosisDatabase.hypothermia);
-                } else if (temp >= 40.5) {
-                    diagnosis.push({ name: "⚠️ SIM ALERT: Severe Hyperthermia (≥40.5°C)", severity: "CRITICAL", icon: "fa-fire" });
-                    priority = "CRITICAL";
-                    color = "text-red-500";
-                    contextNotes.push("Temperature at or above 40.5°C suggests a heat stroke pattern, which calls for immediate cooling measures. Report immediately.");
-                } else if (temp >= 40.0) {
-                    diagnosis.push({ name: "⚠️ SIM ALERT: Very High Fever (40.0-40.4°C)", severity: "CRITICAL", icon: "fa-fire" });
-                    priority = "CRITICAL";
-                    color = "text-red-500";
-                    recommendations.push(diagnosisDatabase.fever);
-                } else {
-                    // Age-adjusted fever thresholds
-                    let feverThreshold = 38.0;
-                    if (age < 3) feverThreshold = 38.5;
-                    if (age >= 65) feverThreshold = 37.5;
-
-                    if (temp >= 39.5) {
-                        diagnosis.push({ name: "High Fever Pattern (39.5-39.9°C)", severity: "CRITICAL", icon: "fa-fire" });
-                        color = "text-red-500";
-                        recommendations.push(diagnosisDatabase.fever);
-                        if (conditions === 'diabetes') contextNotes.push("Diabetic patient with a fever pattern. Monitor for DKA signs and infection indicators.");
-                    } else if (temp >= 38.5) {
-                        diagnosis.push({ name: "Moderate Fever Pattern (38.5-39.4°C)", severity: "MONITOR", icon: "fa-fire" });
-                        color = "text-orange-500";
-                        recommendations.push(diagnosisDatabase.fever);
-                    } else if (temp >= feverThreshold) {
-                        diagnosis.push({ name: `Mild Fever Pattern (${feverThreshold}-38.4°C)`, severity: "MONITOR", icon: "fa-thermometer" });
-                        recommendations.push(diagnosisDatabase.fever);
-                    }
-                }
-            }
-
-            // ===== HEART RATE ASSESSMENT (Age-Group Adjusted) =====
-            if (hr > 0 && hr < 30) {
-                diagnosis.push({ name: "⚠️ SIM ALERT: Severe Bradycardia (HR <30)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = "CRITICAL";
-                color = "text-red-500";
-                contextNotes.push("HR below 30 indicates a severe bradycardia pattern. Assess consciousness and pulse quality, and report immediately.");
-            } else if (hr > 200) {
-                diagnosis.push({ name: "⚠️ SIM ALERT: Severe Tachycardia (HR >200)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = "CRITICAL";
-                color = "text-red-500";
-                contextNotes.push("HR above 200 indicates a severe tachycardia pattern associated with arrhythmia, sepsis, or shock. Report immediately.");
-            } else if (hr > 0 && hr < hrTarget.min) {
-                diagnosis.push({ name: `Bradycardia Pattern (Below ${ageGroup.name} Reference: HR ${hr})`, severity: "MONITOR", icon: "fa-heart" });
-                contextNotes.push(`HR ${hr} is below the reference for ${ageGroup.name} (usual ${hrTarget.min} to ${hrTarget.max}).`);
-                recommendations.push(diagnosisDatabase.bradycardia);
-            } else if (hr > hrTarget.max && hr <= hrTarget.max + 20) {
-                let note = `Mild Tachycardia Pattern (HR ${hr})`;
-                if (isPregnant) note += " (within pregnancy range)";
-                if (temp >= 38.0) note += " (fever-related)";
-                diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-heart" });
-                contextNotes.push(`HR ${hr} is slightly above the reference for ${ageGroup.name} (usual ${hrTarget.min} to ${hrTarget.max}).`);
-            } else if (hr > hrTarget.max + 20 && hr <= hrTarget.max + 40) {
-                let note = `Tachycardia Pattern (HR ${hr})`;
-                if (temp >= 38.0) note += " (fever-related)";
-                diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-heart" });
-                contextNotes.push(`HR ${hr} exceeds the reference for ${ageGroup.name} (usual ${hrTarget.min} to ${hrTarget.max}).`);
-                recommendations.push(diagnosisDatabase.tachycardia);
-            } else if (hr > hrTarget.max + 40) {
-                diagnosis.push({ name: `⚠️ SIM ALERT: Severe Tachycardia (HR ${hr})`, severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = priority === "STABLE" ? "CRITICAL" : priority;
-                color = "text-red-500";
-                contextNotes.push(`HR ${hr} is significantly elevated, a pattern associated with shock, sepsis, or a severe underlying condition.`);
-            }
-
-            // ===== RESPIRATORY RATE ASSESSMENT (Age-Group Adjusted) =====
-            if (rr > 0 && rr < 8) {
-                diagnosis.push({ name: "⚠️ SIM ALERT: Severe Respiratory Depression (RR <8)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = "CRITICAL";
-                color = "text-red-500";
-                contextNotes.push("RR below 8 indicates a severe respiratory depression pattern with respiratory failure risk. Report immediately.");
-            } else if (rr > 50) {
-                diagnosis.push({ name: "⚠️ SIM ALERT: Severe Tachypnea (RR >50)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = "CRITICAL";
-                color = "text-red-500";
-                contextNotes.push("RR above 50 indicates a severe respiratory distress pattern. Report immediately.");
-            } else if (rr > 0 && rr < rrTarget.min) {
-                diagnosis.push({ name: `Bradypnea Pattern (Below ${ageGroup.name} Reference: RR ${rr})`, severity: "MONITOR", icon: "fa-wind" });
-                contextNotes.push(`RR ${rr} is below the reference for ${ageGroup.name} (usual ${rrTarget.min} to ${rrTarget.max}).`);
-            } else if (rr > rrTarget.max && rr <= rrTarget.max + 5) {
-                let note = `Mild Tachypnea Pattern (RR ${rr})`;
-                if (conditions === 'asthma' || conditions === 'copd') note += " (monitor for exacerbation)";
-                diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-wind" });
-                contextNotes.push(`RR ${rr} is slightly above the reference for ${ageGroup.name} (usual ${rrTarget.min} to ${rrTarget.max}).`);
-            } else if (rr > rrTarget.max + 5 && rr <= rrTarget.max + 15) {
-                let note = `Tachypnea Pattern (RR ${rr})`;
-                if (conditions === 'asthma' || conditions === 'copd') note += " (exacerbation indicator)";
-                diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-wind" });
-                contextNotes.push(`RR ${rr} exceeds the reference for ${ageGroup.name} (usual ${rrTarget.min} to ${rrTarget.max}).`);
-                recommendations.push(diagnosisDatabase.tachypnea);
-            } else if (rr > rrTarget.max + 15) {
-                let note = `⚠️ SIM ALERT: Severe Tachypnea (RR ${rr})`;
-                if (conditions === 'asthma' || conditions === 'copd') note += " (EXACERBATION PATTERN)";
-                diagnosis.push({ name: note, severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = priority === "STABLE" ? "CRITICAL" : priority;
-                color = "text-red-500";
-                contextNotes.push(`RR ${rr} is significantly elevated, a pattern associated with respiratory distress or hypoxia.`);
-            }
-
-            // ===== COMORBIDITY-SPECIFIC CHECKS =====
-            if (hasComorbidity) {
-                if (conditions === 'ckd' && sys > vitalSignsReference.comorbidities.ckd.systolicTarget) {
-                    contextNotes.push("CKD patient. Stricter BP control is emphasized and this reading exceeds the usual target. NSAIDs are generally avoided in CKD.");
-                }
-                if (conditions === 'asthma' && rr > 25) {
-                    contextNotes.push("Asthma patient with elevated RR. Auscultate for wheeze, since this pattern can indicate exacerbation.");
-                }
-                if (conditions === 'copd' && rr > 25) {
-                    contextNotes.push("COPD patient with elevated RR. Compare against the patient's baseline and consider an exacerbation pattern.");
-                }
-            }
-
-            return { diagnosis, priority, color, recommendations, contextNotes };
         }
 
         function readVitalField(id, asFloat) {
@@ -331,7 +54,7 @@
             const tempField = readVitalField('temp', true);
             const hrField = readVitalField('hr', false);
             const rrField = readVitalField('rr', false);
-            const ageField = readVitalField('age', false);
+            const ageField = readVitalField('age', true);
             const pregCountField = readVitalField('pregnancies', false);
             const sys = sysField.n;
             const dia = diaField.n;
@@ -373,7 +96,11 @@
             const flags = [];
             let severityScore = 0;
 
-            const isChild = ageOn && age > 0 && age < 12;
+            const pediatric = ageOn && age < 12;
+            // TODO: cite a pediatric age-based chart before classifying BP, HR, or RR under 12.
+            // The under-12 bands stay in this function but isChild is fixed false, so they are unreachable.
+            const isChild = false;
+            // const isChild = ageOn && age > 0 && age < 12;
             const isOlderAdult = ageOn && age >= 65;
             const hasComorbidity = conditions && conditions !== 'none';
             const hrLow = isChild ? 70 : 60;
@@ -381,30 +108,36 @@
             const rrLow = isChild ? 18 : 12;
             const rrHigh = isChild ? 30 : 20;
 
-            function pushFlag(label, reasons) {
-                const reason = joinReasons(reasons);
-                if (!reason) return null;
-                const flag = { label: label, reason: reason };
+            function boundSentence(field, value, direction, bound) {
+                return ixFill('flag.sentence', { field: field, value: value, direction: direction, bound: bound });
+            }
+
+            function pushFlag(label, sentences) {
+                const list = sentences.filter(Boolean);
+                if (!list.length) return null;
+                const flag = { label: label, sentences: list, reason: list.join(' ') };
                 flags.push(flag);
                 return flag;
             }
 
             let bpFlag = null;
             if (sysOn || diaOn) {
-                const bpReasons = [];
-                if (sysOn && sys < 40) bpReasons.push(ixText('flag.sbpLow'));
-                if (sysOn && sys > 300) bpReasons.push(ixText('flag.sbpHigh'));
-                if (diaOn && dia < 20) bpReasons.push(ixText('flag.dbpLow'));
-                if (diaOn && dia > 200) bpReasons.push(ixText('flag.dbpHigh'));
-                if (sysOn && diaOn && !(dia < sys)) bpReasons.push(ixText('flag.dbpOrder'));
+                const bpSentences = [];
+                if (sysOn && sys < 40) bpSentences.push(boundSentence('Systolic', sys + ' mmHg', 'below', '40 mmHg'));
+                if (sysOn && sys > 300) bpSentences.push(boundSentence('Systolic', sys + ' mmHg', 'above', '300 mmHg'));
+                if (diaOn && dia < 20) bpSentences.push(boundSentence('Diastolic', dia + ' mmHg', 'below', '20 mmHg'));
+                if (diaOn && dia > 200) bpSentences.push(boundSentence('Diastolic', dia + ' mmHg', 'above', '200 mmHg'));
+                if (sysOn && diaOn && !(dia < sys)) bpSentences.push(ixFill('flag.dbpOrderSentence', { dia: dia, sys: sys }));
                 if (sysOn && diaOn) {
                     const pulsePressure = sys - dia;
-                    if (pulsePressure > 80) bpReasons.push(ixText('flag.ppWide'));
-                    if (pulsePressure < 15) bpReasons.push(ixText('flag.ppNarrow'));
+                    if (pulsePressure > 80) bpSentences.push(boundSentence('Pulse pressure', pulsePressure + ' mmHg', 'above', '80 mmHg'));
+                    if (pulsePressure < 15) bpSentences.push(boundSentence('Pulse pressure', pulsePressure + ' mmHg', 'below', '15 mmHg'));
                 }
-                bpFlag = pushFlag('Blood pressure', bpReasons);
+                bpFlag = pushFlag('Blood pressure', bpSentences);
                 const pair = (sysOn && diaOn) ? (sys + '/' + dia) : (sysOn ? (sys + '/—') : ('—/' + dia));
-                if ((sysOn && sys >= 180) || (diaOn && dia >= 120)) {
+                if (pediatric) {
+                    interpretations.push({ text: ixFill('pattern.bpEcho', { pair: pair }), flag: bpFlag, rank: 0 });
+                } else if ((sysOn && sys >= 180) || (diaOn && dia >= 120)) {
                     interpretations.push({ text: ixFill('pattern.bpCrisis', { pair: pair }), flag: bpFlag, rank: 2 });
                     abnormalFindings.push('critical_bp');
                     severityScore += 4;
@@ -441,10 +174,10 @@
 
             let tempFlag = null;
             if (tempOn) {
-                const tempReasons = [];
-                if (temp < 30) tempReasons.push(ixText('flag.tempLow'));
-                if (temp > 43) tempReasons.push(ixText('flag.tempHigh'));
-                tempFlag = pushFlag('Temperature', tempReasons);
+                const tempSentences = [];
+                if (temp < 30) tempSentences.push(boundSentence('Temperature', temp.toFixed(1) + '°C', 'below', '30°C'));
+                if (temp > 43) tempSentences.push(boundSentence('Temperature', temp.toFixed(1) + '°C', 'above', '43°C'));
+                tempFlag = pushFlag('Temperature', tempSentences);
                 const tempLabel = temp.toFixed(1);
                 if (temp >= 39.5) {
                     interpretations.push({ text: ixFill('pattern.tempHigh', { temp: tempLabel }), flag: tempFlag, rank: 1 });
@@ -473,11 +206,13 @@
 
             let hrFlag = null;
             if (hrOn) {
-                const hrReasons = [];
-                if (hr < 20) hrReasons.push(ixText('flag.hrLow'));
-                if (hr > 300) hrReasons.push(ixText('flag.hrHigh'));
-                hrFlag = pushFlag('Heart rate', hrReasons);
-                if (hr > hrHigh + 20) {
+                const hrSentences = [];
+                if (hr < 20) hrSentences.push(boundSentence('Heart rate', hr + ' bpm', 'below', '20 bpm'));
+                if (hr > 300) hrSentences.push(boundSentence('Heart rate', hr + ' bpm', 'above', '300 bpm'));
+                hrFlag = pushFlag('Heart rate', hrSentences);
+                if (pediatric) {
+                    interpretations.push({ text: ixFill('pattern.hrEcho', { hr: hr }), flag: hrFlag, rank: 0 });
+                } else if (hr > hrHigh + 20) {
                     interpretations.push({ text: ixFill('pattern.hrMarked', { hr: hr }), flag: hrFlag, rank: 2 });
                     abnormalFindings.push('severe_tachy');
                     severityScore += 3;
@@ -500,11 +235,13 @@
 
             let rrFlag = null;
             if (rrOn) {
-                const rrReasons = [];
-                if (rr < 4) rrReasons.push(ixText('flag.rrLow'));
-                if (rr > 60) rrReasons.push(ixText('flag.rrHigh'));
-                rrFlag = pushFlag('Respiratory rate', rrReasons);
-                if (rr > rrHigh + 10) {
+                const rrSentences = [];
+                if (rr < 4) rrSentences.push(boundSentence('Respiratory rate', rr + '/min', 'below', '4/min'));
+                if (rr > 60) rrSentences.push(boundSentence('Respiratory rate', rr + '/min', 'above', '60/min'));
+                rrFlag = pushFlag('Respiratory rate', rrSentences);
+                if (pediatric) {
+                    interpretations.push({ text: ixFill('pattern.rrEcho', { rr: rr }), flag: rrFlag, rank: 0 });
+                } else if (rr > rrHigh + 10) {
                     interpretations.push({ text: ixFill('pattern.rrSevere', { rr: rr }), flag: rrFlag, rank: 2 });
                     abnormalFindings.push('severe_tachypnea');
                     severityScore += 3;
@@ -525,13 +262,15 @@
                 interpretations.push({ text: ixFill('pattern.rrMissing', { missing: notEntered }), flag: null, rank: 0 });
             }
 
-            interpretations.push({ text: ixFill('pattern.spo2Missing', { missing: notEntered }), flag: null, rank: 0 });
+            if (pediatric) {
+                interpretations.push({ text: ixText('pediatric.reference'), flag: null, rank: 1 });
+            }
 
-            if (hrOn && (hr > hrHigh || hr > 100) && tempOn && temp >= 38.0) {
+            if (!pediatric && hrOn && (hr > hrHigh || hr > 100) && tempOn && temp >= 38.0) {
                 interpretations.push({ text: ixFill('pattern.tachyFever', {}), flag: null, rank: 1 });
                 severityScore += 1;
             }
-            if (rrOn && (rr > rrHigh || rr > 20) && tempOn && temp >= 38.0) {
+            if (!pediatric && rrOn && (rr > rrHigh || rr > 20) && tempOn && temp >= 38.0) {
                 interpretations.push({ text: ixFill('pattern.rrFever', {}), flag: null, rank: 1 });
                 severityScore += 1;
             }
@@ -540,19 +279,24 @@
             if (pregnant === 'yes' && ((sysOn && sys >= 140) || (diaOn && dia >= 90))) severityScore += 1;
             if (hasComorbidity) severityScore += 1;
 
-            let priorityIndex = 0;
-            if (severityScore >= 10 || abnormalFindings.includes('critical_bp') || abnormalFindings.includes('severe_tachypnea')) priorityIndex = 4;
-            else if (severityScore >= 7) priorityIndex = 3;
-            else if (severityScore >= 4) priorityIndex = 2;
-            else if (severityScore >= 1) priorityIndex = 1;
-
             const enteredCount = (sysOn && diaOn ? 1 : 0) + (tempOn ? 1 : 0) + (hrOn ? 1 : 0) + (rrOn ? 1 : 0);
-            const vitalTotal = 5;
-            const incomplete = enteredCount < vitalTotal ? ixFill('incomplete', { n: enteredCount, m: vitalTotal }) : '';
+            const vitalTotal = 4;
+            const setIncomplete = enteredCount < vitalTotal;
+            const incompleteLabel = ixFill('incomplete', { n: enteredCount, m: vitalTotal });
+
+            function indexFor(score, findings) {
+                if (score >= 10 || findings.includes('critical_bp') || findings.includes('severe_tachypnea')) return 4;
+                if (score >= 7) return 3;
+                if (score >= 4) return 2;
+                if (score >= 1) return 1;
+                return 0;
+            }
+            const priorityIndex = indexFor(severityScore, abnormalFindings);
 
             const ranked = interpretations.slice().sort(function (a, b) { return b.rank - a.rank; });
             const leadRow = ranked.find(function (row) { return row.rank > 0; }) || ranked.find(function (row) { return row.text.indexOf(notEntered) === -1; }) || ranked[0];
-            const lead = leadRow ? leadRow.text : '';
+            let lead = leadRow ? leadRow.text : '';
+            let leadFlag = leadRow && leadRow.flag ? leadRow.flag : null;
 
             const considerations = [];
             if (priorityIndex >= 3) {
@@ -585,21 +329,49 @@
                 context.push(ixFill('context.condition', { name: conditionLabels[conditions] || conditions }));
             }
 
-            const noted = [];
-            if (ageOn && !isChild) noted.push('age');
-            if (sex === 'female' || sex === 'male') noted.push('sex');
-            if (pregnant === 'yes') noted.push('pregnancy');
-            if (hasComorbidity) noted.push('condition');
-            let howDerived = '';
-            if (isChild) howDerived = ixText('how.childBands');
-            if (noted.length) {
-                const notedLine = noted.join(', ') + ' ' + ixText('how.noted');
-                howDerived = howDerived ? (howDerived + ' ' + notedLine) : notedLine;
-            } else if (!howDerived) {
-                howDerived = ixText('how.noted');
+            const conditionLabels = {
+                hypertension: 'Hypertension',
+                diabetes: 'Diabetes',
+                asthma: 'Asthma',
+                copd: 'COPD',
+                ckd: 'Chronic kidney disease',
+                multiple: 'Multiple conditions'
+            };
+            const conditionPoint = hasComorbidity ? 1 : 0;
+            const olderPoint = isOlderAdult ? 1 : 0;
+            const pregnancyPoint = (pregnant === 'yes' && ((sysOn && sys >= 140) || (diaOn && dia >= 90))) ? 1 : 0;
+            const shifts = [];
+            function noteShift(point, name) {
+                if (!point) return false;
+                const without = indexFor(severityScore - point, abnormalFindings);
+                if (without === priorityIndex) return false;
+                shifts.push(ixFill('how.severityPoint', {
+                    name: name,
+                    from: ixText('priority.' + without + '.text'),
+                    to: ixText('priority.' + priorityIndex + '.text')
+                }));
+                return true;
             }
+            const conditionChanged = noteShift(conditionPoint, conditionLabels[conditions] || 'Condition');
+            const olderChanged = noteShift(olderPoint, 'Older age');
+            const pregnancyChanged = noteShift(pregnancyPoint, 'Pregnancy');
+            const noted = [];
+            if (ageOn && !pediatric && !olderChanged) noted.push('age');
+            if (sex === 'female' || sex === 'male') noted.push('sex');
+            if (pregnant === 'yes' && !pregnancyChanged) noted.push('pregnancy');
+            if (hasComorbidity && !conditionChanged) noted.push('condition');
+            const howParts = [];
+            if (pediatric) howParts.push(ixText('pediatric.reference'));
+            // TODO: cite a pediatric chart. Under-12 band text stays unreachable while isChild is false.
+            if (isChild) howParts.push(ixText('how.childBands'));
+            shifts.forEach(function (line) { if (line) howParts.push(line); });
+            if (noted.length) howParts.push(noted.join(', ') + ' ' + ixText('how.noted'));
+            let howDerived = howParts.join(' ');
+            if (!howDerived) howDerived = ixText('how.noted');
 
-            const referenceLabel = isChild ? (ixText('ref.under12') || 'under 12 reference') : (ixText('ref.adult') || 'adult reference');
+            const referenceLabel = pediatric
+                ? (ixText('pediatric.reference') || 'Pediatric reference not included')
+                : (ixText('ref.adult') || 'adult reference');
             const inputs = [];
             if (sysOn && diaOn) inputs.push('BP ' + sys + '/' + dia + ' mmHg');
             else if (sysOn) inputs.push('Systolic ' + sys + ' mmHg; diastolic ' + notEntered);
@@ -608,22 +380,45 @@
             inputs.push(tempOn ? ('Temp ' + temp.toFixed(1) + '°C') : ('Temp ' + notEntered));
             inputs.push(hrOn ? ('HR ' + hr + ' bpm') : ('HR ' + notEntered));
             inputs.push(rrOn ? ('RR ' + rr + '/min') : ('RR ' + notEntered));
-            inputs.push('SpO2 ' + notEntered);
 
-            const priority = {
-                icon: ixText('priority.' + priorityIndex + '.icon'),
-                text: ixText('priority.' + priorityIndex + '.text')
-            };
+            const quietPartial = setIncomplete && priorityIndex === 0 && !pediatric;
+            let priority;
+            let incomplete = '';
+            let meaning = (priorityIndex === 1 && abnormalFindings.length === 0)
+                ? ixText('meaning.severityOnly')
+                : ixText('meaning.' + priorityIndex);
+            if (quietPartial) {
+                priority = { icon: '', text: incompleteLabel, neutral: true };
+                lead = ixText('partial.noConcerns');
+                leadFlag = null;
+                meaning = ixText('partial.noConcerns');
+            } else if (pediatric && priorityIndex === 0) {
+                priority = {
+                    icon: '',
+                    text: setIncomplete ? incompleteLabel : ixText('pediatric.reference'),
+                    neutral: true
+                };
+                lead = ixText('pediatric.reference');
+                leadFlag = null;
+                meaning = ixText('pediatric.reference');
+            } else {
+                priority = {
+                    icon: ixText('priority.' + priorityIndex + '.icon'),
+                    text: ixText('priority.' + priorityIndex + '.text'),
+                    neutral: false
+                };
+                if (setIncomplete) incomplete = incompleteLabel;
+            }
             const result = {
                 container: box,
                 priority: priority,
                 incomplete: incomplete,
                 lead: lead,
-                leadFlag: leadRow && leadRow.flag ? leadRow.flag : null,
+                leadFlag: leadFlag,
                 interpretation: ranked,
                 considerations: considerations.filter(Boolean),
                 context: context,
-                meaning: ixText('meaning.' + priorityIndex),
+                meaning: meaning,
                 howDerived: howDerived,
                 disclaimer: ixText('disclaimer'),
                 inputs: inputs,
@@ -3208,10 +3003,10 @@
                 onlineEl.textContent = navigator.onLine ? 'Online' : 'Offline — cached copy in use';
             }
             if (packEl) {
-                packEl.textContent = 'Reference pack nursepath-v2.4.15';
+                packEl.textContent = 'Reference pack nursepath-v2.4.16';
             }
             const otcStamp = document.getElementById('otcPackStamp');
-            if (otcStamp) otcStamp.textContent = 'Reference pack nursepath-v2.4.15';
+            if (otcStamp) otcStamp.textContent = 'Reference pack nursepath-v2.4.16';
         }
         window.updateNpStatusMeta = updateNpStatusMeta;
 
