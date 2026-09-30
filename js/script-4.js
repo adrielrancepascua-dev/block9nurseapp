@@ -1325,6 +1325,7 @@
             {
                 id: 'appearance',
                 letter: 'A',
+                short: 'Appearance',
                 name: 'Appearance (Color)',
                 hint: 'Skin color of the newborn',
                 options: [
@@ -1336,6 +1337,7 @@
             {
                 id: 'pulse',
                 letter: 'P',
+                short: 'Pulse',
                 name: 'Pulse (Heart rate)',
                 hint: 'Count apical HR for 1 full minute when possible',
                 options: [
@@ -1347,6 +1349,7 @@
             {
                 id: 'grimace',
                 letter: 'G',
+                short: 'Grimace',
                 name: 'Grimace (Reflex irritability)',
                 hint: 'Response to suction or mild stimulus',
                 options: [
@@ -1358,6 +1361,7 @@
             {
                 id: 'activity',
                 letter: 'A',
+                short: 'Activity',
                 name: 'Activity (Muscle tone)',
                 hint: 'Watch flexion and movement',
                 options: [
@@ -1369,6 +1373,7 @@
             {
                 id: 'respiration',
                 letter: 'R',
+                short: 'Respiration',
                 name: 'Respiration',
                 hint: 'Effort and cry quality',
                 options: [
@@ -1382,6 +1387,7 @@
         const BRADEN_RUBRIC = [
             {
                 id: 'sensory',
+                short: 'Sensory',
                 name: 'Sensory Perception',
                 hint: 'Ability to respond meaningfully to pressure-related discomfort',
                 options: [
@@ -1393,6 +1399,7 @@
             },
             {
                 id: 'moisture',
+                short: 'Moisture',
                 name: 'Moisture',
                 hint: 'Degree to which skin is exposed to moisture',
                 options: [
@@ -1404,6 +1411,7 @@
             },
             {
                 id: 'activity',
+                short: 'Activity',
                 name: 'Activity',
                 hint: 'Degree of physical activity',
                 options: [
@@ -1415,6 +1423,7 @@
             },
             {
                 id: 'mobility',
+                short: 'Mobility',
                 name: 'Mobility',
                 hint: 'Ability to change and control body position',
                 options: [
@@ -1426,6 +1435,7 @@
             },
             {
                 id: 'nutrition',
+                short: 'Nutrition',
                 name: 'Nutrition',
                 hint: 'Usual food intake pattern',
                 options: [
@@ -1437,6 +1447,7 @@
             },
             {
                 id: 'friction',
+                short: 'Friction',
                 name: 'Friction & Shear',
                 hint: 'Scored 1–3 only',
                 options: [
@@ -1451,6 +1462,7 @@
             {
                 id: 'eye',
                 key: 'eye',
+                short: 'Eye',
                 name: 'Eye Opening (E)',
                 hint: 'Best eye response',
                 options: [
@@ -1463,6 +1475,7 @@
             {
                 id: 'verbal',
                 key: 'verbal',
+                short: 'Verbal',
                 name: 'Verbal Response (V)',
                 hint: 'Best verbal response',
                 options: [
@@ -1470,12 +1483,14 @@
                     { value: 4, label: 'Confused', desc: 'Converses but confused.' },
                     { value: 3, label: 'Inappropriate words', desc: 'Random words, no conversation.' },
                     { value: 2, label: 'Incomprehensible sounds', desc: 'Moaning / groaning only.' },
-                    { value: 1, label: 'None', desc: 'No verbal response.' }
+                    { value: 1, label: 'None', desc: 'No verbal response.' },
+                    { value: 'NT', label: 'Unable to assess', desc: 'Intubated or otherwise cannot speak. Chart VT. Do not score this as 1.' }
                 ]
             },
             {
                 id: 'motor',
                 key: 'motor',
+                short: 'Motor',
                 name: 'Motor Response (M)',
                 hint: 'Best motor response',
                 options: [
@@ -1489,103 +1504,254 @@
             }
         ];
 
-        const apgarState = {};
+        function blankApgar() {
+            const row = {};
+            APGAR_RUBRIC.forEach((r) => { row[r.id] = null; });
+            return row;
+        }
+        const apgarByMinute = { '1': blankApgar(), '5': blankApgar(), '10': blankApgar() };
+        let apgarMinute = '1';
         const bradenState = {};
         const gcsState = { eye: null, verbal: null, motor: null };
+        const scaleOpen = { gcs: 'eye', braden: 'sensory' };
+        let scaleCopyText = { apgar: '', gcs: '', braden: '', ron: '' };
 
-        function renderScoreOptions(host, rubric, stateObj, onChange) {
+        function scaleOptionMatches(selected, value) {
+            return String(selected) === String(value);
+        }
+
+        function nextUnansweredId(rubric, stateObj) {
+            const next = rubric.find((item) => stateObj[item.id] == null || stateObj[item.id] === '');
+            return next ? next.id : null;
+        }
+
+        function setScaleBand(id, band) {
+            const el = document.getElementById(id);
+            if (el) el.dataset.band = band || 'pending';
+        }
+
+        function bindScaleButton(id, handler) {
+            const btn = document.getElementById(id);
+            if (!btn || btn.dataset.bound === '1') return;
+            btn.dataset.bound = '1';
+            btn.addEventListener('click', handler);
+        }
+
+        async function copyScaleResult(key, btn) {
+            const text = scaleCopyText[key];
+            if (!text) {
+                const prev = btn.textContent;
+                btn.textContent = 'Finish the score';
+                setTimeout(() => { btn.textContent = prev; }, 1200);
+                return;
+            }
+            try {
+                await navigator.clipboard.writeText(text);
+                const prev = btn.textContent;
+                btn.textContent = 'Copied';
+                setTimeout(() => { btn.textContent = prev; }, 1200);
+                trackUsageSafe(key === 'ron' ? 'rule_of_nines' : key, 'copy_reference', {}, { minIntervalMs: 1200, rateKey: `${key}_copy` });
+            } catch (e) {
+                const prev = btn.textContent;
+                btn.textContent = 'Copy failed';
+                setTimeout(() => { btn.textContent = prev; }, 1200);
+            }
+        }
+
+        function renderScaleAccordion(host, rubric, stateObj, uiKey, onChange) {
             if (!host) return;
             host.innerHTML = rubric.map((item) => {
                 const selected = stateObj[item.id];
+                const chosen = item.options.find((opt) => scaleOptionMatches(selected, opt.value));
+                const open = scaleOpen[uiKey] === item.id;
+                const summary = chosen
+                    ? `${item.short || item.name}: ${chosen.value === 'NT' ? 'VT' : chosen.value}, ${chosen.label}`
+                    : 'Not scored';
                 const optionsHtml = item.options.map((opt) => {
-                    const isSel = Number(selected) === Number(opt.value);
-                    return `<button type="button" class="score-option${isSel ? ' is-selected' : ''}" data-id="${item.id}" data-value="${opt.value}">
-                        <span class="score-option-num">${opt.value}</span>
-                        <span class="score-option-text"><span class="score-option-label">${opt.label}</span><span class="score-option-desc">${opt.desc}</span></span>
+                    const isSel = scaleOptionMatches(selected, opt.value);
+                    const badge = opt.value === 'NT' ? 'VT' : opt.value;
+                    return `<button type="button" class="scale-opt${isSel ? ' is-selected' : ''}" data-id="${escapeGuideHtml(item.id)}" data-value="${escapeGuideHtml(opt.value)}" aria-pressed="${isSel ? 'true' : 'false'}">
+                        <span class="scale-opt-num">${escapeGuideHtml(badge)}</span>
+                        <span class="scale-opt-copy">
+                            <span class="scale-opt-label">${escapeGuideHtml(opt.label)}</span>
+                            <span class="scale-opt-desc">${escapeGuideHtml(opt.desc)}</span>
+                        </span>
+                        <span class="scale-opt-mark" aria-hidden="true">${isSel ? '✓' : ''}</span>
                     </button>`;
                 }).join('');
-                const letter = item.letter ? `<span class="score-criterion-letter">${item.letter}</span>` : '';
-                return `<section class="score-criterion" data-criterion="${item.id}">
-                    <div class="score-criterion-head">
-                        <div>${letter}<div class="score-criterion-name">${item.name}</div></div>
-                        <div class="score-criterion-hint">${item.hint || ''}</div>
-                    </div>
-                    <div class="score-options">${optionsHtml}</div>
+                return `<section class="scale-sec${open ? ' is-open' : ''}${chosen ? ' is-done' : ''}">
+                    <button type="button" class="scale-sec-head" data-id="${escapeGuideHtml(item.id)}" aria-expanded="${open ? 'true' : 'false'}">
+                        <span class="scale-sec-name">${escapeGuideHtml(item.name)}</span>
+                        <span class="scale-sec-sum">${escapeGuideHtml(summary)}</span>
+                    </button>
+                    <div class="scale-sec-body"${open ? '' : ' hidden'}>${optionsHtml}</div>
                 </section>`;
             }).join('');
 
-            host.querySelectorAll('.score-option').forEach((btn) => {
+            host.querySelectorAll('.scale-sec-head').forEach((btn) => {
                 btn.addEventListener('click', () => {
                     const id = btn.getAttribute('data-id');
-                    const value = Number(btn.getAttribute('data-value'));
-                    stateObj[id] = value;
-                    renderScoreOptions(host, rubric, stateObj, onChange);
+                    scaleOpen[uiKey] = scaleOpen[uiKey] === id ? null : id;
+                    renderScaleAccordion(host, rubric, stateObj, uiKey, onChange);
+                });
+            });
+            host.querySelectorAll('.scale-opt').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    const id = btn.getAttribute('data-id');
+                    const raw = btn.getAttribute('data-value');
+                    stateObj[id] = raw === 'NT' ? 'NT' : Number(raw);
+                    scaleOpen[uiKey] = nextUnansweredId(rubric, stateObj);
+                    renderScaleAccordion(host, rubric, stateObj, uiKey, onChange);
                     onChange();
                 });
             });
         }
 
+        function renderApgarTable() {
+            const host = document.getElementById('apgar-inputs');
+            const state = apgarByMinute[apgarMinute];
+            if (!host || !state) return;
+            host.innerHTML = APGAR_RUBRIC.map((item) => {
+                const chosen = item.options.find((opt) => state[item.id] === opt.value);
+                const cells = item.options.slice().sort((a, b) => a.value - b.value).map((opt) => {
+                    const isSel = state[item.id] === opt.value;
+                    return `<button type="button" class="apgar-cell${isSel ? ' is-selected' : ''}" data-id="${item.id}" data-value="${opt.value}" aria-pressed="${isSel ? 'true' : 'false'}">
+                        <span class="apgar-cell-num">${opt.value}</span>
+                        <span class="apgar-cell-label">${escapeGuideHtml(opt.label)}</span>
+                    </button>`;
+                }).join('');
+                return `<div class="apgar-row">
+                    <div class="apgar-row-name">${escapeGuideHtml(item.name)}</div>
+                    <div class="apgar-cells">${cells}</div>
+                    <p class="apgar-row-desc">${escapeGuideHtml(chosen ? chosen.desc : (item.hint || 'Tap 0, 1, or 2.'))}</p>
+                </div>`;
+            }).join('');
+            host.querySelectorAll('.apgar-cell').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    state[btn.getAttribute('data-id')] = Number(btn.getAttribute('data-value'));
+                    renderApgarTable();
+                    calcApgar();
+                });
+            });
+            document.querySelectorAll('.apgar-min').forEach((btn) => {
+                const on = btn.getAttribute('data-min') === apgarMinute;
+                btn.classList.toggle('is-selected', on);
+                btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+            });
+        }
+
+        function setApgarMinute(min) {
+            if (!apgarByMinute[min]) return;
+            apgarMinute = min;
+            renderApgarTable();
+            calcApgar();
+        }
+
         function initApgarInputs() {
             const host = document.getElementById('apgar-inputs');
             if (!host) return;
-            if (!Object.keys(apgarState).length) {
-                APGAR_RUBRIC.forEach((r) => { apgarState[r.id] = null; });
-            }
-            renderScoreOptions(host, APGAR_RUBRIC, apgarState, calcApgar);
+            bindScaleButton('apgar-copy', (e) => copyScaleResult('apgar', e.currentTarget));
+            bindScaleButton('apgar-reset', () => {
+                apgarByMinute[apgarMinute] = blankApgar();
+                renderApgarTable();
+                calcApgar();
+            });
+            document.querySelectorAll('.apgar-min').forEach((btn) => {
+                if (btn.dataset.bound === '1') return;
+                btn.dataset.bound = '1';
+                btn.addEventListener('click', () => setApgarMinute(btn.getAttribute('data-min')));
+            });
+            renderApgarTable();
             calcApgar();
         }
 
         function calcApgar() {
             const calc = window.NursePathCalculators;
             if (!calc) return;
-            const complete = APGAR_RUBRIC.every((r) => apgarState[r.id] != null);
+            const state = apgarByMinute[apgarMinute];
+            const answered = APGAR_RUBRIC.filter((r) => state[r.id] != null);
             const totalEl = document.getElementById('apgar-total');
             const interpEl = document.getElementById('apgar-interp');
-            if (!complete) {
-                if (totalEl) totalEl.textContent = '--';
-                if (interpEl) interpEl.textContent = 'Select all five domains to score.';
+            const sticky = document.getElementById('apgar-sticky');
+            if (answered.length < APGAR_RUBRIC.length) {
+                scaleCopyText.apgar = '';
+                const soFar = answered.reduce((sum, r) => sum + state[r.id], 0);
+                if (totalEl) totalEl.textContent = answered.length ? `APGAR ${soFar} so far` : 'APGAR —';
+                if (interpEl) interpEl.textContent = `${answered.length} of 5 at ${apgarMinute} min. Select every sign.`;
+                if (sticky) sticky.dataset.band = 'pending';
                 return;
             }
-            const result = calc.apgarScore(apgarState);
-            if (totalEl) totalEl.textContent = String(result.total);
+            const result = calc.apgarScore(state);
+            const band = result.total <= 3 ? 'severe' : (result.total <= 6 ? 'moderate' : 'mild');
+            const parts = APGAR_RUBRIC.map((r) => `${r.short} ${state[r.id]}`).join(', ');
+            if (totalEl) totalEl.textContent = `APGAR ${result.total} at ${apgarMinute} min`;
             if (interpEl) interpEl.textContent = result.interpretation;
+            if (sticky) sticky.dataset.band = band;
+            scaleCopyText.apgar = `APGAR ${result.total} at ${apgarMinute} min. ${parts}. ${result.interpretation}`;
             const meaning = document.getElementById('apgar-learn-meaning');
-            if (meaning) meaning.textContent = `Total ${result.total} of 10. ${result.interpretation}`;
-            trackUsageSafe('apgar', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'apgar' });
+            if (meaning) meaning.textContent = `Total ${result.total} of 10 at ${apgarMinute} min. ${result.interpretation}`;
+            trackUsageSafe('apgar', 'result_generated', { total: result.total, minute: apgarMinute }, { minIntervalMs: 1500, rateKey: 'apgar' });
+        }
+
+        function gcsParts() {
+            const e = gcsState.eye != null ? `E${gcsState.eye}` : 'E—';
+            const v = gcsState.verbal == null ? 'V—' : (gcsState.verbal === 'NT' ? 'VT' : `V${gcsState.verbal}`);
+            const m = gcsState.motor != null ? `M${gcsState.motor}` : 'M—';
+            return `${e} ${v} ${m}`;
         }
 
         function initGcsInputs() {
             const host = document.getElementById('gcs-inputs');
             if (!host) return;
-            // Map rubric ids to gcsState keys
-            const mapped = GCS_RUBRIC.map((r) => ({ ...r, id: r.key }));
-            renderScoreOptions(host, mapped, gcsState, calcGCS);
+            bindScaleButton('gcs-copy', (e) => copyScaleResult('gcs', e.currentTarget));
+            bindScaleButton('gcs-reset', () => {
+                gcsState.eye = null;
+                gcsState.verbal = null;
+                gcsState.motor = null;
+                scaleOpen.gcs = 'eye';
+                renderScaleAccordion(host, GCS_RUBRIC.map((r) => ({ ...r, id: r.key })), gcsState, 'gcs', calcGCS);
+                calcGCS();
+            });
+            renderScaleAccordion(host, GCS_RUBRIC.map((r) => ({ ...r, id: r.key })), gcsState, 'gcs', calcGCS);
             calcGCS();
         }
 
         function calcGCS() {
             const calc = window.NursePathCalculators;
             if (!calc) return;
-            const eyeChip = document.getElementById('gcs-chip-eye');
-            const verbalChip = document.getElementById('gcs-chip-verbal');
-            const motorChip = document.getElementById('gcs-chip-motor');
-            if (eyeChip) eyeChip.textContent = gcsState.eye != null ? `E${gcsState.eye}` : 'E—';
-            if (verbalChip) verbalChip.textContent = gcsState.verbal != null ? `V${gcsState.verbal}` : 'V—';
-            if (motorChip) motorChip.textContent = gcsState.motor != null ? `M${gcsState.motor}` : 'M—';
-
             const totalEl = document.getElementById('gcs-total');
             const sevEl = document.getElementById('gcs-severity');
             const attentionEl = document.getElementById('gcs-learn-attention');
-            if (gcsState.eye == null || gcsState.verbal == null || gcsState.motor == null) {
-                if (totalEl) totalEl.textContent = '--';
+            const meaning = document.getElementById('gcs-learn-meaning');
+            const parts = gcsParts();
+            const ready = gcsState.eye != null && gcsState.verbal != null && gcsState.motor != null;
+            if (!ready) {
+                scaleCopyText.gcs = '';
+                if (totalEl) totalEl.textContent = parts === 'E— V— M—' ? 'GCS —' : `GCS ${parts}`;
                 if (sevEl) sevEl.textContent = 'Select Eye, Verbal, and Motor.';
+                setScaleBand('gcs-sticky', 'pending');
                 if (attentionEl) attentionEl.textContent = 'Score Eye, Verbal, and Motor for a watch/report cue. Soft guidance only; confirm with your Clinical Instructor.';
                 return;
             }
+            if (gcsState.verbal === 'NT') {
+                const em = gcsState.eye + gcsState.motor;
+                const line = `GCS E${gcsState.eye} VT M${gcsState.motor}`;
+                if (totalEl) totalEl.textContent = line;
+                if (sevEl) sevEl.textContent = `Verbal not assessed. Eye + motor ${em}. Not a 3–15 total.`;
+                setScaleBand('gcs-sticky', 'pending');
+                scaleCopyText.gcs = `${line}, verbal not assessed (eye + motor ${em})`;
+                if (meaning) meaning.textContent = 'Verbal not assessed (VT). Do not add a fake verbal point.';
+                if (attentionEl) attentionEl.textContent = 'Chart VT when the person cannot speak. Confirm how your unit totals an intubated GCS with your Clinical Instructor.';
+                trackUsageSafe('gcs', 'result_generated', { verbal: 'NT' }, { minIntervalMs: 1500, rateKey: 'gcs' });
+                return;
+            }
             const result = calc.gcsScore(gcsState.eye, gcsState.verbal, gcsState.motor);
-            if (totalEl) totalEl.textContent = `${result.total}`;
-            if (sevEl) sevEl.textContent = `${result.severity} · Report as E${result.eye}V${result.verbal}M${result.motor}`;
-            const meaning = document.getElementById('gcs-learn-meaning');
+            const band = result.total <= 8 ? 'severe' : (result.total <= 12 ? 'moderate' : 'mild');
+            const word = band;
+            if (totalEl) totalEl.textContent = `GCS ${result.total} (E${result.eye} V${result.verbal} M${result.motor})`;
+            if (sevEl) sevEl.textContent = result.severity;
+            setScaleBand('gcs-sticky', band);
+            scaleCopyText.gcs = `GCS ${result.total} (E${result.eye} V${result.verbal} M${result.motor}), ${word}`;
             if (meaning) meaning.textContent = `${result.severity} · Document E${result.eye}V${result.verbal}M${result.motor}`;
             if (attentionEl) attentionEl.textContent = result.attention || '';
             trackUsageSafe('gcs', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'gcs' });
@@ -1597,26 +1763,43 @@
             if (!Object.keys(bradenState).length) {
                 BRADEN_RUBRIC.forEach((r) => { bradenState[r.id] = null; });
             }
-            renderScoreOptions(host, BRADEN_RUBRIC, bradenState, calcBraden);
+            bindScaleButton('braden-copy', (e) => copyScaleResult('braden', e.currentTarget));
+            bindScaleButton('braden-reset', () => {
+                BRADEN_RUBRIC.forEach((r) => { bradenState[r.id] = null; });
+                scaleOpen.braden = 'sensory';
+                renderScaleAccordion(host, BRADEN_RUBRIC, bradenState, 'braden', calcBraden);
+                calcBraden();
+            });
+            renderScaleAccordion(host, BRADEN_RUBRIC, bradenState, 'braden', calcBraden);
             calcBraden();
         }
 
         function calcBraden() {
             const calc = window.NursePathCalculators;
             if (!calc) return;
-            const complete = BRADEN_RUBRIC.every((r) => bradenState[r.id] != null);
+            const answered = BRADEN_RUBRIC.filter((r) => bradenState[r.id] != null);
             const totalEl = document.getElementById('braden-total');
             const riskEl = document.getElementById('braden-risk');
             const attentionEl = document.getElementById('braden-learn-attention');
-            if (!complete) {
-                if (totalEl) totalEl.textContent = '--';
-                if (riskEl) riskEl.textContent = 'Score all six subscales.';
+            if (answered.length < BRADEN_RUBRIC.length) {
+                scaleCopyText.braden = '';
+                const soFar = answered.reduce((sum, r) => sum + bradenState[r.id], 0);
+                if (totalEl) totalEl.textContent = answered.length ? `Braden ${soFar} so far` : 'Braden —';
+                if (riskEl) riskEl.textContent = `${answered.length} of 6. Lower total = higher risk.`;
+                setScaleBand('braden-sticky', 'pending');
                 if (attentionEl) attentionEl.textContent = 'Score all six subscales for risk-band and prevention-focus cues. Soft guidance only; confirm with your Clinical Instructor.';
                 return;
             }
             const result = calc.bradenScore(bradenState);
-            if (totalEl) totalEl.textContent = String(result.total);
+            let band = 'low';
+            if (result.total <= 12) band = 'severe';
+            else if (result.total <= 14) band = 'moderate';
+            else if (result.total <= 18) band = 'mild';
+            const parts = BRADEN_RUBRIC.map((r) => `${r.short} ${bradenState[r.id]}`).join(', ');
+            if (totalEl) totalEl.textContent = `Braden ${result.total} of 23`;
             if (riskEl) riskEl.textContent = result.risk;
+            setScaleBand('braden-sticky', band);
+            scaleCopyText.braden = `Braden ${result.total} of 23, ${result.risk}. ${parts}`;
             const meaning = document.getElementById('braden-learn-meaning');
             if (meaning) meaning.textContent = `Total ${result.total} of 23. ${result.risk}`;
             if (attentionEl) attentionEl.textContent = result.attention || '';
@@ -1624,22 +1807,75 @@
         }
 
         const ronSelection = {};
+        let ronView = 'front';
+
+        function ronStateWord(frac) {
+            if (frac === 1) return 'Full';
+            if (frac === 0.5) return 'Half';
+            return 'Off';
+        }
+
+        function ronRect(id, x, y, w, h) {
+            const frac = ronSelection[id] || 0;
+            const state = frac === 1 ? 'full' : (frac === 0.5 ? 'half' : 'off');
+            const region = (window.NursePathCalculators.RULE_OF_NINES_REGIONS || []).find((r) => r.id === id);
+            const name = region ? region.label : id;
+            return `<rect class="ron-part" data-region="${id}" data-state="${state}" x="${x}" y="${y}" width="${w}" height="${h}" rx="10" role="button" tabindex="0" aria-label="${escapeGuideHtml(name)} ${ronStateWord(frac)}" />`;
+        }
+
+        function ronFigureMarkup() {
+            const trunk = ronView === 'front' ? 'chest' : 'back';
+            const armViewerLeft = ronView === 'front' ? 'arm_r' : 'arm_l';
+            const armViewerRight = ronView === 'front' ? 'arm_l' : 'arm_r';
+            const legViewerLeft = ronView === 'front' ? 'leg_r' : 'leg_l';
+            const legViewerRight = ronView === 'front' ? 'leg_l' : 'leg_r';
+            const perineumWord = ronStateWord(ronSelection.perineum || 0);
+            return `<div class="ron-views" role="group" aria-label="Body view">
+                <button type="button" class="apgar-min${ronView === 'front' ? ' is-selected' : ''}" data-view="front" aria-pressed="${ronView === 'front' ? 'true' : 'false'}">Front</button>
+                <button type="button" class="apgar-min${ronView === 'back' ? ' is-selected' : ''}" data-view="back" aria-pressed="${ronView === 'back' ? 'true' : 'false'}">Back</button>
+            </div>
+            <svg viewBox="0 0 220 300" role="img" aria-label="${ronView === 'front' ? 'Front' : 'Back'} body map. R and L are the patient’s sides.">
+                <text class="ron-caption" x="78" y="16">${ronView === 'front' ? 'Front' : 'Back'}</text>
+                ${ronRect('head', 86, 24, 48, 44)}
+                ${ronRect(armViewerLeft, 16, 76, 48, 100)}
+                ${ronRect(trunk, 70, 76, 80, 92)}
+                ${ronRect(armViewerRight, 156, 76, 48, 100)}
+                ${ronRect(legViewerLeft, 70, 176, 36, 108)}
+                ${ronRect(legViewerRight, 114, 176, 36, 108)}
+                ${ronRect('perineum', 96, 170, 28, 28)}
+                <text class="ron-label" x="28" y="132">${ronView === 'front' ? 'R' : 'L'}</text>
+                <text class="ron-label" x="170" y="132">${ronView === 'front' ? 'L' : 'R'}</text>
+            </svg>
+            <button type="button" class="scale-action ron-perineum-btn" data-region="perineum">Perineum: ${perineumWord}</button>`;
+        }
 
         function initRuleOfNines() {
             const calc = window.NursePathCalculators;
-            const host = document.getElementById('ron-grid');
+            const host = document.getElementById('ron-figure');
             if (!calc || !host) return;
-            if (host.dataset.ready === '1') {
-                renderRuleOfNines();
-                return;
+            bindScaleButton('ron-copy', (e) => copyScaleResult('ron', e.currentTarget));
+            bindScaleButton('ron-reset', () => resetRuleOfNines());
+            if (host.dataset.ready !== '1') {
+                host.innerHTML = ronFigureMarkup();
+                host.addEventListener('click', (e) => {
+                    const viewBtn = e.target.closest('[data-view]');
+                    if (viewBtn && host.contains(viewBtn)) {
+                        ronView = viewBtn.getAttribute('data-view') === 'back' ? 'back' : 'front';
+                        renderRuleOfNines();
+                        return;
+                    }
+                    const part = e.target.closest('[data-region]');
+                    if (part && host.contains(part)) cycleRonRegion(part.getAttribute('data-region'));
+                });
+                host.addEventListener('keydown', (e) => {
+                    if (e.key !== 'Enter' && e.key !== ' ') return;
+                    const part = e.target.closest('.ron-part');
+                    if (!part) return;
+                    e.preventDefault();
+                    cycleRonRegion(part.getAttribute('data-region'));
+                });
+                host.dataset.ready = '1';
             }
-            host.innerHTML = calc.RULE_OF_NINES_REGIONS.map((region) => `
-                <button type="button" class="ron-region" data-region="${region.id}" onclick="cycleRonRegion('${region.id}')">
-                    <div class="text-sm font-bold text-slate-100">${region.label}</div>
-                    <div class="text-[11px] text-slate-400">Full = ${region.full}%</div>
-                    <div class="text-xs text-orange-300 mt-1" data-state>Off</div>
-                </button>`).join('');
-            host.dataset.ready = '1';
             renderRuleOfNines();
         }
 
@@ -1654,22 +1890,25 @@
         function renderRuleOfNines() {
             const calc = window.NursePathCalculators;
             if (!calc) return;
+            const host = document.getElementById('ron-figure');
+            if (host && host.dataset.ready === '1') host.innerHTML = ronFigureMarkup();
             const result = calc.ruleOfNines(ronSelection);
-            document.getElementById('ron-tbsa').textContent = `${result.tbsa}%`;
-            document.getElementById('ron-note').textContent = result.note;
-            document.getElementById('ron-breakdown').textContent = result.breakdown.length
+            const totalEl = document.getElementById('ron-tbsa');
+            const noteEl = document.getElementById('ron-note');
+            if (totalEl) totalEl.textContent = `${result.tbsa}% TBSA`;
+            if (noteEl) noteEl.textContent = result.tbsa > 0 ? result.note : 'Tap a region. Off, then half, then full.';
+            const band = result.tbsa >= 25 ? 'severe' : (result.tbsa >= 10 ? 'moderate' : (result.tbsa > 0 ? 'mild' : 'pending'));
+            setScaleBand('ron-sticky', band);
+            const breakdownEl = document.getElementById('ron-breakdown');
+            const breakdown = result.breakdown.length
                 ? result.breakdown.map((b) => `${b.label}: ${b.percent}%`).join(' · ')
                 : 'No regions selected';
+            if (breakdownEl) breakdownEl.textContent = breakdown;
+            scaleCopyText.ron = result.tbsa > 0
+                ? `TBSA ${result.tbsa}% (adult Rule of Nines). ${breakdown}. ${result.note}`
+                : '';
             const ronMeaning = document.getElementById('ron-learn-meaning');
             if (ronMeaning) ronMeaning.textContent = result.tbsa > 0 ? `${result.tbsa}% TBSA. ${result.note}` : 'Adult Rule of Nines TBSA estimate for teaching.';
-            document.querySelectorAll('#ron-grid .ron-region').forEach((btn) => {
-                const id = btn.getAttribute('data-region');
-                const frac = ronSelection[id] || 0;
-                btn.classList.toggle('is-half', frac === 0.5);
-                btn.classList.toggle('is-full', frac === 1);
-                const state = btn.querySelector('[data-state]');
-                if (state) state.textContent = frac === 1 ? 'Full' : (frac === 0.5 ? 'Half' : 'Off');
-            });
             trackUsageSafe('rule_of_nines', 'feature_use', { tbsa: result.tbsa }, { minIntervalMs: 2000, rateKey: 'ron_update' });
         }
 
@@ -2726,10 +2965,10 @@
                 onlineEl.textContent = navigator.onLine ? 'Online' : 'Offline — cached copy in use';
             }
             if (packEl) {
-                packEl.textContent = 'Reference pack nursepath-v2.4.10';
+                packEl.textContent = 'Reference pack nursepath-v2.4.11';
             }
             const otcStamp = document.getElementById('otcPackStamp');
-            if (otcStamp) otcStamp.textContent = 'Reference pack nursepath-v2.4.10';
+            if (otcStamp) otcStamp.textContent = 'Reference pack nursepath-v2.4.11';
         }
         window.updateNpStatusMeta = updateNpStatusMeta;
 
