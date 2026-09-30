@@ -1,4 +1,4 @@
-# 2025 hypertension guideline, JACC
+# 2025 hypertension guideline, JACC DOI requested earlier
 
 - URL: https://www.jacc.org/doi/10.1016/j.jacc.2025.07.010
 - Title: NOT FOUND
@@ -6,6 +6,6 @@
 - Access date: 2026-09-30
 - Status: FETCH FAILED
 
-The page returned HTTP 403. A browser load stopped on a bot check. NCBI’s PMC id converter reported “Identifier not found in PMC” for this DOI, so no open PMC copy was available from that lookup.
+This DOI still returns HTTP 403, and PMC has no copy of it.
 
-BP category cutoffs, crisis (≥180 or ≥120), low BP, and the pregnancy section: NOT FOUND.
+The same 2025 guideline was retrieved from Circulation (doi 10.1161/CIR.0000000000001356). Numbers from that text are in `aha-2025-guideline-landing.md`. They were not copied from this JACC URL.

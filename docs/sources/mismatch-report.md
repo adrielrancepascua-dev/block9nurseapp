@@ -6,31 +6,31 @@ Fetch status:
 
 | File | Status |
 |---|---|
-| docs/sources/aha-2025-guideline-landing.md | FAILED |
-| docs/sources/jacc-2025-hypertension.md | FAILED |
+| docs/sources/aha-2025-guideline-landing.md | FETCHED (Circulation full text of the same article ID; the heart.org landing page is still 403) |
+| docs/sources/jacc-2025-hypertension.md | FAILED (doi 10.1016/j.jacc.2025.07.010) |
 | docs/sources/aha-2017-top-things.md | FETCHED |
-| docs/sources/aap-2017-flynn-pediatric-bp.md | FAILED |
-| docs/sources/aafp-2018-pediatric-bp-summary.md | PARTIAL |
+| docs/sources/aap-2017-flynn-pediatric-bp.md | FETCHED (article-split HTML of the same DOI) |
+| docs/sources/aafp-2018-pediatric-bp-summary.md | PARTIAL (summary only; Table 3 is in the Flynn file) |
 | docs/sources/rcp-news2-2017.md | FETCHED |
-| docs/sources/aap-nrp-2025-guidelines.md | PARTIAL |
-| docs/sources/bmj-pmc449823-burns.md | FAILED |
+| docs/sources/aap-nrp-2025-guidelines.md | PARTIAL (Circulation Part 5 opened; APGAR table still absent) |
+| docs/sources/bmj-pmc449823-burns.md | PARTIAL (HTML opened; figure percentages not in the text) |
 | docs/sources/cdc-child-teen-bmi-categories.md | FETCHED |
 | docs/sources/who-obesity-and-overweight.md | FETCHED |
 | docs/sources/who-adult-bmi-classification.md | FETCHED |
 
-The 2025 guideline text did not open, so this report cannot say whether the 2025 category cutoffs changed from 2017. The comparison below uses only the fetched 2017 summary table.
+The 2025 Circulation text is now in `aha-2025-guideline-landing.md`. Table 4 uses the same four category cuts as the 2017 summary. The requested JACC DOI is still blocked.
 
 ## Vital signs: adult blood pressure
 
 | Current value | Source value | Source file + table/section | Location in our code | Match? |
 |---|---|---|---|---|
-| In range when not crisis, stage 2, stage 1, elevated, or low. A reading such as 110/70 falls here. | Normal: <120 mm Hg and <80 mm Hg | aha-2017-top-things.md, Categories of BP in Adults | js/script-4.js liveAnalyze, in-range branch after the low-BP check | Partial. 110/70 matches Normal. The 2017 table has no separate low-BP row, so our in-range floor is not in that table. |
-| Elevated: systolic ≥120 and diastolic <80 | Elevated: 120–129 mm Hg and <80 mm Hg | aha-2017-top-things.md, Categories of BP in Adults | js/script-4.js, elevated branch | Match for 120–129 with diastolic <80. Our branch has no upper systolic cap of 129 because higher systolic values are already caught as stage 1, stage 2, or crisis. |
-| Stage 1: systolic ≥130 or diastolic ≥80 | Stage 1: 130–139 mm Hg or 80–89 mm Hg | aha-2017-top-things.md, Categories of BP in Adults | js/script-4.js, stage 1 branch | Match for those ranges. Higher values leave this branch for stage 2 or crisis. |
-| Stage 2: systolic ≥140 or diastolic ≥90 | Stage 2: ≥140 mm Hg or ≥90 mm Hg | aha-2017-top-things.md, Categories of BP in Adults | js/script-4.js, stage 2 branch | Match, except our code checks crisis (≥180 or ≥120) first, so those readings are not labeled stage 2. |
-| Crisis: systolic ≥180 or diastolic ≥120 | NOT FOUND | 2025 pages failed. The 2017 summary mentions hypertensive crisis with no mm Hg value. | js/script-4.js, crisis branch | TODO |
-| Low: systolic <90 or diastolic <60 | NOT FOUND | 2017 summary table has no hypotension row. 2025 full text failed. | js/script-4.js, low-BP branch | TODO |
-| Did 2025 change the 2017 category cutoffs? | NOT FOUND | aha-2025-guideline-landing.md and jacc-2025-hypertension.md | — | TODO. Cannot answer until the 2025 text is fetched. |
+| In range when not crisis, stage 2, stage 1, elevated, or low. A reading such as 110/70 falls here. | Normal: <120 mm Hg and <80 mm Hg | aha-2025-guideline-landing.md, Table 4. Same row in aha-2017-top-things.md | js/script-4.js liveAnalyze, in-range branch after the low-BP check | Partial. 110/70 matches Normal. Neither table has a low-BP row, so our in-range floor is not in those tables. |
+| Elevated: systolic ≥120 and diastolic <80 | Elevated: 120 to 129 mm Hg and <80 mm Hg | aha-2025-guideline-landing.md, Table 4 | js/script-4.js, elevated branch | Match for 120–129 with diastolic <80. |
+| Stage 1: systolic ≥130 or diastolic ≥80 | Stage 1: 130 to 139 mm Hg or 80 to 89 mm Hg | aha-2025-guideline-landing.md, Table 4 | js/script-4.js, stage 1 branch | Match for those ranges. |
+| Stage 2: systolic ≥140 or diastolic ≥90 | Stage 2: ≥140 mm Hg or ≥90 mm Hg | aha-2025-guideline-landing.md, Table 4 | js/script-4.js, stage 2 branch | Match, except crisis is checked first, so those readings are not labeled stage 2. |
+| Crisis: systolic ≥180 or diastolic ≥120 | Severe hypertension and hypertensive emergency: >180/120 mm Hg. Emergency also requires acute target organ damage. | aha-2025-guideline-landing.md, section 6.2 | js/script-4.js, crisis branch | Reconsider. The number is in the 2025 text. Our code uses ≥180 or ≥120, fires without target-organ damage, and does not use the guideline’s “>180/120” wording. |
+| Low: systolic <90 or diastolic <60 | NOT FOUND | aha-2025-guideline-landing.md, Table 4 and a search of that text | js/script-4.js, low-BP branch | TODO |
+| Did 2025 change the 2017 category cutoffs? | No. Table 4 matches the 2017 summary rows and says it is adapted from Whelton et al. | aha-2025-guideline-landing.md, Table 4; aha-2017-top-things.md | — | Category cuts match. Crisis and low BP were not rows in either category table. |
 
 ## Vital signs: heart rate, respiratory rate, temperature
 
@@ -46,23 +46,23 @@ No primary source in the requested set states these adult bands. Marked TODO. NE
 
 | Current value | Source value | Source file + section | Location in our code | Match? |
 |---|---|---|---|---|
-| Pregnancy plus systolic ≥140 or diastolic ≥90 adds 1 severity point and shows preeclampsiaScreen: “Pregnancy with an elevated BP pattern: discuss preeclampsia screening with your instructor.” | NOT FOUND | 2025 pregnancy section was not retrieved. The 2017 summary names pregnant women as a special group and gives no BP numbers. | js/script-4.js lines that test `pregnant === 'yes'` with `sys >= 140` or `dia >= 90`; assets/interpretation-content.js `preeclampsiaScreen` | TODO: cite |
+| Pregnancy plus systolic ≥140 or diastolic ≥90 adds 1 severity point and shows preeclampsiaScreen: “Pregnancy with an elevated BP pattern: discuss preeclampsia screening with your instructor.” | ACOG, as printed in the 2025 guideline: hypertension in pregnancy is SBP ≥140 or DBP ≥90 on 2 occasions at least 4 hours apart. Severe-range is sustained ≥160 or ≥110, verified in 15 minutes. Table 24 preeclampsia also requires proteinuria or a listed end-organ finding. | aha-2025-guideline-landing.md, section 5.5 and Table 24 | js/script-4.js pregnancy tests at `sys >= 140` or `dia >= 90`; assets/interpretation-content.js `preeclampsiaScreen` | Reconsider. 140/90 is the pregnancy hypertension threshold in that section. The screen sentence is not in the source, and BP alone is not Table 24 preeclampsia. Severe-range in the source is 160/110, which our screen does not use. |
 
 ## APGAR
 
 | Current value | Source value | Source file | Location in our code | Match? |
 |---|---|---|---|---|
-| Each of appearance, pulse, grimace, activity, respiration is scored 0 to 2. | NOT FOUND | aap-nrp-2025-guidelines.md. Part 5 DOI returned 403. | assets/clinical-calculators.js `apgarScore`; component wording in assets/tool-content.js `apgar` | TODO |
-| Total ≥7: “Reassuring. Continue routine observation.” Total ≥4: “Moderately depressed. Stimulation and airway support are indicated.” Otherwise: “Severely depressed. Resuscitation priorities lead.” | NOT FOUND | Same. The NRP 9th edition textbook text is not on the fetched page. | assets/clinical-calculators.js `apgarScore` | TODO |
+| Each of appearance, pulse, grimace, activity, respiration is scored 0 to 2. | NOT FOUND | aap-nrp-2025-guidelines.md. Circulation Part 5 opened. The component table is not in it. | assets/clinical-calculators.js `apgarScore`; component wording in assets/tool-content.js `apgar` | TODO |
+| Total ≥7: “Reassuring. Continue routine observation.” Total ≥4: “Moderately depressed. Stimulation and airway support are indicated.” Otherwise: “Severely depressed. Resuscitation priorities lead.” | NOT FOUND | Same. The page assesses breathing and muscle tone and does not use these bands. | assets/clinical-calculators.js `apgarScore` | TODO |
 | Component cues: blue/pale 0, acrocyanosis 1, pink 2; pulse absent 0, under 100 is 1, 100 or more is 2; and the grimace, activity, and respiration lines in the learn text. | NOT FOUND | Same | assets/tool-content.js `apgar` | TODO |
 
 ## Rule of Nines
 
 | Current value | Source value | Source file | Location in our code | Match? |
 |---|---|---|---|---|
-| Head and neck 9; each arm 9; anterior trunk 18; posterior trunk 18; each leg 18; perineum 1 | NOT FOUND | bmj-pmc449823-burns.md. Full text did not open. | assets/clinical-calculators.js `RULE_OF_NINES_REGIONS`; same percentages in assets/tool-content.js Rule of Nines body | TODO |
-| Notes at <10, 10 to 24, and ≥25 percent | NOT FOUND | Same | assets/clinical-calculators.js `ruleOfNines` | TODO |
-| Lund-Browder | Not implemented. Source table NOT FOUND. | bmj-pmc449823-burns.md | — | Not built, as requested |
+| Head and neck 9; each arm 9; anterior trunk 18; posterior trunk 18; each leg 18; perineum 1 | NOT FOUND as numbers. The page says the Wallace rule divides the adult body into areas of 9% and is not accurate in children. The drawing is Figure 1 and is not transcribed. | bmj-pmc449823-burns.md | assets/clinical-calculators.js `RULE_OF_NINES_REGIONS`; assets/tool-content.js Rule of Nines body | TODO until the figure cells are read. The “areas of 9%” sentence is consistent with a nines map and does not prove 18 or 1. |
+| Notes at <10 minor, 10 to 24 moderate, ≥25 major | Formal resuscitation: more than 15% TBSA in adults and more than 10% in children. Palmar surface roughly 0.8%. | bmj-pmc449823-burns.md | assets/clinical-calculators.js `ruleOfNines` | Reconsider. Those 10 / 25 teaching notes are not the resuscitation cuts in this article. |
+| Lund-Browder | Named as the age-adjusted chart (Figure 2). Age rows NOT FOUND in the text. | bmj-pmc449823-burns.md | — | Not built, as requested |
 
 ## Adult BMI
 
@@ -81,7 +81,9 @@ Not implemented. CDC categories are saved in cdc-child-teen-bmi-categories.md (u
 
 ## Pediatric BP
 
-Not implemented. Age under 12 echoes BP, heart rate, and respiratory rate and does not apply adult bands (`js/script-4.js`, `pediatric` branch, `isChild` fixed false). The Flynn percentile table was not on the opened AAFP summary and the Pediatrics article did not open. No pediatric BP tool was added.
+Not implemented. Age under 12 echoes BP, heart rate, and respiratory rate (`js/script-4.js`, `pediatric` branch, `isChild` fixed false).
+
+Flynn Table 3 is now in `aap-2017-flynn-pediatric-bp.md`. Ages 1 to <13 use height-specific percentiles. Ages ≥13 use <120/<80, 120/<80 to 129/<80, 130/80 to 139/89, and ≥140/90. Our adult bands start at age 12, so a 12-year-old is classified with adult cuts while Table 3 still uses percentiles until age 13. Tables 4 and 5 require height percentile, which this app does not collect. No pediatric BP tool was added. The page says the guideline expires 5 years after the 2017 publication unless reaffirmed.
 
 ## action.* and preeclampsiaScreen
 
@@ -89,7 +91,7 @@ None of these sentences appear in a fetched source. They stay `TODO: cite`.
 
 | id | Text | Support in a fetched source |
 |---|---|---|
-| action.bpCrisis | Recheck BP manually within 5 minutes and escalate to the clinical instructor immediately. | None. TODO: cite |
+| action.bpCrisis | Recheck BP manually within 5 minutes and escalate to the clinical instructor immediately. | Not this sentence. Section 6.2 says emergencies need immediate BP reduction. Pregnancy severe-range hypertension says verify within 15 minutes. TODO: cite |
 | action.bpStage2 | Monitor blood pressure every 15 minutes and observe for headache, chest pain, or neurologic changes. | None. TODO: cite |
 | action.bpStage1 | Repeat the BP after a brief rest and compare it against earlier readings. | None. TODO: cite |
 | action.bpLow | Assess perfusion indicators such as mental status, skin signs, and capillary refill, then reassess vitals promptly. | None. TODO: cite |
@@ -99,6 +101,6 @@ None of these sentences appear in a fetched source. They stay `TODO: cite`.
 | action.hrBrady | Reassess perfusion and symptoms, verify reading quality, and repeat the heart rate. | None. TODO: cite |
 | action.rrSevere | Reassess airway and breathing immediately, and check oxygenation if available. | None. TODO: cite |
 | action.rrLow | Observe the depth and effort of breathing, then repeat the respiratory assessment. | None. TODO: cite |
-| preeclampsiaScreen | Pregnancy with an elevated BP pattern: discuss preeclampsia screening with your instructor. | None. The 2025 pregnancy section was not retrieved. TODO: cite |
+| preeclampsiaScreen | Pregnancy with an elevated BP pattern: discuss preeclampsia screening with your instructor. | The 140/90 threshold is the pregnancy hypertension cut in section 5.5. This sentence, and calling that pattern preeclampsia by itself, is not in Table 24. TODO: cite |
 
 NEWS2 Chart 2 describes aggregate-score responses (ward-based, urgent, emergency). Those sentences are not the `action.*` lines above, and NEWS2 is comparison only.
