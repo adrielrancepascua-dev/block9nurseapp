@@ -552,20 +552,18 @@
                 <div id="apgar-section" class="learn-shell scroll-mt-20" style="--accent:#fb7185;">
                     <div class="learn-title" style="color:#fda4af;">APGAR Score</div>
                     <p class="learn-sub">Tap 0, 1, or 2 for each sign. The line under the row is the full meaning of the score you picked.</p>
+                    <div class="apgar-mins" role="group" aria-label="APGAR minute">
+                        <button type="button" class="apgar-min is-selected" data-min="1" aria-pressed="true">1 min <span class="scale-opt-mark" aria-hidden="true">✓</span></button>
+                        <button type="button" class="apgar-min" data-min="5" aria-pressed="false">5 min</button>
+                        <button type="button" class="apgar-min" data-min="10" aria-pressed="false">10 min</button>
+                    </div>
                     <div class="scale-sticky" id="apgar-sticky" data-band="pending">
-                        <div class="apgar-mins" role="group" aria-label="APGAR minute">
-                            <button type="button" class="apgar-min is-selected" data-min="1" aria-pressed="true">1 min</button>
-                            <button type="button" class="apgar-min" data-min="5" aria-pressed="false">5 min</button>
-                            <button type="button" class="apgar-min" data-min="10" aria-pressed="false">10 min</button>
-                        </div>
-                        <div class="scale-sticky-top">
-                            <p class="scale-sticky-score" id="apgar-total">APGAR —</p>
-                            <p class="scale-sticky-band" id="apgar-interp">Select all five signs.</p>
-                        </div>
-                        <div class="scale-sticky-actions">
-                            <button type="button" class="scale-action" id="apgar-copy">Copy result</button>
-                            <button type="button" class="scale-action" id="apgar-reset">Reset</button>
-                        </div>
+                        <p class="scale-sticky-score" id="apgar-total">APGAR —</p>
+                        <p class="scale-sticky-band" id="apgar-interp">Select all five signs.</p>
+                    </div>
+                    <div class="scale-actions">
+                        <button type="button" class="scale-action" id="apgar-copy" disabled>Copy result</button>
+                        <button type="button" class="scale-action" id="apgar-reset">Reset</button>
                     </div>
                     <div id="apgar-inputs"></div>
                     <div class="np-learn" style="margin-top:10px;">
@@ -579,14 +577,12 @@
                     <div class="learn-title" style="color:#7dd3fc;">Glasgow Coma Scale</div>
                     <p class="learn-sub">Open one response, pick the best score, and the next section opens. Report E, V, and M, not only the sum.</p>
                     <div class="scale-sticky" id="gcs-sticky" data-band="pending">
-                        <div class="scale-sticky-top">
-                            <p class="scale-sticky-score" id="gcs-total">GCS —</p>
-                            <p class="scale-sticky-band" id="gcs-severity">Select Eye, Verbal, and Motor.</p>
-                        </div>
-                        <div class="scale-sticky-actions">
-                            <button type="button" class="scale-action" id="gcs-copy">Copy result</button>
-                            <button type="button" class="scale-action" id="gcs-reset">Reset</button>
-                        </div>
+                        <p class="scale-sticky-score" id="gcs-total">E— V— M—</p>
+                        <p class="scale-sticky-band" id="gcs-severity"></p>
+                    </div>
+                    <div class="scale-actions">
+                        <button type="button" class="scale-action" id="gcs-copy" disabled>Copy result</button>
+                        <button type="button" class="scale-action" id="gcs-reset">Reset</button>
                     </div>
                     <div id="gcs-inputs"></div>
                     <div class="np-learn" style="margin-top:10px;">
@@ -601,14 +597,12 @@
                     <div class="learn-title" style="color:#5eead4;">Braden Scale</div>
                     <p class="learn-sub">A lower total means higher pressure-injury risk, on a scale of 6 to 23. Each choice collapses so you can see what you already scored.</p>
                     <div class="scale-sticky" id="braden-sticky" data-band="pending">
-                        <div class="scale-sticky-top">
-                            <p class="scale-sticky-score" id="braden-total">Braden —</p>
-                            <p class="scale-sticky-band" id="braden-risk">Score all six subscales.</p>
-                        </div>
-                        <div class="scale-sticky-actions">
-                            <button type="button" class="scale-action" id="braden-copy">Copy result</button>
-                            <button type="button" class="scale-action" id="braden-reset">Reset</button>
-                        </div>
+                        <p class="scale-sticky-score" id="braden-total">Braden —</p>
+                        <p class="scale-sticky-band" id="braden-risk">Score all six subscales.</p>
+                    </div>
+                    <div class="scale-actions">
+                        <button type="button" class="scale-action" id="braden-copy" disabled>Copy result</button>
+                        <button type="button" class="scale-action" id="braden-reset">Reset</button>
                     </div>
                     <div id="braden-inputs"></div>
                     <div class="np-learn" style="margin-top:10px;">
@@ -623,14 +617,12 @@
                     <div class="learn-title" style="color:#fdba74;">Rule of Nines</div>
                     <p class="learn-sub">Tap a region: Off, then Half, then Full. R and L are the patient’s right and left.</p>
                     <div class="scale-sticky" id="ron-sticky" data-band="pending">
-                        <div class="scale-sticky-top">
-                            <p class="scale-sticky-score" id="ron-tbsa">0%</p>
-                            <p class="scale-sticky-band" id="ron-note">Tap a region. Off, then half, then full.</p>
-                        </div>
-                        <div class="scale-sticky-actions">
-                            <button type="button" class="scale-action" id="ron-copy">Copy result</button>
-                            <button type="button" class="scale-action" id="ron-reset">Reset</button>
-                        </div>
+                        <p class="scale-sticky-score" id="ron-tbsa">0%</p>
+                        <p class="scale-sticky-band" id="ron-note">Tap a region. Off, then half, then full.</p>
+                    </div>
+                    <div class="scale-actions">
+                        <button type="button" class="scale-action" id="ron-copy" disabled>Copy result</button>
+                        <button type="button" class="scale-action" id="ron-reset">Reset</button>
                     </div>
                     <div id="ron-figure" class="ron-figure"></div>
                     <p id="ron-breakdown" class="ron-breakdown">No regions selected</p>
@@ -660,7 +652,7 @@
                     </div>
                     <div id="otc-chips" class="otc-chips" role="tablist" aria-label="OTC categories"></div>
                 </div>
-                <p class="otc-pack-stamp" id="otcPackStamp">Reference pack nursepath-v2.4.11</p>
+                <p class="otc-pack-stamp" id="otcPackStamp">Reference pack nursepath-v2.4.12</p>
                 <div class="otc-layout">
                     <div id="otc-list-container">
                         <div id="otc-list" class="otc-list"></div>
@@ -793,7 +785,7 @@
                 </div>
                 <div class="np-status-meta" id="npStatusMeta">
                     <strong id="npOnlineStatus">Checking connection…</strong>
-                    <span id="npPackStamp">Reference pack nursepath-v2.4.11</span>
+                    <span id="npPackStamp">Reference pack nursepath-v2.4.12</span>
                 </div>
                 <button type="button" id="npThemeToggleMobile" class="np-settings-row" aria-pressed="false">
                     <span class="np-settings-row-label">Appearance</span>

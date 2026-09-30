@@ -1530,6 +1530,12 @@
             if (el) el.dataset.band = band || 'pending';
         }
 
+        function syncScaleCopy(key, btnId) {
+            const btn = document.getElementById(btnId);
+            if (!btn) return;
+            btn.disabled = !scaleCopyText[key];
+        }
+
         function bindScaleButton(id, handler) {
             const btn = document.getElementById(id);
             if (!btn || btn.dataset.bound === '1') return;
@@ -1634,9 +1640,14 @@
                 });
             });
             document.querySelectorAll('.apgar-min').forEach((btn) => {
-                const on = btn.getAttribute('data-min') === apgarMinute;
+                const min = btn.getAttribute('data-min');
+                if (!min) return;
+                const on = min === apgarMinute;
                 btn.classList.toggle('is-selected', on);
                 btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+                btn.innerHTML = on
+                    ? `${min} min <span class="scale-opt-mark" aria-hidden="true">✓</span>`
+                    : `${min} min`;
             });
         }
 
@@ -1679,6 +1690,7 @@
                 if (totalEl) totalEl.textContent = answered.length ? `APGAR ${soFar} so far` : 'APGAR —';
                 if (interpEl) interpEl.textContent = `${answered.length} of 5 at ${apgarMinute} min. Select every sign.`;
                 if (sticky) sticky.dataset.band = 'pending';
+                syncScaleCopy('apgar', 'apgar-copy');
                 return;
             }
             const result = calc.apgarScore(state);
@@ -1688,6 +1700,7 @@
             if (interpEl) interpEl.textContent = result.interpretation;
             if (sticky) sticky.dataset.band = band;
             scaleCopyText.apgar = `APGAR ${result.total} at ${apgarMinute} min. ${parts}. ${result.interpretation}`;
+            syncScaleCopy('apgar', 'apgar-copy');
             const meaning = document.getElementById('apgar-learn-meaning');
             if (meaning) meaning.textContent = `Total ${result.total} of 10 at ${apgarMinute} min. ${result.interpretation}`;
             trackUsageSafe('apgar', 'result_generated', { total: result.total, minute: apgarMinute }, { minIntervalMs: 1500, rateKey: 'apgar' });
@@ -1727,19 +1740,22 @@
             const ready = gcsState.eye != null && gcsState.verbal != null && gcsState.motor != null;
             if (!ready) {
                 scaleCopyText.gcs = '';
-                if (totalEl) totalEl.textContent = parts === 'E— V— M—' ? 'GCS —' : `GCS ${parts}`;
-                if (sevEl) sevEl.textContent = 'Select Eye, Verbal, and Motor.';
+                const started = gcsState.eye != null || gcsState.verbal != null || gcsState.motor != null;
+                if (totalEl) totalEl.textContent = started ? `GCS ${parts}` : parts;
+                if (sevEl) sevEl.textContent = started ? 'Select Eye, Verbal, and Motor.' : '';
                 setScaleBand('gcs-sticky', 'pending');
+                syncScaleCopy('gcs', 'gcs-copy');
+                if (meaning) meaning.textContent = 'Mild 13–15 · Moderate 9–12 · Severe ≤8';
                 if (attentionEl) attentionEl.textContent = 'Score Eye, Verbal, and Motor for a watch/report cue. Soft guidance only; confirm with your Clinical Instructor.';
                 return;
             }
             if (gcsState.verbal === 'NT') {
-                const em = gcsState.eye + gcsState.motor;
                 const line = `GCS E${gcsState.eye} VT M${gcsState.motor}`;
                 if (totalEl) totalEl.textContent = line;
-                if (sevEl) sevEl.textContent = `Verbal not assessed. Eye + motor ${em}. Not a 3–15 total.`;
+                if (sevEl) sevEl.textContent = 'Verbal not assessed. Not a 3–15 total.';
                 setScaleBand('gcs-sticky', 'pending');
-                scaleCopyText.gcs = `${line}, verbal not assessed (eye + motor ${em})`;
+                scaleCopyText.gcs = `${line}, verbal not assessed`;
+                syncScaleCopy('gcs', 'gcs-copy');
                 if (meaning) meaning.textContent = 'Verbal not assessed (VT). Do not add a fake verbal point.';
                 if (attentionEl) attentionEl.textContent = 'Chart VT when the person cannot speak. Confirm how your unit totals an intubated GCS with your Clinical Instructor.';
                 trackUsageSafe('gcs', 'result_generated', { verbal: 'NT' }, { minIntervalMs: 1500, rateKey: 'gcs' });
@@ -1752,6 +1768,7 @@
             if (sevEl) sevEl.textContent = result.severity;
             setScaleBand('gcs-sticky', band);
             scaleCopyText.gcs = `GCS ${result.total} (E${result.eye} V${result.verbal} M${result.motor}), ${word}`;
+            syncScaleCopy('gcs', 'gcs-copy');
             if (meaning) meaning.textContent = `${result.severity} · Document E${result.eye}V${result.verbal}M${result.motor}`;
             if (attentionEl) attentionEl.textContent = result.attention || '';
             trackUsageSafe('gcs', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'gcs' });
@@ -1785,8 +1802,9 @@
                 scaleCopyText.braden = '';
                 const soFar = answered.reduce((sum, r) => sum + bradenState[r.id], 0);
                 if (totalEl) totalEl.textContent = answered.length ? `Braden ${soFar} so far` : 'Braden —';
-                if (riskEl) riskEl.textContent = `${answered.length} of 6. Lower total = higher risk.`;
+                if (riskEl) riskEl.textContent = `${answered.length} of 6 scored.`;
                 setScaleBand('braden-sticky', 'pending');
+                syncScaleCopy('braden', 'braden-copy');
                 if (attentionEl) attentionEl.textContent = 'Score all six subscales for risk-band and prevention-focus cues. Soft guidance only; confirm with your Clinical Instructor.';
                 return;
             }
@@ -1800,6 +1818,7 @@
             if (riskEl) riskEl.textContent = result.risk;
             setScaleBand('braden-sticky', band);
             scaleCopyText.braden = `Braden ${result.total} of 23, ${result.risk}. ${parts}`;
+            syncScaleCopy('braden', 'braden-copy');
             const meaning = document.getElementById('braden-learn-meaning');
             if (meaning) meaning.textContent = `Total ${result.total} of 23. ${result.risk}`;
             if (attentionEl) attentionEl.textContent = result.attention || '';
@@ -1811,16 +1830,34 @@
 
         function ronStateWord(frac) {
             if (frac === 1) return 'Full';
-            if (frac === 0.5) return 'Half';
-            return 'Off';
+            if (frac === 0.5) return '1/2';
+            return '';
         }
 
-        function ronRect(id, x, y, w, h) {
+        function ronRegionMeta(id) {
+            const region = (window.NursePathCalculators.RULE_OF_NINES_REGIONS || []).find((r) => r.id === id);
             const frac = ronSelection[id] || 0;
             const state = frac === 1 ? 'full' : (frac === 0.5 ? 'half' : 'off');
-            const region = (window.NursePathCalculators.RULE_OF_NINES_REGIONS || []).find((r) => r.id === id);
+            const word = ronStateWord(frac);
+            const full = region ? region.full : '';
             const name = region ? region.label : id;
-            return `<rect class="ron-part" data-region="${id}" data-state="${state}" x="${x}" y="${y}" width="${w}" height="${h}" rx="10" role="button" tabindex="0" aria-label="${escapeGuideHtml(name)} ${ronStateWord(frac)}" />`;
+            return { name, full, frac, state, word };
+        }
+
+        function ronHit(id, shape) {
+            const meta = ronRegionMeta(id);
+            const spoken = `${meta.name} ${meta.full}%${meta.word ? ', ' + meta.word : ', off'}`;
+            return `<${shape.tag} class="ron-part" data-region="${id}" data-state="${meta.state}" ${shape.attrs} role="button" tabindex="0" aria-label="${escapeGuideHtml(spoken)}" />`;
+        }
+
+        function ronInk(id, x, y) {
+            const meta = ronRegionMeta(id);
+            const state = meta.word
+                ? `<text class="ron-state" x="${x}" y="${y + 15}" text-anchor="middle">${meta.word}</text>`
+                : '';
+            return `<g class="ron-ink" data-state="${meta.state}">
+                <text class="ron-label" x="${x}" y="${y}" text-anchor="middle">${meta.full}%</text>${state}
+            </g>`;
         }
 
         function ronFigureMarkup() {
@@ -1829,24 +1866,38 @@
             const armViewerRight = ronView === 'front' ? 'arm_l' : 'arm_r';
             const legViewerLeft = ronView === 'front' ? 'leg_r' : 'leg_l';
             const legViewerRight = ronView === 'front' ? 'leg_l' : 'leg_r';
-            const perineumWord = ronStateWord(ronSelection.perineum || 0);
+            const leftMark = ronView === 'front' ? 'R' : 'L';
+            const rightMark = ronView === 'front' ? 'L' : 'R';
+            const perineum = ronRegionMeta('perineum');
+            const perineumLine = `Perineum 1%${perineum.word ? ' · ' + perineum.word : ''}`;
+            const viewBtn = (view, label) => {
+                const on = ronView === view;
+                return `<button type="button" class="apgar-min${on ? ' is-selected' : ''}" data-view="${view}" aria-pressed="${on ? 'true' : 'false'}">${label}${on ? ' <span class="scale-opt-mark" aria-hidden="true">✓</span>' : ''}</button>`;
+            };
             return `<div class="ron-views" role="group" aria-label="Body view">
-                <button type="button" class="apgar-min${ronView === 'front' ? ' is-selected' : ''}" data-view="front" aria-pressed="${ronView === 'front' ? 'true' : 'false'}">Front</button>
-                <button type="button" class="apgar-min${ronView === 'back' ? ' is-selected' : ''}" data-view="back" aria-pressed="${ronView === 'back' ? 'true' : 'false'}">Back</button>
+                ${viewBtn('front', 'Front')}
+                ${viewBtn('back', 'Back')}
             </div>
-            <svg viewBox="0 0 220 300" role="img" aria-label="${ronView === 'front' ? 'Front' : 'Back'} body map. R and L are the patient’s sides.">
-                <text class="ron-caption" x="78" y="16">${ronView === 'front' ? 'Front' : 'Back'}</text>
-                ${ronRect('head', 86, 24, 48, 44)}
-                ${ronRect(armViewerLeft, 16, 76, 48, 100)}
-                ${ronRect(trunk, 70, 76, 80, 92)}
-                ${ronRect(armViewerRight, 156, 76, 48, 100)}
-                ${ronRect(legViewerLeft, 70, 176, 36, 108)}
-                ${ronRect(legViewerRight, 114, 176, 36, 108)}
-                ${ronRect('perineum', 96, 170, 28, 28)}
-                <text class="ron-label" x="28" y="132">${ronView === 'front' ? 'R' : 'L'}</text>
-                <text class="ron-label" x="170" y="132">${ronView === 'front' ? 'L' : 'R'}</text>
+            <svg viewBox="0 0 200 250" role="img" aria-label="${ronView === 'front' ? 'Front' : 'Back'} body map. R and L are the patient’s sides.">
+                <text class="ron-caption" x="100" y="11" text-anchor="middle">${ronView === 'front' ? 'Front' : 'Back'}</text>
+                ${ronHit('head', { tag: 'circle', attrs: 'cx="100" cy="30" r="16"' })}
+                ${ronInk('head', 100, 33)}
+                <rect class="ron-neck" x="92" y="44" width="16" height="10" rx="5" />
+                ${ronHit(armViewerLeft, { tag: 'rect', attrs: 'x="18" y="56" width="28" height="72" rx="14"' })}
+                <text class="ron-caption" x="32" y="72" text-anchor="middle">${leftMark}</text>
+                ${ronInk(armViewerLeft, 32, 92)}
+                ${ronHit(trunk, { tag: 'rect', attrs: 'x="52" y="52" width="96" height="76" rx="26"' })}
+                ${ronInk(trunk, 100, 94)}
+                ${ronHit(armViewerRight, { tag: 'rect', attrs: 'x="154" y="56" width="28" height="72" rx="14"' })}
+                <text class="ron-caption" x="168" y="72" text-anchor="middle">${rightMark}</text>
+                ${ronInk(armViewerRight, 168, 92)}
+                ${ronHit('perineum', { tag: 'ellipse', attrs: 'cx="100" cy="140" rx="8" ry="6"' })}
+                ${ronHit(legViewerLeft, { tag: 'rect', attrs: 'x="50" y="154" width="34" height="88" rx="16"' })}
+                ${ronInk(legViewerLeft, 67, 198)}
+                ${ronHit(legViewerRight, { tag: 'rect', attrs: 'x="116" y="154" width="34" height="88" rx="16"' })}
+                ${ronInk(legViewerRight, 133, 198)}
             </svg>
-            <button type="button" class="scale-action ron-perineum-btn" data-region="perineum">Perineum: ${perineumWord}</button>`;
+            <button type="button" class="scale-action ron-perineum-btn" data-region="perineum">${perineumLine}</button>`;
         }
 
         function initRuleOfNines() {
@@ -1907,6 +1958,7 @@
             scaleCopyText.ron = result.tbsa > 0
                 ? `TBSA ${result.tbsa}% (adult Rule of Nines). ${breakdown}. ${result.note}`
                 : '';
+            syncScaleCopy('ron', 'ron-copy');
             const ronMeaning = document.getElementById('ron-learn-meaning');
             if (ronMeaning) ronMeaning.textContent = result.tbsa > 0 ? `${result.tbsa}% TBSA. ${result.note}` : 'Adult Rule of Nines TBSA estimate for teaching.';
             trackUsageSafe('rule_of_nines', 'feature_use', { tbsa: result.tbsa }, { minIntervalMs: 2000, rateKey: 'ron_update' });
@@ -2965,10 +3017,10 @@
                 onlineEl.textContent = navigator.onLine ? 'Online' : 'Offline — cached copy in use';
             }
             if (packEl) {
-                packEl.textContent = 'Reference pack nursepath-v2.4.11';
+                packEl.textContent = 'Reference pack nursepath-v2.4.12';
             }
             const otcStamp = document.getElementById('otcPackStamp');
-            if (otcStamp) otcStamp.textContent = 'Reference pack nursepath-v2.4.11';
+            if (otcStamp) otcStamp.textContent = 'Reference pack nursepath-v2.4.12';
         }
         window.updateNpStatusMeta = updateNpStatusMeta;
 

@@ -12,7 +12,7 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
         html { background: #020617 !important; color: #e2e8f0; font-family: 'Figtree', 'Segoe UI', sans-serif; scroll-behavior: auto; }
-        body { background: #020617 !important; color: #e2e8f0; min-height: 100vh; padding-top: env(safe-area-inset-top); padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); padding-bottom: env(safe-area-inset-bottom); overflow-x: hidden; }
+        body { background: #020617 !important; color: #e2e8f0; min-height: 100vh; padding-top: env(safe-area-inset-top); padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); padding-bottom: env(safe-area-inset-bottom); overflow-x: clip; }
         /* Tab content visibility */
         .tab-content.hidden { display: none !important; }
         .hidden { display: none !important; }
@@ -1247,6 +1247,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             background: linear-gradient(145deg, #1e293b, #0f172a);
             padding: 16px 14px 18px;
             box-shadow: 0 10px 24px rgba(2, 6, 23, 0.28);
+            overflow: visible;
         }
         .learn-title {
             font-family: var(--np-body);
@@ -1417,38 +1418,52 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             position: sticky;
             top: 0;
             z-index: 25;
-            margin: 0 0 12px;
-            padding: 10px 10px 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 56px;
+            margin: 0 0 8px;
+            padding: 0 12px;
             border-radius: 14px;
             border: 1px solid color-mix(in srgb, var(--accent, #22d3ee) 45%, #334155);
             background: #0f172a;
             box-shadow: 0 8px 18px rgba(2, 6, 23, 0.35);
+            overflow: hidden;
         }
-        .scale-sticky-top { min-width: 0; }
         .scale-sticky-score {
             margin: 0;
+            flex: 0 0 auto;
+            min-width: 0;
             font-family: var(--np-body);
-            font-size: 1.35rem;
+            font-size: 1.05rem;
             font-weight: 800;
             line-height: 1.2;
             color: var(--accent, #e2e8f0);
             font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .scale-sticky-band {
-            margin: 3px 0 0;
-            font-size: 14px;
+            margin: 0;
+            flex: 1 1 auto;
+            min-width: 0;
+            font-size: 13px;
             font-weight: 700;
-            line-height: 1.35;
+            line-height: 1.2;
             color: #e2e8f0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .scale-sticky[data-band="severe"] .scale-sticky-band { color: #fda4af; }
         .scale-sticky[data-band="moderate"] .scale-sticky-band { color: #fcd34d; }
         .scale-sticky[data-band="mild"] .scale-sticky-band { color: #6ee7b7; }
         .scale-sticky[data-band="low"] .scale-sticky-band { color: #99f6e4; }
-        .scale-sticky-actions {
+        .scale-actions {
             display: flex;
             gap: 8px;
-            margin-top: 8px;
+            margin: 0 0 10px;
         }
         .scale-action {
             flex: 1;
@@ -1462,6 +1477,10 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             font-size: 13px;
             font-weight: 800;
             cursor: pointer;
+        }
+        .scale-action:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
         }
         .scale-sec {
             border: 1px solid #334155;
@@ -1560,6 +1579,10 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             margin-bottom: 8px;
         }
         .apgar-min {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
             min-height: 44px !important;
             min-width: 0 !important;
             padding: 8px 6px !important;
@@ -1572,10 +1595,11 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             cursor: pointer;
         }
         .apgar-min.is-selected {
-            border-color: var(--accent, #fb7185);
-            background: color-mix(in srgb, var(--accent, #fb7185) 24%, #0f172a);
-            color: #fff1f2;
+            border: 2px solid var(--accent, #22d3ee);
+            background: color-mix(in srgb, var(--accent, #22d3ee) 22%, #0f172a);
+            color: #f8fafc;
         }
+        .apgar-min .scale-opt-mark { color: var(--accent, #67e8f9); }
         .apgar-row {
             border: 1px solid #334155;
             border-radius: 12px;
@@ -1634,14 +1658,48 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             margin-bottom: 8px;
         }
         .ron-perineum-btn { width: 100%; margin-top: 8px; }
-        .ron-figure { width: 100%; max-width: 280px; margin: 0 auto; overflow: hidden; }
-        .ron-figure svg { width: 100%; height: auto; display: block; }
+        .ron-figure {
+            width: 100%;
+            margin: 0 auto;
+            overflow: visible;
+        }
+        .ron-figure svg {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: calc(100svh - 240px);
+            max-height: 460px;
+            margin: 0 auto;
+        }
+        @media (max-width: 767px) {
+            .ron-figure svg {
+                height: calc(100svh - var(--np-tabbar-height, 64px) - env(safe-area-inset-bottom, 0px) - 390px);
+                max-height: none;
+            }
+        }
         .ron-part { cursor: pointer; }
-        .ron-part[data-state="off"] { fill: #1e293b; stroke: #94a3b8; stroke-width: 1.5; }
-        .ron-part[data-state="half"] { fill: #fbbf24; fill-opacity: 0.72; stroke: #fde68a; stroke-width: 2; }
-        .ron-part[data-state="full"] { fill: #f97316; fill-opacity: 0.92; stroke: #ffedd5; stroke-width: 2; }
-        .ron-label { fill: #e2e8f0; font-size: 11px; font-weight: 700; pointer-events: none; }
-        .ron-caption { fill: #94a3b8; font-size: 12px; font-weight: 800; pointer-events: none; }
+        .ron-part[data-state="off"] { fill: #1e293b; stroke: #94a3b8; stroke-width: 1.6; }
+        .ron-part[data-state="half"] { fill: #fbbf24; fill-opacity: 0.78; stroke: #fde68a; stroke-width: 2; }
+        .ron-part[data-state="full"] { fill: #fb923c; fill-opacity: 0.92; stroke: #ffedd5; stroke-width: 2; }
+        .ron-neck {
+            fill: #1e293b;
+            stroke: #94a3b8;
+            stroke-width: 1.6;
+            pointer-events: none;
+        }
+        .ron-ink { pointer-events: none; }
+        .ron-label, .ron-state {
+            fill: #f8fafc;
+            font-size: 12px;
+            font-weight: 800;
+            pointer-events: none;
+        }
+        .ron-state { font-size: 11px; }
+        .ron-ink[data-state="half"] .ron-label,
+        .ron-ink[data-state="half"] .ron-state,
+        .ron-ink[data-state="full"] .ron-label,
+        .ron-ink[data-state="full"] .ron-state { fill: #0f172a; }
+        .ron-caption { fill: #94a3b8; font-size: 11px; font-weight: 800; pointer-events: none; }
         .ron-breakdown {
             margin: 8px 0 0;
             font-size: 14px;
@@ -3229,8 +3287,17 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         html[data-theme="light"] .scale-opt-desc,
         html[data-theme="light"] .apgar-row-desc,
         html[data-theme="light"] .ron-breakdown { color: #334155 !important; }
+        html[data-theme="light"] .apgar-min.is-selected,
+        html[data-theme="light"] .scale-opt.is-selected,
+        html[data-theme="light"] .apgar-cell.is-selected {
+            border-color: var(--accent, #0e7490) !important;
+            background: color-mix(in srgb, var(--accent, #0e7490) 18%, #ffffff) !important;
+            color: #0f172a !important;
+        }
         html[data-theme="light"] .ron-part[data-state="off"] { fill: #e2e8f0; stroke: #64748b; }
-        html[data-theme="light"] .ron-label { fill: #0f172a; }
+        html[data-theme="light"] .ron-neck { fill: #e2e8f0; stroke: #64748b; }
+        html[data-theme="light"] .ron-label,
+        html[data-theme="light"] .ron-state { fill: #0f172a; }
         html[data-theme="light"] .ron-caption { fill: #334155; }
         html[data-theme="light"] .ron-peds-note { color: #92400e !important; }
         html[data-theme="light"] .lab-chip {
