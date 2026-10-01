@@ -31,8 +31,44 @@
             type: 'clinical', source: 'aha-2025-guideline-landing.md section 5.5'
         },
         'bp.under13': {
-            text: 'Blood pressure under age 13 uses height-percentile charts. This tool does not collect height percentile.',
+            text: 'Blood pressure {pair} is below 140/90. Under age 13 the 2017 AAP table needs a height percentile before this reading can be staged.',
             type: 'clinical', source: 'aap-2017-flynn-pediatric-bp.md Table 3'
+        },
+        'bp.under1': {
+            text: 'Blood pressure {pair}. The 2017 AAP pediatric tables start at age 1 year.',
+            type: 'clinical', source: 'aap-2017-flynn-pediatric-bp.md Table 3'
+        },
+        'pattern.bpPedsStage2': {
+            text: 'Stage 2 hypertension pattern ({pair} mmHg). At or above 140/90, the 2017 AAP ceiling for ages 1 to under 13.',
+            type: 'clinical', source: 'aap-2017-flynn-pediatric-bp.md Table 3'
+        },
+        'action.bpPedsStage2': {
+            text: 'This reading meets stage 2 on the 2017 AAP table without a height percentile. Tell your instructor.',
+            type: 'clinical', source: 'aap-2017-flynn-pediatric-bp.md Table 3'
+        },
+        'pattern.hrPeds': {
+            text: 'Heart rate {hr} bpm is {place} the 1st–99th centile for {band} ({low}–{high}).',
+            type: 'clinical', source: 'fleming-2011-pediatric-hr-rr.md Web Table 5'
+        },
+        'pattern.rrPeds': {
+            text: 'Respiratory rate {rr}/min is {place} the 1st–99th centile for {band} ({low}–{high}).',
+            type: 'clinical', source: 'fleming-2011-pediatric-hr-rr.md Web Table 4'
+        },
+        'action.hrPeds': {
+            text: 'Heart rate is outside the 1st–99th centile for this age on the Fleming 2011 chart. Tell your instructor.',
+            type: 'clinical', source: 'fleming-2011-pediatric-hr-rr.md Web Table 5'
+        },
+        'action.rrPeds': {
+            text: 'Respiratory rate is outside the 1st–99th centile for this age on the Fleming 2011 chart. Tell your instructor.',
+            type: 'clinical', source: 'fleming-2011-pediatric-hr-rr.md Web Table 4'
+        },
+        'how.fleming': {
+            text: 'Heart rate and respiratory rate use the Fleming 2011 1st–99th centiles for {band}.',
+            type: 'clinical', source: 'fleming-2011-pediatric-hr-rr.md Web Tables 4 and 5'
+        },
+        'how.flemingNewborn': {
+            text: 'The same paper lists a separate immediate-newborn heart-rate row, 90–164. Age under 3 months uses the 0–3 month row.',
+            type: 'clinical', source: 'fleming-2011-pediatric-hr-rr.md Web Table 5'
         },
         'priority.0.icon': { text: '🟢', type: 'ui', source: 'TODO: cite' },
         'priority.0.text': { text: 'Normal / Green', type: 'clinical', source: 'TODO: cite' },
@@ -133,9 +169,13 @@
         'bmi.priorityIncomplete': { text: 'Incomplete', type: 'ui', source: 'TODO: cite' },
         'bmi.adultReference': { text: 'adult reference', type: 'ui', source: 'who-adult-bmi-classification.md adult BMI list' },
         'ref.adult': { text: 'adult reference', type: 'ui', source: 'TODO: cite' },
-        'ref.bpUnder13': {
-            text: 'Heart rate and respiratory rate use this tool\'s adult bands. Blood pressure under age 13 needs a height-percentile chart.',
-            type: 'clinical', source: 'aap-2017-flynn-pediatric-bp.md Table 3'
+        'ref.peds': {
+            text: 'Fleming 2011 1st–99th centiles for heart rate and respiratory rate. 2017 AAP Table 3 for blood pressure under 13: at or above 140/90 is stage 2. Below that, height percentile is required.',
+            type: 'clinical', source: 'fleming-2011-pediatric-hr-rr.md; aap-2017-flynn-pediatric-bp.md Table 3'
+        },
+        'ref.fleming': {
+            text: 'Fleming 2011 1st–99th centiles for heart rate and respiratory rate. Blood pressure uses the adult categories from age 13.',
+            type: 'clinical', source: 'fleming-2011-pediatric-hr-rr.md Web Tables 4 and 5'
         },
         'ref.under12': { text: 'under 12 reference', type: 'ui', source: 'TODO: cite' },
         'copy.priority': { text: 'Priority', type: 'ui', source: 'TODO: cite' },

@@ -81,7 +81,7 @@ Not implemented. CDC categories are saved in cdc-child-teen-bmi-categories.md (u
 
 ## Pediatric BP
 
-Not implemented as percentile tables. Age under 12 still echoes BP, heart rate, and respiratory rate. Age 12 now echoes blood pressure and does not receive an adult category, because Table 3 uses height percentiles until age 13. Heart rate and respiratory rate at age 12 still use this tool’s adult bands. Those bands have no pediatric source in this set.
+Heart rate and respiratory rate under 18 years now use the Fleming 2011 1st–99th centiles (`docs/sources/fleming-2011-pediatric-hr-rr.md`). From age 1 to under 13, blood pressure at or above 140/90 is stage 2 on Table 3. A lower reading still needs a height percentile, which this app does not collect. Under age 1, blood pressure is not staged.
 
 Flynn Table 3 is in `aap-2017-flynn-pediatric-bp.md`. Ages 1 to <13 use height-specific percentiles. Ages ≥13 use <120/<80, 120/<80 to 129/<80, 130/80 to 139/89, and ≥140/90. Tables 4 and 5 require height percentile, which this app does not collect. No pediatric BP tool was added. The page says the guideline expires 5 years after the 2017 publication unless reaffirmed.
 

@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <em>Reference pack nursepath-v2.4.17 | 2026 | Universidad de Dagupan — Demo / Faculty Review</em>
+  <em>Reference pack nursepath-v2.4.18 | 2026 | Universidad de Dagupan — Demo / Faculty Review</em>
 </p>
 
 ---
@@ -64,7 +64,7 @@ All outputs are framed as reference findings — not clinical orders. The studen
 ## Features
 
 ### 🩺 Vital Signs Interpretation Engine
-- Age-stratified reference ranges: Infant through Elderly (7 age groups)
+- Heart rate and respiratory rate under 18 years use the Fleming 2011 1st–99th centiles. From age 13, blood pressure uses the adult categories. From age 1 to under 13, a reading at or above 140/90 is stage 2 on the 2017 AAP table. A lower pediatric blood pressure needs a height percentile, which this tool does not collect.
 - Pregnancy note when blood pressure meets the hypertension-in-pregnancy threshold (140/90) or severe-range hypertension (160/110)
 - Comorbidity-aware context notes: Hypertension, Diabetes, Asthma, COPD, CKD
 - Output language uses "SIM ALERT", "Simulation Finding", and "Ref Note" framing — never clinical orders
@@ -96,7 +96,7 @@ All outputs are framed as reference findings — not clinical orders. The studen
 - WHO category classification with color-coded output
 
 ### 📴 Offline Capability
-- Full PWA. The service worker is cache-first: a saved copy is served immediately, then refreshed in the background when the network is available (`sw.js`, cache `nursepath-v2.4.17`)
+- Full PWA. The service worker is cache-first: a saved copy is served immediately, then refreshed in the background when the network is available (`sw.js`, cache `nursepath-v2.4.18`)
 - Works on hospital wards after first load — no Wi-Fi required
 - Usage events queue locally and sync to Supabase automatically on reconnect
 
@@ -157,7 +157,7 @@ Developed using AI-assisted programming, combining the developer's nursing educa
 /
 ├── index.html                  # App shell, tabs, forms
 ├── css/styles.css              # Layout, phone tab bar, light theme
-├── sw.js                       # Service worker (cache nursepath-v2.4.17)
+├── sw.js                       # Service worker (cache nursepath-v2.4.18)
 ├── manifest.json               # PWA manifest
 ├── js/
 │   ├── script-1.js             # Early auth/theme flags

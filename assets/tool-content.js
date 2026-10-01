@@ -27,7 +27,12 @@
           heading: 'Adult resting reference bands',
           pocket: true,
           type: 'formula',
-          body: 'BP: around 120/80 or below is the usual teaching ideal.\nHR: about 60 to 100 bpm at rest.\nRR: about 12 to 20 breaths per minute.\nTemp: about 36.5 to 37.5 C by oral route.\nChildren and OB patients are not small adults. Use the age aware bands.'
+          body: 'BP from age 13: normal under 120/80, elevated 120–129 and under 80, stage 1 from 130 or 80, stage 2 from 140 or 90, severe above 180/120.\nHR and RR from age 18: about 60 to 100 bpm and 12 to 20 breaths per minute in this tool.\nTemp: about 36.5 to 37.5 C by oral route. Fever cuts in this tool are not from a pediatric chart.'
+        },
+        {
+          heading: 'Pediatric bands',
+          pocket: true,
+          body: 'Under 18 years, heart rate and respiratory rate use the Fleming 2011 1st to 99th centiles for the age band. From age 1 to under 13, blood pressure at or above 140/90 is stage 2 on the 2017 AAP table. A lower reading needs a height percentile, which this tool does not collect. The AAP tables start at age 1 year.'
         },
         {
           heading: 'Reading a compensation pattern',

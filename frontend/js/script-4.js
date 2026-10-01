@@ -96,19 +96,39 @@
             const flags = [];
             let severityScore = 0;
 
-            const pediatric = ageOn && age < 12;
-            // 2017 AAP Table 3 uses adult BP categories from age 13. Younger children need height percentiles.
+            // Fleming 2011 Web Tables 4 and 5. Half-open bands: age 8 is 8–12 years, not 6–8.
+            function flemingRow(ageYears) {
+                const rows = [
+                    { max: 0.25, label: '0–3 months', hr: [107, 181], rr: [25, 66] },
+                    { max: 0.5, label: '3–6 months', hr: [104, 175], rr: [24, 64] },
+                    { max: 0.75, label: '6–9 months', hr: [98, 168], rr: [23, 61] },
+                    { max: 1, label: '9–12 months', hr: [93, 161], rr: [22, 58] },
+                    { max: 1.5, label: '12–18 months', hr: [88, 156], rr: [21, 53] },
+                    { max: 2, label: '18–24 months', hr: [82, 149], rr: [19, 46] },
+                    { max: 3, label: '2–3 years', hr: [76, 142], rr: [18, 38] },
+                    { max: 4, label: '3–4 years', hr: [70, 136], rr: [17, 33] },
+                    { max: 6, label: '4–6 years', hr: [65, 131], rr: [17, 29] },
+                    { max: 8, label: '6–8 years', hr: [59, 123], rr: [16, 27] },
+                    { max: 12, label: '8–12 years', hr: [52, 115], rr: [14, 25] },
+                    { max: 15, label: '12–15 years', hr: [47, 108], rr: [12, 23] },
+                    { max: 18, label: '15–18 years', hr: [43, 104], rr: [11, 22] }
+                ];
+                if (!(ageYears >= 0) || ageYears >= 18) return null;
+                for (let i = 0; i < rows.length; i++) {
+                    if (ageYears < rows[i].max) return rows[i];
+                }
+                return null;
+            }
+            const fleming = ageOn ? flemingRow(age) : null;
+            // 2017 AAP Table 3: ages 1 to <13. At or above 140/90 is stage 2 without height. Lower readings need a height percentile.
             const bpUnder13 = ageOn && age < 13;
-            // TODO: cite a pediatric age-based chart before classifying BP, HR, or RR under 12.
-            // The under-12 bands stay in this function but isChild is fixed false, so they are unreachable.
-            const isChild = false;
-            // const isChild = ageOn && age > 0 && age < 12;
             const isOlderAdult = ageOn && age >= 65;
             const hasComorbidity = conditions && conditions !== 'none';
-            const hrLow = isChild ? 70 : 60;
-            const hrHigh = isChild ? 120 : 100;
-            const rrLow = isChild ? 18 : 12;
-            const rrHigh = isChild ? 30 : 20;
+            const hrLow = 60;
+            const hrHigh = 100;
+            const rrLow = 12;
+            const rrHigh = 20;
+            let bpUnstaged = false;
 
             function boundSentence(field, value, direction, bound) {
                 return ixFill('flag.sentence', { field: field, value: value, direction: direction, bound: bound });
@@ -137,8 +157,17 @@
                 }
                 bpFlag = pushFlag('Blood pressure', bpSentences);
                 const pair = (sysOn && diaOn) ? (sys + '/' + dia) : (sysOn ? (sys + '/—') : ('—/' + dia));
-                if (bpUnder13) {
-                    interpretations.push({ text: ixFill('pattern.bpEcho', { pair: pair }), flag: bpFlag, rank: 0 });
+                if (bpUnder13 && age < 1) {
+                    bpUnstaged = true;
+                    interpretations.push({ text: ixFill('bp.under1', { pair: pair }), flag: bpFlag, rank: 0 });
+                } else if (bpUnder13 && ((sysOn && sys >= 140) || (diaOn && dia >= 90))) {
+                    interpretations.push({ text: ixFill('pattern.bpPedsStage2', { pair: pair }), flag: bpFlag, rank: 2 });
+                    abnormalFindings.push('stage2_bp');
+                    severityScore += 3;
+                    actions.push(ixText('action.bpPedsStage2'));
+                } else if (bpUnder13) {
+                    bpUnstaged = true;
+                    interpretations.push({ text: ixFill('bp.under13', { pair: pair }), flag: bpFlag, rank: 0 });
                 } else if ((sysOn && sys > 180) || (diaOn && dia > 120)) {
                     interpretations.push({ text: ixFill('pattern.bpCrisis', { pair: pair }), flag: bpFlag, rank: 2 });
                     abnormalFindings.push('critical_bp');
@@ -212,8 +241,20 @@
                 if (hr < 20) hrSentences.push(boundSentence('Heart rate', hr + ' bpm', 'below', '20 bpm'));
                 if (hr > 300) hrSentences.push(boundSentence('Heart rate', hr + ' bpm', 'above', '300 bpm'));
                 hrFlag = pushFlag('Heart rate', hrSentences);
-                if (pediatric) {
-                    interpretations.push({ text: ixFill('pattern.hrEcho', { hr: hr }), flag: hrFlag, rank: 0 });
+                if (fleming) {
+                    const low = fleming.hr[0];
+                    const high = fleming.hr[1];
+                    const place = hr > high ? 'above' : (hr < low ? 'below' : 'inside');
+                    interpretations.push({
+                        text: ixFill('pattern.hrPeds', { hr: hr, place: place, band: fleming.label, low: low, high: high }),
+                        flag: hrFlag,
+                        rank: place === 'inside' ? 0 : 2
+                    });
+                    if (place !== 'inside') {
+                        abnormalFindings.push(place === 'above' ? 'tachy' : 'brady');
+                        severityScore += 2;
+                        actions.push(ixText('action.hrPeds'));
+                    }
                 } else if (hr > hrHigh + 20) {
                     interpretations.push({ text: ixFill('pattern.hrMarked', { hr: hr }), flag: hrFlag, rank: 2 });
                     abnormalFindings.push('severe_tachy');
@@ -241,8 +282,20 @@
                 if (rr < 4) rrSentences.push(boundSentence('Respiratory rate', rr + '/min', 'below', '4/min'));
                 if (rr > 60) rrSentences.push(boundSentence('Respiratory rate', rr + '/min', 'above', '60/min'));
                 rrFlag = pushFlag('Respiratory rate', rrSentences);
-                if (pediatric) {
-                    interpretations.push({ text: ixFill('pattern.rrEcho', { rr: rr }), flag: rrFlag, rank: 0 });
+                if (fleming) {
+                    const low = fleming.rr[0];
+                    const high = fleming.rr[1];
+                    const place = rr > high ? 'above' : (rr < low ? 'below' : 'inside');
+                    interpretations.push({
+                        text: ixFill('pattern.rrPeds', { rr: rr, place: place, band: fleming.label, low: low, high: high }),
+                        flag: rrFlag,
+                        rank: place === 'inside' ? 0 : 2
+                    });
+                    if (place !== 'inside') {
+                        abnormalFindings.push(place === 'above' ? 'tachypnea' : 'bradypnea');
+                        severityScore += 2;
+                        actions.push(ixText('action.rrPeds'));
+                    }
                 } else if (rr > rrHigh + 10) {
                     interpretations.push({ text: ixFill('pattern.rrSevere', { rr: rr }), flag: rrFlag, rank: 2 });
                     abnormalFindings.push('severe_tachypnea');
@@ -264,17 +317,17 @@
                 interpretations.push({ text: ixFill('pattern.rrMissing', { missing: notEntered }), flag: null, rank: 0 });
             }
 
-            if (pediatric) {
-                interpretations.push({ text: ixText('pediatric.reference'), flag: null, rank: 1 });
-            } else if (bpUnder13 && (sysOn || diaOn)) {
-                interpretations.push({ text: ixText('bp.under13'), flag: null, rank: 0 });
-            }
-
-            if (!pediatric && hrOn && (hr > hrHigh || hr > 100) && tempOn && temp >= 38.0) {
+            if (fleming && hrOn && hr > fleming.hr[1] && tempOn && temp >= 38.0) {
+                interpretations.push({ text: ixFill('pattern.tachyFever', {}), flag: null, rank: 1 });
+                severityScore += 1;
+            } else if (!fleming && hrOn && (hr > hrHigh || hr > 100) && tempOn && temp >= 38.0) {
                 interpretations.push({ text: ixFill('pattern.tachyFever', {}), flag: null, rank: 1 });
                 severityScore += 1;
             }
-            if (!pediatric && rrOn && (rr > rrHigh || rr > 20) && tempOn && temp >= 38.0) {
+            if (fleming && rrOn && rr > fleming.rr[1] && tempOn && temp >= 38.0) {
+                interpretations.push({ text: ixFill('pattern.rrFever', {}), flag: null, rank: 1 });
+                severityScore += 1;
+            } else if (!fleming && rrOn && (rr > rrHigh || rr > 20) && tempOn && temp >= 38.0) {
                 interpretations.push({ text: ixFill('pattern.rrFever', {}), flag: null, rank: 1 });
                 severityScore += 1;
             }
@@ -364,24 +417,22 @@
             const olderChanged = noteShift(olderPoint, 'Older age');
             const pregnancyChanged = noteShift(pregnancyPoint, 'Pregnancy');
             const noted = [];
-            if (ageOn && !pediatric && !olderChanged && !(bpUnder13 && (sysOn || diaOn))) noted.push('age');
+            if (ageOn && !fleming && !olderChanged) noted.push('age');
             if (sex === 'female' || sex === 'male') noted.push('sex');
             if (pregnant === 'yes' && !pregnancyChanged) noted.push('pregnancy');
             if (hasComorbidity && !conditionChanged) noted.push('condition');
             const howParts = [];
-            if (pediatric) howParts.push(ixText('pediatric.reference'));
-            else if (bpUnder13 && (sysOn || diaOn)) howParts.push(ixText('bp.under13'));
-            // TODO: cite a pediatric chart. Under-12 band text stays unreachable while isChild is false.
-            if (isChild) howParts.push(ixText('how.childBands'));
+            if (fleming) howParts.push(ixFill('how.fleming', { band: fleming.label }));
+            if (fleming && age < 0.25) howParts.push(ixText('how.flemingNewborn'));
             shifts.forEach(function (line) { if (line) howParts.push(line); });
             if (noted.length) howParts.push(noted.join(', ') + ' ' + ixText('how.noted'));
             let howDerived = howParts.join(' ');
             if (!howDerived) howDerived = ixText('how.noted');
 
-            const referenceLabel = pediatric
-                ? (ixText('pediatric.reference') || 'Pediatric reference not included')
-                : (bpUnder13 && (sysOn || diaOn)
-                    ? (ixText('ref.bpUnder13') || 'Blood pressure under age 13 needs a height-percentile chart')
+            const referenceLabel = (fleming && bpUnder13)
+                ? (ixText('ref.peds') || 'Pediatric centile reference')
+                : (fleming
+                    ? (ixText('ref.fleming') || 'Fleming 2011 centiles')
                     : (ixText('ref.adult') || 'adult reference'));
             const inputs = [];
             if (sysOn && diaOn) inputs.push('BP ' + sys + '/' + dia + ' mmHg');
@@ -392,7 +443,7 @@
             inputs.push(hrOn ? ('HR ' + hr + ' bpm') : ('HR ' + notEntered));
             inputs.push(rrOn ? ('RR ' + rr + '/min') : ('RR ' + notEntered));
 
-            const quietPartial = setIncomplete && priorityIndex === 0 && !pediatric && !(bpUnder13 && (sysOn || diaOn));
+            const quietPartial = setIncomplete && priorityIndex === 0 && !bpUnstaged;
             let priority;
             let incomplete = '';
             let meaning = (priorityIndex === 1 && abnormalFindings.length === 0)
@@ -403,24 +454,19 @@
                 lead = ixText('partial.noConcerns');
                 leadFlag = null;
                 meaning = ixText('partial.noConcerns');
-            } else if (pediatric && priorityIndex === 0) {
+            } else if (bpUnstaged && priorityIndex === 0) {
+                const unstagedLead = interpretations.filter(function (row) {
+                    return row.text.indexOf('2017 AAP') !== -1;
+                })[0];
+                const unstagedText = unstagedLead ? unstagedLead.text : ixText('bp.under13');
                 priority = {
                     icon: '',
-                    text: setIncomplete ? incompleteLabel : ixText('pediatric.reference'),
+                    text: setIncomplete ? incompleteLabel : unstagedText,
                     neutral: true
                 };
-                lead = ixText('pediatric.reference');
+                lead = unstagedText;
                 leadFlag = null;
-                meaning = ixText('pediatric.reference');
-            } else if (bpUnder13 && (sysOn || diaOn) && priorityIndex === 0) {
-                priority = {
-                    icon: '',
-                    text: setIncomplete ? incompleteLabel : ixText('bp.under13'),
-                    neutral: true
-                };
-                lead = ixText('bp.under13');
-                leadFlag = null;
-                meaning = ixText('bp.under13');
+                meaning = unstagedText;
             } else {
                 priority = {
                     icon: ixText('priority.' + priorityIndex + '.icon'),
@@ -3023,10 +3069,10 @@
                 onlineEl.textContent = navigator.onLine ? 'Online' : 'Offline — cached copy in use';
             }
             if (packEl) {
-                packEl.textContent = 'Reference pack nursepath-v2.4.17';
+                packEl.textContent = 'Reference pack nursepath-v2.4.18';
             }
             const otcStamp = document.getElementById('otcPackStamp');
-            if (otcStamp) otcStamp.textContent = 'Reference pack nursepath-v2.4.17';
+            if (otcStamp) otcStamp.textContent = 'Reference pack nursepath-v2.4.18';
         }
         window.updateNpStatusMeta = updateNpStatusMeta;
 
