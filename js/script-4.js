@@ -870,6 +870,8 @@
             const studyBtn = document.getElementById('hubStudyBtn');
             if (dutyBtn) dutyBtn.classList.toggle('is-active', next === 'duty');
             if (studyBtn) studyBtn.classList.toggle('is-active', next === 'study');
+            if (dutyBtn) dutyBtn.setAttribute('aria-pressed', String(next === 'duty'));
+            if (studyBtn) studyBtn.setAttribute('aria-pressed', String(next === 'study'));
             const title = document.getElementById('toolsHubTitle');
             const blurb = document.getElementById('toolsHubBlurb');
             if (title) title.textContent = next === 'study' ? 'Study Classroom' : 'Clinical Tools';
