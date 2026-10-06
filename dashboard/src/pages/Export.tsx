@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { supabase, UsageEvent } from '../lib/supabase'
-import { clearDashboardDataCache, PILOT_METRICS_SINCE } from '../lib/usageData'
+import { supabase } from '../lib/supabase'
+import { clearDashboardDataCache, loadUsageEvents, PILOT_METRICS_SINCE } from '../lib/usageData'
 
 const RESET_PILOT_SQL = `-- NursePath pilot telemetry reset
 truncate table public.usage_events restart identity;
@@ -47,15 +47,11 @@ export function Export() {
       setLoading(true)
       setError(null)
 
-      const { data, error: fetchError } = await supabase
-        .from('usage_events')
-        .select('*')
-        .order('timestamp', { ascending: false })
-        .limit(100000)
-
-      if (fetchError) throw fetchError
-
-      const events = (data || []) as UsageEvent[]
+      const events = await loadUsageEvents({
+        limit: 100000,
+        timeoutMs: 60000,
+        since: null,
+      })
 
       const headers = [
         'ID',

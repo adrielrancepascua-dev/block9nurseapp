@@ -39,7 +39,7 @@ export function Analytics() {
       const result = await fetchUsageEventsResilient({
         limit: 10000,
         retries: 3,
-        timeoutMs: 9000,
+        timeoutMs: 20000,
       })
 
       const allEvents = result.events as UsageEvent[]

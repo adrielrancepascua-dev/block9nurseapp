@@ -57,7 +57,7 @@ export function Overview() {
       const result = await fetchUsageEventsResilient({
         limit: 10000,
         retries: 3,
-        timeoutMs: 9000,
+        timeoutMs: 20000,
       })
 
       const events = result.events as UsageEvent[]
