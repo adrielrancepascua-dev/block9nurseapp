@@ -1,13 +1,22 @@
 import { useCallback, useEffect, useState } from 'react'
 import { UsageEvent, formatTime, formatDuration, parseMeta } from '../lib/supabase'
 import { getFeatureActionLabel, getFeatureLabel, clampSessionDurationMs } from '../lib/utils'
-import { fetchUsageEventsResilient, subscribeToUsageEventChanges } from '../lib/usageData'
+import { fetchAnalytics } from '../lib/dashboardStats'
+import { useAutoRefresh } from '../lib/hooks'
 
 interface FilterState {
   dateFrom: string
   dateTo: string
   feature: string
   userSearch: string
+}
+
+function daysAgo(days: number): string {
+  const date = new Date()
+  date.setDate(date.getDate() - days)
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${date.getFullYear()}-${month}-${day}`
 }
 
 export function Analytics() {
@@ -17,15 +26,22 @@ export function Analytics() {
   const [dataSource, setDataSource] = useState<'live' | 'cache'>('live')
   const [statusMessage, setStatusMessage] = useState<string | null>(null)
   const [events, setEvents] = useState<UsageEvent[]>([])
-  const [filtered, setFiltered] = useState<UsageEvent[]>([])
-  const [topFeatures, setTopFeatures] = useState<{ name: string; count: number }[]>([])
+  const [total, setTotal] = useState(0)
+  const [features, setFeatures] = useState<{ feature: string; uses: number }[]>([])
   const [error, setError] = useState<string | null>(null)
+  const [hasData, setHasData] = useState(false)
   const [filters, setFilters] = useState<FilterState>({
-    dateFrom: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-    dateTo: new Date().toISOString().split('T')[0],
+    dateFrom: daysAgo(30),
+    dateTo: daysAgo(0),
     feature: '',
     userSearch: '',
   })
+  const [appliedFilters, setAppliedFilters] = useState(filters)
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => setAppliedFilters(filters), 300)
+    return () => window.clearTimeout(timeoutId)
+  }, [filters])
 
   const fetchEvents = useCallback(async (silent = false) => {
     try {
@@ -36,109 +52,33 @@ export function Analytics() {
       }
       setError(null)
 
-      const result = await fetchUsageEventsResilient({
-        limit: 10000,
-        retries: 3,
-        timeoutMs: 20000,
-      })
-
-      const allEvents = result.events as UsageEvent[]
-      setDataSource(result.source)
-      setStatusMessage(result.warning)
-
-      // Remove obvious duplicates: same event_id within 100ms
-      const deduped: UsageEvent[] = []
-      const seen = new Set<string>()
-
-      allEvents.forEach((e) => {
-        const key = `${e.event_id}_${e.timestamp}`
-        if (!seen.has(key)) {
-          deduped.push(e)
-          seen.add(key)
-        }
-      })
-
-      setEvents(deduped)
-
-      // Calculate top features
-      const featureMap = new Map<string, number>()
-      deduped.forEach((e) => {
-        if (e.feature && e.feature !== 'session' && e.feature !== 'auth' && e.feature !== 'consent') {
-          const key = getFeatureLabel(e.feature)
-          featureMap.set(key, (featureMap.get(key) || 0) + 1)
-        }
-      })
-      setTopFeatures(
-        Array.from(featureMap.entries())
-          .map(([name, count]) => ({ name, count }))
-          .sort((a, b) => b.count - a.count)
-          .slice(0, 5)
-      )
+      const result = await fetchAnalytics(appliedFilters)
+      setDataSource('live')
+      setStatusMessage(null)
+      setEvents(result.events)
+      setTotal(result.total)
+      setFeatures(result.features)
+      setHasData(true)
       setLastUpdated(new Date().toLocaleTimeString())
     } catch (err) {
       console.error('Failed to fetch events:', err)
       setError(err instanceof Error ? err.message : 'Failed to load data')
-      setStatusMessage('Unable to refresh now. Retrying automatically in background.')
+      setStatusMessage('Unable to refresh now.')
     } finally {
       if (!silent) {
         setLoading(false)
       }
       setRefreshing(false)
     }
-  }, [])
+  }, [appliedFilters])
 
-  useEffect(() => {
-    fetchEvents()
-  }, [fetchEvents])
-
-  useEffect(() => {
-    const intervalId = window.setInterval(() => {
-      fetchEvents(true)
-    }, 15000)
-
-    const onFocus = () => fetchEvents(true)
-    window.addEventListener('focus', onFocus)
-    const unsubscribe = subscribeToUsageEventChanges(() => fetchEvents(true))
-
-    return () => {
-      window.clearInterval(intervalId)
-      window.removeEventListener('focus', onFocus)
-      unsubscribe()
-    }
-  }, [fetchEvents])
-
-  // Apply filters
-  useEffect(() => {
-    let result = events
-
-    // Date filter
-    if (filters.dateFrom) {
-      result = result.filter((e) => e.timestamp >= filters.dateFrom)
-    }
-    if (filters.dateTo) {
-      result = result.filter((e) => e.timestamp <= filters.dateTo + 'T23:59:59')
-    }
-
-    // Feature filter
-    if (filters.feature) {
-      result = result.filter((e) => e.feature === filters.feature)
-    }
-
-    // User search
-    if (filters.userSearch) {
-      result = result.filter((e) =>
-        (e.user_email || 'ghost').toLowerCase().includes(filters.userSearch.toLowerCase())
-      )
-    }
-
-    setFiltered(result.slice(0, 100)) // Show top 100 for performance
-  }, [events, filters])
+  useAutoRefresh(fetchEvents)
 
   const handleFilterChange = (key: keyof FilterState, value: string) => {
     setFilters((prev) => ({ ...prev, [key]: value }))
   }
 
-  if (loading) {
+  if (loading && !hasData) {
     return (
       <div className="flex items-center justify-center h-96">
         <p className="text-slate-400">Loading analytics...</p>
@@ -146,13 +86,15 @@ export function Analytics() {
     )
   }
 
-  if (error) {
+  if (error && !hasData) {
     return (
       <div className="bg-red-900/20 border border-red-700 rounded-lg p-4 text-red-200">
         Error: {error}
       </div>
     )
   }
+
+  const topFeatures = features.slice(0, 5)
 
   return (
     <div className="space-y-6">
@@ -175,20 +117,18 @@ export function Analytics() {
         </div>
       )}
 
-      {/* Top Features Summary */}
       <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
         <h2 className="text-lg font-semibold text-white mb-4">Top 5 Most Used Features</h2>
         <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
-          {topFeatures.map((feat, i) => (
-            <div key={i} className="bg-slate-700 rounded p-3 text-center">
-              <p className="text-xs text-slate-400 truncate">{feat.name}</p>
-              <p className="text-2xl font-bold text-cyan-400">{feat.count}</p>
+          {topFeatures.map((feat) => (
+            <div key={feat.feature} className="bg-slate-700 rounded p-3 text-center">
+              <p className="text-xs text-slate-400 truncate">{getFeatureLabel(feat.feature)}</p>
+              <p className="text-2xl font-bold text-cyan-400">{feat.uses}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Filters */}
       <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
         <h2 className="text-sm font-semibold text-white mb-4">Filters</h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -218,13 +158,11 @@ export function Analytics() {
               className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded text-white text-sm"
             >
               <option value="">All Features</option>
-              {Array.from(new Set(events.map((e) => e.feature)))
-                .filter((f) => f && f !== 'session' && f !== 'auth' && f !== 'consent')
-                .map((f) => (
-                  <option key={f} value={f}>
-                    {getFeatureLabel(f)}
-                  </option>
-                ))}
+              {features.map((feature) => (
+                <option key={feature.feature} value={feature.feature}>
+                  {getFeatureLabel(feature.feature)}
+                </option>
+              ))}
             </select>
           </div>
           <div>
@@ -238,10 +176,9 @@ export function Analytics() {
             />
           </div>
         </div>
-        <p className="text-xs text-slate-400 mt-4">Showing {filtered.length} of {events.length} events</p>
+        <p className="text-xs text-slate-400 mt-4">Showing {events.length} of {total} events</p>
       </div>
 
-      {/* Events Table */}
       <div className="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
@@ -257,14 +194,14 @@ export function Analytics() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-700">
-              {filtered.length === 0 ? (
+              {events.length === 0 ? (
                 <tr>
                   <td colSpan={7} className="px-4 py-8 text-center text-slate-500">
                     No events found with current filters
                   </td>
                 </tr>
               ) : (
-                filtered.map((event) => (
+                events.map((event) => (
                   <tr key={event.id} className="hover:bg-slate-700/50 transition-colors">
                     <td className="px-4 py-3 text-slate-300 text-xs">{formatTime(event.timestamp)}</td>
                     <td className="px-4 py-3 text-slate-300 truncate max-w-xs">
@@ -275,7 +212,7 @@ export function Analytics() {
                       )}
                     </td>
                     <td className="px-4 py-3 text-slate-400 font-mono text-xs truncate max-w-xs">
-                      {event.session_id.substring(0, 8)}…
+                      {event.session_id ? `${event.session_id.substring(0, 8)}…` : '—'}
                     </td>
                     <td className="px-4 py-3 text-cyan-400 font-medium">{getFeatureLabel(event.feature)}</td>
                     <td className="px-4 py-3 text-slate-300">{getFeatureActionLabel(event.feature, event.action)}</td>

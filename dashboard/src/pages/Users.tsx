@@ -1,55 +1,9 @@
-import { useCallback, useEffect, useState } from 'react'
-import { UsageEvent, formatDuration } from '../lib/supabase'
-import { formatNumber, normalizeUserEmail, sortBy, sumUniqueSessionDurations } from '../lib/utils'
-import { fetchUsageEventsResilient, subscribeToUsageEventChanges } from '../lib/usageData'
-
-interface UserRow {
-  email: string
-  sessions: number
-  totalDuration: number
-  lastActive: string
-  featureCount: number
-}
-
-function buildUserRows(events: UsageEvent[]): UserRow[] {
-  const userMap = new Map<string, UsageEvent[]>()
-
-  events.forEach((event) => {
-    const email = normalizeUserEmail(event.user_email)
-    if (!email) {
-      return
-    }
-    if (!userMap.has(email)) {
-      userMap.set(email, [])
-    }
-    userMap.get(email)!.push(event)
-  })
-
-  const userRows: UserRow[] = []
-
-  userMap.forEach((userEvents, email) => {
-    const sessions = new Set(userEvents.map((e) => e.session_id).filter(Boolean)).size
-    const totalDuration = sumUniqueSessionDurations(userEvents)
-    const lastActive = userEvents.reduce((latest, e) => {
-      return !latest || e.timestamp > latest ? e.timestamp : latest
-    }, '')
-    const featureCount = new Set(
-      userEvents
-        .filter((e) => e.feature && e.feature !== 'session' && e.feature !== 'auth')
-        .map((e) => e.feature)
-    ).size
-
-    userRows.push({
-      email,
-      sessions,
-      totalDuration,
-      lastActive,
-      featureCount,
-    })
-  })
-
-  return sortBy(userRows, 'lastActive', true)
-}
+import { useCallback, useState } from 'react'
+import { formatDuration } from '../lib/supabase'
+import { formatNumber } from '../lib/utils'
+import { DashboardUserRow, fetchDashboardUsers } from '../lib/dashboardStats'
+import { PILOT_METRICS_SINCE } from '../lib/usageData'
+import { useAutoRefresh } from '../lib/hooks'
 
 export function Users() {
   const [loading, setLoading] = useState(true)
@@ -57,9 +11,10 @@ export function Users() {
   const [lastUpdated, setLastUpdated] = useState<string | null>(null)
   const [dataSource, setDataSource] = useState<'live' | 'cache'>('live')
   const [statusMessage, setStatusMessage] = useState<string | null>(null)
-  const [users, setUsers] = useState<UserRow[]>([])
+  const [users, setUsers] = useState<DashboardUserRow[]>([])
   const [legacyEventCount, setLegacyEventCount] = useState(0)
   const [error, setError] = useState<string | null>(null)
+  const [hasData, setHasData] = useState(false)
 
   const fetchUsers = useCallback(async (silent = false) => {
     try {
@@ -70,22 +25,21 @@ export function Users() {
       }
       setError(null)
 
-      const result = await fetchUsageEventsResilient({
-        limit: 10000,
-        retries: 3,
-        timeoutMs: 20000,
-      })
-
-      const events = result.events as UsageEvent[]
-      setDataSource(result.source)
-      setStatusMessage(result.warning)
-      setLegacyEventCount(events.filter((e) => !normalizeUserEmail(e.user_email)).length)
-      setUsers(buildUserRows(events))
+      const result = await fetchDashboardUsers()
+      setDataSource('live')
+      setStatusMessage(
+        PILOT_METRICS_SINCE
+          ? `Showing pilot data from ${new Date(PILOT_METRICS_SINCE).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} onward.`
+          : null
+      )
+      setLegacyEventCount(result.legacyEvents)
+      setUsers(result.users)
+      setHasData(true)
       setLastUpdated(new Date().toLocaleTimeString())
     } catch (err) {
       console.error('Failed to fetch users:', err)
       setError(err instanceof Error ? err.message : 'Failed to load data')
-      setStatusMessage('Unable to refresh now. Retrying automatically in background.')
+      setStatusMessage('Unable to refresh now.')
     } finally {
       if (!silent) {
         setLoading(false)
@@ -94,27 +48,9 @@ export function Users() {
     }
   }, [])
 
-  useEffect(() => {
-    fetchUsers()
-  }, [fetchUsers])
+  useAutoRefresh(fetchUsers)
 
-  useEffect(() => {
-    const intervalId = window.setInterval(() => {
-      fetchUsers(true)
-    }, 15000)
-
-    const onFocus = () => fetchUsers(true)
-    window.addEventListener('focus', onFocus)
-    const unsubscribe = subscribeToUsageEventChanges(() => fetchUsers(true))
-
-    return () => {
-      window.clearInterval(intervalId)
-      window.removeEventListener('focus', onFocus)
-      unsubscribe()
-    }
-  }, [fetchUsers])
-
-  if (loading) {
+  if (loading && !hasData) {
     return (
       <div className="flex items-center justify-center h-96">
         <p className="text-slate-400">Loading users...</p>
@@ -122,7 +58,7 @@ export function Users() {
     )
   }
 
-  if (error) {
+  if (error && !hasData) {
     return (
       <div className="bg-red-900/20 border border-red-700 rounded-lg p-4 text-red-200">
         Error: {error}

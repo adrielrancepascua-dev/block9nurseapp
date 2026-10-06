@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useState } from 'react'
-import { UsageEvent, formatDuration } from '../lib/supabase'
-import { formatNumber, getFeatureLabel, normalizeUserEmail, averageUniqueSessionDuration } from '../lib/utils'
-import { fetchUsageEventsResilient, subscribeToUsageEventChanges } from '../lib/usageData'
+import { useCallback, useState } from 'react'
+import { formatDuration } from '../lib/supabase'
+import { formatNumber, getFeatureLabel } from '../lib/utils'
+import { PILOT_METRICS_SINCE } from '../lib/usageData'
+import { fetchOverviewStats } from '../lib/dashboardStats'
+import { useAutoRefresh } from '../lib/hooks'
 import { Metric } from '../components/Metric'
 import {
   LineChart,
@@ -44,6 +46,7 @@ export function Overview() {
   const [dailyData, setDailyData] = useState<ChartData[]>([])
   const [topFeatures, setTopFeatures] = useState<FeatureData[]>([])
   const [error, setError] = useState<string | null>(null)
+  const [hasData, setHasData] = useState(false)
 
   const fetchData = useCallback(async (silent = false) => {
     try {
@@ -54,66 +57,43 @@ export function Overview() {
       }
       setError(null)
 
-      const result = await fetchUsageEventsResilient({
-        limit: 10000,
-        retries: 3,
-        timeoutMs: 20000,
-      })
-
-      const events = result.events as UsageEvent[]
-      setDataSource(result.source)
-      setStatusMessage(result.warning)
-
-      // Calculate metrics — one CDD email = one user
-      const uniqueEmails = new Set(
-        events
-          .map((e) => normalizeUserEmail(e.user_email))
-          .filter((email): email is string => Boolean(email))
+      const stats = await fetchOverviewStats()
+      setDataSource('live')
+      setStatusMessage(
+        PILOT_METRICS_SINCE
+          ? `Showing pilot data from ${new Date(PILOT_METRICS_SINCE).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} onward.`
+          : null
       )
-      const uniqueSessions = new Set(events.map((e) => e.session_id))
-      const featureEvents = events.filter((e) => e.feature && e.feature !== 'session' && e.feature !== 'auth' && e.feature !== 'consent')
-      const avgDuration = averageUniqueSessionDuration(events)
-
       setMetrics({
-        uniqueUsers: uniqueEmails.size,
-        totalSessions: uniqueSessions.size,
-        totalFeatureUses: featureEvents.length,
-        avgSessionDuration: avgDuration,
+        uniqueUsers: stats.uniqueUsers,
+        totalSessions: stats.totalSessions,
+        totalFeatureUses: stats.featureUses,
+        avgSessionDuration: stats.avgSessionMs,
       })
-
-      // Build daily chart data (last 30 days)
-      const dailyMap = new Map<string, number>()
-      events.forEach((e) => {
-        const date = new Date(e.timestamp).toLocaleDateString('en-US', {
-          month: 'short',
-          day: 'numeric',
+      setDailyData(
+        stats.daily.map((point) => {
+          const [year, month, day] = point.date.split('-').map(Number)
+          return {
+            date: new Date(year, month - 1, day).toLocaleDateString('en-US', {
+              month: 'short',
+              day: 'numeric',
+            }),
+            count: point.count,
+          }
         })
-        dailyMap.set(date, (dailyMap.get(date) || 0) + 1)
-      })
-      const dailyArray = Array.from(dailyMap.entries())
-        .map(([date, count]) => ({ date, count }))
-        .reverse()
-        .slice(-30)
-      setDailyData(dailyArray)
-
-      // Top features analysis
-      const featureMap = new Map<string, number>()
-      events.forEach((e) => {
-        if (e.feature && e.feature !== 'session' && e.feature !== 'auth' && e.feature !== 'consent') {
-          const key = getFeatureLabel(e.feature)
-          featureMap.set(key, (featureMap.get(key) || 0) + 1)
-        }
-      })
-      const topFeaturesArray = Array.from(featureMap.entries())
-        .map(([name, value]) => ({ name, value }))
-        .sort((a, b) => b.value - a.value)
-        .slice(0, 8)
-      setTopFeatures(topFeaturesArray)
+      )
+      setTopFeatures(
+        stats.topFeatures.map((feature) => ({
+          name: getFeatureLabel(feature.feature),
+          value: feature.value,
+        }))
+      )
+      setHasData(true)
       setLastUpdated(new Date().toLocaleTimeString())
     } catch (err) {
       console.error('Failed to fetch overview data:', err)
       setError(err instanceof Error ? err.message : 'Failed to load data')
-      setStatusMessage('Unable to refresh now. Retrying automatically in background.')
+      setStatusMessage('Unable to refresh now.')
     } finally {
       if (!silent) {
         setLoading(false)
@@ -122,29 +102,11 @@ export function Overview() {
     }
   }, [])
 
-  useEffect(() => {
-    fetchData()
-  }, [fetchData])
-
-  useEffect(() => {
-    const intervalId = window.setInterval(() => {
-      fetchData(true)
-    }, 15000)
-
-    const onFocus = () => fetchData(true)
-    window.addEventListener('focus', onFocus)
-    const unsubscribe = subscribeToUsageEventChanges(() => fetchData(true))
-
-    return () => {
-      window.clearInterval(intervalId)
-      window.removeEventListener('focus', onFocus)
-      unsubscribe()
-    }
-  }, [fetchData])
+  useAutoRefresh(fetchData)
 
   const COLORS = ['#06b6d4', '#0891b2', '#0e7490', '#155e75', '#164e63']
 
-  if (loading) {
+  if (loading && !hasData) {
     return (
       <div className="flex items-center justify-center h-96">
         <p className="text-slate-400">Loading overview...</p>
@@ -152,7 +114,7 @@ export function Overview() {
     )
   }
 
-  if (error) {
+  if (error && !hasData) {
     return (
       <div className="bg-red-900/20 border border-red-700 rounded-lg p-4 text-red-200">
         Error: {error}
