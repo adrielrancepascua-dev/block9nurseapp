@@ -2392,7 +2392,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             to { opacity: 1; transform: translateY(0); }
         }
         /* Ensure tappable elements are at least 44x44px */
-        button:not(.np-sidebar-toggle):not(.np-sidebar-link):not(.np-action-btn):not(.np-sidebar-backdrop):not(.lab-chip):not(.lab-row):not(.ab-chip):not(.ab-row):not(.sz-chip):not(.sz-row),
+        button:not(.np-sidebar-toggle):not(.np-sidebar-link):not(.np-action-btn):not(.np-sidebar-backdrop):not(.lab-chip):not(.lab-row):not(.ab-chip):not(.ab-row):not(.sz-chip):not(.sz-row):not([class*="rf-"]),
         a.btn, select, input[type="submit"], input[type="button"], input[type="number"], input[type="text"], input[type="date"] {
             min-height: 44px;
             min-width: 44px;
@@ -2442,7 +2442,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             h3, .text-xl, .text-lg { font-size: 1rem !important; }
 
             /* Generic button sizing must not fight component buttons */
-            button:not(.tool-hub-card):not(.otc-med-main):not(.otc-full-detail):not(.otc-chip):not(.lab-row):not(.lab-chip):not(.lab-back-btn):not(.ab-row):not(.ab-chip):not(.ab-back):not(.sz-row):not(.sz-chip):not(.sz-back):not(.study-tab-btn):not(.study-quiz-choice):not(.score-option):not(.tool-guide-close):not(.ron-region):not(.tool-hub-tag):not(.np-sidebar-toggle):not(.np-sidebar-link):not(.np-action-btn):not(.np-sidebar-backdrop):not(.np-tabbar-link):not(.np-settings-open):not(.np-settings-close):not(.np-settings-row):not(.np-settings-backdrop):not(.np-mode-toggle button) {
+            button:not(.tool-hub-card):not(.otc-med-main):not(.otc-full-detail):not(.otc-chip):not(.lab-row):not(.lab-chip):not(.lab-back-btn):not(.ab-row):not(.ab-chip):not(.ab-back):not(.sz-row):not(.sz-chip):not(.sz-back):not(.study-tab-btn):not(.study-quiz-choice):not(.score-option):not(.tool-guide-close):not(.ron-region):not(.tool-hub-tag):not(.np-sidebar-toggle):not(.np-sidebar-link):not(.np-action-btn):not(.np-sidebar-backdrop):not(.np-tabbar-link):not(.np-settings-open):not(.np-settings-close):not(.np-settings-row):not(.np-settings-backdrop):not(.np-mode-toggle button):not([class*="rf-"]) {
                 padding: 12px 16px !important;
                 font-size: 14px !important;
                 min-height: 48px !important;

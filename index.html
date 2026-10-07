@@ -19,6 +19,7 @@
     <!-- CRITICAL: Force dark mode immediately to prevent white flash -->
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/hub-redesign.css">
+    <link rel="stylesheet" href="/css/reference-redesign.css">
     
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
@@ -166,7 +167,7 @@
     <div class="np-content max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
         <header class="np-page-header">
             <div id="nursepathHeaderLogo" class="np-header-lockup" title="NursePath">
-                <svg class="np-header-mark" viewBox="0 0 36 36" role="img" aria-label="NursePath logo" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="npMarkGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14b8a6"/><stop offset="1" stop-color="#0f766e"/></linearGradient></defs><rect width="36" height="36" rx="10" fill="url(#npMarkGrad)"/><path d="M6.5 19.5h6l3-9 5 15 3-7.5h6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <img class="np-header-mark" src="/assets/brand/logo-icon.png" alt="NursePath logo" width="36" height="36">
                 <h1 class="np-header-word">Nurse<span>Path</span></h1>
             </div>
             <button type="button" class="np-settings-open" id="npSettingsOpen" aria-haspopup="dialog" aria-controls="npSettingsSheet" aria-label="Open settings">
@@ -655,28 +656,33 @@
 
         <!-- ============ OTC MEDICINES TAB CONTENT ============ -->
         <div id="content-otc" class="tab-content hidden">
-            <div class="otc-hub">
+            <div class="otc-hub rf-page rf-otc">
                 <div class="tools-hub-mode-row ref-hub-head">
                     <div class="tools-hub-hero">
                         <h2>OTC Medicines</h2>
                         <p>PH brands &amp; generics. Confirm with your CI.</p>
                     </div>
                 </div>
-                <div class="otc-sticky-chrome">
-                    <div class="otc-search-wrap">
-                        <input id="otc-search" type="search" class="otc-search-input" placeholder="Search brand, generic, symptom" autocomplete="off" />
+                <div class="otc-sticky-chrome rf-sticky">
+                <div class="rf-toolbar">
+                    <div class="rf-search">
+                        <span class="rf-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>
+                        <input id="otc-search" type="search" class="rf-search-input" placeholder="Search brand, generic, symptom" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search medicines" />
+                        <button type="button" class="rf-search-clear" hidden aria-label="Clear search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
                     </div>
-                    <div id="otc-chips" class="otc-chips" role="tablist" aria-label="OTC categories"></div>
+                    <div id="otc-chips" class="rf-filter"></div>
+                </div>
+                <div class="rf-count" id="otc-count" aria-live="polite"></div>
                 </div>
                 <p class="otc-pack-stamp" id="otcPackStamp">Reference pack nursepath-v2.4.10</p>
                 <div class="otc-layout">
                     <div id="otc-list-container">
                         <div id="otc-list" class="otc-list"></div>
                     </div>
-                    <div id="otc-detail-container" class="otc-detail-shell hidden md:block">
-                        <button id="otc-back-btn" type="button" class="otc-back-btn" onclick="hideOTCDetail()">← List</button>
-                        <div id="otc-detail" class="otc-detail-panel">
-                            <p class="otc-detail-placeholder">Select a medicine to view the duty quick take and study details.</p>
+                    <div id="otc-detail-container" class="otc-detail-shell rf-shell hidden md:block">
+                        <button id="otc-back-btn" type="button" class="rf-back" onclick="hideOTCDetail()">← Back to list</button>
+                        <div id="otc-detail" class="otc-detail-panel rf-detail">
+                            <div class="rf-placeholder"><span class="rf-placeholder-ic" data-ic="pill"></span><span>Select a medicine to view the duty quick take and study details.</span></div>
                         </div>
                     </div>
                 </div>
@@ -685,25 +691,30 @@
 
         <!-- ============ LAB RANGES TAB CONTENT ============ -->
         <div id="content-labs" class="tab-content hidden">
-            <div class="lab-hub">
+            <div class="lab-hub rf-page rf-lab">
                 <div class="tools-hub-mode-row">
                     <div class="tools-hub-hero">
                         <h2>Lab Ranges</h2>
                         <p>Adult pocket ranges. Slip &amp; CI win.</p>
                     </div>
                 </div>
-                <div class="lab-search-wrap">
-                    <input id="lab-search" type="search" class="lab-search-input" placeholder="Search K, Hgb, INR, or hyponatremia..." autocomplete="off" />
+                <div class="rf-toolbar">
+                    <div class="rf-search">
+                        <span class="rf-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>
+                        <input id="lab-search" type="search" class="rf-search-input" placeholder="Search K, Hgb, INR, or hyponatremia" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search lab tests" />
+                        <button type="button" class="rf-search-clear" hidden aria-label="Clear search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+                    </div>
+                    <div id="lab-chips" class="rf-filter"></div>
                 </div>
-                <div id="lab-chips" class="lab-chips" role="tablist" aria-label="Lab panels"></div>
+                <div class="rf-count" id="lab-count" aria-live="polite"></div>
                 <div class="lab-layout">
                     <div id="lab-list-container">
                         <div id="lab-list" class="lab-list"></div>
                     </div>
-                    <div id="lab-detail-container" class="lab-detail-shell hidden md:block">
-                        <button id="lab-back-btn" type="button" class="lab-back-btn" onclick="hideLabDetail()">← List</button>
-                        <div id="lab-detail" class="lab-detail-panel">
-                            <p class="lab-detail-placeholder">Tap a test for normal, too high, too low, and how it is drawn.</p>
+                    <div id="lab-detail-container" class="lab-detail-shell rf-shell hidden md:block">
+                        <button id="lab-back-btn" type="button" class="rf-back" onclick="hideLabDetail()">← Back to list</button>
+                        <div id="lab-detail" class="lab-detail-panel rf-detail">
+                            <div class="rf-placeholder"><span class="rf-placeholder-ic" data-ic="flask"></span><span>Tap a test for normal, too high, too low, and how it is drawn.</span></div>
                         </div>
                     </div>
                 </div>
@@ -711,24 +722,29 @@
         </div> <!-- End content-labs -->
 
         <div id="content-abbrev" class="tab-content hidden">
-            <div class="ab-hub">
+            <div class="ab-hub rf-page rf-ab">
                 <div class="tools-hub-mode-row">
                     <div class="tools-hub-hero">
                         <h2>Abbreviations</h2>
                         <p>Ward short forms. Hospital list wins.</p>
                     </div>
                 </div>
-                <div class="ab-search-wrap">
-                    <input id="ab-search" type="search" class="ab-search" placeholder="Search PRN, NPO, or twice a day..." autocomplete="off" />
+                <div class="rf-toolbar">
+                    <div class="rf-search">
+                        <span class="rf-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>
+                        <input id="ab-search" type="search" class="rf-search-input" placeholder="Search PRN, NPO, or twice a day" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search abbreviations" />
+                        <button type="button" class="rf-search-clear" hidden aria-label="Clear search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+                    </div>
+                    <div id="ab-chips" class="rf-filter"></div>
                 </div>
-                <div id="ab-chips" class="ab-chips" role="tablist" aria-label="Abbreviation groups"></div>
+                <div class="rf-count" id="ab-count" aria-live="polite"></div>
                 <div class="ab-layout">
                     <div id="ab-list-container">
                         <div id="ab-list" class="ab-list"></div>
                     </div>
-                    <div id="ab-detail-container" class="ab-detail-shell hidden md:block">
-                        <button id="ab-back-btn" type="button" class="ab-back" onclick="hideAbbrevDetail()">← List</button>
-                        <div id="ab-detail" class="ab-detail">
+                    <div id="ab-detail-container" class="ab-detail-shell rf-shell hidden md:block">
+                        <button id="ab-back-btn" type="button" class="rf-back" onclick="hideAbbrevDetail()">← Back to list</button>
+                        <div id="ab-detail" class="ab-detail rf-detail">
                             <p class="ab-placeholder">Tap a short form for the meaning, where it shows up, and when to write the words instead.</p>
                         </div>
                     </div>
@@ -737,25 +753,30 @@
         </div>
 
         <div id="content-sizes" class="tab-content hidden">
-            <div class="sz-hub">
+            <div class="sz-hub rf-page rf-sz">
                 <div class="tools-hub-mode-row">
                     <div class="tools-hub-hero">
                         <h2>Sizes</h2>
                         <p>Needles, syringes, cannulas, tubes. Package &amp; CI win.</p>
                     </div>
                 </div>
-                <div class="sz-search-wrap">
-                    <input id="sz-search" type="search" class="sz-search" placeholder="Search 22 G, insulin, or Foley..." autocomplete="off" />
+                <div class="rf-toolbar">
+                    <div class="rf-search">
+                        <span class="rf-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>
+                        <input id="sz-search" type="search" class="rf-search-input" placeholder="Search 22 G, insulin, or Foley" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search sizes" />
+                        <button type="button" class="rf-search-clear" hidden aria-label="Clear search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+                    </div>
+                    <div id="sz-chips" class="rf-filter"></div>
                 </div>
-                <div id="sz-chips" class="sz-chips" role="tablist" aria-label="Size trays"></div>
+                <div class="rf-count" id="sz-count" aria-live="polite"></div>
                 <div class="sz-layout">
                     <div id="sz-list-container">
                         <div id="sz-list" class="sz-list"></div>
                     </div>
-                    <div id="sz-detail-container" class="sz-detail-shell hidden md:block">
-                        <button id="sz-back-btn" type="button" class="sz-back" onclick="hideSizeDetail()">← List</button>
-                        <div id="sz-detail" class="sz-detail">
-                            <p class="sz-placeholder">Tap a size for the usual job, the angle, and what to read on the package.</p>
+                    <div id="sz-detail-container" class="sz-detail-shell rf-shell hidden md:block">
+                        <button id="sz-back-btn" type="button" class="rf-back" onclick="hideSizeDetail()">← Back to list</button>
+                        <div id="sz-detail" class="sz-detail rf-detail">
+                            <div class="rf-placeholder"><span class="rf-placeholder-ic" data-ic="needle"></span><span>Tap a size for the usual job, the angle, and what to read on the package.</span></div>
                         </div>
                     </div>
                 </div>
@@ -818,5 +839,6 @@
 
     <script src="/js/script-4.js"></script>
     <script src="/js/script-5.js"></script>
+    <script src="/js/tool-icons.js"></script>
 </body>
 </html>

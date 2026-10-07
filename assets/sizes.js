@@ -51,39 +51,50 @@
       .replace(/"/g, '&quot;');
   }
 
-  let activeChip = 'needles';
+  const FAMILY_ICON = { needles: 'needle', syringes: 'syringe', iv: 'iv', tubes: 'tube' };
+  let activeChip = 'all';
   let searchTerm = '';
 
   function filtered() {
     const q = searchTerm.trim().toLowerCase();
     return sizes.filter((item) => {
-      if (item.family !== activeChip) return false;
+      if (activeChip !== 'all' && item.family !== activeChip) return false;
       if (!q) return true;
       return [item.name, item.spec, item.use, item.note, item.color].join(' ').toLowerCase().includes(q);
     });
   }
 
+  function chipCount(id) {
+    const q = searchTerm.trim().toLowerCase();
+    return sizes.filter((item) => {
+      if (id !== 'all' && item.family !== id) return false;
+      if (!q) return true;
+      return [item.name, item.spec, item.use, item.note, item.color].join(' ').toLowerCase().includes(q);
+    }).length;
+  }
+
   function renderChips() {
     const host = document.getElementById('sz-chips');
-    if (!host) return;
-    host.innerHTML = '';
-    CHIPS.forEach((chip) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'sz-chip' + (chip.id === activeChip ? ' is-active' : '');
-      btn.textContent = chip.label;
-      btn.setAttribute('aria-pressed', chip.id === activeChip ? 'true' : 'false');
-      btn.onclick = () => {
-        activeChip = chip.id;
+    if (!host || !window.NPRef) return;
+    const opts = [{ id: 'all', label: 'All trays' }].concat(CHIPS);
+    window.NPRef.buildSelect(host, {
+      id: 'sz-filter',
+      label: 'Tray',
+      value: activeChip,
+      options: opts.map((c) => ({ id: c.id, label: c.label, count: chipCount(c.id) })),
+      onChange: (value) => {
+        activeChip = value;
         renderSizeList();
-      };
-      host.appendChild(btn);
+      }
     });
   }
 
-  function block(kind, title, body) {
+  function block(kind, title, body, ic) {
     if (!body) return '';
-    return `<section class="sz-block sz-block-${kind}"><h4>${escapeHtml(title)}</h4><p>${escapeHtml(body)}</p></section>`;
+    return `<section class="rf-card rf-card--${kind}">
+      <div class="rf-card-head"><span class="rf-card-ic">${window.NPRef.icon(ic || 'eye')}</span><span class="rf-card-label">${escapeHtml(title)}</span></div>
+      <div class="rf-card-body">${escapeHtml(body)}</div>
+    </section>`;
   }
 
   function showSizeDetail(item, opts) {
@@ -91,15 +102,31 @@
     if (!detailEl || !item) return;
     const track = typeof window.trackUsageSafe === 'function' ? window.trackUsageSafe : null;
     if (track) track('size_ref', 'feature_open', { item_id: item.id }, { minIntervalMs: 1000, rateKey: `sz_open_${item.id}` });
-    const swatch = item.swatch ? `<span class="sz-swatch" style="background:${item.swatch}"></span>` : '';
+    const fam = CHIPS.find((c) => c.id === item.family);
+    const R = window.NPRef;
+    const badge = item.swatch
+      ? `<span class="rf-badge rf-badge--lg rf-badge--swatch" style="--sw:${item.swatch}">${R.icon(FAMILY_ICON[item.family])}</span>`
+      : `<span class="rf-badge rf-badge--lg rf-badge--icon">${R.icon(FAMILY_ICON[item.family])}</span>`;
+    const hubPill = item.color
+      ? `<span class="rf-pill rf-pill--hub"><i style="background:${item.swatch}"></i>Hub: ${escapeHtml(item.color)}</span>`
+      : '';
     detailEl.innerHTML = `
-      <p class="sz-kicker">${escapeHtml(CHIPS.find((c) => c.id === item.family).label)}</p>
-      <h3 class="sz-title">${swatch}${escapeHtml(item.name)}</h3>
-      ${block('ok', 'Size', item.spec)}
-      ${block('use', 'Typical use', item.use)}
-      ${item.angle ? block('how', 'Angle', item.angle) : ''}
-      ${block('watch', 'Watch', item.note)}
-      <p class="sz-note">Teaching sizes. The package, the order, and your CI win.</p>`;
+      <div class="rf-detail-head">
+        ${badge}
+        <div class="rf-detail-head-text">
+          <div class="rf-kicker">${escapeHtml(fam ? fam.label : '')}</div>
+          <h3 class="rf-title">${escapeHtml(item.name)}</h3>
+        </div>
+      </div>
+      ${hubPill ? `<div class="rf-meta">${hubPill}</div>` : ''}
+      <section class="rf-hero">
+        <div class="rf-hero-label">Size</div>
+        <div class="rf-hero-value">${escapeHtml(item.spec)}</div>
+      </section>
+      ${block('use', 'Typical use', item.use, 'check')}
+      ${item.angle ? block('how', 'Insertion angle', item.angle, 'target') : ''}
+      ${block('watch', 'Watch', item.note, 'warn')}
+      <div class="rf-foot">Teaching sizes. The package, the order, and your CI win.</div>`;
     window.__nursepathSelectedSize = item;
     document.querySelectorAll('.sz-row').forEach((el) => {
       el.classList.toggle('is-active', el.dataset.szId === item.id);
@@ -129,7 +156,7 @@
     if (detail) detail.classList.add('hidden');
     const savedScroll = window.__npListScroll;
     window.__npListScroll = null;
-    if (detailEl) detailEl.innerHTML = '<p class="sz-placeholder">Tap a size for the usual job, the angle, and what to read on the package.</p>';
+    if (detailEl) detailEl.innerHTML = window.NPRef.placeholder('needle', 'Tap a size for the usual job, the angle, and what to read on the package.');
     window.__nursepathSelectedSize = null;
     document.querySelectorAll('.sz-row.is-active').forEach((el) => el.classList.remove('is-active'));
     if (!(opts && opts.skipHistory)) {
@@ -151,21 +178,37 @@
     const items = filtered();
     const fragment = document.createDocumentFragment();
     const selected = window.__nursepathSelectedSize && window.__nursepathSelectedSize.id;
+    const q = searchTerm.trim();
+    window.NPRef.setCount(document.getElementById('sz-count'), items.length, sizes.length, 'sizes', Boolean(q) || activeChip !== 'all');
     if (!items.length) {
       const empty = document.createElement('div');
-      empty.className = 'sz-empty';
-      empty.textContent = 'No matches in this tray. Try 22, insulin, or Foley.';
+      empty.className = 'rf-empty';
+      empty.textContent = 'No matches. Try 22, insulin, or Foley.';
       fragment.appendChild(empty);
     } else {
+      let lastFam = '';
       items.forEach((item) => {
+        if (activeChip === 'all' && item.family !== lastFam) {
+          lastFam = item.family;
+          const label = document.createElement('div');
+          label.className = 'rf-group';
+          const fam = CHIPS.find((c) => c.id === item.family);
+          label.textContent = fam ? fam.label : item.family;
+          fragment.appendChild(label);
+        }
         const row = document.createElement('button');
         row.type = 'button';
-        row.className = 'sz-row' + (selected === item.id ? ' is-active' : '');
+        row.className = 'rf-row' + (selected === item.id ? ' is-active' : '');
         row.dataset.szId = item.id;
-        const dot = item.swatch
-          ? `<span class="sz-dot" style="background:${item.swatch}"></span>`
-          : '<span class="sz-dot sz-dot-empty"></span>';
-        row.innerHTML = `${dot}<span class="sz-row-name">${escapeHtml(item.name)}</span><span class="sz-row-spec">${escapeHtml(item.spec)}</span>`;
+        const lead = item.swatch
+          ? `<span class="rf-badge rf-badge--swatch" style="--sw:${item.swatch}" title="Hub color: ${escapeHtml(item.color)}">${window.NPRef.icon(FAMILY_ICON[item.family])}</span>`
+          : `<span class="rf-badge rf-badge--icon">${window.NPRef.icon(FAMILY_ICON[item.family])}</span>`;
+        row.innerHTML = `${lead}
+          <span class="rf-row-body">
+            <span class="rf-row-title">${escapeHtml(item.name)}</span>
+            <span class="rf-row-sub">${escapeHtml(item.spec)}</span>
+          </span>
+          <span class="rf-row-go">${window.NPRef.icon('chevron')}</span>`;
         row.onclick = () => showSizeDetail(item);
         fragment.appendChild(row);
       });
@@ -178,6 +221,7 @@
   function initSizes() {
     renderSizeList();
     const input = document.getElementById('sz-search');
+    if (window.NPRef) window.NPRef.bindSearch(input);
     if (input && !input.dataset.npBound) {
       input.dataset.npBound = '1';
       input.addEventListener('input', (e) => {
@@ -192,10 +236,10 @@
   }
 
   function resetSizeView() {
-    activeChip = 'needles';
+    activeChip = 'all';
     searchTerm = '';
     const input = document.getElementById('sz-search');
-    if (input) input.value = '';
+    if (input) { input.value = ''; const c = input.closest('.rf-search'); if (c) c.querySelector('.rf-search-clear').hidden = true; }
     hideSizeDetail({ skipHistory: true });
     renderSizeList();
   }

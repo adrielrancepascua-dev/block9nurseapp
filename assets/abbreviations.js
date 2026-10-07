@@ -249,21 +249,27 @@
     return /[A-Z]/.test(ch) ? ch : '#';
   }
 
+  function chipCount(id) {
+    const q = searchTerm.trim().toLowerCase();
+    return abbreviations.filter((item) => {
+      if (id === 'danger' && !item.danger) return false;
+      if (id !== 'all' && id !== 'danger' && item.group !== id) return false;
+      return !q || blob(item).includes(q);
+    }).length;
+  }
+
   function renderChips() {
     const host = document.getElementById('ab-chips');
-    if (!host) return;
-    host.innerHTML = '';
-    CHIPS.forEach((chip) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'ab-chip' + (chip.id === activeChip ? ' is-active' : '');
-      btn.textContent = chip.label;
-      btn.setAttribute('aria-pressed', chip.id === activeChip ? 'true' : 'false');
-      btn.onclick = () => {
-        activeChip = chip.id;
+    if (!host || !window.NPRef) return;
+    window.NPRef.buildSelect(host, {
+      id: 'ab-filter',
+      label: 'Group',
+      value: activeChip,
+      options: CHIPS.map((c) => ({ id: c.id, label: c.id === 'all' ? 'All (A–Z)' : c.label, count: chipCount(c.id) })),
+      onChange: (value) => {
+        activeChip = value;
         renderAbbrevList();
-      };
-      host.appendChild(btn);
+      }
     });
   }
 
@@ -316,7 +322,7 @@
     if (detail) detail.classList.add('hidden');
     const savedScroll = window.__npListScroll;
     window.__npListScroll = null;
-    if (detailEl) detailEl.innerHTML = '<p class="ab-placeholder">Tap a short form for the meaning, where it shows up, and when to write the words instead.</p>';
+    if (detailEl) detailEl.innerHTML = window.NPRef.placeholder('abbr', 'Tap a short form for the meaning, where it shows up, and when to write the words instead.');
     window.__nursepathSelectedAbbrev = null;
     document.querySelectorAll('.ab-row.is-active').forEach((el) => el.classList.remove('is-active'));
     if (!(opts && opts.skipHistory)) {
@@ -338,9 +344,10 @@
     const items = filtered();
     const fragment = document.createDocumentFragment();
     const q = searchTerm.trim();
+    window.NPRef.setCount(document.getElementById('ab-count'), items.length, abbreviations.length, 'abbreviations', Boolean(q) || activeChip !== 'all');
     if (!items.length) {
       const empty = document.createElement('div');
-      empty.className = 'ab-empty';
+      empty.className = 'rf-empty';
       empty.textContent = 'No matches. Try PRN, NPO, or a meaning like “twice a day.”';
       fragment.appendChild(empty);
     } else {
@@ -350,14 +357,16 @@
         if (!q && activeChip === 'all' && letter !== last) {
           last = letter;
           const label = document.createElement('div');
-          label.className = 'ab-letter';
+          label.className = 'rf-group';
           label.textContent = letter;
           fragment.appendChild(label);
         }
         const row = document.createElement('div');
-        row.className = 'ab-row' + (item.danger ? ' is-danger' : '');
-        const note = item.caution ? `<span class="ab-row-note">${escapeHtml(item.caution)}</span>` : '';
-        row.innerHTML = `<span class="ab-row-short">${escapeHtml(item.abbrev)}</span><span class="ab-row-mean">${escapeHtml(item.meaning)}${note}</span>`;
+        row.className = 'rf-row rf-row--static' + (item.danger ? ' is-danger' : '');
+        row.dataset.abId = item.id;
+        const note = item.caution ? `<span class="rf-row-hint${item.danger ? ' is-danger' : ''}">${escapeHtml(item.caution)}</span>` : '';
+        row.innerHTML = `<span class="rf-badge${item.danger ? ' rf-badge--danger' : ''}">${escapeHtml(item.abbrev)}</span>
+          <span class="rf-row-body"><span class="rf-row-title">${escapeHtml(item.meaning)}</span>${item.where ? `<span class="rf-row-sub">${escapeHtml(item.where)}</span>` : ''}${note}</span>`;
         fragment.appendChild(row);
       });
     }
@@ -369,6 +378,7 @@
   function initAbbreviations() {
     renderAbbrevList();
     const input = document.getElementById('ab-search');
+    if (window.NPRef) window.NPRef.bindSearch(input);
     if (input && !input.dataset.npBound) {
       input.dataset.npBound = '1';
       input.addEventListener('input', (e) => {
@@ -386,7 +396,7 @@
     activeChip = 'all';
     searchTerm = '';
     const input = document.getElementById('ab-search');
-    if (input) input.value = '';
+    if (input) { input.value = ''; const c = input.closest('.rf-search'); if (c) c.querySelector('.rf-search-clear').hidden = true; }
     hideAbbrevDetail({ skipHistory: true });
     renderAbbrevList();
   }

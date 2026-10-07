@@ -1,4 +1,4 @@
-        // ============= VITAL SIGNS REFERENCE DATABASE =============
+// ============= VITAL SIGNS REFERENCE DATABASE =============
         const vitalSignsReference = {
             ageGroups: {
                 infant: { name: "Infant (0-1y)", range: [0, 1], pulse: { min: 100, max: 160 }, rr: { min: 30, max: 60 }, bpSys: { min: 70, max: 90 }, bpDia: { min: 45, max: 55 } },
@@ -2665,7 +2665,7 @@
         function highlight(text, term){
             if(!term) return text;
             const re = new RegExp(escapeRegex(term), 'ig');
-            return text.replace(re, m => `<strong style="font-weight: 800; color: #22d3ee;">${m}</strong>`);
+            return text.replace(re, m => `<mark class="rf-hit">${m}</mark>`);
         }
 
         // OPTIMIZATION: Live analysis with debounced tracking
@@ -2787,6 +2787,8 @@
             return { label: 'OTC', color: '#fbbf24' };
         }
 
+        window.otcShortClass = otcShortClass;
+
         function otcMatchesBrowseFilter(item) {
             if (otcBrowseFilter === 'all') return true;
             const filter = OTC_BROWSE_FILTERS.find((f) => f.id === otcBrowseFilter);
@@ -2795,24 +2797,27 @@
             return filter.tags.some((t) => tags.includes(t) || tags.some((x) => x.includes(t)));
         }
 
+        function otcFilterCount(filter) {
+            if (!filter.tags) return otcDatabase.length;
+            return otcDatabase.filter((item) => {
+                const tags = (item.tags || []).map((t) => String(t).toLowerCase());
+                return filter.tags.some((t) => tags.includes(t) || tags.some((x) => x.includes(t)));
+            }).length;
+        }
+
         function renderOtcChips() {
             const wrap = document.getElementById('otc-chips');
-            if (!wrap) return;
-            wrap.innerHTML = '';
-            OTC_BROWSE_FILTERS.forEach((filter) => {
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = 'otc-chip' + (otcBrowseFilter === filter.id ? ' is-active' : '');
-                btn.textContent = filter.label;
-                btn.setAttribute('role', 'tab');
-                btn.setAttribute('aria-selected', otcBrowseFilter === filter.id ? 'true' : 'false');
-                btn.onclick = () => {
-                    otcBrowseFilter = filter.id;
+            if (!wrap || !window.NPRef) return;
+            window.NPRef.buildSelect(wrap, {
+                id: 'otc-filter',
+                label: 'Category',
+                value: otcBrowseFilter,
+                options: OTC_BROWSE_FILTERS.map((f) => ({ id: f.id, label: f.id === 'all' ? 'All categories' : f.label, count: otcFilterCount(f) })),
+                onChange: (value) => {
+                    otcBrowseFilter = value;
                     otcVisibleCount = OTC_INCREMENT;
-                    renderOtcChips();
                     renderOTCList(otcSearch ? otcSearch.value : '');
-                };
-                wrap.appendChild(btn);
+                }
             });
         }
 
@@ -2914,6 +2919,9 @@
                 usedFuzzy = matches.length > 0;
             }
 
+            const otcCountEl = document.getElementById('otc-count');
+            if (window.NPRef) window.NPRef.setCount(otcCountEl, matches.length, otcDatabase.length, 'medicines', q.length > 0 || otcBrowseFilter !== 'all');
+
             if(matches.length === 0){
                 const noMatch = document.createElement('div');
                 noMatch.className = 'otc-empty';
@@ -2954,19 +2962,18 @@
                 card.style.setProperty('--accent', klass.color);
                 card.innerHTML = `
                     <button type="button" class="otc-med-main" aria-expanded="false">
-                        <span class="otc-class-swatch" aria-hidden="true"></span>
                         <span class="otc-med-meta">
-                            <span class="tool-hub-label">${title}</span>
-                            <span class="tool-hub-desc">${trade}</span>
+                            <span class="rf-card-title">${title}</span>
+                            <span class="rf-card-sub">${trade}</span>
                             <span class="otc-med-tag">${klass.label}</span>
                             <span class="otc-med-uses">${usesPreview}</span>
                         </span>
                         <span class="otc-expand-chevron" aria-hidden="true"></span>
                     </button>
                     <div class="otc-med-panel" hidden>
-                        <div class="otc-med-fact"><span>Dose</span><p>${dose || 'See full details.'}</p></div>
-                        <div class="otc-med-fact"><span>Caution</span><p>${caution || 'See full details.'}</p></div>
-                        <div class="otc-med-fact"><span>Use</span><p>${item.uses || '—'}</p></div>
+                        <div class="otc-med-fact"><span>Dose</span><div>${dose || 'See full details.'}</div></div>
+                        <div class="otc-med-fact"><span>Caution</span><div>${caution || 'See full details.'}</div></div>
+                        <div class="otc-med-fact"><span>Use</span><div>${item.uses || '—'}</div></div>
                         <button type="button" class="otc-full-detail">Full details</button>
                     </div>`;
                 const mainBtn = card.querySelector('.otc-med-main');
@@ -3075,6 +3082,8 @@
             }
         }
 
+        if (window.NPRef) window.NPRef.bindSearch(otcSearch);
+
         // OPTIMIZATION: Add 300ms debounce to search input for better performance
         otcSearch.addEventListener('input', (e) => {
             if (otcSearchDebounceTimer) {
@@ -3113,4 +3122,3 @@
         if (window.__nursepathAuthState && window.__nursepathAuthState.pendingBoot) {
             window.__nursepathBootApp();
         }
-    
