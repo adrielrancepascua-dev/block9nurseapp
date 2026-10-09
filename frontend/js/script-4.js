@@ -826,6 +826,8 @@
             const studyBtn = document.getElementById('hubStudyBtn');
             if (dutyBtn) dutyBtn.classList.toggle('is-active', next === 'duty');
             if (studyBtn) studyBtn.classList.toggle('is-active', next === 'study');
+            if (dutyBtn) dutyBtn.setAttribute('aria-pressed', String(next === 'duty'));
+            if (studyBtn) studyBtn.setAttribute('aria-pressed', String(next === 'study'));
             const title = document.getElementById('toolsHubTitle');
             const blurb = document.getElementById('toolsHubBlurb');
             if (title) title.textContent = next === 'study' ? 'Study Classroom' : 'Clinical Tools';
@@ -3069,10 +3071,10 @@
                 onlineEl.textContent = navigator.onLine ? 'Online' : 'Offline — cached copy in use';
             }
             if (packEl) {
-                packEl.textContent = 'Reference pack nursepath-v2.4.18';
+                packEl.textContent = 'Reference pack nursepath-v2.4.19';
             }
             const otcStamp = document.getElementById('otcPackStamp');
-            if (otcStamp) otcStamp.textContent = 'Reference pack nursepath-v2.4.18';
+            if (otcStamp) otcStamp.textContent = 'Reference pack nursepath-v2.4.19';
         }
         window.updateNpStatusMeta = updateNpStatusMeta;
 

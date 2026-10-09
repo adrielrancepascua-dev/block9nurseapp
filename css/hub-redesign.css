@@ -1,0 +1,323 @@
+/* ==========================================================================
+   NursePath: Study Classroom / Clinical Tools hub redesign
+   Loaded AFTER styles.css. Scoped to the page header and #tools-hub so the
+   OTC / Labs / Abbr / Sizes tabs (which reuse .tool-hub-card) are untouched.
+   Light theme = spec palette. Dark theme = same system, inverted.
+   ========================================================================== */
+
+:root {
+  --hub-teal-600: #0d9488;   /* accent: icons, borders, focus */
+  --hub-teal-700: #0f766e;   /* fills that carry white text (5.5:1) */
+  --hub-teal-50:  #f0fdfa;
+  --hub-teal-100: #ccfbf1;
+
+  --hub-bg-from: #f8fafc;
+  --hub-bg-to:   #f1f5f9;
+  --hub-surface: #ffffff;
+  --hub-border:  #e2e8f0;
+  --hub-text:    #0f172a;    /* slate-900  15.9:1 on white */
+  --hub-text-2:  #475569;    /* slate-600   7.6:1 on white */
+  --hub-tag-bg:  #f1f5f9;
+  --hub-tag-fg:  #334155;    /* slate-700  10.4:1 on slate-100 */
+  --hub-icon-bg: #f0fdfa;
+  --hub-icon-bd: #ccfbf1;
+  --hub-icon-fg: #0f766e;
+  --hub-shadow:  0 1px 2px rgba(15, 23, 42, .05);
+  --hub-shadow-hover: 0 8px 24px -8px rgba(15, 118, 110, .25);
+  --hub-toggle-bg: #e2e8f0;
+  --hub-toggle-fg: #334155;
+  --hub-focus: #0d9488;
+}
+
+/* Dark theme tokens (app default when data-theme is not "light") */
+html:not([data-theme="light"]) {
+  --hub-surface: #0f172a;
+  --hub-border:  #1e293b;
+  --hub-text:    #f8fafc;
+  --hub-text-2:  #cbd5e1;
+  --hub-tag-bg:  #1e293b;
+  --hub-tag-fg:  #e2e8f0;
+  --hub-icon-bg: rgba(45, 212, 191, .12);
+  --hub-icon-bd: rgba(45, 212, 191, .28);
+  --hub-icon-fg: #5eead4;
+  --hub-shadow:  none;
+  --hub-shadow-hover: 0 8px 24px -10px rgba(0, 0, 0, .6);
+  --hub-toggle-bg: #1e293b;
+  --hub-toggle-fg: #cbd5e1;
+  --hub-focus: #5eead4;
+}
+
+/* ---------- Page background (light only; dark keeps existing look) ------- */
+html[data-theme="light"],
+html[data-theme="light"] body,
+html[data-theme="light"] .np-app-layout {
+  background: linear-gradient(180deg, var(--hub-bg-from) 0%, var(--hub-bg-to) 100%) fixed !important;
+}
+
+/* ---------- Top bar: brand + settings ----------------------------------- */
+.np-page-header {
+  padding: 4px 0 16px;
+  margin: 0 0 20px;
+  border-bottom: 1px solid var(--hub-border);
+}
+.np-header-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.np-header-lockup .np-header-mark {
+  width: 36px;
+  height: 36px;
+  flex: none;
+  display: block;
+}
+.np-header-lockup .np-header-word {
+  margin: 0;
+  font-size: 1.375rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  color: var(--hub-text) !important;
+}
+.np-header-lockup .np-header-word span { color: var(--hub-icon-fg); }
+
+html .np-settings-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px !important;
+  padding: 8px 14px !important;
+  border-radius: 12px;
+  border: 1px solid var(--hub-border) !important;
+  background: var(--hub-surface) !important;
+  color: var(--hub-text) !important;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--hub-shadow);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+html .np-settings-open:hover { border-color: var(--hub-teal-600) !important; }
+html .np-settings-open svg { width: 18px; height: 18px; color: var(--hub-icon-fg); }
+/* The sidebar already carries Settings on desktop, so the header copy only
+   shows when the sidebar is hidden (mobile). */
+@media (min-width: 768px) { html .np-settings-open { display: none; } }
+
+/* ---------- Hub heading + Duty/Study toggle ------------------------------ */
+#tools-hub .tools-hub-mode-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+#tools-hub .tools-hub-hero { margin: 0; min-width: 0; }
+#tools-hub .tools-hub-hero h2 {
+  margin: 0 0 6px;
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 1.875rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--hub-text) !important;
+}
+#tools-hub .tools-hub-hero p {
+  margin: 0;
+  max-width: 40rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 500;
+  color: var(--hub-text-2) !important;
+  background: none !important;
+}
+
+#tools-hub .np-mode-toggle {
+  display: inline-flex;
+  padding: 4px;
+  gap: 4px;
+  border-radius: 12px;
+  border: 1px solid var(--hub-border) !important;
+  background: var(--hub-toggle-bg) !important;
+  margin-left: auto;
+}
+#tools-hub .np-mode-toggle button {
+  min-width: 84px;
+  min-height: 40px;
+  padding: 8px 18px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--hub-toggle-fg) !important;
+  background: transparent !important;
+  transition: background-color .15s ease, color .15s ease;
+}
+#tools-hub .np-mode-toggle button:hover:not(.is-active) {
+  background: rgba(15, 118, 110, .10) !important;
+}
+/* One accent for both modes (the old build used navy vs. sky blue) */
+#tools-hub .np-mode-toggle button.is-active,
+#tools-hub .np-mode-toggle button[data-mode="study"].is-active {
+  background: var(--hub-teal-700) !important;
+  color: #ffffff !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, .2);
+}
+#tools-hub .np-mode-toggle button:focus-visible {
+  outline: 2px solid var(--hub-focus);
+  outline-offset: 2px;
+}
+
+/* ---------- Card grid ---------------------------------------------------- */
+#tools-hub .tools-hub-grid {
+  display: grid;
+  grid-template-columns: 1fr;          /* mobile: 1 column */
+  gap: 16px;
+}
+@media (min-width: 640px) {
+  #tools-hub .tools-hub-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+}
+/* Optional: 9 cards divide evenly into 3 columns on very wide screens.
+@media (min-width: 1280px) { #tools-hub .tools-hub-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } } */
+
+/* ---------- Card --------------------------------------------------------- */
+#tools-hub .tool-hub-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+  min-height: 0;
+  padding: 20px;
+  border-radius: 16px;                 /* rounded-2xl */
+  border: 1px solid var(--hub-border) !important;
+  background: var(--hub-surface) !important;
+  box-shadow: var(--hub-shadow);
+  text-align: left;
+  overflow: visible;
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+@media (min-width: 768px) { #tools-hub .tool-hub-card { padding: 24px; } }
+
+#tools-hub .tool-hub-card:hover {
+  border-color: var(--hub-teal-600) !important;
+  box-shadow: var(--hub-shadow-hover);
+  transform: translateY(-2px);
+}
+#tools-hub .tool-hub-card:focus-visible {
+  outline: 3px solid var(--hub-focus);
+  outline-offset: 2px;
+}
+#tools-hub .tool-hub-card:active { transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  #tools-hub .tool-hub-card,
+  #tools-hub .np-mode-toggle button { transition: none; }
+  #tools-hub .tool-hub-card:hover { transform: none; }
+}
+
+/* Top row: icon left, category tag right */
+#tools-hub .tool-hub-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+#tools-hub .tool-hub-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  background: var(--hub-icon-bg);
+  border: 1px solid var(--hub-icon-bd);
+  color: var(--hub-icon-fg);
+}
+#tools-hub .tool-hub-icon svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* One neutral tag style for every category */
+#tools-hub .tool-hub-tag {
+  margin: 0;
+  align-self: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 0;
+  background: var(--hub-tag-bg);
+  color: var(--hub-tag-fg);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  text-transform: none;
+  line-height: 1.4;
+}
+
+/* Title + description sit directly on the card surface (no grey block) */
+#tools-hub .tool-hub-label {
+  display: block;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--hub-text) !important;
+}
+#tools-hub .tool-hub-desc {
+  display: block;
+  margin: -6px 0 0;
+  padding: 0;
+  background: none !important;
+  border: 0;
+  border-radius: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--hub-text-2) !important;
+}
+
+/* ---------- Mobile (<768px): 1-column cards, full-width toggle ----------
+   styles.css forces 2 columns and inline toggles here with !important, so the
+   overrides below match that weight and use the #tools-hub id for specificity. */
+@media (max-width: 767px) {
+  #tools-hub .tools-hub-mode-row {
+    position: static !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 14px !important;
+    margin-bottom: 18px;
+    padding: 0 !important;
+    background: none !important;
+  }
+  #tools-hub .tools-hub-hero { width: 100%; }
+  #tools-hub .np-mode-toggle {
+    display: flex !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+  #tools-hub .np-mode-toggle button { flex: 1 1 0; min-height: 44px; }
+  #tools-hub .tools-hub-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+  #tools-hub .tool-hub-card { width: 100% !important; min-height: 0 !important; padding: 20px !important; }
+  #tools-hub .tool-hub-desc { font-size: 15px !important; }
+}
+@media (min-width: 640px) and (max-width: 767px) {
+  #tools-hub .tools-hub-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+
+/* ---------- Sidebar: one accent instead of five icon colours ------------- */
+.np-sidebar-brand { letter-spacing: .08em; }
+.np-sidebar-link svg { color: var(--hub-icon-fg) !important; }
+.np-sidebar-link svg text { fill: #ffffff !important; }
+.np-sidebar-link.active {
+  background: var(--hub-icon-bg) !important;
+  border-color: var(--hub-teal-600) !important;
+  color: var(--hub-icon-fg) !important;
+}

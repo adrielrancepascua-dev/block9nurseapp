@@ -1,5 +1,112 @@
 // Shared non-clinical UI helpers for NursePath.
 
+// ---------------------------------------------------------------------------
+// NPRef: small shared toolkit for the reference pages (OTC, Labs, Abbr, Sizes).
+// Search box with clear button, <select> filter, result count, inline icons.
+// ---------------------------------------------------------------------------
+(function () {
+  function esc(str) {
+    return String(str == null ? '' : str)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  const ICONS = {
+    search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
+    clear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+    chevron: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>',
+    up: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>',
+    down: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>',
+    check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+    warn: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></svg>',
+    eye: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+    flask: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6L4.5 19a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 9V3"/><path d="M7.5 15h9"/></svg>',
+    target: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>',
+    copy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>',
+    pill: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 20.5a4.95 4.95 0 0 1-7-7l10-10a4.95 4.95 0 0 1 7 7z"/><path d="M8.5 8.5l7 7"/></svg>',
+    stethoscope: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3v6a4 4 0 0 0 8 0V3"/><path d="M9 13v2a5 5 0 0 0 10 0v-1"/><circle cx="19" cy="12" r="2"/></svg>',
+    needle: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l7-7"/><path d="M10.5 10.5l5-5 3 3-5 5z"/><path d="M15 6l3 3M18 3l3 3"/></svg>',
+    syringe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2l4 4M20 4l-3 3M15 5l4 4-8.5 8.5-4-4z"/><path d="M6.5 13.5L3 17M9 11l2 2M12 8l2 2"/><path d="M3 21l3-3"/></svg>',
+    iv: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3V2h4v1"/><rect x="6" y="3" width="12" height="12" rx="3.5"/><path d="M12 15v4M12 19l-3 3"/></svg>',
+    tube: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6c6 0 4 12 10 12h6"/><path d="M4 6h0"/><circle cx="4" cy="6" r="1.5"/><path d="M20 15v6"/></svg>',
+    abbr: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></svg>'
+  };
+
+  function icon(name) { return ICONS[name] || ''; }
+
+  // Toolbar markup shared by every reference page.
+  function toolbarHTML(opts) {
+    return `
+      <div class="rf-toolbar">
+        <div class="rf-search">
+          <span class="rf-search-icon">${ICONS.search}</span>
+          <input id="${opts.inputId}" type="search" class="rf-search-input" placeholder="${esc(opts.placeholder)}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="${esc(opts.label)}" />
+          <button type="button" class="rf-search-clear" hidden aria-label="Clear search">${ICONS.clear}</button>
+        </div>
+        <div id="${opts.filterHostId}" class="rf-filter"></div>
+      </div>
+      <div class="rf-count" id="${opts.countId}" aria-live="polite"></div>`;
+  }
+
+  // Wire the clear (x) button for a search input. Safe to call repeatedly.
+  function bindSearch(input) {
+    if (!input || input.dataset.rfBound) return;
+    input.dataset.rfBound = '1';
+    const wrap = input.closest('.rf-search');
+    const clear = wrap && wrap.querySelector('.rf-search-clear');
+    if (!clear) return;
+    const sync = () => { clear.hidden = !input.value; };
+    input.addEventListener('input', sync);
+    clear.addEventListener('click', () => {
+      input.value = '';
+      sync();
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.focus();
+    });
+    sync();
+  }
+
+  // Render (or refresh) a <select> filter inside host.
+  // cfg: { id, label, options: [{ id, label, count? }], value, onChange(value) }
+  function buildSelect(host, cfg) {
+    if (!host) return;
+    let sel = host.querySelector('select');
+    if (!sel) {
+      host.innerHTML = `
+        <label class="rf-filter-label" for="${cfg.id}">${esc(cfg.label)}</label>
+        <div class="rf-select-wrap">
+          <select id="${cfg.id}" class="rf-select"></select>
+          <span class="rf-select-chevron" aria-hidden="true">${ICONS.chevron}</span>
+        </div>`;
+      sel = host.querySelector('select');
+      sel.addEventListener('change', () => {
+        if (host.__rfOnChange) host.__rfOnChange(sel.value);
+      });
+    }
+    host.__rfOnChange = cfg.onChange;
+    sel.innerHTML = cfg.options.map((o) => {
+      const label = o.count == null ? o.label : `${o.label} (${o.count})`;
+      return `<option value="${esc(o.id)}"${o.id === cfg.value ? ' selected' : ''}>${esc(label)}</option>`;
+    }).join('');
+    sel.value = cfg.value;
+    host.classList.toggle('is-filtered', cfg.value !== cfg.options[0].id);
+  }
+
+  function setCount(el, shown, total, noun, filtered) {
+    if (!el) return;
+    if (!total) { el.textContent = ''; return; }
+    el.textContent = filtered
+      ? `Showing ${shown} of ${total} ${noun}`
+      : `${total} ${noun}`;
+  }
+
+  function placeholder(iconName, text) {
+    return `<div class="rf-placeholder"><span class="rf-placeholder-ic">${ICONS[iconName] || ''}</span><span>${esc(text)}</span></div>`;
+  }
+
+  window.NPRef = { esc, icon, toolbarHTML, bindSearch, buildSelect, setCount, placeholder };
+})();
+
 (function () {
   function getTrackUsageSafe() {
     return typeof window.trackUsageSafe === 'function' ? window.trackUsageSafe : null;
@@ -12,7 +119,7 @@
   function otcFact(label, value, tone) {
     if (!value) return '';
     const toneClass = tone ? ` is-${tone}` : '';
-    return `<div class="otc-fact"><span class="otc-fact-k${toneClass}">${label}</span><span class="otc-fact-v">${value}</span></div>`;
+    return `<div class="rf-fact${toneClass}"><span class="rf-fact-k">${label}</span><span class="rf-fact-v">${value}</span></div>`;
   }
 
   function showOTCDetail(item, opts) {
@@ -26,18 +133,19 @@
       : 'Check duplicates, allergies, pregnancy, and organ impairment before you cite this as reference.';
     const nursingShort = String(nursingCheck).trim().slice(0, 180) + (String(nursingCheck).length > 180 ? '…' : '');
 
+    const R = window.NPRef;
     const dutyStrip = `
-      <div class="otc-duty-strip">
-        <div class="otc-duty-title">Duty quick take</div>
-        <p><strong>Use:</strong> ${item.uses}</p>
-        <p><strong>Caution:</strong> ${item.contraindications}</p>
-        <p><strong>Nursing check:</strong> ${nursingShort}</p>
-        <p style="color:#94a3b8;font-size:11px;">Learning reference. Apply your own judgment and confirm with your CI or ward protocol.</p>
+      <div class="rf-quick">
+        <div class="rf-quick-title">Duty quick take</div>
+        <div class="rf-quick-row"><span class="rf-quick-ic is-use">${R.icon('check')}</span><div><b>Use</b><span>${item.uses}</span></div></div>
+        <div class="rf-quick-row"><span class="rf-quick-ic is-warn">${R.icon('warn')}</span><div><b>Caution</b><span>${item.contraindications}</span></div></div>
+        <div class="rf-quick-row"><span class="rf-quick-ic is-nurse">${R.icon('stethoscope')}</span><div><b>Nursing check</b><span>${nursingShort}</span></div></div>
+        <div class="rf-quick-foot">Learning reference. Apply your own judgment and confirm with your CI or ward protocol.</div>
       </div>
     `;
 
     const tldrContent = `
-      <div class="otc-fact-list">
+      <div class="rf-facts">
         ${otcFact('Uses', item.uses)}
         ${otcFact('Origin', item.origin)}
         ${otcFact('When to give', item.whenToGive)}
@@ -50,7 +158,7 @@
     if (hasAdditionalInfo) {
       const info = item.additionalInfo;
       additionalContent = `
-        <div class="otc-fact-list">
+        <div class="rf-facts">
           ${info.genericNames ? otcFact('Generics', info.genericNames.join(', ')) : ''}
           ${info.drugClass ? otcFact('Drug class', info.drugClass, 'amber') : ''}
           ${otcFact('Uses', info.usesExpanded || item.uses)}
@@ -73,15 +181,23 @@
       return;
     }
 
+    const brands = (item.ph_brands || []).map((b) => `<span class="rf-pill">${b}</span>`).join('');
+    const klass = (typeof window.otcShortClass === 'function') ? window.otcShortClass(item) : null;
     const html = `
-      <h3 class="otc-detail-title">${item.name}</h3>
-      <p class="otc-detail-brands"><strong>PH brands</strong>${item.ph_brands.join(', ')}</p>
+      <div class="rf-detail-head">
+        <span class="rf-badge rf-badge--lg rf-badge--icon">${R.icon('pill')}</span>
+        <div class="rf-detail-head-text">
+          <div class="rf-kicker">${klass ? klass.label : 'OTC medicine'}</div>
+          <h3 class="rf-title">${item.name}</h3>
+        </div>
+      </div>
+      ${brands ? `<div class="rf-meta"><span class="rf-meta-label">PH brands</span>${brands}</div>` : ''}
       ${dutyStrip}
-      <button type="button" onclick="copyOTCReference()" class="otc-copy-btn">Copy quick reference</button>
+      <button type="button" onclick="copyOTCReference()" class="rf-btn">${R.icon('copy')}<span>Copy quick reference</span></button>
       ${hasAdditionalInfo ? `
-        <div class="otc-detail-tabs" role="tablist">
-          <button type="button" id="tldr-tab" onclick="switchOTCTab('tldr')" class="study-tab-btn is-active">TLDR</button>
-          <button type="button" id="additional-tab" onclick="switchOTCTab('additional')" class="study-tab-btn">Study deeper</button>
+        <div class="rf-tabs" role="tablist">
+          <button type="button" id="tldr-tab" onclick="switchOTCTab('tldr')" class="rf-tab is-active">TLDR</button>
+          <button type="button" id="additional-tab" onclick="switchOTCTab('additional')" class="rf-tab">Study deeper</button>
         </div>
         <div id="tldr-content">${tldrContent}</div>
         <div id="additional-content" style="display: none;">${additionalContent}</div>
@@ -106,6 +222,8 @@
       window.__npListScroll = window.scrollY;
       if (listContainer) listContainer.classList.add('hidden');
       if (detailContainer) detailContainer.classList.remove('hidden');
+      const otcHub = document.querySelector('.otc-hub');
+      if (otcHub) otcHub.classList.add('is-detail');
       window.scrollTo({ top: 0, behavior: 'auto' });
     }
   }
@@ -115,6 +233,8 @@
     const detailContainer = document.getElementById('otc-detail-container');
     if (listContainer) listContainer.classList.remove('hidden');
     if (detailContainer) detailContainer.classList.add('hidden');
+    const otcHubEl = document.querySelector('.otc-hub');
+    if (otcHubEl) otcHubEl.classList.remove('is-detail');
     const savedScroll = window.__npListScroll;
     window.__npListScroll = null;
 

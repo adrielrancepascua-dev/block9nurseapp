@@ -18,6 +18,8 @@
     
     <!-- CRITICAL: Force dark mode immediately to prevent white flash -->
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/hub-redesign.css">
+    <link rel="stylesheet" href="/css/reference-redesign.css">
     
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
@@ -166,8 +168,8 @@
     <div class="np-content max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
         <header class="np-page-header">
             <div id="nursepathHeaderLogo" class="np-header-lockup" title="NursePath">
-                <img class="np-header-mark" src="/assets/icons/icon-192.png" alt="" width="36" height="36">
-                <h1 class="np-header-word">NursePath</h1>
+                <img class="np-header-mark" src="/assets/brand/logo-icon.png" alt="NursePath logo" width="36" height="36">
+                <h1 class="np-header-word">Nurse<span>Path</span></h1>
             </div>
             <button type="button" class="np-settings-open" id="npSettingsOpen" aria-haspopup="dialog" aria-controls="npSettingsSheet" aria-label="Open settings">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
@@ -207,50 +209,77 @@
                 </div>
             </div>
             <div class="tools-hub-grid">
-                <button type="button" class="tool-hub-card" style="--accent:#f87171;" onclick="openHubTool('vitals')">
-                    <span class="tool-hub-icon">VS</span>
-                    <span><span class="tool-hub-label">Vital Signs</span><span class="tool-hub-desc" data-duty-desc="Age-aware interpretation of a full vitals set" data-study-desc="Lesson and quiz on patterns, context, and reporting">Age-aware interpretation of a full vitals set</span></span>
-                    <span class="tool-hub-tag">Assessment</span>
+                <button type="button" class="tool-hub-card" onclick="openHubTool('vitals')">
+                    <span class="tool-hub-top">
+                        <span class="tool-hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M20.8 5.6a5.2 5.2 0 0 0-7.4 0L12 7l-1.4-1.4a5.2 5.2 0 0 0-7.4 7.4L12 21.8l8.8-8.8a5.2 5.2 0 0 0 0-7.4z"/><path d="M3.5 12.5h4l1.8-3 3 6 2-3h6.2"/></svg></span>
+                        <span class="tool-hub-tag">Assessment</span>
+                    </span>
+                    <span class="tool-hub-label">Vital Signs</span>
+                    <span class="tool-hub-desc" data-duty-desc="Age-aware interpretation of a full vitals set" data-study-desc="Lesson and quiz on patterns, context, and reporting">Age-aware interpretation of a full vitals set</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#60a5fa;" onclick="openHubTool('iv')">
-                    <span class="tool-hub-icon">IV</span>
-                    <span><span class="tool-hub-label">IV Flow Rate</span><span class="tool-hub-desc" data-duty-desc="mL/hr and gtt/min drip calculations" data-study-desc="Lesson + quiz on formulas, drop factors, rounding">mL/hr and gtt/min drip calculations</span></span>
-                    <span class="tool-hub-tag">Math</span>
+                <button type="button" class="tool-hub-card" onclick="openHubTool('iv')">
+                    <span class="tool-hub-top">
+                        <span class="tool-hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M10 3V2h4v1"/><rect x="6" y="3" width="12" height="12" rx="3.5"/><path d="M9.5 8h5M9.5 11h3"/><path d="M12 15v4"/><path d="M12 22v.01"/></svg></span>
+                        <span class="tool-hub-tag">Math</span>
+                    </span>
+                    <span class="tool-hub-label">IV Flow Rate</span>
+                    <span class="tool-hub-desc" data-duty-desc="mL/hr and gtt/min drip calculations" data-study-desc="Lesson + quiz on formulas, drop factors, rounding">mL/hr and gtt/min drip calculations</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#34d399;" onclick="openHubTool('bmi')">
-                    <span class="tool-hub-icon">BMI</span>
-                    <span><span class="tool-hub-label">BMI & Body Metrics</span><span class="tool-hub-desc" data-duty-desc="WHO BMI category from weight and height" data-study-desc="Lesson + quiz on formula, categories, limits">WHO BMI category from weight and height</span></span>
-                    <span class="tool-hub-tag">Metrics</span>
+                <button type="button" class="tool-hub-card" onclick="openHubTool('bmi')">
+                    <span class="tool-hub-top">
+                        <span class="tool-hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M7.5 10a4.5 4.5 0 0 1 9 0"/><path d="M12 10l2-2.5"/></svg></span>
+                        <span class="tool-hub-tag">Metrics</span>
+                    </span>
+                    <span class="tool-hub-label">BMI & Body Metrics</span>
+                    <span class="tool-hub-desc" data-duty-desc="WHO BMI category from weight and height" data-study-desc="Lesson + quiz on formula, categories, limits">WHO BMI category from weight and height</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#f472b6;" onclick="openHubTool('aog')">
-                    <span class="tool-hub-icon">OB</span>
-                    <span><span class="tool-hub-label">AOG & EDD</span><span class="tool-hub-desc" data-duty-desc="Naegele's rule gestation dating" data-study-desc="Lesson + quiz on Naegele, trimesters, dating source">Naegele's rule gestation dating</span></span>
-                    <span class="tool-hub-tag">OB</span>
+                <button type="button" class="tool-hub-card" onclick="openHubTool('aog')">
+                    <span class="tool-hub-top">
+                        <span class="tool-hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/><path d="M12 18l-2.4-2.3a1.5 1.5 0 0 1 2.4-1.9 1.5 1.5 0 0 1 2.4 1.9z"/></svg></span>
+                        <span class="tool-hub-tag">OB</span>
+                    </span>
+                    <span class="tool-hub-label">AOG & EDD</span>
+                    <span class="tool-hub-desc" data-duty-desc="Naegele's rule gestation dating" data-study-desc="Lesson + quiz on Naegele, trimesters, dating source">Naegele's rule gestation dating</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#c4b5fd;" onclick="openHubTool('peds')">
-                    <span class="tool-hub-icon">PED</span>
-                    <span><span class="tool-hub-label">Pediatric Dosing</span><span class="tool-hub-desc" data-duty-desc="mg/kg plus Clark's & Young's Rules" data-study-desc="Lesson + quiz on mg/kg, Clark, and Young">mg/kg plus Clark's & Young's Rules</span></span>
-                    <span class="tool-hub-tag">Peds</span>
+                <button type="button" class="tool-hub-card" onclick="openHubTool('peds')">
+                    <span class="tool-hub-top">
+                        <span class="tool-hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M10.5 20.5a4.95 4.95 0 0 1-7-7l10-10a4.95 4.95 0 0 1 7 7z"/><path d="M8.5 8.5l7 7"/></svg></span>
+                        <span class="tool-hub-tag">Peds</span>
+                    </span>
+                    <span class="tool-hub-label">Pediatric Dosing</span>
+                    <span class="tool-hub-desc" data-duty-desc="mg/kg plus Clark's & Young's Rules" data-study-desc="Lesson + quiz on mg/kg, Clark, and Young">mg/kg plus Clark's & Young's Rules</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#fb7185;" onclick="openHubTool('apgar')">
-                    <span class="tool-hub-icon">APG</span>
-                    <span><span class="tool-hub-label">APGAR Score</span><span class="tool-hub-desc" data-duty-desc="1-, 5-, and 10-minute newborn scoring" data-study-desc="Lesson + quiz on components, timing, bands">1-, 5-, and 10-minute newborn scoring</span></span>
-                    <span class="tool-hub-tag">Newborn</span>
+                <button type="button" class="tool-hub-card" onclick="openHubTool('apgar')">
+                    <span class="tool-hub-top">
+                        <span class="tool-hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M4 16v-2.4C4 11.5 3 10.5 3 8c0-2.7 1.5-6 4.5-6C9.4 2 10 3.8 10 5.5c0 3.1-2 5.7-2 8.7V16a2 2 0 1 1-4 0z"/><path d="M20 20v-2.4c0-2.1 1-3.1 1-5.6 0-2.7-1.5-6-4.5-6C14.6 6 14 7.8 14 9.5c0 3.1 2 5.7 2 8.7V20a2 2 0 1 0 4 0z"/><path d="M16 17h4M4 13h4"/></svg></span>
+                        <span class="tool-hub-tag">Newborn</span>
+                    </span>
+                    <span class="tool-hub-label">APGAR Score</span>
+                    <span class="tool-hub-desc" data-duty-desc="1-, 5-, and 10-minute newborn scoring" data-study-desc="Lesson + quiz on components, timing, bands">1-, 5-, and 10-minute newborn scoring</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#38bdf8;" onclick="openHubTool('gcs')">
-                    <span class="tool-hub-icon">GCS</span>
-                    <span><span class="tool-hub-label">Glasgow Coma Scale</span><span class="tool-hub-desc" data-duty-desc="Eye / Verbal / Motor with clinical wording" data-study-desc="Lesson + quiz on E/V/M and documentation">Eye / Verbal / Motor with clinical wording</span></span>
-                    <span class="tool-hub-tag">Neuro</span>
+                <button type="button" class="tool-hub-card" onclick="openHubTool('gcs')">
+                    <span class="tool-hub-top">
+                        <span class="tool-hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span>
+                        <span class="tool-hub-tag">Neuro</span>
+                    </span>
+                    <span class="tool-hub-label">Glasgow Coma Scale</span>
+                    <span class="tool-hub-desc" data-duty-desc="Eye / Verbal / Motor with clinical wording" data-study-desc="Lesson + quiz on E/V/M and documentation">Eye / Verbal / Motor with clinical wording</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#2dd4bf;" onclick="openHubTool('braden')">
-                    <span class="tool-hub-icon">BRD</span>
-                    <span><span class="tool-hub-label">Braden Scale</span><span class="tool-hub-desc" data-duty-desc="Pressure injury risk with subscale meanings" data-study-desc="Lesson + quiz on risk scoring and prevention">Pressure injury risk with subscale meanings</span></span>
-                    <span class="tool-hub-tag">Skin</span>
+                <button type="button" class="tool-hub-card" onclick="openHubTool('braden')">
+                    <span class="tool-hub-top">
+                        <span class="tool-hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9"/></svg></span>
+                        <span class="tool-hub-tag">Skin</span>
+                    </span>
+                    <span class="tool-hub-label">Braden Scale</span>
+                    <span class="tool-hub-desc" data-duty-desc="Pressure injury risk with subscale meanings" data-study-desc="Lesson + quiz on risk scoring and prevention">Pressure injury risk with subscale meanings</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#fb923c;" onclick="openHubTool('ron')">
-                    <span class="tool-hub-icon">TBSA</span>
-                    <span><span class="tool-hub-label">Rule of Nines</span><span class="tool-hub-desc" data-duty-desc="Tap-body burn TBSA estimate" data-study-desc="Lesson + quiz on adult map and pediatrics caution">Tap-body burn TBSA estimate</span></span>
-                    <span class="tool-hub-tag">Trauma</span>
+                <button type="button" class="tool-hub-card" onclick="openHubTool('ron')">
+                    <span class="tool-hub-top">
+                        <span class="tool-hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="5" r="2.2"/><path d="M12 8.5V15M6.5 10.5L12 8.5l5.5 2M9 21.5l3-6.5 3 6.5"/></svg></span>
+                        <span class="tool-hub-tag">Trauma</span>
+                    </span>
+                    <span class="tool-hub-label">Rule of Nines</span>
+                    <span class="tool-hub-desc" data-duty-desc="Tap-body burn TBSA estimate" data-study-desc="Lesson + quiz on adult map and pediatrics caution">Tap-body burn TBSA estimate</span>
                 </button>
             </div>
         </div>
@@ -640,28 +669,33 @@
 
         <!-- ============ OTC MEDICINES TAB CONTENT ============ -->
         <div id="content-otc" class="tab-content hidden">
-            <div class="otc-hub">
+            <div class="otc-hub rf-page rf-otc">
                 <div class="tools-hub-mode-row ref-hub-head">
                     <div class="tools-hub-hero">
                         <h2>OTC Medicines</h2>
                         <p>PH brands &amp; generics. Confirm with your CI.</p>
                     </div>
                 </div>
-                <div class="otc-sticky-chrome">
-                    <div class="otc-search-wrap">
-                        <input id="otc-search" type="search" class="otc-search-input" placeholder="Search brand, generic, symptom" autocomplete="off" />
+                <div class="otc-sticky-chrome rf-sticky">
+                <div class="rf-toolbar">
+                    <div class="rf-search">
+                        <span class="rf-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>
+                        <input id="otc-search" type="search" class="rf-search-input" placeholder="Search brand, generic, symptom" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search medicines" />
+                        <button type="button" class="rf-search-clear" hidden aria-label="Clear search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
                     </div>
-                    <div id="otc-chips" class="otc-chips" role="tablist" aria-label="OTC categories"></div>
+                    <div id="otc-chips" class="rf-filter"></div>
                 </div>
-                <p class="otc-pack-stamp" id="otcPackStamp">Reference pack nursepath-v2.4.18</p>
+                <div class="rf-count" id="otc-count" aria-live="polite"></div>
+                </div>
+                <p class="otc-pack-stamp" id="otcPackStamp">Reference pack nursepath-v2.4.19</p>
                 <div class="otc-layout">
                     <div id="otc-list-container">
                         <div id="otc-list" class="otc-list"></div>
                     </div>
-                    <div id="otc-detail-container" class="otc-detail-shell hidden md:block">
-                        <button id="otc-back-btn" type="button" class="otc-back-btn" onclick="hideOTCDetail()">← List</button>
-                        <div id="otc-detail" class="otc-detail-panel">
-                            <p class="otc-detail-placeholder">Select a medicine to view the duty quick take and study details.</p>
+                    <div id="otc-detail-container" class="otc-detail-shell rf-shell hidden md:block">
+                        <button id="otc-back-btn" type="button" class="rf-back" onclick="hideOTCDetail()">← Back to list</button>
+                        <div id="otc-detail" class="otc-detail-panel rf-detail">
+                            <div class="rf-placeholder"><span class="rf-placeholder-ic" data-ic="pill"></span><span>Select a medicine to view the duty quick take and study details.</span></div>
                         </div>
                     </div>
                 </div>
@@ -670,25 +704,30 @@
 
         <!-- ============ LAB RANGES TAB CONTENT ============ -->
         <div id="content-labs" class="tab-content hidden">
-            <div class="lab-hub">
+            <div class="lab-hub rf-page rf-lab">
                 <div class="tools-hub-mode-row">
                     <div class="tools-hub-hero">
                         <h2>Lab Ranges</h2>
                         <p>Adult pocket ranges. Slip &amp; CI win.</p>
                     </div>
                 </div>
-                <div class="lab-search-wrap">
-                    <input id="lab-search" type="search" class="lab-search-input" placeholder="Search K, Hgb, INR, or hyponatremia..." autocomplete="off" />
+                <div class="rf-toolbar">
+                    <div class="rf-search">
+                        <span class="rf-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>
+                        <input id="lab-search" type="search" class="rf-search-input" placeholder="Search K, Hgb, INR, or hyponatremia" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search lab tests" />
+                        <button type="button" class="rf-search-clear" hidden aria-label="Clear search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+                    </div>
+                    <div id="lab-chips" class="rf-filter"></div>
                 </div>
-                <div id="lab-chips" class="lab-chips" role="tablist" aria-label="Lab panels"></div>
+                <div class="rf-count" id="lab-count" aria-live="polite"></div>
                 <div class="lab-layout">
                     <div id="lab-list-container">
                         <div id="lab-list" class="lab-list"></div>
                     </div>
-                    <div id="lab-detail-container" class="lab-detail-shell hidden md:block">
-                        <button id="lab-back-btn" type="button" class="lab-back-btn" onclick="hideLabDetail()">← List</button>
-                        <div id="lab-detail" class="lab-detail-panel">
-                            <p class="lab-detail-placeholder">Tap a test for normal, too high, too low, and how it is drawn.</p>
+                    <div id="lab-detail-container" class="lab-detail-shell rf-shell hidden md:block">
+                        <button id="lab-back-btn" type="button" class="rf-back" onclick="hideLabDetail()">← Back to list</button>
+                        <div id="lab-detail" class="lab-detail-panel rf-detail">
+                            <div class="rf-placeholder"><span class="rf-placeholder-ic" data-ic="flask"></span><span>Tap a test for normal, too high, too low, and how it is drawn.</span></div>
                         </div>
                     </div>
                 </div>
@@ -696,24 +735,29 @@
         </div> <!-- End content-labs -->
 
         <div id="content-abbrev" class="tab-content hidden">
-            <div class="ab-hub">
+            <div class="ab-hub rf-page rf-ab">
                 <div class="tools-hub-mode-row">
                     <div class="tools-hub-hero">
                         <h2>Abbreviations</h2>
                         <p>Ward short forms. Hospital list wins.</p>
                     </div>
                 </div>
-                <div class="ab-search-wrap">
-                    <input id="ab-search" type="search" class="ab-search" placeholder="Search PRN, NPO, or twice a day..." autocomplete="off" />
+                <div class="rf-toolbar">
+                    <div class="rf-search">
+                        <span class="rf-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>
+                        <input id="ab-search" type="search" class="rf-search-input" placeholder="Search PRN, NPO, or twice a day" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search abbreviations" />
+                        <button type="button" class="rf-search-clear" hidden aria-label="Clear search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+                    </div>
+                    <div id="ab-chips" class="rf-filter"></div>
                 </div>
-                <div id="ab-chips" class="ab-chips" role="tablist" aria-label="Abbreviation groups"></div>
+                <div class="rf-count" id="ab-count" aria-live="polite"></div>
                 <div class="ab-layout">
                     <div id="ab-list-container">
                         <div id="ab-list" class="ab-list"></div>
                     </div>
-                    <div id="ab-detail-container" class="ab-detail-shell hidden md:block">
-                        <button id="ab-back-btn" type="button" class="ab-back" onclick="hideAbbrevDetail()">← List</button>
-                        <div id="ab-detail" class="ab-detail">
+                    <div id="ab-detail-container" class="ab-detail-shell rf-shell hidden md:block">
+                        <button id="ab-back-btn" type="button" class="rf-back" onclick="hideAbbrevDetail()">← Back to list</button>
+                        <div id="ab-detail" class="ab-detail rf-detail">
                             <p class="ab-placeholder">Tap a short form for the meaning, where it shows up, and when to write the words instead.</p>
                         </div>
                     </div>
@@ -722,25 +766,30 @@
         </div>
 
         <div id="content-sizes" class="tab-content hidden">
-            <div class="sz-hub">
+            <div class="sz-hub rf-page rf-sz">
                 <div class="tools-hub-mode-row">
                     <div class="tools-hub-hero">
                         <h2>Sizes</h2>
                         <p>Needles, syringes, cannulas, tubes. Package &amp; CI win.</p>
                     </div>
                 </div>
-                <div class="sz-search-wrap">
-                    <input id="sz-search" type="search" class="sz-search" placeholder="Search 22 G, insulin, or Foley..." autocomplete="off" />
+                <div class="rf-toolbar">
+                    <div class="rf-search">
+                        <span class="rf-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>
+                        <input id="sz-search" type="search" class="rf-search-input" placeholder="Search 22 G, insulin, or Foley" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search sizes" />
+                        <button type="button" class="rf-search-clear" hidden aria-label="Clear search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+                    </div>
+                    <div id="sz-chips" class="rf-filter"></div>
                 </div>
-                <div id="sz-chips" class="sz-chips" role="tablist" aria-label="Size trays"></div>
+                <div class="rf-count" id="sz-count" aria-live="polite"></div>
                 <div class="sz-layout">
                     <div id="sz-list-container">
                         <div id="sz-list" class="sz-list"></div>
                     </div>
-                    <div id="sz-detail-container" class="sz-detail-shell hidden md:block">
-                        <button id="sz-back-btn" type="button" class="sz-back" onclick="hideSizeDetail()">← List</button>
-                        <div id="sz-detail" class="sz-detail">
-                            <p class="sz-placeholder">Tap a size for the usual job, the angle, and what to read on the package.</p>
+                    <div id="sz-detail-container" class="sz-detail-shell rf-shell hidden md:block">
+                        <button id="sz-back-btn" type="button" class="rf-back" onclick="hideSizeDetail()">← Back to list</button>
+                        <div id="sz-detail" class="sz-detail rf-detail">
+                            <div class="rf-placeholder"><span class="rf-placeholder-ic" data-ic="needle"></span><span>Tap a size for the usual job, the angle, and what to read on the package.</span></div>
                         </div>
                     </div>
                 </div>
@@ -786,7 +835,7 @@
                 </div>
                 <div class="np-status-meta" id="npStatusMeta">
                     <strong id="npOnlineStatus">Checking connection…</strong>
-                    <span id="npPackStamp">Reference pack nursepath-v2.4.18</span>
+                    <span id="npPackStamp">Reference pack nursepath-v2.4.19</span>
                 </div>
                 <button type="button" id="npThemeToggleMobile" class="np-settings-row" aria-pressed="false">
                     <span class="np-settings-row-label">Appearance</span>
@@ -803,5 +852,6 @@
 
     <script src="/js/script-4.js"></script>
     <script src="/js/script-5.js"></script>
+    <script src="/js/tool-icons.js"></script>
 </body>
 </html>

@@ -71,7 +71,7 @@
                 if (!sheet) return;
                 if (open) sheet.removeAttribute('hidden');
                 else sheet.setAttribute('hidden', '');
-                document.documentElement.classList.toggle('np-settings-open', !!open);
+                document.documentElement.classList.toggle('np-settings-is-open', !!open);
             }
 
             function initSettingsSheet() {

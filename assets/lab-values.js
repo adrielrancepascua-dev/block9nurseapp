@@ -181,21 +181,26 @@
     return rows.map((r) => r.item);
   }
 
+  function chipCount(chipId) {
+    const q = searchTerm.trim();
+    return labDatabase.filter((item) => {
+      if (q && !scoreLab(q, item).match) return false;
+      return chipId === 'all' || item.category === chipId;
+    }).length;
+  }
+
   function renderChips() {
     const host = document.getElementById('lab-chips');
-    if (!host) return;
-    host.innerHTML = '';
-    CHIPS.forEach((chip) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'lab-chip' + (chip.id === activeChip ? ' is-active' : '');
-      btn.textContent = chip.label;
-      btn.setAttribute('aria-pressed', chip.id === activeChip ? 'true' : 'false');
-      btn.onclick = () => {
-        activeChip = chip.id;
+    if (!host || !window.NPRef) return;
+    window.NPRef.buildSelect(host, {
+      id: 'lab-filter',
+      label: 'Panel',
+      value: activeChip,
+      options: CHIPS.map((c) => ({ id: c.id, label: c.id === 'all' ? 'All panels' : c.label, count: chipCount(c.id) })),
+      onChange: (value) => {
+        activeChip = value;
         renderLabList();
-      };
-      host.appendChild(btn);
+      }
     });
   }
 
@@ -208,32 +213,28 @@
 
   function labBlock(kind, title, body) {
     if (!body) return '';
-    return `<section class="lab-block lab-block-${kind}">
-      <h4>${escapeHtml(title)}</h4>
-      <p>${escapeHtml(body)}</p>
-    </section>`;
-  }
-
-  function labRangeCard(kind, title, range, note) {
-    if (!range) return '';
-    const noteHtml = note ? `<p class="lab-range-note">${escapeHtml(note)}</p>` : '';
-    return `<section class="lab-block lab-block-${kind}">
-      <h4>${escapeHtml(title)}</h4>
-      <p class="lab-range-value">${escapeHtml(range)}</p>
-      ${noteHtml}
+    const ic = kind === 'how' ? 'flask' : 'eye';
+    return `<section class="rf-card rf-card--${kind}">
+      <div class="rf-card-head"><span class="rf-card-ic">${window.NPRef.icon(ic)}</span><span class="rf-card-label">${escapeHtml(title)}</span></div>
+      <div class="rf-card-body">${escapeHtml(body)}</div>
     </section>`;
   }
 
   function rangeCards(item) {
     const targets = Array.isArray(item.targets) ? item.targets : [];
-    const usual = labRangeCard(
-      'ok',
-      targets.length ? 'Usual' : 'Normal',
-      item.adultRange,
-      targets.length ? (item.rangeNote || '') : ''
-    );
-    const extra = targets.map((t) => labRangeCard('target', t.label, t.range, t.note)).join('');
-    return usual + extra;
+    const hero = `<section class="rf-hero">
+      <div class="rf-hero-label">${targets.length ? 'Usual range' : 'Normal range'}</div>
+      <div class="rf-hero-value">${escapeHtml(item.adultRange)}</div>
+      ${targets.length && item.rangeNote ? `<div class="rf-hero-note">${escapeHtml(item.rangeNote)}</div>` : ''}
+    </section>`;
+    const extra = targets.length
+      ? `<div class="rf-targets">${targets.map((t) => `<section class="rf-target">
+          <div class="rf-target-label">${window.NPRef.icon('target')}<span>${escapeHtml(t.label)}</span></div>
+          <div class="rf-target-value">${escapeHtml(t.range)}</div>
+          ${t.note ? `<div class="rf-target-note">${escapeHtml(t.note)}</div>` : ''}
+        </section>`).join('')}</div>`
+      : '';
+    return hero + extra;
   }
 
   function targetListHint(item) {
@@ -328,12 +329,12 @@
 
   function causeBodyBlock(kind, title, cause, body) {
     if (!cause && !body) return '';
-    const causeHtml = cause ? `<p><span class="lab-k">Why</span>${escapeHtml(cause)}</p>` : '';
-    const bodyHtml = body ? `<p><span class="lab-k">In the body</span>${escapeHtml(body)}</p>` : '';
-    return `<section class="lab-block lab-block-${kind}">
-      <h4>${escapeHtml(title)}</h4>
-      ${causeHtml}
-      ${bodyHtml}
+    const ic = kind === 'high' ? 'up' : 'down';
+    const causeHtml = cause ? `<div class="rf-split-row"><span class="rf-k">Why</span><span>${escapeHtml(cause)}</span></div>` : '';
+    const bodyHtml = body ? `<div class="rf-split-row"><span class="rf-k">In the body</span><span>${escapeHtml(body)}</span></div>` : '';
+    return `<section class="rf-split-card rf-split-card--${kind}">
+      <div class="rf-split-head"><span class="rf-split-ic">${window.NPRef.icon(ic)}</span><span>${escapeHtml(title)}</span></div>
+      ${causeHtml}${bodyHtml}
     </section>`;
   }
 
@@ -346,15 +347,25 @@
     const detailEl = document.getElementById('lab-detail');
     if (!detailEl) return;
 
+    const hi = causeBodyBlock('high', 'Too high', item.high, (bodyEffect[item.id] || [])[0]);
+    const lo = causeBodyBlock('low', 'Too low', item.low, (bodyEffect[item.id] || [])[1]);
+    const metaPills = [item.specimen, item.units].filter(Boolean)
+      .map((t) => `<span class="rf-pill">${escapeHtml(t)}</span>`).join('');
     detailEl.innerHTML = `
-      <p class="lab-detail-kicker">${escapeHtml(item.abbrev)} · ${escapeHtml(item.panel)}</p>
-      <h3 class="lab-detail-title">${escapeHtml(item.name)}</h3>
+      <div class="rf-detail-head">
+        <span class="rf-badge rf-badge--lg">${escapeHtml(item.abbrev)}</span>
+        <div class="rf-detail-head-text">
+          <div class="rf-kicker">${escapeHtml(item.panel)}</div>
+          <h3 class="rf-title">${escapeHtml(item.name)}</h3>
+        </div>
+      </div>
+      ${metaPills ? `<div class="rf-meta">${metaPills}</div>` : ''}
       ${rangeCards(item)}
-      ${causeBodyBlock('high', 'Too high', item.high, (bodyEffect[item.id] || [])[0])}
-      ${causeBodyBlock('low', 'Too low', item.low, (bodyEffect[item.id] || [])[1])}
+      ${(hi || lo) ? `<div class="rf-split">${hi}${lo}</div>` : ''}
       ${labBlock('how', 'How to test', howToTest(item))}
-      ${item.nursing ? labBlock('watch', 'Watch', item.nursing) : ''}
-      <p class="lab-duty-note">Teaching ranges. Confirm with the printed slip and your CI.</p>
+      ${item.nursing ? labBlock('watch', 'Nursing watch', item.nursing) : ''}
+      <button type="button" class="rf-btn" onclick="copyLabReference()">${window.NPRef.icon('copy')}<span>Copy quick reference</span></button>
+      <div class="rf-foot">Teaching ranges. Confirm with the printed slip and your CI.</div>
     `;
     window.__nursepathSelectedLab = item;
 
@@ -388,7 +399,7 @@
     const savedScroll = window.__npListScroll;
     window.__npListScroll = null;
     if (detailEl) {
-      detailEl.innerHTML = '<p class="lab-detail-placeholder">Tap a test for normal, too high, too low, and how it is drawn.</p>';
+      detailEl.innerHTML = window.NPRef.placeholder('flask', 'Tap a test for normal, too high, too low, and how it is drawn.');
     }
 
     window.__nursepathSelectedLab = null;
@@ -464,10 +475,11 @@
     const fragment = document.createDocumentFragment();
     const selectedId = window.__nursepathSelectedLab && window.__nursepathSelectedLab.id;
     const q = searchTerm.trim();
+    window.NPRef.setCount(document.getElementById('lab-count'), items.length, labDatabase.length, 'tests', Boolean(q) || activeChip !== 'all');
 
     if (!items.length) {
       const empty = document.createElement('div');
-      empty.className = 'lab-empty';
+      empty.className = 'rf-empty';
       empty.textContent = 'No matches. Try an abbreviation (K, Hgb, INR), a panel (ABG, CBC), or a clue (hyponatremia, DKA).';
       fragment.appendChild(empty);
       host.innerHTML = '';
@@ -480,22 +492,23 @@
       if (!q && item.panel !== lastPanel) {
         lastPanel = item.panel;
         const label = document.createElement('div');
-        label.className = 'lab-panel-label';
+        label.className = 'rf-group';
         label.textContent = item.panel;
         fragment.appendChild(label);
       }
       const row = document.createElement('button');
       row.type = 'button';
-      row.className = 'lab-row' + (selectedId && item.id === selectedId ? ' is-active' : '');
+      row.className = 'rf-row' + (selectedId && item.id === selectedId ? ' is-active' : '');
       row.dataset.labId = item.id || '';
       const hint = targetListHint(item);
       row.innerHTML = `
-        <span class="lab-row-abbr">${escapeHtml(item.abbrev)}</span>
-        <span class="lab-row-name">${escapeHtml(item.name)}</span>
-        <span class="lab-row-ranges">
-          <span class="lab-row-value">${escapeHtml(item.adultRange)}</span>
-          ${hint ? `<span class="lab-row-target">${escapeHtml(hint)}</span>` : ''}
-        </span>`;
+        <span class="rf-badge">${escapeHtml(item.abbrev)}</span>
+        <span class="rf-row-body">
+          <span class="rf-row-title">${escapeHtml(item.name)}</span>
+          <span class="rf-row-sub">${escapeHtml(item.adultRange)}</span>
+          ${hint ? `<span class="rf-row-hint">${escapeHtml(hint)}</span>` : ''}
+        </span>
+        <span class="rf-row-go">${window.NPRef.icon('chevron')}</span>`;
       row.onclick = () => showLabDetail(item);
       fragment.appendChild(row);
     });
@@ -509,6 +522,7 @@
   function initLabRanges() {
     renderLabList();
     const input = document.getElementById('lab-search');
+    if (window.NPRef) window.NPRef.bindSearch(input);
     if (input && !input.dataset.npBound) {
       input.dataset.npBound = '1';
       input.addEventListener('input', (e) => {
@@ -526,7 +540,7 @@
     activeChip = 'all';
     searchTerm = '';
     const input = document.getElementById('lab-search');
-    if (input) input.value = '';
+    if (input) { input.value = ''; const c = input.closest('.rf-search'); if (c) c.querySelector('.rf-search-clear').hidden = true; }
     hideLabDetail({ skipHistory: true });
     renderLabList();
   }
