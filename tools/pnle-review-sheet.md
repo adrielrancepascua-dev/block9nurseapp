@@ -150,7 +150,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Give the prescribed opioid analgesia **CORRECT**
   - Reason: Vaso-occlusive crisis is ischemic pain from blocked vessels; opioid analgesia follows pain assessment in crisis priorities.
 
-*selfChecked:* `False` · *instructorReviewed:* `False`
+*selfChecked:* `True` · *instructorReviewed:* `False`
 
 ---
 
@@ -169,7 +169,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Ask one nurse to recheck it and start if she agrees
   - Reason: Two-nurse verification is required together; a mismatch is not resolved by a second opinion alone.
 
-*selfChecked:* `False` · *instructorReviewed:* `False`
+*selfChecked:* `True` · *instructorReviewed:* `False`
 
 ---
 
@@ -188,7 +188,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Slow the rate and recheck vital signs in 15 minutes
   - Reason: Even a febrile reaction requires stopping and assessing before continuing any infusion.
 
-*selfChecked:* `False` · *instructorReviewed:* `False`
+*selfChecked:* `True` · *instructorReviewed:* `False`
 
 ---
 

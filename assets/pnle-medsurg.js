@@ -1405,16 +1405,15 @@
       "type": "prioritization",
       "source": "Ms_lab_UT / ms_lab_midterm \u2014 Sickle cell crisis nursing priorities",
       "reviewed": false,
-      "selfChecked": false,
-      "selfCheckedBy": "",
-      "selfCheckedAt": "",
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
       "instructorReviewed": false,
       "instructorReviewedBy": "",
       "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
-      "tool": null,
-      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+      "tool": null
     },
     {
       "id": "blood-009",
@@ -1437,16 +1436,15 @@
       "type": "prioritization",
       "source": "ms_lab_midterms_e746.pdf \u2014 Blood verification at bedside",
       "reviewed": false,
-      "selfChecked": false,
-      "selfCheckedBy": "",
-      "selfCheckedAt": "",
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
       "instructorReviewed": false,
       "instructorReviewedBy": "",
       "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
-      "tool": null,
-      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+      "tool": null
     },
     {
       "id": "blood-010",
@@ -1469,16 +1467,15 @@
       "type": "prioritization",
       "source": "ms_lab_midterms_e746.pdf \u2014 Transfusion reaction algorithm; Ms_lab_UT \u2014 Transfusion reactions",
       "reviewed": false,
-      "selfChecked": false,
-      "selfCheckedBy": "",
-      "selfCheckedAt": "",
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
       "instructorReviewed": false,
       "instructorReviewedBy": "",
       "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
-      "tool": null,
-      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+      "tool": null
     },
     {
       "id": "blood-011",
