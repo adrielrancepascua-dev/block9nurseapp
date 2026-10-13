@@ -19,6 +19,7 @@
     <!-- CRITICAL: Force dark mode immediately to prevent white flash -->
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/hub-redesign.css">
+    <link rel="stylesheet" href="/css/pnle-study.css">
     <link rel="stylesheet" href="/css/reference-redesign.css">
     
     <link rel="manifest" href="/manifest.json">
@@ -121,6 +122,18 @@
     <!-- Supabase Auth + Offline Session Gate -->
     <script src="/js/script-3.js"></script>
 
+    <div id="pnleLaunchOverlay" class="pnle-launch-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="pnleLaunchTitle">
+        <div class="pnle-launch-card">
+            <h2 id="pnleLaunchTitle">How are you using NursePath?</h2>
+            <p>Duty keeps calculators and ward tools. Study is PNLE MedSurg practice with rationales — fully offline after one load.</p>
+            <div class="pnle-launch-actions">
+                <button type="button" id="pnleLaunchContinue" class="pnle-launch-btn continue hidden">Continue</button>
+                <button type="button" id="pnleLaunchDuty" class="pnle-launch-btn primary">Duty tools</button>
+                <button type="button" id="pnleLaunchStudy" class="pnle-launch-btn">PNLE Study</button>
+            </div>
+        </div>
+    </div>
+
     <div id="app-shell" style="display: none;">
     <div class="np-app-layout">
         <aside class="np-sidebar" id="npSidebar" aria-label="Primary navigation">
@@ -205,7 +218,7 @@
                 </div>
                 <div class="np-mode-toggle" role="group" aria-label="Clinical tools mode">
                     <button type="button" data-mode="duty" id="hubDutyBtn" class="is-active" onclick="setHubMode('duty')">Duty</button>
-                    <button type="button" data-mode="study" id="hubStudyBtn" onclick="setHubMode('study')">Study</button>
+                    <button type="button" data-mode="study" id="hubStudyBtn" onclick="setHubMode('study')">Lesson</button>
                 </div>
             </div>
             <div class="tools-hub-grid">
@@ -286,7 +299,7 @@
 
         <div id="study-detail" class="study-detail hidden">
             <div class="tools-detail-header">
-                <button type="button" class="tools-back-btn" onclick="backToToolsHub()">← All Study Topics</button>
+                <button type="button" class="tools-back-btn" onclick="backToToolsHub()">← All lesson topics</button>
             </div>
             <div class="study-classroom">
                 <div class="study-classroom-head">
@@ -687,7 +700,7 @@
                 </div>
                 <div class="rf-count" id="otc-count" aria-live="polite"></div>
                 </div>
-                <p class="otc-pack-stamp" id="otcPackStamp">Reference pack nursepath-v2.4.19</p>
+                <p class="otc-pack-stamp" id="otcPackStamp">Reference pack nursepath-v2.4.20</p>
                 <div class="otc-layout">
                     <div id="otc-list-container">
                         <div id="otc-list" class="otc-list"></div>
@@ -835,7 +848,7 @@
                 </div>
                 <div class="np-status-meta" id="npStatusMeta">
                     <strong id="npOnlineStatus">Checking connection…</strong>
-                    <span id="npPackStamp">Reference pack nursepath-v2.4.19</span>
+                    <span id="npPackStamp">Reference pack nursepath-v2.4.20</span>
                 </div>
                 <button type="button" id="npThemeToggleMobile" class="np-settings-row" aria-pressed="false">
                     <span class="np-settings-row-label">Appearance</span>
@@ -848,9 +861,17 @@
             </div>
         </div>
     </div>
+
+    <div id="pnle-study-shell" aria-label="PNLE Study mode">
+        <div class="pnle-study-layout">
+            <div id="pnleStudyRoot"></div>
+        </div>
+    </div>
     </div>
 
+    <script src="/assets/pnle-medsurg.js"></script>
     <script src="/js/script-4.js"></script>
+    <script src="/js/pnle-study.js"></script>
     <script src="/js/script-5.js"></script>
     <script src="/js/tool-icons.js"></script>
 </body>
