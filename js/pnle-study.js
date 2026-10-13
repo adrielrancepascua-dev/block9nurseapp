@@ -70,7 +70,10 @@
   function loadBank() {
     const pack = global.NursePathPnleMedSurg;
     if (!pack || !Array.isArray(pack.items)) return [];
-    return pack.items.filter((it) => it.reviewed === true && !/\bhandout\b/i.test(it.stem || ''));
+    const stemOk = (stem) => !/\b(handout|sheet|reviewer|per\s+the)\b/i.test(stem || '');
+    return pack.items.filter(
+      (it) => it.instructorReviewed === true && stemOk(it.stem)
+    );
   }
 
   function trackStudy(feature, action, meta) {
@@ -447,6 +450,14 @@
   function renderStudyHome() {
     const root = document.getElementById('pnleStudyRoot');
     if (!root) return;
+    if (!bankItems.length) {
+      root.innerHTML = `
+        <div class="pnle-study-empty">
+          <h2 class="pnle-section-label">No reviewed items yet</h2>
+          <p class="pnle-study-hint">Practice items are released after instructor review. Check back after your CI updates the question bank.</p>
+        </div>`;
+      return;
+    }
     const level = getStudyLevel();
     const mistakeCount = Object.keys(readMistakes()).length;
     const ringPct = todayGoalRingPercent();

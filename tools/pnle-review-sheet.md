@@ -1,0 +1,1903 @@
+# PNLE MedSurg pilot — instructor review sheet
+
+Check each choice against its reason. Source strings are citations only (PDFs not in repo).
+
+## blood-001 (normal, blood)
+
+**Stem:** Plasma constitutes approximately what percent of total blood volume?
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XXI Blood`
+
+- **A:** 55% **CORRECT**
+  - Reason: Plasma is ~55% of blood .
+- **B:** 70%
+  - Reason: 70% is closer to infant TBW, not plasma fraction.
+- **C:** 45%
+  - Reason: 45% is formed elements fraction.
+- **D:** 25%
+  - Reason: 25% is not the plasma proportion.
+
+*instructorReviewed:* `False`
+
+---
+
+## blood-002 (normal, blood)
+
+**Stem:** Normal adult platelet count
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XXI Blood`
+
+- **A:** 50,000–100,000 /µL
+  - Reason: 50–100K is thrombocytopenia range.
+- **B:** 10,000–20,000 /µL
+  - Reason: 10–20K is critical thrombocytopenia.
+- **C:** 500,000–800,000 /µL
+  - Reason: Very high counts suggest thrombocytosis.
+- **D:** 150,000–450,000 /µL **CORRECT**
+  - Reason: 150K–450K is normal platelet range.
+
+*instructorReviewed:* `False`
+
+---
+
+## blood-003 (normal, blood)
+
+**Stem:** Erythropoietin primarily stimulates production of:
+
+**Source:** `ms_lec_midterms_81e8.txt — Hematopoiesis cytokines`
+
+- **A:** Basophils only
+  - Reason: Basophils are not EPO-driven.
+- **B:** Platelets
+  - Reason: TPO drives platelets.
+- **C:** Neutrophils only
+  - Reason: Neutrophils respond to G-CSF and infection signals.
+- **D:** Red blood cells **CORRECT**
+  - Reason: EPO acts on erythroid progenitors → RBC production.
+
+*instructorReviewed:* `False`
+
+---
+
+## blood-004 (normal, blood)
+
+**Stem:** Which WBC type is most associated with acute bacterial infection (60–70% of WBCs)?
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XXIII WBC patterns`
+
+- **A:** Lymphocytes only
+  - Reason: Lymphocytes are 20–25%, not the 60–70% acute bacterial pattern.
+- **B:** Basophils
+  - Reason: Basophils are rare and histamine-related.
+- **C:** Neutrophils **CORRECT**
+  - Reason: Neutrophils dominate acute bacterial responses.
+- **D:** Eosinophils
+  - Reason: Eosinophils rise with allergy/parasites.
+
+*instructorReviewed:* `False`
+
+---
+
+## blood-005 (normal, blood)
+
+**Stem:** IgG is notable because it:
+
+**Source:** `ms_lec_midterms_81e8.txt — Immunoglobulins`
+
+- **A:** Is found only in mucosa
+  - Reason: IgA dominates mucosa/colostrum.
+- **B:** Crosses placenta and is most abundant serum antibody **CORRECT**
+  - Reason: IgG is abundant and provides passive immunity via placenta.
+- **C:** Binds mast cells for anaphylaxis only
+  - Reason: IgE mediates mast cell degranulation.
+- **D:** Is the first antibody in primary response only
+  - Reason: IgM is first in primary response.
+
+*instructorReviewed:* `False`
+
+---
+
+## blood-006 (normal, blood)
+
+**Stem:** Iron-deficiency anemia classic labs:
+
+**Source:** `ms_lec_midterms_81e8.txt — Anemias`
+
+- **A:** High MCV, high ferritin
+  - Reason: High MCV suggests macrocytic anemia.
+- **B:** Normal iron with high reticulocytes only
+  - Reason: Isolated reticulocytosis suggests hemolysis/bleeding recovery.
+- **C:** Low MCV, low ferritin, low serum iron **CORRECT**
+  - Reason: Microcytic hypochromic pattern with low iron stores fits IDA.
+- **D:** High B12, macrocytic smear
+  - Reason: B12 deficiency is macrocytic.
+
+*instructorReviewed:* `False`
+
+---
+
+## blood-007 (normal, blood)
+
+**Stem:** Vitamin B12 deficiency anemia is typically:
+
+**Source:** `ms_lec_midterms_81e8.txt — Anemias`
+
+- **A:** Associated with high ferritin always
+  - Reason: Ferritin reflects iron stores, not B12.
+- **B:** Macrocytic (megaloblastic) **CORRECT**
+  - Reason: B12/folate deficiency → macrocytic RBCs.
+- **C:** Microcytic
+  - Reason: Microcytic fits iron deficiency.
+- **D:** Normocytic only always
+  - Reason: Can be normocytic early but classic is macrocytic.
+
+*instructorReviewed:* `False`
+
+---
+
+## blood-008 (hard, blood)
+
+**Stem:** Sickle cell crisis pain management priority includes:
+
+**Source:** `ms_lec_midterms_81e8.txt — Sickle cell`
+
+- **A:** Aggressive pain control per protocol, hydration, and trigger avoidance **CORRECT**
+  - Reason: Hydration and pain control are cornerstone; investigate fever.
+- **B:** Ignore fever
+  - Reason: Fever may signal infection — must assess.
+- **C:** Restrict fluids to prevent overload always
+  - Reason: Hydration is usually encouraged unless contraindicated.
+- **D:** Withhold all opioids due to addiction fear
+  - Reason: Undertreated vaso-occlusive pain is a known disparity issue; protocol analgesia is priority.
+
+*instructorReviewed:* `False`
+
+---
+
+## blood-009 (normal, blood)
+
+**Stem:** Before blood transfusion, essential nursing checks include:
+
+**Source:** `ms_lec_midterms_81e8.txt — Transfusion`
+
+- **A:** Two-nurse ID check, consent, type/crossmatch, vitals baseline **CORRECT**
+  - Reason: Dual identification and compatibility verification are mandatory safety steps.
+- **B:** Only verify room number
+  - Reason: Room alone is insufficient for high-risk therapy.
+- **C:** Skip allergy history
+  - Reason: Allergy/history guides monitoring and reaction management.
+- **D:** Warm blood in microwave
+  - Reason: Microwave damages RBCs; use approved warmers if needed.
+
+*instructorReviewed:* `False`
+
+---
+
+## blood-010 (hard, blood)
+
+**Stem:** Acute hemolytic transfusion reaction early sign:
+
+**Source:** `ms_lec_midterms_81e8.txt — Transfusion reactions`
+
+- **A:** Itching only
+  - Reason: Mild itch may be allergic; hemolytic is more systemic.
+- **B:** Mild headache only after 24 hours
+  - Reason: Delayed reactions occur later; acute is during/soon after infusion.
+- **C:** Bradycardia with hypertension only
+  - Reason: Pattern is not isolated HTN/bradycardia.
+- **D:** Fever, chills, flank pain, hypotension, dark urine **CORRECT**
+  - Reason: Fever, pain, hypotension, hemoglobinuria fit acute hemolysis.
+
+*instructorReviewed:* `False`
+
+---
+
+## blood-011 (normal, blood)
+
+**Stem:** Therapeutic INR for most warfarin therapy
+
+**Source:** `ms_lec_midterms_81e8.txt — Coagulation numbers`
+
+- **A:** 4.5–6.0
+  - Reason: 4.5–6.0 is supratherapeutic/bleeding risk.
+- **B:** 2.0–3.0 **CORRECT**
+  - Reason: INR 2–3 is standard therapeutic range listed.
+- **C:** 0.5–1.0
+  - Reason: 0.5–1.0 is below therapeutic anticoagulation.
+- **D:** 0.8 only without range
+  - Reason: 0.8–1.2 is normal non-anticoagulated INR.
+
+*instructorReviewed:* `False`
+
+---
+
+## blood-012 (normal, blood)
+
+**Stem:** Heparin monitoring uses which lab?
+
+**Source:** `ms_lec_midterms_81e8.txt — Coagulation`
+
+- **A:** aPTT (target often ~60–80 sec on heparin ) **CORRECT**
+  - Reason: aPTT guides unfractionated heparin dosing targets.
+- **B:** D-dimer only
+  - Reason: D-dimer is clot breakdown marker, not heparin level.
+- **C:** PT/INR primarily
+  - Reason: Warfarin uses PT/INR.
+- **D:** Platelet count only
+  - Reason: Platelets monitor HIT risk but not heparin level.
+
+*instructorReviewed:* `False`
+
+---
+
+## blood-013 (hard, blood)
+
+**Stem:** HIT (heparin-induced thrombocytopenia) priority action when suspected:
+
+**Source:** `ms_lec_midterms_81e8.txt — HIT`
+
+- **A:** Start warfarin immediately on heparin
+  - Reason: Warfarin alone early in HIT can cause limb loss; specialist protocol.
+- **B:** Stop heparin, avoid platelet transfusion unless bleeding, notify provider **CORRECT**
+  - Reason: Stop heparin and use alternative anticoagulant per protocol.
+- **C:** Massage thrombosed limb vigorously
+  - Reason: Massage risks embolism.
+- **D:** Continue heparin and ignore platelets
+  - Reason: Continuing heparin worsens immune-mediated platelet activation.
+
+*instructorReviewed:* `False`
+
+---
+
+## blood-014 (normal, blood)
+
+**Stem:** Neutropenic precautions include:
+
+**Source:** `ms_lec_midterms_81e8.txt — Immunocompromised care`
+
+- **A:** No oral care
+  - Reason: Oral care prevents mucosal infection portals.
+- **B:** Hand hygiene, cooked foods, avoid sick visitors **CORRECT**
+  - Reason: Meticulous hygiene and low-bacterial diet protect neutropenic clients.
+- **C:** Shared nebulizer without cleaning
+  - Reason: Shared equipment needs strict cleaning or avoidance.
+- **D:** Fresh flowers and raw vegetable buffets
+  - Reason: Plants/raw foods increase infection exposure.
+
+*instructorReviewed:* `False`
+
+---
+
+## blood-015 (normal, blood)
+
+**Stem:** Which cell matures in the thymus?
+
+**Source:** `ms_lec_midterms_81e8.txt — Blood-forming organs`
+
+- **A:** B lymphocytes
+  - Reason: B cells mature in bone marrow.
+- **B:** Erythrocytes
+  - Reason: RBCs mature in marrow.
+- **C:** Megakaryocytes
+  - Reason: Megakaryocytes produce platelets in marrow.
+- **D:** T lymphocytes **CORRECT**
+  - Reason: T cells mature in thymus per lymphoid organ teaching.
+
+*instructorReviewed:* `False`
+
+---
+
+## blood-016 (normal, blood)
+
+**Stem:** Normal hemoglobin for adult female
+
+**Source:** `ms_lec_midterms_81e8.txt — RBC numbers`
+
+- **A:** 10–11 g/dL
+  - Reason: 10–11 may be anemia.
+- **B:** 8–9 g/dL only
+  - Reason: 8–9 is markedly low.
+- **C:** 12–16 g/dL **CORRECT**
+  - Reason: 12–16 g/dL is listed female range.
+- **D:** 18–20 g/dL
+  - Reason: 18–20 exceeds female upper limit.
+
+*instructorReviewed:* `False`
+
+---
+
+## blood-017 (normal, blood)
+
+**Stem:** Apheresis platelet transfusion nursing focus:
+
+**Source:** `ms_lec_midterms_81e8.txt — Transfusion nursing`
+
+- **A:** Vitals during infusion; watch for reactions; use filter per policy **CORRECT**
+  - Reason: Monitor vitals and reactions per transfusion protocol.
+- **B:** Mix with D5W in same line always
+  - Reason: Only NS-compatible lines for RBCs/platelets per policy.
+- **C:** Rapid push without monitoring
+  - Reason: Rapid unmonitored infusion risks volume/reaction issues.
+- **D:** No need to verify blood product
+  - Reason: Product verification remains mandatory.
+
+*instructorReviewed:* `False`
+
+---
+
+## blood-018 (normal, blood)
+
+**Stem:** Hemophilia A is deficiency of:
+
+**Source:** `ms_lec_midterms_81e8.txt — Coagulation disorders`
+
+- **A:** Factor VIII **CORRECT**
+  - Reason: Hemophilia A = factor VIII deficiency.
+- **B:** Factor IX
+  - Reason: Factor IX is hemophilia B.
+- **C:** Fibrinogen only
+  - Reason: Fibrinogen disorders are rare separate entities.
+- **D:** von Willebrand only
+  - Reason: vWD is different von Willebrand factor issue.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-001 (normal, fluids_abg)
+
+**Stem:** Normal serum sodium range
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XXI Electrolytes`
+
+- **A:** 135–145 mEq/L **CORRECT**
+  - Reason: 135–145 is normal Na⁺.
+- **B:** 100–110 mEq/L
+  - Reason: 100–110 is critically low.
+- **C:** 150–160 mEq/L
+  - Reason: 150+ is hypernatremia.
+- **D:** 120–125 mEq/L
+  - Reason: 120–125 is hyponatremia.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-002 (normal, fluids_abg)
+
+**Stem:** Hyponatremia is defined as sodium:
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XXII Sodium`
+
+- **A:** Above 145 mEq/L
+  - Reason: >145 is hypernatremia.
+- **B:** Below 95 mEq/L
+  - Reason: <95 defines chloride, not sodium cutoff.
+- **C:** Exactly 140 always
+  - Reason: 140 is within normal, not a definition.
+- **D:** Below 135 mEq/L **CORRECT**
+  - Reason: <135 mEq/L is hyponatremia threshold in sheet.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-003 (normal, fluids_abg)
+
+**Stem:** Critical severe hyponatremia threshold in this teaching set:
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XXII Sodium`
+
+- **A:** <145 mEq/L
+  - Reason: <145 mEq/L is toward hypernatremia, not hyponatremia.
+- **B:** <135 mEq/L
+  - Reason: <135 mEq/L defines hyponatremia, not the critical tier.
+- **C:** <115 mEq/L **CORRECT**
+  - Reason: <115 mEq/L is the critical severe hyponatremia threshold in this teaching set (some texts use <120).
+- **D:** <125 mEq/L
+  - Reason: <125 mEq/L is severe hyponatremia in many schemes but not the critical cutoff used here.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-004 (normal, fluids_abg)
+
+**Stem:** Normal potassium range:
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XXI Electrolytes`
+
+- **A:** 6.5–8.0 mEq/L
+  - Reason: 6.5+ is critical hyperkalemia.
+- **B:** 5.5–6.5 mEq/L
+  - Reason: 5.5+ is hyperkalemia.
+- **C:** 3.5–5.0 mEq/L **CORRECT**
+  - Reason: 3.5–5.0 is normal K⁺.
+- **D:** 2.0–2.5 mEq/L
+  - Reason: 2.0–2.5 is critical hypokalemia range.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-005 (hard, fluids_abg)
+
+**Stem:** Hyperkalemia ECG change priority to recognize:
+
+**Source:** `ms_lec_midterms_81e8.txt — Potassium cardiac`
+
+- **A:** Prolonged PR only without T changes
+  - Reason: PR changes can occur but peaked T is early classic sign.
+- **B:** Short QT only
+  - Reason: Short QT is not classic hyperK.
+- **C:** U waves only
+  - Reason: U waves suggest hypokalemia.
+- **D:** Peaked T waves, widened QRS, risk of VF **CORRECT**
+  - Reason: Peaked T → QRS widening → arrhythmia is the progression.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-006 (hard, fluids_abg)
+
+**Stem:** Hypokalemia nursing priority when severe and client on digoxin:
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XVII patterns`
+
+- **A:** Replace potassium cautiously per protocol; monitor ECG and digoxin toxicity **CORRECT**
+  - Reason: Guided replacement and ECG monitoring are essential.
+- **B:** Restrict all fluids
+  - Reason: Fluids depend on clinical status.
+- **C:** Ignore because K is always safe high
+  - Reason: Low K increases digoxin toxicity risk — monitor closely.
+- **D:** Give kayexalate for low K
+  - Reason: Kayexalate lowers K, wrong for hypokalemia.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-007 (normal, fluids_abg)
+
+**Stem:** Metabolic acidosis primary lab pattern:
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XIV Metabolic acidosis`
+
+- **A:** pH normal, PaCO₂ low only
+  - Reason: Isolated low PaCO₂ suggests respiratory alkalosis.
+- **B:** pH low, HCO₃⁻ low **CORRECT**
+  - Reason: Low pH with low bicarbonate defines metabolic acidosis.
+- **C:** pH high, PaCO₂ high
+  - Reason: High PaCO₂ with high pH is not primary metabolic acidosis.
+- **D:** pH high, HCO₃⁻ high
+  - Reason: High pH/high HCO₃ is metabolic alkalosis.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-008 (normal, fluids_abg)
+
+**Stem:** Diabetic ketoacidosis fits which acid-base picture?
+
+**Source:** `ms_lec_midterms_81e8.txt — Metabolic acidosis causes`
+
+- **A:** Normal pH always
+  - Reason: DKA presents with acidemia unless partially treated.
+- **B:** Respiratory alkalosis only
+  - Reason: Kussmaul resp may compensate but primary is metabolic acidosis.
+- **C:** Metabolic alkalosis
+  - Reason: DKA does not alkalinize blood.
+- **D:** High-anion-gap metabolic acidosis **CORRECT**
+  - Reason: Ketones consume bicarbonate → high-gap metabolic acidosis.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-009 (normal, fluids_abg)
+
+**Stem:** Normal serum calcium:
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XXI Electrolytes`
+
+- **A:** 8.5–10.5 mg/dL **CORRECT**
+  - Reason: 8.5–10.5 is normal Ca²⁺.
+- **B:** 11.5–13 mg/dL
+  - Reason: 11.5+ is hypercalcemia.
+- **C:** 4.0–5.0 mg/dL
+  - Reason: 4–5 is far below normal.
+- **D:** 6.0–7.0 mg/dL
+  - Reason: 6–7 is hypocalcemia.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-010 (normal, fluids_abg)
+
+**Stem:** Hypocalcemia classic sign:
+
+**Source:** `ms_lec_midterms_81e8.txt — Calcium`
+
+- **A:** Absent reflexes only
+  - Reason: Absent reflexes suggest hypermagnesemia or hypercalcemia, not hypocalcemia.
+- **B:** Bradycardia only
+  - Reason: Bradycardia is not the primary neuromuscular sign of hypocalcemia.
+- **C:** Hypertension only
+  - Reason: Hypertension is not a classic hypocalcemia sign.
+- **D:** Positive Chvostek/Trousseau signs, tingling **CORRECT**
+  - Reason: Hypocalcemia increases neuromuscular excitability → Chvostek/Trousseau and paresthesias.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-011 (normal, fluids_abg)
+
+**Stem:** Normal magnesium:
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XXI Electrolytes`
+
+- **A:** 1.5–2.5 mEq/L **CORRECT**
+  - Reason: 1.5–2.5 is normal Mg²⁺.
+- **B:** 3.5–5.0 mEq/L
+  - Reason: 3.5–5.0 is potassium range.
+- **C:** 4.5–6.0 mEq/L
+  - Reason: High values suggest hypermagnesemia.
+- **D:** 0.5–1.0 mEq/L
+  - Reason: 0.5–1.0 is hypomagnesemia.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-012 (hard, fluids_abg)
+
+**Stem:** Acidosis effect on potassium shift
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XIV Acidosis→K`
+
+- **A:** Always causes hypokalemia in blood
+  - Reason: Serum K often rises in acidosis.
+- **B:** No effect on potassium
+  - Reason: Acid-base strongly affects K distribution.
+- **C:** Drives K out of cells → serum hyperkalemia **CORRECT**
+  - Reason: Extracellular shift raises serum K even if total body K is low.
+- **D:** Drives K into cells → hypokalemia
+  - Reason: H⁺ shifts with K⁺; acidosis moves K extracellularly.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-013 (normal, fluids_abg)
+
+**Stem:** Minimum urine output goal for adequate kidney perfusion in acute monitoring:
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XXI Fluids`
+
+- **A:** 60 mL/hr
+  - Reason: 60 mL/hr is healthy output, not the minimum monitoring goal.
+- **B:** 30 mL/hr **CORRECT**
+  - Reason: ≈30 mL/hr (~720 mL/day) supports renal perfusion; below this raises AKI concern.
+- **C:** 15 mL/hr
+  - Reason: 15 mL/hr is below the usual minimum threshold and suggests oliguria.
+- **D:** 45 mL/hr
+  - Reason: 45 mL/hr is adequate output but is not the cited minimum cutoff.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-014 (normal, fluids_abg)
+
+**Stem:** Oliguria definition
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XXI Fluids`
+
+- **A:** Exactly 1 L/day
+  - Reason: 1 L/day may be normal depending on intake.
+- **B:** <30 mL/hr or <500 mL/day **CORRECT**
+  - Reason: <30 mL/hr or <500 mL/day defines oliguria.
+- **C:** <100 mL/day only
+  - Reason: <100 mL/day is anuria range closer.
+- **D:** >200 mL/hr
+  - Reason: >200 is polyuria territory.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-015 (normal, fluids_abg)
+
+**Stem:** Normal pH of blood:
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XXI ABG`
+
+- **A:** 7.50–7.60
+  - Reason: 7.50+ is alkalemia.
+- **B:** 7.20–7.30
+  - Reason: 7.20–7.30 is acidemia.
+- **C:** 6.80–7.00
+  - Reason: 6.8–7.0 is incompatible with life acutely.
+- **D:** 7.35–7.45 **CORRECT**
+  - Reason: 7.35–7.45 is normal blood pH.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-016 (normal, fluids_abg)
+
+**Stem:** Normal bicarbonate (HCO₃⁻):
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XXI ABG`
+
+- **A:** 30–35 mEq/L
+  - Reason: 30–35 suggests metabolic alkalosis.
+- **B:** 22–26 mEq/L **CORRECT**
+  - Reason: 22–26 is normal HCO₃⁻.
+- **C:** 10–12 mEq/L
+  - Reason: 10–12 is severe metabolic acidosis.
+- **D:** 15–18 mEq/L
+  - Reason: 15–18 is low bicarbonate.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-017 (normal, fluids_abg)
+
+**Stem:** Metabolic alkalosis common cause cluster:
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XV Metabolic alkalosis`
+
+- **A:** Vomiting, NG suction, excessive diuretics **CORRECT**
+  - Reason: H⁺/Cl⁻ loss from vomiting/suction and diuretics raises HCO₃⁻.
+- **B:** Diarrhea and DKA
+  - Reason: Diarrhea/DKA cause acid loss differently — acidosis.
+- **C:** Hyperventilation only
+  - Reason: Hyperventilation causes respiratory alkalosis.
+- **D:** Renal failure only
+  - Reason: Renal failure often acidotic.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-018 (hard, fluids_abg)
+
+**Stem:** Third-spacing fluid loss example:
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XVIII Fluid patterns`
+
+- **A:** Fluid trapped in burns/ascites/peritonitis — not available to plasma **CORRECT**
+  - Reason: Third spacing sequesters fluid interstitially/ cavities.
+- **B:** Pure water deficit only
+  - Reason: Water deficit is hypernatremia pattern.
+- **C:** Excessive ADH with euvolemia
+  - Reason: SIADH is euvolemic hypo-osmolar, different mechanism.
+- **D:** Isotonic dehydration from GI loss only
+  - Reason: GI loss is intravascular/dehydration pattern.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-019 (normal, fluids_abg)
+
+**Stem:** Hypernatremia usually reflects:
+
+**Source:** `ms_lec_midterms_81e8.txt — PART V Sodium`
+
+- **A:** Always excess sodium infusion only
+  - Reason: Can be sodium gain but not the only cause listed.
+- **B:** Normal osmolality
+  - Reason: Hypernatremia raises osmolality.
+- **C:** Excess water relative to sodium
+  - Reason: Excess water causes hyponatremia.
+- **D:** Water deficit or sodium gain — hypertonic state **CORRECT**
+  - Reason: Hypernatremia = hypertonic serum, often water deficit.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-020 (normal, fluids_abg)
+
+**Stem:** Hypophosphatemia critical threshold:
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XXII Phosphate`
+
+- **A:** <1.0 mg/dL critical **CORRECT**
+  - Reason: <1.0 is critical hypophosphatemia.
+- **B:** <4.5 mg/dL
+  - Reason: <4.5 is still normal/low border.
+- **C:** >4.5 mg/dL
+  - Reason: >4.5 is hyperphosphatemia.
+- **D:** <2.5 mg/dL mild
+  - Reason: <2.5 defines hypophosphatemia.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-021 (hard, fluids_abg)
+
+**Stem:** Respiratory acidosis compensation over time:
+
+**Source:** `ms_lec_midterms_81e8.txt — Acid-base compensation`
+
+- **A:** Kidneys excrete all bicarbonate immediately
+  - Reason: Excreting bicarbonate would worsen acidosis.
+- **B:** No renal role
+  - Reason: Kidneys are key for metabolic compensation.
+- **C:** Only hyperventilation compensates chronic resp acidosis
+  - Reason: Hyperventilation cannot fix chronic hypoventilation.
+- **D:** Kidneys retain bicarbonate **CORRECT**
+  - Reason: Chronic CO₂ retention → renal HCO₃⁻ retention.
+
+*instructorReviewed:* `False`
+
+---
+
+## fluids-022 (hard, fluids_abg)
+
+**Stem:** Anion gap helps distinguish:
+
+**Source:** `ms_lec_midterms_81e8.txt — Metabolic acidosis`
+
+- **A:** Iron deficiency vs B12 deficiency
+  - Reason: Anemias use different labs.
+- **B:** Respiratory alkalosis only
+  - Reason: Anion gap is for metabolic acidosis classification.
+- **C:** Hyperkalemia vs hypokalemia
+  - Reason: Potassium is separate.
+- **D:** High-gap vs normal-gap metabolic acidosis **CORRECT**
+  - Reason: Gap distinguishes added acids (DKA, lactic) vs HCO₃ loss (diarrhea).
+
+*instructorReviewed:* `False`
+
+---
+
+## heart-001 (normal, heart)
+
+**Stem:** Angina pectoris is best described as:
+
+**Source:** `ms_lec_prelims_7b61.pdf — CAD/angina`
+
+- **A:** Chest pain from transient myocardial ischemia, often exertional **CORRECT**
+  - Reason: Angina reflects reversible ischemia, often related to exertion or stress.
+- **B:** Sharp pain only on inspiration without cardiac risk
+  - Reason: Isolated inspiratory pain without cardiac context is less typical for angina.
+- **C:** Continuous pleuritic pain with fever
+  - Reason: Pleuritic fever suggests pleural/pulmonary cause.
+- **D:** Sudden tearing chest pain radiating to back
+  - Reason: Aortic dissection pattern is tearing to back, not classic angina.
+
+*instructorReviewed:* `False`
+
+---
+
+## heart-002 (normal, heart)
+
+**Stem:** Which troponin pattern supports acute myocardial injury?
+
+**Source:** `ms_lec_prelims_7b61.pdf — ACS biomarkers`
+
+- **A:** Only CK-MB matters; troponin is irrelevant
+  - Reason: Troponin is central to MI diagnosis in modern practice.
+- **B:** Troponin elevated only in stable angina without infarction
+  - Reason: Stable angina without necrosis should not show typical MI troponin rise.
+- **C:** Rise and/or fall with at least one value above the 99th percentile URL **CORRECT**
+  - Reason: ESC/ACC pattern: rise/fall above URL indicates myocardial injury.
+- **D:** Normal on arrival, never recheck
+  - Reason: Serial troponins are needed for ACS workup.
+
+*instructorReviewed:* `False`
+
+---
+
+## heart-003 (hard, heart)
+
+**Stem:** ST-elevation MI (STEMI) priority intervention emphasized in acute cardiac care:
+
+**Source:** `ms_lec_prelims_7b61.pdf — ACS/MI`
+
+- **A:** Wait 24 hours for enzymes only
+  - Reason: Delay worsens myocardial loss in STEMI.
+- **B:** Reperfusion therapy (PCI or fibrinolysis per protocol) ASAP **CORRECT**
+  - Reason: Time-to-reperfusion is critical for STEMI outcomes.
+- **C:** Routine sedation without monitoring
+  - Reason: Sedation without monitoring is unsafe in ACS.
+- **D:** High-dose beta-blocker before any assessment
+  - Reason: Beta-blockers are given when hemodynamically stable, not before assessment.
+
+*instructorReviewed:* `False`
+
+---
+
+## heart-004 (normal, heart)
+
+**Stem:** Left-sided heart failure commonly presents with:
+
+**Source:** `ms_lec_prelims_7b61.pdf — Heart failure`
+
+- **A:** Peripheral pitting edema only
+  - Reason: Peripheral edema is more classic for right-sided failure.
+- **B:** Jugular distention without lung findings always
+  - Reason: JVD can occur in right failure; lungs may be clear in isolated right failure.
+- **C:** Ascites as the earliest sign
+  - Reason: Ascites is late right-sided/chronic pattern.
+- **D:** Pulmonary congestion, dyspnea, and crackles **CORRECT**
+  - Reason: Left failure backs up into lungs → dyspnea, crackles, orthopnea.
+
+*instructorReviewed:* `False`
+
+---
+
+## heart-005 (normal, heart)
+
+**Stem:** Right-sided heart failure hallmark finding:
+
+**Source:** `ms_lec_prelims_7b61.pdf — Heart failure`
+
+- **A:** Pulmonary crackles as primary sign
+  - Reason: Crackles suggest left-sided pulmonary congestion.
+- **B:** Isolated hemoptysis
+  - Reason: Hemoptysis is not the classic right HF picture.
+- **C:** Kussmaul respirations only
+  - Reason: Kussmaul is metabolic acidosis breathing pattern.
+- **D:** JVD, hepatomegaly, peripheral edema **CORRECT**
+  - Reason: Systemic venous congestion causes JVD, liver congestion, and edema.
+
+*instructorReviewed:* `False`
+
+---
+
+## heart-006 (hard, heart)
+
+**Stem:** Nitroglycerin for angina: key nursing teaching includes:
+
+**Source:** `ms_lec_prelims_7b61.pdf — Nitroglycerin`
+
+- **A:** Take with phosphodiesterase inhibitors for ED
+  - Reason: PDE-5 inhibitors + nitrates cause dangerous hypotension — contraindicated.
+- **B:** Chew and swallow all forms
+  - Reason: SL NTG is absorbed buccally, not swallowed for acute angina.
+- **C:** Store opened bottle in hot car
+  - Reason: Heat degrades NTG potency.
+- **D:** Use sublingual tablet at onset; may repeat per protocol; call EMS if pain persists **CORRECT**
+  - Reason: SL at onset with repeat doses and EMS if unrelieved is standard teaching.
+
+*instructorReviewed:* `False`
+
+---
+
+## heart-007 (normal, heart)
+
+**Stem:** Digoxin toxicity early sign emphasized in cardiac drug teaching:
+
+**Source:** `ms_lec_prelims_7b61.pdf — Digoxin`
+
+- **A:** Hypertension
+  - Reason: Hypotension/arrhythmias, not HTN, are toxicity concerns.
+- **B:** Bradycardia only without GI symptoms
+  - Reason: Bradycardia can occur but GI/visual symptoms often precede.
+- **C:** Nausea, anorexia, vision changes (yellow-green halos) **CORRECT**
+  - Reason: GI upset and visual changes are early toxicity clues before arrhythmias.
+- **D:** Polyuria
+  - Reason: Polyuria is not classic digoxin toxicity.
+
+*instructorReviewed:* `False`
+
+---
+
+## heart-008 (normal, heart)
+
+**Stem:** Loop diuretic (e.g., furosemide) primary action:
+
+**Source:** `ms_lec_prelims_7b61.pdf — Diuretics`
+
+- **A:** Blocks aldosterone at collecting duct only
+  - Reason: Aldosterone antagonists act on collecting duct, not loop site.
+- **B:** Blocks ACE
+  - Reason: ACE inhibitors act on RAAS, not the loop.
+- **C:** Inhibits Na⁺/K⁺/2Cl⁻ cotransporter in ascending loop of Henle **CORRECT**
+  - Reason: Loop diuretics block NKCC2 in thick ascending limb → potent diuresis.
+- **D:** Increases insulin release
+  - Reason: Insulin release is unrelated.
+
+*instructorReviewed:* `False`
+
+---
+
+## heart-009 (normal, heart)
+
+**Stem:** Beta-blocker after MI (when stable): main benefit taught:
+
+**Source:** `ms_lec_prelims_7b61.pdf — Beta-blockers`
+
+- **A:** Replaces aspirin therapy
+  - Reason: Antiplatelet therapy is separate from beta-blockade.
+- **B:** Reduces myocardial oxygen demand and arrhythmia risk **CORRECT**
+  - Reason: ↓ demand and antiarrhythmic effects support post-MI care when indicated.
+- **C:** Increases heart rate to improve output
+  - Reason: Beta-blockers lower HR and contractility, not raise HR.
+- **D:** Causes reflex hypertension
+  - Reason: They lower BP/HR; reflex HTN is not the goal.
+
+*instructorReviewed:* `False`
+
+---
+
+## heart-010 (normal, heart)
+
+**Stem:** Aspirin in acute coronary syndrome is given for:
+
+**Source:** `ms_lec_prelims_7b61.pdf — Aspirin/thrombolytics`
+
+- **A:** Antiplatelet effect to limit thrombus propagation **CORRECT**
+  - Reason: Irreversible COX-1 inhibition reduces platelet aggregation.
+- **B:** Diuresis
+  - Reason: Diuresis is diuretic action.
+- **C:** Sedation
+  - Reason: Aspirin is not a sedative.
+- **D:** Vasodilation only
+  - Reason: Aspirin's ACS role is antiplatelet, not primarily vasodilation.
+
+*instructorReviewed:* `False`
+
+---
+
+## heart-011 (normal, heart)
+
+**Stem:** Pericarditis classic pain feature:
+
+**Source:** `ms_lec_prelims_7b61.pdf — Pericarditis`
+
+- **A:** Crushing substernal pain only with ST elevation in one territory
+  - Reason: Territorial ST elevation suggests MI, not diffuse pericarditis pattern.
+- **B:** Pain only at night without position change
+  - Reason: Pericarditis pain is often positional.
+- **C:** Relieved by leaning forward; sharp pleuritic quality **CORRECT**
+  - Reason: Positional relief leaning forward is classic pericarditis.
+- **D:** Pain only with meals
+  - Reason: GI relation is not the hallmark.
+
+*instructorReviewed:* `False`
+
+---
+
+## heart-012 (hard, heart)
+
+**Stem:** Cardiac tamponade triad (Beck) includes:
+
+**Source:** `ms_lec_prelims_7b61.pdf — Tamponade`
+
+- **A:** Fever, cough, wheeze
+  - Reason: Respiratory infection cluster is unrelated.
+- **B:** Hypotension, muffled heart sounds, JVD **CORRECT**
+  - Reason: Beck triad: low BP, muffled sounds, elevated JVP.
+- **C:** Hypertension, bradycardia, clear lungs
+  - Reason: HTN/bradycardia/clear lungs do not define tamponade.
+- **D:** Polyuria, polydipsia, weight loss
+  - Reason: Diabetes symptoms are unrelated.
+
+*instructorReviewed:* `False`
+
+---
+
+## heart-013 (hard, heart)
+
+**Stem:** Priority action for suspected tamponade before pericardiocentesis:
+
+**Source:** `ms_lec_prelims_7b61.pdf — Tamponade`
+
+- **A:** High-flow O₂, IV access, prepare for pericardiocentesis/emergency surgery **CORRECT**
+  - Reason: Stabilize perfusion and prepare definitive drainage.
+- **B:** Massage carotid sinus
+  - Reason: Carotid massage is inappropriate.
+- **C:** Aggressive fluid restriction only
+  - Reason: Fluids may be needed to support preload in tamponade; blanket restriction harms.
+- **D:** Ambulate client immediately
+  - Reason: Activity increases demand while output is limited.
+
+*instructorReviewed:* `False`
+
+---
+
+## heart-014 (normal, heart)
+
+**Stem:** Endocarditis prevention teaching for high-risk clients includes:
+
+**Source:** `ms_lec_prelims_7b61.pdf — Endocarditis`
+
+- **A:** Skip dental prophylaxis always
+  - Reason: High-risk clients may need prophylaxis per current orders.
+- **B:** Report fever, chills, new murmur; adhere to antibiotic prophylaxis when ordered **CORRECT**
+  - Reason: Fever, chills, murmur changes warrant urgent evaluation.
+- **C:** Stop all antibiotics early if feeling better
+  - Reason: Incomplete antibiotic courses risk resistance/treatment failure.
+- **D:** Ignore IV line care
+  - Reason: Line care matters for bacteremia risk.
+
+*instructorReviewed:* `False`
+
+---
+
+## heart-015 (hard, heart)
+
+**Stem:** Aortic stenosis classic finding:
+
+**Source:** `ms_lec_prelims_7b61.pdf — Valvular disorders`
+
+- **A:** Harsh crescendo-decrescendo systolic murmur at right 2nd ICS radiating to carotids **CORRECT**
+  - Reason: AS murmur is systolic ejection at RUSB with carotid radiation.
+- **B:** Fixed split S2
+  - Reason: Fixed split S2 is ASD pattern.
+- **C:** Pericardial friction rub
+  - Reason: Friction rub is pericarditis.
+- **D:** High-pitched holosystolic murmur at apex
+  - Reason: Apical holosystolic suggests mitral regurgitation.
+
+*instructorReviewed:* `False`
+
+---
+
+## heart-016 (normal, heart)
+
+**Stem:** Post-PTCA/stent: priority teaching:
+
+**Source:** `ms_lec_prelims_7b61.pdf — PTCA/stenting`
+
+- **A:** No need to monitor insertion site
+  - Reason: Site checks prevent hematoma/bleeding complications.
+- **B:** Stop antiplatelets after 1 day
+  - Reason: DAPT duration is protocol-driven; stopping early risks stent thrombosis.
+- **C:** Take prescribed antiplatelets; report chest pain, bleeding, or sudden dyspnea **CORRECT**
+  - Reason: Chest pain, bleeding, dyspnea, and site monitoring are essential.
+- **D:** Resume heavy lifting same day
+  - Reason: Activity restrictions apply early post-procedure.
+
+*instructorReviewed:* `False`
+
+---
+
+## heart-017 (normal, heart)
+
+**Stem:** Normal sinus rhythm on ECG: rate and rhythm described as:
+
+**Source:** `ms_lec_prelims_7b61.pdf — ECG basics`
+
+- **A:** Regular rhythm ~60–100 bpm with P before each QRS **CORRECT**
+  - Reason: NSR: regular, 60–100, P-QRS relationship intact.
+- **B:** No P waves with sawtooth baseline
+  - Reason: Sawtooth = flutter.
+- **C:** Irregularly irregular 120 bpm
+  - Reason: Irregularly irregular suggests AFib.
+- **D:** Wide QRS tachycardia always
+  - Reason: Wide QRS tachycardia is VT or aberrancy, not NSR.
+
+*instructorReviewed:* `False`
+
+---
+
+## heart-018 (hard, heart)
+
+**Stem:** During cardiac arrest (BLS focus), first priority after scene safety:
+
+**Source:** `ms_lec_prelims_7b61.pdf — Cardiac arrest`
+
+- **A:** Place in high Fowler's only
+  - Reason: Position alone does not replace CPR/defibrillation.
+- **B:** Check pulse for 2 minutes before any action
+  - Reason: Pulse check is brief; delay in CPR worsens outcomes.
+- **C:** Give oral fluids
+  - Reason: Oral fluids are contraindicated in arrest.
+- **D:** Start high-quality CPR and get/defibrillate when shockable rhythm **CORRECT**
+  - Reason: Immediate CPR and early defibrillation for shockable rhythms save lives.
+
+*instructorReviewed:* `False`
+
+---
+
+## oxy-001 (normal, oxygenation)
+
+**Stem:** Which process of respiration is described as movement of gases into and out of the lungs?
+
+**Source:** `ms_lec_prelims_7b61.pdf — Respiration processes`
+
+- **A:** Ventilation **CORRECT**
+  - Reason: Ventilation is the mechanical movement of air into and out of the lungs (inspiration/expiration).
+- **B:** Osmosis
+  - Reason: Osmosis is water movement across membranes, not respiratory gas flow.
+- **C:** Diffusion
+  - Reason: Diffusion is gas movement across the alveolar membrane, not bulk flow in/out of lungs.
+- **D:** Perfusion
+  - Reason: Perfusion is blood flow to lung tissue for gas exchange, not air movement.
+
+*instructorReviewed:* `False`
+
+---
+
+## oxy-002 (normal, oxygenation)
+
+**Stem:** At rest, which phase of ventilation is primarily active (muscle work) versus passive?
+
+**Source:** `ms_lec_prelims_7b61.pdf — Ventilation`
+
+- **A:** Expiration
+  - Reason: Expiration at rest is mainly passive elastic recoil, though it can be forced voluntarily.
+- **B:** Cough reflex only
+  - Reason: Cough is a protective reflex, not the routine resting ventilation phase.
+- **C:** Inspiration **CORRECT**
+  - Reason: Inspiration is the active phase driven by inspiratory muscles.
+- **D:** Gas exchange
+  - Reason: Gas exchange is diffusion across the alveolar membrane, not bulk ventilation.
+
+*instructorReviewed:* `False`
+
+---
+
+## oxy-003 (hard, oxygenation)
+
+**Stem:** A COPD client has chronic CO₂ retention. Which ABG pattern best fits compensated chronic hypercapnia?
+
+**Source:** `ms_lec_prelims_7b61.pdf — COPD / ABG`
+
+- **A:** pH 7.50, PaCO₂ 30, HCO₃⁻ 22
+  - Reason: High pH with low PaCO₂ suggests respiratory alkalosis, not COPD retention.
+- **B:** pH 7.55, PaCO₂ 28, HCO₃⁻ 20
+  - Reason: Alkalosis with low PaCO₂ does not match chronic COPD hypercapnia.
+- **C:** pH 7.38, PaCO₂ 55, HCO₃⁻ 32 **CORRECT**
+  - Reason: Near-normal pH with elevated PaCO₂ and elevated HCO₃⁻ fits renal compensation for chronic CO₂ retention.
+- **D:** pH 7.20, PaCO₂ 60, HCO₃⁻ 24
+  - Reason: Low pH with high PaCO₂ and normal HCO₃⁻ suggests acute uncompensated respiratory acidosis.
+
+*instructorReviewed:* `False`
+
+---
+
+## oxy-004 (hard, oxygenation)
+
+**Stem:** When giving supplemental O₂ to a COPD client at risk for CO₂ narcosis, which principle?
+
+**Source:** `ms_lec_prelims_7b61.pdf — COPD oxygen therapy`
+
+- **A:** Always use 100% non-rebreather first
+  - Reason: High FiO₂ can blunt hypoxic drive; routine 100% O₂ risks CO₂ narcosis in vulnerable COPD clients.
+- **B:** Never monitor mental status
+  - Reason: Mental status and ABG trends must be monitored when O₂ changes in CO₂ retainers.
+- **C:** Titrate to lowest flow that maintains acceptable SpO₂ **CORRECT**
+  - Reason: Lowest effective O₂ reduces risk of CO₂ retention while supporting oxygenation.
+- **D:** Hyperoxygenate to reverse chronic hypoxemia rapidly
+  - Reason: Rapid hyperoxygenation can worsen CO₂ narcosis in chronic retainers.
+
+*instructorReviewed:* `False`
+
+---
+
+## oxy-005 (hard, oxygenation)
+
+**Stem:** Which finding is most consistent with a severe asthma exacerbation needing urgent escalation?
+
+**Source:** `ms_lec_prelims_7b61.pdf — Asthma`
+
+- **A:** Silent chest with fatigue and altered mental status **CORRECT**
+  - Reason: Silent chest + fatigue/altered LOC suggests critical airway narrowing and impending failure.
+- **B:** Productive cough with clear sputum only
+  - Reason: Clear sputum alone does not define severe bronchospasm.
+- **C:** Mild expiratory wheeze only
+  - Reason: Mild wheeze alone does not signal immediate respiratory failure.
+- **D:** Wheezing louder on auscultation
+  - Reason: Louder wheeze can still be a treatable exacerbation, not the most ominous sign alone.
+
+*instructorReviewed:* `False`
+
+---
+
+## oxy-006 (normal, oxygenation)
+
+**Stem:** Community-acquired pneumonia: which assessment cluster best supports impaired gas exchange?
+
+**Source:** `ms_lec_prelims_7b61.pdf — Pneumonia`
+
+- **A:** Isolated abdominal pain
+  - Reason: Abdominal pain is not the hallmark cluster for respiratory gas exchange problems.
+- **B:** Crackles, fever, tachypnea, and low SpO₂ **CORRECT**
+  - Reason: Crackles, fever, tachypnea, and hypoxemia fit alveolar consolidation and V/Q mismatch.
+- **C:** Dry skin only
+  - Reason: Skin dryness is not a primary gas-exchange indicator for pneumonia.
+- **D:** Bradycardia and hypertension only
+  - Reason: Bradycardia/hypertension alone do not define pneumonia-related hypoxia.
+
+*instructorReviewed:* `False`
+
+---
+
+## oxy-007 (normal, oxygenation)
+
+**Stem:** ARDS is characterized by which pathophysiology pattern?
+
+**Source:** `ms_lec_prelims_7b61.pdf — ARDS`
+
+- **A:** Left-sided heart failure as the primary cause
+  - Reason: Cardiogenic pulmonary edema is a different mechanism (heart failure).
+- **B:** Non-cardiogenic pulmonary edema with refractory hypoxemia **CORRECT**
+  - Reason: Increased capillary permeability causes non-cardiogenic edema and severe hypoxemia.
+- **C:** Upper airway obstruction only
+  - Reason: ARDS is alveolar-capillary injury, not isolated upper airway disease.
+- **D:** Chronic bronchitis without alveolar injury
+  - Reason: Chronic bronchitis describes COPD pattern, not ARDS alveolar injury.
+
+*instructorReviewed:* `False`
+
+---
+
+## oxy-008 (hard, oxygenation)
+
+**Stem:** For ARDS ventilation in critical care, which strategy is priority?
+
+**Source:** `ms_lec_prelims_7b61.pdf — ARDS ventilation`
+
+- **A:** Tidal volume 10–12 mL/kg to normalize PaCO₂
+  - Reason: High VT worsens volutrauma in injured ARDS lungs even if PaCO₂ looks better briefly.
+- **B:** PEEP 10–12 cm H₂O while keeping tidal volume at 10 mL/kg
+  - Reason: PEEP helps recruitment but must pair with low VT — high VT negates protection.
+- **C:** Low tidal volume (~6 mL/kg IBW) with protective limits **CORRECT**
+  - Reason: Low VT (~6 mL/kg IBW) is the lung-protective standard in ARDS ventilation.
+- **D:** Raise respiratory rate to 32/min without reducing tidal volume
+  - Reason: Faster rate without lowering VT still drives volutrauma and barotrauma risk.
+
+*instructorReviewed:* `False`
+
+---
+
+## oxy-009 (normal, oxygenation)
+
+**Stem:** Classic pulmonary embolism presentation includes
+
+**Source:** `ms_lec_prelims_7b61.pdf — PE`
+
+- **A:** Gradual onset dry cough over weeks only
+  - Reason: Chronic dry cough alone is not the classic acute PE picture.
+- **B:** Sudden dyspnea, pleuritic chest pain, tachycardia **CORRECT**
+  - Reason: Acute dyspnea, pleuritic pain, and tachycardia fit sudden V/Q obstruction.
+- **C:** Bilateral ankle edema as the first sign
+  - Reason: Ankle edema suggests chronic venous/heart issues, not acute PE first.
+- **D:** Productive green sputum for 10 days
+  - Reason: Purulent sputum suggests infection, not embolus.
+
+*instructorReviewed:* `False`
+
+---
+
+## oxy-010 (normal, oxygenation)
+
+**Stem:** Which ABG value is within the normal PaO₂ range?
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XXI ABG`
+
+- **A:** 55 mmHg
+  - Reason: 55 mmHg indicates significant hypoxemia.
+- **B:** 88 mmHg **CORRECT**
+  - Reason: 88 mmHg falls within the normal PaO₂ range of 80–100 mmHg.
+- **C:** 65 mmHg
+  - Reason: 65 mmHg is below normal PaO₂ (80–100).
+- **D:** 110 mmHg at sea level on room air as typical target
+  - Reason: 110 may occur with supplemental O₂; the normal range tops at 100 on room air context.
+
+*instructorReviewed:* `False`
+
+---
+
+## oxy-011 (normal, oxygenation)
+
+**Stem:** Normal adult SpO₂ on room air in standard references is:
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XXI ABG`
+
+- **A:** 95–100% **CORRECT**
+  - Reason: SaO₂ normal is 95–100% per the must-memorize sheet.
+- **B:** 70–80%
+  - Reason: 70–80% indicates severe hypoxemia.
+- **C:** 100% only with CO₂ retention
+  - Reason: 100% is not required; 95–100% is the normal range.
+- **D:** 85–90%
+  - Reason: 85–90% is below the stated normal saturation band.
+
+*instructorReviewed:* `False`
+
+---
+
+## oxy-012 (normal, oxygenation)
+
+**Stem:** Respiratory acidosis is defined by which primary change?
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XI Acid-base`
+
+- **A:** Low PaCO₂
+  - Reason: Low PaCO₂ causes respiratory alkalosis, not acidosis.
+- **B:** High HCO₃⁻ with low PaCO₂
+  - Reason: High HCO₃ with low PaCO₂ suggests metabolic alkalosis or compensation pattern, not primary resp acidosis.
+- **C:** pH above 7.45 with low HCO₃⁻
+  - Reason: High pH defines alkalosis, not acidosis.
+- **D:** High PaCO₂ with pH below 7.35 **CORRECT**
+  - Reason: Retained CO₂ lowers pH — primary respiratory acidosis when pH < 7.35.
+
+*instructorReviewed:* `False`
+
+---
+
+## oxy-013 (hard, oxygenation)
+
+**Stem:** A client has pH 7.48, PaCO₂ 28, HCO₃⁻ 22. What is the primary disorder?
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XIII Respiratory alkalosis`
+
+- **A:** Respiratory acidosis
+  - Reason: Respiratory acidosis requires high PaCO₂ and low pH.
+- **B:** Respiratory alkalosis **CORRECT**
+  - Reason: Low PaCO₂ with elevated pH indicates primary respiratory alkalosis.
+- **C:** Metabolic acidosis
+  - Reason: Metabolic acidosis would show low HCO₃⁻ with low pH as primary.
+- **D:** Metabolic alkalosis
+  - Reason: Metabolic alkalosis would show elevated HCO₃⁻ as primary driver.
+
+*instructorReviewed:* `False`
+
+---
+
+## oxy-014 (normal, oxygenation)
+
+**Stem:** Post-op client: priority respiratory nursing action to prevent atelectasis?
+
+**Source:** `ms_lec_prelims_7b61.pdf — Pre/post-op respiratory care`
+
+- **A:** Restrict fluids to prevent edema
+  - Reason: Adequate hydration supports secretion mobilization unless contraindicated.
+- **B:** Early ambulation, incentive spirometry, and cough/deep breathing **CORRECT**
+  - Reason: Mobility and lung expansion exercises are cornerstone post-op respiratory care .
+- **C:** High Fowler's only while asleep without waking
+  - Reason: Passive positioning without coached breathing is insufficient prevention.
+- **D:** Keep NPO for 48 hours without ambulation
+  - Reason: Prolonged immobility increases atelectasis risk; NPO alone does not expand lungs.
+
+*instructorReviewed:* `False`
+
+---
+
+## oxy-015 (normal, oxygenation)
+
+**Stem:** Informed consent for surgery requires the client to understand which element?
+
+**Source:** `ms_lec_prelims_7b61.pdf — Informed consent`
+
+- **A:** Nurse assignment only
+  - Reason: Staff assignment is not the informed consent standard.
+- **B:** Only the surgeon's favorite technique
+  - Reason: Consent is not about surgeon preference alone.
+- **C:** Nature of procedure, risks, benefits, and alternatives **CORRECT**
+  - Reason: Valid consent includes procedure, risks, benefits, and alternatives per surgical safety teaching.
+- **D:** Hospital parking rules
+  - Reason: Logistics are not the legal ethical core of informed consent.
+
+*instructorReviewed:* `False`
+
+---
+
+## oxy-016 (normal, oxygenation)
+
+**Stem:** Pleural effusion: which finding matches fluid in the pleural space?
+
+**Source:** `ms_lec_prelims_7b61.pdf — Pleural effusion`
+
+- **A:** Hyperresonance to percussion
+  - Reason: Hyperresonance suggests air (pneumothorax), not fluid.
+- **B:** Dullness to percussion over dependent area **CORRECT**
+  - Reason: Fluid dulls percussion and may decrease breath sounds basally.
+- **C:** Tracheal deviation toward the effusion side always
+  - Reason: Large effusions may deviate trachea away, not always toward.
+- **D:** Bronchial breath sounds over apex only
+  - Reason: Bronchial sounds over consolidated lung differ from effusion mechanics.
+
+*instructorReviewed:* `False`
+
+---
+
+## oxy-017 (normal, oxygenation)
+
+**Stem:** Which PaCO₂ is within normal range?
+
+**Source:** `ms_lec_midterms_81e8.txt — PART XXI ABG`
+
+- **A:** 55 mmHg
+  - Reason: 55 indicates hypercapnia.
+- **B:** 40 mmHg **CORRECT**
+  - Reason: 40 mmHg is within PaCO₂ 35–45 mmHg.
+- **C:** 30 mmHg
+  - Reason: 30 is below normal PaCO₂ (35–45).
+- **D:** 28 mmHg
+  - Reason: 28 indicates hypocapnia.
+
+*instructorReviewed:* `False`
+
+---
+
+## oxy-018 (hard, oxygenation)
+
+**Stem:** Priority nursing action for a client with suspected pulmonary embolism before definitive diagnosis?
+
+**Source:** `ms_lec_prelims_7b61.pdf — PE nursing care`
+
+- **A:** Massage the calf vigorously
+  - Reason: Calf massage risks dislodging thrombus.
+- **B:** Withhold all fluids
+  - Reason: Fluids are individualized; blanket withholding is not priority.
+- **C:** Maintain airway, oxygenation, and hemodynamic monitoring **CORRECT**
+  - Reason: ABC stability and monitoring align with acute PE stabilization.
+- **D:** Encourage strenuous exercise
+  - Reason: Strenuous activity increases oxygen demand and risk.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-001 (normal, periop_iv)
+
+**Stem:** 0.9% NaCl (NSS) tonicity classification:
+
+**Source:** `ms_lab_midterms_e746.pdf — Tonicity`
+
+- **A:** Hypertonic
+  - Reason: 3% NaCl is hypertonic.
+- **B:** Isotonic **CORRECT**
+  - Reason: 0.9% NaCl is isotonic with plasma.
+- **C:** Colloid
+  - Reason: Colloids are albumin/hetastarch etc.
+- **D:** Hypotonic
+  - Reason: Hypotonic examples are 0.45% NaCl.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-002 (normal, periop_iv)
+
+**Stem:** 0.45% NaCl (½ NS) effect on cells:
+
+**Source:** `ms_lab_midterms_e746.pdf — Tonicity`
+
+- **A:** No water shift
+  - Reason: Hypotonic solutions cause shift.
+- **B:** Water moves out of cells
+  - Reason: Hypotonic pulls water into cells, not out.
+- **C:** Only expands intravascular space long-term
+  - Reason: Much distributes to cells/interstitium.
+- **D:** Water moves into cells (hypotonic) **CORRECT**
+  - Reason: Lower solute than plasma → intracellular hydration.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-003 (hard, periop_iv)
+
+**Stem:** 3% NaCl is used for:
+
+**Source:** `ms_lab_midterms_e746.pdf — Hypertonic saline`
+
+- **A:** Lipid emulsion only
+  - Reason: TPN lipids are separate.
+- **B:** Routine maintenance hydration
+  - Reason: 3% is not routine maintenance.
+- **C:** K replacement
+  - Reason: K has specific solutions.
+- **D:** Severe hyponatremia and cerebral edema (draws water out of cells) **CORRECT**
+  - Reason: Hypertonic saline pulls water intravascularly for severe hypoNa/cerebral edema.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-004 (normal, periop_iv)
+
+**Stem:** D5W after dextrose metabolism behaves as:
+
+**Source:** `ms_lab_midterms_e746.pdf — D5W`
+
+- **A:** Isotonic permanently
+  - Reason: Not permanently isotonic.
+- **B:** Colloid expander
+  - Reason: Colloids are proteins/starches.
+- **C:** Hypertonic forever
+  - Reason: D5W is initially isotonic then becomes hypotonic as glucose metabolizes.
+- **D:** Ultimately hypotonic free water **CORRECT**
+  - Reason: Remaining free water hydrates cells.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-005 (normal, periop_iv)
+
+**Stem:** Lactated Ringer's is classified as:
+
+**Source:** `ms_lab_midterms_e746.pdf — Isotonic solutions`
+
+- **A:** Isotonic crystalloid **CORRECT**
+  - Reason: LR approximates plasma osmolality for expansion.
+- **B:** Blood product
+  - Reason: LR is not a blood product.
+- **C:** Hypertonic saline
+  - Reason: Hypertonic is 3%/5% NaCl etc.
+- **D:** Hypotonic crystalloid
+  - Reason: LR is listed with isotonic crystalloids.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-006 (normal, periop_iv)
+
+**Stem:** Colloid IV fluids primary use
+
+**Source:** `ms_lab_midterms_e746.pdf — Colloids`
+
+- **A:** Replace daily water deficit only
+  - Reason: Colloids expand intravascular volume via oncotic pressure.
+- **B:** KCl bolus
+  - Reason: KCl is separate electrolyte replacement.
+- **C:** Plasma volume expansion in hemorrhage/severe hypovolemia **CORRECT**
+  - Reason: Used for hemorrhage/severe hypovolemia in teaching.
+- **D:** Oral rehydration substitute
+  - Reason: Colloids are IV, not oral.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-007 (normal, periop_iv)
+
+**Stem:** Surgical asepsis means:
+
+**Source:** `Ms_lab_UT / ms_lab_prelim — Asepsis`
+
+- **A:** Single-dose vial reuse always
+  - Reason: Single-use vials should not be routinely reused.
+- **B:** Sterile field and sterile technique to prevent microorganism entry to tissues **CORRECT**
+  - Reason: Asepsis prevents microbes entering sterile tissues.
+- **C:** Only hand washing before meals
+  - Reason: Meal hand hygiene is not surgical asepsis.
+- **D:** Clean technique for all procedures
+  - Reason: Clean vs sterile differ; surgery needs sterile technique.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-008 (normal, periop_iv)
+
+**Stem:** Time-out (surgical safety) verifies:
+
+**Source:** `ms_lec_prelims_7b61.pdf — Surgical safety`
+
+- **A:** Only surgeon preference music
+  - Reason: Universal protocol/time-out confirms identity, site, procedure.
+- **B:** Correct patient, site, procedure before incision **CORRECT**
+  - Reason: Music is irrelevant to safety pause.
+- **C:** Lunch order
+  - Reason: Not part of timeout.
+- **D:** Billing code only
+  - Reason: Billing is administrative later.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-009 (hard, periop_iv)
+
+**Stem:** PACU priority assessment mnemonic focus:
+
+**Source:** `ms_lec_prelims_7b61.pdf — PACU`
+
+- **A:** Diet preferences only
+  - Reason: Diet comes after stability.
+- **B:** Remove all dressings immediately
+  - Reason: Dressings are inspected, not routinely all removed.
+- **C:** Discharge paperwork first
+  - Reason: Paperwork follows clinical stability.
+- **D:** Airway, breathing, circulation, surgical site, vitals **CORRECT**
+  - Reason: ABCs and surgical site/vitals dominate immediate PACU care.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-010 (normal, periop_iv)
+
+**Stem:** Post-op fever within first 24 hours is often due to:
+
+**Source:** `ms_lab_prelim — Post-op fever`
+
+- **A:** Wound infection most likely always
+  - Reason: Wound infection peaks later; early fever often atelectasis/inflammation.
+- **B:** Atelectasis / inflammatory response early **CORRECT**
+  - Reason: Atelectasis is classic day 0–1 cause taught.
+- **C:** Pulmonary embolism always
+  - Reason: PE is considered but not 'always' day 1.
+- **D:** Urine retention never
+  - Reason: Retention can contribute but 'always infection' is wrong.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-011 (normal, periop_iv)
+
+**Stem:** IV infiltration sign:
+
+**Source:** `ms_lab_midterms_e746.pdf — IV complications`
+
+- **A:** Cool skin, tight edema, slowed infusion at site **CORRECT**
+  - Reason: Local coolness, swelling, and poor flow suggest infiltration.
+- **B:** Bilateral pedal edema only
+  - Reason: Bilateral edema is systemic, not catheter-related.
+- **C:** Fever 39°C only
+  - Reason: Fever is not classic infiltration.
+- **D:** Chest pain only
+  - Reason: Chest pain unrelated.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-012 (normal, periop_iv)
+
+**Stem:** Phlebitis at IV site priority:
+
+**Source:** `ms_lab_midterms_e746.pdf — IV care`
+
+- **A:** Apply tourniquet above site permanently
+  - Reason: Tourniquet is not routine phlebitis care.
+- **B:** Ignore until line falls out
+  - Reason: Continuing irritant line worsens phlebitis.
+- **C:** Remove or rotate line per protocol; elevate limb; warm compress if ordered **CORRECT**
+  - Reason: Discontinue/rotate and supportive care per policy.
+- **D:** Massage vigorously toward heart
+  - Reason: Vigorous massage can spread infection/thrombus.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-013 (normal, periop_iv)
+
+**Stem:** NPO before elective surgery primary reason:
+
+**Source:** `ms_lab_prelim — Perioperative`
+
+- **A:** Prevent aspiration during anesthesia/induction **CORRECT**
+  - Reason: Aspiration risk drops with empty stomach per perioperative teaching.
+- **B:** Increase thirst for IV fluids only
+  - Reason: Thirst is side effect, not primary purpose.
+- **C:** Prevent all bowel sounds forever
+  - Reason: Bowel sounds return post-op.
+- **D:** Save hospital food costs
+  - Reason: Cost is not clinical reason.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-014 (normal, periop_iv)
+
+**Stem:** Elective vs emergency surgery distinction:
+
+**Source:** `ms_lab_prelim — Surgery types`
+
+- **A:** Elective has no planning
+  - Reason: Elective is planned/scheduled.
+- **B:** Emergency is unplanned life-saving; elective is scheduled **CORRECT**
+  - Reason: Emergency is urgent life-saving; consent process may vary but care is immediate.
+- **C:** Emergency never needs consent
+  - Reason: Consent/emergency exceptions exist but care is still urgent.
+- **D:** Both are always cosmetic
+  - Reason: Not all surgery is cosmetic.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-015 (normal, periop_iv)
+
+**Stem:** Pre-op teaching should include:
+
+**Source:** `ms_lab_prelim — Pre-op teaching`
+
+- **A:** Hide all risks to reduce anxiety
+  - Reason: Honest teaching includes coping strategies and reporting.
+- **B:** Deep breathing, leg exercises, pain reporting, and incision care basics **CORRECT**
+  - Reason: IS, leg exercises, and pain/incision teaching are standard.
+- **C:** Promise zero pain
+  - Reason: Zero pain is unrealistic promise.
+- **D:** Skip mobility instructions
+  - Reason: Mobility prevents complications.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-016 (hard, periop_iv)
+
+**Stem:** Hypertonic 10% dextrose (D10W) effect:
+
+**Source:** `ms_lab_midterms_e746.pdf — Hypertonic dextrose`
+
+- **A:** Pulls water into vasculature (hypertonic) **CORRECT**
+  - Reason: Hypertonic dextrose draws fluid into the intravascular space.
+- **B:** Colloid only
+  - Reason: D10W is a crystalloid, not a colloid.
+- **C:** Same as 0.45% NaCl
+  - Reason: 0.45% NaCl is hypotonic relative to plasma.
+- **D:** Hypotonic hydration of cells
+  - Reason: D10W is hypertonic, not hypotonic free water after metabolism.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-017 (normal, periop_iv)
+
+**Stem:** WHO surgical hand scrub aims to:
+
+**Source:** `ms_lab_prelim — Asepsis`
+
+- **A:** Reduce resident and transient flora on hands before sterile procedure **CORRECT**
+  - Reason: Transient/resident flora reduction is the goal.
+- **B:** Clean the OR floor
+  - Reason: Floor cleaning is environmental, not hand scrub.
+- **C:** Replace sterile gloves entirely
+  - Reason: Gloves still required after scrub.
+- **D:** Perfume hands only
+  - Reason: Surgical scrub reduces microbial load on hands.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-018 (hard, periop_iv)
+
+**Stem:** Post-op paralytic ileus nursing care includes:
+
+**Source:** `ms_lab_prelim — GI post-op`
+
+- **A:** No IV fluids ever
+  - Reason: IV fluids often continue until oral intake adequate.
+- **B:** NG decompression if ordered, monitor bowel sounds, gradual diet per surgeon **CORRECT**
+  - Reason: NG and gradual diet per orders are standard.
+- **C:** Early progressive diet without assessment
+  - Reason: Bowel function must return before advancing diet.
+- **D:** Force solid food immediately
+  - Reason: Early solids worsen distension.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-019 (normal, periop_iv)
+
+**Stem:** IV gauge selection: large bore used when:
+
+**Source:** `ms_lab_midterms_e746.pdf — IV therapy`
+
+- **A:** Rapid fluid/blood resuscitation anticipated **CORRECT**
+  - Reason: Cosmetics are not clinical indication.
+- **B:** No IV needed
+  - Reason: IV is needed if ordered.
+- **C:** Cosmetic preference only
+  - Reason: Large gauge allows faster flow for resuscitation.
+- **D:** Oral meds only
+  - Reason: Oral route bypasses IV.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-020 (normal, periop_iv)
+
+**Stem:** Central line vs peripheral line: central access allows:
+
+**Source:** `ms_lab_midterms_e746.pdf — IV access`
+
+- **A:** CVP monitoring, irritant meds, long-term TPN access per orders **CORRECT**
+  - Reason: Peripheral lines limit vesicants/rate.
+- **B:** Only saline flushes
+  - Reason: Central lines enable CVP, vesicant meds, TPN per protocol.
+- **C:** Never for medications
+  - Reason: Meds are given via central lines when indicated.
+- **D:** Only blood draws never fluids
+  - Reason: Fluids and meds both possible.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-021 (normal, periop_iv)
+
+**Stem:** Sterile gowning/gloving sequence taught in skills lab:
+
+**Source:** `ms_lab_prelim — Sterile technique`
+
+- **A:** Reuse gown on multiple patients
+  - Reason: Gowns are single sterile use.
+- **B:** Touch sterile field with bare hands
+  - Reason: Sterile technique minimizes breaks in sterility.
+- **C:** Open gown, don gown then gloves without contaminating sterile surfaces **CORRECT**
+  - Reason: Gown then gloves is standard taught order (follow lab policy).
+- **D:** Gloves before gown always without teaching variation
+  - Reason: Policy may vary slightly but contamination is always avoided.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-022 (hard, periop_iv)
+
+**Stem:** OPET (outpatient surgery) discharge criteria include:
+
+**Source:** `ms_lab_prelim — OPET`
+
+- **A:** Drive immediately after general anesthesia alone
+  - Reason: Driving after GA is unsafe initially.
+- **B:** Ignore pain score
+  - Reason: Pain must be controlled/managed.
+- **C:** No instructions needed
+  - Reason: Teaching is mandatory.
+- **D:** Stable vitals, voiding if required, responsible adult if ordered, understood teaching **CORRECT**
+  - Reason: Stable ABCs, voiding, escort, and teaching are standard OPET discharge anchors.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-023 (hard, periop_iv)
+
+**Stem:** KCl IV never given:
+
+**Source:** `ms_lab_midterms_e746.pdf — Electrolyte IV safety`
+
+- **A:** Mixed in 500 mL NS per protocol
+  - Reason: Diluted infusion is correct route.
+- **B:** IV push bolus undiluted **CORRECT**
+  - Reason: Must be diluted and rate-limited per policy.
+- **C:** Oral replacement when able
+  - Reason: Oral/enteral preferred when possible.
+- **D:** Diluted slow peripheral infusion per policy
+  - Reason: KCl bolus causes fatal arrhythmias — never push.
+
+*instructorReviewed:* `False`
+
+---
+
+## periop-024 (hard, periop_iv)
+
+**Stem:** Air embolism prevention with central line:
+
+**Source:** `ms_lab_midterms_e746.pdf — IV safety`
+
+- **A:** Infuse air intentionally
+  - Reason: Air must never be infused.
+- **B:** Prime line, clamp during changes, head-down left-side if suspected **CORRECT**
+  - Reason: Clamp/de-air lines; left lateral decubitus if air embolus suspected.
+- **C:** Leave all caps off
+  - Reason: Open caps increase air entry risk.
+- **D:** Stand patient upright if suspected
+  - Reason: Durant position helps trap air in right atrium.
+
+*instructorReviewed:* `False`
+
+---

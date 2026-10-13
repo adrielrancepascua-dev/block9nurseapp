@@ -1,5 +1,7 @@
 """Student-facing copy rules for PNLE stems (no instructor handout references)."""
+import json
 import re
+from pathlib import Path
 
 _HANDOUT_PATTERNS = [
     (re.compile(r"^According to the handout,?\s*", re.I), ""),
@@ -30,9 +32,26 @@ _HANDOUT_PATTERNS = [
     (re.compile(r"\bper the handout\.\s*", re.I), ""),
     (re.compile(r"\bper handout\.\s*", re.I), ""),
     (re.compile(r"\bthe handout warns\b", re.I), "teaching warns"),
+    (re.compile(r"\bper the midterm numbers sheet\b", re.I), ""),
+    (re.compile(r"\bper the numbers sheet:?\s*", re.I), ""),
+    (re.compile(r"\bper numbers sheet:?\s*", re.I), ""),
+    (re.compile(r"\bper numbers sheet\b", re.I), ""),
+    (re.compile(r"\bfrom sheet:?\s*", re.I), ""),
+    (re.compile(r"\bper sheet:?\s*", re.I), ""),
+    (re.compile(r"\bper sheet\.\s*", re.I), ""),
+    (re.compile(r"\bcritical per sheet\b", re.I), "critical"),
+    (re.compile(r"\bdefinition from sheet:?\s*", re.I), "definition: "),
+    (re.compile(r"\bdefinition from sheet\b", re.I), "definition"),
+    (re.compile(r"\blisted:\s*", re.I), "threshold: "),
 ]
 
-_BANNED_IN_STEM = re.compile(r"\bhandout\b", re.I)
+# Build fails if any stem matches (after sanitize pass).
+_BANNED_IN_STEM = re.compile(
+    r"\b(handout|sheet|reviewer|per\s+the)\b",
+    re.I,
+)
+
+_STATUS_PATH = Path(__file__).resolve().parent / "pnle_review_status.json"
 
 
 def sanitize_student_line(text: str) -> str:
@@ -53,20 +72,39 @@ def apply_student_copy_to_item(item: dict) -> None:
 
 
 def assert_stems_clean(items: list) -> None:
-    bad = [it["id"] for it in items if _BANNED_IN_STEM.search(it["stem"])]
-    if bad:
-        raise AssertionError(f"Stems still mention handout: {bad}")
-
-
-def apply_review_metadata(items: list, reviewer: str, reviewed_at: str, clinical_signoff: bool) -> None:
-    """reviewed=True only ships to students; reviewedBy empty until clinical sign-off."""
+    bad = []
     for it in items:
-        it["reviewed"] = True
-        if clinical_signoff:
-            it["reviewedBy"] = reviewer
-            it["reviewedAt"] = reviewed_at
+        stem = it["stem"] or ""
+        if _BANNED_IN_STEM.search(stem):
+            bad.append(it["id"])
+    if bad:
+        raise AssertionError(
+            f"Stems still contain banned terms (handout|sheet|reviewer|per the): {bad}"
+        )
+
+
+def load_review_status() -> dict:
+    if not _STATUS_PATH.is_file():
+        return {"items": {}}
+    with open(_STATUS_PATH, encoding="utf-8") as f:
+        data = json.load(f)
+    return data if isinstance(data.get("items"), dict) else {"items": {}}
+
+
+def apply_review_metadata(items: list) -> None:
+    """Ship only items you mark instructorReviewed in pnle_review_status.json."""
+    status = load_review_status().get("items", {})
+    for it in items:
+        row = status.get(it["id"], {})
+        instructor = bool(row.get("instructorReviewed"))
+        it["instructorReviewed"] = instructor
+        it["reviewed"] = instructor
+        it["reviewedBy"] = (row.get("reviewedBy") or "").strip() if instructor else ""
+        it["reviewedAt"] = (row.get("reviewedAt") or "").strip() if instructor else ""
+        note = (row.get("reviewNote") or "").strip()
+        if instructor:
             it.pop("reviewNote", None)
+        elif note:
+            it["reviewNote"] = note
         else:
-            it["reviewedBy"] = ""
-            it["reviewedAt"] = ""
-            it["reviewNote"] = "Pilot export — content not CI-signed; stems sanitized only"
+            it["reviewNote"] = "Not instructor-reviewed — hidden from Study until signed off in pnle_review_status.json"

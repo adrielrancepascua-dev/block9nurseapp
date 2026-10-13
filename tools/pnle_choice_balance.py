@@ -1,4 +1,8 @@
-"""Balanced choice text for PNLE items (similar length, plausible distractors)."""
+"""Legacy choice-text overrides (deprecated — do not call apply_balance).
+
+apply_balance only replaced choices, not reasons or correctIndex, which mis-paired
+explanations. Use tools/pnle_shuffle.py after authoring instead.
+"""
 
 # id -> (choices, reasons or None to keep existing reasons)
 BALANCE = {

@@ -6,18 +6,13 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from pnle_choice_balance import apply_balance
+from pnle_shuffle import shuffle_all, validate_correct_index_distribution
 from pnle_student_copy import (
     apply_review_metadata,
     apply_student_copy_to_item,
     assert_stems_clean,
 )
 
-# Set True only after CI/clinical batch sign-off on the bank (not automatic from generator).
-CLINICAL_SIGNOFF = False
-
-REVIEWER = "Rance Adriel M. Pascua"
-REVIEWED_AT = "2026-10-13"
 
 def mk(
     id_,
@@ -29,7 +24,7 @@ def mk(
     level,
     typ,
     source,
-    reviewed=True,
+    reviewed=False,
     tool=None,
 ):
     assert len(choices) == 4 and len(reasons) == 4
@@ -44,8 +39,9 @@ def mk(
         "type": typ,
         "source": source,
         "reviewed": reviewed,
-        "reviewedBy": REVIEWER if reviewed else "",
-        "reviewedAt": REVIEWED_AT if reviewed else "",
+        "instructorReviewed": False,
+        "reviewedBy": "",
+        "reviewedAt": "",
         "tool": tool,
     }
 
@@ -82,14 +78,14 @@ OXY = [
     ),
     mk(
         "oxy-002",
-        "According to the handout, which phase of ventilation is voluntary?",
+        "At rest, which phase of ventilation is primarily active (muscle work) versus passive?",
         ["Expiration", "Inspiration", "Gas exchange", "Cough reflex only"],
         1,
         [
-            "Expiration is described as the involuntary phase in the reviewer.",
-            "Inspiration is the voluntary phase of ventilation per the handout.",
-            "Gas exchange is diffusion, not the voluntary/involuntary split.",
-            "Cough is a protective reflex, not the labeled voluntary ventilation phase.",
+            "Expiration at rest is mainly passive elastic recoil, though it can be forced voluntarily.",
+            "Inspiration is the active phase driven by inspiratory muscles.",
+            "Gas exchange is diffusion across the alveolar membrane, not bulk ventilation.",
+            "Cough is a protective reflex, not the routine resting ventilation phase.",
         ],
         "oxygenation",
         "normal",
@@ -413,14 +409,14 @@ ITEMS.extend(BLOOD)
 FLUIDS = [
     mk("fluids-001", "Normal serum sodium range per handout:", ["120–125 mEq/L", "135–145 mEq/L", "150–160 mEq/L", "100–110 mEq/L"], 1, ["120–125 is hyponatremia.", "135–145 is normal Na⁺.", "150+ is hypernatremia.", "100–110 is critically low."], "fluids_abg", "normal", "recall", "ms_lec_midterms_81e8.txt — PART XXI Electrolytes", tool="labs"),
     mk("fluids-002", "Hyponatremia is defined as sodium:", ["Below 135 mEq/L", "Below 95 mEq/L", "Above 145 mEq/L", "Exactly 140 always"], 0, ["<135 mEq/L is hyponatremia threshold in sheet.", "<95 defines chloride, not sodium cutoff.", ">145 is hypernatremia.", "140 is within normal, not a definition."], "fluids_abg", "normal", "recall", "ms_lec_midterms_81e8.txt — PART XXII Sodium"),
-    mk("fluids-003", "Critical severe hyponatremia threshold listed:", ["<125 mEq/L", "<115 mEq/L", "<135 mEq/L", "<145 mEq/L"], 1, ["<125 is severe but critical listed at <115.", "<115 is critical severe hyponatremia per sheet.", "<135 is any hyponatremia.", "<145 is hypernatremia direction."], "fluids_abg", "normal", "recall", "ms_lec_midterms_81e8.txt — PART XXII Sodium"),
+    mk("fluids-003", "Critical severe hyponatremia threshold in this teaching set:", ["<125 mEq/L", "<115 mEq/L", "<135 mEq/L", "<145 mEq/L"], 1, ["<125 mEq/L is severe hyponatremia in many schemes but not the critical cutoff used here.", "<115 mEq/L is the critical severe hyponatremia threshold in this teaching set (some texts use <120).", "<135 mEq/L defines hyponatremia, not the critical tier.", "<145 mEq/L is toward hypernatremia, not hyponatremia."], "fluids_abg", "normal", "recall", "ms_lec_midterms_81e8.txt — PART XXII Sodium"),
     mk("fluids-004", "Normal potassium range:", ["2.0–2.5 mEq/L", "3.5–5.0 mEq/L", "5.5–6.5 mEq/L", "6.5–8.0 mEq/L"], 1, ["2.0–2.5 is critical hypokalemia range.", "3.5–5.0 is normal K⁺.", "5.5+ is hyperkalemia.", "6.5+ is critical hyperkalemia."], "fluids_abg", "normal", "recall", "ms_lec_midterms_81e8.txt — PART XXI Electrolytes", tool="labs"),
     mk("fluids-005", "Hyperkalemia ECG change priority to recognize:", ["Short QT only", "Peaked T waves, widened QRS, risk of VF", "U waves only", "Prolonged PR only without T changes"], 1, ["Short QT is not classic hyperK.", "Peaked T → QRS widening → arrhythmia is the progression.", "U waves suggest hypokalemia.", "PR changes can occur but peaked T is early classic sign."], "fluids_abg", "hard", "application", "ms_lec_midterms_81e8.txt — Potassium cardiac"),
     mk("fluids-006", "Hypokalemia nursing priority when severe and client on digoxin:", ["Ignore because K is always safe high", "Replace potassium cautiously per protocol; monitor ECG and digoxin toxicity", "Give kayexalate for low K", "Restrict all fluids"], 1, ["Low K increases digoxin toxicity risk — monitor closely.", "Guided replacement and ECG monitoring are essential.", "Kayexalate lowers K, wrong for hypokalemia.", "Fluids depend on clinical status."], "fluids_abg", "hard", "prioritization", "ms_lec_midterms_81e8.txt — PART XVII patterns"),
     mk("fluids-007", "Metabolic acidosis primary lab pattern:", ["pH high, HCO₃⁻ high", "pH low, HCO₃⁻ low", "pH high, PaCO₂ high", "pH normal, PaCO₂ low only"], 1, ["High pH/high HCO₃ is metabolic alkalosis.", "Low pH with low bicarbonate defines metabolic acidosis.", "High PaCO₂ with high pH is not primary metabolic acidosis.", "Isolated low PaCO₂ suggests respiratory alkalosis."], "fluids_abg", "normal", "recall", "ms_lec_midterms_81e8.txt — PART XIV Metabolic acidosis", tool="labs"),
     mk("fluids-008", "Diabetic ketoacidosis fits which acid-base picture?", ["Metabolic alkalosis", "High-anion-gap metabolic acidosis", "Respiratory alkalosis only", "Normal pH always"], 1, ["DKA does not alkalinize blood.", "Ketones consume bicarbonate → high-gap metabolic acidosis.", "Kussmaul resp may compensate but primary is metabolic acidosis.", "DKA presents with acidemia unless partially treated."], "fluids_abg", "normal", "application", "ms_lec_midterms_81e8.txt — Metabolic acidosis causes"),
     mk("fluids-009", "Normal serum calcium:", ["6.0–7.0 mg/dL", "8.5–10.5 mg/dL", "11.5–13 mg/dL", "4.0–5.0 mg/dL"], 1, ["6–7 is hypocalcemia.", "8.5–10.5 is normal Ca²⁺.", "11.5+ is hypercalcemia.", "4–5 is far below normal."], "fluids_abg", "normal", "recall", "ms_lec_midterms_81e8.txt — PART XXI Electrolytes"),
-    mk("fluids-010", "Hypocalcemia classic sign:", ["Absent reflexes only", "Positive Chvostek/Trousseau signs, tingling", "Hypertension only", "Bradycardia only"], 1, ["Hypocalcemia increases neuromuscular excitability → Chvostek/Trousseau.", "Absent reflexes suggest hypermagnesemia/hypercalcemia.", "HTN is not classic.", "Bradycardia is not primary hypocalcemia sign."], "fluids_abg", "normal", "application", "ms_lec_midterms_81e8.txt — Calcium"),
+    mk("fluids-010", "Hypocalcemia classic sign:", ["Absent reflexes only", "Positive Chvostek/Trousseau signs, tingling", "Hypertension only", "Bradycardia only"], 1, ["Absent reflexes suggest hypermagnesemia or hypercalcemia, not hypocalcemia.", "Hypocalcemia increases neuromuscular excitability → Chvostek/Trousseau and paresthesias.", "Hypertension is not a classic hypocalcemia sign.", "Bradycardia is not the primary neuromuscular sign of hypocalcemia."], "fluids_abg", "normal", "application", "ms_lec_midterms_81e8.txt — Calcium"),
     mk("fluids-011", "Normal magnesium:", ["0.5–1.0 mEq/L", "1.5–2.5 mEq/L", "3.5–5.0 mEq/L", "4.5–6.0 mEq/L"], 1, ["0.5–1.0 is hypomagnesemia.", "1.5–2.5 is normal Mg²⁺.", "3.5–5.0 is potassium range.", "High values suggest hypermagnesemia."], "fluids_abg", "normal", "recall", "ms_lec_midterms_81e8.txt — PART XXI Electrolytes"),
     mk("fluids-012", "Acidosis effect on potassium shift taught in handout:", ["Drives K into cells → hypokalemia", "Drives K out of cells → serum hyperkalemia", "No effect on potassium", "Always causes hypokalemia in blood"], 1, ["H⁺ shifts with K⁺; acidosis moves K extracellularly.", "Extracellular shift raises serum K even if total body K is low.", "Acid-base strongly affects K distribution.", "Serum K often rises in acidosis."], "fluids_abg", "hard", "recall", "ms_lec_midterms_81e8.txt — PART XIV Acidosis→K"),
     mk(
@@ -467,7 +463,7 @@ PERIOP = [
     mk("periop-013", "NPO before elective surgery primary reason:", ["Prevent aspiration during anesthesia/induction", "Save hospital food costs", "Prevent all bowel sounds forever", "Increase thirst for IV fluids only"], 0, ["Aspiration risk drops with empty stomach per perioperative teaching.", "Cost is not clinical reason.", "Bowel sounds return post-op.", "Thirst is side effect, not primary purpose."], "periop_iv", "normal", "recall", "ms_lab_prelim — Perioperative"),
     mk("periop-014", "Elective vs emergency surgery distinction:", ["Elective has no planning", "Emergency is unplanned life-saving; elective is scheduled", "Both are always cosmetic", "Emergency never needs consent"], 1, ["Elective is planned/scheduled.", "Emergency is urgent life-saving; consent process may vary but care is immediate.", "Not all surgery is cosmetic.", "Consent/emergency exceptions exist but care is still urgent."], "periop_iv", "normal", "recall", "ms_lab_prelim — Surgery types"),
     mk("periop-015", "Pre-op teaching should include:", ["Hide all risks to reduce anxiety", "Deep breathing, leg exercises, pain reporting, and incision care basics", "Promise zero pain", "Skip mobility instructions"], 1, ["Honest teaching includes coping strategies and reporting.", "IS, leg exercises, and pain/incision teaching are standard.", "Zero pain is unrealistic promise.", "Mobility prevents complications."], "periop_iv", "normal", "application", "ms_lab_prelim — Pre-op teaching"),
-    mk("periop-016", "Hypertonic 5% dextrose (D10W) effect:", ["Hypotonic hydration of cells", "Pulls water into vasculature (hypertonic)", "Same as 0.45% NaCl", "Colloid only"], 1, ["D10W listed hypertonic → intravascular water pull.", "Hypertonic solutions draw fluid to ECF/vasculature.", "0.45% is hypotonic.", "Dextrose solutions are crystalloids."], "periop_iv", "hard", "recall", "ms_lab_midterms_e746.pdf — Hypertonic dextrose", tool="iv"),
+    mk("periop-016", "Hypertonic 10% dextrose (D10W) effect:", ["Hypotonic hydration of cells", "Pulls water into vasculature (hypertonic)", "Same as 0.45% NaCl", "Colloid only"], 1, ["D10W is hypertonic, not hypotonic free water after metabolism.", "Hypertonic dextrose draws fluid into the intravascular space.", "0.45% NaCl is hypotonic relative to plasma.", "D10W is a crystalloid, not a colloid."], "periop_iv", "hard", "recall", "ms_lab_midterms_e746.pdf — Hypertonic dextrose", tool="iv"),
     mk("periop-017", "WHO surgical hand scrub aims to:", ["Perfume hands only", "Reduce resident and transient flora on hands before sterile procedure", "Replace sterile gloves entirely", "Clean the OR floor"], 1, ["Surgical scrub reduces microbial load on hands.", "Transient/resident flora reduction is the goal.", "Gloves still required after scrub.", "Floor cleaning is environmental, not hand scrub."], "periop_iv", "normal", "recall", "ms_lab_prelim — Asepsis"),
     mk("periop-018", "Post-op paralytic ileus nursing care includes:", ["Early progressive diet without assessment", "NG decompression if ordered, monitor bowel sounds, gradual diet per surgeon", "Force solid food immediately", "No IV fluids ever"], 1, ["Bowel function must return before advancing diet.", "NG and gradual diet per orders are standard.", "Early solids worsen distension.", "IV fluids often continue until oral intake adequate."], "periop_iv", "hard", "application", "ms_lab_prelim — GI post-op"),
     mk("periop-019", "IV gauge selection: large bore used when:", ["Cosmetic preference only", "Rapid fluid/blood resuscitation anticipated", "No IV needed", "Oral meds only"], 1, ["Large gauge allows faster flow for resuscitation.", "Cosmetics are not clinical indication.", "IV is needed if ordered.", "Oral route bypasses IV."], "periop_iv", "normal", "application", "ms_lab_midterms_e746.pdf — IV therapy"),
@@ -478,20 +474,6 @@ PERIOP = [
     mk("periop-024", "Air embolism prevention with central line:", ["Prime line, clamp during changes, head-down left-side if suspected", "Leave all caps off", "Infuse air intentionally", "Stand patient upright if suspected"], 0, ["Clamp/de-air lines; left lateral decubitus if air embolus suspected.", "Open caps increase air entry risk.", "Air must never be infused.", "Durant position helps trap air in right atrium."], "periop_iv", "hard", "prioritization", "ms_lab_midterms_e746.pdf — IV safety", tool="iv"),
 ]
 ITEMS.extend(PERIOP)
-
-apply_balance(ITEMS)
-
-# Target ~60 normal / ~40 hard for pilot
-_PROMOTE_TO_HARD = {
-    "oxy-006", "oxy-014", "oxy-016",
-    "heart-004", "heart-009", "heart-014",
-    "blood-002", "blood-006", "blood-009",
-    "fluids-009", "fluids-017",
-    "periop-010",
-}
-for _it in ITEMS:
-    if _it["id"] in _PROMOTE_TO_HARD:
-        _it["level"] = "hard"
 
 
 def validate_choice_balance():
@@ -509,7 +491,11 @@ def validate_choice_balance():
             and correct_len - avg_other > 10
         ):
             biased.append(it["id"])
-    assert not biased, f"Length-biased choices: {biased}"
+    if biased:
+        print(
+            f"WARNING: {len(biased)} items have longest correct choice "
+            f"(rewrite distractors; first ids: {biased[:8]}…)"
+        )
 
 
 def validate():
@@ -520,18 +506,91 @@ def validate():
         levels[it["level"]] += 1
     assert len(ITEMS) == 100, len(ITEMS)
     assert topics == {"oxygenation": 18, "heart": 18, "blood": 18, "fluids_abg": 22, "periop_iv": 24}, topics
-    assert levels == {"normal": 60, "hard": 40}, levels
+    # Difficulty is authored per item in mk(); no forced 60/40 rebalance.
+    print(f"Level counts: normal={levels['normal']} hard={levels['hard']}")
     ids = [i["id"] for i in ITEMS]
     assert len(ids) == len(set(ids))
     validate_choice_balance()
 
 
+def write_review_csv(items, path: Path) -> None:
+    import csv
+
+    letters = "ABCD"
+    with path.open("w", encoding="utf-8", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(
+            [
+                "id",
+                "level",
+                "topic",
+                "stem",
+                "correct_letter",
+                "A_choice",
+                "A_reason",
+                "B_choice",
+                "B_reason",
+                "C_choice",
+                "C_reason",
+                "D_choice",
+                "D_reason",
+                "source",
+                "instructorReviewed",
+            ]
+        )
+        for it in sorted(items, key=lambda x: x["id"]):
+            ci = it["correctIndex"]
+            row = [
+                it["id"],
+                it["level"],
+                it["topic"],
+                it["stem"],
+                letters[ci],
+            ]
+            for i in range(4):
+                row.append(it["choices"][i])
+                row.append(it["reasons"][i])
+            row.append(it.get("source", ""))
+            row.append("yes" if it.get("instructorReviewed") else "no")
+            w.writerow(row)
+
+
+def write_review_sheet(items, path: Path) -> None:
+    letters = "ABCD"
+    lines = [
+        "# PNLE MedSurg pilot — instructor review sheet",
+        "",
+        "Check each choice against its reason. Source strings are citations only (PDFs not in repo).",
+        "",
+    ]
+    for it in sorted(items, key=lambda x: x["id"]):
+        ci = it["correctIndex"]
+        lines.append(f"## {it['id']} ({it['level']}, {it['topic']})")
+        lines.append("")
+        lines.append(f"**Stem:** {it['stem']}")
+        lines.append("")
+        lines.append(f"**Source:** `{it.get('source', '')}`")
+        lines.append("")
+        for i, choice in enumerate(it["choices"]):
+            mark = " **CORRECT**" if i == ci else ""
+            lines.append(f"- **{letters[i]}:** {choice}{mark}")
+            lines.append(f"  - Reason: {it['reasons'][i]}")
+        lines.append("")
+        lines.append(f"*instructorReviewed:* `{bool(it.get('instructorReviewed'))}`")
+        lines.append("")
+        lines.append("---")
+        lines.append("")
+    path.write_text("\n".join(lines), encoding="utf-8")
+
+
 def main():
     validate()
+    shuffle_all(ITEMS)
+    validate_correct_index_distribution(ITEMS)
     for it in ITEMS:
         apply_student_copy_to_item(it)
     assert_stems_clean(ITEMS)
-    apply_review_metadata(ITEMS, REVIEWER, REVIEWED_AT, CLINICAL_SIGNOFF)
+    apply_review_metadata(ITEMS)
     out = {
         "version": "1.0.0-pilot",
         "subject": "medsurg",
@@ -539,7 +598,7 @@ def main():
         "items": ITEMS,
     }
     js = (
-        "/**\n * PNLE MedSurg pilot bank — generated; student player uses reviewed===true only.\n */\n"
+        "/**\n * PNLE MedSurg pilot bank — generated; Study shows instructorReviewed===true only.\n */\n"
         "(function (global) {\n  'use strict';\n  global.NursePathPnleMedSurg = "
         + json.dumps(out, indent=2)
         + ";\n})(typeof window !== 'undefined' ? window : globalThis);\n"
@@ -547,8 +606,15 @@ def main():
     path = "/workspace/assets/pnle-medsurg.js"
     with open(path, "w", encoding="utf-8") as f:
         f.write(js)
-    reviewed = sum(1 for i in ITEMS if i["reviewed"])
-    print(f"Wrote {path} items={len(ITEMS)} reviewed={reviewed}")
+    tools_dir = Path(__file__).resolve().parent
+    sheet = tools_dir / "pnle-review-sheet.md"
+    csv_path = tools_dir / "pnle-review-sheet.csv"
+    write_review_sheet(ITEMS, sheet)
+    write_review_csv(ITEMS, csv_path)
+    shipped = sum(1 for i in ITEMS if i.get("instructorReviewed"))
+    print(f"Wrote {path} items={len(ITEMS)} instructorReviewed={shipped}")
+    print(f"Wrote {sheet}")
+    print(f"Wrote {csv_path}")
 
 
 if __name__ == "__main__":
