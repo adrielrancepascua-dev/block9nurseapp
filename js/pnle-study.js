@@ -10,7 +10,7 @@
   const MISTAKES_KEY = 'nursepath_pnle_mistakes_v1';
   const PROGRESS_KEY = 'nursepath_pnle_progress_v1';
   const DAILY_COUNT_KEY = 'nursepath_pnle_daily_count_v1';
-  const REPORTS_KEY = 'nursepath_pnle_reports_v1';
+  const CHOICE_LABELS = ['A', 'B', 'C', 'D'];
 
   const TOPIC_ROWS = [
     { id: 'oxygenation', label: 'Oxygenation' },
@@ -120,18 +120,18 @@
     return daily[todayYmd()] || 0;
   }
 
-  function formatTodayGoalShort() {
+  function formatTodayFraction() {
     const done = getDailyProgress();
     const goal = getDailyGoal();
-    if (done >= goal) return 'Goal met';
-    return `${done} of ${goal}`;
+    return `${Math.min(done, goal)} / ${goal}`;
   }
 
   function formatTodayGoalLong() {
     const done = getDailyProgress();
     const goal = getDailyGoal();
-    if (done >= goal) return 'Today: Goal met';
-    return `Today: ${done} of ${goal}`;
+    const frac = formatTodayFraction();
+    if (done >= goal) return `Today: ${frac} · Goal met`;
+    return `Today: ${frac}`;
   }
 
   function todayGoalRingPercent() {
@@ -140,14 +140,15 @@
     return Math.min(100, Math.round((Math.min(done, goal) / goal) * 100));
   }
 
-  function updateMasteryUi() {
-    const total = bankItems.length || 1;
-    const mastered = getMasteredCount();
-    const pct = Math.min(100, Math.round((mastered / total) * 100));
-    const label = document.getElementById('pnleMasteryLabel');
-    const fill = document.getElementById('pnleMasteryFill');
-    if (label) label.textContent = `Mastered ${mastered} of ${bankItems.length}`;
-    if (fill) fill.style.width = `${pct}%`;
+  function resetAllStudyLocalData() {
+    localStorage.removeItem(MISTAKES_KEY);
+    localStorage.removeItem(PROGRESS_KEY);
+    localStorage.removeItem(DAILY_COUNT_KEY);
+    session = null;
+    if (studyTab === 'practice') renderStudyHome();
+    else if (studyTab === 'mistakes') renderMistakesHome();
+    else if (studyTab === 'progress') renderProgressHome();
+    refreshGateTileStats();
   }
 
   function recordAnswer(item, correct) {
@@ -179,12 +180,13 @@
 
     const mistakes = readMistakes();
     if (!correct) {
-      mistakes[item.id] = mistakes[item.id] || {
+      const prev = mistakes[item.id];
+      mistakes[item.id] = {
         missedAt: new Date().toISOString(),
         correctDays: [],
       };
-      if (!mistakes[item.id].missedAt) {
-        mistakes[item.id].missedAt = new Date().toISOString();
+      if (prev && prev.missedAt) {
+        mistakes[item.id].missedAt = prev.missedAt;
       }
     } else if (mistakes[item.id]) {
       const days = mistakes[item.id].correctDays || [];
@@ -198,14 +200,6 @@
       }
     }
     writeMistakes(mistakes);
-    updateMasteryUi();
-  }
-
-  function recordItemFeedback(itemId) {
-    const reports = readJson(REPORTS_KEY, []);
-    reports.push({ itemId, helpful: false, at: new Date().toISOString() });
-    writeJson(REPORTS_KEY, reports.slice(-200));
-    trackStudy('study_item_feedback', 'feature_use', { item_id: itemId, helpful: false });
   }
 
   function filterItems(topicId, level) {
@@ -344,7 +338,6 @@
     const shell = document.getElementById('pnle-study-shell');
     if (shell) shell.classList.add('is-active');
     ensureAppBooted();
-    updateMasteryUi();
     setStudyTab(studyTab || 'practice');
     startStudySession();
   }
@@ -455,8 +448,14 @@
     const level = getStudyLevel();
     const mistakeCount = Object.keys(readMistakes()).length;
     const ringPct = todayGoalRingPercent();
-    const goalLabel = formatTodayGoalShort();
+    const done = getDailyProgress();
+    const goal = getDailyGoal();
+    const goalMet = done >= goal;
+    const frac = formatTodayFraction();
     const mastered = getMasteredCount();
+    const ringInner = goalMet
+      ? '<span class="pnle-ring-check" aria-hidden="true">✓</span>'
+      : `<span class="pnle-ring-num">${Math.min(done, goal)}</span>`;
 
     const topicRows = TOPIC_ROWS.map((t) => {
       const total = getTopicTotal(t.id);
@@ -471,15 +470,18 @@
 
     root.innerHTML = `
       <div class="pnle-home-hero">
-        <div class="pnle-goal-ring" style="--ring-pct:${ringPct}" aria-label="Today's goal ${goalLabel}">
-          <div class="pnle-goal-ring-inner">
-            <span class="pnle-goal-ring-num">${escapeHtml(goalLabel)}</span>
-            <span class="pnle-goal-ring-cap">today</span>
+        <div class="pnle-goal-ring-wrap">
+          <div class="pnle-goal-ring" style="--ring-pct:${ringPct}" aria-hidden="true">
+            <div class="pnle-goal-ring-inner">${ringInner}</div>
+          </div>
+          <div class="pnle-goal-ring-labels">
+            <p class="pnle-goal-ring-frac">${escapeHtml(frac)}</p>
+            <p class="pnle-goal-ring-cap">${goalMet ? 'Goal met' : 'Today'}</p>
           </div>
         </div>
         <div class="pnle-home-hero-text">
           <p class="pnle-home-hero-title">MedSurg practice</p>
-          <p class="pnle-home-hero-sub">${mastered} of ${bankItems.length} mastered · ${DAILY_GOAL_FIXED}/day goal</p>
+          <p class="pnle-home-hero-sub">Mastered ${mastered} of ${bankItems.length}</p>
         </div>
       </div>
       <div class="pnle-level-row" role="group" aria-label="Difficulty">
@@ -563,18 +565,37 @@
     const mistakes = Object.keys(readMistakes()).length;
     const done = getDailyProgress();
     const goal = getDailyGoal();
-    const todayLabel = done >= goal ? 'Goal met' : `${Math.min(done, goal)} / ${goal}`;
+    const topicProgress = TOPIC_ROWS.map((t) => {
+      const total = getTopicTotal(t.id);
+      const m = getMasteredInTopic(t.id);
+      return `<li><span>${escapeHtml(t.label)}</span><strong>${m} / ${total}</strong></li>`;
+    }).join('');
     root.innerHTML = `
       <div class="pnle-progress-card">
-        <h2>Progress</h2>
+        <h2 id="pnleProgressTitle">Progress</h2>
         <ul class="pnle-progress-list">
           <li><span>Mastered (2+ correct days)</span><strong>${mastered} / ${bankItems.length}</strong></li>
-          <li><span>Today answered</span><strong>${todayLabel}</strong></li>
+          <li><span>Today answered</span><strong>${formatTodayFraction()}</strong></li>
           <li><span>Mistakes waiting</span><strong>${mistakes}</strong></li>
         </ul>
-        <p class="pnle-study-hint">Mastery counts items you got right on two separate days.</p>
+        <h3 class="pnle-section-label">By topic</h3>
+        <ul class="pnle-progress-list">${topicProgress}</ul>
+        <p class="pnle-study-hint">Mastered = correct on two different calendar days (not two in one sitting). Mistakes stay until two correct days clear them; missing again resets that streak. Today counts every answer you lock.</p>
       </div>
     `;
+    let resetTaps = 0;
+    const title = root.querySelector('#pnleProgressTitle');
+    if (title) {
+      title.addEventListener('click', () => {
+        resetTaps += 1;
+        if (resetTaps >= 5) {
+          resetTaps = 0;
+          if (window.confirm('Reset all Study progress on this device?')) {
+            resetAllStudyLocalData();
+          }
+        }
+      });
+    }
   }
 
   const ICON_CHECK =
@@ -607,13 +628,17 @@
         if (slot) slot.innerHTML = ICON_X;
       } else {
         b.classList.add('is-revealed');
+        if (slot) {
+          slot.innerHTML = `<span class="pnle-choice-letter">${CHOICE_LABELS[idx]}</span>`;
+        }
       }
     });
 
     const nextBtn = root.querySelector('#pnleNextBtn');
-    const report = root.querySelector('#pnleReportLink');
-    if (nextBtn) nextBtn.hidden = false;
-    if (report) report.hidden = false;
+    if (nextBtn) {
+      nextBtn.classList.remove('is-hidden');
+      nextBtn.removeAttribute('hidden');
+    }
   }
 
   function bindChoiceTap(btn, root, item) {
@@ -643,11 +668,9 @@
   function renderQuestion() {
     const root = document.getElementById('pnleStudyRoot');
     const tabbar = document.getElementById('pnleStudyTabbar');
-    if (tabbar) tabbar.classList.add('is-dimmed');
     if (!root || !session) return;
     const item = session.queue[session.index];
     if (!item) {
-      if (tabbar) tabbar.classList.remove('is-dimmed');
       root.innerHTML = `
         <h2 class="pnle-screen-title">Session complete</h2>
         <p class="pnle-study-hint">You answered ${session.answered} question(s).</p>
@@ -665,7 +688,7 @@
       .map(
         (c, idx) =>
           `<button type="button" class="pnle-choice" data-idx="${idx}">
-            <span class="pnle-choice-icon-slot"></span>
+            <span class="pnle-choice-icon-slot"><span class="pnle-choice-letter">${CHOICE_LABELS[idx]}</span></span>
             <span class="pnle-choice-body">
               <span class="pnle-choice-text">${escapeHtml(c)}</span>
             </span>
@@ -682,23 +705,19 @@
       <div class="pnle-question-card">
         <p class="pnle-question-stem">${escapeHtml(item.stem)}</p>
         <div class="pnle-choices">${choices}</div>
-        <button type="button" class="pnle-btn-primary pnle-btn-next" id="pnleNextBtn" hidden>Next question</button>
-        <button type="button" class="pnle-report-link" id="pnleReportLink" hidden>Report a problem</button>
+        <button type="button" class="pnle-btn-primary pnle-btn-next is-hidden" id="pnleNextBtn" hidden aria-hidden="true">Next question</button>
       </div>
     `;
 
     const nextBtn = root.querySelector('#pnleNextBtn');
-    const reportLink = root.querySelector('#pnleReportLink');
 
     root.querySelector('#pnleQuitSession').addEventListener('click', () => {
       session = null;
-      if (tabbar) tabbar.classList.remove('is-dimmed');
       setStudyTab(studyTab);
     });
 
     root.querySelector('#pnleHistoryBtn').addEventListener('click', () => {
       session = null;
-      if (tabbar) tabbar.classList.remove('is-dimmed');
       setStudyTab('mistakes');
     });
 
@@ -708,12 +727,6 @@
       session.index += 1;
       session.locked = false;
       renderQuestion();
-    });
-
-    reportLink.addEventListener('click', () => {
-      recordItemFeedback(item.id);
-      reportLink.textContent = 'Reported — thank you';
-      reportLink.disabled = true;
     });
   }
 
@@ -773,6 +786,7 @@
     showLaunchGate: () => showLaunchGateWhenReady(true),
     getReviewedCount: () => bankItems.length,
     getMistakeIds: () => Object.keys(readMistakes()),
+    resetAllStudyLocalData,
   };
 
   const origBoot = global.__nursepathBootApp;
