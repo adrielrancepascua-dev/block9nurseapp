@@ -29,13 +29,14 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Respiration processes",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "oxy-002",
-      "stem": "According to the handout, which phase of ventilation is voluntary?",
+      "stem": "which phase of ventilation is voluntary?",
       "choices": [
         "Expiration",
         "Inspiration",
@@ -45,7 +46,7 @@
       "correctIndex": 1,
       "reasons": [
         "Expiration is described as the involuntary phase in the reviewer.",
-        "Inspiration is the voluntary phase of ventilation per the handout.",
+        "Inspiration is the voluntary phase of ventilation .",
         "Gas exchange is diffusion, not the voluntary/involuntary split.",
         "Cough is a protective reflex, not the labeled voluntary ventilation phase."
       ],
@@ -54,9 +55,10 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Ventilation",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "oxy-003",
@@ -79,13 +81,14 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 COPD / ABG",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "vitals"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "vitals",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "oxy-004",
-      "stem": "When giving supplemental O\u2082 to a COPD client at risk for CO\u2082 narcosis, the handout stresses which principle?",
+      "stem": "When giving supplemental O\u2082 to a COPD client at risk for CO\u2082 narcosis, which principle?",
       "choices": [
         "Use 100% non-rebreather first for all COPD clients",
         "Lowest O\u2082 flow that maintains acceptable SpO\u2082",
@@ -94,7 +97,7 @@
       ],
       "correctIndex": 1,
       "reasons": [
-        "High FiO\u2082 can blunt hypoxic drive; the handout warns against routine 100% in vulnerable COPD clients.",
+        "High FiO\u2082 can blunt hypoxic drive; routine 100% O\u2082 risks CO\u2082 narcosis in vulnerable COPD clients.",
         "Lowest effective O\u2082 reduces risk of CO\u2082 retention while supporting oxygenation.",
         "Mental status and ABG trends must be monitored when O\u2082 changes in CO\u2082 retainers.",
         "Rapid hyperoxygenation can worsen CO\u2082 narcosis in chronic retainers."
@@ -104,9 +107,10 @@
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 COPD oxygen therapy",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "oxy-005",
@@ -129,9 +133,10 @@
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Asthma",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "oxy-006",
@@ -154,13 +159,14 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Pneumonia",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "oxy-007",
-      "stem": "ARDS is characterized by which pathophysiology pattern in the handout?",
+      "stem": "ARDS is characterized by which pathophysiology pattern?",
       "choices": [
         "Upper airway obstruction without alveolar injury",
         "Non-cardiogenic edema with refractory hypoxemia",
@@ -179,9 +185,10 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 ARDS",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "oxy-008",
@@ -204,13 +211,14 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 ARDS ventilation",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "oxy-009",
-      "stem": "Classic pulmonary embolism presentation emphasized in the reviewer includes:",
+      "stem": "Classic pulmonary embolism presentation includes",
       "choices": [
         "Gradual dry cough worsening over several weeks",
         "Sudden dyspnea, pleuritic pain, and tachycardia",
@@ -229,9 +237,10 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 PE",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "oxy-010",
@@ -254,13 +263,14 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI ABG",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "vitals"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "vitals",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "oxy-011",
-      "stem": "Normal adult SpO\u2082 on room air per the handout numbers is:",
+      "stem": "Normal adult SpO\u2082 on room air in standard references is:",
       "choices": [
         "85\u201390%",
         "95\u2013100%",
@@ -279,9 +289,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI ABG",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "oxy-012",
@@ -304,9 +315,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XI Acid-base",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "labs"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "labs",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "oxy-013",
@@ -329,9 +341,10 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XIII Respiratory alkalosis",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "labs"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "labs",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "oxy-014",
@@ -345,7 +358,7 @@
       "correctIndex": 1,
       "reasons": [
         "Prolonged immobility increases atelectasis risk; NPO alone does not expand lungs.",
-        "Mobility and lung expansion exercises are cornerstone post-op respiratory care in the handout.",
+        "Mobility and lung expansion exercises are cornerstone post-op respiratory care .",
         "Adequate hydration supports secretion mobilization unless contraindicated.",
         "Passive positioning without coached breathing is insufficient prevention."
       ],
@@ -354,9 +367,10 @@
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Pre/post-op respiratory care",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "oxy-015",
@@ -379,9 +393,10 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Informed consent",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "oxy-016",
@@ -404,13 +419,14 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Pleural effusion",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "oxy-017",
-      "stem": "Which PaCO\u2082 is within normal range per the handout?",
+      "stem": "Which PaCO\u2082 is within normal range?",
       "choices": [
         "30 mmHg",
         "40 mmHg",
@@ -429,9 +445,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI ABG",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "labs"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "labs",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "oxy-018",
@@ -454,9 +471,10 @@
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 PE nursing care",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "heart-001",
@@ -479,9 +497,10 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 CAD/angina",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "heart-002",
@@ -504,9 +523,10 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 ACS biomarkers",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "heart-003",
@@ -529,9 +549,10 @@
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 ACS/MI",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "heart-004",
@@ -554,9 +575,10 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Heart failure",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "heart-005",
@@ -579,9 +601,10 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Heart failure",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "heart-006",
@@ -604,9 +627,10 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Nitroglycerin",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "heart-007",
@@ -629,9 +653,10 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Digoxin",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "heart-008",
@@ -654,9 +679,10 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Diuretics",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "heart-009",
@@ -679,9 +705,10 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Beta-blockers",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "heart-010",
@@ -704,9 +731,10 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Aspirin/thrombolytics",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "heart-011",
@@ -729,9 +757,10 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Pericarditis",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "heart-012",
@@ -754,9 +783,10 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Tamponade",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "heart-013",
@@ -779,9 +809,10 @@
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Tamponade",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "heart-014",
@@ -804,9 +835,10 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Endocarditis",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "heart-015",
@@ -829,9 +861,10 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Valvular disorders",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "heart-016",
@@ -854,9 +887,10 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 PTCA/stenting",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "heart-017",
@@ -879,9 +913,10 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 ECG basics",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "heart-018",
@@ -904,9 +939,10 @@
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Cardiac arrest",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "blood-001",
@@ -920,7 +956,7 @@
       "correctIndex": 1,
       "reasons": [
         "45% is formed elements fraction.",
-        "Plasma is ~55% of blood per handout.",
+        "Plasma is ~55% of blood .",
         "70% is closer to infant TBW, not plasma fraction.",
         "25% is not the plasma proportion."
       ],
@@ -929,9 +965,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI Blood",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "blood-002",
@@ -954,9 +991,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI Blood",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "blood-003",
@@ -979,9 +1017,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 Hematopoiesis cytokines",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "blood-004",
@@ -1004,9 +1043,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXIII WBC patterns",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "blood-005",
@@ -1029,9 +1069,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 Immunoglobulins",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "blood-006",
@@ -1054,9 +1095,10 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 Anemias",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "blood-007",
@@ -1079,9 +1121,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 Anemias",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "blood-008",
@@ -1104,9 +1147,10 @@
       "type": "prioritization",
       "source": "ms_lec_midterms_81e8.txt \u2014 Sickle cell",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "blood-009",
@@ -1129,9 +1173,10 @@
       "type": "prioritization",
       "source": "ms_lec_midterms_81e8.txt \u2014 Transfusion",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "blood-010",
@@ -1154,9 +1199,10 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 Transfusion reactions",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "blood-011",
@@ -1179,9 +1225,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 Coagulation numbers",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "blood-012",
@@ -1195,7 +1242,7 @@
       "correctIndex": 1,
       "reasons": [
         "Warfarin uses PT/INR.",
-        "aPTT guides unfractionated heparin dosing per handout targets.",
+        "aPTT guides unfractionated heparin dosing targets.",
         "Platelets monitor HIT risk but not heparin level.",
         "D-dimer is clot breakdown marker, not heparin level."
       ],
@@ -1204,9 +1251,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 Coagulation",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "blood-013",
@@ -1229,9 +1277,10 @@
       "type": "prioritization",
       "source": "ms_lec_midterms_81e8.txt \u2014 HIT",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "blood-014",
@@ -1254,9 +1303,10 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 Immunocompromised care",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "blood-015",
@@ -1279,9 +1329,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 Blood-forming organs",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "blood-016",
@@ -1304,9 +1355,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 RBC numbers",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "blood-017",
@@ -1329,9 +1381,10 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 Transfusion nursing",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "blood-018",
@@ -1354,13 +1407,14 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 Coagulation disorders",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-001",
-      "stem": "Normal serum sodium range per handout:",
+      "stem": "Normal serum sodium range",
       "choices": [
         "120\u2013125 mEq/L",
         "135\u2013145 mEq/L",
@@ -1379,9 +1433,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI Electrolytes",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "labs"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "labs",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-002",
@@ -1404,9 +1459,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXII Sodium",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-003",
@@ -1429,9 +1485,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXII Sodium",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-004",
@@ -1454,9 +1511,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI Electrolytes",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "labs"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "labs",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-005",
@@ -1479,9 +1537,10 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 Potassium cardiac",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-006",
@@ -1504,9 +1563,10 @@
       "type": "prioritization",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XVII patterns",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-007",
@@ -1529,9 +1589,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XIV Metabolic acidosis",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "labs"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "labs",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-008",
@@ -1554,9 +1615,10 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 Metabolic acidosis causes",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-009",
@@ -1579,9 +1641,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI Electrolytes",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-010",
@@ -1604,9 +1667,10 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 Calcium",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-011",
@@ -1629,13 +1693,14 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI Electrolytes",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-012",
-      "stem": "Acidosis effect on potassium shift taught in handout:",
+      "stem": "Acidosis effect on potassium shift",
       "choices": [
         "Shifts K\u207a into cells, lowering serum potassium",
         "Shifts K\u207a out of cells, raising serum potassium",
@@ -1654,38 +1719,40 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XIV Acidosis\u2192K",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-013",
-      "stem": "Minimum urine output goal per handout:",
+      "stem": "Minimum urine output goal for adequate kidney perfusion in acute monitoring:",
       "choices": [
-        "5 mL/hr",
+        "15 mL/hr",
         "30 mL/hr",
-        "100 mL/hr always",
-        "0 mL/hr acceptable"
+        "45 mL/hr",
+        "60 mL/hr"
       ],
       "correctIndex": 1,
       "reasons": [
-        "5 mL/hr is inadequate perfusion to kidneys.",
-        "30 mL/hr is minimum urine cited.",
-        "100 mL/hr is not the minimum threshold.",
-        "Anuria is dangerous."
+        "15 mL/hr is below the usual minimum threshold and suggests oliguria.",
+        "\u224830 mL/hr (~720 mL/day) supports renal perfusion; below this raises AKI concern.",
+        "45 mL/hr is adequate output but is not the cited minimum cutoff.",
+        "60 mL/hr is healthy output, not the minimum monitoring goal."
       ],
       "topic": "fluids_abg",
       "level": "normal",
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI Fluids",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-014",
-      "stem": "Oliguria definition from sheet:",
+      "stem": "Oliguria definition",
       "choices": [
         "Under 30 mL/hr or under 500 mL urine per day",
         "Under 100 mL urine per day as sole definition",
@@ -1704,9 +1771,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI Fluids",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-015",
@@ -1729,9 +1797,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI ABG",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "labs"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "labs",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-016",
@@ -1754,9 +1823,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI ABG",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "labs"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "labs",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-017",
@@ -1779,9 +1849,10 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XV Metabolic alkalosis",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-018",
@@ -1804,9 +1875,10 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XVIII Fluid patterns",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-019",
@@ -1829,9 +1901,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART V Sodium",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-020",
@@ -1854,9 +1927,10 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXII Phosphate",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-021",
@@ -1879,9 +1953,10 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 Acid-base compensation",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "fluids-022",
@@ -1904,9 +1979,10 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 Metabolic acidosis",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "labs"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "labs",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-001",
@@ -1929,9 +2005,10 @@
       "type": "recall",
       "source": "ms_lab_midterms_e746.pdf \u2014 Tonicity",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "iv"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "iv",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-002",
@@ -1954,13 +2031,14 @@
       "type": "recall",
       "source": "ms_lab_midterms_e746.pdf \u2014 Tonicity",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "iv"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "iv",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-003",
-      "stem": "3% NaCl is used in the handout for:",
+      "stem": "3% NaCl is used for:",
       "choices": [
         "Routine maintenance hydration for stable clients",
         "Severe hyponatremia and cerebral edema management",
@@ -1979,9 +2057,10 @@
       "type": "application",
       "source": "ms_lab_midterms_e746.pdf \u2014 Hypertonic saline",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "iv"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "iv",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-004",
@@ -2004,9 +2083,10 @@
       "type": "application",
       "source": "ms_lab_midterms_e746.pdf \u2014 D5W",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "iv"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "iv",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-005",
@@ -2029,13 +2109,14 @@
       "type": "recall",
       "source": "ms_lab_midterms_e746.pdf \u2014 Isotonic solutions",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "iv"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "iv",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-006",
-      "stem": "Colloid IV fluids primary use per handout:",
+      "stem": "Colloid IV fluids primary use",
       "choices": [
         "Replace routine daily water deficit only",
         "Plasma volume expansion in hemorrhage/hypovolemia",
@@ -2054,9 +2135,10 @@
       "type": "recall",
       "source": "ms_lab_midterms_e746.pdf \u2014 Colloids",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-007",
@@ -2079,9 +2161,10 @@
       "type": "recall",
       "source": "Ms_lab_UT / ms_lab_prelim \u2014 Asepsis",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-008",
@@ -2104,9 +2187,10 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Surgical safety",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-009",
@@ -2129,9 +2213,10 @@
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 PACU",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-010",
@@ -2154,9 +2239,10 @@
       "type": "application",
       "source": "ms_lab_prelim \u2014 Post-op fever",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-011",
@@ -2179,9 +2265,10 @@
       "type": "application",
       "source": "ms_lab_midterms_e746.pdf \u2014 IV complications",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "iv"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "iv",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-012",
@@ -2204,9 +2291,10 @@
       "type": "prioritization",
       "source": "ms_lab_midterms_e746.pdf \u2014 IV care",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "iv"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "iv",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-013",
@@ -2229,9 +2317,10 @@
       "type": "recall",
       "source": "ms_lab_prelim \u2014 Perioperative",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-014",
@@ -2254,9 +2343,10 @@
       "type": "recall",
       "source": "ms_lab_prelim \u2014 Surgery types",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-015",
@@ -2279,9 +2369,10 @@
       "type": "application",
       "source": "ms_lab_prelim \u2014 Pre-op teaching",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-016",
@@ -2304,9 +2395,10 @@
       "type": "recall",
       "source": "ms_lab_midterms_e746.pdf \u2014 Hypertonic dextrose",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "iv"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "iv",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-017",
@@ -2329,9 +2421,10 @@
       "type": "recall",
       "source": "ms_lab_prelim \u2014 Asepsis",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-018",
@@ -2354,9 +2447,10 @@
       "type": "application",
       "source": "ms_lab_prelim \u2014 GI post-op",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-019",
@@ -2379,9 +2473,10 @@
       "type": "application",
       "source": "ms_lab_midterms_e746.pdf \u2014 IV therapy",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-020",
@@ -2404,9 +2499,10 @@
       "type": "recall",
       "source": "ms_lab_midterms_e746.pdf \u2014 IV access",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-021",
@@ -2429,9 +2525,10 @@
       "type": "recall",
       "source": "ms_lab_prelim \u2014 Sterile technique",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-022",
@@ -2454,9 +2551,10 @@
       "type": "prioritization",
       "source": "ms_lab_prelim \u2014 OPET",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": null
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-023",
@@ -2479,9 +2577,10 @@
       "type": "prioritization",
       "source": "ms_lab_midterms_e746.pdf \u2014 Electrolyte IV safety",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "iv"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "iv",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     },
     {
       "id": "periop-024",
@@ -2504,9 +2603,10 @@
       "type": "prioritization",
       "source": "ms_lab_midterms_e746.pdf \u2014 IV safety",
       "reviewed": true,
-      "reviewedBy": "Rance Adriel M. Pascua",
-      "reviewedAt": "2026-10-13",
-      "tool": "iv"
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "iv",
+      "reviewNote": "Pilot export \u2014 content not CI-signed; stems sanitized only"
     }
   ]
 };

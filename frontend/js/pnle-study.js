@@ -70,7 +70,7 @@
   function loadBank() {
     const pack = global.NursePathPnleMedSurg;
     if (!pack || !Array.isArray(pack.items)) return [];
-    return pack.items.filter((it) => it.reviewed === true);
+    return pack.items.filter((it) => it.reviewed === true && !/\bhandout\b/i.test(it.stem || ''));
   }
 
   function trackStudy(feature, action, meta) {
@@ -174,6 +174,8 @@
         days.push(day);
         entry.correctDays = days.sort();
       }
+    } else {
+      entry.correctDays = [];
     }
     prog[item.id] = entry;
     writeProgress(prog);

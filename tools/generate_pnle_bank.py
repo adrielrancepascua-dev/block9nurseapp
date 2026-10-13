@@ -7,6 +7,14 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from pnle_choice_balance import apply_balance
+from pnle_student_copy import (
+    apply_review_metadata,
+    apply_student_copy_to_item,
+    assert_stems_clean,
+)
+
+# Set True only after CI/clinical batch sign-off on the bank (not automatic from generator).
+CLINICAL_SIGNOFF = False
 
 REVIEWER = "Rance Adriel M. Pascua"
 REVIEWED_AT = "2026-10-13"
@@ -111,7 +119,7 @@ OXY = [
         ["Always use 100% non-rebreather first", "Titrate to lowest flow that maintains acceptable SpO₂", "Never monitor mental status", "Hyperoxygenate to reverse chronic hypoxemia rapidly"],
         1,
         [
-            "High FiO₂ can blunt hypoxic drive; the handout warns against routine 100% in vulnerable COPD clients.",
+            "High FiO₂ can blunt hypoxic drive; routine 100% O₂ risks CO₂ narcosis in vulnerable COPD clients.",
             "Lowest effective O₂ reduces risk of CO₂ retention while supporting oxygenation.",
             "Mental status and ABG trends must be monitored when O₂ changes in CO₂ retainers.",
             "Rapid hyperoxygenation can worsen CO₂ narcosis in chronic retainers.",
@@ -415,7 +423,22 @@ FLUIDS = [
     mk("fluids-010", "Hypocalcemia classic sign:", ["Absent reflexes only", "Positive Chvostek/Trousseau signs, tingling", "Hypertension only", "Bradycardia only"], 1, ["Hypocalcemia increases neuromuscular excitability → Chvostek/Trousseau.", "Absent reflexes suggest hypermagnesemia/hypercalcemia.", "HTN is not classic.", "Bradycardia is not primary hypocalcemia sign."], "fluids_abg", "normal", "application", "ms_lec_midterms_81e8.txt — Calcium"),
     mk("fluids-011", "Normal magnesium:", ["0.5–1.0 mEq/L", "1.5–2.5 mEq/L", "3.5–5.0 mEq/L", "4.5–6.0 mEq/L"], 1, ["0.5–1.0 is hypomagnesemia.", "1.5–2.5 is normal Mg²⁺.", "3.5–5.0 is potassium range.", "High values suggest hypermagnesemia."], "fluids_abg", "normal", "recall", "ms_lec_midterms_81e8.txt — PART XXI Electrolytes"),
     mk("fluids-012", "Acidosis effect on potassium shift taught in handout:", ["Drives K into cells → hypokalemia", "Drives K out of cells → serum hyperkalemia", "No effect on potassium", "Always causes hypokalemia in blood"], 1, ["H⁺ shifts with K⁺; acidosis moves K extracellularly.", "Extracellular shift raises serum K even if total body K is low.", "Acid-base strongly affects K distribution.", "Serum K often rises in acidosis."], "fluids_abg", "hard", "recall", "ms_lec_midterms_81e8.txt — PART XIV Acidosis→K"),
-    mk("fluids-013", "Minimum urine output goal per handout:", ["5 mL/hr", "30 mL/hr", "100 mL/hr always", "0 mL/hr acceptable"], 1, ["5 mL/hr is inadequate perfusion to kidneys.", "30 mL/hr is minimum urine cited.", "100 mL/hr is not the minimum threshold.", "Anuria is dangerous."], "fluids_abg", "normal", "recall", "ms_lec_midterms_81e8.txt — PART XXI Fluids"),
+    mk(
+        "fluids-013",
+        "Minimum urine output goal for adequate kidney perfusion in acute monitoring:",
+        ["15 mL/hr", "30 mL/hr", "45 mL/hr", "60 mL/hr"],
+        1,
+        [
+            "15 mL/hr is below the usual minimum threshold and suggests oliguria.",
+            "≈30 mL/hr (~720 mL/day) supports renal perfusion; below this raises AKI concern.",
+            "45 mL/hr is adequate output but is not the cited minimum cutoff.",
+            "60 mL/hr is healthy output, not the minimum monitoring goal.",
+        ],
+        "fluids_abg",
+        "normal",
+        "recall",
+        "ms_lec_midterms_81e8.txt — PART XXI Fluids",
+    ),
     mk("fluids-014", "Oliguria definition from sheet:", ["<30 mL/hr or <500 mL/day", "<100 mL/day only", ">200 mL/hr", "Exactly 1 L/day"], 0, ["<30 mL/hr or <500 mL/day defines oliguria.", "<100 mL/day is anuria range closer.", ">200 is polyuria territory.", "1 L/day may be normal depending on intake."], "fluids_abg", "normal", "recall", "ms_lec_midterms_81e8.txt — PART XXI Fluids"),
     mk("fluids-015", "Normal pH of blood:", ["7.20–7.30", "7.35–7.45", "7.50–7.60", "6.80–7.00"], 1, ["7.20–7.30 is acidemia.", "7.35–7.45 is normal blood pH.", "7.50+ is alkalemia.", "6.8–7.0 is incompatible with life acutely."], "fluids_abg", "normal", "recall", "ms_lec_midterms_81e8.txt — PART XXI ABG", tool="labs"),
     mk("fluids-016", "Normal bicarbonate (HCO₃⁻):", ["15–18 mEq/L", "22–26 mEq/L", "30–35 mEq/L", "10–12 mEq/L"], 1, ["15–18 is low bicarbonate.", "22–26 is normal HCO₃⁻.", "30–35 suggests metabolic alkalosis.", "10–12 is severe metabolic acidosis."], "fluids_abg", "normal", "recall", "ms_lec_midterms_81e8.txt — PART XXI ABG", tool="labs"),
@@ -505,6 +528,10 @@ def validate():
 
 def main():
     validate()
+    for it in ITEMS:
+        apply_student_copy_to_item(it)
+    assert_stems_clean(ITEMS)
+    apply_review_metadata(ITEMS, REVIEWER, REVIEWED_AT, CLINICAL_SIGNOFF)
     out = {
         "version": "1.0.0-pilot",
         "subject": "medsurg",

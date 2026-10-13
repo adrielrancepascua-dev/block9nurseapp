@@ -596,6 +596,11 @@ html[data-theme='light'] body.pnle-mode-study {
   align-items: center;
   gap: 8px;
   margin-bottom: 12px;
+  padding-top: 4px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--pnle-study-bg, #0f172a);
 }
 
 .pnle-q-progress {
