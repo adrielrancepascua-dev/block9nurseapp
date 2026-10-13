@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """Generate assets/pnle-medsurg.js — 100 MedSurg PNLE pilot items."""
 import json
+import sys
 from datetime import date
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from pnle_choice_balance import apply_balance
 
 REVIEWER = "Rance Adriel M. Pascua"
 REVIEWED_AT = "2026-10-13"
@@ -446,6 +451,8 @@ PERIOP = [
 ]
 ITEMS.extend(PERIOP)
 
+apply_balance(ITEMS)
+
 # Target ~60 normal / ~40 hard for pilot
 _PROMOTE_TO_HARD = {
     "oxy-006", "oxy-014", "oxy-016",
@@ -459,6 +466,24 @@ for _it in ITEMS:
         _it["level"] = "hard"
 
 
+def validate_choice_balance():
+    """Fail build if the correct choice is obviously longest vs distractors."""
+    biased = []
+    for it in ITEMS:
+        lens = [len(c) for c in it["choices"]]
+        ci = it["correctIndex"]
+        correct_len = lens[ci]
+        others = [ln for i, ln in enumerate(lens) if i != ci]
+        avg_other = sum(others) / 3
+        if (
+            correct_len == max(lens)
+            and correct_len > avg_other * 1.28
+            and correct_len - avg_other > 10
+        ):
+            biased.append(it["id"])
+    assert not biased, f"Length-biased choices: {biased}"
+
+
 def validate():
     topics = {"oxygenation": 0, "heart": 0, "blood": 0, "fluids_abg": 0, "periop_iv": 0}
     levels = {"normal": 0, "hard": 0}
@@ -470,6 +495,7 @@ def validate():
     assert levels == {"normal": 60, "hard": 40}, levels
     ids = [i["id"] for i in ITEMS]
     assert len(ids) == len(set(ids))
+    validate_choice_balance()
 
 
 def main():

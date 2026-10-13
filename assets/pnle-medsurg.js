@@ -87,10 +87,10 @@
       "id": "oxy-004",
       "stem": "When giving supplemental O\u2082 to a COPD client at risk for CO\u2082 narcosis, the handout stresses which principle?",
       "choices": [
-        "Always use 100% non-rebreather first",
-        "Titrate to lowest flow that maintains acceptable SpO\u2082",
-        "Never monitor mental status",
-        "Hyperoxygenate to reverse chronic hypoxemia rapidly"
+        "Use 100% non-rebreather first for all COPD clients",
+        "Lowest O\u2082 flow that maintains acceptable SpO\u2082",
+        "Do not monitor mental status when titrating oxygen",
+        "Hyperoxygenate rapidly to reverse chronic hypoxemia"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -112,10 +112,10 @@
       "id": "oxy-005",
       "stem": "Which finding is most consistent with a severe asthma exacerbation needing urgent escalation?",
       "choices": [
-        "Wheezing louder on auscultation",
-        "Silent chest with fatigue and altered mental status",
-        "Mild expiratory wheeze only",
-        "Productive cough with clear sputum only"
+        "Louder wheeze with good air entry on auscultation",
+        "Silent chest, fatigue, and altered mental status",
+        "Mild expiratory wheeze at rest without distress",
+        "Productive cough with clear sputum and stable SpO\u2082"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -137,10 +137,10 @@
       "id": "oxy-006",
       "stem": "Community-acquired pneumonia: which assessment cluster best supports impaired gas exchange?",
       "choices": [
-        "Dry skin only",
+        "Dry skin and mucous membranes without fever",
         "Crackles, fever, tachypnea, and low SpO\u2082",
-        "Bradycardia and hypertension only",
-        "Isolated abdominal pain"
+        "Bradycardia and hypertension with clear lungs",
+        "Isolated abdominal pain without respiratory signs"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -162,10 +162,10 @@
       "id": "oxy-007",
       "stem": "ARDS is characterized by which pathophysiology pattern in the handout?",
       "choices": [
-        "Upper airway obstruction only",
-        "Non-cardiogenic pulmonary edema with refractory hypoxemia",
-        "Left-sided heart failure as the primary cause",
-        "Chronic bronchitis without alveolar injury"
+        "Upper airway obstruction without alveolar injury",
+        "Non-cardiogenic edema with refractory hypoxemia",
+        "Cardiogenic pulmonary edema from left failure",
+        "Chronic bronchitis without capillary leak"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -187,10 +187,10 @@
       "id": "oxy-008",
       "stem": "For ARDS ventilation strategy emphasized in critical care teaching aligned with the handout, which is priority?",
       "choices": [
-        "Large tidal volumes to normalize PaCO\u2082",
-        "Lung-protective low tidal volume ventilation",
-        "No PEEP ever",
-        "Routine hyperventilation to pH 7.55"
+        "High tidal volumes to normalize PaCO\u2082 quickly",
+        "Low tidal volume, lung-protective ventilation",
+        "Ventilation without PEEP in all ARDS clients",
+        "Routine hyperventilation to maintain pH 7.55"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -212,10 +212,10 @@
       "id": "oxy-009",
       "stem": "Classic pulmonary embolism presentation emphasized in the reviewer includes:",
       "choices": [
-        "Gradual onset dry cough over weeks only",
-        "Sudden dyspnea, pleuritic chest pain, tachycardia",
-        "Bilateral ankle edema as the first sign",
-        "Productive green sputum for 10 days"
+        "Gradual dry cough worsening over several weeks",
+        "Sudden dyspnea, pleuritic pain, and tachycardia",
+        "Bilateral ankle edema before any breathing changes",
+        "Purulent green sputum for more than seven days"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -337,10 +337,10 @@
       "id": "oxy-014",
       "stem": "Post-op client: priority respiratory nursing action to prevent atelectasis?",
       "choices": [
-        "Keep NPO for 48 hours without ambulation",
-        "Early ambulation, incentive spirometry, and cough/deep breathing",
-        "Restrict fluids to prevent edema",
-        "High Fowler's only while asleep without waking"
+        "NPO for 48 hours without lung expansion exercises",
+        "Early ambulation, incentive spirometry, cough/deep breathe",
+        "Restrict all oral and IV fluids to prevent edema",
+        "High Fowler's during sleep only without coaching"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -362,10 +362,10 @@
       "id": "oxy-015",
       "stem": "Informed consent for surgery requires the client to understand which element?",
       "choices": [
-        "Only the surgeon's favorite technique",
-        "Nature of procedure, risks, benefits, and alternatives",
-        "Hospital parking rules",
-        "Nurse assignment only"
+        "Surgeon's preferred technique without alternatives",
+        "Procedure nature, risks, benefits, and alternatives",
+        "Hospital parking, visiting hours, and room rules",
+        "Assigned nurse name and shift schedule only"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -437,10 +437,10 @@
       "id": "oxy-018",
       "stem": "Priority nursing action for a client with suspected pulmonary embolism before definitive diagnosis?",
       "choices": [
-        "Massage the calf vigorously",
-        "Maintain airway, oxygenation, and hemodynamic monitoring",
-        "Encourage strenuous exercise",
-        "Withhold all fluids"
+        "Vigorous calf massage to improve circulation",
+        "Airway, oxygenation, and hemodynamic monitoring",
+        "Strenuous exercise to improve ventilation",
+        "Withhold IV fluids and oral intake entirely"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -462,10 +462,10 @@
       "id": "heart-001",
       "stem": "Angina pectoris is best described as:",
       "choices": [
-        "Sudden tearing chest pain radiating to back",
-        "Chest pain from transient myocardial ischemia, often exertional",
-        "Continuous pleuritic pain with fever",
-        "Sharp pain only on inspiration without cardiac risk"
+        "Tearing chest pain radiating to the back",
+        "Transient ischemic chest pain, often exertional",
+        "Continuous pleuritic pain with high fever",
+        "Sharp inspiratory pain without cardiac risk"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -487,10 +487,10 @@
       "id": "heart-002",
       "stem": "Which troponin pattern supports acute myocardial injury?",
       "choices": [
-        "Normal on arrival, never recheck",
-        "Rise and/or fall with at least one value above the 99th percentile URL",
-        "Only CK-MB matters; troponin is irrelevant",
-        "Troponin elevated only in stable angina without infarction"
+        "Single normal troponin; no serial testing needed",
+        "Rise and/or fall with value above 99th percentile URL",
+        "CK-MB alone defines MI; troponin not used",
+        "Stable troponin elevation without acute change"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -512,10 +512,10 @@
       "id": "heart-003",
       "stem": "ST-elevation MI (STEMI) priority intervention emphasized in acute cardiac care:",
       "choices": [
-        "Wait 24 hours for enzymes only",
-        "Reperfusion therapy (PCI or fibrinolysis per protocol) ASAP",
-        "High-dose beta-blocker before any assessment",
-        "Routine sedation without monitoring"
+        "Observe 24 hours; treat only if enzymes rise",
+        "Reperfusion (PCI or fibrinolysis per protocol) ASAP",
+        "IV beta-blocker bolus before any assessment",
+        "Sedation without monitoring until pain resolves"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -587,10 +587,10 @@
       "id": "heart-006",
       "stem": "Nitroglycerin for angina: key nursing teaching includes:",
       "choices": [
-        "Chew and swallow all forms",
-        "Use sublingual tablet at onset; may repeat per protocol; call EMS if pain persists",
-        "Store opened bottle in hot car",
-        "Take with phosphodiesterase inhibitors for ED"
+        "Chew and swallow sublingual tablet with water",
+        "SL at onset; repeat per protocol; call EMS if persists",
+        "Store opened bottle in heat and direct sunlight",
+        "Take with PDE-5 inhibitor if chest pain continues"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -612,10 +612,10 @@
       "id": "heart-007",
       "stem": "Digoxin toxicity early sign emphasized in cardiac drug teaching:",
       "choices": [
-        "Polyuria",
-        "Nausea, anorexia, vision changes (yellow-green halos)",
-        "Bradycardia only without GI symptoms",
-        "Hypertension"
+        "Polyuria, weight loss, and glucose intolerance",
+        "Nausea, anorexia, and yellow-green vision changes",
+        "Bradycardia without GI or visual symptoms",
+        "Sustained hypertension and bounding pulses"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -637,10 +637,10 @@
       "id": "heart-008",
       "stem": "Loop diuretic (e.g., furosemide) primary action:",
       "choices": [
-        "Blocks aldosterone at collecting duct only",
-        "Inhibits Na\u207a/K\u207a/2Cl\u207b cotransporter in ascending loop of Henle",
-        "Blocks ACE",
-        "Increases insulin release"
+        "Blocks aldosterone at the collecting duct only",
+        "Inhibits Na\u207a/K\u207a/2Cl\u207b cotransporter in loop of Henle",
+        "Inhibits ACE and reduces angiotensin II",
+        "Stimulates insulin release from pancreatic beta cells"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -662,10 +662,10 @@
       "id": "heart-009",
       "stem": "Beta-blocker after MI (when stable): main benefit taught:",
       "choices": [
-        "Increases heart rate to improve output",
-        "Reduces myocardial oxygen demand and arrhythmia risk",
-        "Causes reflex hypertension",
-        "Replaces aspirin therapy"
+        "Increases heart rate to improve cardiac output",
+        "Reduces myocardial O\u2082 demand and arrhythmia risk",
+        "Raises blood pressure via reflex vasoconstriction",
+        "Replaces antiplatelet therapy after MI"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -687,10 +687,10 @@
       "id": "heart-010",
       "stem": "Aspirin in acute coronary syndrome is given for:",
       "choices": [
-        "Vasodilation only",
-        "Antiplatelet effect to limit thrombus propagation",
-        "Diuresis",
-        "Sedation"
+        "Primary coronary vasodilation without antiplatelet effect",
+        "Antiplatelet effect limiting thrombus propagation",
+        "Loop diuresis and rapid sodium excretion",
+        "Central sedation for anxiety during ACS"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -762,17 +762,17 @@
       "id": "heart-013",
       "stem": "Priority action for suspected tamponade before pericardiocentesis:",
       "choices": [
-        "High-flow O\u2082, IV access, prepare for pericardiocentesis/emergency surgery",
-        "Aggressive fluid restriction only",
-        "Ambulate client immediately",
-        "Massage carotid sinus"
+        "O\u2082, IV access, monitoring, prepare drainage team",
+        "Fluid restriction and ambulation without monitoring",
+        "Vagal maneuvers and carotid massage first-line",
+        "High Fowler's only; defer IV access and O\u2082"
       ],
       "correctIndex": 0,
       "reasons": [
         "Stabilize perfusion and prepare definitive drainage.",
-        "Fluids may be needed to support preload in tamponade; blanket restriction harms.",
-        "Activity increases demand while output is limited.",
-        "Carotid massage is inappropriate."
+        "Fluids may support preload; blanket restriction and activity harm.",
+        "Vagal maneuvers do not relieve tamponade physiology.",
+        "Position alone without ABC support is insufficient."
       ],
       "topic": "heart",
       "level": "hard",
@@ -787,10 +787,10 @@
       "id": "heart-014",
       "stem": "Endocarditis prevention teaching for high-risk clients includes:",
       "choices": [
-        "Skip dental prophylaxis always",
-        "Report fever, chills, new murmur; adhere to antibiotic prophylaxis when ordered",
-        "Ignore IV line care",
-        "Stop all antibiotics early if feeling better"
+        "Skip dental prophylaxis in all high-risk clients",
+        "Report fever/chills/murmur; follow prophylaxis orders",
+        "Ignore central line care and injection-site hygiene",
+        "Stop prescribed antibiotics when symptoms improve"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -812,10 +812,10 @@
       "id": "heart-015",
       "stem": "Aortic stenosis classic finding:",
       "choices": [
-        "High-pitched holosystolic murmur at apex",
-        "Harsh crescendo-decrescendo systolic murmur at right 2nd ICS radiating to carotids",
-        "Fixed split S2",
-        "Pericardial friction rub"
+        "Holosystolic murmur at apex radiating to axilla",
+        "Harsh systolic murmur at RUSB to carotids",
+        "Fixed split S2 without murmur at rest",
+        "Pericardial friction rub with positional pain"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -837,10 +837,10 @@
       "id": "heart-016",
       "stem": "Post-PTCA/stent: priority teaching:",
       "choices": [
-        "Stop antiplatelets after 1 day",
-        "Take prescribed antiplatelets; report chest pain, bleeding, or sudden dyspnea",
-        "No need to monitor insertion site",
-        "Resume heavy lifting same day"
+        "Stop antiplatelets after 24 hours post-stent",
+        "Take antiplatelets; report pain, bleeding, dyspnea",
+        "No insertion-site checks unless bleeding is obvious",
+        "Resume heavy lifting and driving same day"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -862,10 +862,10 @@
       "id": "heart-017",
       "stem": "Normal sinus rhythm on ECG: rate and rhythm described as:",
       "choices": [
-        "Irregularly irregular 120 bpm",
-        "Regular rhythm ~60\u2013100 bpm with P before each QRS",
-        "No P waves with sawtooth baseline",
-        "Wide QRS tachycardia always"
+        "Irregularly irregular rhythm about 120 bpm",
+        "Regular 60\u2013100 bpm with P wave before each QRS",
+        "Sawtooth baseline without discernible P waves",
+        "Wide-complex tachycardia without P waves"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -887,10 +887,10 @@
       "id": "heart-018",
       "stem": "During cardiac arrest (BLS focus), first priority after scene safety:",
       "choices": [
-        "Check pulse for 2 minutes before any action",
-        "Start high-quality CPR and get/defibrillate when shockable rhythm",
-        "Give oral fluids",
-        "Place in high Fowler's only"
+        "Palpate pulse for 2 minutes before any action",
+        "Start CPR; defibrillate when shockable rhythm present",
+        "Administer oral fluids once airway is checked",
+        "Place in high Fowler's and wait for team arrival"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1012,10 +1012,10 @@
       "id": "blood-005",
       "stem": "IgG is notable because it:",
       "choices": [
-        "Is the first antibody in primary response only",
-        "Crosses placenta and is most abundant serum antibody",
-        "Is found only in mucosa",
-        "Binds mast cells for anaphylaxis only"
+        "First antibody in primary response; does not cross placenta",
+        "Crosses placenta; most abundant serum immunoglobulin",
+        "Dominates mucosal secretions and colostrum primarily",
+        "Binds mast cells and mediates type I hypersensitivity"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1087,10 +1087,10 @@
       "id": "blood-008",
       "stem": "Sickle cell crisis pain management priority includes:",
       "choices": [
-        "Withhold all opioids due to addiction fear",
-        "Aggressive pain control per protocol, hydration, and trigger avoidance",
-        "Restrict fluids to prevent overload always",
-        "Ignore fever"
+        "Avoid opioids entirely to prevent dependence",
+        "Analgesia per protocol, hydration, avoid triggers",
+        "Restrict all fluids to prevent pulmonary overload",
+        "Defer fever workup until pain resolves completely"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1112,10 +1112,10 @@
       "id": "blood-009",
       "stem": "Before blood transfusion, essential nursing checks include:",
       "choices": [
-        "Only verify room number",
-        "Two-nurse ID check, consent, type/crossmatch, vitals baseline",
-        "Warm blood in microwave",
-        "Skip allergy history"
+        "Verify room number matches chart only",
+        "Two-nurse ID, consent, type/crossmatch, baseline vitals",
+        "Warm blood product in microwave before infusion",
+        "Transfuse without allergy or reaction history review"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1137,10 +1137,10 @@
       "id": "blood-010",
       "stem": "Acute hemolytic transfusion reaction early sign:",
       "choices": [
-        "Itching only",
+        "Mild pruritus without fever or hemodynamic change",
         "Fever, chills, flank pain, hypotension, dark urine",
-        "Mild headache only after 24 hours",
-        "Bradycardia with hypertension only"
+        "Headache 24 hours after infusion without fever",
+        "Isolated bradycardia with normal blood pressure"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1187,10 +1187,10 @@
       "id": "blood-012",
       "stem": "Heparin monitoring uses which lab?",
       "choices": [
-        "PT/INR primarily",
-        "aPTT (target often ~60\u201380 sec on heparin per handout)",
-        "Platelet count only",
-        "D-dimer only"
+        "PT/INR for unfractionated heparin monitoring",
+        "aPTT targeting therapeutic range on heparin protocol",
+        "Platelet count alone to titrate heparin dose",
+        "D-dimer to adjust heparin infusion rate"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1212,10 +1212,10 @@
       "id": "blood-013",
       "stem": "HIT (heparin-induced thrombocytopenia) priority action when suspected:",
       "choices": [
-        "Continue heparin and ignore platelets",
-        "Stop heparin, avoid platelet transfusion unless bleeding, notify provider",
-        "Start warfarin immediately on heparin",
-        "Massage thrombosed limb vigorously"
+        "Continue heparin; recheck platelets in one week",
+        "Stop heparin; avoid platelets unless bleeding; notify MD",
+        "Start warfarin immediately while continuing heparin",
+        "Massage affected limb to improve collateral flow"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1237,10 +1237,10 @@
       "id": "blood-014",
       "stem": "Neutropenic precautions include:",
       "choices": [
-        "Fresh flowers and raw vegetable buffets",
-        "Hand hygiene, cooked foods, avoid sick visitors",
-        "Shared nebulizer without cleaning",
-        "No oral care"
+        "Fresh flowers, raw salads, and shared nebulizers",
+        "Hand hygiene, cooked foods, avoid ill visitors",
+        "Skip oral care to reduce mucosal trauma",
+        "Allow sick family at bedside without PPE"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1312,10 +1312,10 @@
       "id": "blood-017",
       "stem": "Apheresis platelet transfusion nursing focus:",
       "choices": [
-        "Rapid push without monitoring",
-        "Vitals during infusion; watch for reactions; use filter per policy",
-        "No need to verify blood product",
-        "Mix with D5W in same line always"
+        "Rapid push without pre-infusion vitals or monitoring",
+        "Monitor vitals during infusion; filter per policy",
+        "Skip product verification if label looks correct",
+        "Infuse platelets mixed with D5W in same line"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1462,10 +1462,10 @@
       "id": "fluids-005",
       "stem": "Hyperkalemia ECG change priority to recognize:",
       "choices": [
-        "Short QT only",
+        "Isolated short QT without T-wave changes",
         "Peaked T waves, widened QRS, risk of VF",
-        "U waves only",
-        "Prolonged PR only without T changes"
+        "Prominent U waves and ST depression only",
+        "Prolonged PR without T-wave abnormalities"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1487,10 +1487,10 @@
       "id": "fluids-006",
       "stem": "Hypokalemia nursing priority when severe and client on digoxin:",
       "choices": [
-        "Ignore because K is always safe high",
-        "Replace potassium cautiously per protocol; monitor ECG and digoxin toxicity",
-        "Give kayexalate for low K",
-        "Restrict all fluids"
+        "Ignore low K\u207a because digoxin is always safe",
+        "Replace K\u207a per protocol; monitor ECG and digoxin",
+        "Give kayexalate for confirmed hypokalemia",
+        "Restrict all IV fluids until K\u207a normalizes"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1537,10 +1537,10 @@
       "id": "fluids-008",
       "stem": "Diabetic ketoacidosis fits which acid-base picture?",
       "choices": [
-        "Metabolic alkalosis",
+        "Primary metabolic alkalosis with elevated bicarbonate",
         "High-anion-gap metabolic acidosis",
-        "Respiratory alkalosis only",
-        "Normal pH always"
+        "Isolated respiratory alkalosis without acidosis",
+        "Normal pH and bicarbonate throughout untreated DKA"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1587,10 +1587,10 @@
       "id": "fluids-010",
       "stem": "Hypocalcemia classic sign:",
       "choices": [
-        "Absent reflexes only",
-        "Positive Chvostek/Trousseau signs, tingling",
-        "Hypertension only",
-        "Bradycardia only"
+        "Absent deep tendon reflexes without paresthesias",
+        "Positive Chvostek/Trousseau and perioral tingling",
+        "Sustained hypertension with bounding pulses",
+        "Marked bradycardia without neuromuscular signs"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1637,10 +1637,10 @@
       "id": "fluids-012",
       "stem": "Acidosis effect on potassium shift taught in handout:",
       "choices": [
-        "Drives K into cells \u2192 hypokalemia",
-        "Drives K out of cells \u2192 serum hyperkalemia",
-        "No effect on potassium",
-        "Always causes hypokalemia in blood"
+        "Shifts K\u207a into cells, lowering serum potassium",
+        "Shifts K\u207a out of cells, raising serum potassium",
+        "Does not change intracellular/extracellular K\u207a balance",
+        "Always lowers serum potassium despite total body deficit"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1687,10 +1687,10 @@
       "id": "fluids-014",
       "stem": "Oliguria definition from sheet:",
       "choices": [
-        "<30 mL/hr or <500 mL/day",
-        "<100 mL/day only",
-        ">200 mL/hr",
-        "Exactly 1 L/day"
+        "Under 30 mL/hr or under 500 mL urine per day",
+        "Under 100 mL urine per day as sole definition",
+        "Greater than 200 mL/hr urine output consistently",
+        "Exactly 1000 mL urine output every 24 hours"
       ],
       "correctIndex": 0,
       "reasons": [
@@ -1762,10 +1762,10 @@
       "id": "fluids-017",
       "stem": "Metabolic alkalosis common cause cluster:",
       "choices": [
-        "Diarrhea and DKA",
-        "Vomiting, NG suction, excessive diuretics",
-        "Hyperventilation only",
-        "Renal failure only"
+        "Diarrhea and diabetic ketoacidosis as primary cause",
+        "Vomiting, NG suction, and excessive diuretic use",
+        "Hyperventilation as sole cause of alkalosis",
+        "Chronic renal failure as typical alkalosis driver"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1787,10 +1787,10 @@
       "id": "fluids-018",
       "stem": "Third-spacing fluid loss example:",
       "choices": [
-        "Isotonic dehydration from GI loss only",
-        "Fluid trapped in burns/ascites/peritonitis \u2014 not available to plasma",
-        "Excessive ADH with euvolemia",
-        "Pure water deficit only"
+        "Isotonic GI fluid loss from diarrhea only",
+        "Fluid sequestered in burns, ascites, or peritonitis",
+        "Excess ADH with euvolemic hypo-osmolar state",
+        "Pure free-water deficit without sodium change"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1812,10 +1812,10 @@
       "id": "fluids-019",
       "stem": "Hypernatremia usually reflects:",
       "choices": [
-        "Excess water relative to sodium",
-        "Water deficit or sodium gain \u2014 hypertonic state",
-        "Always excess sodium infusion only",
-        "Normal osmolality"
+        "Excess free water relative to sodium (dilutional)",
+        "Water deficit or sodium gain (hypertonic state)",
+        "Always iatrogenic hypertonic saline infusion only",
+        "Normal serum osmolality with low sodium"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1837,10 +1837,10 @@
       "id": "fluids-020",
       "stem": "Hypophosphatemia critical threshold:",
       "choices": [
-        "<2.5 mg/dL mild",
-        "<1.0 mg/dL critical per sheet",
-        "<4.5 mg/dL",
-        ">4.5 mg/dL"
+        "Below 2.5 mg/dL \u2014 mild hypophosphatemia",
+        "Below 1.0 mg/dL \u2014 critical per numbers sheet",
+        "Below 4.5 mg/dL \u2014 borderline low phosphate",
+        "Above 4.5 mg/dL \u2014 hyperphosphatemia range"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1887,10 +1887,10 @@
       "id": "fluids-022",
       "stem": "Anion gap helps distinguish:",
       "choices": [
-        "Respiratory alkalosis only",
-        "High-gap vs normal-gap metabolic acidosis",
-        "Hyperkalemia vs hypokalemia",
-        "Iron deficiency vs B12 deficiency"
+        "Classifies respiratory alkalosis severity categories",
+        "High-gap versus normal-gap metabolic acidosis",
+        "Hyperkalemia versus hypokalemia on basic chemistries",
+        "Iron deficiency anemia versus B12 deficiency anemia"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1962,10 +1962,10 @@
       "id": "periop-003",
       "stem": "3% NaCl is used in the handout for:",
       "choices": [
-        "Routine maintenance hydration",
-        "Severe hyponatremia and cerebral edema (draws water out of cells)",
-        "K replacement",
-        "Lipid emulsion only"
+        "Routine maintenance hydration for stable clients",
+        "Severe hyponatremia and cerebral edema management",
+        "Primary potassium replacement in hypokalemia",
+        "Lipid emulsion carrier for parenteral nutrition"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -1987,10 +1987,10 @@
       "id": "periop-004",
       "stem": "D5W after dextrose metabolism behaves as:",
       "choices": [
-        "Hypertonic forever",
-        "Ultimately hypotonic free water",
-        "Colloid expander",
-        "Isotonic permanently"
+        "Stays hypertonic after all dextrose is metabolized",
+        "Becomes hypotonic free water after metabolism",
+        "Acts as colloid expander like albumin infusion",
+        "Remains isotonic indefinitely in the bloodstream"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -2037,10 +2037,10 @@
       "id": "periop-006",
       "stem": "Colloid IV fluids primary use per handout:",
       "choices": [
-        "Replace daily water deficit only",
-        "Plasma volume expansion in hemorrhage/severe hypovolemia",
-        "Oral rehydration substitute",
-        "KCl bolus"
+        "Replace routine daily water deficit only",
+        "Plasma volume expansion in hemorrhage/hypovolemia",
+        "Substitute for oral rehydration in mild dehydration",
+        "Rapid undiluted potassium chloride replacement"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -2062,10 +2062,10 @@
       "id": "periop-007",
       "stem": "Surgical asepsis means:",
       "choices": [
-        "Clean technique for all procedures",
-        "Sterile field and sterile technique to prevent microorganism entry to tissues",
-        "Only hand washing before meals",
-        "Single-dose vial reuse always"
+        "Clean technique adequate for all invasive procedures",
+        "Sterile field and technique to prevent tissue contamination",
+        "Hand washing before meals in the cafeteria",
+        "Reuse single-dose vials across multiple patients"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -2087,10 +2087,10 @@
       "id": "periop-008",
       "stem": "Time-out (surgical safety) verifies:",
       "choices": [
-        "Only surgeon preference music",
-        "Correct patient, site, procedure before incision",
-        "Billing code only",
-        "Lunch order"
+        "Surgeon music preference and team introductions",
+        "Correct patient, site, and procedure before incision",
+        "Insurance authorization code and billing details",
+        "Cafeteria meal order for operating room staff"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -2112,10 +2112,10 @@
       "id": "periop-009",
       "stem": "PACU priority assessment mnemonic focus:",
       "choices": [
-        "Airway, breathing, circulation, surgical site, vitals",
-        "Diet preferences only",
-        "Discharge paperwork first",
-        "Remove all dressings immediately"
+        "Airway, breathing, circulation, site, and vitals",
+        "Diet preferences and food allergies only",
+        "Complete discharge paperwork before assessment",
+        "Remove all surgical dressings immediately on arrival"
       ],
       "correctIndex": 0,
       "reasons": [
@@ -2137,10 +2137,10 @@
       "id": "periop-010",
       "stem": "Post-op fever within first 24 hours is often due to:",
       "choices": [
-        "Wound infection most likely always",
-        "Atelectasis / inflammatory response early",
-        "Urine retention never",
-        "Pulmonary embolism always"
+        "Wound infection is the most likely cause on day one",
+        "Atelectasis or inflammatory response within 24 hours",
+        "Urinary retention never causes postoperative fever",
+        "Pulmonary embolism is the usual cause on day one"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -2163,9 +2163,9 @@
       "stem": "IV infiltration sign:",
       "choices": [
         "Cool skin, tight edema, slowed infusion at site",
-        "Bilateral pedal edema only",
-        "Fever 39\u00b0C only",
-        "Chest pain only"
+        "Bilateral pedal edema without catheter tenderness",
+        "Fever 39\u00b0C without local IV site findings",
+        "Substernal chest pain without infusion site change"
       ],
       "correctIndex": 0,
       "reasons": [
@@ -2187,10 +2187,10 @@
       "id": "periop-012",
       "stem": "Phlebitis at IV site priority:",
       "choices": [
-        "Ignore until line falls out",
-        "Remove or rotate line per protocol; elevate limb; warm compress if ordered",
-        "Massage vigorously toward heart",
-        "Apply tourniquet above site permanently"
+        "Leave cannula in place until it falls out on its own",
+        "Rotate/remove line; elevate limb; warm compress if ordered",
+        "Massage inflamed site firmly toward the heart",
+        "Apply permanent proximal tourniquet above the site"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -2212,10 +2212,10 @@
       "id": "periop-013",
       "stem": "NPO before elective surgery primary reason:",
       "choices": [
-        "Prevent aspiration during anesthesia/induction",
-        "Save hospital food costs",
-        "Prevent all bowel sounds forever",
-        "Increase thirst for IV fluids only"
+        "Reduce aspiration risk during anesthesia induction",
+        "Reduce hospital dietary and catering expenses",
+        "Eliminate all bowel sounds before surgery forever",
+        "Increase thirst to promote post-op oral intake"
       ],
       "correctIndex": 0,
       "reasons": [
@@ -2237,10 +2237,10 @@
       "id": "periop-014",
       "stem": "Elective vs emergency surgery distinction:",
       "choices": [
-        "Elective has no planning",
-        "Emergency is unplanned life-saving; elective is scheduled",
-        "Both are always cosmetic",
-        "Emergency never needs consent"
+        "Elective surgery requires no preoperative planning",
+        "Emergency is urgent life-saving; elective is scheduled",
+        "Both elective and emergency are cosmetic only",
+        "Emergency surgery never requires informed consent"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -2262,10 +2262,10 @@
       "id": "periop-015",
       "stem": "Pre-op teaching should include:",
       "choices": [
-        "Hide all risks to reduce anxiety",
-        "Deep breathing, leg exercises, pain reporting, and incision care basics",
-        "Promise zero pain",
-        "Skip mobility instructions"
+        "Withhold risks to minimize preoperative anxiety",
+        "Deep breathing, leg exercises, pain and incision teaching",
+        "Guarantee complete absence of postoperative pain",
+        "Defer mobility teaching until after discharge"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -2287,10 +2287,10 @@
       "id": "periop-016",
       "stem": "Hypertonic 5% dextrose (D10W) effect:",
       "choices": [
-        "Hypotonic hydration of cells",
-        "Pulls water into vasculature (hypertonic)",
-        "Same as 0.45% NaCl",
-        "Colloid only"
+        "Hypotonic hydration shifting water into cells",
+        "Pulls water into vasculature (hypertonic effect)",
+        "Equivalent tonicity and effect to 0.45% NaCl",
+        "Colloid oncotic expansion like albumin infusion"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -2312,10 +2312,10 @@
       "id": "periop-017",
       "stem": "WHO surgical hand scrub aims to:",
       "choices": [
-        "Perfume hands only",
-        "Reduce resident and transient flora on hands before sterile procedure",
-        "Replace sterile gloves entirely",
-        "Clean the OR floor"
+        "Apply scented lotion for staff comfort only",
+        "Reduce resident and transient hand flora before procedure",
+        "Eliminate need for sterile gloves after scrubbing",
+        "Clean operating room floors and equipment wheels"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -2337,10 +2337,10 @@
       "id": "periop-018",
       "stem": "Post-op paralytic ileus nursing care includes:",
       "choices": [
-        "Early progressive diet without assessment",
-        "NG decompression if ordered, monitor bowel sounds, gradual diet per surgeon",
-        "Force solid food immediately",
-        "No IV fluids ever"
+        "Advance diet quickly without assessing bowel function",
+        "NG decompression, bowel sounds, gradual diet per surgeon",
+        "Offer solid meals immediately upon PACU arrival",
+        "Withhold IV fluids until client tolerates full diet"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -2362,10 +2362,10 @@
       "id": "periop-019",
       "stem": "IV gauge selection: large bore used when:",
       "choices": [
-        "Cosmetic preference only",
-        "Rapid fluid/blood resuscitation anticipated",
-        "No IV needed",
-        "Oral meds only"
+        "Cosmetic preference for smaller insertion site",
+        "Anticipated rapid fluid or blood resuscitation",
+        "Routine oral medication administration only",
+        "Clients who will not receive any IV therapy"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -2387,10 +2387,10 @@
       "id": "periop-020",
       "stem": "Central line vs peripheral line: central access allows:",
       "choices": [
-        "Only saline flushes",
-        "CVP monitoring, irritant meds, long-term TPN access per orders",
-        "Never for medications",
-        "Only blood draws never fluids"
+        "Saline flushes only; no medication administration",
+        "CVP monitoring, irritant meds, long-term TPN per orders",
+        "Blood draws only; fluids and meds contraindicated",
+        "Short peripheral access for all vesicant infusions"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -2412,10 +2412,10 @@
       "id": "periop-021",
       "stem": "Sterile gowning/gloving sequence taught in skills lab:",
       "choices": [
-        "Touch sterile field with bare hands",
-        "Open gown, don gown then gloves without contaminating sterile surfaces",
-        "Gloves before gown always without teaching variation",
-        "Reuse gown on multiple patients"
+        "Touch sterile field with bare hands to test sterility",
+        "Don gown then gloves without contaminating sterile surfaces",
+        "Don gloves before gown regardless of policy teaching",
+        "Reuse sterile gown for multiple surgical cases"
       ],
       "correctIndex": 1,
       "reasons": [
@@ -2437,10 +2437,10 @@
       "id": "periop-022",
       "stem": "OPET (outpatient surgery) discharge criteria include:",
       "choices": [
-        "Stable vitals, voiding if required, responsible adult if ordered, understood teaching",
-        "Drive immediately after general anesthesia alone",
-        "Ignore pain score",
-        "No instructions needed"
+        "Stable vitals, voiding if required, escort, teaching understood",
+        "Drive self home immediately after general anesthesia",
+        "Discharge with uncontrolled severe pain untreated",
+        "No discharge instructions or follow-up teaching"
       ],
       "correctIndex": 0,
       "reasons": [
@@ -2487,10 +2487,10 @@
       "id": "periop-024",
       "stem": "Air embolism prevention with central line:",
       "choices": [
-        "Prime line, clamp during changes, head-down left-side if suspected",
-        "Leave all caps off",
-        "Infuse air intentionally",
-        "Stand patient upright if suspected"
+        "Prime line, clamp during changes, left-side-down if suspected",
+        "Leave all line caps open during dressing changes",
+        "Intentionally prime line with small air bubbles",
+        "Keep client upright if air embolism is suspected"
       ],
       "correctIndex": 0,
       "reasons": [
