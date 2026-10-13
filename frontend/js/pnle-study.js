@@ -669,10 +669,13 @@
       b.disabled = true;
       const slot = b.querySelector('.pnle-choice-icon-slot');
       const body = b.querySelector('.pnle-choice-body');
-      const reason = document.createElement('span');
-      reason.className = 'pnle-choice-reason';
-      reason.textContent = item.reasons[idx];
-      if (body) body.appendChild(reason);
+      const showReason = idx === correct || idx === picked;
+      if (showReason && body) {
+        const reason = document.createElement('span');
+        reason.className = 'pnle-choice-reason';
+        reason.textContent = item.reasons[idx];
+        body.appendChild(reason);
+      }
 
       if (idx === correct) {
         b.classList.add('is-correct', 'is-revealed');
@@ -681,7 +684,7 @@
         b.classList.add('is-wrong', 'is-revealed');
         if (slot) slot.innerHTML = ICON_X;
       } else {
-        b.classList.add('is-revealed');
+        b.classList.add('is-dimmed');
         if (slot) {
           slot.innerHTML = `<span class="pnle-choice-letter">${CHOICE_LABELS[idx]}</span>`;
         }
@@ -738,6 +741,17 @@
     }
 
     const mistakeCount = Object.keys(readMistakes()).length;
+    const levelLabel =
+      session.level === 'hard'
+        ? 'Hard'
+        : session.level === 'normal'
+          ? 'Normal'
+          : session.level === 'mixed'
+            ? 'Mistakes'
+            : '';
+    const progressLabel = levelLabel
+      ? `Question ${session.index + 1} of ${session.queue.length} · ${levelLabel}`
+      : `Question ${session.index + 1} of ${session.queue.length}`;
     const choices = item.choices
       .map(
         (c, idx) =>
@@ -751,12 +765,14 @@
       .join('');
 
     root.innerHTML = `
-      <div class="pnle-question-toolbar">
-        <span class="pnle-q-progress">Question ${session.index + 1} of ${session.queue.length}</span>
-        <button type="button" class="pnle-history-btn" id="pnleHistoryBtn">Mistakes (${mistakeCount})</button>
-        <button type="button" class="pnle-end-btn" id="pnleQuitSession">End</button>
-      </div>
       <div class="pnle-question-card">
+        <div class="pnle-question-toolbar">
+          <span class="pnle-q-progress">${escapeHtml(progressLabel)}</span>
+          <div class="pnle-question-toolbar-actions">
+            <button type="button" class="pnle-history-btn" id="pnleHistoryBtn">Mistakes (${mistakeCount})</button>
+            <button type="button" class="pnle-end-btn" id="pnleQuitSession">End</button>
+          </div>
+        </div>
         <p class="pnle-question-stem">${escapeHtml(item.stem)}</p>
         <div class="pnle-choices">${choices}</div>
         <button type="button" class="pnle-btn-primary pnle-btn-next is-hidden" id="pnleNextBtn" hidden aria-hidden="true">Next question</button>

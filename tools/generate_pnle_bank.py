@@ -585,7 +585,27 @@ FLUIDS = [
     mk("fluids-014", "Oliguria definition from sheet:", ["<30 mL/hr or <500 mL/day", "<100 mL/day only", ">200 mL/hr", "Exactly 1 L/day"], 0, ["<30 mL/hr or <500 mL/day defines oliguria.", "<100 mL/day is anuria range closer.", ">200 is polyuria territory.", "1 L/day may be normal depending on intake."], "fluids_abg", "normal", "recall", "ms_lec_midterms_81e8.txt — PART XXI Fluids"),
     mk("fluids-015", "Normal pH of blood:", ["7.20–7.30", "7.35–7.45", "7.50–7.60", "6.80–7.00"], 1, ["7.20–7.30 is acidemia.", "7.35–7.45 is normal blood pH.", "7.50+ is alkalemia.", "6.8–7.0 is incompatible with life acutely."], "fluids_abg", "normal", "recall", "ms_lec_midterms_81e8.txt — PART XXI ABG", tool="labs"),
     mk("fluids-016", "Normal bicarbonate (HCO₃⁻):", ["15–18 mEq/L", "22–26 mEq/L", "30–35 mEq/L", "10–12 mEq/L"], 1, ["15–18 is low bicarbonate.", "22–26 is normal HCO₃⁻.", "30–35 suggests metabolic alkalosis.", "10–12 is severe metabolic acidosis."], "fluids_abg", "normal", "recall", "ms_lec_midterms_81e8.txt — PART XXI ABG", tool="labs"),
-    mk("fluids-017", "Metabolic alkalosis common cause cluster:", ["Diarrhea and DKA", "Vomiting, NG suction, excessive diuretics", "Hyperventilation only", "Renal failure only"], 1, ["Diarrhea/DKA cause acid loss differently — acidosis.", "H⁺/Cl⁻ loss from vomiting/suction and diuretics raises HCO₃⁻.", "Hyperventilation causes respiratory alkalosis.", "Renal failure often acidotic."], "fluids_abg", "normal", "application", "ms_lec_midterms_81e8.txt — PART XV Metabolic alkalosis"),
+    mk(
+        "fluids-017",
+        "Which cluster best explains metabolic alkalosis?",
+        [
+            "Vomiting, NG suction, and excessive diuretic use",
+            "Severe diarrhea and diabetic ketoacidosis",
+            "Hyperventilation as the sole cause",
+            "Chronic renal failure as the typical driver",
+        ],
+        0,
+        [
+            "Loss of gastric H⁺ and Cl⁻ (vomiting, suction) or volume contraction with diuretics raises serum HCO₃⁻.",
+            "Diarrhea loses bicarbonate (metabolic acidosis); DKA is high-gap metabolic acidosis, not alkalosis.",
+            "Hyperventilation lowers PaCO₂ and causes respiratory alkalosis, not primary metabolic alkalosis.",
+            "Advanced renal failure more often presents with metabolic acidosis from inability to excrete acid.",
+        ],
+        "fluids_abg",
+        "normal",
+        "application",
+        "ms_lec_midterms_81e8.txt — PART XV Metabolic alkalosis",
+    ),
     mk("fluids-019", "Hypernatremia usually reflects:", ["Excess water relative to sodium", "Water deficit or sodium gain — hypertonic state", "Always excess sodium infusion only", "Normal osmolality"], 1, ["Excess water causes hyponatremia.", "Hypernatremia = hypertonic serum, often water deficit.", "Can be sodium gain but not the only cause listed.", "Hypernatremia raises osmolality."], "fluids_abg", "normal", "recall", "ms_lec_midterms_81e8.txt — PART V Sodium"),
     mk("fluids-020", "Hypophosphatemia critical threshold:", ["<2.5 mg/dL mild", "<1.0 mg/dL critical per sheet", "<4.5 mg/dL", ">4.5 mg/dL"], 1, ["<2.5 defines hypophosphatemia.", "<1.0 is critical hypophosphatemia.", "<4.5 is still normal/low border.", ">4.5 is hyperphosphatemia."], "fluids_abg", "normal", "recall", "ms_lec_midterms_81e8.txt — PART XXII Phosphate"),
     mk(

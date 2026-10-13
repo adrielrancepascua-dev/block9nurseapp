@@ -603,22 +603,26 @@ html[data-theme='light'] body.pnle-mode-study {
 
 .pnle-question-toolbar {
   display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--hub-border, #334155);
+}
+
+.pnle-question-toolbar-actions {
+  display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-  margin-bottom: 12px;
-  padding-top: 4px;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  background: var(--pnle-study-bg, #0f172a);
 }
 
 .pnle-q-progress {
   font-size: 13px;
   font-weight: 700;
   color: #cbd5e1;
-  flex: 1;
+  line-height: 1.35;
 }
 
 .pnle-history-btn {
@@ -744,8 +748,8 @@ html[data-theme='light'] body.pnle-mode-study {
   color: #ef4444;
 }
 
-.pnle-choice.is-revealed:not(.is-correct):not(.is-wrong) {
-  opacity: 0.85;
+.pnle-choice.is-dimmed {
+  opacity: 0.55;
 }
 
 .pnle-mistakes-card,

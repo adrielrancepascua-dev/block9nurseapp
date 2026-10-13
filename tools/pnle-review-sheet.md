@@ -631,18 +631,18 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ## fluids-017 (normal, fluids_abg)
 
-**Stem:** Metabolic alkalosis common cause cluster:
+**Stem:** Which cluster best explains metabolic alkalosis?
 
 **Source:** `ms_lec_midterms_81e8.txt — PART XV Metabolic alkalosis`
 
-- **A:** Vomiting, NG suction, excessive diuretics **CORRECT**
-  - Reason: H⁺/Cl⁻ loss from vomiting/suction and diuretics raises HCO₃⁻.
-- **B:** Diarrhea and DKA
-  - Reason: Diarrhea/DKA cause acid loss differently — acidosis.
-- **C:** Hyperventilation only
-  - Reason: Hyperventilation causes respiratory alkalosis.
-- **D:** Renal failure only
-  - Reason: Renal failure often acidotic.
+- **A:** Severe diarrhea and diabetic ketoacidosis
+  - Reason: Diarrhea loses bicarbonate (metabolic acidosis); DKA is high-gap metabolic acidosis, not alkalosis.
+- **B:** Vomiting, NG suction, and excessive diuretic use **CORRECT**
+  - Reason: Loss of gastric H⁺ and Cl⁻ (vomiting, suction) or volume contraction with diuretics raises serum HCO₃⁻.
+- **C:** Hyperventilation as the sole cause
+  - Reason: Hyperventilation lowers PaCO₂ and causes respiratory alkalosis, not primary metabolic alkalosis.
+- **D:** Chronic renal failure as the typical driver
+  - Reason: Advanced renal failure more often presents with metabolic acidosis from inability to excrete acid.
 
 *selfChecked:* `False` · *instructorReviewed:* `False`
 

@@ -2212,19 +2212,19 @@
     },
     {
       "id": "fluids-017",
-      "stem": "Metabolic alkalosis common cause cluster:",
+      "stem": "Which cluster best explains metabolic alkalosis?",
       "choices": [
-        "Vomiting, NG suction, excessive diuretics",
-        "Diarrhea and DKA",
-        "Hyperventilation only",
-        "Renal failure only"
+        "Severe diarrhea and diabetic ketoacidosis",
+        "Vomiting, NG suction, and excessive diuretic use",
+        "Hyperventilation as the sole cause",
+        "Chronic renal failure as the typical driver"
       ],
-      "correctIndex": 0,
+      "correctIndex": 1,
       "reasons": [
-        "H\u207a/Cl\u207b loss from vomiting/suction and diuretics raises HCO\u2083\u207b.",
-        "Diarrhea/DKA cause acid loss differently \u2014 acidosis.",
-        "Hyperventilation causes respiratory alkalosis.",
-        "Renal failure often acidotic."
+        "Diarrhea loses bicarbonate (metabolic acidosis); DKA is high-gap metabolic acidosis, not alkalosis.",
+        "Loss of gastric H\u207a and Cl\u207b (vomiting, suction) or volume contraction with diuretics raises serum HCO\u2083\u207b.",
+        "Hyperventilation lowers PaCO\u2082 and causes respiratory alkalosis, not primary metabolic alkalosis.",
+        "Advanced renal failure more often presents with metabolic acidosis from inability to excrete acid."
       ],
       "topic": "fluids_abg",
       "level": "normal",
