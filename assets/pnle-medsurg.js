@@ -651,35 +651,34 @@
     },
     {
       "id": "heart-003",
-      "stem": "ST-elevation MI (STEMI) priority intervention emphasized in acute cardiac care:",
+      "stem": "A client has crushing substernal pain radiating to the left arm. The ECG shows ST elevation in V3 and V4, and troponin and CK-MB are elevated. SpO\u2082 is 97% with no respiratory distress, and BP is 130/80. Which action most directly limits myocardial damage?",
       "choices": [
-        "Wait 24 hours for enzymes only",
-        "Reperfusion therapy (PCI or fibrinolysis per protocol) ASAP",
-        "Routine sedation without monitoring",
-        "High-dose beta-blocker before any assessment"
+        "Prepare for urgent reperfusion with PCI or a thrombolytic per protocol",
+        "Start oxygen at a high flow rate",
+        "Give nitroglycerin every 5 minutes for 3 doses",
+        "Repeat the troponin in 3 hours before deciding on treatment"
       ],
-      "correctIndex": 1,
+      "correctIndex": 0,
       "reasons": [
-        "Delay worsens myocardial loss in STEMI.",
-        "Time-to-reperfusion is critical for STEMI outcomes.",
-        "Sedation without monitoring is unsafe in ACS.",
-        "Beta-blockers are given when hemodynamically stable, not before assessment."
+        "ST elevation means complete coronary occlusion; restoring flow saves muscle.",
+        "Oxygen is for SpO\u2082 under 90% or respiratory distress, and neither is present.",
+        "Nitroglycerin lowers preload and workload but does not reopen a completely occluded artery.",
+        "Serial biomarkers continue, but STEMI reperfusion is not delayed for repeat troponin alone."
       ],
       "topic": "heart",
       "level": "hard",
       "type": "prioritization",
-      "source": "ms_lec_prelims_7b61.pdf \u2014 ACS/MI",
+      "source": "ms_lec_prelims_7b61.pdf \u2014 STEMI; MI nursing priorities",
       "reviewed": false,
-      "selfChecked": false,
-      "selfCheckedBy": "",
-      "selfCheckedAt": "",
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
       "instructorReviewed": false,
       "instructorReviewedBy": "",
       "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
-      "tool": null,
-      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+      "tool": null
     },
     {
       "id": "heart-004",
@@ -1387,24 +1386,24 @@
     },
     {
       "id": "blood-008",
-      "stem": "Sickle cell crisis pain management priority includes:",
+      "stem": "A client with sickle cell anemia is in vaso-occlusive crisis with severe bone and abdominal pain rated 9/10. Airway, breathing, and circulation are stable and SpO\u2082 is 97%. Which action should the nurse take?",
       "choices": [
-        "Aggressive pain control per protocol, hydration, and trigger avoidance",
-        "Ignore fever",
-        "Restrict fluids to prevent overload always",
-        "Withhold all opioids due to addiction fear"
+        "Apply ice packs to the painful joints",
+        "Start high-flow oxygen by mask",
+        "Restrict fluids to prevent overload",
+        "Give the prescribed opioid analgesia"
       ],
-      "correctIndex": 0,
+      "correctIndex": 3,
       "reasons": [
-        "Hydration and pain control are cornerstone; investigate fever.",
-        "Fever may signal infection \u2014 must assess.",
-        "Hydration is usually encouraged unless contraindicated.",
-        "Undertreated vaso-occlusive pain is a known disparity issue; protocol analgesia is priority."
+        "Cold exposure is a sickling trigger; the client should be kept warm.",
+        "Oxygen is for hypoxemia; SpO\u2082 97% does not require supplemental O\u2082 by itself.",
+        "Dehydration is a sickling trigger; hydrate as ordered unless contraindicated.",
+        "Vaso-occlusive crisis is ischemic pain from blocked vessels; opioid analgesia follows pain assessment in crisis priorities."
       ],
       "topic": "blood",
       "level": "hard",
       "type": "prioritization",
-      "source": "ms_lec_midterms_81e8.txt \u2014 Sickle cell",
+      "source": "Ms_lab_UT / ms_lab_midterm \u2014 Sickle cell crisis nursing priorities",
       "reviewed": false,
       "selfChecked": false,
       "selfCheckedBy": "",
@@ -1419,24 +1418,24 @@
     },
     {
       "id": "blood-009",
-      "stem": "Before blood transfusion, essential nursing checks include:",
+      "stem": "Two nurses are verifying a unit of PRBCs at the bedside. The patient's name and the unit number match, but the date of birth on the ID band differs from the one on the blood tag. What should they do?",
       "choices": [
-        "Two-nurse ID check, consent, type/crossmatch, vitals baseline",
-        "Only verify room number",
-        "Skip allergy history",
-        "Warm blood in microwave"
+        "Start the unit slowly and watch for a reaction",
+        "Do not administer the blood and notify the blood bank",
+        "Start the unit because the name and unit number match",
+        "Ask one nurse to recheck it and start if she agrees"
       ],
-      "correctIndex": 0,
+      "correctIndex": 1,
       "reasons": [
-        "Dual identification and compatibility verification are mandatory safety steps.",
-        "Room alone is insufficient for high-risk therapy.",
-        "Allergy/history guides monitoring and reaction management.",
-        "Microwave damages RBCs; use approved warmers if needed."
+        "A slow initial rate applies only after a fully verified unit, not when identifiers conflict.",
+        "Every identifier must match at the bedside; mismatch means do not transfuse and notify the blood bank.",
+        "Name and unit number alone are insufficient when any identifier does not match.",
+        "Two-nurse verification is required together; a mismatch is not resolved by a second opinion alone."
       ],
       "topic": "blood",
-      "level": "normal",
+      "level": "hard",
       "type": "prioritization",
-      "source": "ms_lec_midterms_81e8.txt \u2014 Transfusion",
+      "source": "ms_lab_midterms_e746.pdf \u2014 Blood verification at bedside",
       "reviewed": false,
       "selfChecked": false,
       "selfCheckedBy": "",
@@ -1451,24 +1450,24 @@
     },
     {
       "id": "blood-010",
-      "stem": "Acute hemolytic transfusion reaction early sign:",
+      "stem": "Fifteen minutes into a PRBC transfusion, a client reports sudden severe low back pain and chills. Temperature is 38.9\u00b0C and BP is 86/50. What should the nurse do first?",
       "choices": [
-        "Itching only",
-        "Mild headache only after 24 hours",
-        "Bradycardia with hypertension only",
-        "Fever, chills, flank pain, hypotension, dark urine"
+        "Stop the transfusion immediately",
+        "Flush the blood tubing with 0.9% NS to keep the line open",
+        "Notify the provider and blood bank, then decide whether to stop",
+        "Slow the rate and recheck vital signs in 15 minutes"
       ],
-      "correctIndex": 3,
+      "correctIndex": 0,
       "reasons": [
-        "Mild itch may be allergic; hemolytic is more systemic.",
-        "Delayed reactions occur later; acute is during/soon after infusion.",
-        "Pattern is not isolated HTN/bradycardia.",
-        "Fever, pain, hypotension, hemoglobinuria fit acute hemolysis."
+        "Back or flank pain with chills and hypotension during transfusion suggests acute hemolysis; stop the blood first per reaction algorithms.",
+        "Do not flush existing blood tubing; use new 0.9% NS and new tubing after stopping.",
+        "Provider and blood bank notification are required, but the sequence is stop, disconnect, new line, then notify.",
+        "Even a febrile reaction requires stopping and assessing before continuing any infusion."
       ],
       "topic": "blood",
       "level": "hard",
-      "type": "application",
-      "source": "ms_lec_midterms_81e8.txt \u2014 Transfusion reactions",
+      "type": "prioritization",
+      "source": "ms_lab_midterms_e746.pdf \u2014 Transfusion reaction algorithm; Ms_lab_UT \u2014 Transfusion reactions",
       "reviewed": false,
       "selfChecked": false,
       "selfCheckedBy": "",
@@ -1533,38 +1532,6 @@
       "level": "normal",
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 Coagulation",
-      "reviewed": false,
-      "selfChecked": false,
-      "selfCheckedBy": "",
-      "selfCheckedAt": "",
-      "instructorReviewed": false,
-      "instructorReviewedBy": "",
-      "instructorReviewedAt": "",
-      "reviewedBy": "",
-      "reviewedAt": "",
-      "tool": null,
-      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
-    },
-    {
-      "id": "blood-013",
-      "stem": "HIT (heparin-induced thrombocytopenia) priority action when suspected:",
-      "choices": [
-        "Start warfarin immediately on heparin",
-        "Stop heparin, avoid platelet transfusion unless bleeding, notify provider",
-        "Massage thrombosed limb vigorously",
-        "Continue heparin and ignore platelets"
-      ],
-      "correctIndex": 1,
-      "reasons": [
-        "Warfarin alone early in HIT can cause limb loss; specialist protocol.",
-        "Stop heparin and use alternative anticoagulant per protocol.",
-        "Massage risks embolism.",
-        "Continuing heparin worsens immune-mediated platelet activation."
-      ],
-      "topic": "blood",
-      "level": "hard",
-      "type": "prioritization",
-      "source": "ms_lec_midterms_81e8.txt \u2014 HIT",
       "reviewed": false,
       "selfChecked": false,
       "selfCheckedBy": "",
@@ -1867,67 +1834,65 @@
     },
     {
       "id": "fluids-005",
-      "stem": "Hyperkalemia ECG change priority to recognize:",
+      "stem": "A client with renal failure has K\u207a 6.8 mEq/L. The monitor shows tall peaked T waves and a widening QRS. Which intervention should the nurse prepare first?",
       "choices": [
-        "Prolonged PR only without T changes",
-        "Short QT only",
-        "U waves only",
-        "Peaked T waves, widened QRS, risk of VF"
+        "Arrange hemodialysis to remove potassium",
+        "Give IV calcium gluconate to protect the heart",
+        "Give sodium polystyrene sulfonate to remove potassium",
+        "Give regular insulin with D50W to shift potassium"
       ],
-      "correctIndex": 3,
+      "correctIndex": 1,
       "reasons": [
-        "PR changes can occur but peaked T is early classic sign.",
-        "Short QT is not classic hyperK.",
-        "U waves suggest hypokalemia.",
-        "Peaked T \u2192 QRS widening \u2192 arrhythmia is the progression."
-      ],
-      "topic": "fluids_abg",
-      "level": "hard",
-      "type": "application",
-      "source": "ms_lec_midterms_81e8.txt \u2014 Potassium cardiac",
-      "reviewed": false,
-      "selfChecked": false,
-      "selfCheckedBy": "",
-      "selfCheckedAt": "",
-      "instructorReviewed": false,
-      "instructorReviewedBy": "",
-      "instructorReviewedAt": "",
-      "reviewedBy": "",
-      "reviewedAt": "",
-      "tool": null,
-      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
-    },
-    {
-      "id": "fluids-006",
-      "stem": "Hypokalemia nursing priority when severe and client on digoxin:",
-      "choices": [
-        "Replace potassium cautiously per protocol; monitor ECG and digoxin toxicity",
-        "Restrict all fluids",
-        "Ignore because K is always safe high",
-        "Give kayexalate for low K"
-      ],
-      "correctIndex": 0,
-      "reasons": [
-        "Guided replacement and ECG monitoring are essential.",
-        "Fluids depend on clinical status.",
-        "Low K increases digoxin toxicity risk \u2014 monitor closely.",
-        "Kayexalate lowers K, wrong for hypokalemia."
+        "Dialysis removes K\u207a in renal failure but takes time to arrange and does not immediately stabilize the heart.",
+        "Calcium stabilizes the cardiac membrane when the ECG shows imminent dysrhythmia risk; it does not lower serum K\u207a.",
+        "Kayexalate removes K\u207a from the body but does not protect the myocardium during active ECG changes.",
+        "Insulin with glucose shifts K\u207a into cells but follows cardiac membrane protection when QRS is widening."
       ],
       "topic": "fluids_abg",
       "level": "hard",
       "type": "prioritization",
-      "source": "ms_lec_midterms_81e8.txt \u2014 PART XVII patterns",
+      "source": "ms_lec_midterms_81e8.txt \u2014 Part VI hyperkalemia ECG and emergency management",
       "reviewed": false,
-      "selfChecked": false,
-      "selfCheckedBy": "",
-      "selfCheckedAt": "",
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
       "instructorReviewed": false,
       "instructorReviewedBy": "",
       "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
-      "tool": null,
-      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+      "tool": "labs"
+    },
+    {
+      "id": "fluids-006",
+      "stem": "A client taking digoxin and furosemide has K\u207a 3.1 mEq/L. IV potassium chloride is prescribed. Urine output was 40 mL over the last 2 hours. What should the nurse do first?",
+      "choices": [
+        "Give the potassium by slow IV push to correct it quickly",
+        "Take an apical pulse, then give the digoxin and potassium as ordered",
+        "Hold the potassium and notify the provider of the low urine output",
+        "Infuse diluted potassium at 20 mEq/hr through a peripheral line"
+      ],
+      "correctIndex": 2,
+      "reasons": [
+        "KCl is never given IV push; rapid bolus risks fatal dysrhythmias.",
+        "Apical pulse assessment is appropriate for digoxin, but it does not override an unsafe potassium order when output is low.",
+        "About 20 mL/hr urine output fails the usual safe threshold (~30 mL/hr) for KCl infusion; kidneys must excrete the load.",
+        "Peripheral KCl is typically rate-limited (~10 mEq/hr); low urine output still contraindicates giving it now."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "ms_lec_midterms_81e8.txt \u2014 Hypokalemia; ms_lec_prelims_7b61.pdf \u2014 Digoxin and hypokalemia",
+      "reviewed": false,
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": "labs"
     },
     {
       "id": "fluids-007",
@@ -2091,35 +2056,34 @@
     },
     {
       "id": "fluids-012",
-      "stem": "Acidosis effect on potassium shift",
+      "stem": "A client with DKA has pH 7.20 and K\u207a 5.9 mEq/L. Which explanation best accounts for the high potassium?",
       "choices": [
-        "Always causes hypokalemia in blood",
-        "No effect on potassium",
-        "Drives K out of cells \u2192 serum hyperkalemia",
-        "Drives K into cells \u2192 hypokalemia"
+        "The specimen was probably hemolyzed",
+        "Insulin pushes potassium out of cells",
+        "Rapid breathing causes alkalosis that pushes potassium out of cells",
+        "Acidosis moves potassium out of cells into the blood"
       ],
-      "correctIndex": 2,
+      "correctIndex": 3,
       "reasons": [
-        "Serum K often rises in acidosis.",
-        "Acid-base strongly affects K distribution.",
-        "Extracellular shift raises serum K even if total body K is low.",
-        "H\u207a shifts with K\u207a; acidosis moves K extracellularly."
+        "Hemolysis can falsely elevate K\u207a, but acidosis already explains this value in DKA.",
+        "Insulin shifts K\u207a into cells, lowering serum K\u207a, not raising it.",
+        "Kussmaul breathing compensates for acidosis; alkalosis shifts K\u207a into cells, not out.",
+        "H\u207a shifts with K\u207a; acidosis drives K\u207a extracellularly and raises serum K\u207a even when total body stores are depleted."
       ],
       "topic": "fluids_abg",
-      "level": "hard",
-      "type": "recall",
-      "source": "ms_lec_midterms_81e8.txt \u2014 PART XIV Acidosis\u2192K",
+      "level": "normal",
+      "type": "application",
+      "source": "ms_lec_midterms_81e8.txt \u2014 Potassium shifts; pseudohyperkalemia",
       "reviewed": false,
-      "selfChecked": false,
-      "selfCheckedBy": "",
-      "selfCheckedAt": "",
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
       "instructorReviewed": false,
       "instructorReviewedBy": "",
       "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
-      "tool": null,
-      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+      "tool": "labs"
     },
     {
       "id": "fluids-013",
@@ -2282,38 +2246,6 @@
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
-      "id": "fluids-018",
-      "stem": "Third-spacing fluid loss example:",
-      "choices": [
-        "Fluid trapped in burns/ascites/peritonitis \u2014 not available to plasma",
-        "Pure water deficit only",
-        "Excessive ADH with euvolemia",
-        "Isotonic dehydration from GI loss only"
-      ],
-      "correctIndex": 0,
-      "reasons": [
-        "Third spacing sequesters fluid interstitially/ cavities.",
-        "Water deficit is hypernatremia pattern.",
-        "SIADH is euvolemic hypo-osmolar, different mechanism.",
-        "GI loss is intravascular/dehydration pattern."
-      ],
-      "topic": "fluids_abg",
-      "level": "hard",
-      "type": "application",
-      "source": "ms_lec_midterms_81e8.txt \u2014 PART XVIII Fluid patterns",
-      "reviewed": false,
-      "selfChecked": false,
-      "selfCheckedBy": "",
-      "selfCheckedAt": "",
-      "instructorReviewed": false,
-      "instructorReviewedBy": "",
-      "instructorReviewedAt": "",
-      "reviewedBy": "",
-      "reviewedAt": "",
-      "tool": null,
-      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
-    },
-    {
       "id": "fluids-019",
       "stem": "Hypernatremia usually reflects:",
       "choices": [
@@ -2379,67 +2311,65 @@
     },
     {
       "id": "fluids-021",
-      "stem": "Respiratory acidosis compensation over time:",
+      "stem": "A client who received opioids after surgery is drowsy with slow, shallow breathing. ABG: pH 7.29, PaCO\u2082 62, HCO\u2083\u207b 24. How should the nurse interpret this?",
       "choices": [
-        "Kidneys excrete all bicarbonate immediately",
-        "No renal role",
-        "Only hyperventilation compensates chronic resp acidosis",
-        "Kidneys retain bicarbonate"
+        "Respiratory acidosis, compensated",
+        "Metabolic acidosis",
+        "Respiratory alkalosis",
+        "Respiratory acidosis, uncompensated"
       ],
       "correctIndex": 3,
       "reasons": [
-        "Excreting bicarbonate would worsen acidosis.",
-        "Kidneys are key for metabolic compensation.",
-        "Hyperventilation cannot fix chronic hypoventilation.",
-        "Chronic CO\u2082 retention \u2192 renal HCO\u2083\u207b retention."
+        "Compensated respiratory acidosis requires elevated HCO\u2083\u207b (typically above 26).",
+        "HCO\u2083\u207b 24 is not below 22; the primary disturbance is elevated PaCO\u2082.",
+        "Low pH with high PaCO\u2082 is acidosis, not alkalosis.",
+        "pH below 7.35 with PaCO\u2082 above 45 and normal HCO\u2083\u207b fits acute respiratory acidosis without renal compensation."
       ],
       "topic": "fluids_abg",
-      "level": "hard",
+      "level": "normal",
       "type": "application",
-      "source": "ms_lec_midterms_81e8.txt \u2014 Acid-base compensation",
+      "source": "ms_lec_midterms_81e8.txt \u2014 Respiratory acidosis criteria and compensation",
       "reviewed": false,
-      "selfChecked": false,
-      "selfCheckedBy": "",
-      "selfCheckedAt": "",
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
       "instructorReviewed": false,
       "instructorReviewedBy": "",
       "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
-      "tool": null,
-      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+      "tool": "labs"
     },
     {
       "id": "fluids-022",
-      "stem": "Anion gap helps distinguish:",
+      "stem": "Which cause of metabolic acidosis is expected to produce a high anion gap?",
       "choices": [
-        "Iron deficiency vs B12 deficiency",
-        "Respiratory alkalosis only",
-        "Hyperkalemia vs hypokalemia",
-        "High-gap vs normal-gap metabolic acidosis"
+        "Drainage from a biliary fistula",
+        "Poor perfusion after a cardiac arrest",
+        "Drainage from an intestinal fistula",
+        "Severe diarrhea"
       ],
-      "correctIndex": 3,
+      "correctIndex": 1,
       "reasons": [
-        "Anemias use different labs.",
-        "Anion gap is for metabolic acidosis classification.",
-        "Potassium is separate.",
-        "Gap distinguishes added acids (DKA, lactic) vs HCO\u2083 loss (diarrhea)."
+        "Biliary fistula drainage also reflects bicarbonate loss with a normal gap pattern.",
+        "Anaerobic metabolism from poor perfusion generates lactic acid, adding unmeasured anions and widening the gap.",
+        "Intestinal fistula drainage loses bicarbonate with a normal anion gap pattern.",
+        "Diarrhea loses bicarbonate, producing normal-gap metabolic acidosis."
       ],
       "topic": "fluids_abg",
-      "level": "hard",
+      "level": "normal",
       "type": "application",
-      "source": "ms_lec_midterms_81e8.txt \u2014 Metabolic acidosis",
+      "source": "ms_lec_midterms_81e8.txt \u2014 Metabolic acidosis cause categories",
       "reviewed": false,
-      "selfChecked": false,
-      "selfCheckedBy": "",
-      "selfCheckedAt": "",
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
       "instructorReviewed": false,
       "instructorReviewedBy": "",
       "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
-      "tool": "labs",
-      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+      "tool": "labs"
     },
     {
       "id": "periop-001",

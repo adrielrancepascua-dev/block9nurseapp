@@ -1,14 +1,41 @@
 {
-  "_comment": "Per-item only — no bulk sign-off. selfChecked = you verified stem, pairing, and facts against your handouts. instructorReviewed = MedSurg CI signed off for student pilot. Preview/dev Study loads selfChecked; production student pilot loads instructorReviewed only.",
-  "_example": {
-    "fluids-010": {
+  "_comment": "Per-item only. selfChecked = verified against handouts (preview). instructorReviewed = CI sign-off (student pilot).",
+  "items": {
+    "fluids-005": {
       "selfChecked": true,
       "selfCheckedBy": "Rance Adriel M. Pascua",
       "selfCheckedAt": "2026-10-13",
-      "instructorReviewed": false,
-      "instructorReviewedBy": "",
-      "instructorReviewedAt": ""
+      "instructorReviewed": false
+    },
+    "fluids-006": {
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
+      "instructorReviewed": false
+    },
+    "fluids-012": {
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
+      "instructorReviewed": false
+    },
+    "fluids-021": {
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
+      "instructorReviewed": false
+    },
+    "fluids-022": {
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
+      "instructorReviewed": false
+    },
+    "heart-003": {
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
+      "instructorReviewed": false
     }
-  },
-  "items": {}
+  }
 }

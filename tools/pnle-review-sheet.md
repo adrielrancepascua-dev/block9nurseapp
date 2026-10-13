@@ -137,37 +137,37 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ## blood-008 (hard, blood)
 
-**Stem:** Sickle cell crisis pain management priority includes:
+**Stem:** A client with sickle cell anemia is in vaso-occlusive crisis with severe bone and abdominal pain rated 9/10. Airway, breathing, and circulation are stable and SpO₂ is 97%. Which action should the nurse take?
 
-**Source:** `ms_lec_midterms_81e8.txt — Sickle cell`
+**Source:** `Ms_lab_UT / ms_lab_midterm — Sickle cell crisis nursing priorities`
 
-- **A:** Aggressive pain control per protocol, hydration, and trigger avoidance **CORRECT**
-  - Reason: Hydration and pain control are cornerstone; investigate fever.
-- **B:** Ignore fever
-  - Reason: Fever may signal infection — must assess.
-- **C:** Restrict fluids to prevent overload always
-  - Reason: Hydration is usually encouraged unless contraindicated.
-- **D:** Withhold all opioids due to addiction fear
-  - Reason: Undertreated vaso-occlusive pain is a known disparity issue; protocol analgesia is priority.
+- **A:** Apply ice packs to the painful joints
+  - Reason: Cold exposure is a sickling trigger; the client should be kept warm.
+- **B:** Start high-flow oxygen by mask
+  - Reason: Oxygen is for hypoxemia; SpO₂ 97% does not require supplemental O₂ by itself.
+- **C:** Restrict fluids to prevent overload
+  - Reason: Dehydration is a sickling trigger; hydrate as ordered unless contraindicated.
+- **D:** Give the prescribed opioid analgesia **CORRECT**
+  - Reason: Vaso-occlusive crisis is ischemic pain from blocked vessels; opioid analgesia follows pain assessment in crisis priorities.
 
 *selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
-## blood-009 (normal, blood)
+## blood-009 (hard, blood)
 
-**Stem:** Before blood transfusion, essential nursing checks include:
+**Stem:** Two nurses are verifying a unit of PRBCs at the bedside. The patient's name and the unit number match, but the date of birth on the ID band differs from the one on the blood tag. What should they do?
 
-**Source:** `ms_lec_midterms_81e8.txt — Transfusion`
+**Source:** `ms_lab_midterms_e746.pdf — Blood verification at bedside`
 
-- **A:** Two-nurse ID check, consent, type/crossmatch, vitals baseline **CORRECT**
-  - Reason: Dual identification and compatibility verification are mandatory safety steps.
-- **B:** Only verify room number
-  - Reason: Room alone is insufficient for high-risk therapy.
-- **C:** Skip allergy history
-  - Reason: Allergy/history guides monitoring and reaction management.
-- **D:** Warm blood in microwave
-  - Reason: Microwave damages RBCs; use approved warmers if needed.
+- **A:** Start the unit slowly and watch for a reaction
+  - Reason: A slow initial rate applies only after a fully verified unit, not when identifiers conflict.
+- **B:** Do not administer the blood and notify the blood bank **CORRECT**
+  - Reason: Every identifier must match at the bedside; mismatch means do not transfuse and notify the blood bank.
+- **C:** Start the unit because the name and unit number match
+  - Reason: Name and unit number alone are insufficient when any identifier does not match.
+- **D:** Ask one nurse to recheck it and start if she agrees
+  - Reason: Two-nurse verification is required together; a mismatch is not resolved by a second opinion alone.
 
 *selfChecked:* `False` · *instructorReviewed:* `False`
 
@@ -175,18 +175,18 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ## blood-010 (hard, blood)
 
-**Stem:** Acute hemolytic transfusion reaction early sign:
+**Stem:** Fifteen minutes into a PRBC transfusion, a client reports sudden severe low back pain and chills. Temperature is 38.9°C and BP is 86/50. What should the nurse do first?
 
-**Source:** `ms_lec_midterms_81e8.txt — Transfusion reactions`
+**Source:** `ms_lab_midterms_e746.pdf — Transfusion reaction algorithm; Ms_lab_UT — Transfusion reactions`
 
-- **A:** Itching only
-  - Reason: Mild itch may be allergic; hemolytic is more systemic.
-- **B:** Mild headache only after 24 hours
-  - Reason: Delayed reactions occur later; acute is during/soon after infusion.
-- **C:** Bradycardia with hypertension only
-  - Reason: Pattern is not isolated HTN/bradycardia.
-- **D:** Fever, chills, flank pain, hypotension, dark urine **CORRECT**
-  - Reason: Fever, pain, hypotension, hemoglobinuria fit acute hemolysis.
+- **A:** Stop the transfusion immediately **CORRECT**
+  - Reason: Back or flank pain with chills and hypotension during transfusion suggests acute hemolysis; stop the blood first per reaction algorithms.
+- **B:** Flush the blood tubing with 0.9% NS to keep the line open
+  - Reason: Do not flush existing blood tubing; use new 0.9% NS and new tubing after stopping.
+- **C:** Notify the provider and blood bank, then decide whether to stop
+  - Reason: Provider and blood bank notification are required, but the sequence is stop, disconnect, new line, then notify.
+- **D:** Slow the rate and recheck vital signs in 15 minutes
+  - Reason: Even a febrile reaction requires stopping and assessing before continuing any infusion.
 
 *selfChecked:* `False` · *instructorReviewed:* `False`
 
@@ -225,25 +225,6 @@ Check each choice against its reason. Source strings are citations only (PDFs no
   - Reason: Warfarin uses PT/INR.
 - **D:** Platelet count only
   - Reason: Platelets monitor HIT risk but not heparin level.
-
-*selfChecked:* `False` · *instructorReviewed:* `False`
-
----
-
-## blood-013 (hard, blood)
-
-**Stem:** HIT (heparin-induced thrombocytopenia) priority action when suspected:
-
-**Source:** `ms_lec_midterms_81e8.txt — HIT`
-
-- **A:** Start warfarin immediately on heparin
-  - Reason: Warfarin alone early in HIT can cause limb loss; specialist protocol.
-- **B:** Stop heparin, avoid platelet transfusion unless bleeding, notify provider **CORRECT**
-  - Reason: Stop heparin and use alternative anticoagulant per protocol.
-- **C:** Massage thrombosed limb vigorously
-  - Reason: Massage risks embolism.
-- **D:** Continue heparin and ignore platelets
-  - Reason: Continuing heparin worsens immune-mediated platelet activation.
 
 *selfChecked:* `False` · *instructorReviewed:* `False`
 
@@ -422,39 +403,39 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ## fluids-005 (hard, fluids_abg)
 
-**Stem:** Hyperkalemia ECG change priority to recognize:
+**Stem:** A client with renal failure has K⁺ 6.8 mEq/L. The monitor shows tall peaked T waves and a widening QRS. Which intervention should the nurse prepare first?
 
-**Source:** `ms_lec_midterms_81e8.txt — Potassium cardiac`
+**Source:** `ms_lec_midterms_81e8.txt — Part VI hyperkalemia ECG and emergency management`
 
-- **A:** Prolonged PR only without T changes
-  - Reason: PR changes can occur but peaked T is early classic sign.
-- **B:** Short QT only
-  - Reason: Short QT is not classic hyperK.
-- **C:** U waves only
-  - Reason: U waves suggest hypokalemia.
-- **D:** Peaked T waves, widened QRS, risk of VF **CORRECT**
-  - Reason: Peaked T → QRS widening → arrhythmia is the progression.
+- **A:** Arrange hemodialysis to remove potassium
+  - Reason: Dialysis removes K⁺ in renal failure but takes time to arrange and does not immediately stabilize the heart.
+- **B:** Give IV calcium gluconate to protect the heart **CORRECT**
+  - Reason: Calcium stabilizes the cardiac membrane when the ECG shows imminent dysrhythmia risk; it does not lower serum K⁺.
+- **C:** Give sodium polystyrene sulfonate to remove potassium
+  - Reason: Kayexalate removes K⁺ from the body but does not protect the myocardium during active ECG changes.
+- **D:** Give regular insulin with D50W to shift potassium
+  - Reason: Insulin with glucose shifts K⁺ into cells but follows cardiac membrane protection when QRS is widening.
 
-*selfChecked:* `False` · *instructorReviewed:* `False`
+*selfChecked:* `True` · *instructorReviewed:* `False`
 
 ---
 
 ## fluids-006 (hard, fluids_abg)
 
-**Stem:** Hypokalemia nursing priority when severe and client on digoxin:
+**Stem:** A client taking digoxin and furosemide has K⁺ 3.1 mEq/L. IV potassium chloride is prescribed. Urine output was 40 mL over the last 2 hours. What should the nurse do first?
 
-**Source:** `ms_lec_midterms_81e8.txt — PART XVII patterns`
+**Source:** `ms_lec_midterms_81e8.txt — Hypokalemia; ms_lec_prelims_7b61.pdf — Digoxin and hypokalemia`
 
-- **A:** Replace potassium cautiously per protocol; monitor ECG and digoxin toxicity **CORRECT**
-  - Reason: Guided replacement and ECG monitoring are essential.
-- **B:** Restrict all fluids
-  - Reason: Fluids depend on clinical status.
-- **C:** Ignore because K is always safe high
-  - Reason: Low K increases digoxin toxicity risk — monitor closely.
-- **D:** Give kayexalate for low K
-  - Reason: Kayexalate lowers K, wrong for hypokalemia.
+- **A:** Give the potassium by slow IV push to correct it quickly
+  - Reason: KCl is never given IV push; rapid bolus risks fatal dysrhythmias.
+- **B:** Take an apical pulse, then give the digoxin and potassium as ordered
+  - Reason: Apical pulse assessment is appropriate for digoxin, but it does not override an unsafe potassium order when output is low.
+- **C:** Hold the potassium and notify the provider of the low urine output **CORRECT**
+  - Reason: About 20 mL/hr urine output fails the usual safe threshold (~30 mL/hr) for KCl infusion; kidneys must excrete the load.
+- **D:** Infuse diluted potassium at 20 mEq/hr through a peripheral line
+  - Reason: Peripheral KCl is typically rate-limited (~10 mEq/hr); low urine output still contraindicates giving it now.
 
-*selfChecked:* `False` · *instructorReviewed:* `False`
+*selfChecked:* `True` · *instructorReviewed:* `False`
 
 ---
 
@@ -553,22 +534,22 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## fluids-012 (hard, fluids_abg)
+## fluids-012 (normal, fluids_abg)
 
-**Stem:** Acidosis effect on potassium shift
+**Stem:** A client with DKA has pH 7.20 and K⁺ 5.9 mEq/L. Which explanation best accounts for the high potassium?
 
-**Source:** `ms_lec_midterms_81e8.txt — PART XIV Acidosis→K`
+**Source:** `ms_lec_midterms_81e8.txt — Potassium shifts; pseudohyperkalemia`
 
-- **A:** Always causes hypokalemia in blood
-  - Reason: Serum K often rises in acidosis.
-- **B:** No effect on potassium
-  - Reason: Acid-base strongly affects K distribution.
-- **C:** Drives K out of cells → serum hyperkalemia **CORRECT**
-  - Reason: Extracellular shift raises serum K even if total body K is low.
-- **D:** Drives K into cells → hypokalemia
-  - Reason: H⁺ shifts with K⁺; acidosis moves K extracellularly.
+- **A:** The specimen was probably hemolyzed
+  - Reason: Hemolysis can falsely elevate K⁺, but acidosis already explains this value in DKA.
+- **B:** Insulin pushes potassium out of cells
+  - Reason: Insulin shifts K⁺ into cells, lowering serum K⁺, not raising it.
+- **C:** Rapid breathing causes alkalosis that pushes potassium out of cells
+  - Reason: Kussmaul breathing compensates for acidosis; alkalosis shifts K⁺ into cells, not out.
+- **D:** Acidosis moves potassium out of cells into the blood **CORRECT**
+  - Reason: H⁺ shifts with K⁺; acidosis drives K⁺ extracellularly and raises serum K⁺ even when total body stores are depleted.
 
-*selfChecked:* `False` · *instructorReviewed:* `False`
+*selfChecked:* `True` · *instructorReviewed:* `False`
 
 ---
 
@@ -667,25 +648,6 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## fluids-018 (hard, fluids_abg)
-
-**Stem:** Third-spacing fluid loss example:
-
-**Source:** `ms_lec_midterms_81e8.txt — PART XVIII Fluid patterns`
-
-- **A:** Fluid trapped in burns/ascites/peritonitis — not available to plasma **CORRECT**
-  - Reason: Third spacing sequesters fluid interstitially/ cavities.
-- **B:** Pure water deficit only
-  - Reason: Water deficit is hypernatremia pattern.
-- **C:** Excessive ADH with euvolemia
-  - Reason: SIADH is euvolemic hypo-osmolar, different mechanism.
-- **D:** Isotonic dehydration from GI loss only
-  - Reason: GI loss is intravascular/dehydration pattern.
-
-*selfChecked:* `False` · *instructorReviewed:* `False`
-
----
-
 ## fluids-019 (normal, fluids_abg)
 
 **Stem:** Hypernatremia usually reflects:
@@ -724,41 +686,41 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## fluids-021 (hard, fluids_abg)
+## fluids-021 (normal, fluids_abg)
 
-**Stem:** Respiratory acidosis compensation over time:
+**Stem:** A client who received opioids after surgery is drowsy with slow, shallow breathing. ABG: pH 7.29, PaCO₂ 62, HCO₃⁻ 24. How should the nurse interpret this?
 
-**Source:** `ms_lec_midterms_81e8.txt — Acid-base compensation`
+**Source:** `ms_lec_midterms_81e8.txt — Respiratory acidosis criteria and compensation`
 
-- **A:** Kidneys excrete all bicarbonate immediately
-  - Reason: Excreting bicarbonate would worsen acidosis.
-- **B:** No renal role
-  - Reason: Kidneys are key for metabolic compensation.
-- **C:** Only hyperventilation compensates chronic resp acidosis
-  - Reason: Hyperventilation cannot fix chronic hypoventilation.
-- **D:** Kidneys retain bicarbonate **CORRECT**
-  - Reason: Chronic CO₂ retention → renal HCO₃⁻ retention.
+- **A:** Respiratory acidosis, compensated
+  - Reason: Compensated respiratory acidosis requires elevated HCO₃⁻ (typically above 26).
+- **B:** Metabolic acidosis
+  - Reason: HCO₃⁻ 24 is not below 22; the primary disturbance is elevated PaCO₂.
+- **C:** Respiratory alkalosis
+  - Reason: Low pH with high PaCO₂ is acidosis, not alkalosis.
+- **D:** Respiratory acidosis, uncompensated **CORRECT**
+  - Reason: pH below 7.35 with PaCO₂ above 45 and normal HCO₃⁻ fits acute respiratory acidosis without renal compensation.
 
-*selfChecked:* `False` · *instructorReviewed:* `False`
+*selfChecked:* `True` · *instructorReviewed:* `False`
 
 ---
 
-## fluids-022 (hard, fluids_abg)
+## fluids-022 (normal, fluids_abg)
 
-**Stem:** Anion gap helps distinguish:
+**Stem:** Which cause of metabolic acidosis is expected to produce a high anion gap?
 
-**Source:** `ms_lec_midterms_81e8.txt — Metabolic acidosis`
+**Source:** `ms_lec_midterms_81e8.txt — Metabolic acidosis cause categories`
 
-- **A:** Iron deficiency vs B12 deficiency
-  - Reason: Anemias use different labs.
-- **B:** Respiratory alkalosis only
-  - Reason: Anion gap is for metabolic acidosis classification.
-- **C:** Hyperkalemia vs hypokalemia
-  - Reason: Potassium is separate.
-- **D:** High-gap vs normal-gap metabolic acidosis **CORRECT**
-  - Reason: Gap distinguishes added acids (DKA, lactic) vs HCO₃ loss (diarrhea).
+- **A:** Drainage from a biliary fistula
+  - Reason: Biliary fistula drainage also reflects bicarbonate loss with a normal gap pattern.
+- **B:** Poor perfusion after a cardiac arrest **CORRECT**
+  - Reason: Anaerobic metabolism from poor perfusion generates lactic acid, adding unmeasured anions and widening the gap.
+- **C:** Drainage from an intestinal fistula
+  - Reason: Intestinal fistula drainage loses bicarbonate with a normal anion gap pattern.
+- **D:** Severe diarrhea
+  - Reason: Diarrhea loses bicarbonate, producing normal-gap metabolic acidosis.
 
-*selfChecked:* `False` · *instructorReviewed:* `False`
+*selfChecked:* `True` · *instructorReviewed:* `False`
 
 ---
 
@@ -802,20 +764,20 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ## heart-003 (hard, heart)
 
-**Stem:** ST-elevation MI (STEMI) priority intervention emphasized in acute cardiac care:
+**Stem:** A client has crushing substernal pain radiating to the left arm. The ECG shows ST elevation in V3 and V4, and troponin and CK-MB are elevated. SpO₂ is 97% with no respiratory distress, and BP is 130/80. Which action most directly limits myocardial damage?
 
-**Source:** `ms_lec_prelims_7b61.pdf — ACS/MI`
+**Source:** `ms_lec_prelims_7b61.pdf — STEMI; MI nursing priorities`
 
-- **A:** Wait 24 hours for enzymes only
-  - Reason: Delay worsens myocardial loss in STEMI.
-- **B:** Reperfusion therapy (PCI or fibrinolysis per protocol) ASAP **CORRECT**
-  - Reason: Time-to-reperfusion is critical for STEMI outcomes.
-- **C:** Routine sedation without monitoring
-  - Reason: Sedation without monitoring is unsafe in ACS.
-- **D:** High-dose beta-blocker before any assessment
-  - Reason: Beta-blockers are given when hemodynamically stable, not before assessment.
+- **A:** Prepare for urgent reperfusion with PCI or a thrombolytic per protocol **CORRECT**
+  - Reason: ST elevation means complete coronary occlusion; restoring flow saves muscle.
+- **B:** Start oxygen at a high flow rate
+  - Reason: Oxygen is for SpO₂ under 90% or respiratory distress, and neither is present.
+- **C:** Give nitroglycerin every 5 minutes for 3 doses
+  - Reason: Nitroglycerin lowers preload and workload but does not reopen a completely occluded artery.
+- **D:** Repeat the troponin in 3 hours before deciding on treatment
+  - Reason: Serial biomarkers continue, but STEMI reperfusion is not delayed for repeat troponin alone.
 
-*selfChecked:* `False` · *instructorReviewed:* `False`
+*selfChecked:* `True` · *instructorReviewed:* `False`
 
 ---
 
