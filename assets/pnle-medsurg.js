@@ -185,19 +185,19 @@
     },
     {
       "id": "oxy-008",
-      "stem": "For ARDS ventilation strategy emphasized in critical care teaching aligned with the handout, which is priority?",
+      "stem": "For ARDS ventilation in critical care, which strategy is priority?",
       "choices": [
-        "High tidal volumes to normalize PaCO\u2082 quickly",
-        "Low tidal volume, lung-protective ventilation",
-        "Ventilation without PEEP in all ARDS clients",
-        "Routine hyperventilation to maintain pH 7.55"
+        "Tidal volume 10\u201312 mL/kg to normalize PaCO\u2082",
+        "Low tidal volume (~6 mL/kg IBW) with protective limits",
+        "PEEP 10\u201312 cm H\u2082O while keeping tidal volume at 10 mL/kg",
+        "Raise respiratory rate to 32/min without reducing tidal volume"
       ],
       "correctIndex": 1,
       "reasons": [
-        "High VT can worsen volutrauma in injured ARDS lungs.",
-        "Low VT (e.g., 6 mL/kg IBW) limits barotrauma/volutrauma in ARDS.",
-        "PEEP is often needed to recruit alveoli in ARDS; avoiding PEEP is incorrect.",
-        "Deliberate alkalosis is not the ARDS ventilation goal."
+        "High VT worsens volutrauma in injured ARDS lungs even if PaCO\u2082 looks better briefly.",
+        "Low VT (~6 mL/kg IBW) is the lung-protective standard in ARDS ventilation.",
+        "PEEP helps recruitment but must pair with low VT \u2014 high VT negates protection.",
+        "Faster rate without lowering VT still drives volutrauma and barotrauma risk."
       ],
       "topic": "oxygenation",
       "level": "hard",

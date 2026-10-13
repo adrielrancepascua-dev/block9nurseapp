@@ -49,12 +49,17 @@ BALANCE = {
     ),
     "oxy-008": (
         [
-            "High tidal volumes to normalize PaCO₂ quickly",
-            "Low tidal volume, lung-protective ventilation",
-            "Ventilation without PEEP in all ARDS clients",
-            "Routine hyperventilation to maintain pH 7.55",
+            "Tidal volume 10–12 mL/kg to normalize PaCO₂",
+            "Low tidal volume (~6 mL/kg IBW) with protective limits",
+            "PEEP 10–12 cm H₂O while keeping tidal volume at 10 mL/kg",
+            "Raise respiratory rate to 32/min without reducing tidal volume",
         ],
-        None,
+        [
+            "High VT worsens volutrauma in injured ARDS lungs even if PaCO₂ looks better briefly.",
+            "Low VT (~6 mL/kg IBW) is the lung-protective standard in ARDS ventilation.",
+            "PEEP helps recruitment but must pair with low VT — high VT negates protection.",
+            "Faster rate without lowering VT still drives volutrauma and barotrauma risk.",
+        ],
     ),
     "oxy-014": (
         [

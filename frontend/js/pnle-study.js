@@ -1,27 +1,23 @@
 /**
- * PNLE Study mode: full-screen launch gate, session player, mistakes, progress.
+ * PNLE Study mode: launch gate, session player, mistakes, progress.
  */
 (function (global) {
   'use strict';
 
   const LAUNCH_MODE_KEY = 'nursepath_launch_mode_v1';
-  const DAILY_GOAL_KEY = 'nursepath_pnle_daily_goal_v1';
+  const LEVEL_KEY = 'nursepath_pnle_level_v1';
+  const DAILY_GOAL_FIXED = 10;
   const MISTAKES_KEY = 'nursepath_pnle_mistakes_v1';
   const PROGRESS_KEY = 'nursepath_pnle_progress_v1';
   const DAILY_COUNT_KEY = 'nursepath_pnle_daily_count_v1';
   const REPORTS_KEY = 'nursepath_pnle_reports_v1';
 
-  const TOPICS = [
-    { id: 'oxygenation', label: 'Oxygenation', locked: false },
-    { id: 'heart', label: 'Heart', locked: false },
-    { id: 'blood', label: 'Blood & transfusion', locked: false },
-    { id: 'fluids_abg', label: 'Fluids, electrolytes & ABG', locked: false },
-    { id: 'periop_iv', label: 'Perioperative & IV', locked: false },
-    { id: 'all', label: 'All MedSurg topics', locked: false },
-    { id: 'maternal', label: 'Maternal & newborn', locked: true },
-    { id: 'peds', label: 'Pediatric nursing', locked: true },
-    { id: 'psych', label: 'Psychiatric nursing', locked: true },
-    { id: 'community', label: 'Community health', locked: true },
+  const TOPIC_ROWS = [
+    { id: 'oxygenation', label: 'Oxygenation' },
+    { id: 'heart', label: 'Heart' },
+    { id: 'blood', label: 'Blood & transfusion' },
+    { id: 'fluids_abg', label: 'Fluids, electrolytes & ABG' },
+    { id: 'periop_iv', label: 'Perioperative & IV' },
   ];
 
   let bankItems = [];
@@ -58,6 +54,19 @@
     localStorage.setItem(LAUNCH_MODE_KEY, mode);
   }
 
+  function getStudyLevel() {
+    const l = localStorage.getItem(LEVEL_KEY);
+    return l === 'hard' ? 'hard' : 'normal';
+  }
+
+  function setStudyLevel(level) {
+    localStorage.setItem(LEVEL_KEY, level === 'hard' ? 'hard' : 'normal');
+  }
+
+  function getDailyGoal() {
+    return DAILY_GOAL_FIXED;
+  }
+
   function loadBank() {
     const pack = global.NursePathPnleMedSurg;
     if (!pack || !Array.isArray(pack.items)) return [];
@@ -88,14 +97,47 @@
     writeJson(PROGRESS_KEY, map);
   }
 
-  function getMasteredCount() {
+  function isItemMastered(itemId) {
     const prog = readProgress();
-    let n = 0;
-    Object.keys(prog).forEach((id) => {
-      const days = prog[id] && prog[id].correctDays;
-      if (Array.isArray(days) && days.length >= 2) n += 1;
-    });
-    return n;
+    const days = prog[itemId] && prog[itemId].correctDays;
+    return Array.isArray(days) && days.length >= 2;
+  }
+
+  function getMasteredCount() {
+    return bankItems.filter((it) => isItemMastered(it.id)).length;
+  }
+
+  function getMasteredInTopic(topicId) {
+    return bankItems.filter((it) => it.topic === topicId && isItemMastered(it.id)).length;
+  }
+
+  function getTopicTotal(topicId) {
+    return bankItems.filter((it) => it.topic === topicId).length;
+  }
+
+  function getDailyProgress() {
+    const daily = readJson(DAILY_COUNT_KEY, {});
+    return daily[todayYmd()] || 0;
+  }
+
+  function formatTodayGoalShort() {
+    const done = getDailyProgress();
+    const goal = getDailyGoal();
+    if (done >= goal) return 'Goal met';
+    return `${done} of ${goal}`;
+  }
+
+  function formatTodayGoalLong() {
+    const done = getDailyProgress();
+    const goal = getDailyGoal();
+    if (done >= goal) return 'Today: Goal met';
+    return `Today: ${done} of ${goal}`;
+  }
+
+  function todayGoalRingPercent() {
+    const done = getDailyProgress();
+    const goal = getDailyGoal();
+    return Math.min(100, Math.round((Math.min(done, goal) / goal) * 100));
   }
 
   function updateMasteryUi() {
@@ -159,18 +201,11 @@
     updateMasteryUi();
   }
 
-  function recordItemFeedback(itemId, helpful) {
+  function recordItemFeedback(itemId) {
     const reports = readJson(REPORTS_KEY, []);
-    reports.push({
-      itemId,
-      helpful: Boolean(helpful),
-      at: new Date().toISOString(),
-    });
+    reports.push({ itemId, helpful: false, at: new Date().toISOString() });
     writeJson(REPORTS_KEY, reports.slice(-200));
-    trackStudy('study_item_feedback', 'feature_use', {
-      item_id: itemId,
-      helpful: Boolean(helpful),
-    });
+    trackStudy('study_item_feedback', 'feature_use', { item_id: itemId, helpful: false });
   }
 
   function filterItems(topicId, level) {
@@ -195,21 +230,6 @@
       [a[i], a[j]] = [a[j], a[i]];
     }
     return a;
-  }
-
-  function getDailyGoal() {
-    const n = parseInt(localStorage.getItem(DAILY_GOAL_KEY) || '10', 10);
-    return Number.isFinite(n) && n > 0 ? Math.min(n, 50) : 10;
-  }
-
-  function setDailyGoal(n) {
-    const v = Math.max(1, Math.min(50, parseInt(n, 10) || 10));
-    localStorage.setItem(DAILY_GOAL_KEY, String(v));
-  }
-
-  function getDailyProgress() {
-    const daily = readJson(DAILY_COUNT_KEY, {});
-    return daily[todayYmd()] || 0;
   }
 
   function escapeHtml(text) {
@@ -260,17 +280,13 @@
   }
 
   function refreshGateTileStats() {
-    const goal = getDailyGoal();
-    const done = getDailyProgress();
     const mistakes = Object.keys(readMistakes()).length;
     const goalEl = document.getElementById('pnleGateStudyGoal');
     const misEl = document.getElementById('pnleGateStudyMistakes');
-    if (goalEl) goalEl.textContent = `Today: ${done} of ${goal}`;
+    if (goalEl) goalEl.textContent = formatTodayGoalLong();
     if (misEl) {
       misEl.textContent =
-        mistakes === 0
-          ? 'My mistakes: none waiting'
-          : `My mistakes: ${mistakes} waiting`;
+        mistakes === 0 ? 'My mistakes: none waiting' : `My mistakes: ${mistakes} waiting`;
     }
     const last = getLastMode();
     const dutyBadge = document.getElementById('pnleGateDutyBadge');
@@ -375,6 +391,7 @@
     studyTab = tab;
     const bar = document.getElementById('pnleStudyTabbar');
     if (bar) {
+      bar.classList.remove('is-dimmed');
       bar.querySelectorAll('.pnle-tab').forEach((btn) => {
         const t = btn.getAttribute('data-study-tab');
         btn.classList.toggle('is-active', t === tab);
@@ -394,55 +411,103 @@
     else if (tab === 'progress') renderProgressHome();
   }
 
+  function startTopicSession(topicId) {
+    const level = getStudyLevel();
+    const pool = filterItems(topicId, level);
+    if (!pool.length) {
+      alert('No questions in this pool yet. Try another topic or level.');
+      return;
+    }
+    session = {
+      topicId,
+      level,
+      queue: shuffle(pool),
+      index: 0,
+      answered: 0,
+      locked: false,
+      phase: 'question',
+    };
+    renderQuestion();
+  }
+
+  function startMixedPractice() {
+    const level = getStudyLevel();
+    const pool = filterItems('all', level);
+    if (!pool.length) {
+      alert('No questions available.');
+      return;
+    }
+    session = {
+      topicId: 'all',
+      level,
+      queue: shuffle(pool),
+      index: 0,
+      answered: 0,
+      locked: false,
+      phase: 'question',
+    };
+    renderQuestion();
+  }
+
   function renderStudyHome() {
     const root = document.getElementById('pnleStudyRoot');
     if (!root) return;
-    const goal = getDailyGoal();
-    const done = getDailyProgress();
-    const topicCards = TOPICS.map((t) => {
-      const locked = t.locked;
-      const sub = locked
-        ? 'Coming in a future pack'
-        : t.id === 'all'
-          ? `Mixed from ${bankItems.length} questions`
-          : `${bankItems.filter((i) => i.topic === t.id).length} in bank`;
-      return `<button type="button" class="pnle-topic-card${locked ? ' is-locked' : ''}" data-topic="${t.id}" ${locked ? 'disabled' : ''}>
-        <h3>${escapeHtml(t.label)}${locked ? ' 🔒' : ''}</h3>
-        <p>${escapeHtml(sub)}</p>
+    const level = getStudyLevel();
+    const mistakeCount = Object.keys(readMistakes()).length;
+    const ringPct = todayGoalRingPercent();
+    const goalLabel = formatTodayGoalShort();
+    const mastered = getMasteredCount();
+
+    const topicRows = TOPIC_ROWS.map((t) => {
+      const total = getTopicTotal(t.id);
+      const m = getMasteredInTopic(t.id);
+      const pct = total ? Math.round((m / total) * 100) : 0;
+      return `<button type="button" class="pnle-topic-row" data-topic="${t.id}">
+        <span class="pnle-topic-row-label">${escapeHtml(t.label)}</span>
+        <span class="pnle-topic-row-meta">${m} of ${total} mastered</span>
+        <span class="pnle-topic-row-bar" aria-hidden="true"><span style="width:${pct}%"></span></span>
       </button>`;
     }).join('');
 
     root.innerHTML = `
-      <p class="pnle-study-progress">MedSurg · Daily goal ${done}/${goal}</p>
-      <div class="pnle-daily-goal">
-        <label for="pnleDailyGoalInput">Daily goal</label>
-        <input type="number" id="pnleDailyGoalInput" min="1" max="50" value="${goal}">
-        <span>questions / day</span>
+      <div class="pnle-home-hero">
+        <div class="pnle-goal-ring" style="--ring-pct:${ringPct}" aria-label="Today's goal ${goalLabel}">
+          <div class="pnle-goal-ring-inner">
+            <span class="pnle-goal-ring-num">${escapeHtml(goalLabel)}</span>
+            <span class="pnle-goal-ring-cap">today</span>
+          </div>
+        </div>
+        <div class="pnle-home-hero-text">
+          <p class="pnle-home-hero-title">MedSurg practice</p>
+          <p class="pnle-home-hero-sub">${mastered} of ${bankItems.length} mastered · ${DAILY_GOAL_FIXED}/day goal</p>
+        </div>
       </div>
-      <p class="pnle-study-hint">Pick a topic, then Normal or Hard.</p>
-      <div class="pnle-topic-grid">${topicCards}</div>
+      <div class="pnle-level-row" role="group" aria-label="Difficulty">
+        <button type="button" class="pnle-level-btn${level === 'normal' ? ' is-active' : ''}" data-level="normal">Normal</button>
+        <button type="button" class="pnle-level-btn${level === 'hard' ? ' is-active' : ''}" data-level="hard">Hard</button>
+      </div>
+      <button type="button" class="pnle-btn-primary" id="pnleStartPractice">Start practice</button>
+      <button type="button" class="pnle-mistakes-strip" id="pnleHomeMistakes">
+        <span>My mistakes</span>
+        <strong>${mistakeCount} waiting</strong>
+      </button>
+      <h2 class="pnle-section-label">Topics</h2>
+      <div class="pnle-topic-list">${topicRows}</div>
     `;
 
-    const goalInput = root.querySelector('#pnleDailyGoalInput');
-    goalInput.addEventListener('change', () => {
-      setDailyGoal(goalInput.value);
-      renderStudyHome();
-      refreshGateTileStats();
+    root.querySelector('#pnleStartPractice').addEventListener('click', startMixedPractice);
+    root.querySelector('#pnleHomeMistakes').addEventListener('click', () => {
+      if (mistakeCount) startMistakesSession();
+      else setStudyTab('mistakes');
     });
-    root.querySelectorAll('.pnle-topic-card:not(.is-locked)').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const topicId = btn.getAttribute('data-topic');
-        session = {
-          topicId,
-          level: 'normal',
-          queue: [],
-          index: 0,
-          answered: 0,
-          locked: false,
-          phase: 'level',
-        };
-        renderLevelPicker();
+    root.querySelectorAll('.pnle-level-btn').forEach((b) => {
+      b.addEventListener('click', () => {
+        setStudyLevel(b.getAttribute('data-level'));
+        renderStudyHome();
       });
+    });
+    root.querySelectorAll('.pnle-topic-row').forEach((btn) => {
+      btn.addEventListener('click', () => startTopicSession(btn.getAttribute('data-topic')));
     });
   }
 
@@ -451,7 +516,7 @@
     if (!root) return;
     const mistakeCount = Object.keys(readMistakes()).length;
     root.innerHTML = `
-      <p class="pnle-study-progress">Items need two correct answers on different days to clear.</p>
+      <p class="pnle-study-hint">Clear an item with two correct answers on different days.</p>
       <div class="pnle-mistakes-card">
         <h2>My mistakes</h2>
         <p class="pnle-mistakes-count">${mistakeCount} item${mistakeCount === 1 ? '' : 's'} waiting</p>
@@ -487,7 +552,7 @@
       locked: false,
       phase: 'question',
     };
-    setStudyTab('mistakes');
+    studyTab = 'mistakes';
     renderQuestion();
   }
 
@@ -498,62 +563,82 @@
     const mistakes = Object.keys(readMistakes()).length;
     const done = getDailyProgress();
     const goal = getDailyGoal();
+    const todayLabel = done >= goal ? 'Goal met' : `${Math.min(done, goal)} / ${goal}`;
     root.innerHTML = `
       <div class="pnle-progress-card">
         <h2>Progress</h2>
         <ul class="pnle-progress-list">
           <li><span>Mastered (2+ correct days)</span><strong>${mastered} / ${bankItems.length}</strong></li>
-          <li><span>Today answered</span><strong>${done} / ${goal}</strong></li>
+          <li><span>Today answered</span><strong>${todayLabel}</strong></li>
           <li><span>Mistakes waiting</span><strong>${mistakes}</strong></li>
         </ul>
-        <p class="pnle-study-hint">Mastery bar counts items you got right on two separate days — not total taps.</p>
+        <p class="pnle-study-hint">Mastery counts items you got right on two separate days.</p>
       </div>
     `;
-  }
-
-  function renderLevelPicker() {
-    const root = document.getElementById('pnleStudyRoot');
-    if (!root || !session) return;
-    const topic = TOPICS.find((t) => t.id === session.topicId);
-    root.innerHTML = `
-      <button type="button" class="pnle-back-link" id="pnleBackHome">← Topics</button>
-      <h2 class="pnle-screen-title">${escapeHtml(topic ? topic.label : 'Study')}</h2>
-      <p class="pnle-study-progress">Choose difficulty</p>
-      <div class="pnle-level-row">
-        <button type="button" class="pnle-level-btn is-active" data-level="normal">Normal</button>
-        <button type="button" class="pnle-level-btn" data-level="hard">Hard</button>
-      </div>
-      <button type="button" class="pnle-btn-primary" id="pnleStartSession">Start session</button>
-    `;
-    root.querySelector('#pnleBackHome').addEventListener('click', () => {
-      session = null;
-      renderStudyHome();
-    });
-    root.querySelectorAll('.pnle-level-btn').forEach((b) => {
-      b.addEventListener('click', () => {
-        session.level = b.getAttribute('data-level');
-        root.querySelectorAll('.pnle-level-btn').forEach((x) => x.classList.toggle('is-active', x === b));
-      });
-    });
-    root.querySelector('#pnleStartSession').addEventListener('click', () => {
-      const pool = filterItems(session.topicId, session.level);
-      if (!pool.length) {
-        alert('No questions in this pool yet. Try another topic or level.');
-        return;
-      }
-      session.queue = shuffle(pool);
-      session.index = 0;
-      session.answered = 0;
-      session.locked = false;
-      session.phase = 'question';
-      renderQuestion();
-    });
   }
 
   const ICON_CHECK =
     '<svg class="pnle-choice-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.15"/><path d="M8 12.5l2.5 2.5 5.5-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   const ICON_X =
     '<svg class="pnle-choice-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.15"/><path d="M9 9l6 6M15 9l-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>';
+
+  function lockChoiceAnswer(root, item, picked) {
+    session.locked = true;
+    const correct = item.correctIndex;
+    const isCorrect = picked === correct;
+    recordAnswer(item, isCorrect);
+    session.answered += 1;
+
+    root.querySelectorAll('.pnle-choice').forEach((b) => {
+      const idx = parseInt(b.getAttribute('data-idx'), 10);
+      b.disabled = true;
+      const slot = b.querySelector('.pnle-choice-icon-slot');
+      const body = b.querySelector('.pnle-choice-body');
+      const reason = document.createElement('span');
+      reason.className = 'pnle-choice-reason';
+      reason.textContent = item.reasons[idx];
+      if (body) body.appendChild(reason);
+
+      if (idx === correct) {
+        b.classList.add('is-correct', 'is-revealed');
+        if (slot) slot.innerHTML = ICON_CHECK;
+      } else if (idx === picked) {
+        b.classList.add('is-wrong', 'is-revealed');
+        if (slot) slot.innerHTML = ICON_X;
+      } else {
+        b.classList.add('is-revealed');
+      }
+    });
+
+    const nextBtn = root.querySelector('#pnleNextBtn');
+    const report = root.querySelector('#pnleReportLink');
+    if (nextBtn) nextBtn.hidden = false;
+    if (report) report.hidden = false;
+  }
+
+  function bindChoiceTap(btn, root, item) {
+    let touchStartY = 0;
+    btn.addEventListener(
+      'touchstart',
+      (e) => {
+        touchStartY = e.changedTouches[0].clientY;
+      },
+      { passive: true }
+    );
+    btn.addEventListener('touchend', (e) => {
+      if (session.locked) return;
+      const dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+      if (dy > 14) return;
+      const idx = parseInt(btn.getAttribute('data-idx'), 10);
+      lockChoiceAnswer(root, item, idx);
+    });
+    btn.addEventListener('click', (e) => {
+      if (session.locked) return;
+      if (e.pointerType === 'touch') return;
+      const idx = parseInt(btn.getAttribute('data-idx'), 10);
+      lockChoiceAnswer(root, item, idx);
+    });
+  }
 
   function renderQuestion() {
     const root = document.getElementById('pnleStudyRoot');
@@ -565,7 +650,7 @@
       if (tabbar) tabbar.classList.remove('is-dimmed');
       root.innerHTML = `
         <h2 class="pnle-screen-title">Session complete</h2>
-        <p class="pnle-study-progress">You answered ${session.answered} question(s).</p>
+        <p class="pnle-study-hint">You answered ${session.answered} question(s).</p>
         <button type="button" class="pnle-btn-primary" id="pnleDoneHome">Back to practice</button>
       `;
       root.querySelector('#pnleDoneHome').addEventListener('click', () => {
@@ -583,7 +668,6 @@
             <span class="pnle-choice-icon-slot"></span>
             <span class="pnle-choice-body">
               <span class="pnle-choice-text">${escapeHtml(c)}</span>
-              <span class="pnle-choice-reason">${escapeHtml(item.reasons[idx])}</span>
             </span>
           </button>`
       )
@@ -592,28 +676,19 @@
     root.innerHTML = `
       <div class="pnle-question-toolbar">
         <span class="pnle-q-progress">Question ${session.index + 1} of ${session.queue.length}</span>
-        <button type="button" class="pnle-history-btn" id="pnleHistoryBtn">Question history (${mistakeCount})</button>
+        <button type="button" class="pnle-history-btn" id="pnleHistoryBtn">Mistakes (${mistakeCount})</button>
         <button type="button" class="pnle-end-btn" id="pnleQuitSession">End</button>
       </div>
       <div class="pnle-question-card">
         <p class="pnle-question-stem">${escapeHtml(item.stem)}</p>
         <div class="pnle-choices">${choices}</div>
-        <div class="pnle-study-actions">
-          <button type="button" class="pnle-btn-secondary" id="pnleRevealBtn" disabled>Lock answer to see reasons</button>
-        </div>
         <button type="button" class="pnle-btn-primary pnle-btn-next" id="pnleNextBtn" hidden>Next question</button>
-        <div class="pnle-feedback-row" id="pnleFeedbackRow" hidden>
-          <span>Was this question clear?</span>
-          <button type="button" class="pnle-thumb" id="pnleThumbUp" title="Helpful">👍</button>
-          <button type="button" class="pnle-thumb" id="pnleThumbDown" title="Report issue">👎</button>
-        </div>
+        <button type="button" class="pnle-report-link" id="pnleReportLink" hidden>Report a problem</button>
       </div>
     `;
 
-    let picked = null;
-    const revealBtn = root.querySelector('#pnleRevealBtn');
     const nextBtn = root.querySelector('#pnleNextBtn');
-    const feedbackRow = root.querySelector('#pnleFeedbackRow');
+    const reportLink = root.querySelector('#pnleReportLink');
 
     root.querySelector('#pnleQuitSession').addEventListener('click', () => {
       session = null;
@@ -627,45 +702,7 @@
       setStudyTab('mistakes');
     });
 
-    root.querySelectorAll('.pnle-choice').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        if (session.locked) return;
-        picked = parseInt(btn.getAttribute('data-idx'), 10);
-        root.querySelectorAll('.pnle-choice').forEach((b) => b.classList.remove('is-picked'));
-        btn.classList.add('is-picked');
-        revealBtn.disabled = false;
-      });
-    });
-
-    revealBtn.addEventListener('click', () => {
-      if (picked === null || session.locked) return;
-      session.locked = true;
-      const correct = item.correctIndex;
-      const isCorrect = picked === correct;
-      recordAnswer(item, isCorrect);
-      session.answered += 1;
-
-      root.querySelectorAll('.pnle-choice').forEach((b) => {
-        const idx = parseInt(b.getAttribute('data-idx'), 10);
-        b.disabled = true;
-        const slot = b.querySelector('.pnle-choice-icon-slot');
-        if (idx === correct) {
-          b.classList.add('is-correct', 'is-revealed');
-          if (slot) slot.innerHTML = ICON_CHECK;
-        }
-        if (idx === picked && picked !== correct) {
-          b.classList.add('is-wrong', 'is-revealed');
-          if (slot) slot.innerHTML = ICON_X;
-        }
-        if (idx !== correct && idx !== picked) {
-          b.classList.add('is-revealed');
-        }
-      });
-
-      revealBtn.hidden = true;
-      nextBtn.hidden = false;
-      feedbackRow.hidden = false;
-    });
+    root.querySelectorAll('.pnle-choice').forEach((btn) => bindChoiceTap(btn, root, item));
 
     nextBtn.addEventListener('click', () => {
       session.index += 1;
@@ -673,13 +710,10 @@
       renderQuestion();
     });
 
-    root.querySelector('#pnleThumbUp').addEventListener('click', () => {
-      recordItemFeedback(item.id, true);
-      feedbackRow.innerHTML = '<span class="pnle-feedback-thanks">Thanks — noted.</span>';
-    });
-    root.querySelector('#pnleThumbDown').addEventListener('click', () => {
-      recordItemFeedback(item.id, false);
-      feedbackRow.innerHTML = '<span class="pnle-feedback-thanks">Reported — we will review this item.</span>';
+    reportLink.addEventListener('click', () => {
+      recordItemFeedback(item.id);
+      reportLink.textContent = 'Reported — thank you';
+      reportLink.disabled = true;
     });
   }
 
@@ -691,9 +725,7 @@
 
     const dutySwitch = document.getElementById('pnleDutySwitchMode');
     const studySwitch = document.getElementById('pnleStudySwitchMode');
-    if (dutySwitch) {
-      dutySwitch.addEventListener('click', () => showLaunchGateWhenReady(true));
-    }
+    if (dutySwitch) dutySwitch.addEventListener('click', () => showLaunchGateWhenReady(true));
     if (studySwitch) {
       studySwitch.addEventListener('click', () => {
         endStudySession();
