@@ -10,6 +10,7 @@
   const MISTAKES_KEY = 'nursepath_pnle_mistakes_v1';
   const PROGRESS_KEY = 'nursepath_pnle_progress_v1';
   const DAILY_COUNT_KEY = 'nursepath_pnle_daily_count_v1';
+  const BANK_GATE_OVERRIDE_KEY = 'nursepath_pnle_bank_gate_v1';
   const CHOICE_LABELS = ['A', 'B', 'C', 'D'];
 
   const TOPIC_ROWS = [
@@ -67,13 +68,42 @@
     return DAILY_GOAL_FIXED;
   }
 
+  /** preview = selfChecked items; pilot = instructorReviewed only (student release). */
+  function getStudyBankGate() {
+    const stored = localStorage.getItem(BANK_GATE_OVERRIDE_KEY);
+    if (stored === 'pilot' || stored === 'preview') return stored;
+    try {
+      const meta = document.querySelector('meta[name="nursepath-pnle-bank-gate"]');
+      const content = meta && meta.getAttribute('content');
+      if (content === 'pilot' || content === 'preview') return content;
+    } catch (e) {
+      /* ignore */
+    }
+    const q = new URLSearchParams(global.location.search).get('pnleBank');
+    if (q === 'pilot' || q === 'preview') return q;
+    const host = (global.location.hostname || '').toLowerCase();
+    if (
+      !host ||
+      host === 'localhost' ||
+      host === '127.0.0.1' ||
+      host.endsWith('.vercel.app')
+    ) {
+      return 'preview';
+    }
+    return 'pilot';
+  }
+
+  function itemInStudyBank(it) {
+    const gate = getStudyBankGate();
+    if (gate === 'preview') return it.selfChecked === true;
+    return it.instructorReviewed === true;
+  }
+
   function loadBank() {
     const pack = global.NursePathPnleMedSurg;
     if (!pack || !Array.isArray(pack.items)) return [];
     const stemOk = (stem) => !/\b(handout|sheet|reviewer|per\s+the)\b/i.test(stem || '');
-    return pack.items.filter(
-      (it) => it.instructorReviewed === true && stemOk(it.stem)
-    );
+    return pack.items.filter((it) => itemInStudyBank(it) && stemOk(it.stem));
   }
 
   function trackStudy(feature, action, meta) {
@@ -451,10 +481,15 @@
     const root = document.getElementById('pnleStudyRoot');
     if (!root) return;
     if (!bankItems.length) {
-      root.innerHTML = `
-        <div class="pnle-study-empty">
-          <h2 class="pnle-section-label">No reviewed items yet</h2>
-          <p class="pnle-study-hint">Practice items are released after instructor review. Check back after your CI updates the question bank.</p>
+      const preview = getStudyBankGate() === 'preview';
+      root.innerHTML = preview
+        ? `<div class="pnle-study-empty">
+          <h2 class="pnle-section-label">No self-checked items yet</h2>
+          <p class="pnle-study-hint">Preview builds show questions you mark <strong>selfChecked</strong> in the bank status file after you verify them against your handouts.</p>
+        </div>`
+        : `<div class="pnle-study-empty">
+          <h2 class="pnle-section-label">No instructor-approved items yet</h2>
+          <p class="pnle-study-hint">The student pilot only shows questions your MedSurg instructor has signed off (<strong>instructorReviewed</strong>).</p>
         </div>`;
       return;
     }
@@ -481,7 +516,13 @@
       </button>`;
     }).join('');
 
+    const gateBanner =
+      getStudyBankGate() === 'preview'
+        ? `<p class="pnle-study-gate-banner" role="status">Preview bank — self-checked items only (not instructor-signed for students).</p>`
+        : '';
+
     root.innerHTML = `
+      ${gateBanner}
       <div class="pnle-home-hero">
         <div class="pnle-goal-ring-wrap">
           <div class="pnle-goal-ring" style="--ring-pct:${ringPct}" aria-hidden="true">
@@ -793,6 +834,7 @@
   }
 
   global.NursePathPnleStudy = {
+    getStudyBankGate,
     handlePostAuth,
     enterDutyMode,
     enterStudyMode,

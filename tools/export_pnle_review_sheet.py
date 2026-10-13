@@ -47,8 +47,10 @@ def render_markdown(items) -> str:
             lines.append(f"- **{letters[i]}:** {choice}{mark}")
             lines.append(f"  - Reason: {it['reasons'][i]}")
         lines.append("")
-        inst = it.get("instructorReviewed")
-        lines.append(f"*instructorReviewed:* `{bool(inst)}`")
+        lines.append(
+            f"*selfChecked:* `{bool(it.get('selfChecked'))}` · "
+            f"*instructorReviewed:* `{bool(it.get('instructorReviewed'))}`"
+        )
         lines.append("")
         lines.append("---")
         lines.append("")

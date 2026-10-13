@@ -17,7 +17,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** 25%
   - Reason: 25% is not the plasma proportion.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -36,7 +36,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** 150,000–450,000 /µL **CORRECT**
   - Reason: 150K–450K is normal platelet range.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -55,7 +55,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Red blood cells **CORRECT**
   - Reason: EPO acts on erythroid progenitors → RBC production.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -74,7 +74,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Eosinophils
   - Reason: Eosinophils rise with allergy/parasites.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -93,7 +93,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Is the first antibody in primary response only
   - Reason: IgM is first in primary response.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -112,7 +112,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** High B12, macrocytic smear
   - Reason: B12 deficiency is macrocytic.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -131,7 +131,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Normocytic only always
   - Reason: Can be normocytic early but classic is macrocytic.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -150,7 +150,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Withhold all opioids due to addiction fear
   - Reason: Undertreated vaso-occlusive pain is a known disparity issue; protocol analgesia is priority.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -169,7 +169,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Warm blood in microwave
   - Reason: Microwave damages RBCs; use approved warmers if needed.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -188,7 +188,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Fever, chills, flank pain, hypotension, dark urine **CORRECT**
   - Reason: Fever, pain, hypotension, hemoglobinuria fit acute hemolysis.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -207,7 +207,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** 0.8 only without range
   - Reason: 0.8–1.2 is normal non-anticoagulated INR.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -226,7 +226,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Platelet count only
   - Reason: Platelets monitor HIT risk but not heparin level.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -245,7 +245,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Continue heparin and ignore platelets
   - Reason: Continuing heparin worsens immune-mediated platelet activation.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -264,7 +264,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Fresh flowers and raw vegetable buffets
   - Reason: Plants/raw foods increase infection exposure.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -283,7 +283,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** T lymphocytes **CORRECT**
   - Reason: T cells mature in thymus per lymphoid organ teaching.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -302,7 +302,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** 18–20 g/dL
   - Reason: 18–20 exceeds female upper limit.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -321,7 +321,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** No need to verify blood product
   - Reason: Product verification remains mandatory.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -340,7 +340,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** von Willebrand only
   - Reason: vWD is different von Willebrand factor issue.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -359,7 +359,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** 120–125 mEq/L
   - Reason: 120–125 is hyponatremia.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -378,7 +378,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Below 135 mEq/L **CORRECT**
   - Reason: <135 mEq/L is hyponatremia threshold in sheet.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -397,7 +397,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** <125 mEq/L
   - Reason: <125 mEq/L is severe hyponatremia in many schemes but not the critical cutoff used here.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -416,7 +416,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** 2.0–2.5 mEq/L
   - Reason: 2.0–2.5 is critical hypokalemia range.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -435,7 +435,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Peaked T waves, widened QRS, risk of VF **CORRECT**
   - Reason: Peaked T → QRS widening → arrhythmia is the progression.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -454,7 +454,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Give kayexalate for low K
   - Reason: Kayexalate lowers K, wrong for hypokalemia.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -473,7 +473,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** pH high, HCO₃⁻ high
   - Reason: High pH/high HCO₃ is metabolic alkalosis.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -492,7 +492,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** High-anion-gap metabolic acidosis **CORRECT**
   - Reason: Ketones consume bicarbonate → high-gap metabolic acidosis.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -511,7 +511,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** 6.0–7.0 mg/dL
   - Reason: 6–7 is hypocalcemia.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -530,7 +530,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Positive Chvostek/Trousseau signs, tingling **CORRECT**
   - Reason: Hypocalcemia increases neuromuscular excitability → Chvostek/Trousseau and paresthesias.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -549,7 +549,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** 0.5–1.0 mEq/L
   - Reason: 0.5–1.0 is hypomagnesemia.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -568,7 +568,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Drives K into cells → hypokalemia
   - Reason: H⁺ shifts with K⁺; acidosis moves K extracellularly.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -587,7 +587,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** 45 mL/hr
   - Reason: 45 mL/hr is adequate output but is not the cited minimum cutoff.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -606,7 +606,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** >200 mL/hr
   - Reason: >200 is polyuria territory.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -625,7 +625,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** 7.35–7.45 **CORRECT**
   - Reason: 7.35–7.45 is normal blood pH.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -644,7 +644,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** 15–18 mEq/L
   - Reason: 15–18 is low bicarbonate.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -663,7 +663,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Renal failure only
   - Reason: Renal failure often acidotic.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -682,7 +682,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Isotonic dehydration from GI loss only
   - Reason: GI loss is intravascular/dehydration pattern.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -701,7 +701,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Water deficit or sodium gain — hypertonic state **CORRECT**
   - Reason: Hypernatremia = hypertonic serum, often water deficit.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -720,7 +720,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** <2.5 mg/dL mild
   - Reason: <2.5 defines hypophosphatemia.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -739,7 +739,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Kidneys retain bicarbonate **CORRECT**
   - Reason: Chronic CO₂ retention → renal HCO₃⁻ retention.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -758,7 +758,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** High-gap vs normal-gap metabolic acidosis **CORRECT**
   - Reason: Gap distinguishes added acids (DKA, lactic) vs HCO₃ loss (diarrhea).
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -777,7 +777,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Sudden tearing chest pain radiating to back
   - Reason: Aortic dissection pattern is tearing to back, not classic angina.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -796,7 +796,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Normal on arrival, never recheck
   - Reason: Serial troponins are needed for ACS workup.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -815,7 +815,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** High-dose beta-blocker before any assessment
   - Reason: Beta-blockers are given when hemodynamically stable, not before assessment.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -834,7 +834,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Pulmonary congestion, dyspnea, and crackles **CORRECT**
   - Reason: Left failure backs up into lungs → dyspnea, crackles, orthopnea.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -853,7 +853,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** JVD, hepatomegaly, peripheral edema **CORRECT**
   - Reason: Systemic venous congestion causes JVD, liver congestion, and edema.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -872,7 +872,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Use sublingual tablet at onset; may repeat per protocol; call EMS if pain persists **CORRECT**
   - Reason: SL at onset with repeat doses and EMS if unrelieved is standard teaching.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -891,7 +891,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Polyuria
   - Reason: Polyuria is not classic digoxin toxicity.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -910,7 +910,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Increases insulin release
   - Reason: Insulin release is unrelated.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -929,7 +929,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Causes reflex hypertension
   - Reason: They lower BP/HR; reflex HTN is not the goal.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -948,7 +948,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Vasodilation only
   - Reason: Aspirin's ACS role is antiplatelet, not primarily vasodilation.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -967,7 +967,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Pain only with meals
   - Reason: GI relation is not the hallmark.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -986,7 +986,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Polyuria, polydipsia, weight loss
   - Reason: Diabetes symptoms are unrelated.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1005,7 +1005,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Ambulate client immediately
   - Reason: Activity increases demand while output is limited.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1024,7 +1024,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Ignore IV line care
   - Reason: Line care matters for bacteremia risk.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1043,7 +1043,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** High-pitched holosystolic murmur at apex
   - Reason: Apical holosystolic suggests mitral regurgitation.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1062,7 +1062,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Resume heavy lifting same day
   - Reason: Activity restrictions apply early post-procedure.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1081,7 +1081,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Wide QRS tachycardia always
   - Reason: Wide QRS tachycardia is VT or aberrancy, not NSR.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1100,7 +1100,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Start high-quality CPR and get/defibrillate when shockable rhythm **CORRECT**
   - Reason: Immediate CPR and early defibrillation for shockable rhythms save lives.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1119,7 +1119,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Perfusion
   - Reason: Perfusion is blood flow to lung tissue for gas exchange, not air movement.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1138,7 +1138,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Gas exchange
   - Reason: Gas exchange is diffusion across the alveolar membrane, not bulk ventilation.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1157,7 +1157,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** pH 7.20, PaCO₂ 60, HCO₃⁻ 24
   - Reason: Low pH with high PaCO₂ and normal HCO₃⁻ suggests acute uncompensated respiratory acidosis.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1176,7 +1176,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Hyperoxygenate to reverse chronic hypoxemia rapidly
   - Reason: Rapid hyperoxygenation can worsen CO₂ narcosis in chronic retainers.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1195,7 +1195,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Wheezing louder on auscultation
   - Reason: Louder wheeze can still be a treatable exacerbation, not the most ominous sign alone.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1214,7 +1214,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Bradycardia and hypertension only
   - Reason: Bradycardia/hypertension alone do not define pneumonia-related hypoxia.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1233,7 +1233,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Chronic bronchitis without alveolar injury
   - Reason: Chronic bronchitis describes COPD pattern, not ARDS alveolar injury.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1252,7 +1252,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Raise respiratory rate to 32/min without reducing tidal volume
   - Reason: Faster rate without lowering VT still drives volutrauma and barotrauma risk.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1271,7 +1271,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Productive green sputum for 10 days
   - Reason: Purulent sputum suggests infection, not embolus.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1290,7 +1290,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** 110 mmHg at sea level on room air as typical target
   - Reason: 110 may occur with supplemental O₂; the normal range tops at 100 on room air context.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1309,7 +1309,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** 85–90%
   - Reason: 85–90% is below the stated normal saturation band.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1328,7 +1328,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** High PaCO₂ with pH below 7.35 **CORRECT**
   - Reason: Retained CO₂ lowers pH — primary respiratory acidosis when pH < 7.35.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1347,7 +1347,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Metabolic alkalosis
   - Reason: Metabolic alkalosis would show elevated HCO₃⁻ as primary driver.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1366,7 +1366,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Keep NPO for 48 hours without ambulation
   - Reason: Prolonged immobility increases atelectasis risk; NPO alone does not expand lungs.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1385,7 +1385,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Hospital parking rules
   - Reason: Logistics are not the legal ethical core of informed consent.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1404,7 +1404,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Bronchial breath sounds over apex only
   - Reason: Bronchial sounds over consolidated lung differ from effusion mechanics.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1423,7 +1423,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** 28 mmHg
   - Reason: 28 indicates hypocapnia.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1442,7 +1442,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Encourage strenuous exercise
   - Reason: Strenuous activity increases oxygen demand and risk.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1461,7 +1461,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Hypotonic
   - Reason: Hypotonic examples are 0.45% NaCl.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1480,7 +1480,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Water moves into cells (hypotonic) **CORRECT**
   - Reason: Lower solute than plasma → intracellular hydration.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1499,7 +1499,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Severe hyponatremia and cerebral edema (draws water out of cells) **CORRECT**
   - Reason: Hypertonic saline pulls water intravascularly for severe hypoNa/cerebral edema.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1518,7 +1518,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Ultimately hypotonic free water **CORRECT**
   - Reason: Remaining free water hydrates cells.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1537,7 +1537,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Hypotonic crystalloid
   - Reason: LR is listed with isotonic crystalloids.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1556,7 +1556,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Oral rehydration substitute
   - Reason: Colloids are IV, not oral.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1575,7 +1575,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Clean technique for all procedures
   - Reason: Clean vs sterile differ; surgery needs sterile technique.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1594,7 +1594,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Billing code only
   - Reason: Billing is administrative later.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1613,7 +1613,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Airway, breathing, circulation, surgical site, vitals **CORRECT**
   - Reason: ABCs and surgical site/vitals dominate immediate PACU care.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1632,7 +1632,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Urine retention never
   - Reason: Retention can contribute but 'always infection' is wrong.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1651,7 +1651,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Chest pain only
   - Reason: Chest pain unrelated.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1670,7 +1670,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Massage vigorously toward heart
   - Reason: Vigorous massage can spread infection/thrombus.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1689,7 +1689,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Save hospital food costs
   - Reason: Cost is not clinical reason.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1708,7 +1708,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Both are always cosmetic
   - Reason: Not all surgery is cosmetic.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1727,7 +1727,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Skip mobility instructions
   - Reason: Mobility prevents complications.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1746,7 +1746,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Hypotonic hydration of cells
   - Reason: D10W is hypertonic, not hypotonic free water after metabolism.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1765,7 +1765,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Perfume hands only
   - Reason: Surgical scrub reduces microbial load on hands.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1784,7 +1784,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Force solid food immediately
   - Reason: Early solids worsen distension.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1803,7 +1803,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Oral meds only
   - Reason: Oral route bypasses IV.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1822,7 +1822,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Only blood draws never fluids
   - Reason: Fluids and meds both possible.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1841,7 +1841,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Gloves before gown always without teaching variation
   - Reason: Policy may vary slightly but contamination is always avoided.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1860,7 +1860,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Stable vitals, voiding if required, responsible adult if ordered, understood teaching **CORRECT**
   - Reason: Stable ABCs, voiding, escort, and teaching are standard OPET discharge anchors.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1879,7 +1879,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Diluted slow peripheral infusion per policy
   - Reason: KCl bolus causes fatal arrhythmias — never push.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
@@ -1898,6 +1898,6 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 - **D:** Stand patient upright if suspected
   - Reason: Durant position helps trap air in right atrium.
 
-*instructorReviewed:* `False`
+*selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---

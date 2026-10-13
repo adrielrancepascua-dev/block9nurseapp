@@ -92,19 +92,41 @@ def load_review_status() -> dict:
 
 
 def apply_review_metadata(items: list) -> None:
-    """Ship only items you mark instructorReviewed in pnle_review_status.json."""
+    """Apply per-item selfChecked / instructorReviewed from pnle_review_status.json."""
     status = load_review_status().get("items", {})
     for it in items:
         row = status.get(it["id"], {})
+        self_checked = bool(row.get("selfChecked"))
         instructor = bool(row.get("instructorReviewed"))
+
+        it["selfChecked"] = self_checked
+        it["selfCheckedBy"] = (row.get("selfCheckedBy") or "").strip() if self_checked else ""
+        it["selfCheckedAt"] = (row.get("selfCheckedAt") or "").strip() if self_checked else ""
+
         it["instructorReviewed"] = instructor
+        it["instructorReviewedBy"] = (
+            (row.get("instructorReviewedBy") or row.get("reviewedBy") or "").strip()
+            if instructor
+            else ""
+        )
+        it["instructorReviewedAt"] = (
+            (row.get("instructorReviewedAt") or row.get("reviewedAt") or "").strip()
+            if instructor
+            else ""
+        )
+
+        # Legacy aliases (student pilot / dashboards)
         it["reviewed"] = instructor
-        it["reviewedBy"] = (row.get("reviewedBy") or "").strip() if instructor else ""
-        it["reviewedAt"] = (row.get("reviewedAt") or "").strip() if instructor else ""
+        it["reviewedBy"] = it["instructorReviewedBy"]
+        it["reviewedAt"] = it["instructorReviewedAt"]
+
         note = (row.get("reviewNote") or "").strip()
-        if instructor:
+        if instructor or self_checked:
             it.pop("reviewNote", None)
         elif note:
             it["reviewNote"] = note
         else:
-            it["reviewNote"] = "Not instructor-reviewed — hidden from Study until signed off in pnle_review_status.json"
+            it["reviewNote"] = (
+                "Not released — set selfChecked for preview or instructorReviewed for student pilot "
+                "in pnle_review_status.json"
+            )

@@ -1,5 +1,6 @@
 /**
- * PNLE MedSurg pilot bank — generated; Study shows instructorReviewed===true only.
+ * PNLE MedSurg pilot bank — generated.
+ * Preview/dev Study: selfChecked===true. Student pilot: instructorReviewed===true.
  */
 (function (global) {
   'use strict';
@@ -29,11 +30,16 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Respiration processes",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "oxy-002",
@@ -56,11 +62,16 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Ventilation",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "oxy-003",
@@ -83,11 +94,16 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 COPD / ABG",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "vitals",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "oxy-004",
@@ -110,11 +126,16 @@
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 COPD oxygen therapy",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "oxy-005",
@@ -137,11 +158,16 @@
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Asthma",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "oxy-006",
@@ -164,11 +190,16 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Pneumonia",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "oxy-007",
@@ -191,11 +222,16 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 ARDS",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "oxy-008",
@@ -218,11 +254,16 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 ARDS ventilation",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "oxy-009",
@@ -245,11 +286,16 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 PE",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "oxy-010",
@@ -272,11 +318,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI ABG",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "vitals",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "oxy-011",
@@ -299,11 +350,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI ABG",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "oxy-012",
@@ -326,11 +382,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XI Acid-base",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "labs",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "oxy-013",
@@ -353,11 +414,16 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XIII Respiratory alkalosis",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "labs",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "oxy-014",
@@ -380,11 +446,16 @@
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Pre/post-op respiratory care",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "oxy-015",
@@ -407,11 +478,16 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Informed consent",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "oxy-016",
@@ -434,11 +510,16 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Pleural effusion",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "oxy-017",
@@ -461,11 +542,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI ABG",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "labs",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "oxy-018",
@@ -488,11 +574,16 @@
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 PE nursing care",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "heart-001",
@@ -515,11 +606,16 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 CAD/angina",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "heart-002",
@@ -542,11 +638,16 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 ACS biomarkers",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "heart-003",
@@ -569,11 +670,16 @@
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 ACS/MI",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "heart-004",
@@ -596,11 +702,16 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Heart failure",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "heart-005",
@@ -623,11 +734,16 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Heart failure",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "heart-006",
@@ -650,11 +766,16 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Nitroglycerin",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "heart-007",
@@ -677,11 +798,16 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Digoxin",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "heart-008",
@@ -704,11 +830,16 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Diuretics",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "heart-009",
@@ -731,11 +862,16 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Beta-blockers",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "heart-010",
@@ -758,11 +894,16 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Aspirin/thrombolytics",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "heart-011",
@@ -785,11 +926,16 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Pericarditis",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "heart-012",
@@ -812,11 +958,16 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Tamponade",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "heart-013",
@@ -839,11 +990,16 @@
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Tamponade",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "heart-014",
@@ -866,11 +1022,16 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Endocarditis",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "heart-015",
@@ -893,11 +1054,16 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Valvular disorders",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "heart-016",
@@ -920,11 +1086,16 @@
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 PTCA/stenting",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "heart-017",
@@ -947,11 +1118,16 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 ECG basics",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "heart-018",
@@ -974,11 +1150,16 @@
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Cardiac arrest",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "blood-001",
@@ -1001,11 +1182,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI Blood",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "blood-002",
@@ -1028,11 +1214,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI Blood",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "blood-003",
@@ -1055,11 +1246,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 Hematopoiesis cytokines",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "blood-004",
@@ -1082,11 +1278,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXIII WBC patterns",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "blood-005",
@@ -1109,11 +1310,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 Immunoglobulins",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "blood-006",
@@ -1136,11 +1342,16 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 Anemias",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "blood-007",
@@ -1163,11 +1374,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 Anemias",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "blood-008",
@@ -1190,11 +1406,16 @@
       "type": "prioritization",
       "source": "ms_lec_midterms_81e8.txt \u2014 Sickle cell",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "blood-009",
@@ -1217,11 +1438,16 @@
       "type": "prioritization",
       "source": "ms_lec_midterms_81e8.txt \u2014 Transfusion",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "blood-010",
@@ -1244,11 +1470,16 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 Transfusion reactions",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "blood-011",
@@ -1271,11 +1502,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 Coagulation numbers",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "blood-012",
@@ -1298,11 +1534,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 Coagulation",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "blood-013",
@@ -1325,11 +1566,16 @@
       "type": "prioritization",
       "source": "ms_lec_midterms_81e8.txt \u2014 HIT",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "blood-014",
@@ -1352,11 +1598,16 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 Immunocompromised care",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "blood-015",
@@ -1379,11 +1630,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 Blood-forming organs",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "blood-016",
@@ -1406,11 +1662,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 RBC numbers",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "blood-017",
@@ -1433,11 +1694,16 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 Transfusion nursing",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "blood-018",
@@ -1460,11 +1726,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 Coagulation disorders",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-001",
@@ -1487,11 +1758,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI Electrolytes",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "labs",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-002",
@@ -1514,11 +1790,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXII Sodium",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-003",
@@ -1541,11 +1822,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXII Sodium",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-004",
@@ -1568,11 +1854,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI Electrolytes",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "labs",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-005",
@@ -1595,11 +1886,16 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 Potassium cardiac",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-006",
@@ -1622,11 +1918,16 @@
       "type": "prioritization",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XVII patterns",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-007",
@@ -1649,11 +1950,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XIV Metabolic acidosis",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "labs",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-008",
@@ -1676,11 +1982,16 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 Metabolic acidosis causes",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-009",
@@ -1703,11 +2014,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI Electrolytes",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-010",
@@ -1730,11 +2046,16 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 Calcium",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-011",
@@ -1757,11 +2078,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI Electrolytes",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-012",
@@ -1784,11 +2110,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XIV Acidosis\u2192K",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-013",
@@ -1811,11 +2142,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI Fluids",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-014",
@@ -1838,11 +2174,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI Fluids",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-015",
@@ -1865,11 +2206,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI ABG",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "labs",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-016",
@@ -1892,11 +2238,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXI ABG",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "labs",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-017",
@@ -1919,11 +2270,16 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XV Metabolic alkalosis",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-018",
@@ -1946,11 +2302,16 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XVIII Fluid patterns",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-019",
@@ -1973,11 +2334,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART V Sodium",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-020",
@@ -2000,11 +2366,16 @@
       "type": "recall",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XXII Phosphate",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-021",
@@ -2027,11 +2398,16 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 Acid-base compensation",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "fluids-022",
@@ -2054,11 +2430,16 @@
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 Metabolic acidosis",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "labs",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-001",
@@ -2081,11 +2462,16 @@
       "type": "recall",
       "source": "ms_lab_midterms_e746.pdf \u2014 Tonicity",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-002",
@@ -2108,11 +2494,16 @@
       "type": "recall",
       "source": "ms_lab_midterms_e746.pdf \u2014 Tonicity",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-003",
@@ -2135,11 +2526,16 @@
       "type": "application",
       "source": "ms_lab_midterms_e746.pdf \u2014 Hypertonic saline",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-004",
@@ -2162,11 +2558,16 @@
       "type": "application",
       "source": "ms_lab_midterms_e746.pdf \u2014 D5W",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-005",
@@ -2189,11 +2590,16 @@
       "type": "recall",
       "source": "ms_lab_midterms_e746.pdf \u2014 Isotonic solutions",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-006",
@@ -2216,11 +2622,16 @@
       "type": "recall",
       "source": "ms_lab_midterms_e746.pdf \u2014 Colloids",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-007",
@@ -2243,11 +2654,16 @@
       "type": "recall",
       "source": "Ms_lab_UT / ms_lab_prelim \u2014 Asepsis",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-008",
@@ -2270,11 +2686,16 @@
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Surgical safety",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-009",
@@ -2297,11 +2718,16 @@
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 PACU",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-010",
@@ -2324,11 +2750,16 @@
       "type": "application",
       "source": "ms_lab_prelim \u2014 Post-op fever",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-011",
@@ -2351,11 +2782,16 @@
       "type": "application",
       "source": "ms_lab_midterms_e746.pdf \u2014 IV complications",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-012",
@@ -2378,11 +2814,16 @@
       "type": "prioritization",
       "source": "ms_lab_midterms_e746.pdf \u2014 IV care",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-013",
@@ -2405,11 +2846,16 @@
       "type": "recall",
       "source": "ms_lab_prelim \u2014 Perioperative",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-014",
@@ -2432,11 +2878,16 @@
       "type": "recall",
       "source": "ms_lab_prelim \u2014 Surgery types",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-015",
@@ -2459,11 +2910,16 @@
       "type": "application",
       "source": "ms_lab_prelim \u2014 Pre-op teaching",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-016",
@@ -2486,11 +2942,16 @@
       "type": "recall",
       "source": "ms_lab_midterms_e746.pdf \u2014 Hypertonic dextrose",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-017",
@@ -2513,11 +2974,16 @@
       "type": "recall",
       "source": "ms_lab_prelim \u2014 Asepsis",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-018",
@@ -2540,11 +3006,16 @@
       "type": "application",
       "source": "ms_lab_prelim \u2014 GI post-op",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-019",
@@ -2567,11 +3038,16 @@
       "type": "application",
       "source": "ms_lab_midterms_e746.pdf \u2014 IV therapy",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-020",
@@ -2594,11 +3070,16 @@
       "type": "recall",
       "source": "ms_lab_midterms_e746.pdf \u2014 IV access",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-021",
@@ -2621,11 +3102,16 @@
       "type": "recall",
       "source": "ms_lab_prelim \u2014 Sterile technique",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-022",
@@ -2648,11 +3134,16 @@
       "type": "prioritization",
       "source": "ms_lab_prelim \u2014 OPET",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-023",
@@ -2675,11 +3166,16 @@
       "type": "prioritization",
       "source": "ms_lab_midterms_e746.pdf \u2014 Electrolyte IV safety",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
       "id": "periop-024",
@@ -2702,11 +3198,16 @@
       "type": "prioritization",
       "source": "ms_lab_midterms_e746.pdf \u2014 IV safety",
       "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
       "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
-      "reviewNote": "Not instructor-reviewed \u2014 hidden from Study until signed off in pnle_review_status.json"
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     }
   ]
 };

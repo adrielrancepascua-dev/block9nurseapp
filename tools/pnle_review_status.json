@@ -1,4 +1,14 @@
 {
-  "_comment": "Set instructorReviewed true per item after you verify stem, choice/reason pairing, and source. Generator copies these fields into the student bank.",
+  "_comment": "Per-item only — no bulk sign-off. selfChecked = you verified stem, pairing, and facts against your handouts. instructorReviewed = MedSurg CI signed off for student pilot. Preview/dev Study loads selfChecked; production student pilot loads instructorReviewed only.",
+  "_example": {
+    "fluids-010": {
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": ""
+    }
+  },
   "items": {}
 }

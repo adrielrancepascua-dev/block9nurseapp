@@ -39,7 +39,12 @@ def mk(
         "type": typ,
         "source": source,
         "reviewed": reviewed,
+        "selfChecked": False,
+        "selfCheckedBy": "",
+        "selfCheckedAt": "",
         "instructorReviewed": False,
+        "instructorReviewedBy": "",
+        "instructorReviewedAt": "",
         "reviewedBy": "",
         "reviewedAt": "",
         "tool": tool,
@@ -535,6 +540,7 @@ def write_review_csv(items, path: Path) -> None:
                 "D_choice",
                 "D_reason",
                 "source",
+                "selfChecked",
                 "instructorReviewed",
             ]
         )
@@ -551,6 +557,7 @@ def write_review_csv(items, path: Path) -> None:
                 row.append(it["choices"][i])
                 row.append(it["reasons"][i])
             row.append(it.get("source", ""))
+            row.append("yes" if it.get("selfChecked") else "no")
             row.append("yes" if it.get("instructorReviewed") else "no")
             w.writerow(row)
 
@@ -576,7 +583,10 @@ def write_review_sheet(items, path: Path) -> None:
             lines.append(f"- **{letters[i]}:** {choice}{mark}")
             lines.append(f"  - Reason: {it['reasons'][i]}")
         lines.append("")
-        lines.append(f"*instructorReviewed:* `{bool(it.get('instructorReviewed'))}`")
+        lines.append(
+            f"*selfChecked:* `{bool(it.get('selfChecked'))}` · "
+            f"*instructorReviewed:* `{bool(it.get('instructorReviewed'))}`"
+        )
         lines.append("")
         lines.append("---")
         lines.append("")
@@ -598,7 +608,7 @@ def main():
         "items": ITEMS,
     }
     js = (
-        "/**\n * PNLE MedSurg pilot bank — generated; Study shows instructorReviewed===true only.\n */\n"
+        "/**\n * PNLE MedSurg pilot bank — generated.\n * Preview/dev Study: selfChecked===true. Student pilot: instructorReviewed===true.\n */\n"
         "(function (global) {\n  'use strict';\n  global.NursePathPnleMedSurg = "
         + json.dumps(out, indent=2)
         + ";\n})(typeof window !== 'undefined' ? window : globalThis);\n"
@@ -611,8 +621,12 @@ def main():
     csv_path = tools_dir / "pnle-review-sheet.csv"
     write_review_sheet(ITEMS, sheet)
     write_review_csv(ITEMS, csv_path)
-    shipped = sum(1 for i in ITEMS if i.get("instructorReviewed"))
-    print(f"Wrote {path} items={len(ITEMS)} instructorReviewed={shipped}")
+    self_n = sum(1 for i in ITEMS if i.get("selfChecked"))
+    inst_n = sum(1 for i in ITEMS if i.get("instructorReviewed"))
+    print(
+        f"Wrote {path} items={len(ITEMS)} "
+        f"selfChecked={self_n} instructorReviewed={inst_n}"
+    )
     print(f"Wrote {sheet}")
     print(f"Wrote {csv_path}")
 
