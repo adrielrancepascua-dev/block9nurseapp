@@ -231,6 +231,48 @@ html[data-theme='light'] .pnle-gate-tile--duty {
 
 html[data-theme='light'] .pnle-gate-tile--study {
   background: linear-gradient(145deg, rgba(139, 92, 246, 0.18), #fff 60%);
+  border-color: rgba(124, 58, 237, 0.28);
+}
+
+html[data-theme='light'] .pnle-gate-lead {
+  color: #475569;
+}
+
+html[data-theme='light'] .pnle-gate-brand {
+  color: #0e7490;
+}
+
+html[data-theme='light'] .pnle-gate-tile-tagline {
+  color: #334155;
+}
+
+html[data-theme='light'] .pnle-gate-tile-detail {
+  color: #0f172a;
+}
+
+html[data-theme='light'] .pnle-gate-tile-meta {
+  color: #64748b;
+}
+
+html[data-theme='light'] .pnle-gate-tile-badge {
+  background: rgba(15, 23, 42, 0.08);
+  color: #475569;
+}
+
+html[data-theme='light'] .pnle-gate-tile--duty .pnle-gate-tile-icon {
+  color: #0891b2;
+}
+
+html[data-theme='light'] .pnle-gate-tile--study .pnle-gate-tile-icon {
+  color: #7c3aed;
+}
+
+html[data-theme='light'] .pnle-gate-foot {
+  color: #64748b;
+}
+
+html[data-theme='light'] .pnle-gate-tile.is-last-used {
+  box-shadow: 0 0 0 2px #7c3aed, 0 12px 32px rgba(124, 58, 237, 0.12);
 }
 
 /* —— Study shell (lighter surface than Duty) —— */
