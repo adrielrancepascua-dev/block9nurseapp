@@ -11,6 +11,7 @@ from pnle_student_copy import (
     apply_review_metadata,
     apply_student_copy_to_item,
     assert_stems_clean,
+    load_review_status,
 )
 
 
@@ -810,10 +811,22 @@ def main():
         apply_student_copy_to_item(it)
     assert_stems_clean(ITEMS)
     apply_review_metadata(ITEMS)
+    review_cfg = load_review_status()
+    testing_release = bool(review_cfg.get("testingReleaseAll"))
+    inst_n = sum(1 for i in ITEMS if i.get("instructorReviewed"))
+    disclaimer = (review_cfg.get("testingDisclaimer") or "").strip()
+    if testing_release and not disclaimer:
+        disclaimer = (
+            "Testing only: pilot questions are not instructor-signed. "
+            "Verify with your clinical instructor and handouts."
+        )
     out = {
         "version": "1.0.0-pilot",
         "subject": "medsurg",
         "generatedAt": date.today().isoformat(),
+        "testingReleaseAll": testing_release,
+        "studyContentDisclaimer": disclaimer if testing_release else "",
+        "instructorSignedCount": inst_n,
         "items": ITEMS,
     }
     js = (
@@ -831,10 +844,9 @@ def main():
     write_review_sheet(ITEMS, sheet)
     write_review_csv(ITEMS, csv_path)
     self_n = sum(1 for i in ITEMS if i.get("selfChecked"))
-    inst_n = sum(1 for i in ITEMS if i.get("instructorReviewed"))
     print(
         f"Wrote {path} items={len(ITEMS)} "
-        f"selfChecked={self_n} instructorReviewed={inst_n}"
+        f"testingReleaseAll={testing_release} selfChecked={self_n} instructorReviewed={inst_n}"
     )
     print(f"Wrote {sheet}")
     print(f"Wrote {csv_path}")

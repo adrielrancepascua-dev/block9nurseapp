@@ -374,6 +374,27 @@ html[data-theme='light'] body.pnle-mode-study {
   margin: 0 0 14px;
 }
 
+.pnle-study-gate-banner--testing {
+  color: #fde68a;
+  background: rgba(245, 158, 11, 0.14);
+  border-color: rgba(245, 158, 11, 0.45);
+}
+
+.pnle-study-gate-banner--compact {
+  font-size: 11px;
+  padding: 6px 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.pnle-study-gate-meta {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
 .pnle-home-hero {
   display: flex;
   align-items: center;

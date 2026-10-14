@@ -99,11 +99,35 @@
     return it.instructorReviewed === true;
   }
 
+  function isTestingReleaseAll() {
+    const pack = global.NursePathPnleMedSurg;
+    return Boolean(pack && pack.testingReleaseAll === true);
+  }
+
   function loadBank() {
     const pack = global.NursePathPnleMedSurg;
     if (!pack || !Array.isArray(pack.items)) return [];
     const stemOk = (stem) => !/\b(handout|sheet|reviewer|per\s+the)\b/i.test(stem || '');
+    if (isTestingReleaseAll()) {
+      return pack.items.filter((it) => stemOk(it.stem));
+    }
     return pack.items.filter((it) => itemInStudyBank(it) && stemOk(it.stem));
+  }
+
+  function getStudyDisclaimerBannerHtml() {
+    const pack = global.NursePathPnleMedSurg;
+    if (isTestingReleaseAll()) {
+      const text =
+        (pack && pack.studyContentDisclaimer) ||
+        'Testing only: not instructor-signed. Verify with your CI and handouts.';
+      const signed = (pack && pack.instructorSignedCount) || 0;
+      const total = (pack && pack.items && pack.items.length) || bankItems.length;
+      return `<p class="pnle-study-gate-banner pnle-study-gate-banner--testing" role="status"><strong>Testing — not instructor-signed.</strong> ${escapeHtml(text)} <span class="pnle-study-gate-meta">(${signed} of ${total} CI-signed in bank.)</span></p>`;
+    }
+    if (getStudyBankGate() === 'preview') {
+      return `<p class="pnle-study-gate-banner" role="status">Preview bank — self-checked items only (not instructor-signed for students).</p>`;
+    }
+    return '';
   }
 
   function trackStudy(feature, action, meta) {
@@ -516,10 +540,7 @@
       </button>`;
     }).join('');
 
-    const gateBanner =
-      getStudyBankGate() === 'preview'
-        ? `<p class="pnle-study-gate-banner" role="status">Preview bank — self-checked items only (not instructor-signed for students).</p>`
-        : '';
+    const gateBanner = getStudyDisclaimerBannerHtml();
 
     root.innerHTML = `
       ${gateBanner}
@@ -764,7 +785,12 @@
       )
       .join('');
 
+    const testingBanner = isTestingReleaseAll()
+      ? `<p class="pnle-study-gate-banner pnle-study-gate-banner--testing pnle-study-gate-banner--compact" role="status">Testing — not CI-signed</p>`
+      : '';
+
     root.innerHTML = `
+      ${testingBanner}
       <div class="pnle-question-card">
         <div class="pnle-question-toolbar">
           <span class="pnle-q-progress">${escapeHtml(progressLabel)}</span>
