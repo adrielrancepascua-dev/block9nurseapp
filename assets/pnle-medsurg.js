@@ -9,7 +9,7 @@
   "subject": "medsurg",
   "generatedAt": "2026-10-14",
   "testingReleaseAll": true,
-  "studyContentDisclaimer": "Testing only: full MedSurg pilot bank is unlocked for practice. Not signed off by your clinical instructor\u2014verify every answer with your handouts and CI before exams.",
+  "studyContentDisclaimer": "Unofficial Questions",
   "instructorSignedCount": 0,
   "items": [
     {

@@ -1,7 +1,7 @@
 {
   "_comment": "Per-item only. selfChecked = verified against handouts (preview). instructorReviewed = CI sign-off (student pilot).",
   "testingReleaseAll": true,
-  "testingDisclaimer": "Testing only: full MedSurg pilot bank is unlocked for practice. Not signed off by your clinical instructor—verify every answer with your handouts and CI before exams.",
+  "testingDisclaimer": "Unofficial Questions",
   "items": {
     "fluids-005": {
       "selfChecked": true,

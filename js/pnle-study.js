@@ -115,14 +115,8 @@
   }
 
   function getStudyDisclaimerBannerHtml() {
-    const pack = global.NursePathPnleMedSurg;
     if (isTestingReleaseAll()) {
-      const text =
-        (pack && pack.studyContentDisclaimer) ||
-        'Testing only: not instructor-signed. Verify with your CI and handouts.';
-      const signed = (pack && pack.instructorSignedCount) || 0;
-      const total = (pack && pack.items && pack.items.length) || bankItems.length;
-      return `<p class="pnle-study-gate-banner pnle-study-gate-banner--testing" role="status"><strong>Testing — not instructor-signed.</strong> ${escapeHtml(text)} <span class="pnle-study-gate-meta">(${signed} of ${total} CI-signed in bank.)</span></p>`;
+      return `<p class="pnle-study-gate-banner pnle-study-gate-banner--testing" role="status">Unofficial Questions</p>`;
     }
     if (getStudyBankGate() === 'preview') {
       return `<p class="pnle-study-gate-banner" role="status">Preview bank — self-checked items only (not instructor-signed for students).</p>`;
