@@ -135,7 +135,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## blood-008 (hard, blood)
+## blood-008 (normal, blood)
 
 **Stem:** A client with sickle cell anemia is in vaso-occlusive crisis with severe bone and abdominal pain rated 9/10. Airway, breathing, and circulation are stable and SpO₂ is 97%. Which action should the nurse take?
 
@@ -154,7 +154,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## blood-009 (hard, blood)
+## blood-009 (normal, blood)
 
 **Stem:** Two nurses are verifying a unit of PRBCs at the bedside. The patient's name and the unit number match, but the date of birth on the ID band differs from the one on the blood tag. What should they do?
 
@@ -173,7 +173,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## blood-010 (hard, blood)
+## blood-010 (normal, blood)
 
 **Stem:** Fifteen minutes into a PRBC transfusion, a client reports sudden severe low back pain and chills. Temperature is 38.9°C and BP is 86/50. What should the nurse do first?
 
@@ -401,7 +401,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## fluids-005 (hard, fluids_abg)
+## fluids-005 (normal, fluids_abg)
 
 **Stem:** A client with renal failure has K⁺ 6.8 mEq/L. The monitor shows tall peaked T waves and a widening QRS. Which intervention should the nurse prepare first?
 
@@ -420,7 +420,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## fluids-006 (hard, fluids_abg)
+## fluids-006 (normal, fluids_abg)
 
 **Stem:** A client taking digoxin and furosemide has K⁺ 3.1 mEq/L. IV potassium chloride is prescribed. Urine output was 40 mL over the last 2 hours. What should the nurse do first?
 
@@ -762,7 +762,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## heart-003 (hard, heart)
+## heart-003 (normal, heart)
 
 **Stem:** A client has crushing substernal pain radiating to the left arm. The ECG shows ST elevation in V3 and V4, and troponin and CK-MB are elevated. SpO₂ is 97% with no respiratory distress, and BP is 130/80. Which action most directly limits myocardial damage?
 
@@ -819,7 +819,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## heart-006 (hard, heart)
+## heart-006 (normal, heart)
 
 **Stem:** Nitroglycerin for angina: key nursing teaching includes:
 
@@ -933,7 +933,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## heart-012 (hard, heart)
+## heart-012 (normal, heart)
 
 **Stem:** Cardiac tamponade triad (Beck) includes:
 
@@ -952,7 +952,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## heart-013 (hard, heart)
+## heart-013 (normal, heart)
 
 **Stem:** Priority action for suspected tamponade before pericardiocentesis:
 
@@ -990,7 +990,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## heart-015 (hard, heart)
+## heart-015 (normal, heart)
 
 **Stem:** Aortic stenosis classic finding:
 
@@ -1047,7 +1047,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## heart-018 (hard, heart)
+## heart-018 (normal, heart)
 
 **Stem:** During cardiac arrest (BLS focus), first priority after scene safety:
 
@@ -1066,199 +1066,405 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## ms-exam-001 (hard, blood)
+## ncm112-semis-post-01 (hard, oxygenation)
 
-**Stem:** The nurse writes a diagnosis of altered tissue perfusion for a client with anemia. Which interventions should be included in the plan of care? Select all that apply.
+**Stem:** The client is prescribed clemastine prophylactically for allergies. Which statement indicates the client needs more teaching concerning this medication?
 
-**Source:** `UDD MedSurg I Midterms Quiz — exam-style hard (unofficial)`
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
 
-- **A:** Assess the client for numbness and tingling **CORRECT**
-  - Reason: Hypoxia-related perfusion problems can present with neuro symptoms.
-- **B:** Allow for rest periods during the day for the client **CORRECT**
-  - Reason: Rest reduces oxygen demand while Hgb is low.
-- **C:** Move the client to a room near the nurse's desk
-  - Reason: Proximity alone does not address tissue perfusion in anemia.
-- **D:** Monitor the client's hemoglobin and hematocrit **CORRECT**
-  - Reason: Trending Hgb/Hct shows whether perfusion interventions are working.
-- **E:** Limit the client's dietary intake of green vegetables
-  - Reason: Green vegetables provide iron; restricting them worsens anemia.
+- **A:** I will notify my HCP if I take an over-the-counter medication.
+  - Reason: Reporting OTC use avoids interactions.
+- **B:** I need to maintain adequate fluid intake when taking this medication.
+  - Reason: Hydration supports comfort with anticholinergic effects.
+- **C:** I will suck on hard candy if I have a dry mouth.
+  - Reason: Hard candy can relieve antihistamine dry mouth.
+- **D:** I will experience some blurred vision when taking clemastine and will not report it. **CORRECT**
+  - Reason: Vision changes should be reported — not dismissed as expected.
 
 *selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
-## ms-exam-002 (hard, blood)
+## ncm112-semis-post-02 (hard, oxygenation)
 
-**Stem:** The charge nurse is making assignments on a medical floor. Which client should be assigned to the most experienced nurse?
+**Stem:** The clinic nurse is discussing OTC oxymetazoline nasal spray with a client experiencing nasal congestion. Which information should the nurse discuss with the client? Select all that apply.
 
-**Source:** `UDD MedSurg I Midterms Quiz — exam-style hard (unofficial)`
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
 
-- **A:** Renal disease with erythropoietin deficiency
-  - Reason: EPO deficiency is often chronic and managed on a schedule.
-- **B:** Aplastic anemia with pancytopenia **CORRECT**
-  - Reason: Pancytopenia = infection, bleeding, and transfusion risks — highest acuity here.
-- **C:** Iron-deficiency anemia on oral iron supplements
-  - Reason: Oral iron teaching is routine when stable.
-- **D:** Pernicious anemia receiving vitamin B12 IM
-  - Reason: B12 injections need skill but aplastic anemia is higher risk.
-
-*selfChecked:* `False` · *instructorReviewed:* `False`
-
----
-
-## ms-exam-003 (hard, blood)
-
-**Stem:** The client has Hct 22.3% and Hgb 7.7 g/dL. Two units of PRBCs are ordered. Which interventions should the nurse implement? Select all that apply.
-
-**Source:** `UDD MedSurg I Midterms Quiz — exam-style hard (unofficial)`
-
-- **A:** Obtain signed consent **CORRECT**
-  - Reason: Consent is required before transfusion.
-- **B:** Hang a keep-open IV of D5W
-  - Reason: Blood products are given with 0.9% NS, not D5W.
-- **C:** Initiate a 22-gauge IV
-  - Reason: Large-bore IV is preferred for blood; 22-gauge limits flow.
-- **D:** Assess the client's lungs **CORRECT**
-  - Reason: Baseline lung assessment detects fluid overload early.
-- **E:** Check for allergies **CORRECT**
-  - Reason: Allergy history guides monitoring for reactions.
+- **A:** Do not use the oxymetazoline nasal spray any longer than 3 to 5 days. **CORRECT**
+  - Reason: Rebound congestion develops with prolonged topical decongestant use.
+- **B:** Take additional nasal sprays if congestion is not relieved.
+  - Reason: Extra sprays beyond label directions worsen rebound and side effects.
+- **C:** Spray the medication into the open nostril while inhaling deeply. **CORRECT**
+  - Reason: Inhaling during spray improves distribution into nasal passages.
+- **D:** Immediately swallow the postnasal medication residue.
+  - Reason: Swallowing residue is not instructed and increases systemic absorption.
+- **E:** Clear the nose immediately after using the nasal spray.
+  - Reason: Blow/clear the nose before use; clearing right after washes drug away.
 
 *selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
-## ms-exam-004 (hard, blood)
+## ncm112-semis-post-03 (hard, oxygenation)
 
-**Stem:** A client arrives in the ED after an MVA with profuse bleeding from a right abdominal injury. Which intervention should the nurse implement first?
+**Stem:** A male client taking a nasal glucocorticoid spray calls the clinic and reports the medication is not helping. Which question should the nurse ask first?
 
-**Source:** `UDD MedSurg I Midterms Quiz — exam-style hard (unofficial)`
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
 
-- **A:** Notify the significant other of admission
-  - Reason: Notification is not the first nursing action in active bleeding.
-- **B:** Type and crossmatch for RBCs STAT
-  - Reason: Blood typing is urgent but circulation comes first (ABC).
-- **C:** Initiate IV with an 18-gauge needle and hang normal saline **CORRECT**
-  - Reason: Restore intravascular volume with large-bore access before definitive surgery.
-- **D:** Have the client sign consent for exploratory laparotomy
-  - Reason: Consent matters but does not precede stopping hemorrhagic shock.
-
-*selfChecked:* `False` · *instructorReviewed:* `False`
-
----
-
-## ms-exam-007 (hard, blood)
-
-**Stem:** A client receiving PRBCs begins to chill and develops hives. What should the nurse do first?
-
-**Source:** `UDD MedSurg I Midterms Quiz — exam-style hard (unofficial)`
-
-- **A:** Notify the laboratory and health-care provider
-  - Reason: Notification follows stopping the blood per reaction protocol.
-- **B:** Stop the transfusion and change the tubing at the hub **CORRECT**
-  - Reason: Stop blood first — even allergic reactions require halting the infusion and new tubing.
-- **C:** Assess the client for further complications
-  - Reason: Further assessment continues after the transfusion is stopped.
-- **D:** Administer diphenhydramine IV
-  - Reason: Antihistamine may be ordered after the line is secured and blood stopped.
+- **A:** How long have you been using the spray? **CORRECT**
+  - Reason: Intranasal steroids require several days of regular use before full effect.
+- **B:** Are you sure you are taking the spray correctly?
+  - Reason: Technique matters but duration is the first gate for steroid onset.
+- **C:** Did you shake the bottle before taking the spray?
+  - Reason: Shaking may apply to some sprays but not the key first question here.
+- **D:** What time of the day are you taking the medication?
+  - Reason: Timing can matter later; steroids need days to weeks of consistent use.
 
 *selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
-## ms-exam-010 (hard, blood)
+## ncm112-semis-post-04 (hard, oxygenation)
 
-**Stem:** A client with sickle cell anemia has joint pain, oral temperature 102.4 °F, and SpO₂ 91%. What should the ED nurse implement first?
+**Stem:** Which interventions should the nurse implement for the elderly client receiving antihistamine therapy? Select all that apply.
 
-**Source:** `UDD MedSurg I Midterms Quiz — exam-style hard (unofficial)`
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
 
-- **A:** Prepare to administer analgesics as ordered
-  - Reason: Pain control is essential but not before addressing oxygenation.
-- **B:** Start IV with an 18-gauge catheter
-  - Reason: IV access supports fluids/analgesia but hypoxemia is addressed first.
-- **C:** Request arterial blood gases STAT
-  - Reason: ABGs do not precede correcting hypoxemia in acute crisis.
-- **D:** Administer oxygen via nasal cannula **CORRECT**
-  - Reason: Hypoxemia worsens sickling; oxygen is an early priority when SpO₂ is 91%.
-
-*selfChecked:* `False` · *instructorReviewed:* `False`
-
----
-
-## ms-exam-016 (hard, fluids_abg)
-
-**Stem:** Mr. Reynolds receives furosemide and digoxin. Which laboratory value is most crucial for the nurse to assess?
-
-**Source:** `UDD MedSurg I Midterms Quiz — exam-style hard (unofficial)`
-
-- **A:** Potassium level **CORRECT**
-  - Reason: Loop diuretics lower K⁺; hypokalemia increases digoxin toxicity risk.
-- **B:** Sodium level
-  - Reason: Sodium shifts with diuretics but digoxin toxicity ties most to potassium.
-- **C:** Calcium level
-  - Reason: Calcium is monitored but K⁺ is the classic diuretic + digoxin interaction.
-- **D:** Magnesium level
-  - Reason: Magnesium matters with diuretics but K⁺ is the priority lab pair here.
+- **A:** Auscultate the client's breath sounds. **CORRECT**
+  - Reason: Sedation and anticholinergic effects can depress respirations.
+- **B:** Provide an acid-ash diet for the client.
+  - Reason: Acid-ash diet is not indicated for antihistamine therapy.
+- **C:** Assess the client's level of consciousness. **CORRECT**
+  - Reason: Sedation and confusion increase fall and safety risk in older adults.
+- **D:** Evaluate the client's intake and output. **CORRECT**
+  - Reason: Anticholinergic effects can reduce voiding and cause retention.
+- **E:** Encourage the client to ambulate without assistance.
+  - Reason: Unassisted ambulation may be unsafe when sedated — not a priority intervention.
 
 *selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
-## ms-exam-022 (hard, fluids_abg)
+## ncm112-semis-post-05 (hard, oxygenation)
 
-**Stem:** A client with chronic COPD has ABG: pH 7.37, PaCO₂ 58 mmHg, HCO₃⁻ 33 mEq/L. Which interpretation should the nurse document?
+**Stem:** The HCP has prescribed topical hydrocortisone for a client with allergic dermatitis. Which instruction should the nurse discuss with the client?
 
-**Source:** `UDD MedSurg I Midterms Quiz — exam-style hard (unofficial)`
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
 
-- **A:** Partially compensated respiratory acidosis **CORRECT**
-  - Reason: pH near normal with high PaCO₂ and elevated HCO₃⁻ fits partial renal compensation.
-- **B:** Uncompensated respiratory acidosis
-  - Reason: Uncompensated would show pH still acidotic with normal HCO₃⁻.
-- **C:** Fully compensated respiratory acidosis
-  - Reason: Fully compensated would normalize pH completely with chronic retention.
-- **D:** Fully compensated metabolic alkalosis
-  - Reason: Metabolic alkalosis would show high HCO₃⁻ with low PaCO₂, not hypercapnia.
-
-*selfChecked:* `False` · *instructorReviewed:* `False`
-
----
-
-## ms-exam-026 (hard, blood)
-
-**Stem:** Which finding most strongly indicates that the client's acute hypovolemic state has improved?
-
-**Source:** `UDD MedSurg I Midterms Quiz — exam-style hard (unofficial)`
-
-- **A:** The client continues to report exertional fatigue
-  - Reason: Fatigue can persist while volume status is improved.
-- **B:** Urine output has increased to 45 mL/hr **CORRECT**
-  - Reason: Adequate urine output shows renal perfusion and improved volume.
-- **C:** Ferritin remains below the expected range
-  - Reason: Ferritin tracks iron stores, not acute hypovolemia resolution.
-- **D:** MCV remains decreased
-  - Reason: MCV reflects chronic iron deficiency, not current volume.
-- **E:** Hemoglobin remains below the expected range
-  - Reason: Low Hgb reflects anemia, not acute volume status.
+- **A:** Apply an occlusive adherent dressing after applying the medication.
+  - Reason: Occlusive dressings increase absorption and are not routine without orders.
+- **B:** Rub the cream vigorously into the irritated and inflamed area.
+  - Reason: A thin gentle layer is taught — vigorous rubbing irritates skin.
+- **C:** Wash the hands before applying the topical steroid. **CORRECT**
+  - Reason: Hand hygiene before application reduces contamination of the site.
+- **D:** Wash the inflamed area with soap and water before each application.
+  - Reason: Harsh washing irritates inflamed skin unless specifically ordered.
 
 *selfChecked:* `False` · *instructorReviewed:* `False`
 
 ---
 
-## ms-exam-033 (hard, fluids_abg)
+## ncm112-semis-post-06 (hard, oxygenation)
 
-**Stem:** Which finding represents the highest priority?
+**Stem:** The nurse is administering an IV antibiotic. Twenty minutes into the infusion, the client reports shortness of breath, itching, and difficulty swallowing. Which intervention should the nurse implement first?
 
-**Source:** `UDD MedSurg I Midterms Quiz — exam-style hard (unofficial)`
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
 
-- **A:** Potassium 2.9 mEq/L with PVCs **CORRECT**
-  - Reason: Severe hypokalemia with PVCs risks lethal dysrhythmias — treat first.
-- **B:** HCO₃⁻ 18 mEq/L
-  - Reason: Low bicarbonate reflects acidosis but PVCs with K⁺ 2.9 dominate priority.
-- **C:** Chloride 98 mEq/L
-  - Reason: Chloride supports acid-base context but is not the priority finding.
-- **D:** Generalized fatigue
-  - Reason: Fatigue is nonspecific compared with ectopy on the monitor.
-- **E:** Sodium 132 mEq/L
-  - Reason: Mild hyponatremia is concerning but not the immediate cardiac threat.
+- **A:** Administer 10 L of oxygen via nasal cannula.
+  - Reason: Oxygen supports care but stopping the drug is the first action.
+- **B:** Assess the client's apical pulse and blood pressure.
+  - Reason: Vitals are important after stopping the infusion.
+- **C:** Prepare to administer subcutaneous epinephrine.
+  - Reason: Epinephrine may follow but stopping the allergen comes first.
+- **D:** Discontinue the client's IV antibiotic. **CORRECT**
+  - Reason: Stop the infusion immediately when anaphylaxis is suspected.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## ncm112-semis-post-07 (hard, oxygenation)
+
+**Stem:** The nurse is caring for a client with Raynaud's disease who reports fingers become pale and numb when entering an air-conditioned room. Which action should the nurse recommend first?
+
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
+
+- **A:** Apply an ice pack to decrease the inflammatory response.
+  - Reason: Ice worsens vasoconstriction in Raynaud's.
+- **B:** Place the hands in warm water and avoid further cold exposure. **CORRECT**
+  - Reason: Gentle rewarming and avoiding cold triggers end the vasospastic episode.
+- **C:** Keep the hands elevated above the level of the heart.
+  - Reason: Elevation alone does not reverse digital artery spasm.
+- **D:** Massage the fingers vigorously until the color returns.
+  - Reason: Vigorous massage can injure ischemic tissue.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## ncm112-semis-post-08 (hard, oxygenation)
+
+**Stem:** A client with Raynaud's disease is experiencing an acute episode with pale, cool, numb fingers. Which nursing intervention is most appropriate?
+
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
+
+- **A:** Encourage the client to exercise the affected fingers forcefully.
+  - Reason: Forceful exercise during ischemia can harm tissue.
+- **B:** Provide warmth and attempt to reduce the client's anxiety. **CORRECT**
+  - Reason: Gradual warming and calming measures reduce sympathetic vasoconstriction.
+- **C:** Apply a cold compress to reduce vascular swelling.
+  - Reason: Cold triggers and prolongs vasospasm.
+- **D:** Place the affected extremity in a dependent position for several hours.
+  - Reason: Dependent positioning does not treat digital ischemia.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## ncm112-semis-post-09 (hard, oxygenation)
+
+**Stem:** The nurse is providing discharge teaching to a client with Raynaud's disease. Which client statement indicates a need for further teaching?
+
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
+
+- **A:** I will try to manage stress because it can trigger an episode.
+  - Reason: Stress management reduces triggers.
+- **B:** I will wear gloves when I am outside during cold weather.
+  - Reason: Cold protection is correct prevention.
+- **C:** I will avoid holding cold drinks with my bare hands.
+  - Reason: Avoiding cold objects to hands is appropriate.
+- **D:** I can continue smoking as long as I keep my hands warm. **CORRECT**
+  - Reason: Smoking worsens vasospasm regardless of external warming.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## ncm112-semis-post-10 (hard, oxygenation)
+
+**Stem:** The nurse is assessing a client with Raynaud's disease during an acute episode. Which finding requires the most immediate follow-up?
+
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
+
+- **A:** The client reports numbness of the fingertips.
+  - Reason: Numbness can accompany reversible episodes.
+- **B:** Fingers become pale after exposure to cold.
+  - Reason: Reversible pallor is expected during vasospasm.
+- **C:** A persistent ulcer is present on the fingertip. **CORRECT**
+  - Reason: Ulceration signals tissue injury and risk of infection/necrosis — urgent follow-up.
+- **D:** The fingers change from pale to bluish in color.
+  - Reason: Cyanosis during an attack can still be part of the triphasic color change.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## ncm112-semis-pre-01 (hard, oxygenation)
+
+**Stem:** A client with Raynaud's disease is prescribed nifedipine. The nurse explains that the medication is intended to produce which effect?
+
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
+
+- **A:** Increase sympathetic stimulation and maintain vascular tone
+  - Reason: Sympathetic stimulation increases vasoconstriction — opposite of goal.
+- **B:** Increase platelet aggregation and prevent excessive bleeding
+  - Reason: Raynaud's is not treated by increasing clotting.
+- **C:** Constrict vascular smooth muscle and increase blood pressure
+  - Reason: CCBs do not constrict vessels; that worsens vasospasm.
+- **D:** Stimulate venous constriction and increase venous return
+  - Reason: Venous constriction does not address digital artery spasm.
+- **E:** Relax vascular smooth muscle and promote vasodilation **CORRECT**
+  - Reason: Nifedipine blocks calcium entry in vascular smooth muscle, reducing vasospasm.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## ncm112-semis-pre-02 (hard, oxygenation)
+
+**Stem:** The nurse is evaluating the effectiveness of nifedipine in a client with Raynaud's disease. Which finding provides the best evidence that the medication is producing the desired effect?
+
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
+
+- **A:** The client reports increased numbness during episodes
+  - Reason: More numbness suggests worsening ischemia, not improvement.
+- **B:** The client's fingers remain cyanotic for a longer period during attacks
+  - Reason: Longer cyanosis means prolonged poor perfusion — treatment failure.
+- **C:** The client develops a stronger sympathetic response to cold exposure
+  - Reason: Stronger sympathetic response would worsen vasoconstriction.
+- **D:** The client reports fewer episodes of cold, pale fingers **CORRECT**
+  - Reason: Fewer vasospastic color/temperature episodes show reduced spasm.
+- **E:** The client's blood pressure increases slightly after administration
+  - Reason: Mild BP change is not the primary Raynaud's outcome measure.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## ncm112-semis-pre-03 (hard, oxygenation)
+
+**Stem:** A client with Raynaud's disease is prescribed a calcium channel blocker. The client asks why this medication is being used. Which response by the nurse is most appropriate?
+
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
+
+- **A:** It increases sympathetic stimulation so that the vessels remain constricted.
+  - Reason: Sympathetic stimulation worsens Raynaud's vasospasm.
+- **B:** It relaxes vascular smooth muscle, which helps reduce vasospasm. **CORRECT**
+  - Reason: CCBs reduce arterial smooth muscle tone and vasospasm.
+- **C:** It increases venous pooling so that more blood remains in the extremities.
+  - Reason: Venous pooling does not fix digital artery spasm.
+- **D:** It increases blood pressure so that blood can reach the affected fingers.
+  - Reason: Raising BP is not the primary mechanism for Raynaud's relief.
+- **E:** It prevents the tunica intima from producing clotting factors.
+  - Reason: Raynaud's therapy is not aimed at blocking intimal clotting factors.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## ncm112-semis-pre-04 (hard, oxygenation)
+
+**Stem:** A client with severe Raynaud's disease continues to have frequent attacks despite conservative management and prescribed medication. The health care provider discusses sympathectomy. Which explanation should the nurse provide?
+
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
+
+- **A:** The procedure increases parasympathetic stimulation to produce systemic vasoconstriction.
+  - Reason: Parasympathetic systemic vasoconstriction is not the goal.
+- **B:** The procedure strengthens smooth muscle so arteries constrict more effectively.
+  - Reason: Strengthening constriction would worsen Raynaud's.
+- **C:** The procedure removes the tunica intima to prevent clot formation.
+  - Reason: It is not an intimal stripping procedure.
+- **D:** The procedure removes or interrupts sympathetic nerve activity to reduce vasoconstriction. **CORRECT**
+  - Reason: Sympathectomy targets excessive sympathetic-mediated vasoconstriction.
+- **E:** The procedure permanently increases blood pressure to improve arterial perfusion.
+  - Reason: BP elevation is not the described surgical mechanism.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## ncm112-semis-pre-05 (hard, oxygenation)
+
+**Stem:** The nurse receives reports on four clients with arterial occlusive disease. Which client should the nurse assess first?
+
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
+
+- **A:** A client who reports that cold exposure causes temporary cyanosis of the fingers
+  - Reason: Temporary cyanosis from cold that resolves is typical Raynaud's pattern.
+- **B:** A client whose affected finger remains pale, cold, and numb despite warming measures **CORRECT**
+  - Reason: Persistent ischemia despite warming suggests threatened perfusion — assess first.
+- **C:** A client who reports that stress occasionally triggers temporary finger discoloration
+  - Reason: Stress-triggered brief discoloration is usually self-limited.
+- **D:** A client with Raynaud's disease who reports mild numbness during a brief episode of pallor
+  - Reason: Brief reversible pallor with mild symptoms is lower acuity.
+- **E:** A client with Raynaud's disease who reports recurring episodes relieved by warming measures
+  - Reason: Episodes relieved by warming suggest reversible vasospasm.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## ncm112-semis-pre-06 (hard, oxygenation)
+
+**Stem:** Nurse Angela is caring for a 54-year-old male client diagnosed with Buerger's disease. The client reports cramping pain in both calves when walking several blocks; pain resolves after rest. Which finding is most characteristic of this condition?
+
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
+
+- **A:** Continuous ischemic pain caused by venous obstruction
+  - Reason: Continuous venous pain is not the hallmark walking-rest pattern.
+- **B:** Intermittent claudication caused by decreased arterial blood flow **CORRECT**
+  - Reason: Exercise-induced calf pain relieved by rest is classic intermittent claudication.
+- **C:** Joint pain caused by inflammatory changes in the lower extremities
+  - Reason: Inflammatory joint pain is a different presentation.
+- **D:** Dependent edema caused by impaired venous return
+  - Reason: Dependent edema points to venous insufficiency, not Buerger's claudication.
+- **E:** Calf pain caused by increased arterial blood flow during exercise
+  - Reason: Increased flow during exercise would not cause ischemic cramping.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## ncm112-semis-pre-07 (hard, oxygenation)
+
+**Stem:** Nurse Miguel is reviewing the history of a client newly diagnosed with Buerger's disease. The client asks why smoking cessation is emphasized. Which explanation is most appropriate?
+
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
+
+- **A:** Nicotine increases venous return and causes excessive blood pooling.
+  - Reason: Nicotine's main harm in Buerger's is not venous pooling.
+- **B:** Smoking causes the veins to dilate and prevents oxygen from entering the lungs.
+  - Reason: Smoking does not prevent pulmonary oxygenation in this simplistic way.
+- **C:** Nicotine increases blood flow to the extremities and eventually causes edema.
+  - Reason: Nicotine vasoconstriction reduces distal flow — opposite of this option.
+- **D:** Smoking damages the vessel lining and promotes inflammation and clot formation. **CORRECT**
+  - Reason: Tobacco accelerates endothelial injury and thrombosis in small arteries.
+- **E:** Smoking primarily affects venous valves and prevents blood return to the heart.
+  - Reason: Buerger's is an arterial inflammatory/thrombotic disease, not primary valve failure.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## ncm112-semis-pre-08 (hard, oxygenation)
+
+**Stem:** Nurse Camille is preparing a teaching plan for a client with Buerger's disease who continues to smoke despite counseling. Which client statement indicates the greatest need for additional teaching?
+
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
+
+- **A:** I can switch from cigarettes to nicotine gum because nicotine does not affect my blood vessels. **CORRECT**
+  - Reason: Any nicotine source can perpetuate vasculopathy — needs correction.
+- **B:** I should avoid nicotine-containing products unless my provider approves.
+  - Reason: Avoiding unapproved nicotine products is appropriate.
+- **C:** I should stop smoking completely to help prevent further vascular damage.
+  - Reason: Complete cessation is correct teaching.
+- **D:** Continuing to smoke can worsen circulation problems in my extremities.
+  - Reason: Linking smoking to worse extremity circulation is correct.
+- **E:** I should ask for assistance if I am having difficulty stopping smoking.
+  - Reason: Seeking help with cessation is appropriate.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## ncm112-semis-pre-09 (hard, oxygenation)
+
+**Stem:** Nurse Joshua is caring for a client with Buerger's disease who reports leg pain after walking that goes away after sitting for a few minutes. Which response is most appropriate?
+
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
+
+- **A:** This is an expected response to increased venous pressure during walking.
+  - Reason: Venous pressure pattern differs from classic claudication.
+- **B:** This is consistent with intermittent claudication caused by reduced arterial blood flow. **CORRECT**
+  - Reason: Walk-induced pain relieved by rest fits arterial insufficiency/claudication.
+- **C:** This indicates your muscles are receiving too much oxygen during activity.
+  - Reason: Ischemic pain reflects inadequate oxygen delivery, not excess.
+- **D:** This suggests your veins are unable to return blood to your heart.
+  - Reason: Venous return problems do not match exercise-induced arterial claudication.
+- **E:** This suggests the blood vessels are dilating excessively during exercise.
+  - Reason: Excessive dilation would not produce ischemic cramping.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## ncm112-semis-pre-10 (hard, oxygenation)
+
+**Stem:** Nurse Patricia is assessing a client with Buerger's disease who has bilateral lower-extremity discomfort, decreased oxygenated blood flow, and intermittent claudication. Which additional finding would the nurse expect?
+
+**Source:** `NCM 112 Semis PRE/POST — exam-style hard (unofficial OCR)`
+
+- **A:** Warm, edematous lower extremities with bounding pulses
+  - Reason: Bounding pulses and warmth suggest hyperemia, not arterial insufficiency.
+- **B:** Unilateral edema with a strong, easily palpable pedal pulse
+  - Reason: Strong unilateral pulse with edema suggests venous or mixed picture.
+- **C:** Warm, reddened extremities with increased peripheral circulation
+  - Reason: Increased circulation would not accompany claudication from arterial disease.
+- **D:** Pitting edema with jugular venous distention only
+  - Reason: JVD-centric picture is not the classic Buerger's extremity finding.
+- **E:** Bilateral lower-extremity involvement with diminished peripheral pulses **CORRECT**
+  - Reason: Bilateral diminished pulses match thromboangiitis obliterans presentation.
 
 *selfChecked:* `False` · *instructorReviewed:* `False`
 
@@ -1302,7 +1508,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## oxy-003 (hard, oxygenation)
+## oxy-003 (normal, oxygenation)
 
 **Stem:** A COPD client has chronic CO₂ retention. Which ABG pattern best fits compensated chronic hypercapnia?
 
@@ -1321,7 +1527,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## oxy-004 (hard, oxygenation)
+## oxy-004 (normal, oxygenation)
 
 **Stem:** When giving supplemental O₂ to a COPD client at risk for CO₂ narcosis, which principle?
 
@@ -1340,7 +1546,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## oxy-005 (hard, oxygenation)
+## oxy-005 (normal, oxygenation)
 
 **Stem:** Which finding is most consistent with a severe asthma exacerbation needing urgent escalation?
 
@@ -1397,7 +1603,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## oxy-008 (hard, oxygenation)
+## oxy-008 (normal, oxygenation)
 
 **Stem:** For ARDS ventilation in critical care, which strategy is priority?
 
@@ -1492,7 +1698,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## oxy-013 (hard, oxygenation)
+## oxy-013 (normal, oxygenation)
 
 **Stem:** A client has pH 7.48, PaCO₂ 28, HCO₃⁻ 22. What is the primary disorder?
 
@@ -1587,7 +1793,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## oxy-018 (hard, oxygenation)
+## oxy-018 (normal, oxygenation)
 
 **Stem:** Priority nursing action for a client with suspected pulmonary embolism before definitive diagnosis?
 
@@ -1644,7 +1850,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## periop-003 (hard, periop_iv)
+## periop-003 (normal, periop_iv)
 
 **Stem:** 3% NaCl is used for:
 
@@ -1758,7 +1964,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## periop-009 (hard, periop_iv)
+## periop-009 (normal, periop_iv)
 
 **Stem:** PACU priority assessment mnemonic focus:
 
@@ -1891,7 +2097,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## periop-016 (hard, periop_iv)
+## periop-016 (normal, periop_iv)
 
 **Stem:** Hypertonic 10% dextrose (D10W) effect:
 
@@ -1929,7 +2135,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## periop-018 (hard, periop_iv)
+## periop-018 (normal, periop_iv)
 
 **Stem:** Post-op paralytic ileus nursing care includes:
 
@@ -2005,7 +2211,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## periop-022 (hard, periop_iv)
+## periop-022 (normal, periop_iv)
 
 **Stem:** OPET (outpatient surgery) discharge criteria include:
 
@@ -2024,7 +2230,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## periop-023 (hard, periop_iv)
+## periop-023 (normal, periop_iv)
 
 **Stem:** KCl IV never given:
 
@@ -2043,7 +2249,7 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
-## periop-024 (hard, periop_iv)
+## periop-024 (normal, periop_iv)
 
 **Stem:** Air embolism prevention with central line:
 

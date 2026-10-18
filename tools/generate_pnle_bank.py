@@ -748,9 +748,20 @@ PERIOP = [
 ]
 ITEMS.extend(PERIOP)
 
-from pnle_midterm_hard import build_midterm_items
+from pnle_ncm112_semis import build_ncm112_semis_items
 
-ITEMS.extend(build_midterm_items(mk_exam))
+# UDD MedSurg midterm items are intentionally not shipped in the public bank.
+ITEMS.extend(build_ncm112_semis_items(mk_exam))
+
+
+def demote_legacy_hard_items():
+    """Hard mode = exam-style bank only; pilot recall items stay in Normal."""
+    for it in ITEMS:
+        if it.get("level") == "hard" and not it.get("examStyle"):
+            it["level"] = "normal"
+
+
+demote_legacy_hard_items()
 
 
 def validate_choice_balance():

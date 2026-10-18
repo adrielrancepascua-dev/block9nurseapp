@@ -1,6 +1,6 @@
-# MedSurg exam-style Hard items (UDD midterm pattern)
+# MedSurg exam-style Hard items
 
-Reference: MedSurg I Midterms Quiz (Soriano / UDD). **Unofficial** — verify against CI and handouts.
+Exam-style Hard items in the bank (e.g. NCM112 Semis) follow NCLEX-style patterns below. **Unofficial** — verify against CI and handouts. UDD MedSurg midterm content is **not** shipped in the app bank.
 
 ## Two tiers
 
@@ -32,6 +32,7 @@ Stable → early warning → crisis → rescue → recovery → discharge teachi
 | `caseNarrative` | Nurse’s notes block shown above stem |
 | `examStyle` | `true` for midterm-style Hard bank |
 | `level` | always `hard` for this track |
+| Pilot bank | Legacy `level: hard` recall items are demoted to **normal** at build time; **Hard** in Study = `examStyle` items only |
 
 ## Authoring batches
 
