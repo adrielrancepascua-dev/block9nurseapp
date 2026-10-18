@@ -27,13 +27,30 @@ def mk(
     source,
     reviewed=False,
     tool=None,
+    choice_format="single",
+    correct_indices=None,
+    case_id=None,
+    case_segment=None,
+    case_narrative=None,
+    exam_style=False,
 ):
-    assert len(choices) == 4 and len(reasons) == 4
-    return {
+    n = len(choices)
+    assert len(reasons) == n and n in (4, 5)
+    if choice_format == "sata":
+        assert correct_indices and len(correct_indices) >= 1
+        ci = correct_indices[0]
+        indices = sorted(set(correct_indices))
+    else:
+        assert correct_index is not None
+        ci = correct_index
+        indices = [correct_index]
+    item = {
         "id": id_,
         "stem": stem,
         "choices": choices,
-        "correctIndex": correct_index,
+        "correctIndex": ci,
+        "correctIndices": indices,
+        "format": choice_format,
         "reasons": reasons,
         "topic": topic,
         "level": level,
@@ -49,7 +66,54 @@ def mk(
         "reviewedBy": "",
         "reviewedAt": "",
         "tool": tool,
+        "examStyle": bool(exam_style),
     }
+    if case_id:
+        item["caseId"] = case_id
+        item["caseSegment"] = case_segment or ""
+        item["caseNarrative"] = case_narrative or ""
+    return item
+
+
+def mk_exam(
+    id_,
+    stem,
+    choices,
+    reasons,
+    topic,
+    typ,
+    source,
+    correct_index=None,
+    correct_indices=None,
+    choice_format="single",
+    case_id=None,
+    case_segment=None,
+    case_narrative=None,
+    tool=None,
+):
+    fmt = choice_format if choice_format == "sata" else "single"
+    if fmt == "sata" and not correct_indices:
+        raise ValueError(f"{id_}: SATA requires correct_indices")
+    if fmt == "single" and correct_index is None:
+        raise ValueError(f"{id_}: single choice requires correct_index")
+    return mk(
+        id_,
+        stem,
+        choices,
+        correct_index if correct_index is not None else correct_indices[0],
+        reasons,
+        topic,
+        "hard",
+        typ,
+        source,
+        tool=tool,
+        choice_format=fmt,
+        correct_indices=correct_indices,
+        case_id=case_id,
+        case_segment=case_segment,
+        case_narrative=case_narrative,
+        exam_style=True,
+    )
 
 
 def wrong_reason(correct_r, distractors):
@@ -684,16 +748,24 @@ PERIOP = [
 ]
 ITEMS.extend(PERIOP)
 
+from pnle_midterm_hard import build_midterm_items
+
+ITEMS.extend(build_midterm_items(mk_exam))
+
 
 def validate_choice_balance():
     """Fail build if the correct choice is obviously longest vs distractors."""
     biased = []
     for it in ITEMS:
+        if it.get("format") == "sata" or len(it["choices"]) != 4:
+            continue
         lens = [len(c) for c in it["choices"]]
         ci = it["correctIndex"]
         correct_len = lens[ci]
         others = [ln for i, ln in enumerate(lens) if i != ci]
-        avg_other = sum(others) / 3
+        if not others:
+            continue
+        avg_other = sum(others) / len(others)
         if (
             correct_len == max(lens)
             and correct_len > avg_other * 1.28
@@ -713,14 +785,8 @@ def validate():
     for it in ITEMS:
         topics[it["topic"]] += 1
         levels[it["level"]] += 1
-    assert len(ITEMS) == 98, len(ITEMS)
-    assert topics == {
-        "oxygenation": 18,
-        "heart": 18,
-        "blood": 17,
-        "fluids_abg": 21,
-        "periop_iv": 24,
-    }, topics
+    assert len(ITEMS) >= 98, len(ITEMS)
+    assert sum(topics.values()) == len(ITEMS), topics
     # Difficulty is authored per item in mk(); no forced 60/40 rebalance.
     print(f"Level counts: normal={levels['normal']} hard={levels['hard']}")
     ids = [i["id"] for i in ITEMS]
@@ -731,7 +797,7 @@ def validate():
 def write_review_csv(items, path: Path) -> None:
     import csv
 
-    letters = "ABCD"
+    letters = "ABCDE"
     with path.open("w", encoding="utf-8", newline="") as f:
         w = csv.writer(f)
         w.writerow(
@@ -756,16 +822,22 @@ def write_review_csv(items, path: Path) -> None:
         )
         for it in sorted(items, key=lambda x: x["id"]):
             ci = it["correctIndex"]
+            correct_set = it.get("correctIndices") or [ci]
+            correct_letters = "".join(letters[i] for i in sorted(correct_set) if i < len(letters))
             row = [
                 it["id"],
                 it["level"],
                 it["topic"],
                 it["stem"],
-                letters[ci],
+                correct_letters,
             ]
-            for i in range(4):
-                row.append(it["choices"][i])
-                row.append(it["reasons"][i])
+            for i in range(5):
+                if i < len(it["choices"]):
+                    row.append(it["choices"][i])
+                    row.append(it["reasons"][i])
+                else:
+                    row.append("")
+                    row.append("")
             row.append(it.get("source", ""))
             row.append("yes" if it.get("selfChecked") else "no")
             row.append("yes" if it.get("instructorReviewed") else "no")
@@ -773,7 +845,7 @@ def write_review_csv(items, path: Path) -> None:
 
 
 def write_review_sheet(items, path: Path) -> None:
-    letters = "ABCD"
+    letters = "ABCDE"
     lines = [
         "# PNLE MedSurg pilot — instructor review sheet",
         "",
@@ -782,6 +854,7 @@ def write_review_sheet(items, path: Path) -> None:
     ]
     for it in sorted(items, key=lambda x: x["id"]):
         ci = it["correctIndex"]
+        correct_set = set(it.get("correctIndices") or [ci])
         lines.append(f"## {it['id']} ({it['level']}, {it['topic']})")
         lines.append("")
         lines.append(f"**Stem:** {it['stem']}")
@@ -789,7 +862,7 @@ def write_review_sheet(items, path: Path) -> None:
         lines.append(f"**Source:** `{it.get('source', '')}`")
         lines.append("")
         for i, choice in enumerate(it["choices"]):
-            mark = " **CORRECT**" if i == ci else ""
+            mark = " **CORRECT**" if i in correct_set else ""
             lines.append(f"- **{letters[i]}:** {choice}{mark}")
             lines.append(f"  - Reason: {it['reasons'][i]}")
         lines.append("")

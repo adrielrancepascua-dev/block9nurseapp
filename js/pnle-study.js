@@ -11,7 +11,30 @@
   const PROGRESS_KEY = 'nursepath_pnle_progress_v1';
   const DAILY_COUNT_KEY = 'nursepath_pnle_daily_count_v1';
   const BANK_GATE_OVERRIDE_KEY = 'nursepath_pnle_bank_gate_v1';
-  const CHOICE_LABELS = ['A', 'B', 'C', 'D'];
+  const CHOICE_LABELS = ['A', 'B', 'C', 'D', 'E'];
+
+  function choiceLabel(idx) {
+    return CHOICE_LABELS[idx] || String(idx + 1);
+  }
+
+  function isSataItem(item) {
+    return item && item.format === 'sata';
+  }
+
+  function getCorrectIndices(item) {
+    if (item.correctIndices && item.correctIndices.length) {
+      return item.correctIndices.slice().sort((a, b) => a - b);
+    }
+    return [item.correctIndex];
+  }
+
+  function setsEqual(a, b) {
+    if (a.length !== b.length) return false;
+    for (let i = 0; i < a.length; i += 1) {
+      if (a[i] !== b[i]) return false;
+    }
+    return true;
+  }
 
   const TOPIC_ROWS = [
     { id: 'oxygenation', label: 'Oxygenation' },
@@ -672,45 +695,70 @@
   const ICON_X =
     '<svg class="pnle-choice-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.15"/><path d="M9 9l6 6M15 9l-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>';
 
+  function revealChoiceRow(b, item, idx, correctSet, pickedSet) {
+    b.disabled = true;
+    const slot = b.querySelector('.pnle-choice-icon-slot');
+    const body = b.querySelector('.pnle-choice-body');
+    const isCorrectOpt = correctSet.has(idx);
+    const wasPicked = pickedSet.has(idx);
+    const showReason = isCorrectOpt || wasPicked;
+    if (showReason && body) {
+      const reason = document.createElement('span');
+      reason.className = 'pnle-choice-reason';
+      reason.textContent = item.reasons[idx];
+      body.appendChild(reason);
+    }
+    if (isCorrectOpt) {
+      b.classList.add('is-correct', 'is-revealed');
+      if (slot) slot.innerHTML = ICON_CHECK;
+    } else if (wasPicked) {
+      b.classList.add('is-wrong', 'is-revealed');
+      if (slot) slot.innerHTML = ICON_X;
+    } else {
+      b.classList.add('is-dimmed');
+      if (slot) slot.innerHTML = `<span class="pnle-choice-letter">${choiceLabel(idx)}</span>`;
+    }
+  }
+
+  function showNextButton(root) {
+    const nextBtn = root.querySelector('#pnleNextBtn');
+    if (nextBtn) {
+      nextBtn.classList.remove('is-hidden');
+      nextBtn.removeAttribute('hidden');
+    }
+    const sataBtn = root.querySelector('#pnleSataSubmit');
+    if (sataBtn) sataBtn.setAttribute('hidden', 'hidden');
+  }
+
   function lockChoiceAnswer(root, item, picked) {
     session.locked = true;
     const correct = item.correctIndex;
     const isCorrect = picked === correct;
     recordAnswer(item, isCorrect);
     session.answered += 1;
-
+    const correctSet = new Set([correct]);
+    const pickedSet = new Set([picked]);
     root.querySelectorAll('.pnle-choice').forEach((b) => {
       const idx = parseInt(b.getAttribute('data-idx'), 10);
-      b.disabled = true;
-      const slot = b.querySelector('.pnle-choice-icon-slot');
-      const body = b.querySelector('.pnle-choice-body');
-      const showReason = idx === correct || idx === picked;
-      if (showReason && body) {
-        const reason = document.createElement('span');
-        reason.className = 'pnle-choice-reason';
-        reason.textContent = item.reasons[idx];
-        body.appendChild(reason);
-      }
-
-      if (idx === correct) {
-        b.classList.add('is-correct', 'is-revealed');
-        if (slot) slot.innerHTML = ICON_CHECK;
-      } else if (idx === picked) {
-        b.classList.add('is-wrong', 'is-revealed');
-        if (slot) slot.innerHTML = ICON_X;
-      } else {
-        b.classList.add('is-dimmed');
-        if (slot) {
-          slot.innerHTML = `<span class="pnle-choice-letter">${CHOICE_LABELS[idx]}</span>`;
-        }
-      }
+      revealChoiceRow(b, item, idx, correctSet, pickedSet);
     });
+    showNextButton(root);
+  }
 
-    const nextBtn = root.querySelector('#pnleNextBtn');
-    if (nextBtn) {
-      nextBtn.classList.remove('is-hidden');
-      nextBtn.removeAttribute('hidden');
-    }
+  function lockSataAnswer(root, item, pickedList) {
+    session.locked = true;
+    const correct = getCorrectIndices(item);
+    const pickedSorted = pickedList.slice().sort((a, b) => a - b);
+    const isCorrect = setsEqual(pickedSorted, correct);
+    recordAnswer(item, isCorrect);
+    session.answered += 1;
+    const correctSet = new Set(correct);
+    const pickedSet = new Set(pickedSorted);
+    root.querySelectorAll('.pnle-choice').forEach((b) => {
+      const idx = parseInt(b.getAttribute('data-idx'), 10);
+      revealChoiceRow(b, item, idx, correctSet, pickedSet);
+    });
+    showNextButton(root);
   }
 
   function bindChoiceTap(btn, root, item) {
@@ -767,11 +815,12 @@
     const progressLabel = levelLabel
       ? `Question ${session.index + 1} of ${session.queue.length} · ${levelLabel}`
       : `Question ${session.index + 1} of ${session.queue.length}`;
+    const sata = isSataItem(item);
     const choices = item.choices
       .map(
         (c, idx) =>
-          `<button type="button" class="pnle-choice" data-idx="${idx}">
-            <span class="pnle-choice-icon-slot"><span class="pnle-choice-letter">${CHOICE_LABELS[idx]}</span></span>
+          `<button type="button" class="pnle-choice${sata ? ' pnle-choice--sata' : ''}" data-idx="${idx}" type="button">
+            <span class="pnle-choice-icon-slot"><span class="pnle-choice-letter">${choiceLabel(idx)}</span></span>
             <span class="pnle-choice-body">
               <span class="pnle-choice-text">${escapeHtml(c)}</span>
             </span>
@@ -779,8 +828,18 @@
       )
       .join('');
 
+    const caseBlock = item.caseNarrative
+      ? `<div class="pnle-case-block" role="region" aria-label="Case notes"><pre class="pnle-case-pre">${escapeHtml(item.caseNarrative)}</pre></div>`
+      : '';
+    const sataHint = sata
+      ? '<p class="pnle-sata-hint">Select all that apply, then tap Check answer.</p>'
+      : '';
+    const sataSubmit = sata
+      ? '<button type="button" class="pnle-btn-primary" id="pnleSataSubmit">Check answer</button>'
+      : '';
+
     const testingBanner = isTestingReleaseAll()
-      ? `<p class="pnle-study-gate-banner pnle-study-gate-banner--testing pnle-study-gate-banner--compact" role="status">Testing — not CI-signed</p>`
+      ? `<p class="pnle-study-gate-banner pnle-study-gate-banner--testing pnle-study-gate-banner--compact" role="status">Unofficial Questions</p>`
       : '';
 
     root.innerHTML = `
@@ -793,8 +852,11 @@
             <button type="button" class="pnle-end-btn" id="pnleQuitSession">End</button>
           </div>
         </div>
+        ${caseBlock}
         <p class="pnle-question-stem">${escapeHtml(item.stem)}</p>
+        ${sataHint}
         <div class="pnle-choices">${choices}</div>
+        ${sataSubmit}
         <button type="button" class="pnle-btn-primary pnle-btn-next is-hidden" id="pnleNextBtn" hidden aria-hidden="true">Next question</button>
       </div>
     `;
@@ -811,7 +873,35 @@
       setStudyTab('mistakes');
     });
 
-    root.querySelectorAll('.pnle-choice').forEach((btn) => bindChoiceTap(btn, root, item));
+    if (sata) {
+      const selected = new Set();
+      root.querySelectorAll('.pnle-choice--sata').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          if (session.locked) return;
+          const idx = parseInt(btn.getAttribute('data-idx'), 10);
+          if (selected.has(idx)) {
+            selected.delete(idx);
+            btn.classList.remove('is-selected');
+          } else {
+            selected.add(idx);
+            btn.classList.add('is-selected');
+          }
+        });
+      });
+      const sataBtn = root.querySelector('#pnleSataSubmit');
+      if (sataBtn) {
+        sataBtn.addEventListener('click', () => {
+          if (session.locked) return;
+          if (!selected.size) {
+            alert('Select at least one answer.');
+            return;
+          }
+          lockSataAnswer(root, item, Array.from(selected));
+        });
+      }
+    } else {
+      root.querySelectorAll('.pnle-choice').forEach((btn) => bindChoiceTap(btn, root, item));
+    }
 
     nextBtn.addEventListener('click', () => {
       session.index += 1;

@@ -7,7 +7,7 @@
   global.NursePathPnleMedSurg = {
   "version": "1.0.0-pilot",
   "subject": "medsurg",
-  "generatedAt": "2026-10-14",
+  "generatedAt": "2026-10-18",
   "testingReleaseAll": true,
   "studyContentDisclaimer": "Unofficial Questions",
   "instructorSignedCount": 0,
@@ -22,6 +22,10 @@
         "Perfusion"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "Ventilation is the mechanical movement of air into and out of the lungs (inspiration/expiration).",
         "Osmosis is water movement across membranes, not respiratory gas flow.",
@@ -42,6 +46,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -54,6 +59,10 @@
         "Gas exchange"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "Expiration at rest is mainly passive elastic recoil, though it can be forced voluntarily.",
         "Cough is a protective reflex, not the routine resting ventilation phase.",
@@ -74,6 +83,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -86,6 +96,10 @@
         "pH 7.20, PaCO\u2082 60, HCO\u2083\u207b 24"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "High pH with low PaCO\u2082 suggests respiratory alkalosis, not COPD retention.",
         "Alkalosis with low PaCO\u2082 does not match chronic COPD hypercapnia.",
@@ -106,6 +120,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "vitals",
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -118,6 +133,10 @@
         "Hyperoxygenate to reverse chronic hypoxemia rapidly"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "High FiO\u2082 can blunt hypoxic drive; routine 100% O\u2082 risks CO\u2082 narcosis in vulnerable COPD clients.",
         "Mental status and ABG trends must be monitored when O\u2082 changes in CO\u2082 retainers.",
@@ -138,6 +157,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -150,6 +170,10 @@
         "Wheezing louder on auscultation"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "Silent chest + fatigue/altered LOC suggests critical airway narrowing and impending failure.",
         "Clear sputum alone does not define severe bronchospasm.",
@@ -170,6 +194,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -182,6 +207,10 @@
         "Bradycardia and hypertension only"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Abdominal pain is not the hallmark cluster for respiratory gas exchange problems.",
         "Crackles, fever, tachypnea, and hypoxemia fit alveolar consolidation and V/Q mismatch.",
@@ -202,6 +231,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -214,6 +244,10 @@
         "Chronic bronchitis without alveolar injury"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Cardiogenic pulmonary edema is a different mechanism (heart failure).",
         "Increased capillary permeability causes non-cardiogenic edema and severe hypoxemia.",
@@ -234,6 +268,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -246,6 +281,10 @@
         "Raise respiratory rate to 32/min without reducing tidal volume"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "High VT worsens volutrauma in injured ARDS lungs even if PaCO\u2082 looks better briefly.",
         "PEEP helps recruitment but must pair with low VT \u2014 high VT negates protection.",
@@ -266,6 +305,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -278,6 +318,10 @@
         "Productive green sputum for 10 days"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Chronic dry cough alone is not the classic acute PE picture.",
         "Acute dyspnea, pleuritic pain, and tachycardia fit sudden V/Q obstruction.",
@@ -298,6 +342,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -310,6 +355,10 @@
         "110 mmHg at sea level on room air as typical target"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "55 mmHg indicates significant hypoxemia.",
         "88 mmHg falls within the normal PaO\u2082 range of 80\u2013100 mmHg.",
@@ -330,6 +379,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "vitals",
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -342,6 +392,10 @@
         "85\u201390%"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "SaO\u2082 normal is 95\u2013100% per the must-memorize sheet.",
         "70\u201380% indicates severe hypoxemia.",
@@ -362,6 +416,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -374,6 +429,10 @@
         "High PaCO\u2082 with pH below 7.35"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "Low PaCO\u2082 causes respiratory alkalosis, not acidosis.",
         "High HCO\u2083 with low PaCO\u2082 suggests metabolic alkalosis or compensation pattern, not primary resp acidosis.",
@@ -394,6 +453,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "labs",
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -406,6 +466,10 @@
         "Metabolic alkalosis"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Respiratory acidosis requires high PaCO\u2082 and low pH.",
         "Low PaCO\u2082 with elevated pH indicates primary respiratory alkalosis.",
@@ -426,6 +490,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "labs",
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -438,6 +503,10 @@
         "Keep NPO for 48 hours without ambulation"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Adequate hydration supports secretion mobilization unless contraindicated.",
         "Mobility and lung expansion exercises are cornerstone post-op respiratory care .",
@@ -458,6 +527,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -470,6 +540,10 @@
         "Hospital parking rules"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "Staff assignment is not the informed consent standard.",
         "Consent is not about surgeon preference alone.",
@@ -490,6 +564,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -502,6 +577,10 @@
         "Bronchial breath sounds over apex only"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Hyperresonance suggests air (pneumothorax), not fluid.",
         "Fluid dulls percussion and may decrease breath sounds basally.",
@@ -522,6 +601,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -534,6 +614,10 @@
         "28 mmHg"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "55 indicates hypercapnia.",
         "40 mmHg is within PaCO\u2082 35\u201345 mmHg.",
@@ -554,6 +638,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "labs",
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -566,6 +651,10 @@
         "Encourage strenuous exercise"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "Calf massage risks dislodging thrombus.",
         "Fluids are individualized; blanket withholding is not priority.",
@@ -586,6 +675,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -598,6 +688,10 @@
         "Sudden tearing chest pain radiating to back"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "Angina reflects reversible ischemia, often related to exertion or stress.",
         "Isolated inspiratory pain without cardiac context is less typical for angina.",
@@ -618,6 +712,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -630,6 +725,10 @@
         "Normal on arrival, never recheck"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "Troponin is central to MI diagnosis in modern practice.",
         "Stable angina without necrosis should not show typical MI troponin rise.",
@@ -650,6 +749,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -662,6 +762,10 @@
         "Repeat the troponin in 3 hours before deciding on treatment"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "ST elevation means complete coronary occlusion; restoring flow saves muscle.",
         "Oxygen is for SpO\u2082 under 90% or respiratory distress, and neither is present.",
@@ -681,7 +785,8 @@
       "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
-      "tool": null
+      "tool": null,
+      "examStyle": false
     },
     {
       "id": "heart-004",
@@ -693,6 +798,10 @@
         "Pulmonary congestion, dyspnea, and crackles"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "Peripheral edema is more classic for right-sided failure.",
         "JVD can occur in right failure; lungs may be clear in isolated right failure.",
@@ -713,6 +822,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -725,6 +835,10 @@
         "JVD, hepatomegaly, peripheral edema"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "Crackles suggest left-sided pulmonary congestion.",
         "Hemoptysis is not the classic right HF picture.",
@@ -745,6 +859,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -757,6 +872,10 @@
         "Use sublingual tablet at onset; may repeat per protocol; call EMS if pain persists"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "PDE-5 inhibitors + nitrates cause dangerous hypotension \u2014 contraindicated.",
         "SL NTG is absorbed buccally, not swallowed for acute angina.",
@@ -777,6 +896,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -789,6 +909,10 @@
         "Polyuria"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "Hypotension/arrhythmias, not HTN, are toxicity concerns.",
         "Bradycardia can occur but GI/visual symptoms often precede.",
@@ -809,6 +933,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -821,6 +946,10 @@
         "Increases insulin release"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "Aldosterone antagonists act on collecting duct, not loop site.",
         "ACE inhibitors act on RAAS, not the loop.",
@@ -841,6 +970,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -853,6 +983,10 @@
         "Causes reflex hypertension"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Antiplatelet therapy is separate from beta-blockade.",
         "\u2193 demand and antiarrhythmic effects support post-MI care when indicated.",
@@ -873,6 +1007,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -885,6 +1020,10 @@
         "Vasodilation only"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "Irreversible COX-1 inhibition reduces platelet aggregation.",
         "Diuresis is diuretic action.",
@@ -905,6 +1044,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -917,6 +1057,10 @@
         "Pain only with meals"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "Territorial ST elevation suggests MI, not diffuse pericarditis pattern.",
         "Pericarditis pain is often positional.",
@@ -937,6 +1081,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -949,6 +1094,10 @@
         "Polyuria, polydipsia, weight loss"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Respiratory infection cluster is unrelated.",
         "Beck triad: low BP, muffled sounds, elevated JVP.",
@@ -969,6 +1118,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -981,6 +1131,10 @@
         "Ambulate client immediately"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "Stabilize perfusion and prepare definitive drainage.",
         "Carotid massage is inappropriate.",
@@ -1001,6 +1155,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1013,6 +1168,10 @@
         "Ignore IV line care"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "High-risk clients may need prophylaxis per current orders.",
         "Fever, chills, murmur changes warrant urgent evaluation.",
@@ -1033,6 +1192,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1045,6 +1205,10 @@
         "High-pitched holosystolic murmur at apex"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "AS murmur is systolic ejection at RUSB with carotid radiation.",
         "Fixed split S2 is ASD pattern.",
@@ -1065,6 +1229,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1077,6 +1242,10 @@
         "Resume heavy lifting same day"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "Site checks prevent hematoma/bleeding complications.",
         "DAPT duration is protocol-driven; stopping early risks stent thrombosis.",
@@ -1097,6 +1266,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1109,6 +1279,10 @@
         "Wide QRS tachycardia always"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "NSR: regular, 60\u2013100, P-QRS relationship intact.",
         "Sawtooth = flutter.",
@@ -1129,6 +1303,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1141,6 +1316,10 @@
         "Start high-quality CPR and get/defibrillate when shockable rhythm"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "Position alone does not replace CPR/defibrillation.",
         "Pulse check is brief; delay in CPR worsens outcomes.",
@@ -1161,6 +1340,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1173,6 +1353,10 @@
         "25%"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "Plasma is ~55% of blood .",
         "70% is closer to infant TBW, not plasma fraction.",
@@ -1193,6 +1377,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1205,6 +1390,10 @@
         "150,000\u2013450,000 /\u00b5L"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "50\u2013100K is thrombocytopenia range.",
         "10\u201320K is critical thrombocytopenia.",
@@ -1225,6 +1414,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1237,6 +1427,10 @@
         "Red blood cells"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "Basophils are not EPO-driven.",
         "TPO drives platelets.",
@@ -1257,6 +1451,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1269,6 +1464,10 @@
         "Eosinophils"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "Lymphocytes are 20\u201325%, not the 60\u201370% acute bacterial pattern.",
         "Basophils are rare and histamine-related.",
@@ -1289,6 +1488,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1301,6 +1501,10 @@
         "Is the first antibody in primary response only"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "IgA dominates mucosa/colostrum.",
         "IgG is abundant and provides passive immunity via placenta.",
@@ -1321,6 +1525,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1333,6 +1538,10 @@
         "High B12, macrocytic smear"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "High MCV suggests macrocytic anemia.",
         "Isolated reticulocytosis suggests hemolysis/bleeding recovery.",
@@ -1353,6 +1562,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1365,6 +1575,10 @@
         "Normocytic only always"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Ferritin reflects iron stores, not B12.",
         "B12/folate deficiency \u2192 macrocytic RBCs.",
@@ -1385,6 +1599,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1397,6 +1612,10 @@
         "Give the prescribed opioid analgesia"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "Cold exposure is a sickling trigger; the client should be kept warm.",
         "Oxygen is for hypoxemia; SpO\u2082 97% does not require supplemental O\u2082 by itself.",
@@ -1416,7 +1635,8 @@
       "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
-      "tool": null
+      "tool": null,
+      "examStyle": false
     },
     {
       "id": "blood-009",
@@ -1428,6 +1648,10 @@
         "Ask one nurse to recheck it and start if she agrees"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "A slow initial rate applies only after a fully verified unit, not when identifiers conflict.",
         "Every identifier must match at the bedside; mismatch means do not transfuse and notify the blood bank.",
@@ -1447,7 +1671,8 @@
       "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
-      "tool": null
+      "tool": null,
+      "examStyle": false
     },
     {
       "id": "blood-010",
@@ -1459,6 +1684,10 @@
         "Slow the rate and recheck vital signs in 15 minutes"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "Back or flank pain with chills and hypotension during transfusion suggests acute hemolysis; stop the blood first per reaction algorithms.",
         "Do not flush existing blood tubing; use new 0.9% NS and new tubing after stopping.",
@@ -1478,7 +1707,8 @@
       "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
-      "tool": null
+      "tool": null,
+      "examStyle": false
     },
     {
       "id": "blood-011",
@@ -1490,6 +1720,10 @@
         "0.8 only without range"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "4.5\u20136.0 is supratherapeutic/bleeding risk.",
         "INR 2\u20133 is standard therapeutic range listed.",
@@ -1510,6 +1744,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1522,6 +1757,10 @@
         "Platelet count only"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "aPTT guides unfractionated heparin dosing targets.",
         "D-dimer is clot breakdown marker, not heparin level.",
@@ -1542,6 +1781,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1554,6 +1794,10 @@
         "Fresh flowers and raw vegetable buffets"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Oral care prevents mucosal infection portals.",
         "Meticulous hygiene and low-bacterial diet protect neutropenic clients.",
@@ -1574,6 +1818,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1586,6 +1831,10 @@
         "T lymphocytes"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "B cells mature in bone marrow.",
         "RBCs mature in marrow.",
@@ -1606,6 +1855,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1618,6 +1868,10 @@
         "18\u201320 g/dL"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "10\u201311 may be anemia.",
         "8\u20139 is markedly low.",
@@ -1638,6 +1892,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1650,6 +1905,10 @@
         "No need to verify blood product"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "Monitor vitals and reactions per transfusion protocol.",
         "Only NS-compatible lines for RBCs/platelets per policy.",
@@ -1670,6 +1929,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1682,6 +1942,10 @@
         "von Willebrand only"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "Hemophilia A = factor VIII deficiency.",
         "Factor IX is hemophilia B.",
@@ -1702,6 +1966,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1714,6 +1979,10 @@
         "120\u2013125 mEq/L"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "135\u2013145 is normal Na\u207a.",
         "100\u2013110 is critically low.",
@@ -1734,6 +2003,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "labs",
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1746,6 +2016,10 @@
         "Below 135 mEq/L"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         ">145 is hypernatremia.",
         "<95 defines chloride, not sodium cutoff.",
@@ -1766,6 +2040,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1778,6 +2053,10 @@
         "<125 mEq/L"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "<145 mEq/L is toward hypernatremia, not hyponatremia.",
         "<135 mEq/L defines hyponatremia, not the critical tier.",
@@ -1798,6 +2077,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1810,6 +2090,10 @@
         "2.0\u20132.5 mEq/L"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "6.5+ is critical hyperkalemia.",
         "5.5+ is hyperkalemia.",
@@ -1830,6 +2114,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "labs",
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1842,6 +2127,10 @@
         "Give regular insulin with D50W to shift potassium"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Dialysis removes K\u207a in renal failure but takes time to arrange and does not immediately stabilize the heart.",
         "Calcium stabilizes the cardiac membrane when the ECG shows imminent dysrhythmia risk; it does not lower serum K\u207a.",
@@ -1861,7 +2150,8 @@
       "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
-      "tool": "labs"
+      "tool": "labs",
+      "examStyle": false
     },
     {
       "id": "fluids-006",
@@ -1873,6 +2163,10 @@
         "Infuse diluted potassium at 20 mEq/hr through a peripheral line"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "KCl is never given IV push; rapid bolus risks fatal dysrhythmias.",
         "Apical pulse assessment is appropriate for digoxin, but it does not override an unsafe potassium order when output is low.",
@@ -1892,7 +2186,8 @@
       "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
-      "tool": "labs"
+      "tool": "labs",
+      "examStyle": false
     },
     {
       "id": "fluids-007",
@@ -1904,6 +2199,10 @@
         "pH high, HCO\u2083\u207b high"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Isolated low PaCO\u2082 suggests respiratory alkalosis.",
         "Low pH with low bicarbonate defines metabolic acidosis.",
@@ -1924,6 +2223,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "labs",
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1936,6 +2236,10 @@
         "High-anion-gap metabolic acidosis"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "DKA presents with acidemia unless partially treated.",
         "Kussmaul resp may compensate but primary is metabolic acidosis.",
@@ -1956,6 +2260,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -1968,6 +2273,10 @@
         "6.0\u20137.0 mg/dL"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "8.5\u201310.5 is normal Ca\u00b2\u207a.",
         "11.5+ is hypercalcemia.",
@@ -1988,6 +2297,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2000,6 +2310,10 @@
         "Positive Chvostek/Trousseau signs, tingling"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "Absent reflexes suggest hypermagnesemia or hypercalcemia, not hypocalcemia.",
         "Bradycardia is not the primary neuromuscular sign of hypocalcemia.",
@@ -2020,6 +2334,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2032,6 +2347,10 @@
         "0.5\u20131.0 mEq/L"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "1.5\u20132.5 is normal Mg\u00b2\u207a.",
         "3.5\u20135.0 is potassium range.",
@@ -2052,6 +2371,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2064,6 +2384,10 @@
         "Acidosis moves potassium out of cells into the blood"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "Hemolysis can falsely elevate K\u207a, but acidosis already explains this value in DKA.",
         "Insulin shifts K\u207a into cells, lowering serum K\u207a, not raising it.",
@@ -2083,7 +2407,8 @@
       "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
-      "tool": "labs"
+      "tool": "labs",
+      "examStyle": false
     },
     {
       "id": "fluids-013",
@@ -2095,6 +2420,10 @@
         "45 mL/hr"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "60 mL/hr is healthy output, not the minimum monitoring goal.",
         "\u224830 mL/hr (~720 mL/day) supports renal perfusion; below this raises AKI concern.",
@@ -2115,6 +2444,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2127,6 +2457,10 @@
         ">200 mL/hr"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "1 L/day may be normal depending on intake.",
         "<30 mL/hr or <500 mL/day defines oliguria.",
@@ -2147,6 +2481,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2159,6 +2494,10 @@
         "7.35\u20137.45"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "7.50+ is alkalemia.",
         "7.20\u20137.30 is acidemia.",
@@ -2179,6 +2518,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "labs",
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2191,6 +2531,10 @@
         "15\u201318 mEq/L"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "30\u201335 suggests metabolic alkalosis.",
         "22\u201326 is normal HCO\u2083\u207b.",
@@ -2211,6 +2555,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "labs",
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2223,6 +2568,10 @@
         "Chronic renal failure as the typical driver"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Diarrhea loses bicarbonate (metabolic acidosis); DKA is high-gap metabolic acidosis, not alkalosis.",
         "Loss of gastric H\u207a and Cl\u207b (vomiting, suction) or volume contraction with diuretics raises serum HCO\u2083\u207b.",
@@ -2243,6 +2592,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2255,6 +2605,10 @@
         "Water deficit or sodium gain \u2014 hypertonic state"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "Can be sodium gain but not the only cause listed.",
         "Hypernatremia raises osmolality.",
@@ -2275,6 +2629,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2287,6 +2642,10 @@
         "<2.5 mg/dL mild"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "<1.0 is critical hypophosphatemia.",
         "<4.5 is still normal/low border.",
@@ -2307,6 +2666,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2319,6 +2679,10 @@
         "Respiratory acidosis, uncompensated"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "Compensated respiratory acidosis requires elevated HCO\u2083\u207b (typically above 26).",
         "HCO\u2083\u207b 24 is not below 22; the primary disturbance is elevated PaCO\u2082.",
@@ -2338,7 +2702,8 @@
       "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
-      "tool": "labs"
+      "tool": "labs",
+      "examStyle": false
     },
     {
       "id": "fluids-022",
@@ -2350,6 +2715,10 @@
         "Severe diarrhea"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Biliary fistula drainage also reflects bicarbonate loss with a normal gap pattern.",
         "Anaerobic metabolism from poor perfusion generates lactic acid, adding unmeasured anions and widening the gap.",
@@ -2369,7 +2738,8 @@
       "instructorReviewedAt": "",
       "reviewedBy": "",
       "reviewedAt": "",
-      "tool": "labs"
+      "tool": "labs",
+      "examStyle": false
     },
     {
       "id": "periop-001",
@@ -2381,6 +2751,10 @@
         "Hypotonic"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "3% NaCl is hypertonic.",
         "0.9% NaCl is isotonic with plasma.",
@@ -2401,6 +2775,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2413,6 +2788,10 @@
         "Water moves into cells (hypotonic)"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "Hypotonic solutions cause shift.",
         "Hypotonic pulls water into cells, not out.",
@@ -2433,6 +2812,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2445,6 +2825,10 @@
         "Severe hyponatremia and cerebral edema (draws water out of cells)"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "TPN lipids are separate.",
         "3% is not routine maintenance.",
@@ -2465,6 +2849,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2477,6 +2862,10 @@
         "Ultimately hypotonic free water"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "Not permanently isotonic.",
         "Colloids are proteins/starches.",
@@ -2497,6 +2886,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2509,6 +2899,10 @@
         "Hypotonic crystalloid"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "LR approximates plasma osmolality for expansion.",
         "LR is not a blood product.",
@@ -2529,6 +2923,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2541,6 +2936,10 @@
         "Oral rehydration substitute"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "Colloids expand intravascular volume via oncotic pressure.",
         "KCl is separate electrolyte replacement.",
@@ -2561,6 +2960,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2573,6 +2973,10 @@
         "Clean technique for all procedures"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Single-use vials should not be routinely reused.",
         "Asepsis prevents microbes entering sterile tissues.",
@@ -2593,6 +2997,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2605,6 +3010,10 @@
         "Billing code only"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Universal protocol/time-out confirms identity, site, procedure.",
         "Music is irrelevant to safety pause.",
@@ -2625,6 +3034,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2637,6 +3047,10 @@
         "Airway, breathing, circulation, surgical site, vitals"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "Diet comes after stability.",
         "Dressings are inspected, not routinely all removed.",
@@ -2657,6 +3071,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2669,6 +3084,10 @@
         "Urine retention never"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Wound infection peaks later; early fever often atelectasis/inflammation.",
         "Atelectasis is classic day 0\u20131 cause taught.",
@@ -2689,6 +3108,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2701,6 +3121,10 @@
         "Chest pain only"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "Local coolness, swelling, and poor flow suggest infiltration.",
         "Bilateral edema is systemic, not catheter-related.",
@@ -2721,6 +3145,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2733,6 +3158,10 @@
         "Massage vigorously toward heart"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "Tourniquet is not routine phlebitis care.",
         "Continuing irritant line worsens phlebitis.",
@@ -2753,6 +3182,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2765,6 +3195,10 @@
         "Save hospital food costs"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "Aspiration risk drops with empty stomach per perioperative teaching.",
         "Thirst is side effect, not primary purpose.",
@@ -2785,6 +3219,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2797,6 +3232,10 @@
         "Both are always cosmetic"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Elective is planned/scheduled.",
         "Emergency is urgent life-saving; consent process may vary but care is immediate.",
@@ -2817,6 +3256,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2829,6 +3269,10 @@
         "Skip mobility instructions"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Honest teaching includes coping strategies and reporting.",
         "IS, leg exercises, and pain/incision teaching are standard.",
@@ -2849,6 +3293,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2861,6 +3306,10 @@
         "Hypotonic hydration of cells"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "Hypertonic dextrose draws fluid into the intravascular space.",
         "D10W is a crystalloid, not a colloid.",
@@ -2881,6 +3330,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2893,6 +3343,10 @@
         "Perfume hands only"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "Transient/resident flora reduction is the goal.",
         "Floor cleaning is environmental, not hand scrub.",
@@ -2913,6 +3367,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2925,6 +3380,10 @@
         "Force solid food immediately"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "IV fluids often continue until oral intake adequate.",
         "NG and gradual diet per orders are standard.",
@@ -2945,6 +3404,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2957,6 +3417,10 @@
         "Oral meds only"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "Cosmetics are not clinical indication.",
         "IV is needed if ordered.",
@@ -2977,6 +3441,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -2989,6 +3454,10 @@
         "Only blood draws never fluids"
       ],
       "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
       "reasons": [
         "Peripheral lines limit vesicants/rate.",
         "Central lines enable CVP, vesicant meds, TPN per protocol.",
@@ -3009,6 +3478,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -3021,6 +3491,10 @@
         "Gloves before gown always without teaching variation"
       ],
       "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
       "reasons": [
         "Gowns are single sterile use.",
         "Sterile technique minimizes breaks in sterility.",
@@ -3041,6 +3515,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -3053,6 +3528,10 @@
         "Stable vitals, voiding if required, responsible adult if ordered, understood teaching"
       ],
       "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
       "reasons": [
         "Driving after GA is unsafe initially.",
         "Pain must be controlled/managed.",
@@ -3073,6 +3552,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": null,
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -3085,6 +3565,10 @@
         "Diluted slow peripheral infusion per policy"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Diluted infusion is correct route.",
         "Must be diluted and rate-limited per policy.",
@@ -3105,6 +3589,7 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
+      "examStyle": false,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     },
     {
@@ -3117,6 +3602,10 @@
         "Stand patient upright if suspected"
       ],
       "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
       "reasons": [
         "Air must never be infused.",
         "Clamp/de-air lines; left lateral decubitus if air embolus suspected.",
@@ -3137,6 +3626,395 @@
       "reviewedBy": "",
       "reviewedAt": "",
       "tool": "iv",
+      "examStyle": false,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ms-exam-001",
+      "stem": "The nurse writes a diagnosis of altered tissue perfusion for a client with anemia. Which interventions should be included in the plan of care? Select all that apply.",
+      "choices": [
+        "Assess the client for numbness and tingling",
+        "Allow for rest periods during the day for the client",
+        "Move the client to a room near the nurse's desk",
+        "Monitor the client's hemoglobin and hematocrit",
+        "Limit the client's dietary intake of green vegetables"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        0,
+        1,
+        3
+      ],
+      "format": "sata",
+      "reasons": [
+        "Hypoxia-related perfusion problems can present with neuro symptoms.",
+        "Rest reduces oxygen demand while Hgb is low.",
+        "Proximity alone does not address tissue perfusion in anemia.",
+        "Trending Hgb/Hct shows whether perfusion interventions are working.",
+        "Green vegetables provide iron; restricting them worsens anemia."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "nclex_sata",
+      "source": "UDD MedSurg I Midterms Quiz \u2014 exam-style hard (unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ms-exam-002",
+      "stem": "The charge nurse is making assignments on a medical floor. Which client should be assigned to the most experienced nurse?",
+      "choices": [
+        "Renal disease with erythropoietin deficiency",
+        "Aplastic anemia with pancytopenia",
+        "Iron-deficiency anemia on oral iron supplements",
+        "Pernicious anemia receiving vitamin B12 IM"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "EPO deficiency is often chronic and managed on a schedule.",
+        "Pancytopenia = infection, bleeding, and transfusion risks \u2014 highest acuity here.",
+        "Oral iron teaching is routine when stable.",
+        "B12 injections need skill but aplastic anemia is higher risk."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "delegation",
+      "source": "UDD MedSurg I Midterms Quiz \u2014 exam-style hard (unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ms-exam-003",
+      "stem": "The client has Hct 22.3% and Hgb 7.7 g/dL. Two units of PRBCs are ordered. Which interventions should the nurse implement? Select all that apply.",
+      "choices": [
+        "Obtain signed consent",
+        "Hang a keep-open IV of D5W",
+        "Initiate a 22-gauge IV",
+        "Assess the client's lungs",
+        "Check for allergies"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0,
+        3,
+        4
+      ],
+      "format": "sata",
+      "reasons": [
+        "Consent is required before transfusion.",
+        "Blood products are given with 0.9% NS, not D5W.",
+        "Large-bore IV is preferred for blood; 22-gauge limits flow.",
+        "Baseline lung assessment detects fluid overload early.",
+        "Allergy history guides monitoring for reactions."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "nclex_sata",
+      "source": "UDD MedSurg I Midterms Quiz \u2014 exam-style hard (unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ms-exam-004",
+      "stem": "A client arrives in the ED after an MVA with profuse bleeding from a right abdominal injury. Which intervention should the nurse implement first?",
+      "choices": [
+        "Notify the significant other of admission",
+        "Type and crossmatch for RBCs STAT",
+        "Initiate IV with an 18-gauge needle and hang normal saline",
+        "Have the client sign consent for exploratory laparotomy"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Notification is not the first nursing action in active bleeding.",
+        "Blood typing is urgent but circulation comes first (ABC).",
+        "Restore intravascular volume with large-bore access before definitive surgery.",
+        "Consent matters but does not precede stopping hemorrhagic shock."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "UDD MedSurg I Midterms Quiz \u2014 exam-style hard (unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ms-exam-007",
+      "stem": "A client receiving PRBCs begins to chill and develops hives. What should the nurse do first?",
+      "choices": [
+        "Notify the laboratory and health-care provider",
+        "Stop the transfusion and change the tubing at the hub",
+        "Assess the client for further complications",
+        "Administer diphenhydramine IV"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "Notification follows stopping the blood per reaction protocol.",
+        "Stop blood first \u2014 even allergic reactions require halting the infusion and new tubing.",
+        "Further assessment continues after the transfusion is stopped.",
+        "Antihistamine may be ordered after the line is secured and blood stopped."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "UDD MedSurg I Midterms Quiz \u2014 exam-style hard (unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ms-exam-010",
+      "stem": "A client with sickle cell anemia has joint pain, oral temperature 102.4 \u00b0F, and SpO\u2082 91%. What should the ED nurse implement first?",
+      "choices": [
+        "Prepare to administer analgesics as ordered",
+        "Start IV with an 18-gauge catheter",
+        "Request arterial blood gases STAT",
+        "Administer oxygen via nasal cannula"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "Pain control is essential but not before addressing oxygenation.",
+        "IV access supports fluids/analgesia but hypoxemia is addressed first.",
+        "ABGs do not precede correcting hypoxemia in acute crisis.",
+        "Hypoxemia worsens sickling; oxygen is an early priority when SpO\u2082 is 91%."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "UDD MedSurg I Midterms Quiz \u2014 exam-style hard (unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ms-exam-016",
+      "stem": "Mr. Reynolds receives furosemide and digoxin. Which laboratory value is most crucial for the nurse to assess?",
+      "choices": [
+        "Potassium level",
+        "Sodium level",
+        "Calcium level",
+        "Magnesium level"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Loop diuretics lower K\u207a; hypokalemia increases digoxin toxicity risk.",
+        "Sodium shifts with diuretics but digoxin toxicity ties most to potassium.",
+        "Calcium is monitored but K\u207a is the classic diuretic + digoxin interaction.",
+        "Magnesium matters with diuretics but K\u207a is the priority lab pair here."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "UDD MedSurg I Midterms Quiz \u2014 exam-style hard (unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ms-exam-022",
+      "stem": "A client with chronic COPD has ABG: pH 7.37, PaCO\u2082 58 mmHg, HCO\u2083\u207b 33 mEq/L. Which interpretation should the nurse document?",
+      "choices": [
+        "Partially compensated respiratory acidosis",
+        "Uncompensated respiratory acidosis",
+        "Fully compensated respiratory acidosis",
+        "Fully compensated metabolic alkalosis"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "pH near normal with high PaCO\u2082 and elevated HCO\u2083\u207b fits partial renal compensation.",
+        "Uncompensated would show pH still acidotic with normal HCO\u2083\u207b.",
+        "Fully compensated would normalize pH completely with chronic retention.",
+        "Metabolic alkalosis would show high HCO\u2083\u207b with low PaCO\u2082, not hypercapnia."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "application",
+      "source": "UDD MedSurg I Midterms Quiz \u2014 exam-style hard (unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ms-exam-026",
+      "stem": "Which finding most strongly indicates that the client's acute hypovolemic state has improved?",
+      "choices": [
+        "The client continues to report exertional fatigue",
+        "Urine output has increased to 45 mL/hr",
+        "Ferritin remains below the expected range",
+        "MCV remains decreased",
+        "Hemoglobin remains below the expected range"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "Fatigue can persist while volume status is improved.",
+        "Adequate urine output shows renal perfusion and improved volume.",
+        "Ferritin tracks iron stores, not acute hypovolemia resolution.",
+        "MCV reflects chronic iron deficiency, not current volume.",
+        "Low Hgb reflects anemia, not acute volume status."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "application",
+      "source": "UDD MedSurg I Midterms Quiz \u2014 exam-style hard (unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "caseId": "maria-santos-2026",
+      "caseSegment": "2200",
+      "caseNarrative": "2200 \u2014 NURSE'S NOTES\nMaria Santos, 29-year-old female, hospitalized for symptomatic iron-deficiency anemia with GI fluid losses. History of heavy menstrual bleeding (8\u201310 days/cycle) and low dietary iron.\nLabs earlier: Hgb 8.2 g/dL, Hct 25%, MCV 72 fL, ferritin 6 ng/mL, TIBC 460 mcg/dL.\nAfter vomiting/diarrhea she had hypovolemia, hypokalemia, hypomagnesemia, and metabolic acidosis; improved with IV replacement.\nNow: BP 110/70, HR 88, RR 18, SpO\u2082 98% RA, UOP 45 mL/hr, moist mucosa, no PVCs.\nClient: \"I feel much better now, but I still get tired when I walk.\"\n",
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ms-exam-033",
+      "stem": "Which finding represents the highest priority?",
+      "choices": [
+        "Potassium 2.9 mEq/L with PVCs",
+        "HCO\u2083\u207b 18 mEq/L",
+        "Chloride 98 mEq/L",
+        "Generalized fatigue",
+        "Sodium 132 mEq/L"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Severe hypokalemia with PVCs risks lethal dysrhythmias \u2014 treat first.",
+        "Low bicarbonate reflects acidosis but PVCs with K\u207a 2.9 dominate priority.",
+        "Chloride supports acid-base context but is not the priority finding.",
+        "Fatigue is nonspecific compared with ectopy on the monitor.",
+        "Mild hyponatremia is concerning but not the immediate cardiac threat."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "UDD MedSurg I Midterms Quiz \u2014 exam-style hard (unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "caseId": "maria-santos-2026",
+      "caseSegment": "0000",
+      "caseNarrative": "0000 \u2014 NURSE'S NOTES\nDiarrhea continues. Client reports weak legs and \"heart beating strangely.\" Occasional PVCs on monitor.\nLabs: Na\u207a 132, K\u207a 2.9, Mg 1.4, Cl\u207b 98, HCO\u2083\u207b 18 mEq/L.",
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     }
   ]

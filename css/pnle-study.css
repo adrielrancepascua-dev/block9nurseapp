@@ -815,6 +815,49 @@ html[data-theme='light'] body.pnle-mode-study {
   opacity: 0.55;
 }
 
+.pnle-choice--sata.is-selected {
+  border-color: #a78bfa;
+  background: rgba(167, 139, 250, 0.18);
+}
+
+.pnle-sata-hint {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pnle-study-muted, #94a3b8);
+  margin: 0 0 12px;
+}
+
+.pnle-case-block {
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--hub-border, #475569);
+  background: rgba(15, 23, 42, 0.35);
+}
+
+.pnle-case-pre {
+  margin: 0;
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  color: #cbd5e1;
+}
+
+html[data-theme='light'] .pnle-case-block {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+html[data-theme='light'] .pnle-case-pre {
+  color: #334155;
+}
+
+#pnleSataSubmit {
+  width: 100%;
+  margin-top: 8px;
+}
+
 .pnle-mistakes-card,
 .pnle-progress-card {
   border: 1px solid var(--hub-border, #334155);
