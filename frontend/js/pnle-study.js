@@ -287,8 +287,10 @@
     } else if (topicId !== 'all') {
       pool = bankItems.filter((it) => it.topic === topicId);
     }
-    if (level === 'normal' || level === 'hard') {
-      pool = pool.filter((it) => it.level === level);
+    if (level === 'hard') {
+      pool = pool.filter((it) => it.examStyle === true || it.level === 'hard');
+    } else if (level === 'normal') {
+      pool = pool.filter((it) => it.level !== 'hard' && !it.examStyle);
     }
     return pool;
   }

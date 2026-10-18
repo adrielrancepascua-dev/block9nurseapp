@@ -107,7 +107,7 @@
         "Low pH with high PaCO\u2082 and normal HCO\u2083\u207b suggests acute uncompensated respiratory acidosis."
       ],
       "topic": "oxygenation",
-      "level": "hard",
+      "level": "normal",
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 COPD / ABG",
       "reviewed": false,
@@ -144,7 +144,7 @@
         "Rapid hyperoxygenation can worsen CO\u2082 narcosis in chronic retainers."
       ],
       "topic": "oxygenation",
-      "level": "hard",
+      "level": "normal",
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 COPD oxygen therapy",
       "reviewed": false,
@@ -181,7 +181,7 @@
         "Louder wheeze can still be a treatable exacerbation, not the most ominous sign alone."
       ],
       "topic": "oxygenation",
-      "level": "hard",
+      "level": "normal",
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Asthma",
       "reviewed": false,
@@ -292,7 +292,7 @@
         "Faster rate without lowering VT still drives volutrauma and barotrauma risk."
       ],
       "topic": "oxygenation",
-      "level": "hard",
+      "level": "normal",
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 ARDS ventilation",
       "reviewed": false,
@@ -477,7 +477,7 @@
         "Metabolic alkalosis would show elevated HCO\u2083\u207b as primary driver."
       ],
       "topic": "oxygenation",
-      "level": "hard",
+      "level": "normal",
       "type": "application",
       "source": "ms_lec_midterms_81e8.txt \u2014 PART XIII Respiratory alkalosis",
       "reviewed": false,
@@ -662,7 +662,7 @@
         "Strenuous activity increases oxygen demand and risk."
       ],
       "topic": "oxygenation",
-      "level": "hard",
+      "level": "normal",
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 PE nursing care",
       "reviewed": false,
@@ -773,7 +773,7 @@
         "Serial biomarkers continue, but STEMI reperfusion is not delayed for repeat troponin alone."
       ],
       "topic": "heart",
-      "level": "hard",
+      "level": "normal",
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 STEMI; MI nursing priorities",
       "reviewed": false,
@@ -883,7 +883,7 @@
         "SL at onset with repeat doses and EMS if unrelieved is standard teaching."
       ],
       "topic": "heart",
-      "level": "hard",
+      "level": "normal",
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Nitroglycerin",
       "reviewed": false,
@@ -1105,7 +1105,7 @@
         "Diabetes symptoms are unrelated."
       ],
       "topic": "heart",
-      "level": "hard",
+      "level": "normal",
       "type": "recall",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Tamponade",
       "reviewed": false,
@@ -1142,7 +1142,7 @@
         "Activity increases demand while output is limited."
       ],
       "topic": "heart",
-      "level": "hard",
+      "level": "normal",
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Tamponade",
       "reviewed": false,
@@ -1216,7 +1216,7 @@
         "Apical holosystolic suggests mitral regurgitation."
       ],
       "topic": "heart",
-      "level": "hard",
+      "level": "normal",
       "type": "application",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Valvular disorders",
       "reviewed": false,
@@ -1327,7 +1327,7 @@
         "Immediate CPR and early defibrillation for shockable rhythms save lives."
       ],
       "topic": "heart",
-      "level": "hard",
+      "level": "normal",
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 Cardiac arrest",
       "reviewed": false,
@@ -1623,7 +1623,7 @@
         "Vaso-occlusive crisis is ischemic pain from blocked vessels; opioid analgesia follows pain assessment in crisis priorities."
       ],
       "topic": "blood",
-      "level": "hard",
+      "level": "normal",
       "type": "prioritization",
       "source": "Ms_lab_UT / ms_lab_midterm \u2014 Sickle cell crisis nursing priorities",
       "reviewed": false,
@@ -1659,7 +1659,7 @@
         "Two-nurse verification is required together; a mismatch is not resolved by a second opinion alone."
       ],
       "topic": "blood",
-      "level": "hard",
+      "level": "normal",
       "type": "prioritization",
       "source": "ms_lab_midterms_e746.pdf \u2014 Blood verification at bedside",
       "reviewed": false,
@@ -1695,7 +1695,7 @@
         "Even a febrile reaction requires stopping and assessing before continuing any infusion."
       ],
       "topic": "blood",
-      "level": "hard",
+      "level": "normal",
       "type": "prioritization",
       "source": "ms_lab_midterms_e746.pdf \u2014 Transfusion reaction algorithm; Ms_lab_UT \u2014 Transfusion reactions",
       "reviewed": false,
@@ -2138,7 +2138,7 @@
         "Insulin with glucose shifts K\u207a into cells but follows cardiac membrane protection when QRS is widening."
       ],
       "topic": "fluids_abg",
-      "level": "hard",
+      "level": "normal",
       "type": "prioritization",
       "source": "ms_lec_midterms_81e8.txt \u2014 Part VI hyperkalemia ECG and emergency management",
       "reviewed": false,
@@ -2174,7 +2174,7 @@
         "Peripheral KCl is typically rate-limited (~10 mEq/hr); low urine output still contraindicates giving it now."
       ],
       "topic": "fluids_abg",
-      "level": "hard",
+      "level": "normal",
       "type": "prioritization",
       "source": "ms_lec_midterms_81e8.txt \u2014 Hypokalemia; ms_lec_prelims_7b61.pdf \u2014 Digoxin and hypokalemia",
       "reviewed": false,
@@ -2836,7 +2836,7 @@
         "Hypertonic saline pulls water intravascularly for severe hypoNa/cerebral edema."
       ],
       "topic": "periop_iv",
-      "level": "hard",
+      "level": "normal",
       "type": "application",
       "source": "ms_lab_midterms_e746.pdf \u2014 Hypertonic saline",
       "reviewed": false,
@@ -3058,7 +3058,7 @@
         "ABCs and surgical site/vitals dominate immediate PACU care."
       ],
       "topic": "periop_iv",
-      "level": "hard",
+      "level": "normal",
       "type": "prioritization",
       "source": "ms_lec_prelims_7b61.pdf \u2014 PACU",
       "reviewed": false,
@@ -3317,7 +3317,7 @@
         "D10W is hypertonic, not hypotonic free water after metabolism."
       ],
       "topic": "periop_iv",
-      "level": "hard",
+      "level": "normal",
       "type": "recall",
       "source": "ms_lab_midterms_e746.pdf \u2014 Hypertonic dextrose",
       "reviewed": false,
@@ -3391,7 +3391,7 @@
         "Early solids worsen distension."
       ],
       "topic": "periop_iv",
-      "level": "hard",
+      "level": "normal",
       "type": "application",
       "source": "ms_lab_prelim \u2014 GI post-op",
       "reviewed": false,
@@ -3539,7 +3539,7 @@
         "Stable ABCs, voiding, escort, and teaching are standard OPET discharge anchors."
       ],
       "topic": "periop_iv",
-      "level": "hard",
+      "level": "normal",
       "type": "prioritization",
       "source": "ms_lab_prelim \u2014 OPET",
       "reviewed": false,
@@ -3576,7 +3576,7 @@
         "KCl bolus causes fatal arrhythmias \u2014 never push."
       ],
       "topic": "periop_iv",
-      "level": "hard",
+      "level": "normal",
       "type": "prioritization",
       "source": "ms_lab_midterms_e746.pdf \u2014 Electrolyte IV safety",
       "reviewed": false,
@@ -3613,7 +3613,7 @@
         "Durant position helps trap air in right atrium."
       ],
       "topic": "periop_iv",
-      "level": "hard",
+      "level": "normal",
       "type": "prioritization",
       "source": "ms_lab_midterms_e746.pdf \u2014 IV safety",
       "reviewed": false,
@@ -4015,6 +4015,773 @@
       "caseId": "maria-santos-2026",
       "caseSegment": "0000",
       "caseNarrative": "0000 \u2014 NURSE'S NOTES\nDiarrhea continues. Client reports weak legs and \"heart beating strangely.\" Occasional PVCs on monitor.\nLabs: Na\u207a 132, K\u207a 2.9, Mg 1.4, Cl\u207b 98, HCO\u2083\u207b 18 mEq/L.",
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-pre-01",
+      "stem": "A client with Raynaud's disease is prescribed nifedipine. The nurse explains that the medication is intended to produce which effect?",
+      "choices": [
+        "Increase sympathetic stimulation and maintain vascular tone",
+        "Increase platelet aggregation and prevent excessive bleeding",
+        "Constrict vascular smooth muscle and increase blood pressure",
+        "Stimulate venous constriction and increase venous return",
+        "Relax vascular smooth muscle and promote vasodilation"
+      ],
+      "correctIndex": 4,
+      "correctIndices": [
+        4
+      ],
+      "format": "single",
+      "reasons": [
+        "Sympathetic stimulation increases vasoconstriction \u2014 opposite of goal.",
+        "Raynaud's is not treated by increasing clotting.",
+        "CCBs do not constrict vessels; that worsens vasospasm.",
+        "Venous constriction does not address digital artery spasm.",
+        "Nifedipine blocks calcium entry in vascular smooth muscle, reducing vasospasm."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-pre-02",
+      "stem": "The nurse is evaluating the effectiveness of nifedipine in a client with Raynaud's disease. Which finding provides the best evidence that the medication is producing the desired effect?",
+      "choices": [
+        "The client reports increased numbness during episodes",
+        "The client's fingers remain cyanotic for a longer period during attacks",
+        "The client develops a stronger sympathetic response to cold exposure",
+        "The client reports fewer episodes of cold, pale fingers",
+        "The client's blood pressure increases slightly after administration"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "More numbness suggests worsening ischemia, not improvement.",
+        "Longer cyanosis means prolonged poor perfusion \u2014 treatment failure.",
+        "Stronger sympathetic response would worsen vasoconstriction.",
+        "Fewer vasospastic color/temperature episodes show reduced spasm.",
+        "Mild BP change is not the primary Raynaud's outcome measure."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "evaluation",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-pre-03",
+      "stem": "A client with Raynaud's disease is prescribed a calcium channel blocker. The client asks why this medication is being used. Which response by the nurse is most appropriate?",
+      "choices": [
+        "It increases sympathetic stimulation so that the vessels remain constricted.",
+        "It relaxes vascular smooth muscle, which helps reduce vasospasm.",
+        "It increases venous pooling so that more blood remains in the extremities.",
+        "It increases blood pressure so that blood can reach the affected fingers.",
+        "It prevents the tunica intima from producing clotting factors."
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "Sympathetic stimulation worsens Raynaud's vasospasm.",
+        "CCBs reduce arterial smooth muscle tone and vasospasm.",
+        "Venous pooling does not fix digital artery spasm.",
+        "Raising BP is not the primary mechanism for Raynaud's relief.",
+        "Raynaud's therapy is not aimed at blocking intimal clotting factors."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "therapeutic_communication",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-pre-04",
+      "stem": "A client with severe Raynaud's disease continues to have frequent attacks despite conservative management and prescribed medication. The health care provider discusses sympathectomy. Which explanation should the nurse provide?",
+      "choices": [
+        "The procedure increases parasympathetic stimulation to produce systemic vasoconstriction.",
+        "The procedure strengthens smooth muscle so arteries constrict more effectively.",
+        "The procedure removes the tunica intima to prevent clot formation.",
+        "The procedure removes or interrupts sympathetic nerve activity to reduce vasoconstriction.",
+        "The procedure permanently increases blood pressure to improve arterial perfusion."
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "Parasympathetic systemic vasoconstriction is not the goal.",
+        "Strengthening constriction would worsen Raynaud's.",
+        "It is not an intimal stripping procedure.",
+        "Sympathectomy targets excessive sympathetic-mediated vasoconstriction.",
+        "BP elevation is not the described surgical mechanism."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-pre-05",
+      "stem": "The nurse receives reports on four clients with arterial occlusive disease. Which client should the nurse assess first?",
+      "choices": [
+        "A client who reports that cold exposure causes temporary cyanosis of the fingers",
+        "A client whose affected finger remains pale, cold, and numb despite warming measures",
+        "A client who reports that stress occasionally triggers temporary finger discoloration",
+        "A client with Raynaud's disease who reports mild numbness during a brief episode of pallor",
+        "A client with Raynaud's disease who reports recurring episodes relieved by warming measures"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "Temporary cyanosis from cold that resolves is typical Raynaud's pattern.",
+        "Persistent ischemia despite warming suggests threatened perfusion \u2014 assess first.",
+        "Stress-triggered brief discoloration is usually self-limited.",
+        "Brief reversible pallor with mild symptoms is lower acuity.",
+        "Episodes relieved by warming suggest reversible vasospasm."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-pre-06",
+      "stem": "Nurse Angela is caring for a 54-year-old male client diagnosed with Buerger's disease. The client reports cramping pain in both calves when walking several blocks; pain resolves after rest. Which finding is most characteristic of this condition?",
+      "choices": [
+        "Continuous ischemic pain caused by venous obstruction",
+        "Intermittent claudication caused by decreased arterial blood flow",
+        "Joint pain caused by inflammatory changes in the lower extremities",
+        "Dependent edema caused by impaired venous return",
+        "Calf pain caused by increased arterial blood flow during exercise"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "Continuous venous pain is not the hallmark walking-rest pattern.",
+        "Exercise-induced calf pain relieved by rest is classic intermittent claudication.",
+        "Inflammatory joint pain is a different presentation.",
+        "Dependent edema points to venous insufficiency, not Buerger's claudication.",
+        "Increased flow during exercise would not cause ischemic cramping."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-pre-07",
+      "stem": "Nurse Miguel is reviewing the history of a client newly diagnosed with Buerger's disease. The client asks why smoking cessation is emphasized. Which explanation is most appropriate?",
+      "choices": [
+        "Nicotine increases venous return and causes excessive blood pooling.",
+        "Smoking causes the veins to dilate and prevents oxygen from entering the lungs.",
+        "Nicotine increases blood flow to the extremities and eventually causes edema.",
+        "Smoking damages the vessel lining and promotes inflammation and clot formation.",
+        "Smoking primarily affects venous valves and prevents blood return to the heart."
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "Nicotine's main harm in Buerger's is not venous pooling.",
+        "Smoking does not prevent pulmonary oxygenation in this simplistic way.",
+        "Nicotine vasoconstriction reduces distal flow \u2014 opposite of this option.",
+        "Tobacco accelerates endothelial injury and thrombosis in small arteries.",
+        "Buerger's is an arterial inflammatory/thrombotic disease, not primary valve failure."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "therapeutic_communication",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-pre-08",
+      "stem": "Nurse Camille is preparing a teaching plan for a client with Buerger's disease who continues to smoke despite counseling. Which client statement indicates the greatest need for additional teaching?",
+      "choices": [
+        "I can switch from cigarettes to nicotine gum because nicotine does not affect my blood vessels.",
+        "I should avoid nicotine-containing products unless my provider approves.",
+        "I should stop smoking completely to help prevent further vascular damage.",
+        "Continuing to smoke can worsen circulation problems in my extremities.",
+        "I should ask for assistance if I am having difficulty stopping smoking."
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Any nicotine source can perpetuate vasculopathy \u2014 needs correction.",
+        "Avoiding unapproved nicotine products is appropriate.",
+        "Complete cessation is correct teaching.",
+        "Linking smoking to worse extremity circulation is correct.",
+        "Seeking help with cessation is appropriate."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "evaluation",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-pre-09",
+      "stem": "Nurse Joshua is caring for a client with Buerger's disease who reports leg pain after walking that goes away after sitting for a few minutes. Which response is most appropriate?",
+      "choices": [
+        "This is an expected response to increased venous pressure during walking.",
+        "This is consistent with intermittent claudication caused by reduced arterial blood flow.",
+        "This indicates your muscles are receiving too much oxygen during activity.",
+        "This suggests your veins are unable to return blood to your heart.",
+        "This suggests the blood vessels are dilating excessively during exercise."
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "Venous pressure pattern differs from classic claudication.",
+        "Walk-induced pain relieved by rest fits arterial insufficiency/claudication.",
+        "Ischemic pain reflects inadequate oxygen delivery, not excess.",
+        "Venous return problems do not match exercise-induced arterial claudication.",
+        "Excessive dilation would not produce ischemic cramping."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "therapeutic_communication",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-pre-10",
+      "stem": "Nurse Patricia is assessing a client with Buerger's disease who has bilateral lower-extremity discomfort, decreased oxygenated blood flow, and intermittent claudication. Which additional finding would the nurse expect?",
+      "choices": [
+        "Warm, edematous lower extremities with bounding pulses",
+        "Unilateral edema with a strong, easily palpable pedal pulse",
+        "Warm, reddened extremities with increased peripheral circulation",
+        "Pitting edema with jugular venous distention only",
+        "Bilateral lower-extremity involvement with diminished peripheral pulses"
+      ],
+      "correctIndex": 4,
+      "correctIndices": [
+        4
+      ],
+      "format": "single",
+      "reasons": [
+        "Bounding pulses and warmth suggest hyperemia, not arterial insufficiency.",
+        "Strong unilateral pulse with edema suggests venous or mixed picture.",
+        "Increased circulation would not accompany claudication from arterial disease.",
+        "JVD-centric picture is not the classic Buerger's extremity finding.",
+        "Bilateral diminished pulses match thromboangiitis obliterans presentation."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-post-01",
+      "stem": "The client is prescribed clemastine prophylactically for allergies. Which statement indicates the client needs more teaching concerning this medication?",
+      "choices": [
+        "I will notify my HCP if I take an over-the-counter medication.",
+        "I need to maintain adequate fluid intake when taking this medication.",
+        "I will suck on hard candy if I have a dry mouth.",
+        "I will experience some blurred vision when taking clemastine and will not report it."
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "Reporting OTC use avoids interactions.",
+        "Hydration supports comfort with anticholinergic effects.",
+        "Hard candy can relieve antihistamine dry mouth.",
+        "Vision changes should be reported \u2014 not dismissed as expected."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "evaluation",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-post-02",
+      "stem": "The clinic nurse is discussing OTC oxymetazoline nasal spray with a client experiencing nasal congestion. Which information should the nurse discuss with the client? Select all that apply.",
+      "choices": [
+        "Do not use the oxymetazoline nasal spray any longer than 3 to 5 days.",
+        "Take additional nasal sprays if congestion is not relieved.",
+        "Spray the medication into the open nostril while inhaling deeply.",
+        "Immediately swallow the postnasal medication residue.",
+        "Clear the nose immediately after using the nasal spray."
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0,
+        2
+      ],
+      "format": "sata",
+      "reasons": [
+        "Rebound congestion develops with prolonged topical decongestant use.",
+        "Extra sprays beyond label directions worsen rebound and side effects.",
+        "Inhaling during spray improves distribution into nasal passages.",
+        "Swallowing residue is not instructed and increases systemic absorption.",
+        "Blow/clear the nose before use; clearing right after washes drug away."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "nclex_sata",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-post-03",
+      "stem": "A male client taking a nasal glucocorticoid spray calls the clinic and reports the medication is not helping. Which question should the nurse ask first?",
+      "choices": [
+        "How long have you been using the spray?",
+        "Are you sure you are taking the spray correctly?",
+        "Did you shake the bottle before taking the spray?",
+        "What time of the day are you taking the medication?"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Intranasal steroids require several days of regular use before full effect.",
+        "Technique matters but duration is the first gate for steroid onset.",
+        "Shaking may apply to some sprays but not the key first question here.",
+        "Timing can matter later; steroids need days to weeks of consistent use."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-post-04",
+      "stem": "Which interventions should the nurse implement for the elderly client receiving antihistamine therapy? Select all that apply.",
+      "choices": [
+        "Auscultate the client's breath sounds.",
+        "Provide an acid-ash diet for the client.",
+        "Assess the client's level of consciousness.",
+        "Evaluate the client's intake and output.",
+        "Encourage the client to ambulate without assistance."
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0,
+        2,
+        3
+      ],
+      "format": "sata",
+      "reasons": [
+        "Sedation and anticholinergic effects can depress respirations.",
+        "Acid-ash diet is not indicated for antihistamine therapy.",
+        "Sedation and confusion increase fall and safety risk in older adults.",
+        "Anticholinergic effects can reduce voiding and cause retention.",
+        "Unassisted ambulation may be unsafe when sedated \u2014 not a priority intervention."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "nclex_sata",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-post-05",
+      "stem": "The HCP has prescribed topical hydrocortisone for a client with allergic dermatitis. Which instruction should the nurse discuss with the client?",
+      "choices": [
+        "Apply an occlusive adherent dressing after applying the medication.",
+        "Rub the cream vigorously into the irritated and inflamed area.",
+        "Wash the hands before applying the topical steroid.",
+        "Wash the inflamed area with soap and water before each application."
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Occlusive dressings increase absorption and are not routine without orders.",
+        "A thin gentle layer is taught \u2014 vigorous rubbing irritates skin.",
+        "Hand hygiene before application reduces contamination of the site.",
+        "Harsh washing irritates inflamed skin unless specifically ordered."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-post-06",
+      "stem": "The nurse is administering an IV antibiotic. Twenty minutes into the infusion, the client reports shortness of breath, itching, and difficulty swallowing. Which intervention should the nurse implement first?",
+      "choices": [
+        "Administer 10 L of oxygen via nasal cannula.",
+        "Assess the client's apical pulse and blood pressure.",
+        "Prepare to administer subcutaneous epinephrine.",
+        "Discontinue the client's IV antibiotic."
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "Oxygen supports care but stopping the drug is the first action.",
+        "Vitals are important after stopping the infusion.",
+        "Epinephrine may follow but stopping the allergen comes first.",
+        "Stop the infusion immediately when anaphylaxis is suspected."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-post-07",
+      "stem": "The nurse is caring for a client with Raynaud's disease who reports fingers become pale and numb when entering an air-conditioned room. Which action should the nurse recommend first?",
+      "choices": [
+        "Apply an ice pack to decrease the inflammatory response.",
+        "Place the hands in warm water and avoid further cold exposure.",
+        "Keep the hands elevated above the level of the heart.",
+        "Massage the fingers vigorously until the color returns."
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "Ice worsens vasoconstriction in Raynaud's.",
+        "Gentle rewarming and avoiding cold triggers end the vasospastic episode.",
+        "Elevation alone does not reverse digital artery spasm.",
+        "Vigorous massage can injure ischemic tissue."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-post-08",
+      "stem": "A client with Raynaud's disease is experiencing an acute episode with pale, cool, numb fingers. Which nursing intervention is most appropriate?",
+      "choices": [
+        "Encourage the client to exercise the affected fingers forcefully.",
+        "Provide warmth and attempt to reduce the client's anxiety.",
+        "Apply a cold compress to reduce vascular swelling.",
+        "Place the affected extremity in a dependent position for several hours."
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "Forceful exercise during ischemia can harm tissue.",
+        "Gradual warming and calming measures reduce sympathetic vasoconstriction.",
+        "Cold triggers and prolongs vasospasm.",
+        "Dependent positioning does not treat digital ischemia."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-post-09",
+      "stem": "The nurse is providing discharge teaching to a client with Raynaud's disease. Which client statement indicates a need for further teaching?",
+      "choices": [
+        "I will try to manage stress because it can trigger an episode.",
+        "I will wear gloves when I am outside during cold weather.",
+        "I will avoid holding cold drinks with my bare hands.",
+        "I can continue smoking as long as I keep my hands warm."
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "Stress management reduces triggers.",
+        "Cold protection is correct prevention.",
+        "Avoiding cold objects to hands is appropriate.",
+        "Smoking worsens vasospasm regardless of external warming."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "evaluation",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "ncm112-semis-post-10",
+      "stem": "The nurse is assessing a client with Raynaud's disease during an acute episode. Which finding requires the most immediate follow-up?",
+      "choices": [
+        "The client reports numbness of the fingertips.",
+        "Fingers become pale after exposure to cold.",
+        "A persistent ulcer is present on the fingertip.",
+        "The fingers change from pale to bluish in color."
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Numbness can accompany reversible episodes.",
+        "Reversible pallor is expected during vasospasm.",
+        "Ulceration signals tissue injury and risk of infection/necrosis \u2014 urgent follow-up.",
+        "Cyanosis during an attack can still be part of the triphasic color change."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 Semis PRE/POST \u2014 exam-style hard (unofficial OCR)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     }
   ]

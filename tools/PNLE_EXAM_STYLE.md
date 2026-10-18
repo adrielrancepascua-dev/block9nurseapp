@@ -32,6 +32,7 @@ Stable → early warning → crisis → rescue → recovery → discharge teachi
 | `caseNarrative` | Nurse’s notes block shown above stem |
 | `examStyle` | `true` for midterm-style Hard bank |
 | `level` | always `hard` for this track |
+| Pilot bank | Legacy `level: hard` recall items are demoted to **normal** at build time; **Hard** in Study = `examStyle` items only |
 
 ## Authoring batches
 
