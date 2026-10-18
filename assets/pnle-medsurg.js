@@ -4395,6 +4395,3016 @@
       "tool": null,
       "examStyle": true,
       "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-001",
+      "stem": "The nurse receives morning reports on four clients. Which client should the nurse see first?",
+      "choices": [
+        "Client with pneumonia completing the third day of IV antibiotics and stable vitals",
+        "Asthma client with wheezes that clear after prescribed bronchodilator",
+        "Post-op client with new onset shortness of breath and SpO\u2082 88% on room air",
+        "COPD with SpO\u2082 92% on 2 L/min O\u2082 and clear breath sounds"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Stable on treatment is lower immediate priority.",
+        "Response to bronchodilator suggests improvement.",
+        "Sudden hypoxemia after surgery suggests PE, atelectasis, or complication \u2014 assess first.",
+        "Stable on low-flow oxygen with acceptable saturation."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-002",
+      "stem": "A client with emphysema is taught pursed-lip breathing. Which outcome indicates the client understands the technique?",
+      "choices": [
+        "Holds the breath at the end of inspiration for 30 seconds",
+        "Takes rapid shallow breaths through the mouth during exertion",
+        "Uses abdominal muscles only and avoids using the diaphragm",
+        "Exhales slowly through pursed lips to prolong exhalation"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "Prolonged breath-holding is not pursed-lip breathing.",
+        "Rapid mouth breathing worsens air trapping.",
+        "Diaphragmatic breathing is encouraged, not avoided.",
+        "Prolonged exhalation reduces air trapping and improves gas exchange."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-003",
+      "stem": "Which actions should the nurse include when caring for a client with active tuberculosis in airborne isolation? Select all that apply.",
+      "choices": [
+        "Reuse the same N95 without fit-check between shifts",
+        "Use an N95 respirator when entering the room",
+        "Cluster care to limit room entries",
+        "Keep the door closed and negative pressure when available",
+        "Place a surgical mask on the client during transport"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1,
+        2,
+        3
+      ],
+      "format": "sata",
+      "reasons": [
+        "N95 must be fit-tested and used per policy \u2014 not reused improperly.",
+        "N95 or equivalent respiratory protection is required for airborne pathogens.",
+        "Clustering care limits exposure time.",
+        "Closed door and negative pressure reduce particle spread.",
+        "Surgical masks on the client do not replace airborne precautions for staff."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "nclex_sata",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-004",
+      "stem": "A client with a new tracheostomy begins coughing violently and cannot speak. The nurse finds the inner cannula obstructed. What should the nurse do first?",
+      "choices": [
+        "Suction the tracheostomy tube",
+        "Deflate the cuff completely and leave it deflated",
+        "Remove and clean or replace the inner cannula",
+        "Call the rapid response team before any intervention"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Suction helps secretions but a lodged cannula needs removal first.",
+        "Cuff management follows patency; blind deflation alone may not clear obstruction.",
+        "Restoring airway patency by addressing the obstructed cannula is immediate.",
+        "Call for help but do not delay opening the airway."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-005",
+      "stem": "A client receiving continuous positive airway pressure (CPAP) at home reports morning headaches and daytime sleepiness despite use. Which question is the nurse's priority?",
+      "choices": [
+        "Is the mask leaking or coming off during sleep?",
+        "Do you drink caffeine in the afternoon?",
+        "What brand of mask do you prefer?",
+        "Have you changed your pillow recently?"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Leak or dislodgement reduces delivered pressure and causes poor rest and hypercapnia symptoms.",
+        "Caffeine may matter but equipment fit/leak is first.",
+        "Mask brand is secondary to effectiveness.",
+        "Pillow change is less likely than mask leak."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "evaluation",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-006",
+      "stem": "A client with cystic fibrosis has thick secretions. Which intervention should the nurse recommend?",
+      "choices": [
+        "Provide only dry oxygen without humidification",
+        "Perform airway clearance techniques and maintain hydration as ordered",
+        "Avoid activity to prevent coughing",
+        "Restrict fluids to reduce secretion volume"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "Humidification helps thin secretions.",
+        "Hydration and clearance techniques mobilize thick mucus.",
+        "Activity and coughing aid clearance when appropriate.",
+        "Fluid restriction thickens secretions."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-007",
+      "stem": "After chest tube insertion for a pneumothorax, which finding requires immediate action?",
+      "choices": [
+        "Drainage of 50 mL serosanguineous fluid in the first hour",
+        "Gentle tidaling in the water seal chamber with respiration",
+        "Client reports mild incisional pain rated 3/10",
+        "Continuous bubbling in the water seal chamber without coughing"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "Small initial drainage can be expected.",
+        "Tidaling can be normal early after placement.",
+        "Mild pain is common and not the highest priority.",
+        "Continuous bubbling suggests an air leak that may need assessment."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-008",
+      "stem": "A client with newly diagnosed lung cancer says, \"I don't see the point of quitting smoking now.\" Which response is most therapeutic?",
+      "choices": [
+        "The doctor will be angry if you keep smoking.",
+        "Smoking doesn't matter once you have cancer.",
+        "Quitting now can still improve treatment tolerance and healing; we can discuss options together.",
+        "You should have quit years ago."
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Fear-based appeals are not therapeutic.",
+        "False reassurance minimizes teaching.",
+        "Acknowledges feelings and offers support with a realistic benefit.",
+        "Blame shuts down communication."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "therapeutic_communication",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-009",
+      "stem": "A client with pulmonary embolism is on anticoagulation. Which finding should the nurse report promptly?",
+      "choices": [
+        "Sudden dyspnea with chest pain and oxygen desaturation",
+        "Small ecchymosis at an old venipuncture site",
+        "Steady therapeutic aPTT within range",
+        "Mild headache relieved by acetaminophen"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Sudden symptoms may indicate extension of clot or complication \u2014 urgent.",
+        "Old bruising may be monitored.",
+        "Therapeutic aPTT is expected.",
+        "Mild headache may be monitored unless severe or neurologic."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-010",
+      "stem": "The charge nurse assigns staff on a pulmonary unit. Which task is appropriate to delegate to an assistive personnel (UAP) who has been trained on the unit?",
+      "choices": [
+        "Adjusting oxygen flow rate based on SpO\u2082 readings",
+        "Assessing breath sounds after a bronchodilator",
+        "Teaching incentive spirometry after surgery",
+        "Ambulating a stable post-op client with oxygen as ordered"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "Oxygen titration requires nursing assessment.",
+        "Breath sound assessment is nursing.",
+        "Teaching requires nursing judgment.",
+        "Ambulation within stable parameters can be delegated with clear orders."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "delegation",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-011",
+      "stem": "A client with acute asthma has wheezing, accessory muscle use, and a silent chest on auscultation. What should the nurse recognize?",
+      "choices": [
+        "Impending respiratory failure \u2014 notify provider and prepare for advanced airway support",
+        "Expected finding after albuterol only",
+        "Improvement because wheezes stopped",
+        "Sign that bronchodilators should be withheld"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Severe bronchospasm with silent chest is an emergency.",
+        "Not expected without clinical improvement.",
+        "Silent chest can mean minimal air movement \u2014 danger, not improvement.",
+        "Bronchodilators are indicated unless contraindicated."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-012",
+      "stem": "The nurse is discharging a client with obstructive sleep apnea using CPAP. Which instructions should the nurse include? Select all that apply.",
+      "choices": [
+        "Stop using CPAP when you feel rested",
+        "Clean the mask and tubing per manufacturer instructions",
+        "Report persistent mask discomfort or air leaks",
+        "Use CPAP only when sleeping on the back",
+        "Avoid alcohol and sedatives unless approved by the provider"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1,
+        2,
+        4
+      ],
+      "format": "sata",
+      "reasons": [
+        "CPAP should be used consistently as prescribed, not stopped when rested.",
+        "Equipment hygiene prevents infection and maintains function.",
+        "Leak and fit problems reduce effectiveness.",
+        "CPAP is used for all sleep positions unless otherwise directed.",
+        "Sedatives and alcohol worsen apnea."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "nclex_sata",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-013",
+      "stem": "A client with cor pulmonale related to chronic lung disease develops peripheral edema. Which pathophysiology should the nurse understand?",
+      "choices": [
+        "Edema indicates only renal failure",
+        "Left ventricular failure is the primary cause",
+        "Right ventricular strain from pulmonary hypertension leads to fluid retention",
+        "Excess aldosterone is unrelated to cor pulmonale"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Edema has multiple causes; context is RV failure here.",
+        "Cor pulmonale is right-sided failure from lung disease.",
+        "RV failure increases venous pressure and edema.",
+        "Neurohormonal changes can contribute to fluid retention."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-014",
+      "stem": "Four clients need spirometry teaching. Which client should the nurse teach first?",
+      "choices": [
+        "Pre-op client scheduled for abdominal surgery tomorrow",
+        "Client with stable chronic bronchitis in for routine follow-up",
+        "Client with mild allergic rhinitis",
+        "Client discharged last week who already demonstrated IS correctly"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Pre-op IS teaching prevents post-op atelectasis \u2014 time-sensitive.",
+        "Chronic stable client is important but less urgent than pre-op.",
+        "Rhinitis is lower priority for IS.",
+        "Already demonstrated skill needs reinforcement only."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-015",
+      "stem": "A client on a ventilator has high peak airway pressures and decreased breath sounds on the right. What should the nurse suspect first?",
+      "choices": [
+        "Pneumothorax or mainstem intubation on the right",
+        "Improved compliance from resolving edema",
+        "Excess humidity in the circuit only",
+        "Normal finding during suctioning"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Unilateral decreased sounds with high pressures suggest pneumothorax or malposition.",
+        "Improving compliance lowers pressures.",
+        "Humidity affects resistance but unilateral findings point elsewhere.",
+        "Not normal without intervention."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-016",
+      "stem": "A client with DVT on anticoagulation asks about air travel in two weeks. Which instruction is most appropriate?",
+      "choices": [
+        "Wear tight knee-high stockings only at the airport",
+        "Stop anticoagulation before flying to prevent bleeding",
+        "Travel is forbidden forever",
+        "Discuss plans with the provider; compression, movement, and medication timing may be advised"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "Stockings alone are insufficient teaching.",
+        "Stopping anticoagulation increases clot risk.",
+        "Absolute prohibition is not always required.",
+        "Provider-guided plan balances clot risk and bleeding risk."
+      ],
+      "topic": "oxygenation",
+      "level": "hard",
+      "type": "evaluation",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-017",
+      "stem": "Which client should the nurse assess first?",
+      "choices": [
+        "Stable angina relieved by rest and nitroglycerin",
+        "Chest pain unrelieved by nitroglycerin with diaphoresis",
+        "Client post cardiac catheterization with warm, dry insertion site",
+        "Hypertension reading 148/92 before morning medications"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "Stable pattern with relief is monitored.",
+        "Unrelieved pain with diaphoresis suggests MI \u2014 immediate assessment.",
+        "Stable site is lower priority.",
+        "Mild elevation may be treated per protocol but not first."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-018",
+      "stem": "A client with atrial fibrillation has an irregularly irregular pulse and is on apixaban. Which intervention is essential?",
+      "choices": [
+        "Hold apixaban whenever the pulse is irregular",
+        "Massage the carotid artery to restore rhythm",
+        "Encourage vigorous isometric exercise during episodes",
+        "Assess for signs of bleeding and stroke risk factors"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "Do not hold anticoagulant without provider order.",
+        "Carotid massage is not routine nursing action for AF.",
+        "Strenuous isometrics may be contraindicated.",
+        "Anticoagulation requires bleeding precautions and stroke risk awareness."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-019",
+      "stem": "Which findings are consistent with left-sided heart failure? Select all that apply.",
+      "choices": [
+        "Peripheral pitting edema as the primary lung finding",
+        "Pulmonary congestion on chest x-ray",
+        "Jugular venous distention as the earliest sign",
+        "Crackles in lung bases",
+        "Orthopnea and frothy pink sputum"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        1,
+        3,
+        4
+      ],
+      "format": "sata",
+      "reasons": [
+        "Peripheral edema is more right-sided.",
+        "CXR may show vascular congestion.",
+        "JVD is more classic for right-sided failure.",
+        "Pulmonary crackles reflect fluid in alveoli.",
+        "Orthopnea and pink frothy sputum are left-sided congestion signs."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "nclex_sata",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-020",
+      "stem": "A client with suspected acute myocardial infarction is admitted. Which order should the nurse implement first?",
+      "choices": [
+        "Morphine sulfate IV as ordered",
+        "Administer stool softeners",
+        "Obtain 12-lead ECG and attach continuous monitor",
+        "Schedule cardiac rehabilitation education"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Pain control follows stabilization and diagnosis support.",
+        "Stool softeners are not first in acute MI.",
+        "ECG and monitoring guide reperfusion therapy \u2014 early priority.",
+        "Rehab is later in the course."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-021",
+      "stem": "A client receiving IV heparin has aPTT 110 seconds (goal 60\u201380). What should the nurse do?",
+      "choices": [
+        "Hold heparin and notify the provider per protocol",
+        "Administer protamine without an order",
+        "Continue infusion unchanged",
+        "Double the infusion rate"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Hold and notify per anticoagulation protocol.",
+        "Protamine requires provider order and calculation.",
+        "Supratherapeutic aPTT increases bleeding risk.",
+        "Increasing rate worsens supratherapeutic level."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-022",
+      "stem": "A client afraid of dying during a cardiac catheterization says, \"What if my heart stops on the table?\" Which response is best?",
+      "choices": [
+        "Don't worry, that never happens.",
+        "You shouldn't have agreed to the procedure.",
+        "Think positive thoughts only.",
+        "The team monitors you closely and is prepared for emergencies; tell me what you're most worried about."
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "False reassurance dismisses fear.",
+        "Blaming is non-therapeutic.",
+        "Minimizing feelings blocks trust.",
+        "Validates concern, explains safety measures, invites expression."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "therapeutic_communication",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-023",
+      "stem": "Which murmur description best matches mitral regurgitation?",
+      "choices": [
+        "Fixed split S2 at the left upper sternal border",
+        "Harsh systolic ejection murmur at the right upper sternal border",
+        "Holosystolic murmur at the apex radiating to the axilla",
+        "Diastolic decrescendo murmur at the left sternal border"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Fixed split S2 suggests ASD.",
+        "RUSB systolic ejection suggests aortic stenosis.",
+        "Apical holosystolic radiating to axilla fits MR.",
+        "Diastolic decrescendo suggests aortic regurgitation."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-024",
+      "stem": "After pacemaker insertion, which finding should the nurse report immediately?",
+      "choices": [
+        "Mild soreness at the pocket site",
+        "Hiccups that persist with pacing spikes on monitor",
+        "Stable telemetry with capture",
+        "Small dressing stain the size of a dime"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "Mild soreness is expected.",
+        "Diaphragmatic pacing from lead malposition causes hiccups \u2014 notify provider.",
+        "Capture is desired.",
+        "Minimal staining may be monitored."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-025",
+      "stem": "A client with heart failure is prescribed furosemide and digoxin. Which lab is most important to monitor?",
+      "choices": [
+        "Sodium only",
+        "Cholesterol",
+        "Potassium",
+        "Blood urea nitrogen only"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Sodium matters but K\u207a is the classic pair here.",
+        "Lipids are not the immediate interaction.",
+        "Diuretic-induced hypokalemia increases digoxin toxicity risk.",
+        "BUN reflects renal function but K\u207a is priority with digoxin."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-026",
+      "stem": "Which teaching points should the nurse include for a client with a new automatic implantable cardioverter-defibrillator (AICD)? Select all that apply.",
+      "choices": [
+        "Avoid MRI unless cleared by the electrophysiology team",
+        "Wear a medical alert identifier",
+        "Report dizziness, palpitations, or shocks to the provider",
+        "Avoid placing cell phones directly over the device pocket",
+        "Resume driving immediately without provider guidance"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "format": "sata",
+      "reasons": [
+        "MRI is generally contraindicated unless device is MRI-conditional and cleared.",
+        "Alert jewelry aids emergency care.",
+        "Symptoms and shocks need evaluation.",
+        "Electromagnetic interference precautions are taught.",
+        "Driving restrictions depend on local law and provider orders."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "nclex_sata",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-027",
+      "stem": "A client with pericarditis complains of sharp chest pain worse when lying flat and better leaning forward. Which position should the nurse encourage?",
+      "choices": [
+        "Supine with legs elevated",
+        "Prone with pillow under abdomen",
+        "High Fowler's or leaning forward",
+        "Trendelenburg"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Supine often worsens pericarditic pain.",
+        "Prone is not typical relief position.",
+        "Sitting up/leaning forward reduces pericardial friction.",
+        "Trendelenburg is not indicated."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-028",
+      "stem": "During cardiac arrest with a shockable rhythm, what is the priority after defibrillation?",
+      "choices": [
+        "Resume high-quality CPR immediately",
+        "Place client in side-lying recovery position",
+        "Check pulse for two minutes before compressions",
+        "Administer oral fluids"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Immediate CPR after shock per ACLS.",
+        "Recovery position is for unconscious breathing clients, not arrest.",
+        "Brief pulse check only; prolonged pause harms outcomes.",
+        "Oral fluids are contraindicated."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-029",
+      "stem": "A client with infective endocarditis is on IV antibiotics. Which assessment finding suggests complication?",
+      "choices": [
+        "Mild fatigue",
+        "Stable WBC trending down",
+        "Low-grade fever day 2 of therapy",
+        "New murmur with splinter hemorrhages and petechiae"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "Fatigue alone is nonspecific.",
+        "Improving WBC is favorable.",
+        "Early low fever may persist initially.",
+        "Embolic/vascular phenomena with murmur change need urgent evaluation."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-030",
+      "stem": "Which activity can the nurse delegate to experienced UAP for a stable cardiac client?",
+      "choices": [
+        "Titrate nitroglycerin drip",
+        "Educate on sodium restriction",
+        "Interpret rhythm strip changes",
+        "Measure and record daily weights"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "IV titration is nursing.",
+        "Teaching is nursing.",
+        "Rhythm interpretation is nursing.",
+        "Routine weights with clear parameters can be delegated."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "delegation",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-031",
+      "stem": "A client reports chest pain after eating a large meal and lying down. Which condition is most likely?",
+      "choices": [
+        "Gastroesophageal reflux mimicking angina",
+        "Aortic dissection tearing pain to back",
+        "Stable angina with exertion",
+        "Pericarditis pain pattern"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Postprandial supine pain suggests reflux.",
+        "Dissection is sudden severe ripping pain.",
+        "Exertional pattern differs.",
+        "Pericarditis improves leaning forward."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-032",
+      "stem": "A client with hypertension has a reading of 210/120 mmHg with headache and blurred vision. What should the nurse do first?",
+      "choices": [
+        "Encourage strenuous exercise to lower BP",
+        "Recheck BP in one week",
+        "Administer PRN acetaminophen only",
+        "Notify provider and assess neurologic status; prepare for hypertensive emergency protocol"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "Exercise is contraindicated acutely.",
+        "Severe BP with symptoms is an emergency.",
+        "Analgesic alone is insufficient.",
+        "Hypertensive emergency requires immediate provider involvement."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-033",
+      "stem": "Which electrolyte imbalance increases the risk of digoxin toxicity?",
+      "choices": [
+        "Hypermagnesemia",
+        "Hypokalemia",
+        "Hyperkalemia",
+        "Hypercalcemia only"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "High magnesium is not the classic toxicity trigger.",
+        "Low K\u207a sensitizes the myocardium to digoxin.",
+        "High K\u207a generally reduces digoxin effect/toxicity risk.",
+        "Calcium affects contractility but K\u207a is classic."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-034",
+      "stem": "A client with a mechanical heart valve is on warfarin. INR is 1.4 (goal 2.5\u20133.5). Which action is appropriate?",
+      "choices": [
+        "Hold warfarin permanently",
+        "Double the dose without consulting anyone",
+        "Continue warfarin; INR is therapeutic",
+        "Notify provider; subtherapeutic INR increases thrombosis risk"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "Do not stop without order.",
+        "Nurses do not independently double warfarin.",
+        "1.4 is below goal for mechanical valve.",
+        "Provider may adjust dose \u2014 clot risk is elevated."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "evaluation",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-035",
+      "stem": "Which interventions should the nurse include for a client with acute decompensated heart failure and pulmonary edema? Select all that apply.",
+      "choices": [
+        "Prepare for diuretic and vasodilator therapy as ordered",
+        "Monitor breath sounds and SpO\u2082",
+        "Administer oxygen and position upright",
+        "Encourage large volumes of oral fluids",
+        "Ignore weight changes"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        0,
+        1,
+        2
+      ],
+      "format": "sata",
+      "reasons": [
+        "Diuretics and vasodilators are cornerstone therapy.",
+        "Ongoing respiratory monitoring is essential.",
+        "Upright position and oxygen improve work of breathing.",
+        "Fluid restriction/restriction of excess intake is usual \u2014 large volumes worsen edema.",
+        "Daily weights track fluid status."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "nclex_sata",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-036",
+      "stem": "A client with second-degree AV block type II on monitor has dropped QRS complexes. What should the nurse anticipate?",
+      "choices": [
+        "Discharge home without monitoring",
+        "No treatment ever required",
+        "Possible temporary transcutaneous pacing or permanent pacemaker",
+        "Only oral beta-blocker increase"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Requires monitoring and intervention.",
+        "Mobitz II can progress to complete heart block.",
+        "Pacing is often required.",
+        "Beta-blockers may worsen conduction."
+      ],
+      "topic": "heart",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-037",
+      "stem": "Which client should the nurse see first?",
+      "choices": [
+        "Postpartum client with Hgb 10 g/dL and no symptoms",
+        "Sickle cell client with fever 38.9\u00b0C and joint pain",
+        "Iron-deficiency anemia client taking oral iron with constipation",
+        "Client post transfusion 2 hours ago, stable vitals"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "Mild asymptomatic anemia can wait.",
+        "Fever in sickle cell suggests infection/sequestration \u2014 urgent.",
+        "Constipation is common and manageable.",
+        "Stable post-transfusion is lower priority."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-038",
+      "stem": "Which interventions are appropriate for a client with thrombocytopenia? Select all that apply.",
+      "choices": [
+        "Use an electric razor for shaving",
+        "Apply firm pressure after venipuncture",
+        "Encourage contact sports",
+        "Monitor for petechiae and mucosal bleeding",
+        "Avoid IM injections when possible"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0,
+        1,
+        3,
+        4
+      ],
+      "format": "sata",
+      "reasons": [
+        "Electric razors reduce skin trauma.",
+        "Pressure prevents bleeding at sites.",
+        "Contact sports increase bleeding risk.",
+        "Bleeding signs need monitoring.",
+        "IM injections can cause hematomas."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "nclex_sata",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-039",
+      "stem": "A client receiving a PRBC transfusion develops flank pain and red urine. What should the nurse do first?",
+      "choices": [
+        "Document and continue if vitals stable",
+        "Administer antihistamine",
+        "Stop the transfusion and maintain IV line with normal saline",
+        "Slow the transfusion to half rate"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Never continue with hemolysis signs.",
+        "Antihistamine does not treat hemolysis.",
+        "Acute hemolytic reaction \u2014 stop blood immediately.",
+        "Slowing may still allow hemolysis."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-040",
+      "stem": "Which finding is most consistent with vitamin B12 deficiency anemia?",
+      "choices": [
+        "MCV 110 fL with neurologic tingling",
+        "Low reticulocyte count only without size change",
+        "Normal MCV with high ferritin",
+        "MCV 68 fL with microcytic cells"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Macrocytosis plus neuro symptoms fit B12 deficiency.",
+        "Size change helps classify anemia.",
+        "High ferritin suggests iron overload.",
+        "Microcytic pattern fits iron deficiency."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-041",
+      "stem": "A client refuses a blood transfusion for religious reasons and is alert. What is the nurse's best action?",
+      "choices": [
+        "Tell family to convince client without involving provider",
+        "Ensure informed refusal is documented and notify provider; respect autonomous decision",
+        "Hide the consent form",
+        "Transfuse anyway in the client's best interest"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "Family pressure without ethics/provider involvement is inappropriate.",
+        "Document, advocate, and involve provider for alternatives.",
+        "Consent must be transparent.",
+        "Competent adults may refuse after informed decision."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "therapeutic_communication",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-042",
+      "stem": "A client with DIC has prolonged PT, low fibrinogen, and petechiae. Which nursing priority is most important?",
+      "choices": [
+        "Massage reddened areas firmly",
+        "Discontinue all IV access regardless of orders",
+        "Encourage vigorous coughing exercises",
+        "Prevent injury and monitor bleeding"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "Firm massage increases bruising.",
+        "IV access may be needed for treatment \u2014 follow orders.",
+        "Aggressive coughing may traumatize tissues.",
+        "Bleeding precautions are central in DIC."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-043",
+      "stem": "Four clients need phlebotomy. Which order should the nurse question?",
+      "choices": [
+        "CBC on client with severe thrombocytopenia when labs are due",
+        "Routine yearly lipids on stable client",
+        "Type and screen pre-op tomorrow",
+        "Repeat hemolysis labs during suspected transfusion reaction"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Needles with very low platelets need provider judgment \u2014 may question timing.",
+        "Routine lipids are standard.",
+        "Pre-op type and screen is appropriate.",
+        "Labs are indicated during reaction workup."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-044",
+      "stem": "Oral iron teaching: which client statement shows understanding?",
+      "choices": [
+        "I will take iron on an empty stomach if tolerated and expect dark stools",
+        "Iron will raise my platelet count within hours",
+        "I can stop iron when I feel less tired",
+        "I will take iron with my morning coffee"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Empty stomach improves absorption; dark stools are expected.",
+        "Iron treats anemia, not platelets acutely.",
+        "Complete course per provider.",
+        "Coffee/tea inhibit absorption."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-045",
+      "stem": "Before starting a transfusion, which actions should the nurse complete? Select all that apply.",
+      "choices": [
+        "Obtain vital signs baseline",
+        "Warm blood in a microwave",
+        "Confirm informed consent",
+        "Verify blood product with another licensed nurse per policy",
+        "Use 0.9% NS with blood administration set"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        0,
+        2,
+        3,
+        4
+      ],
+      "format": "sata",
+      "reasons": [
+        "Baseline vitals detect reactions.",
+        "Microwave damages cells \u2014 never warm that way.",
+        "Consent is required.",
+        "Two-nurse verification is standard.",
+        "0.9% NS is compatible; D5W is not."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "nclex_sata",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-046",
+      "stem": "A client with polycythemia vera has elevated hematocrit. Which intervention may be ordered?",
+      "choices": [
+        "Restrict all fluids",
+        "Encourage high altitude travel",
+        "Therapeutic phlebotomy and hydration",
+        "Force oral iron supplements"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Hydration helps viscosity.",
+        "Altitude worsens hypoxia stimulus.",
+        "Phlebotomy reduces viscosity.",
+        "Iron is not indicated unless deficient."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-047",
+      "stem": "A client on epoetin alfa for anemia of chronic kidney disease should monitor for which effect?",
+      "choices": [
+        "Hypertension",
+        "Immediate cure of kidney failure",
+        "Loss of all need for dialysis",
+        "Guaranteed iron overload without labs"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "EPO can raise BP \u2014 monitor.",
+        "CKD persists; EPO treats anemia.",
+        "Dialysis needs continue per plan.",
+        "Iron status is monitored."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "evaluation",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-048",
+      "stem": "A client with neutropenia has ANC 400/mm\u00b3. Which precaution is essential?",
+      "choices": [
+        "Fresh flowers and raw vegetable salads from home",
+        "Strict hand hygiene and avoid ill visitors",
+        "No oral care",
+        "Shared nebulizer without cleaning"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "Fresh flora and raw foods increase infection risk.",
+        "Hand hygiene and visitor restrictions reduce exposure.",
+        "Oral care is important with gentle technique.",
+        "Shared equipment increases infection risk."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-049",
+      "stem": "Which symptom cluster suggests iron-deficiency anemia?",
+      "choices": [
+        "Pica, brittle nails, and glossitis",
+        "Jaundice and dark urine only",
+        "Polyuria and polydipsia only",
+        "Flushed skin and weight gain only"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Pica and epithelial changes fit iron deficiency.",
+        "Jaundice suggests hemolysis.",
+        "Diabetes symptoms unrelated.",
+        "Flushing is not classic."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-050",
+      "stem": "For a stable client post autologous blood donation prep, which task can be delegated?",
+      "choices": [
+        "Interpret hemoglobin result",
+        "Decide if client may donate",
+        "Escort ambulatory client to restroom with standby assistance per policy",
+        "Assess for dizziness after donation"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Interpretation is nursing.",
+        "Eligibility is provider/nurse decision.",
+        "Escort with training may be delegated with parameters.",
+        "Assessment of reactions is nursing."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "delegation",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-051",
+      "stem": "A client with HIT (heparin-induced thrombocytopenia) should expect:",
+      "choices": [
+        "Alternative non-heparin anticoagulant per provider",
+        "Continued heparin infusion",
+        "No change in therapy",
+        "Platelet transfusion routinely"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Direct thrombin inhibitors or similar are used.",
+        "All heparin products must stop in HIT.",
+        "HIT is immune-mediated thrombosis risk.",
+        "Platelets are generally avoided unless bleeding."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-052",
+      "stem": "After bone marrow biopsy, which finding needs immediate report?",
+      "choices": [
+        "Bleeding that soaks dressings with tachycardia",
+        "Small bruise at site",
+        "Anxiety before procedure",
+        "Mild pressure pain at site"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Significant bleeding with tachycardia is hemorrhage \u2014 act.",
+        "Small bruise can be monitored.",
+        "Anxiety is pre-procedure.",
+        "Mild pain is expected."
+      ],
+      "topic": "blood",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-053",
+      "stem": "ABG: pH 7.31, PaCO\u2082 55, HCO\u2083\u207b 26. Which interpretation is correct?",
+      "choices": [
+        "Respiratory acidosis",
+        "Metabolic alkalosis",
+        "Respiratory alkalosis",
+        "Metabolic acidosis"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Low pH with elevated PaCO\u2082 indicates respiratory acidosis.",
+        "Metabolic alkalosis has high HCO\u2083\u207b.",
+        "Alkalosis has high pH.",
+        "Metabolic acidosis would show low HCO\u2083\u207b."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-054",
+      "stem": "A client has serum sodium 118 mEq/L and confusion. What should the nurse do first?",
+      "choices": [
+        "Restrict all sodium including maintenance IV fluids",
+        "Encourage free water bolus orally",
+        "Notify provider and implement seizure precautions; prepare for cautious sodium correction",
+        "Administer 3% saline IV push bolus independently"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Correction is calculated \u2014 not blanket restriction only.",
+        "Water bolus worsens hyponatremia.",
+        "Severe hyponatremia with neuro symptoms is emergency \u2014 provider-driven correction.",
+        "Hypertonic saline is never IV push without protocol."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-055",
+      "stem": "Which findings are consistent with hypokalemia? Select all that apply.",
+      "choices": [
+        "Increased risk of digoxin toxicity",
+        "Paralytic ileus",
+        "Flattened T waves on ECG",
+        "Muscle weakness",
+        "Peaked T waves"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "format": "sata",
+      "reasons": [
+        "Low K\u207a sensitizes heart to digoxin.",
+        "GI motility decreases.",
+        "Flat T waves and U waves occur with low K\u207a.",
+        "Weakness is common.",
+        "Peaked T waves suggest hyperkalemia."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "nclex_sata",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-056",
+      "stem": "A client with metabolic alkalosis and vomiting is most likely losing:",
+      "choices": [
+        "No electrolytes",
+        "Bicarbonate only",
+        "Hydrochloric acid from stomach",
+        "Potassium only without acid loss"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Electrolyte losses occur.",
+        "Bicarbonate is not primary loss in vomiting.",
+        "Vomiting loses gastric HCl leading to alkalosis.",
+        "K\u207a can be lost but acid loss drives alkalosis."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-057",
+      "stem": "Which client should the nurse assess first?",
+      "choices": [
+        "Mild hypocalcemia without symptoms",
+        "Client receiving maintenance IV fluids at prescribed rate",
+        "Hypernatremia with dry mucosa and confusion",
+        "Chronic metabolic acidosis with stable compensating HCO\u2083\u207b"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Asymptomatic mild hypoCa is lower priority.",
+        "Stable maintenance is routine.",
+        "Hypernatremia with neuro changes needs urgent evaluation.",
+        "Chronic compensated states are monitored."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-058",
+      "stem": "A client receiving large-volume IV 0.9% NS may develop:",
+      "choices": [
+        "Hypernatremia and hyperchloremic metabolic acidosis",
+        "Hypotonic hyponatremia immediately always",
+        "No electrolyte effect",
+        "Hyperkalemia from saline"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Isotonic saline excess can cause hypernatremia and acidosis.",
+        "Saline is not hypotonic.",
+        "Fluids shift electrolytes.",
+        "Saline does not provide K\u207a."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-059",
+      "stem": "A client on fluid restriction says, \"I am thirsty all the time.\" Which response is best?",
+      "choices": [
+        "Thirst means you need IV bolus now.",
+        "Drink water secretly so the doctor doesn't know.",
+        "Too bad; you cannot drink anything ever.",
+        "Let's review your allowed fluids for the day and use ice chips or mouth care to help comfort."
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "Bolus requires assessment and orders.",
+        "Encouraging deception is unsafe.",
+        "Dismissive response harms rapport.",
+        "Collaborative planning and comfort measures are appropriate."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "therapeutic_communication",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-060",
+      "stem": "Serum potassium 6.2 mEq/L with peaked T waves. Which intervention should the nurse anticipate first?",
+      "choices": [
+        "Kayexelate only without cardiac protection",
+        "Oral potassium supplement",
+        "Calcium gluconate IV to stabilize myocardium",
+        "Discharge home"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Kayexelate helps elimination but cardiac protection comes first.",
+        "Oral K worsens hyperkalemia.",
+        "Calcium stabilizes cardiac membrane in hyperkalemia.",
+        "6.2 with ECG changes is inpatient care."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-061",
+      "stem": "Which assessments support monitoring of fluid balance in heart failure? Select all that apply.",
+      "choices": [
+        "Jugular venous distention",
+        "Breath sounds",
+        "Ignore edema",
+        "Daily weight",
+        "Intake and output"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        0,
+        1,
+        3,
+        4
+      ],
+      "format": "sata",
+      "reasons": [
+        "JVD reflects volume status.",
+        "Lungs reveal pulmonary congestion.",
+        "Edema must be assessed.",
+        "Weight tracks fluid retention.",
+        "I&O documents balance."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "nclex_sata",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-062",
+      "stem": "A client with SIADH has concentrated urine and low serum sodium. Which fluid restriction teaching applies?",
+      "choices": [
+        "Increase oral free water intake",
+        "Restrict fluids as ordered to prevent worsening hyponatremia",
+        "No monitoring needed",
+        "Drink only hypertonic beverages"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "More water worsens SIADH dilution.",
+        "Fluid restriction is cornerstone therapy.",
+        "Na\u207a and neuro status need monitoring.",
+        "Hypertonic drinks are not routine home teaching."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-063",
+      "stem": "After NG tube irrigation, the client develops dyspnea and absent breath sounds on the left. What should the nurse suspect?",
+      "choices": [
+        "Possible aspiration or pneumothorax \u2014 stop and assess airway",
+        "Pulmonary embolism only",
+        "Expected finding",
+        "Hyperkalemia"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Airway and respiratory emergency take priority.",
+        "PE is possible but acute unilateral findings after procedure suggest aspiration/pneumothorax.",
+        "Not expected.",
+        "Unrelated acute presentation."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-064",
+      "stem": "ABG pH 7.48, PaCO\u2082 30, HCO\u2083\u207b 22. Best interpretation:",
+      "choices": [
+        "Respiratory alkalosis",
+        "Respiratory acidosis",
+        "Normal",
+        "Metabolic alkalosis"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "High pH with low PaCO\u2082 fits respiratory alkalosis.",
+        "Acidosis has low pH.",
+        "Values are abnormal.",
+        "Metabolic alkalosis has high HCO\u2083\u207b."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-065",
+      "stem": "A client with burns receives LR per protocol. Which lab trend suggests adequate resuscitation?",
+      "choices": [
+        "Serum sodium 155 with oliguria",
+        "Rising hematocrit from hemoconcentration only",
+        "Metabolic alkalosis with no urine output",
+        "Stable urine output about 0.5 mL/kg/hr and improving mental status"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "Hypernatremia and oliguria are concerning.",
+        "Rising Hct may mean ongoing hypovolemia.",
+        "No urine output is failure.",
+        "Urine output and mentation reflect perfusion."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "evaluation",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-066",
+      "stem": "Which IV solution is hypotonic after metabolism and provides free water?",
+      "choices": [
+        "0.9% NaCl",
+        "D5W after insulin metabolism",
+        "3% NaCl",
+        "0.45% NaCl"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "0.9% is isotonic.",
+        "D5W distributes as water after metabolism \u2014 classic teaching.",
+        "3% is hypertonic.",
+        "0.45% is hypotonic relative to plasma but D5W becomes free water after glucose use."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-067",
+      "stem": "A client has magnesium 1.0 mEq/L with tremors and increased deep tendon reflexes. Which priority applies?",
+      "choices": [
+        "Restrict breathing exercises",
+        "Seizure precautions and magnesium replacement per order",
+        "No monitoring",
+        "Encourage vigorous exercise"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "Breathing exercises are not contraindicated.",
+        "Low Mg increases neuromuscular irritability and seizure risk.",
+        "Requires monitoring and replacement.",
+        "Exercise does not replace Mg."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-068",
+      "stem": "A client with chronic respiratory failure has compensated CO\u2082 retention. Expected ABG pattern:",
+      "choices": [
+        "Low PaCO\u2082 with high pH always",
+        "High PaCO\u2082 with elevated HCO\u2083\u207b and near-normal pH",
+        "Normal PaCO\u2082 with low HCO\u2083\u207b",
+        "Low PaCO\u2082 with low HCO\u2083\u207b"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "Low PaCO\u2082 is not retention.",
+        "Renal retention of HCO\u2083\u207b compensates chronic hypercapnia.",
+        "Pattern does not fit.",
+        "Uncompensated would alter pH markedly."
+      ],
+      "topic": "fluids_abg",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-069",
+      "stem": "Pre-op client took warfarin at home this morning for atrial fibrillation. Elective surgery is in 4 hours. What should the nurse do first?",
+      "choices": [
+        "Proceed without telling anyone",
+        "Notify surgeon and anesthesia per protocol; verify INR and hold plan",
+        "Cancel surgery independently",
+        "Give vitamin K IM without order"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "Anticoagulation must be communicated before surgery.",
+        "Team coordinates hold/reversal based on INR and risk.",
+        "Nurse does not unilaterally cancel.",
+        "Vitamin K requires order."
+      ],
+      "topic": "periop_iv",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-070",
+      "stem": "Which actions reduce surgical site infection risk? Select all that apply.",
+      "choices": [
+        "Reusing single-use sterile supplies",
+        "Perioperative antibiotics per orders",
+        "Hair removal by clipping if needed",
+        "Hand hygiene and sterile technique",
+        "Shaving the site with a razor the night before"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        1,
+        2,
+        3
+      ],
+      "format": "sata",
+      "reasons": [
+        "Single-use items must not be reused.",
+        "Prophylactic antibiotics per protocol reduce SSI.",
+        "Clipping is preferred over shaving.",
+        "Asepsis is foundational.",
+        "Shaving causes micro-abrasions increasing infection."
+      ],
+      "topic": "periop_iv",
+      "level": "hard",
+      "type": "nclex_sata",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-071",
+      "stem": "A client returns from PACU after general anesthesia and is drowsy but arousable. Priority nursing action:",
+      "choices": [
+        "Offer a cheeseburger immediately",
+        "Ambulate to bathroom alone",
+        "Remove all oxygen without orders",
+        "Assess airway, breathing, circulation, and surgical site"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "NPO until awake enough to protect airway.",
+        "Assist with ambulation when criteria met.",
+        "Oxygen weaned per orders.",
+        "PACU focus is ABCs and surgical site."
+      ],
+      "topic": "periop_iv",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-072",
+      "stem": "IV infiltration noted with cool skin and edema at site. First action:",
+      "choices": [
+        "Apply heat pack and increase rate",
+        "Push IV potassium through infiltrated site",
+        "Ignore until patient complains more",
+        "Stop infusion and remove or restart line per protocol"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "Heat and increased rate worsen infiltration.",
+        "Never push meds through infiltrated line.",
+        "Early intervention prevents necrosis.",
+        "Stop irritant infusion to limit tissue damage."
+      ],
+      "topic": "periop_iv",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-073",
+      "stem": "NPO after midnight before surgery primarily prevents:",
+      "choices": [
+        "Hypertension",
+        "Aspiration during induction of anesthesia",
+        "Dehydration only",
+        "Surgical site bleeding"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "BP not primary NPO reason.",
+        "Empty stomach reduces aspiration risk.",
+        "Dehydration is managed perioperatively.",
+        "Bleeding is not prevented by NPO alone."
+      ],
+      "topic": "periop_iv",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-074",
+      "stem": "Post-op day 1 stable client. Which task may be delegated to UAP?",
+      "choices": [
+        "Decide PCA dose",
+        "Interpret drainage color changes alone",
+        "Wound infection assessment",
+        "Assist with ambulation per mobility order"
+      ],
+      "correctIndex": 3,
+      "correctIndices": [
+        3
+      ],
+      "format": "single",
+      "reasons": [
+        "PCA is nursing-controlled.",
+        "Drainage interpretation is nursing.",
+        "Wound assessment is nursing.",
+        "Ambulation assistance within orders can be delegated."
+      ],
+      "topic": "periop_iv",
+      "level": "hard",
+      "type": "delegation",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-075",
+      "stem": "Client on PCA morphine becomes somnolent with RR 8/min. First action:",
+      "choices": [
+        "Stimulate client and notify provider; prepare naloxone per protocol",
+        "Leave client to sleep",
+        "Ambulate immediately",
+        "Increase PCA dose"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Respiratory depression is opioid emergency.",
+        "Unresponsive sleep is dangerous.",
+        "Ambulation unsafe with sedation.",
+        "Increasing dose worsens depression."
+      ],
+      "topic": "periop_iv",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-076",
+      "stem": "Central line dressing change uses:",
+      "choices": [
+        "Clean technique only always",
+        "Reuse old dressing if dry",
+        "Sterile technique per policy",
+        "No hand hygiene"
+      ],
+      "correctIndex": 2,
+      "correctIndices": [
+        2
+      ],
+      "format": "single",
+      "reasons": [
+        "Central lines require sterile care.",
+        "Dressings changed per schedule and if soiled.",
+        "Sterile technique prevents CLABSI.",
+        "Hand hygiene is mandatory."
+      ],
+      "topic": "periop_iv",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-077",
+      "stem": "Client teaching after laparoscopic cholecystectomy: which statement needs correction?",
+      "choices": [
+        "I will gradually advance diet as tolerated",
+        "I can return to heavy lifting today",
+        "I will splint my abdomen when coughing",
+        "Report fever, increasing abdominal pain, or redness of incisions"
+      ],
+      "correctIndex": 1,
+      "correctIndices": [
+        1
+      ],
+      "format": "single",
+      "reasons": [
+        "Gradual diet advance is standard.",
+        "Heavy lifting is restricted early post-op.",
+        "Splinting reduces pain.",
+        "Warning signs teaching is correct."
+      ],
+      "topic": "periop_iv",
+      "level": "hard",
+      "type": "evaluation",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-078",
+      "stem": "Tourniquet time during peripheral IV start should be:",
+      "choices": [
+        "Released within recommended time to avoid complications",
+        "Never used",
+        "Applied only on the same arm as BP cuff simultaneously always",
+        "Left inflated indefinitely"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "Limit duration per policy.",
+        "Tourniquet aids venous distension briefly.",
+        "Avoid concurrent with BP on same limb when possible.",
+        "Prolonged tourniquet causes pain and hemolysis risk."
+      ],
+      "topic": "periop_iv",
+      "level": "hard",
+      "type": "application",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-079",
+      "stem": "DVT prevention for post-op clients may include which measures? Select all that apply.",
+      "choices": [
+        "Prophylactic anticoagulation per risk score",
+        "Prolonged bed rest without movement",
+        "Sequential compression devices as ordered",
+        "Adequate hydration when not contraindicated",
+        "Early ambulation when cleared"
+      ],
+      "correctIndex": 4,
+      "correctIndices": [
+        0,
+        2,
+        3,
+        4
+      ],
+      "format": "sata",
+      "reasons": [
+        "Chemoprophylaxis per guidelines.",
+        "Bed rest increases risk.",
+        "SCDs reduce stasis.",
+        "Hydration reduces viscosity when appropriate.",
+        "Ambulation improves venous return."
+      ],
+      "topic": "periop_iv",
+      "level": "hard",
+      "type": "nclex_sata",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
+    },
+    {
+      "id": "exam-hard-080",
+      "stem": "Fire in the OR \u2014 first response per safety protocol:",
+      "choices": [
+        "Announce fire, stop flow of oxidizers if safe, remove drapes, use CO\u2082 extinguisher on patient if fire on client",
+        "Open oxygen wide to blow out flames",
+        "Use water on electrical fire at panel",
+        "Hide and continue surgery"
+      ],
+      "correctIndex": 0,
+      "correctIndices": [
+        0
+      ],
+      "format": "single",
+      "reasons": [
+        "OR fire algorithm: announce, stop oxidizers, smother/appropriate extinguisher.",
+        "More oxygen fuels fire.",
+        "Water on electrical equipment is dangerous.",
+        "Continuing is unsafe."
+      ],
+      "topic": "periop_iv",
+      "level": "hard",
+      "type": "prioritization",
+      "source": "NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)",
+      "reviewed": false,
+      "selfChecked": false,
+      "selfCheckedBy": "",
+      "selfCheckedAt": "",
+      "instructorReviewed": false,
+      "instructorReviewedBy": "",
+      "instructorReviewedAt": "",
+      "reviewedBy": "",
+      "reviewedAt": "",
+      "tool": null,
+      "examStyle": true,
+      "reviewNote": "Not released \u2014 set selfChecked for preview or instructorReviewed for student pilot in pnle_review_status.json"
     }
   ]
 };

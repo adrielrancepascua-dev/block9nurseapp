@@ -749,9 +749,11 @@ PERIOP = [
 ITEMS.extend(PERIOP)
 
 from pnle_ncm112_semis import build_ncm112_semis_items
+from pnle_exam_hard_pack import build_exam_hard_pack
 
 # UDD MedSurg midterm items are intentionally not shipped in the public bank.
 ITEMS.extend(build_ncm112_semis_items(mk_exam))
+ITEMS.extend(build_exam_hard_pack(mk_exam))
 
 
 def demote_legacy_hard_items():
@@ -802,6 +804,9 @@ def validate():
     print(f"Level counts: normal={levels['normal']} hard={levels['hard']}")
     ids = [i["id"] for i in ITEMS]
     assert len(ids) == len(set(ids))
+    exam_n = sum(1 for i in ITEMS if i.get("examStyle"))
+    assert exam_n == 100, f"expected 100 exam-style Hard items, got {exam_n}"
+    print(f"Exam-style Hard items: {exam_n}")
     validate_choice_balance()
 
 

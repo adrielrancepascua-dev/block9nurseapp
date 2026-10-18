@@ -325,6 +325,1548 @@ Check each choice against its reason. Source strings are citations only (PDFs no
 
 ---
 
+## exam-hard-001 (hard, oxygenation)
+
+**Stem:** The nurse receives morning reports on four clients. Which client should the nurse see first?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Client with pneumonia completing the third day of IV antibiotics and stable vitals
+  - Reason: Stable on treatment is lower immediate priority.
+- **B:** Asthma client with wheezes that clear after prescribed bronchodilator
+  - Reason: Response to bronchodilator suggests improvement.
+- **C:** Post-op client with new onset shortness of breath and SpO₂ 88% on room air **CORRECT**
+  - Reason: Sudden hypoxemia after surgery suggests PE, atelectasis, or complication — assess first.
+- **D:** COPD with SpO₂ 92% on 2 L/min O₂ and clear breath sounds
+  - Reason: Stable on low-flow oxygen with acceptable saturation.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-002 (hard, oxygenation)
+
+**Stem:** A client with emphysema is taught pursed-lip breathing. Which outcome indicates the client understands the technique?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Holds the breath at the end of inspiration for 30 seconds
+  - Reason: Prolonged breath-holding is not pursed-lip breathing.
+- **B:** Takes rapid shallow breaths through the mouth during exertion
+  - Reason: Rapid mouth breathing worsens air trapping.
+- **C:** Uses abdominal muscles only and avoids using the diaphragm
+  - Reason: Diaphragmatic breathing is encouraged, not avoided.
+- **D:** Exhales slowly through pursed lips to prolong exhalation **CORRECT**
+  - Reason: Prolonged exhalation reduces air trapping and improves gas exchange.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-003 (hard, oxygenation)
+
+**Stem:** Which actions should the nurse include when caring for a client with active tuberculosis in airborne isolation? Select all that apply.
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Reuse the same N95 without fit-check between shifts
+  - Reason: N95 must be fit-tested and used per policy — not reused improperly.
+- **B:** Use an N95 respirator when entering the room **CORRECT**
+  - Reason: N95 or equivalent respiratory protection is required for airborne pathogens.
+- **C:** Cluster care to limit room entries **CORRECT**
+  - Reason: Clustering care limits exposure time.
+- **D:** Keep the door closed and negative pressure when available **CORRECT**
+  - Reason: Closed door and negative pressure reduce particle spread.
+- **E:** Place a surgical mask on the client during transport
+  - Reason: Surgical masks on the client do not replace airborne precautions for staff.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-004 (hard, oxygenation)
+
+**Stem:** A client with a new tracheostomy begins coughing violently and cannot speak. The nurse finds the inner cannula obstructed. What should the nurse do first?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Suction the tracheostomy tube
+  - Reason: Suction helps secretions but a lodged cannula needs removal first.
+- **B:** Deflate the cuff completely and leave it deflated
+  - Reason: Cuff management follows patency; blind deflation alone may not clear obstruction.
+- **C:** Remove and clean or replace the inner cannula **CORRECT**
+  - Reason: Restoring airway patency by addressing the obstructed cannula is immediate.
+- **D:** Call the rapid response team before any intervention
+  - Reason: Call for help but do not delay opening the airway.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-005 (hard, oxygenation)
+
+**Stem:** A client receiving continuous positive airway pressure (CPAP) at home reports morning headaches and daytime sleepiness despite use. Which question is the nurse's priority?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Is the mask leaking or coming off during sleep? **CORRECT**
+  - Reason: Leak or dislodgement reduces delivered pressure and causes poor rest and hypercapnia symptoms.
+- **B:** Do you drink caffeine in the afternoon?
+  - Reason: Caffeine may matter but equipment fit/leak is first.
+- **C:** What brand of mask do you prefer?
+  - Reason: Mask brand is secondary to effectiveness.
+- **D:** Have you changed your pillow recently?
+  - Reason: Pillow change is less likely than mask leak.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-006 (hard, oxygenation)
+
+**Stem:** A client with cystic fibrosis has thick secretions. Which intervention should the nurse recommend?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Provide only dry oxygen without humidification
+  - Reason: Humidification helps thin secretions.
+- **B:** Perform airway clearance techniques and maintain hydration as ordered **CORRECT**
+  - Reason: Hydration and clearance techniques mobilize thick mucus.
+- **C:** Avoid activity to prevent coughing
+  - Reason: Activity and coughing aid clearance when appropriate.
+- **D:** Restrict fluids to reduce secretion volume
+  - Reason: Fluid restriction thickens secretions.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-007 (hard, oxygenation)
+
+**Stem:** After chest tube insertion for a pneumothorax, which finding requires immediate action?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Drainage of 50 mL serosanguineous fluid in the first hour
+  - Reason: Small initial drainage can be expected.
+- **B:** Gentle tidaling in the water seal chamber with respiration
+  - Reason: Tidaling can be normal early after placement.
+- **C:** Client reports mild incisional pain rated 3/10
+  - Reason: Mild pain is common and not the highest priority.
+- **D:** Continuous bubbling in the water seal chamber without coughing **CORRECT**
+  - Reason: Continuous bubbling suggests an air leak that may need assessment.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-008 (hard, oxygenation)
+
+**Stem:** A client with newly diagnosed lung cancer says, "I don't see the point of quitting smoking now." Which response is most therapeutic?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** The doctor will be angry if you keep smoking.
+  - Reason: Fear-based appeals are not therapeutic.
+- **B:** Smoking doesn't matter once you have cancer.
+  - Reason: False reassurance minimizes teaching.
+- **C:** Quitting now can still improve treatment tolerance and healing; we can discuss options together. **CORRECT**
+  - Reason: Acknowledges feelings and offers support with a realistic benefit.
+- **D:** You should have quit years ago.
+  - Reason: Blame shuts down communication.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-009 (hard, oxygenation)
+
+**Stem:** A client with pulmonary embolism is on anticoagulation. Which finding should the nurse report promptly?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Sudden dyspnea with chest pain and oxygen desaturation **CORRECT**
+  - Reason: Sudden symptoms may indicate extension of clot or complication — urgent.
+- **B:** Small ecchymosis at an old venipuncture site
+  - Reason: Old bruising may be monitored.
+- **C:** Steady therapeutic aPTT within range
+  - Reason: Therapeutic aPTT is expected.
+- **D:** Mild headache relieved by acetaminophen
+  - Reason: Mild headache may be monitored unless severe or neurologic.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-010 (hard, oxygenation)
+
+**Stem:** The charge nurse assigns staff on a pulmonary unit. Which task is appropriate to delegate to an assistive personnel (UAP) who has been trained on the unit?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Adjusting oxygen flow rate based on SpO₂ readings
+  - Reason: Oxygen titration requires nursing assessment.
+- **B:** Assessing breath sounds after a bronchodilator
+  - Reason: Breath sound assessment is nursing.
+- **C:** Teaching incentive spirometry after surgery
+  - Reason: Teaching requires nursing judgment.
+- **D:** Ambulating a stable post-op client with oxygen as ordered **CORRECT**
+  - Reason: Ambulation within stable parameters can be delegated with clear orders.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-011 (hard, oxygenation)
+
+**Stem:** A client with acute asthma has wheezing, accessory muscle use, and a silent chest on auscultation. What should the nurse recognize?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Impending respiratory failure — notify provider and prepare for advanced airway support **CORRECT**
+  - Reason: Severe bronchospasm with silent chest is an emergency.
+- **B:** Expected finding after albuterol only
+  - Reason: Not expected without clinical improvement.
+- **C:** Improvement because wheezes stopped
+  - Reason: Silent chest can mean minimal air movement — danger, not improvement.
+- **D:** Sign that bronchodilators should be withheld
+  - Reason: Bronchodilators are indicated unless contraindicated.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-012 (hard, oxygenation)
+
+**Stem:** The nurse is discharging a client with obstructive sleep apnea using CPAP. Which instructions should the nurse include? Select all that apply.
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Stop using CPAP when you feel rested
+  - Reason: CPAP should be used consistently as prescribed, not stopped when rested.
+- **B:** Clean the mask and tubing per manufacturer instructions **CORRECT**
+  - Reason: Equipment hygiene prevents infection and maintains function.
+- **C:** Report persistent mask discomfort or air leaks **CORRECT**
+  - Reason: Leak and fit problems reduce effectiveness.
+- **D:** Use CPAP only when sleeping on the back
+  - Reason: CPAP is used for all sleep positions unless otherwise directed.
+- **E:** Avoid alcohol and sedatives unless approved by the provider **CORRECT**
+  - Reason: Sedatives and alcohol worsen apnea.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-013 (hard, oxygenation)
+
+**Stem:** A client with cor pulmonale related to chronic lung disease develops peripheral edema. Which pathophysiology should the nurse understand?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Edema indicates only renal failure
+  - Reason: Edema has multiple causes; context is RV failure here.
+- **B:** Left ventricular failure is the primary cause
+  - Reason: Cor pulmonale is right-sided failure from lung disease.
+- **C:** Right ventricular strain from pulmonary hypertension leads to fluid retention **CORRECT**
+  - Reason: RV failure increases venous pressure and edema.
+- **D:** Excess aldosterone is unrelated to cor pulmonale
+  - Reason: Neurohormonal changes can contribute to fluid retention.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-014 (hard, oxygenation)
+
+**Stem:** Four clients need spirometry teaching. Which client should the nurse teach first?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Pre-op client scheduled for abdominal surgery tomorrow **CORRECT**
+  - Reason: Pre-op IS teaching prevents post-op atelectasis — time-sensitive.
+- **B:** Client with stable chronic bronchitis in for routine follow-up
+  - Reason: Chronic stable client is important but less urgent than pre-op.
+- **C:** Client with mild allergic rhinitis
+  - Reason: Rhinitis is lower priority for IS.
+- **D:** Client discharged last week who already demonstrated IS correctly
+  - Reason: Already demonstrated skill needs reinforcement only.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-015 (hard, oxygenation)
+
+**Stem:** A client on a ventilator has high peak airway pressures and decreased breath sounds on the right. What should the nurse suspect first?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Pneumothorax or mainstem intubation on the right **CORRECT**
+  - Reason: Unilateral decreased sounds with high pressures suggest pneumothorax or malposition.
+- **B:** Improved compliance from resolving edema
+  - Reason: Improving compliance lowers pressures.
+- **C:** Excess humidity in the circuit only
+  - Reason: Humidity affects resistance but unilateral findings point elsewhere.
+- **D:** Normal finding during suctioning
+  - Reason: Not normal without intervention.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-016 (hard, oxygenation)
+
+**Stem:** A client with DVT on anticoagulation asks about air travel in two weeks. Which instruction is most appropriate?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Wear tight knee-high stockings only at the airport
+  - Reason: Stockings alone are insufficient teaching.
+- **B:** Stop anticoagulation before flying to prevent bleeding
+  - Reason: Stopping anticoagulation increases clot risk.
+- **C:** Travel is forbidden forever
+  - Reason: Absolute prohibition is not always required.
+- **D:** Discuss plans with the provider; compression, movement, and medication timing may be advised **CORRECT**
+  - Reason: Provider-guided plan balances clot risk and bleeding risk.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-017 (hard, heart)
+
+**Stem:** Which client should the nurse assess first?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Stable angina relieved by rest and nitroglycerin
+  - Reason: Stable pattern with relief is monitored.
+- **B:** Chest pain unrelieved by nitroglycerin with diaphoresis **CORRECT**
+  - Reason: Unrelieved pain with diaphoresis suggests MI — immediate assessment.
+- **C:** Client post cardiac catheterization with warm, dry insertion site
+  - Reason: Stable site is lower priority.
+- **D:** Hypertension reading 148/92 before morning medications
+  - Reason: Mild elevation may be treated per protocol but not first.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-018 (hard, heart)
+
+**Stem:** A client with atrial fibrillation has an irregularly irregular pulse and is on apixaban. Which intervention is essential?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Hold apixaban whenever the pulse is irregular
+  - Reason: Do not hold anticoagulant without provider order.
+- **B:** Massage the carotid artery to restore rhythm
+  - Reason: Carotid massage is not routine nursing action for AF.
+- **C:** Encourage vigorous isometric exercise during episodes
+  - Reason: Strenuous isometrics may be contraindicated.
+- **D:** Assess for signs of bleeding and stroke risk factors **CORRECT**
+  - Reason: Anticoagulation requires bleeding precautions and stroke risk awareness.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-019 (hard, heart)
+
+**Stem:** Which findings are consistent with left-sided heart failure? Select all that apply.
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Peripheral pitting edema as the primary lung finding
+  - Reason: Peripheral edema is more right-sided.
+- **B:** Pulmonary congestion on chest x-ray **CORRECT**
+  - Reason: CXR may show vascular congestion.
+- **C:** Jugular venous distention as the earliest sign
+  - Reason: JVD is more classic for right-sided failure.
+- **D:** Crackles in lung bases **CORRECT**
+  - Reason: Pulmonary crackles reflect fluid in alveoli.
+- **E:** Orthopnea and frothy pink sputum **CORRECT**
+  - Reason: Orthopnea and pink frothy sputum are left-sided congestion signs.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-020 (hard, heart)
+
+**Stem:** A client with suspected acute myocardial infarction is admitted. Which order should the nurse implement first?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Morphine sulfate IV as ordered
+  - Reason: Pain control follows stabilization and diagnosis support.
+- **B:** Administer stool softeners
+  - Reason: Stool softeners are not first in acute MI.
+- **C:** Obtain 12-lead ECG and attach continuous monitor **CORRECT**
+  - Reason: ECG and monitoring guide reperfusion therapy — early priority.
+- **D:** Schedule cardiac rehabilitation education
+  - Reason: Rehab is later in the course.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-021 (hard, heart)
+
+**Stem:** A client receiving IV heparin has aPTT 110 seconds (goal 60–80). What should the nurse do?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Hold heparin and notify the provider per protocol **CORRECT**
+  - Reason: Hold and notify per anticoagulation protocol.
+- **B:** Administer protamine without an order
+  - Reason: Protamine requires provider order and calculation.
+- **C:** Continue infusion unchanged
+  - Reason: Supratherapeutic aPTT increases bleeding risk.
+- **D:** Double the infusion rate
+  - Reason: Increasing rate worsens supratherapeutic level.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-022 (hard, heart)
+
+**Stem:** A client afraid of dying during a cardiac catheterization says, "What if my heart stops on the table?" Which response is best?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Don't worry, that never happens.
+  - Reason: False reassurance dismisses fear.
+- **B:** You shouldn't have agreed to the procedure.
+  - Reason: Blaming is non-therapeutic.
+- **C:** Think positive thoughts only.
+  - Reason: Minimizing feelings blocks trust.
+- **D:** The team monitors you closely and is prepared for emergencies; tell me what you're most worried about. **CORRECT**
+  - Reason: Validates concern, explains safety measures, invites expression.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-023 (hard, heart)
+
+**Stem:** Which murmur description best matches mitral regurgitation?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Fixed split S2 at the left upper sternal border
+  - Reason: Fixed split S2 suggests ASD.
+- **B:** Harsh systolic ejection murmur at the right upper sternal border
+  - Reason: RUSB systolic ejection suggests aortic stenosis.
+- **C:** Holosystolic murmur at the apex radiating to the axilla **CORRECT**
+  - Reason: Apical holosystolic radiating to axilla fits MR.
+- **D:** Diastolic decrescendo murmur at the left sternal border
+  - Reason: Diastolic decrescendo suggests aortic regurgitation.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-024 (hard, heart)
+
+**Stem:** After pacemaker insertion, which finding should the nurse report immediately?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Mild soreness at the pocket site
+  - Reason: Mild soreness is expected.
+- **B:** Hiccups that persist with pacing spikes on monitor **CORRECT**
+  - Reason: Diaphragmatic pacing from lead malposition causes hiccups — notify provider.
+- **C:** Stable telemetry with capture
+  - Reason: Capture is desired.
+- **D:** Small dressing stain the size of a dime
+  - Reason: Minimal staining may be monitored.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-025 (hard, heart)
+
+**Stem:** A client with heart failure is prescribed furosemide and digoxin. Which lab is most important to monitor?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Sodium only
+  - Reason: Sodium matters but K⁺ is the classic pair here.
+- **B:** Cholesterol
+  - Reason: Lipids are not the immediate interaction.
+- **C:** Potassium **CORRECT**
+  - Reason: Diuretic-induced hypokalemia increases digoxin toxicity risk.
+- **D:** Blood urea nitrogen only
+  - Reason: BUN reflects renal function but K⁺ is priority with digoxin.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-026 (hard, heart)
+
+**Stem:** Which teaching points should the nurse include for a client with a new automatic implantable cardioverter-defibrillator (AICD)? Select all that apply.
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Avoid MRI unless cleared by the electrophysiology team **CORRECT**
+  - Reason: MRI is generally contraindicated unless device is MRI-conditional and cleared.
+- **B:** Wear a medical alert identifier **CORRECT**
+  - Reason: Alert jewelry aids emergency care.
+- **C:** Report dizziness, palpitations, or shocks to the provider **CORRECT**
+  - Reason: Symptoms and shocks need evaluation.
+- **D:** Avoid placing cell phones directly over the device pocket **CORRECT**
+  - Reason: Electromagnetic interference precautions are taught.
+- **E:** Resume driving immediately without provider guidance
+  - Reason: Driving restrictions depend on local law and provider orders.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-027 (hard, heart)
+
+**Stem:** A client with pericarditis complains of sharp chest pain worse when lying flat and better leaning forward. Which position should the nurse encourage?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Supine with legs elevated
+  - Reason: Supine often worsens pericarditic pain.
+- **B:** Prone with pillow under abdomen
+  - Reason: Prone is not typical relief position.
+- **C:** High Fowler's or leaning forward **CORRECT**
+  - Reason: Sitting up/leaning forward reduces pericardial friction.
+- **D:** Trendelenburg
+  - Reason: Trendelenburg is not indicated.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-028 (hard, heart)
+
+**Stem:** During cardiac arrest with a shockable rhythm, what is the priority after defibrillation?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Resume high-quality CPR immediately **CORRECT**
+  - Reason: Immediate CPR after shock per ACLS.
+- **B:** Place client in side-lying recovery position
+  - Reason: Recovery position is for unconscious breathing clients, not arrest.
+- **C:** Check pulse for two minutes before compressions
+  - Reason: Brief pulse check only; prolonged pause harms outcomes.
+- **D:** Administer oral fluids
+  - Reason: Oral fluids are contraindicated.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-029 (hard, heart)
+
+**Stem:** A client with infective endocarditis is on IV antibiotics. Which assessment finding suggests complication?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Mild fatigue
+  - Reason: Fatigue alone is nonspecific.
+- **B:** Stable WBC trending down
+  - Reason: Improving WBC is favorable.
+- **C:** Low-grade fever day 2 of therapy
+  - Reason: Early low fever may persist initially.
+- **D:** New murmur with splinter hemorrhages and petechiae **CORRECT**
+  - Reason: Embolic/vascular phenomena with murmur change need urgent evaluation.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-030 (hard, heart)
+
+**Stem:** Which activity can the nurse delegate to experienced UAP for a stable cardiac client?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Titrate nitroglycerin drip
+  - Reason: IV titration is nursing.
+- **B:** Educate on sodium restriction
+  - Reason: Teaching is nursing.
+- **C:** Interpret rhythm strip changes
+  - Reason: Rhythm interpretation is nursing.
+- **D:** Measure and record daily weights **CORRECT**
+  - Reason: Routine weights with clear parameters can be delegated.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-031 (hard, heart)
+
+**Stem:** A client reports chest pain after eating a large meal and lying down. Which condition is most likely?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Gastroesophageal reflux mimicking angina **CORRECT**
+  - Reason: Postprandial supine pain suggests reflux.
+- **B:** Aortic dissection tearing pain to back
+  - Reason: Dissection is sudden severe ripping pain.
+- **C:** Stable angina with exertion
+  - Reason: Exertional pattern differs.
+- **D:** Pericarditis pain pattern
+  - Reason: Pericarditis improves leaning forward.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-032 (hard, heart)
+
+**Stem:** A client with hypertension has a reading of 210/120 mmHg with headache and blurred vision. What should the nurse do first?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Encourage strenuous exercise to lower BP
+  - Reason: Exercise is contraindicated acutely.
+- **B:** Recheck BP in one week
+  - Reason: Severe BP with symptoms is an emergency.
+- **C:** Administer PRN acetaminophen only
+  - Reason: Analgesic alone is insufficient.
+- **D:** Notify provider and assess neurologic status; prepare for hypertensive emergency protocol **CORRECT**
+  - Reason: Hypertensive emergency requires immediate provider involvement.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-033 (hard, heart)
+
+**Stem:** Which electrolyte imbalance increases the risk of digoxin toxicity?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Hypermagnesemia
+  - Reason: High magnesium is not the classic toxicity trigger.
+- **B:** Hypokalemia **CORRECT**
+  - Reason: Low K⁺ sensitizes the myocardium to digoxin.
+- **C:** Hyperkalemia
+  - Reason: High K⁺ generally reduces digoxin effect/toxicity risk.
+- **D:** Hypercalcemia only
+  - Reason: Calcium affects contractility but K⁺ is classic.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-034 (hard, heart)
+
+**Stem:** A client with a mechanical heart valve is on warfarin. INR is 1.4 (goal 2.5–3.5). Which action is appropriate?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Hold warfarin permanently
+  - Reason: Do not stop without order.
+- **B:** Double the dose without consulting anyone
+  - Reason: Nurses do not independently double warfarin.
+- **C:** Continue warfarin; INR is therapeutic
+  - Reason: 1.4 is below goal for mechanical valve.
+- **D:** Notify provider; subtherapeutic INR increases thrombosis risk **CORRECT**
+  - Reason: Provider may adjust dose — clot risk is elevated.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-035 (hard, heart)
+
+**Stem:** Which interventions should the nurse include for a client with acute decompensated heart failure and pulmonary edema? Select all that apply.
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Prepare for diuretic and vasodilator therapy as ordered **CORRECT**
+  - Reason: Diuretics and vasodilators are cornerstone therapy.
+- **B:** Monitor breath sounds and SpO₂ **CORRECT**
+  - Reason: Ongoing respiratory monitoring is essential.
+- **C:** Administer oxygen and position upright **CORRECT**
+  - Reason: Upright position and oxygen improve work of breathing.
+- **D:** Encourage large volumes of oral fluids
+  - Reason: Fluid restriction/restriction of excess intake is usual — large volumes worsen edema.
+- **E:** Ignore weight changes
+  - Reason: Daily weights track fluid status.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-036 (hard, heart)
+
+**Stem:** A client with second-degree AV block type II on monitor has dropped QRS complexes. What should the nurse anticipate?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Discharge home without monitoring
+  - Reason: Requires monitoring and intervention.
+- **B:** No treatment ever required
+  - Reason: Mobitz II can progress to complete heart block.
+- **C:** Possible temporary transcutaneous pacing or permanent pacemaker **CORRECT**
+  - Reason: Pacing is often required.
+- **D:** Only oral beta-blocker increase
+  - Reason: Beta-blockers may worsen conduction.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-037 (hard, blood)
+
+**Stem:** Which client should the nurse see first?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Postpartum client with Hgb 10 g/dL and no symptoms
+  - Reason: Mild asymptomatic anemia can wait.
+- **B:** Sickle cell client with fever 38.9°C and joint pain **CORRECT**
+  - Reason: Fever in sickle cell suggests infection/sequestration — urgent.
+- **C:** Iron-deficiency anemia client taking oral iron with constipation
+  - Reason: Constipation is common and manageable.
+- **D:** Client post transfusion 2 hours ago, stable vitals
+  - Reason: Stable post-transfusion is lower priority.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-038 (hard, blood)
+
+**Stem:** Which interventions are appropriate for a client with thrombocytopenia? Select all that apply.
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Use an electric razor for shaving **CORRECT**
+  - Reason: Electric razors reduce skin trauma.
+- **B:** Apply firm pressure after venipuncture **CORRECT**
+  - Reason: Pressure prevents bleeding at sites.
+- **C:** Encourage contact sports
+  - Reason: Contact sports increase bleeding risk.
+- **D:** Monitor for petechiae and mucosal bleeding **CORRECT**
+  - Reason: Bleeding signs need monitoring.
+- **E:** Avoid IM injections when possible **CORRECT**
+  - Reason: IM injections can cause hematomas.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-039 (hard, blood)
+
+**Stem:** A client receiving a PRBC transfusion develops flank pain and red urine. What should the nurse do first?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Document and continue if vitals stable
+  - Reason: Never continue with hemolysis signs.
+- **B:** Administer antihistamine
+  - Reason: Antihistamine does not treat hemolysis.
+- **C:** Stop the transfusion and maintain IV line with normal saline **CORRECT**
+  - Reason: Acute hemolytic reaction — stop blood immediately.
+- **D:** Slow the transfusion to half rate
+  - Reason: Slowing may still allow hemolysis.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-040 (hard, blood)
+
+**Stem:** Which finding is most consistent with vitamin B12 deficiency anemia?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** MCV 110 fL with neurologic tingling **CORRECT**
+  - Reason: Macrocytosis plus neuro symptoms fit B12 deficiency.
+- **B:** Low reticulocyte count only without size change
+  - Reason: Size change helps classify anemia.
+- **C:** Normal MCV with high ferritin
+  - Reason: High ferritin suggests iron overload.
+- **D:** MCV 68 fL with microcytic cells
+  - Reason: Microcytic pattern fits iron deficiency.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-041 (hard, blood)
+
+**Stem:** A client refuses a blood transfusion for religious reasons and is alert. What is the nurse's best action?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Tell family to convince client without involving provider
+  - Reason: Family pressure without ethics/provider involvement is inappropriate.
+- **B:** Ensure informed refusal is documented and notify provider; respect autonomous decision **CORRECT**
+  - Reason: Document, advocate, and involve provider for alternatives.
+- **C:** Hide the consent form
+  - Reason: Consent must be transparent.
+- **D:** Transfuse anyway in the client's best interest
+  - Reason: Competent adults may refuse after informed decision.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-042 (hard, blood)
+
+**Stem:** A client with DIC has prolonged PT, low fibrinogen, and petechiae. Which nursing priority is most important?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Massage reddened areas firmly
+  - Reason: Firm massage increases bruising.
+- **B:** Discontinue all IV access regardless of orders
+  - Reason: IV access may be needed for treatment — follow orders.
+- **C:** Encourage vigorous coughing exercises
+  - Reason: Aggressive coughing may traumatize tissues.
+- **D:** Prevent injury and monitor bleeding **CORRECT**
+  - Reason: Bleeding precautions are central in DIC.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-043 (hard, blood)
+
+**Stem:** Four clients need phlebotomy. Which order should the nurse question?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** CBC on client with severe thrombocytopenia when labs are due **CORRECT**
+  - Reason: Needles with very low platelets need provider judgment — may question timing.
+- **B:** Routine yearly lipids on stable client
+  - Reason: Routine lipids are standard.
+- **C:** Type and screen pre-op tomorrow
+  - Reason: Pre-op type and screen is appropriate.
+- **D:** Repeat hemolysis labs during suspected transfusion reaction
+  - Reason: Labs are indicated during reaction workup.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-044 (hard, blood)
+
+**Stem:** Oral iron teaching: which client statement shows understanding?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** I will take iron on an empty stomach if tolerated and expect dark stools **CORRECT**
+  - Reason: Empty stomach improves absorption; dark stools are expected.
+- **B:** Iron will raise my platelet count within hours
+  - Reason: Iron treats anemia, not platelets acutely.
+- **C:** I can stop iron when I feel less tired
+  - Reason: Complete course per provider.
+- **D:** I will take iron with my morning coffee
+  - Reason: Coffee/tea inhibit absorption.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-045 (hard, blood)
+
+**Stem:** Before starting a transfusion, which actions should the nurse complete? Select all that apply.
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Obtain vital signs baseline **CORRECT**
+  - Reason: Baseline vitals detect reactions.
+- **B:** Warm blood in a microwave
+  - Reason: Microwave damages cells — never warm that way.
+- **C:** Confirm informed consent **CORRECT**
+  - Reason: Consent is required.
+- **D:** Verify blood product with another licensed nurse per policy **CORRECT**
+  - Reason: Two-nurse verification is standard.
+- **E:** Use 0.9% NS with blood administration set **CORRECT**
+  - Reason: 0.9% NS is compatible; D5W is not.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-046 (hard, blood)
+
+**Stem:** A client with polycythemia vera has elevated hematocrit. Which intervention may be ordered?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Restrict all fluids
+  - Reason: Hydration helps viscosity.
+- **B:** Encourage high altitude travel
+  - Reason: Altitude worsens hypoxia stimulus.
+- **C:** Therapeutic phlebotomy and hydration **CORRECT**
+  - Reason: Phlebotomy reduces viscosity.
+- **D:** Force oral iron supplements
+  - Reason: Iron is not indicated unless deficient.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-047 (hard, blood)
+
+**Stem:** A client on epoetin alfa for anemia of chronic kidney disease should monitor for which effect?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Hypertension **CORRECT**
+  - Reason: EPO can raise BP — monitor.
+- **B:** Immediate cure of kidney failure
+  - Reason: CKD persists; EPO treats anemia.
+- **C:** Loss of all need for dialysis
+  - Reason: Dialysis needs continue per plan.
+- **D:** Guaranteed iron overload without labs
+  - Reason: Iron status is monitored.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-048 (hard, blood)
+
+**Stem:** A client with neutropenia has ANC 400/mm³. Which precaution is essential?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Fresh flowers and raw vegetable salads from home
+  - Reason: Fresh flora and raw foods increase infection risk.
+- **B:** Strict hand hygiene and avoid ill visitors **CORRECT**
+  - Reason: Hand hygiene and visitor restrictions reduce exposure.
+- **C:** No oral care
+  - Reason: Oral care is important with gentle technique.
+- **D:** Shared nebulizer without cleaning
+  - Reason: Shared equipment increases infection risk.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-049 (hard, blood)
+
+**Stem:** Which symptom cluster suggests iron-deficiency anemia?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Pica, brittle nails, and glossitis **CORRECT**
+  - Reason: Pica and epithelial changes fit iron deficiency.
+- **B:** Jaundice and dark urine only
+  - Reason: Jaundice suggests hemolysis.
+- **C:** Polyuria and polydipsia only
+  - Reason: Diabetes symptoms unrelated.
+- **D:** Flushed skin and weight gain only
+  - Reason: Flushing is not classic.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-050 (hard, blood)
+
+**Stem:** For a stable client post autologous blood donation prep, which task can be delegated?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Interpret hemoglobin result
+  - Reason: Interpretation is nursing.
+- **B:** Decide if client may donate
+  - Reason: Eligibility is provider/nurse decision.
+- **C:** Escort ambulatory client to restroom with standby assistance per policy **CORRECT**
+  - Reason: Escort with training may be delegated with parameters.
+- **D:** Assess for dizziness after donation
+  - Reason: Assessment of reactions is nursing.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-051 (hard, blood)
+
+**Stem:** A client with HIT (heparin-induced thrombocytopenia) should expect:
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Alternative non-heparin anticoagulant per provider **CORRECT**
+  - Reason: Direct thrombin inhibitors or similar are used.
+- **B:** Continued heparin infusion
+  - Reason: All heparin products must stop in HIT.
+- **C:** No change in therapy
+  - Reason: HIT is immune-mediated thrombosis risk.
+- **D:** Platelet transfusion routinely
+  - Reason: Platelets are generally avoided unless bleeding.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-052 (hard, blood)
+
+**Stem:** After bone marrow biopsy, which finding needs immediate report?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Bleeding that soaks dressings with tachycardia **CORRECT**
+  - Reason: Significant bleeding with tachycardia is hemorrhage — act.
+- **B:** Small bruise at site
+  - Reason: Small bruise can be monitored.
+- **C:** Anxiety before procedure
+  - Reason: Anxiety is pre-procedure.
+- **D:** Mild pressure pain at site
+  - Reason: Mild pain is expected.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-053 (hard, fluids_abg)
+
+**Stem:** ABG: pH 7.31, PaCO₂ 55, HCO₃⁻ 26. Which interpretation is correct?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Respiratory acidosis **CORRECT**
+  - Reason: Low pH with elevated PaCO₂ indicates respiratory acidosis.
+- **B:** Metabolic alkalosis
+  - Reason: Metabolic alkalosis has high HCO₃⁻.
+- **C:** Respiratory alkalosis
+  - Reason: Alkalosis has high pH.
+- **D:** Metabolic acidosis
+  - Reason: Metabolic acidosis would show low HCO₃⁻.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-054 (hard, fluids_abg)
+
+**Stem:** A client has serum sodium 118 mEq/L and confusion. What should the nurse do first?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Restrict all sodium including maintenance IV fluids
+  - Reason: Correction is calculated — not blanket restriction only.
+- **B:** Encourage free water bolus orally
+  - Reason: Water bolus worsens hyponatremia.
+- **C:** Notify provider and implement seizure precautions; prepare for cautious sodium correction **CORRECT**
+  - Reason: Severe hyponatremia with neuro symptoms is emergency — provider-driven correction.
+- **D:** Administer 3% saline IV push bolus independently
+  - Reason: Hypertonic saline is never IV push without protocol.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-055 (hard, fluids_abg)
+
+**Stem:** Which findings are consistent with hypokalemia? Select all that apply.
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Increased risk of digoxin toxicity **CORRECT**
+  - Reason: Low K⁺ sensitizes heart to digoxin.
+- **B:** Paralytic ileus **CORRECT**
+  - Reason: GI motility decreases.
+- **C:** Flattened T waves on ECG **CORRECT**
+  - Reason: Flat T waves and U waves occur with low K⁺.
+- **D:** Muscle weakness **CORRECT**
+  - Reason: Weakness is common.
+- **E:** Peaked T waves
+  - Reason: Peaked T waves suggest hyperkalemia.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-056 (hard, fluids_abg)
+
+**Stem:** A client with metabolic alkalosis and vomiting is most likely losing:
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** No electrolytes
+  - Reason: Electrolyte losses occur.
+- **B:** Bicarbonate only
+  - Reason: Bicarbonate is not primary loss in vomiting.
+- **C:** Hydrochloric acid from stomach **CORRECT**
+  - Reason: Vomiting loses gastric HCl leading to alkalosis.
+- **D:** Potassium only without acid loss
+  - Reason: K⁺ can be lost but acid loss drives alkalosis.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-057 (hard, fluids_abg)
+
+**Stem:** Which client should the nurse assess first?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Mild hypocalcemia without symptoms
+  - Reason: Asymptomatic mild hypoCa is lower priority.
+- **B:** Client receiving maintenance IV fluids at prescribed rate
+  - Reason: Stable maintenance is routine.
+- **C:** Hypernatremia with dry mucosa and confusion **CORRECT**
+  - Reason: Hypernatremia with neuro changes needs urgent evaluation.
+- **D:** Chronic metabolic acidosis with stable compensating HCO₃⁻
+  - Reason: Chronic compensated states are monitored.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-058 (hard, fluids_abg)
+
+**Stem:** A client receiving large-volume IV 0.9% NS may develop:
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Hypernatremia and hyperchloremic metabolic acidosis **CORRECT**
+  - Reason: Isotonic saline excess can cause hypernatremia and acidosis.
+- **B:** Hypotonic hyponatremia immediately always
+  - Reason: Saline is not hypotonic.
+- **C:** No electrolyte effect
+  - Reason: Fluids shift electrolytes.
+- **D:** Hyperkalemia from saline
+  - Reason: Saline does not provide K⁺.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-059 (hard, fluids_abg)
+
+**Stem:** A client on fluid restriction says, "I am thirsty all the time." Which response is best?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Thirst means you need IV bolus now.
+  - Reason: Bolus requires assessment and orders.
+- **B:** Drink water secretly so the doctor doesn't know.
+  - Reason: Encouraging deception is unsafe.
+- **C:** Too bad; you cannot drink anything ever.
+  - Reason: Dismissive response harms rapport.
+- **D:** Let's review your allowed fluids for the day and use ice chips or mouth care to help comfort. **CORRECT**
+  - Reason: Collaborative planning and comfort measures are appropriate.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-060 (hard, fluids_abg)
+
+**Stem:** Serum potassium 6.2 mEq/L with peaked T waves. Which intervention should the nurse anticipate first?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Kayexelate only without cardiac protection
+  - Reason: Kayexelate helps elimination but cardiac protection comes first.
+- **B:** Oral potassium supplement
+  - Reason: Oral K worsens hyperkalemia.
+- **C:** Calcium gluconate IV to stabilize myocardium **CORRECT**
+  - Reason: Calcium stabilizes cardiac membrane in hyperkalemia.
+- **D:** Discharge home
+  - Reason: 6.2 with ECG changes is inpatient care.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-061 (hard, fluids_abg)
+
+**Stem:** Which assessments support monitoring of fluid balance in heart failure? Select all that apply.
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Jugular venous distention **CORRECT**
+  - Reason: JVD reflects volume status.
+- **B:** Breath sounds **CORRECT**
+  - Reason: Lungs reveal pulmonary congestion.
+- **C:** Ignore edema
+  - Reason: Edema must be assessed.
+- **D:** Daily weight **CORRECT**
+  - Reason: Weight tracks fluid retention.
+- **E:** Intake and output **CORRECT**
+  - Reason: I&O documents balance.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-062 (hard, fluids_abg)
+
+**Stem:** A client with SIADH has concentrated urine and low serum sodium. Which fluid restriction teaching applies?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Increase oral free water intake
+  - Reason: More water worsens SIADH dilution.
+- **B:** Restrict fluids as ordered to prevent worsening hyponatremia **CORRECT**
+  - Reason: Fluid restriction is cornerstone therapy.
+- **C:** No monitoring needed
+  - Reason: Na⁺ and neuro status need monitoring.
+- **D:** Drink only hypertonic beverages
+  - Reason: Hypertonic drinks are not routine home teaching.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-063 (hard, fluids_abg)
+
+**Stem:** After NG tube irrigation, the client develops dyspnea and absent breath sounds on the left. What should the nurse suspect?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Possible aspiration or pneumothorax — stop and assess airway **CORRECT**
+  - Reason: Airway and respiratory emergency take priority.
+- **B:** Pulmonary embolism only
+  - Reason: PE is possible but acute unilateral findings after procedure suggest aspiration/pneumothorax.
+- **C:** Expected finding
+  - Reason: Not expected.
+- **D:** Hyperkalemia
+  - Reason: Unrelated acute presentation.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-064 (hard, fluids_abg)
+
+**Stem:** ABG pH 7.48, PaCO₂ 30, HCO₃⁻ 22. Best interpretation:
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Respiratory alkalosis **CORRECT**
+  - Reason: High pH with low PaCO₂ fits respiratory alkalosis.
+- **B:** Respiratory acidosis
+  - Reason: Acidosis has low pH.
+- **C:** Normal
+  - Reason: Values are abnormal.
+- **D:** Metabolic alkalosis
+  - Reason: Metabolic alkalosis has high HCO₃⁻.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-065 (hard, fluids_abg)
+
+**Stem:** A client with burns receives LR per protocol. Which lab trend suggests adequate resuscitation?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Serum sodium 155 with oliguria
+  - Reason: Hypernatremia and oliguria are concerning.
+- **B:** Rising hematocrit from hemoconcentration only
+  - Reason: Rising Hct may mean ongoing hypovolemia.
+- **C:** Metabolic alkalosis with no urine output
+  - Reason: No urine output is failure.
+- **D:** Stable urine output about 0.5 mL/kg/hr and improving mental status **CORRECT**
+  - Reason: Urine output and mentation reflect perfusion.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-066 (hard, fluids_abg)
+
+**Stem:** Which IV solution is hypotonic after metabolism and provides free water?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** 0.9% NaCl
+  - Reason: 0.9% is isotonic.
+- **B:** D5W after insulin metabolism **CORRECT**
+  - Reason: D5W distributes as water after metabolism — classic teaching.
+- **C:** 3% NaCl
+  - Reason: 3% is hypertonic.
+- **D:** 0.45% NaCl
+  - Reason: 0.45% is hypotonic relative to plasma but D5W becomes free water after glucose use.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-067 (hard, fluids_abg)
+
+**Stem:** A client has magnesium 1.0 mEq/L with tremors and increased deep tendon reflexes. Which priority applies?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Restrict breathing exercises
+  - Reason: Breathing exercises are not contraindicated.
+- **B:** Seizure precautions and magnesium replacement per order **CORRECT**
+  - Reason: Low Mg increases neuromuscular irritability and seizure risk.
+- **C:** No monitoring
+  - Reason: Requires monitoring and replacement.
+- **D:** Encourage vigorous exercise
+  - Reason: Exercise does not replace Mg.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-068 (hard, fluids_abg)
+
+**Stem:** A client with chronic respiratory failure has compensated CO₂ retention. Expected ABG pattern:
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Low PaCO₂ with high pH always
+  - Reason: Low PaCO₂ is not retention.
+- **B:** High PaCO₂ with elevated HCO₃⁻ and near-normal pH **CORRECT**
+  - Reason: Renal retention of HCO₃⁻ compensates chronic hypercapnia.
+- **C:** Normal PaCO₂ with low HCO₃⁻
+  - Reason: Pattern does not fit.
+- **D:** Low PaCO₂ with low HCO₃⁻
+  - Reason: Uncompensated would alter pH markedly.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-069 (hard, periop_iv)
+
+**Stem:** Pre-op client took warfarin at home this morning for atrial fibrillation. Elective surgery is in 4 hours. What should the nurse do first?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Proceed without telling anyone
+  - Reason: Anticoagulation must be communicated before surgery.
+- **B:** Notify surgeon and anesthesia per protocol; verify INR and hold plan **CORRECT**
+  - Reason: Team coordinates hold/reversal based on INR and risk.
+- **C:** Cancel surgery independently
+  - Reason: Nurse does not unilaterally cancel.
+- **D:** Give vitamin K IM without order
+  - Reason: Vitamin K requires order.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-070 (hard, periop_iv)
+
+**Stem:** Which actions reduce surgical site infection risk? Select all that apply.
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Reusing single-use sterile supplies
+  - Reason: Single-use items must not be reused.
+- **B:** Perioperative antibiotics per orders **CORRECT**
+  - Reason: Prophylactic antibiotics per protocol reduce SSI.
+- **C:** Hair removal by clipping if needed **CORRECT**
+  - Reason: Clipping is preferred over shaving.
+- **D:** Hand hygiene and sterile technique **CORRECT**
+  - Reason: Asepsis is foundational.
+- **E:** Shaving the site with a razor the night before
+  - Reason: Shaving causes micro-abrasions increasing infection.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-071 (hard, periop_iv)
+
+**Stem:** A client returns from PACU after general anesthesia and is drowsy but arousable. Priority nursing action:
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Offer a cheeseburger immediately
+  - Reason: NPO until awake enough to protect airway.
+- **B:** Ambulate to bathroom alone
+  - Reason: Assist with ambulation when criteria met.
+- **C:** Remove all oxygen without orders
+  - Reason: Oxygen weaned per orders.
+- **D:** Assess airway, breathing, circulation, and surgical site **CORRECT**
+  - Reason: PACU focus is ABCs and surgical site.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-072 (hard, periop_iv)
+
+**Stem:** IV infiltration noted with cool skin and edema at site. First action:
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Apply heat pack and increase rate
+  - Reason: Heat and increased rate worsen infiltration.
+- **B:** Push IV potassium through infiltrated site
+  - Reason: Never push meds through infiltrated line.
+- **C:** Ignore until patient complains more
+  - Reason: Early intervention prevents necrosis.
+- **D:** Stop infusion and remove or restart line per protocol **CORRECT**
+  - Reason: Stop irritant infusion to limit tissue damage.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-073 (hard, periop_iv)
+
+**Stem:** NPO after midnight before surgery primarily prevents:
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Hypertension
+  - Reason: BP not primary NPO reason.
+- **B:** Aspiration during induction of anesthesia **CORRECT**
+  - Reason: Empty stomach reduces aspiration risk.
+- **C:** Dehydration only
+  - Reason: Dehydration is managed perioperatively.
+- **D:** Surgical site bleeding
+  - Reason: Bleeding is not prevented by NPO alone.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-074 (hard, periop_iv)
+
+**Stem:** Post-op day 1 stable client. Which task may be delegated to UAP?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Decide PCA dose
+  - Reason: PCA is nursing-controlled.
+- **B:** Interpret drainage color changes alone
+  - Reason: Drainage interpretation is nursing.
+- **C:** Wound infection assessment
+  - Reason: Wound assessment is nursing.
+- **D:** Assist with ambulation per mobility order **CORRECT**
+  - Reason: Ambulation assistance within orders can be delegated.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-075 (hard, periop_iv)
+
+**Stem:** Client on PCA morphine becomes somnolent with RR 8/min. First action:
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Stimulate client and notify provider; prepare naloxone per protocol **CORRECT**
+  - Reason: Respiratory depression is opioid emergency.
+- **B:** Leave client to sleep
+  - Reason: Unresponsive sleep is dangerous.
+- **C:** Ambulate immediately
+  - Reason: Ambulation unsafe with sedation.
+- **D:** Increase PCA dose
+  - Reason: Increasing dose worsens depression.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-076 (hard, periop_iv)
+
+**Stem:** Central line dressing change uses:
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Clean technique only always
+  - Reason: Central lines require sterile care.
+- **B:** Reuse old dressing if dry
+  - Reason: Dressings changed per schedule and if soiled.
+- **C:** Sterile technique per policy **CORRECT**
+  - Reason: Sterile technique prevents CLABSI.
+- **D:** No hand hygiene
+  - Reason: Hand hygiene is mandatory.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-077 (hard, periop_iv)
+
+**Stem:** Client teaching after laparoscopic cholecystectomy: which statement needs correction?
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** I will gradually advance diet as tolerated
+  - Reason: Gradual diet advance is standard.
+- **B:** I can return to heavy lifting today **CORRECT**
+  - Reason: Heavy lifting is restricted early post-op.
+- **C:** I will splint my abdomen when coughing
+  - Reason: Splinting reduces pain.
+- **D:** Report fever, increasing abdominal pain, or redness of incisions
+  - Reason: Warning signs teaching is correct.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-078 (hard, periop_iv)
+
+**Stem:** Tourniquet time during peripheral IV start should be:
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Released within recommended time to avoid complications **CORRECT**
+  - Reason: Limit duration per policy.
+- **B:** Never used
+  - Reason: Tourniquet aids venous distension briefly.
+- **C:** Applied only on the same arm as BP cuff simultaneously always
+  - Reason: Avoid concurrent with BP on same limb when possible.
+- **D:** Left inflated indefinitely
+  - Reason: Prolonged tourniquet causes pain and hemolysis risk.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-079 (hard, periop_iv)
+
+**Stem:** DVT prevention for post-op clients may include which measures? Select all that apply.
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Prophylactic anticoagulation per risk score **CORRECT**
+  - Reason: Chemoprophylaxis per guidelines.
+- **B:** Prolonged bed rest without movement
+  - Reason: Bed rest increases risk.
+- **C:** Sequential compression devices as ordered **CORRECT**
+  - Reason: SCDs reduce stasis.
+- **D:** Adequate hydration when not contraindicated **CORRECT**
+  - Reason: Hydration reduces viscosity when appropriate.
+- **E:** Early ambulation when cleared **CORRECT**
+  - Reason: Ambulation improves venous return.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
+## exam-hard-080 (hard, periop_iv)
+
+**Stem:** Fire in the OR — first response per safety protocol:
+
+**Source:** `NCM 112 / MedSurg exam-style Hard bank (author-generated; unofficial)`
+
+- **A:** Announce fire, stop flow of oxidizers if safe, remove drapes, use CO₂ extinguisher on patient if fire on client **CORRECT**
+  - Reason: OR fire algorithm: announce, stop oxidizers, smother/appropriate extinguisher.
+- **B:** Open oxygen wide to blow out flames
+  - Reason: More oxygen fuels fire.
+- **C:** Use water on electrical fire at panel
+  - Reason: Water on electrical equipment is dangerous.
+- **D:** Hide and continue surgery
+  - Reason: Continuing is unsafe.
+
+*selfChecked:* `False` · *instructorReviewed:* `False`
+
+---
+
 ## fluids-001 (normal, fluids_abg)
 
 **Stem:** Normal serum sodium range

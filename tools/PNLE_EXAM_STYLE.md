@@ -36,4 +36,6 @@ Stable → early warning → crisis → rescue → recovery → discharge teachi
 
 ## Authoring batches
 
-Add items in `tools/pnle_midterm_hard.py`, then `python3 tools/generate_pnle_bank.py`.
+- `tools/pnle_ncm112_semis.py` — Semis PRE/POST (20 items)
+- `tools/pnle_exam_hard_pack.py` — additional exam Hard items (80); edit `tools/gen_exam_hard_pack.py` and re-run to regenerate
+- Then: `python3 tools/generate_pnle_bank.py` (Hard bank must total **100** `examStyle` items)
