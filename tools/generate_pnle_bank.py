@@ -748,10 +748,9 @@ PERIOP = [
 ]
 ITEMS.extend(PERIOP)
 
-from pnle_midterm_hard import build_midterm_items
 from pnle_ncm112_semis import build_ncm112_semis_items
 
-ITEMS.extend(build_midterm_items(mk_exam))
+# UDD MedSurg midterm items are intentionally not shipped in the public bank.
 ITEMS.extend(build_ncm112_semis_items(mk_exam))
 
 

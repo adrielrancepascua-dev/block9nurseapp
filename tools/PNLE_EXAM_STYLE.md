@@ -1,6 +1,6 @@
-# MedSurg exam-style Hard items (UDD midterm pattern)
+# MedSurg exam-style Hard items
 
-Reference: MedSurg I Midterms Quiz (Soriano / UDD). **Unofficial** — verify against CI and handouts.
+Exam-style Hard items in the bank (e.g. NCM112 Semis) follow NCLEX-style patterns below. **Unofficial** — verify against CI and handouts. UDD MedSurg midterm content is **not** shipped in the app bank.
 
 ## Two tiers
 
