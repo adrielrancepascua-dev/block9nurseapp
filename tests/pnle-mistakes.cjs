@@ -1,0 +1,20 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
+test('Mistakes always opens the choice page without starting a retake',()=>{
+  const source=fs.readFileSync('js/pnle-study.js','utf8');
+  const start=source.indexOf('  function setStudyTab(');
+  let pending={q1:{}};
+  const calls=[];
+  const ctx={session:null,bankItems:[{id:'q1'}],readMistakes:()=>pending,syncStudyNavigation(){},startMistakesSession:()=>calls.push('review'),renderMistakesHome:()=>calls.push('summary'),renderStudyHome(){},renderProgressHome(){}};
+  vm.createContext(ctx);
+  vm.runInContext(source.slice(start,source.indexOf('  function startTopicSession(',start)),ctx);
+  ctx.setStudyTab('mistakes');
+  assert.equal(calls.pop(),'summary');
+  pending={};ctx.setStudyTab('mistakes');
+  assert.equal(calls.pop(),'summary');
+  pending={q1:{}};ctx.session={phase:'question'};
+  ctx.setStudyTab('mistakes',{summary:true});
+  assert.equal(calls.pop(),'summary');
+});

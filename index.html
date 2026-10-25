@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="/css/reference-redesign.css">
     <link rel="stylesheet" href="/css/settings.css">
     <link rel="stylesheet" href="/css/auth.css">
+    <link rel="stylesheet" href="/css/pnle-layout.css">
     
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
@@ -202,7 +203,7 @@
 
         <main class="np-main">
     <div class="np-content max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
-        <header class="np-page-header">
+        <header class="np-page-header np-unified-header">
             <div id="nursepathHeaderLogo" class="np-header-lockup" title="NursePath">
                 <img class="np-header-mark" src="/assets/brand/logo-icon.png" alt="NursePath logo" width="36" height="36">
                 <h1 class="np-header-word">Nurse<span>Path</span></h1>
@@ -911,7 +912,7 @@
 
     <div id="pnle-study-shell" aria-label="PNLE Study mode">
         <div class="pnle-study-layout">
-            <header class="pnle-study-header" id="pnleStudyHeader">
+            <header class="pnle-study-header np-unified-header" id="pnleStudyHeader">
                 <div class="pnle-study-header-lockup">
                     <img src="/assets/brand/logo-icon.png" alt="" width="32" height="32">
                     <p class="pnle-study-header-brand">Nurse<span>Path</span></p>
@@ -922,15 +923,16 @@
             </header>
             <div id="pnleStudyRoot" class="pnle-study-main"></div>
             <nav class="pnle-study-tabbar" id="pnleStudyTabbar" aria-label="Study sections">
-                <button type="button" class="pnle-tab is-active" data-study-tab="practice">Practice</button>
-                <button type="button" class="pnle-tab" data-study-tab="mistakes">Mistakes</button>
-                <button type="button" class="pnle-tab" data-study-tab="progress">Progress</button>
+                <button type="button" class="pnle-tab is-active np-action-btn" data-study-tab="practice" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="18" rx="3"/><path d="M9 4V2h6v2M9 10h6M9 14h6M9 18h4"/></svg><span>Practice</span></button>
+                <button type="button" class="pnle-tab np-action-btn" data-study-tab="mistakes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5C8 3 5 3 2 4v15c3-1 7-1 10 1 3-2 7-2 10-1V4c-3-1-6-1-10 1Zm0 0v15M15 10l2 2 3-4"/></svg><span>Mistakes</span></button>
+                <button type="button" class="pnle-tab np-action-btn" data-study-tab="progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3v17h17M8 16v-4M13 16V8M18 16V5"/></svg><span>Progress</span></button>
             </nav>
         </div>
     </div>
     </div>
 
     <script src="/assets/pnle-medsurg.js"></script>
+    <script src="/assets/pnle-concepts.js"></script>
     <script src="/js/script-4.js"></script>
     <script src="/js/pnle-study.js"></script>
     <script src="/js/script-5.js"></script>

@@ -466,21 +466,26 @@
     return true;
   }
 
-  function setStudyTab(tab) {
-    studyTab = tab;
+  function syncStudyNavigation() {
     const bar = document.getElementById('pnleStudyTabbar');
     if (bar) {
       bar.classList.remove('is-dimmed');
-      bar.querySelectorAll('.pnle-tab').forEach((btn) => {
+      bar.querySelectorAll('.pnle-tab').forEach((btn, index) => {
         const t = btn.getAttribute('data-study-tab');
-        btn.classList.toggle('is-active', t === tab);
+        const active = t === studyTab;
+        btn.classList.toggle('is-active', active);
+        if (active) {
+          btn.setAttribute('aria-current', 'page');
+          bar.style.setProperty('--pnle-nav-index', index);
+        } else btn.removeAttribute('aria-current');
       });
     }
+  }
+
+  function setStudyTab(tab) {
+    studyTab = tab;
+    syncStudyNavigation();
     if (session && session.phase === 'question') {
-      if (tab === 'mistakes') {
-        startMistakesSession();
-        return;
-      }
       if (tab !== 'practice') {
         session = null;
       }
@@ -570,7 +575,11 @@
     const gateBanner = getStudyDisclaimerBannerHtml();
 
     root.innerHTML = `
-      ${gateBanner}
+      ${isTestingReleaseAll() ? '' : gateBanner}
+      <header class="pnle-practice-heading">
+        <h2>MedSurg practice</h2>
+        <p>Unofficial Questions</p>
+      </header>
       <div class="pnle-home-hero">
         <div class="pnle-goal-ring-wrap">
           <div class="pnle-goal-ring" style="--ring-pct:${ringPct}" aria-hidden="true">
@@ -578,32 +587,30 @@
           </div>
           <div class="pnle-goal-ring-labels">
             <p class="pnle-goal-ring-frac">${escapeHtml(frac)}</p>
-            <p class="pnle-goal-ring-cap">${goalMet ? 'Goal met' : 'Today'}</p>
+            <p class="pnle-goal-ring-cap">${goalMet ? 'Goal met' : 'Answered today'}</p>
           </div>
         </div>
         <div class="pnle-home-hero-text">
-          <p class="pnle-home-hero-title">MedSurg practice</p>
-          <p class="pnle-home-hero-sub">Mastered ${mastered} of ${bankItems.length}</p>
+          <p class="pnle-home-hero-title">${mastered} / ${bankItems.length}</p>
+          <p class="pnle-home-hero-sub">Mastered</p>
         </div>
       </div>
       <div class="pnle-level-row" role="group" aria-label="Difficulty">
-        <button type="button" class="pnle-level-btn${level === 'normal' ? ' is-active' : ''}" data-level="normal">Normal</button>
-        <button type="button" class="pnle-level-btn${level === 'hard' ? ' is-active' : ''}" data-level="hard">Hard</button>
+        <button type="button" class="pnle-level-btn${level === 'normal' ? ' is-active' : ''}" data-level="normal" aria-pressed="${level === 'normal'}">Normal</button>
+        <button type="button" class="pnle-level-btn${level === 'hard' ? ' is-active' : ''}" data-level="hard" aria-pressed="${level === 'hard'}">Hard</button>
       </div>
-      <button type="button" class="pnle-btn-primary" id="pnleStartPractice">Start practice</button>
+      <button type="button" class="pnle-btn-primary" id="pnleStartPractice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 4 12 8-12 8V4Z"/></svg>Start practice</button>
       <button type="button" class="pnle-mistakes-strip" id="pnleHomeMistakes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5C8 3 5 3 2 4v15c3-1 7-1 10 1 3-2 7-2 10-1V4c-3-1-6-1-10 1Zm0 0v15M15 10l2 2 3-4"/></svg>
         <span>My mistakes</span>
         <strong>${mistakeCount} waiting</strong>
       </button>
-      <h2 class="pnle-section-label">Topics</h2>
+      <div class="pnle-topics-heading"><h2 class="pnle-section-label">Topics</h2><span>${TOPIC_ROWS.length} topics</span></div>
       <div class="pnle-topic-list">${topicRows}</div>
     `;
 
     root.querySelector('#pnleStartPractice').addEventListener('click', startMixedPractice);
-    root.querySelector('#pnleHomeMistakes').addEventListener('click', () => {
-      if (mistakeCount) startMistakesSession();
-      else setStudyTab('mistakes');
-    });
+    root.querySelector('#pnleHomeMistakes').addEventListener('click', () => setStudyTab('mistakes'));
     root.querySelectorAll('.pnle-level-btn').forEach((b) => {
       b.addEventListener('click', () => {
         setStudyLevel(b.getAttribute('data-level'));
@@ -615,22 +622,79 @@
     });
   }
 
+  function getMistakeItems() {
+    const mistakes = readMistakes();
+    return bankItems.filter((item) => Boolean(mistakes[item.id]));
+  }
+
   function renderMistakesHome() {
     const root = document.getElementById('pnleStudyRoot');
     if (!root) return;
-    const mistakeCount = Object.keys(readMistakes()).length;
+    const mistakeCount = getMistakeItems().length;
+    if (!mistakeCount) {
+      root.innerHTML = `<div class="pnle-mistakes-card"><h2>You're all caught up</h2><p class="pnle-study-hint">Questions you miss during practice will appear here for review.</p></div>`;
+      return;
+    }
     root.innerHTML = `
-      <p class="pnle-study-hint">Clear an item with two correct answers on different days.</p>
-      <div class="pnle-mistakes-card">
-        <h2>My mistakes</h2>
-        <p class="pnle-mistakes-count">${mistakeCount} item${mistakeCount === 1 ? '' : 's'} waiting</p>
-        <button type="button" class="pnle-btn-primary" id="pnleStartMistakes" ${mistakeCount ? '' : 'disabled'}>
-          Review mistakes
+      <header class="pnle-practice-heading"><h2>My mistakes</h2><p>${mistakeCount} question${mistakeCount === 1 ? '' : 's'} waiting</p></header>
+      <div class="pnle-mistake-actions">
+        <button type="button" class="pnle-mistake-action np-action-btn" id="pnleReviewExplanations">
+          <span class="pnle-mistake-action-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5C8 3 5 3 2 4v15c3-1 7-1 10 1 3-2 7-2 10-1V4c-3-1-6-1-10 1Zm0 0v15"/></svg></span>
+          <span><span class="pnle-mistake-action-title">Review concepts</span><span class="pnle-mistake-action-description">Short, focused lessons on the concepts behind your mistakes.</span></span><span class="pnle-mistake-action-chevron" aria-hidden="true">›</span>
+        </button>
+        <button type="button" class="pnle-mistake-action np-action-btn" id="pnleStartMistakes">
+          <span class="pnle-mistake-action-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7V3l-3 3a8 8 0 1 0 3 8M16 3h4"/></svg></span>
+          <span><span class="pnle-mistake-action-title">Retake mistakes</span><span class="pnle-mistake-action-description">Test what you've learned.</span></span><span class="pnle-mistake-action-chevron" aria-hidden="true">›</span>
         </button>
       </div>
+      <p class="pnle-study-hint pnle-mistake-reminder">Questions clear after correct answers on two different days. Reading lessons does not change your progress.</p>
     `;
+    root.querySelector('#pnleReviewExplanations').addEventListener('click', startMistakeExplanations);
     const start = root.querySelector('#pnleStartMistakes');
     if (start) start.addEventListener('click', startMistakesSession);
+  }
+
+  function startMistakeExplanations() {
+    session = null;
+    studyTab = 'mistakes';
+    syncStudyNavigation();
+    const items = getMistakeItems();
+    if (!items.length) { renderMistakesHome(); return; }
+    const lessons = window.NursePathPnleConcepts ? window.NursePathPnleConcepts.getForItems(items) : [{ id: 'unavailable', title: 'Lessons unavailable', summary: 'The lesson library could not be loaded. Reopen the app online to download it.', sections: [], reflect: '', sources: [] }];
+    renderConceptLesson(lessons, 0);
+  }
+
+  function renderConceptLesson(lessons, index) {
+    const root = document.getElementById('pnleStudyRoot');
+    const lesson = lessons[index];
+    if (!root || !lesson) { renderMistakesHome(); return; }
+    const sections = lesson.sections.map(section => `<section class="pnle-lesson-section"><h3>${escapeHtml(section.heading)}</h3><p>${escapeHtml(section.body)}</p></section>`).join('');
+    const sources = lesson.sources.map(source => `<li><a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.label)}<span class="sr-only"> (opens in a new tab)</span></a></li>`).join('');
+    root.innerHTML = `<section class="pnle-mistake-review">
+      <button type="button" class="pnle-review-back np-action-btn" id="pnleReviewBack">← My mistakes</button>
+      <header class="pnle-practice-heading"><p>${index + 1} of ${lessons.length} concepts · Short lesson</p><h2 id="pnleReviewTitle" tabindex="-1">${escapeHtml(lesson.title)}</h2></header>
+      <article class="pnle-concept-lesson" aria-labelledby="pnleReviewTitle">
+        <p class="pnle-lesson-summary">${escapeHtml(lesson.summary)}</p>
+        ${sections}
+        ${lesson.reflect ? `<aside class="pnle-lesson-reflect"><h3>Think it through</h3><p>${escapeHtml(lesson.reflect)}</p></aside>` : ''}
+        ${sources ? `<details class="pnle-lesson-sources"><summary>Sources &amp; further reading</summary><p>Lessons are available offline after download. Source links need an internet connection.</p><ul>${sources}</ul></details>` : ''}
+      </article>
+      <div class="pnle-review-pagination"><button type="button" class="pnle-review-previous np-action-btn" id="pnleReviewPrevious"${index === 0 ? ' disabled' : ''}>Previous</button><button type="button" class="pnle-btn-primary" id="pnleReviewNext">${index + 1 === lessons.length ? 'Done reviewing' : 'Next concept'}</button></div>
+      <p class="pnle-study-hint pnle-mistake-reminder">Reading does not change your progress. Verify learning with your Clinical Instructor and approved course materials.</p>
+    </section>`;
+    root.scrollTop = 0;
+    root.querySelector('#pnleReviewTitle').focus({ preventScroll: true });
+    const backToChoices = () => {
+      setStudyTab('mistakes');
+      const review = root.querySelector('#pnleReviewExplanations');
+      if (review) review.focus();
+    };
+    root.querySelector('#pnleReviewBack').addEventListener('click', backToChoices);
+    root.querySelector('#pnleReviewPrevious').addEventListener('click', () => { if (index > 0) renderConceptLesson(lessons, index - 1); });
+    root.querySelector('#pnleReviewNext').addEventListener('click', () => {
+      if (index + 1 < lessons.length) renderConceptLesson(lessons, index + 1);
+      else backToChoices();
+    });
   }
 
   function startMistakesSession() {
@@ -667,23 +731,26 @@
     const mistakes = Object.keys(readMistakes()).length;
     const done = getDailyProgress();
     const goal = getDailyGoal();
-    const topicProgress = TOPIC_ROWS.map((t) => {
+    const percent = bankItems.length ? Math.min(100, Math.round(mastered / bankItems.length * 100)) : 0;
+    const topicProgress = TOPIC_ROWS.map((t, index) => {
       const total = getTopicTotal(t.id);
       const m = getMasteredInTopic(t.id);
-      return `<li><span>${escapeHtml(t.label)}</span><strong>${m} / ${total}</strong></li>`;
+      return `<li class="pnle-progress-topic"><div class="pnle-progress-topic-heading"><h4 id="pnleTopicProgress${index}">${escapeHtml(t.label)}</h4><strong>${m} <span>/ ${total}</span></strong></div><progress value="${m}" max="${Math.max(1, total)}" aria-labelledby="pnleTopicProgress${index}" aria-valuetext="${m} of ${total} questions mastered">${m} / ${total}</progress></li>`;
     }).join('');
     root.innerHTML = `
-      <div class="pnle-progress-card">
-        <h2 id="pnleProgressTitle">Progress</h2>
-        <ul class="pnle-progress-list">
-          <li><span>Mastered (2+ correct days)</span><strong>${mastered} / ${bankItems.length}</strong></li>
-          <li><span>Today answered</span><strong>${formatTodayFraction()}</strong></li>
-          <li><span>Mistakes waiting</span><strong>${mistakes}</strong></li>
-        </ul>
-        <h3 class="pnle-section-label">By topic</h3>
-        <ul class="pnle-progress-list">${topicProgress}</ul>
-        <p class="pnle-study-hint">Mastered = correct on two different calendar days (not two in one sitting). Mistakes stay until two correct days clear them; missing again resets that streak. Today counts every answer you lock.</p>
-      </div>
+      <section class="pnle-progress-dashboard" aria-labelledby="pnleProgressTitle">
+        <header class="pnle-practice-heading"><h2 id="pnleProgressTitle">Your progress</h2><p>A little practice, lasting knowledge.</p></header>
+        <div class="pnle-progress-overview">
+          <div class="pnle-mastery-ring" style="--mastery-percent:${percent}%" aria-hidden="true"><span>${percent}%</span></div>
+          <div class="pnle-progress-overview-copy"><p>Questions mastered</p><strong>${mastered} / ${bankItems.length}</strong><span>Correct on two different days</span></div>
+        </div>
+        <div class="pnle-progress-stats">
+          <div class="pnle-progress-stat"><span class="pnle-progress-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 11h18m-11 5 2 2 4-4"/></svg></span><p>Today answered</p><strong>${formatTodayFraction()}</strong><span>${done >= goal ? 'Daily goal reached' : 'Toward your daily goal'}</span><progress value="${Math.min(done, goal)}" max="${Math.max(1, goal)}" aria-label="Daily answer goal" aria-valuetext="${done} of ${goal} answers">${done} / ${goal}</progress></div>
+          <div class="pnle-progress-stat"><span class="pnle-progress-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5C8 3 5 3 2 4v15c3-1 7-1 10 1 3-2 7-2 10-1V4c-3-1-6-1-10 1Zm0 0v15"/></svg></span><p>Mistakes waiting</p><strong>${mistakes}</strong><span>${mistakes ? 'Keep learning at your pace' : 'You’re all caught up'}</span></div>
+        </div>
+        <section aria-labelledby="pnleProgressTopics"><div class="pnle-topics-heading"><h3 class="pnle-section-label" id="pnleProgressTopics">Mastery by topic</h3><span>${TOPIC_ROWS.length} topics</span></div><ul class="pnle-progress-topics">${topicProgress}</ul></section>
+        <aside class="pnle-progress-note"><h3>How mastery works</h3><p>Answer correctly on two different calendar days to master a question. Missing it again resets that streak. Today’s count includes every answer you lock.</p></aside>
+      </section>
     `;
     let resetTaps = 0;
     const title = root.querySelector('#pnleProgressTitle');
@@ -713,6 +780,12 @@
     const wasPicked = pickedSet.has(idx);
     const showReason = isCorrectOpt || wasPicked;
     if (showReason && body) {
+      const state = document.createElement('span');
+      state.className = 'pnle-choice-state';
+      state.textContent = isCorrectOpt
+        ? (wasPicked ? 'Your answer · Correct' : 'Correct answer')
+        : 'Your answer · Incorrect';
+      body.appendChild(state);
       const reason = document.createElement('span');
       reason.className = 'pnle-choice-reason';
       reason.textContent = item.reasons[idx];
@@ -730,12 +803,17 @@
     }
   }
 
-  function showNextButton(root) {
+  function showNextButton(root, correct) {
     const nextBtn = root.querySelector('#pnleNextBtn');
     if (nextBtn) {
       nextBtn.classList.remove('is-hidden');
       nextBtn.removeAttribute('hidden');
+      nextBtn.removeAttribute('aria-hidden');
+      nextBtn.disabled = false;
+      nextBtn.innerHTML = 'Next question <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg>';
     }
+    const announcement = root.querySelector('.pnle-answer-announcement');
+    if (announcement) announcement.textContent = correct ? 'Correct answer. Review the explanation, then continue.' : 'Incorrect answer. Review the correct answer and explanation, then continue.';
     const sataBtn = root.querySelector('#pnleSataSubmit');
     if (sataBtn) sataBtn.setAttribute('hidden', 'hidden');
   }
@@ -752,7 +830,7 @@
       const idx = parseInt(b.getAttribute('data-idx'), 10);
       revealChoiceRow(b, item, idx, correctSet, pickedSet);
     });
-    showNextButton(root);
+    showNextButton(root, isCorrect);
   }
 
   function lockSataAnswer(root, item, pickedList) {
@@ -768,7 +846,7 @@
       const idx = parseInt(b.getAttribute('data-idx'), 10);
       revealChoiceRow(b, item, idx, correctSet, pickedSet);
     });
-    showNextButton(root);
+    showNextButton(root, isCorrect);
   }
 
   function bindChoiceTap(btn, root, item) {
@@ -796,6 +874,7 @@
   }
 
   function renderQuestion() {
+    syncStudyNavigation();
     const root = document.getElementById('pnleStudyRoot');
     const tabbar = document.getElementById('pnleStudyTabbar');
     if (!root || !session) return;
@@ -823,13 +902,13 @@
             ? 'Mistakes'
             : '';
     const progressLabel = levelLabel
-      ? `Question ${session.index + 1} of ${session.queue.length} · ${levelLabel}`
-      : `Question ${session.index + 1} of ${session.queue.length}`;
+      ? `${session.index + 1} of ${session.queue.length} · ${levelLabel}`
+      : `${session.index + 1} of ${session.queue.length}`;
     const sata = isSataItem(item);
     const choices = item.choices
       .map(
         (c, idx) =>
-          `<button type="button" class="pnle-choice${sata ? ' pnle-choice--sata' : ''}" data-idx="${idx}" type="button">
+          `<button type="button" class="pnle-choice${sata ? ' pnle-choice--sata' : ''}" data-idx="${idx}"${sata ? ' aria-pressed="false"' : ''}>
             <span class="pnle-choice-icon-slot"><span class="pnle-choice-letter">${choiceLabel(idx)}</span></span>
             <span class="pnle-choice-body">
               <span class="pnle-choice-text">${escapeHtml(c)}</span>
@@ -851,9 +930,9 @@
     const testingBanner = isTestingReleaseAll()
       ? `<p class="pnle-study-gate-banner pnle-study-gate-banner--testing pnle-study-gate-banner--compact" role="status">Unofficial Questions</p>`
       : '';
+    const topic = TOPIC_ROWS.find((row) => row.id === item.topic);
 
     root.innerHTML = `
-      ${testingBanner}
       <div class="pnle-question-card">
         <div class="pnle-question-toolbar">
           <span class="pnle-q-progress">${escapeHtml(progressLabel)}</span>
@@ -862,13 +941,19 @@
             <button type="button" class="pnle-end-btn" id="pnleQuitSession">End</button>
           </div>
         </div>
+        <div class="pnle-question-meter" aria-hidden="true"><span style="width:${((session.index + 1) / session.queue.length) * 100}%"></span></div>
+        ${topic ? `<p class="pnle-question-topic">${escapeHtml(topic.label)}</p>` : ''}
         ${caseBlock}
         <p class="pnle-question-stem">${escapeHtml(item.stem)}</p>
         ${sataHint}
         <div class="pnle-choices">${choices}</div>
-        ${sataSubmit}
-        <button type="button" class="pnle-btn-primary pnle-btn-next is-hidden" id="pnleNextBtn" hidden aria-hidden="true">Next question</button>
       </div>
+      <p class="pnle-answer-announcement" role="status" aria-live="polite"></p>
+      <div class="pnle-question-actions">
+        ${sataSubmit}
+        <button type="button" class="pnle-btn-primary pnle-btn-next${sata ? ' is-hidden' : ''}" id="pnleNextBtn" disabled${sata ? ' hidden aria-hidden="true"' : ''}>Select an answer</button>
+      </div>
+      ${testingBanner}
     `;
 
     const nextBtn = root.querySelector('#pnleNextBtn');
@@ -896,6 +981,7 @@
             selected.add(idx);
             btn.classList.add('is-selected');
           }
+          btn.setAttribute('aria-pressed', String(selected.has(idx)));
         });
       });
       const sataBtn = root.querySelector('#pnleSataSubmit');

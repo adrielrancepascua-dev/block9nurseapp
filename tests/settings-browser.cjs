@@ -58,6 +58,7 @@ const server = http.createServer((req,res) => {
       await page.keyboard.press('Escape');
     }
     if (screenshotDir) { fs.mkdirSync(screenshotDir, { recursive: true }); await page.screenshot({ animations: 'disabled', path: path.join(screenshotDir, 'standard-header.png') }); }
+    const standardLogo = await page.locator('#nursepathHeaderLogo img').boundingBox();
     await page.locator('#pnleDutySwitchMode').click();
     assert.equal(await page.locator('#pnleDutySwitchMode').getAttribute('aria-expanded'), 'true');
     assert.equal(await page.locator('#pnleDutySwitchMode > svg').count(), 1, 'only the chevron remains');
@@ -65,12 +66,173 @@ const server = http.createServer((req,res) => {
     await page.keyboard.press('ArrowDown');
     await page.keyboard.press('Enter');
     assert.equal(await page.locator('#pnleStudySwitchMode').locator('..').getAttribute('data-mode'), 'study');
+    const pnleLogo = await page.locator('#pnleStudyHeader .pnle-study-header-lockup img').boundingBox();
+    assert.equal(pnleLogo.width, standardLogo.width, 'PNLE logo matches Standard width');
+    assert.equal(pnleLogo.height, standardLogo.height, 'PNLE logo matches Standard height');
+    assert.equal(await page.locator('#pnleStudyHeader .pnle-study-header-brand span').evaluate(el => getComputedStyle(el).color), 'rgb(15, 118, 110)');
+    assert.equal(await page.locator('#pnleStudyHeader .pnle-study-header-brand').evaluate(el => getComputedStyle(el).backgroundColor), 'rgba(0, 0, 0, 0)');
+    async function headerMetrics(mode) {
+      return page.evaluate(mode => {
+        const header = document.querySelector(mode === 'study' ? '#pnleStudyHeader' : '.np-page-header');
+        const word = header.querySelector('.np-header-word, .pnle-study-header-brand');
+        const logo = header.querySelector('img');
+        const style = getComputedStyle(word);
+        const size = el => { const rect = el.getBoundingClientRect(); return [rect.width, rect.height]; };
+        const rect = header.getBoundingClientRect();
+        const origin = el => { const bounds = el.getBoundingClientRect(); return [bounds.x, bounds.y]; };
+        return { height: rect.height, mobilePlacement: innerWidth <= 767 ? { header: [rect.x, rect.y, rect.width], logo: origin(logo), settings: origin(header.querySelector('.np-settings-open')), dropdown: origin(header.querySelector('.np-app-mode-select')) } : null, logo: size(logo), word: size(word), font: [style.fontFamily, style.fontSize, style.fontWeight, style.lineHeight], settings: size(header.querySelector('.np-settings-open')), dropdown: size(header.querySelector('.np-app-mode-select')) };
+      }, mode);
+    }
+    for (const width of [320, 390, 900]) {
+      await page.setViewportSize({ width, height: 844 });
+      const pnleHeader = await headerMetrics('study');
+      await page.locator('#pnleStudySwitchMode').click();
+      await page.locator('#pnleStudySwitchModeMenu [data-app-mode="duty"]').click();
+      assert.deepEqual(await headerMetrics('duty'), pnleHeader, 'header sizing matches at ' + width + 'px');
+      await page.locator('#pnleDutySwitchMode').click();
+      await page.locator('#pnleDutySwitchModeMenu [data-app-mode="study"]').click();
+    }
+    await page.setViewportSize({ width: 390, height: 844 });
     assert.equal(await page.evaluate(() => localStorage.getItem('nursepath_launch_mode_v1')), 'study');
     await page.locator('#pnleSettingsOpen').click();
     assert.equal(await page.locator('#npSettingsSheet').isVisible(), true);
     await page.locator('#npSettingsClose').click();
     assert.equal(await page.evaluate(() => document.activeElement.id), 'pnleSettingsOpen');
     if (screenshotDir) await page.screenshot({ animations: 'disabled', path: path.join(screenshotDir, 'pnle-header.png') });
+    // Exercise the approved PNLE home, nav and unchanged answer/review flows.
+    assert.equal(await page.locator('.pnle-practice-heading h2').textContent(), 'MedSurg practice');
+    await page.locator('#pnleStudyRoot').evaluate(el => { el.scrollTop = el.scrollHeight; });
+    const lastTopic = await page.locator('.pnle-topic-row').last().boundingBox();
+    const floatingNav = await page.locator('#pnleStudyTabbar').boundingBox();
+    assert.equal(await page.locator('[data-study-tab="practice"]').evaluate(el => getComputedStyle(el).justifyContent), 'center');
+    assert.equal(await page.locator('[data-study-tab="practice"]').evaluate(el => getComputedStyle(el).gap), '4px');
+    assert.ok(lastTopic.y + lastTopic.height < floatingNav.y, 'topics can scroll above floating navigation');
+    await page.locator('#pnleStudyRoot').evaluate(el => { el.scrollTop = 0; });
+    if (screenshotDir) await page.screenshot({ animations: 'disabled', path: path.join(screenshotDir, 'pnle-lavender-home.png') });
+    await page.evaluate(() => window.setNursePathTheme('dark'));
+    if (screenshotDir) await page.screenshot({ animations: 'disabled', path: path.join(screenshotDir, 'pnle-lavender-dark.png') });
+    await page.evaluate(() => window.setNursePathTheme('light'));
+    await page.locator('[data-level="normal"]').click();
+    await page.locator('#pnleStartPractice').click();
+    const normalItem = await page.locator('.pnle-question-stem').evaluate(el => window.NursePathPnleMedSurg.items.find(item => item.stem === el.textContent));
+    assert.equal(normalItem.level, 'normal');
+    if (screenshotDir) await page.screenshot({ animations: 'disabled', path: path.join(screenshotDir, 'pnle-question-unanswered.png') });
+    await page.locator('.pnle-choice').nth((normalItem.correctIndex + 1) % normalItem.choices.length).click();
+    assert.equal(await page.locator('.pnle-choice.is-wrong').count(), 1);
+    assert.equal(await page.locator('.pnle-choice.is-correct').count(), 1);
+    assert.equal(await page.locator('.pnle-choice.is-wrong .pnle-choice-state').textContent(), 'Your answer · Incorrect');
+    assert.equal(await page.locator('.pnle-choice.is-correct .pnle-choice-state').textContent(), 'Correct answer');
+    assert.notEqual(await page.locator('#pnleNextBtn').getAttribute('aria-hidden'), 'true');
+    const nextAnswer = await page.locator('#pnleNextBtn').boundingBox();
+    const answerNav = await page.locator('#pnleStudyTabbar').boundingBox();
+    assert.ok(nextAnswer.y + nextAnswer.height < answerNav.y, 'Next stays above floating navigation after feedback');
+    const questionViewport = await page.locator('#pnleStudyRoot').boundingBox();
+    const answerActions = await page.locator('.pnle-question-actions').boundingBox();
+    assert.ok(questionViewport.y + questionViewport.height <= answerActions.y, 'question scrolling ends before the action row');
+    assert.equal(await page.locator('.pnle-choice.is-correct .pnle-choice-text').evaluate(el => getComputedStyle(el).color), 'rgb(32, 35, 50)');
+    assert.equal(await page.locator('.pnle-choice.is-wrong').evaluate(el => getComputedStyle(el).opacity), '1');
+    if (screenshotDir) await page.screenshot({ animations: 'disabled', path: path.join(screenshotDir, 'pnle-question-answered-light.png') });
+    await page.evaluate(() => window.setNursePathTheme('dark'));
+    assert.equal(await page.locator('.pnle-choice.is-correct .pnle-choice-text').evaluate(el => getComputedStyle(el).color), 'rgb(240, 237, 247)');
+    if (screenshotDir) await page.screenshot({ animations: 'disabled', path: path.join(screenshotDir, 'pnle-question-answered-dark.png') });
+    await page.evaluate(() => window.setNursePathTheme('light'));
+    await page.locator('#pnleHistoryBtn').click();
+    assert.equal(await page.locator('[data-study-tab="mistakes"]').getAttribute('aria-current'), 'page');
+    assert.equal(await page.locator('#pnleReviewExplanations').isVisible(), true);
+    assert.equal(await page.locator('#pnleStartMistakes .pnle-mistake-action-title').textContent(), 'Retake mistakes');
+    for (const width of [320, 390]) {
+      await page.setViewportSize({ width, height: 844 });
+      assert.equal(await page.locator('#pnleReviewExplanations').evaluate(el => el.scrollWidth <= el.clientWidth), true, 'choice card text fits on mobile');
+    }
+    if (screenshotDir) await page.screenshot({ animations: 'disabled', path: path.join(screenshotDir, 'pnle-mistake-choices.png') });
+    const reviewStorage = await page.evaluate(() => ['nursepath_pnle_mistakes_v1','nursepath_pnle_progress_v1','nursepath_pnle_daily_count_v1'].map(key => localStorage.getItem(key)));
+    await page.locator('#pnleReviewExplanations').click();
+    assert.equal(await page.locator('.pnle-mistake-review').isVisible(), true);
+    assert.equal(await page.locator('#pnleReviewPrevious').isDisabled(), true);
+    assert.equal(await page.locator('#pnleReviewTitle').textContent(), await page.evaluate(id => window.NursePathPnleConcepts.getForItem({ id }).title, normalItem.id));
+    assert.equal(await page.locator('.pnle-lesson-section').count(), 1);
+    assert.equal(await page.locator('.pnle-lesson-reflect').count(), 1);
+    assert.equal(await page.locator('.pnle-review-option, .pnle-choice, .pnle-question-stem, .pnle-choice-reason').count(), 0, 'concept reading must not reveal questions, options or answer rationales');
+    assert.equal(await page.locator('.pnle-lesson-sources a').count() > 0, true);
+    await page.evaluate(() => window.setNursePathTheme('dark'));
+    assert.equal(await page.locator('.pnle-lesson-summary').evaluate(el => getComputedStyle(el).color), 'rgb(240, 237, 247)');
+    if (screenshotDir) await page.screenshot({ animations: 'disabled', path: path.join(screenshotDir, 'pnle-concept-dark.png') });
+    await page.evaluate(() => window.setNursePathTheme('light'));
+    if (screenshotDir) await page.screenshot({ animations: 'disabled', path: path.join(screenshotDir, 'pnle-mistake-reading.png') });
+    await page.setViewportSize({ width: 320, height: 568 });
+    await page.locator('#pnleStudyRoot').evaluate(el => { el.scrollTop = el.scrollHeight; });
+    const readingNext = await page.locator('#pnleReviewNext').boundingBox();
+    const readingNav = await page.locator('#pnleStudyTabbar').boundingBox();
+    assert.ok(readingNext.y + readingNext.height < readingNav.y, 'reading controls scroll clear of navigation');
+    assert.equal(await page.locator('#pnleStudyRoot').evaluate(el => el.scrollWidth <= el.clientWidth), true);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.locator('#pnleReviewNext').click();
+    assert.deepEqual(await page.evaluate(() => ['nursepath_pnle_mistakes_v1','nursepath_pnle_progress_v1','nursepath_pnle_daily_count_v1'].map(key => localStorage.getItem(key))), reviewStorage, 'reading explanations leaves progress unchanged');
+    await page.locator('#pnleStartMistakes').click();
+    await page.locator('.pnle-choice').nth(normalItem.correctIndex).click();
+    await page.locator('#pnleNextBtn').click();
+    await page.locator('#pnleDoneHome').click();
+    await page.locator('[data-level="hard"]').click();
+    assert.equal(await page.locator('[data-level="hard"]').getAttribute('aria-pressed'), 'true');
+    // Make this isolated test's shuffle put an existing SATA question first.
+    await page.evaluate(() => {
+      const pool = window.NursePathPnleMedSurg.items.filter(item => (item.examStyle || item.level === 'hard') && !/\b(handout|sheet|reviewer|per\s+the)\b/i.test(item.stem || ''));
+      const target = pool.findIndex((item,index) => index > 1 && item.format === 'sata');
+      if (target < 2) throw new Error('Expected an existing SATA question in Hard bank');
+      let i = pool.length - 1;
+      window.__pnleOriginalRandom = Math.random;
+      Math.random = () => { const index = i--; return index === 1 ? 0 : index === target ? 1.1 / (index + 1) : .99999; };
+    });
+    await page.locator('#pnleStartPractice').click();
+    await page.evaluate(() => { Math.random = window.__pnleOriginalRandom; delete window.__pnleOriginalRandom; });
+    const hardItem = await page.locator('.pnle-question-stem').evaluate(el => window.NursePathPnleMedSurg.items.find(item => item.stem === el.textContent));
+    assert.equal(hardItem.level, 'hard');
+    assert.equal(hardItem.format, 'sata');
+    if (hardItem.format === 'sata') {
+      for (const index of hardItem.correctIndices) await page.locator('.pnle-choice').nth(index).click();
+      assert.equal(await page.locator('.pnle-choice[aria-pressed="true"]').count(), hardItem.correctIndices.length);
+      await page.locator('#pnleSataSubmit').click();
+    } else await page.locator('.pnle-choice').nth(hardItem.correctIndex).click();
+    assert.ok(await page.locator('.pnle-choice.is-correct').count() > 0);
+    assert.ok((await page.locator('.pnle-answer-announcement').textContent()).startsWith('Correct answer.'));
+    if (screenshotDir) await page.screenshot({ animations: 'disabled', path: path.join(screenshotDir, 'pnle-question-sata.png') });
+    for (const viewport of [{ width: 320, height: 568 }, { width: 390, height: 844 }]) {
+      await page.setViewportSize(viewport);
+      await page.locator('#pnleStudyRoot').evaluate(el => { el.scrollTop = el.scrollHeight; });
+      const questionArea = await page.locator('#pnleStudyRoot').boundingBox();
+      const actions = await page.locator('.pnle-question-actions').boundingBox();
+      const lastAnswer = await page.locator('.pnle-choice').last().boundingBox();
+      const navArea = await page.locator('#pnleStudyTabbar').boundingBox();
+      assert.ok(questionArea.y + questionArea.height <= actions.y, 'scrollport clears actions on short phones');
+      assert.ok(lastAnswer.y + lastAnswer.height <= questionArea.y + questionArea.height, 'last answer is fully reachable by scrolling');
+      assert.ok(actions.y + actions.height < navArea.y, 'actions clear navigation on short phones');
+      assert.equal(await page.locator('#pnleStudyRoot').evaluate(el => el.scrollWidth <= el.clientWidth), true);
+    }
+    if (screenshotDir) await page.screenshot({ animations: 'disabled', path: path.join(screenshotDir, 'pnle-question-sata-scrolled.png') });
+    await page.locator('#pnleQuitSession').click();
+    await page.locator('[data-study-tab="progress"]').click();
+    assert.equal(await page.locator('[data-study-tab="progress"]').getAttribute('aria-current'), 'page');
+    assert.equal(await page.locator('#pnleStudyTabbar').evaluate(el => el.style.getPropertyValue('--pnle-nav-index')), '2');
+    assert.equal(await page.locator('.pnle-progress-topic').count(), 5);
+    assert.equal(await page.locator('.pnle-progress-stats > div').count(), 2);
+    assert.equal(await page.locator('.pnle-progress-topic progress').count(), 5);
+    for (const width of [320, 390]) {
+      await page.setViewportSize({ width, height: 844 });
+      await page.locator('#pnleStudyRoot').evaluate(el => { el.scrollTop = 0; });
+      assert.equal(await page.locator('.pnle-progress-dashboard').evaluate(el => el.scrollWidth <= el.clientWidth), true, 'progress cards fit mobile');
+    }
+    if (screenshotDir) await page.screenshot({ animations: 'disabled', path: path.join(screenshotDir, 'pnle-progress-light.png') });
+    await page.evaluate(() => window.setNursePathTheme('dark'));
+    assert.equal(await page.locator('.pnle-progress-topic h4').first().evaluate(el => getComputedStyle(el).color), 'rgb(240, 237, 247)');
+    if (screenshotDir) await page.screenshot({ animations: 'disabled', path: path.join(screenshotDir, 'pnle-progress-dark.png') });
+    await page.setViewportSize({ width: 320, height: 568 });
+    await page.locator('#pnleStudyRoot').evaluate(el => { el.scrollTop = el.scrollHeight; });
+    const progressNote = await page.locator('.pnle-progress-note').boundingBox();
+    const progressNav = await page.locator('#pnleStudyTabbar').boundingBox();
+    assert.ok(progressNote.y + progressNote.height < progressNav.y, 'last progress card scrolls clear of navigation');
+    await page.evaluate(() => window.setNursePathTheme('light'));
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.locator('[data-study-tab="practice"]').click();
     await page.locator('#pnleStudySwitchMode').click();
     await page.locator('#pnleStudySwitchModeMenu [data-app-mode="duty"]').click();
     await page.locator('#pnleDutySwitchMode').click();
