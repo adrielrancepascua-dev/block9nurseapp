@@ -1,0 +1,59 @@
+/* Sign-in shares the PWA's existing theme tokens. Authentication IDs stay intact. */
+#authOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: max(24px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+    background: #020617 !important;
+    color: var(--hub-text);
+    font-family: var(--np-body, 'Figtree', 'Segoe UI', sans-serif);
+}
+html[data-theme="light"] #authOverlay { background: #f3f7f7 !important; }
+#authOverlay .auth-card {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 440px;
+    margin: auto;
+    padding: 30px;
+    background: var(--hub-surface) !important;
+    border: 1px solid var(--hub-border);
+    border-radius: 28px;
+    box-shadow: 0 12px 40px rgba(2, 6, 23, .12);
+    text-align: left;
+}
+#authOverlay .auth-brand-lockup {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 0 0 22px;
+    background: none !important;
+}
+#authOverlay .auth-brand-lockup img { width: 48px; height: 48px; border-radius: 14px; flex: none; }
+#authOverlay .auth-wordmark { margin: 0; font-family: inherit; font-size: 28px !important; font-weight: 800; letter-spacing: -.04em; line-height: 1.2; color: var(--hub-text) !important; background: none !important; }
+#authOverlay .auth-wordmark span { color: var(--hub-icon-fg) !important; background: none !important; }
+#authOverlay p, #authOverlay span, #authOverlay strong { background: none !important; }
+#authOverlay .auth-tagline { margin: 0 0 22px; color: var(--hub-text-2) !important; text-align: center; font-size: 15px; line-height: 1.65; font-weight: 400; }
+#authOverlay .auth-value-list { display: grid; gap: 10px; list-style: none; margin: 0 0 18px; padding: 0; color: var(--hub-text-2); font-size: 13px; line-height: 1.6; }
+#authOverlay .auth-value-list li { padding: 12px 14px; border-radius: 16px; border: 1px solid var(--hub-border); background: var(--hub-icon-bg) !important; }
+#authOverlay .auth-value-list strong { color: var(--hub-icon-fg) !important; font-weight: 600; }
+#authOverlay .auth-soft-note { margin: 0 0 22px; color: var(--hub-text-2) !important; font-size: 12px; line-height: 1.6; text-align: left; }
+#authOverlay .auth-consent { display: flex; align-items: flex-start; gap: 12px; margin: 0 0 20px; padding-top: 18px; border-top: 1px solid var(--hub-border); color: var(--hub-text-2); font-size: 12px !important; line-height: 1.65; letter-spacing: 0; text-align: left; cursor: pointer; }
+#authOverlay .auth-consent input { width: 20px; height: 20px; min-width: 20px; min-height: 20px; padding: 0; margin: 2px 0 0; accent-color: #0f766e; flex: none; cursor: pointer; }
+#authOverlay .auth-consent span { color: var(--hub-text-2) !important; }
+#authOverlay #googleSignInBtn { min-height: 50px; width: 100%; padding: 14px 16px !important; border: 1px solid #e2e8f0; border-radius: 999px !important; background: #ffffff !important; color: #14212b !important; font-family: inherit; font-size: 14px !important; font-weight: 600; gap: 10px; transition: opacity 180ms ease, box-shadow 180ms ease; }
+#authOverlay #googleSignInBtn:disabled { opacity: .55; cursor: not-allowed; }
+#authOverlay #googleSignInBtn:hover:not(:disabled) { box-shadow: 0 3px 12px rgba(15,118,110,.14); }
+#authOverlay #googleSignInBtn svg { flex: none; }
+#authOverlay :is(button, input):focus-visible { outline: 2px solid var(--hub-focus); outline-offset: 4px; }
+#authOverlay #authStatus { margin: 12px 0 0; min-height: 0; color: var(--hub-text-2) !important; font-size: 12px; line-height: 1.6; text-align: center; overflow-wrap: anywhere; }
+#authOverlay #authStatus:empty { display: none; }
+#authOverlay .auth-offline-note { margin: 16px 0 0; font-size: 12px; line-height: 1.6; color: var(--hub-text-2) !important; text-align: center; }
+@media (max-width: 360px) { #authOverlay .auth-card { padding: 22px 18px; border-radius: 22px; } #authOverlay .auth-brand-lockup img { width: 42px; height: 42px; } #authOverlay .auth-wordmark { font-size: 25px !important; } }
+@media (prefers-reduced-motion: reduce) { #authOverlay #googleSignInBtn { transition: none; } }

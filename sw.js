@@ -31,6 +31,7 @@ const STATIC_ASSETS = [
   new URL('css/styles.css', BASE).href,
   new URL('css/hub-redesign.css', BASE).href,
   new URL('css/settings.css', BASE).href,
+  new URL('css/auth.css', BASE).href,
   new URL('css/reference-redesign.css', BASE).href,
   new URL('css/pnle-study.css', BASE).href,
   new URL('js/script-1.js', BASE).href,

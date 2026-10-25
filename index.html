@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="/css/pnle-study.css">
     <link rel="stylesheet" href="/css/reference-redesign.css">
     <link rel="stylesheet" href="/css/settings.css">
+    <link rel="stylesheet" href="/css/auth.css">
     
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
@@ -49,21 +50,22 @@
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen" style="background-color: #020617 !important;">
 
     <!-- AUTH OVERLAY -->
-    <div id="authOverlay" style="position: fixed; inset: 0; background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px; overflow-y: auto;">
-        <div style="background: #0f172a; border: 2px solid #06b6d4; border-radius: 20px; padding: 32px 22px 26px; max-width: 440px; width: 100%; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5); margin: auto;">
+    <div id="authOverlay" role="region" aria-label="Sign in to NursePath">
+        <div class="auth-card">
             <div class="auth-brand-lockup">
-                <img src="/assets/brand/logo-wordmark-dark.png" alt="NursePath" width="680" height="192">
+                <img src="/assets/brand/logo-icon.png" alt="" width="48" height="48">
+                <h1 class="auth-wordmark">Nurse<span>Path</span></h1>
             </div>
             <p class="auth-tagline">The offline clinical companion for nursing students. Clinical tools, OTC reference, and study practice in one place.</p>
             <ul class="auth-value-list">
-                <li><strong>Standard:</strong> Fast vitals, IV math, scoring tools, and PH OTC brands, even offline.</li>
-                <li><strong>Study:</strong> Instructor-style lessons and quizzes for every tool.</li>
+                <li><strong>Standard:</strong> Duty mode for clinical tools and references. Study mode for lessons, explanations, and tool quizzes.</li>
+                <li><strong>PNLE:</strong> Practice questions to help you prepare for the Philippine Nurse Licensure Examination.</li>
             </ul>
             <p class="auth-soft-note">Learning companion for school and ward prep. Always verify with your Clinical Instructor and approved textbooks.</p>
 
-            <label style="display:flex; align-items:flex-start; gap:8px; margin-bottom: 14px; text-align:left;">
-                <input id="usageConsent" type="checkbox" style="margin-top:2px; width:16px; height:16px; min-height:16px; min-width:16px; accent-color:#06b6d4; cursor:pointer;">
-                <span style="color:#94a3b8; font-size:12px; line-height:1.35;">I consent to usage tracking for academic evaluation. Events include my signed-in email, which features I open, and how long I use the app. Vital signs and patient details are not stored.</span>
+            <label class="auth-consent">
+                <input id="usageConsent" type="checkbox">
+                <span>I consent to usage tracking for academic evaluation. Events include my signed-in email, which features I open, and how long I use the app. Vital signs and patient details are not stored.</span>
             </label>
 
             <button id="googleSignInBtn" type="button" class="google-btn" disabled>
@@ -73,8 +75,8 @@
 
             <button id="authResetBtn" type="button" style="display:none; width:100%; padding:10px; margin-bottom:8px; font-size:12px; font-weight:700; background:#1f2937; color:#cbd5e1; border:1px solid #475569; border-radius:10px; cursor:pointer;">Reset This Device</button>
 
-            <p id="authStatus" style="color: #f59e0b; font-size: 12px; min-height: 18px; margin-top: 10px;"></p>
-            <p style="color:#475569; font-size:10px; margin-top:8px;">Sign in once online. After that, NursePath stays available offline on this device.</p>
+            <p id="authStatus" role="status" aria-live="polite"></p>
+            <p class="auth-offline-note">Sign in once online. After that, NursePath stays available offline on this device.</p>
         </div>
     </div>
 
@@ -139,15 +141,15 @@
                 <span class="pnle-gate-tile-badge" id="pnleGateDutyBadge" hidden>Last used</span>
                 <span class="pnle-gate-tile-icon" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 12h3l2-7 4 14 2-7h5"/></svg></span>
                 <span class="pnle-gate-tile-title">Standard</span>
-                <span class="pnle-gate-tile-tagline">Calm ward reference</span>
-                <span class="pnle-gate-tile-detail">IV · vitals · labs · OTC</span>
+                <span class="pnle-gate-tile-tagline">Clinical tools and learning</span>
+                <span class="pnle-gate-tile-detail">Duty tools · Study lessons</span>
                 <span class="pnle-gate-tile-meta">Works offline once loaded</span>
             </button>
             <button type="button" id="pnleLaunchStudy" class="pnle-gate-tile pnle-gate-tile--study">
                 <span class="pnle-gate-tile-badge" id="pnleGateStudyBadge" hidden>Last used</span>
                 <span class="pnle-gate-tile-icon" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h6M9 11h6M9 15h4"/></svg></span>
                 <span class="pnle-gate-tile-title">PNLE</span>
-                <span class="pnle-gate-tile-tagline">Board-exam practice</span>
+                <span class="pnle-gate-tile-tagline">Practice questions for PNLE preparation</span>
                 <span class="pnle-gate-tile-detail" id="pnleGateStudyGoal">Today: —</span>
                 <span class="pnle-gate-tile-meta" id="pnleGateStudyMistakes">My mistakes: —</span>
             </button>
@@ -237,7 +239,7 @@
             <div class="tools-hub-mode-row">
                 <div class="np-mode-toggle" role="group" aria-label="Clinical tools mode">
                     <button type="button" data-mode="duty" id="hubDutyBtn" class="is-active" aria-pressed="true" onclick="setHubMode('duty')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v5a4 4 0 0 0 8 0V3M4 3h4M12 3h4M10 12v3a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="10" r="2"/></svg><span>Duty</span></button>
-                    <button type="button" data-mode="study" id="hubStudyBtn" aria-pressed="false" onclick="setHubMode('study')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 9 10-5 10 5-10 5-10-5ZM6 11v6c4 3 8 3 12 0v-6M22 9v7"/></svg><span>Lesson</span></button>
+                    <button type="button" data-mode="study" id="hubStudyBtn" aria-pressed="false" onclick="setHubMode('study')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 9 10-5 10 5-10 5-10-5ZM6 11v6c4 3 8 3 12 0v-6M22 9v7"/></svg><span>Study</span></button>
                 </div>
                 <div class="tools-hub-hero" aria-live="polite" aria-atomic="true">
                     <h2 id="toolsHubTitle">Clinical Tools</h2>

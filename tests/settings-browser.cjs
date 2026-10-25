@@ -133,6 +133,22 @@ const server = http.createServer((req,res) => {
     await page.locator('#settingsLogout').click();
     assert.equal(await page.evaluate(() => localStorage.getItem('nursepath_user')), null);
     assert.equal(await page.locator('#npSettingsSheet').isHidden(), true);
+    await page.setViewportSize({ width: 390, height: 844 });
+    assert.equal(await page.locator('#authOverlay').isVisible(), true);
+    await page.evaluate(() => window.setNursePathTheme('light'));
+    await page.locator('#usageConsent').uncheck();
+    assert.equal(await page.locator('#googleSignInBtn').isDisabled(), true);
+    if (screenshotDir) await page.screenshot({ animations: 'disabled', path: path.join(screenshotDir, 'auth-mobile-light.png') });
+    await page.locator('#usageConsent').check();
+    assert.equal(await page.locator('#googleSignInBtn').isEnabled(), true);
+    await page.evaluate(() => window.setNursePathTheme('dark'));
+    if (screenshotDir) await page.screenshot({ animations: 'disabled', path: path.join(screenshotDir, 'auth-mobile-dark.png') });
+    for (const width of [320, 390, 1280]) {
+      await page.setViewportSize({ width, height: 844 });
+      const card = await page.locator('.auth-card').boundingBox();
+      assert.ok(card.x >= 0 && card.x + card.width <= width, 'sign-in card fits the viewport');
+      assert.equal(await page.locator('#authOverlay').evaluate(el => el.scrollWidth <= el.clientWidth), true);
+    }
     // Existing upstream session teardown reassigns a const during page reload.
     // Keep this diagnostic visible without changing authentication/analytics here.
     const knownSessionError = error => error.includes('Assignment to constant variable.') && /endUsageSession .*\/js\/script-3\.js:488:/.test(error);
