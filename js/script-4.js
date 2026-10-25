@@ -554,7 +554,30 @@
         }
 
         // ============= TAB SWITCHING FUNCTION =============
+        function setMobileNavLevel(level) {
+            const bar = document.getElementById('npTabbar');
+            if (!bar) return;
+            const next = level === 'references' ? 'references' : 'main';
+            if (bar.dataset.level === next) return;
+            bar.dataset.level = next;
+            bar.querySelectorAll('[data-nav-level]').forEach((group) => {
+                group.hidden = group.getAttribute('data-nav-level') !== next;
+                if (!group.hidden && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && group.animate) {
+                    group.getAnimations().forEach((animation) => animation.cancel());
+                    group.animate([
+                        { opacity: 0, transform: next === 'references' ? 'translateX(100%)' : 'translateX(-100%)' },
+                        { opacity: 1, transform: 'translateX(0)' }
+                    ], { duration: 320, easing: 'cubic-bezier(.22,1,.36,1)' });
+                }
+            });
+        }
+
+        function syncMobileNavigation(tab) {
+            setMobileNavLevel(['labs', 'abbrev', 'sizes'].includes(tab) ? 'references' : 'main');
+        }
+
         function switchMainTab(tab, opts) {
+            syncMobileNavigation(tab);
             const skipHistory = !!(opts && opts.skipHistory);
             trackUsageSafe('navigation', 'feature_open', { tab }, { minIntervalMs: 700, rateKey: `tab_${tab}` });
 
@@ -636,7 +659,13 @@
             }
             
             document.querySelectorAll('.np-tabbar-link').forEach((el) => {
-                el.classList.toggle('is-active', el.getAttribute('data-tab') === tab);
+                const active = el.getAttribute('data-tab') === tab ||
+                    (el.getAttribute('data-nav-action') === 'references' && ['labs', 'abbrev', 'sizes'].includes(tab));
+                el.classList.toggle('is-active', active);
+                if (el.hasAttribute('data-tab')) {
+                    if (active) el.setAttribute('aria-current', 'page');
+                    else el.removeAttribute('aria-current');
+                }
             });
             if (typeof window.closeNursePathSettings === 'function') window.closeNursePathSettings();
 
@@ -830,11 +859,11 @@
             if (studyBtn) studyBtn.setAttribute('aria-pressed', String(next === 'study'));
             const title = document.getElementById('toolsHubTitle');
             const blurb = document.getElementById('toolsHubBlurb');
-            if (title) title.textContent = next === 'study' ? 'Lesson classroom' : 'Clinical Tools';
+            if (title) title.textContent = next === 'study' ? 'Lessons' : 'Clinical Tools';
             if (blurb) {
                 blurb.textContent = next === 'study'
-                    ? 'Lessons and quizzes, offline.'
-                    : 'Fast ward calculators.';
+                    ? 'Explore concepts, lessons, and practice questions.'
+                    : 'Quick-access tools for clinical practice.';
             }
             document.querySelectorAll('.tool-hub-desc').forEach((el) => {
                 const duty = el.getAttribute('data-duty-desc');

@@ -2820,7 +2820,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             to { opacity: 1; }
         }
         /* Ensure tappable elements are at least 44x44px */
-        button:not(.np-sidebar-toggle):not(.np-sidebar-link):not(.np-action-btn):not(.np-sidebar-backdrop):not(.lab-chip):not(.lab-row):not(.ab-chip):not(.ab-row):not(.sz-chip):not(.sz-row):not(.scale-opt):not(.scale-sec-head):not(.scale-action):not(.apgar-cell):not(.apgar-min):not(.ron-view),
+        button:not(.np-sidebar-toggle):not(.np-sidebar-link):not(.np-action-btn):not(.np-sidebar-backdrop):not(.lab-chip):not(.lab-row):not(.ab-chip):not(.ab-row):not(.sz-chip):not(.sz-row):not(.scale-opt):not(.scale-sec-head):not(.scale-action):not(.apgar-cell):not(.apgar-min):not(.ron-view):not([class*="rf-"]),
         a.btn, select, input[type="submit"], input[type="button"], input[type="number"], input[type="text"], input[type="date"] {
             min-height: 44px;
             min-width: 44px;
@@ -2870,7 +2870,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             h3, .text-xl, .text-lg { font-size: 1rem !important; }
 
             /* Generic button sizing must not fight component buttons */
-            button:not(.tool-hub-card):not(.otc-med-main):not(.otc-full-detail):not(.otc-chip):not(.lab-row):not(.lab-chip):not(.lab-back-btn):not(.ab-row):not(.ab-chip):not(.ab-back):not(.sz-row):not(.sz-chip):not(.sz-back):not(.study-tab-btn):not(.study-quiz-choice):not(.score-option):not(.scale-opt):not(.scale-sec-head):not(.scale-action):not(.apgar-cell):not(.apgar-min):not(.ron-view):not(.tool-guide-close):not(.ron-region):not(.tool-hub-tag):not(.np-sidebar-toggle):not(.np-sidebar-link):not(.np-action-btn):not(.np-sidebar-backdrop):not(.np-tabbar-link):not(.np-settings-open):not(.np-settings-close):not(.np-settings-row):not(.np-settings-backdrop):not(.np-mode-toggle button) {
+            button:not(.tool-hub-card):not(.otc-med-main):not(.otc-full-detail):not(.otc-chip):not(.lab-row):not(.lab-chip):not(.lab-back-btn):not(.ab-row):not(.ab-chip):not(.ab-back):not(.sz-row):not(.sz-chip):not(.sz-back):not(.study-tab-btn):not(.study-quiz-choice):not(.score-option):not(.scale-opt):not(.scale-sec-head):not(.scale-action):not(.apgar-cell):not(.apgar-min):not(.ron-view):not(.tool-guide-close):not(.ron-region):not(.tool-hub-tag):not(.np-sidebar-toggle):not(.np-sidebar-link):not(.np-action-btn):not(.np-sidebar-backdrop):not(.np-tabbar-link):not(.np-settings-open):not(.np-settings-close):not(.np-settings-row):not(.np-settings-backdrop):not(.np-mode-toggle button):not([class*="rf-"]) {
                 padding: 12px 16px !important;
                 font-size: 14px !important;
                 min-height: 48px !important;
@@ -4111,3 +4111,96 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
         html[data-theme="light"] .np-status-meta strong {
             color: #0f172a !important;
         }
+
+/* Floating two-level mobile navigation. Desktop sidebar is unchanged. */
+@media (max-width: 767px) {
+    .np-tabbar {
+        display: block;
+        left: max(12px, env(safe-area-inset-left));
+        right: max(12px, env(safe-area-inset-right));
+        bottom: calc(12px + env(safe-area-inset-bottom));
+        width: auto;
+        max-width: 460px;
+        margin-inline: auto;
+        height: var(--np-tabbar-height);
+        padding: 5px;
+        border: 1px solid rgba(148, 163, 184, .18);
+        border-radius: 999px;
+        box-shadow: 0 8px 28px rgba(2, 6, 23, .24), 0 2px 6px rgba(2, 6, 23, .12);
+    }
+    .np-tabbar-level {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        height: 100%;
+        gap: 3px;
+    }
+    .np-tabbar-level[data-nav-level="references"] {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .np-tabbar-level[hidden] { display: none; }
+    .np-tabbar .np-tabbar-link {
+        border-radius: 999px;
+        color: #cbd5e1;
+        font-size: 11px;
+        font-weight: 600;
+        transition: color 160ms ease, background-color 160ms ease, transform 160ms ease;
+    }
+    .np-tabbar .np-tabbar-link:active { transform: scale(.94); }
+    .np-tabbar .np-tabbar-link:focus-visible {
+        outline: 2px solid #2dd4bf;
+        outline-offset: -3px;
+    }
+    .np-tabbar .np-tabbar-link.is-active,
+    html[data-theme="light"] .np-tabbar .np-tabbar-link.is-active {
+        background: #0f766e !important;
+        color: #ffffff !important;
+    }
+    html[data-theme="light"] .np-tabbar {
+        border-color: rgba(100, 116, 139, .14) !important;
+        box-shadow: 0 8px 28px rgba(15, 23, 42, .12), 0 2px 6px rgba(15, 23, 42, .05);
+    }
+    .np-main .np-content {
+        padding-bottom: calc(var(--np-tabbar-height) + env(safe-area-inset-bottom) + 40px) !important;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .np-tabbar .np-tabbar-link { transition: none; }
+}
+
+/* Shared active oval glides between buttons rather than repainting each tab. */
+@media (max-width: 767px) {
+    .np-tabbar { overflow: hidden; }
+    .np-tabbar-level {
+        position: relative;
+        isolation: isolate;
+        --np-active-index: 0;
+        --np-pill-width: calc((100% - 6px) / 3);
+    }
+    .np-tabbar-level[data-nav-level="references"] {
+        --np-pill-width: calc((100% - 9px) / 4);
+    }
+    .np-tabbar-level:has(> .is-active:nth-child(2)) { --np-active-index: 1; }
+    .np-tabbar-level:has(> .is-active:nth-child(3)) { --np-active-index: 2; }
+    .np-tabbar-level:has(> .is-active:nth-child(4)) { --np-active-index: 3; }
+    .np-tabbar-level::before {
+        content: '';
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: var(--np-pill-width);
+        border-radius: 999px;
+        background: #0f766e;
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0;
+        transform: translateX(calc(var(--np-active-index) * (100% + 3px)));
+        transition: transform 320ms cubic-bezier(.22,1,.36,1), opacity 160ms ease;
+    }
+    .np-tabbar-level:has(> .is-active)::before { opacity: 1; }
+    .np-tabbar .np-tabbar-link.is-active,
+    html[data-theme="light"] .np-tabbar .np-tabbar-link.is-active {
+        background: transparent !important;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .np-tabbar-level::before { transition: none; }
+}

@@ -1022,3 +1022,95 @@ html[data-theme='light'] .pnle-progress-list strong {
 html[data-theme='light'] .pnle-screen-title {
   color: #0f172a;
 }
+
+/* App-level Standard / PNLE chooser. Internal duty/study keys stay compatible. */
+.np-page-header, #pnleStudyHeader { display: flex; align-items: center; justify-content: space-between; flex-wrap: nowrap; gap: 10px; }
+.np-page-header-actions { gap: 8px; }
+.np-app-mode-picker { display: inline-block; position: relative; color: var(--hub-text-2, #94a3b8); flex: none; }
+.np-app-mode-picker .np-app-mode-select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 144px !important;
+  min-width: 0 !important;
+  min-height: 46px;
+  padding: 8px 40px !important;
+  margin: 0;
+  border: 1px solid var(--hub-border, #334155) !important;
+  border-radius: 999px !important;
+  background: var(--hub-surface, #0f172a) !important;
+  color: var(--hub-text, #f8fafc) !important;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(15,23,42,.04);
+}
+.np-app-mode-picker .np-app-mode-select:focus-visible { outline: 2px solid var(--hub-focus, #0d9488); outline-offset: 3px; }
+.np-app-mode-picker .np-app-mode-select option { background: var(--hub-surface, #0f172a); color: var(--hub-text, #f8fafc); }
+#npSettingsOpen, #pnleSettingsOpen { display: inline-flex !important; align-items: center; justify-content: center; min-width: 42px !important; width: 42px; min-height: 42px !important; padding: 0 !important; border-radius: 50%; flex: none; }
+#pnleStudyHeader .pnle-study-header-brand { color: var(--hub-text, #f8fafc) !important; font-size: 22px; font-weight: 800; white-space: nowrap; }
+#pnleStudyHeader .pnle-study-header-brand span { color: var(--hub-icon-fg, #5eead4); }
+@media (max-width: 420px) {
+  .np-page-header, #pnleStudyHeader { gap: 6px; }
+  .np-page-header-actions { gap: 6px; }
+  #nursepathHeaderLogo, #pnleStudyHeader .pnle-study-header-lockup { gap: 6px; }
+  #nursepathHeaderLogo .np-header-word, #pnleStudyHeader .pnle-study-header-brand { font-size: 18px !important; }
+  #nursepathHeaderLogo img, #pnleStudyHeader .pnle-study-header-lockup img { width: 28px; height: 28px; }
+  .np-app-mode-picker .np-app-mode-select { width: 122px !important; padding: 8px 26px !important; font-size: 13px; }
+  #npSettingsOpen, #pnleSettingsOpen { width: 36px; min-width: 36px !important; }
+}
+@media (max-width: 360px) { .np-app-mode-picker .np-app-mode-select { width: 106px !important; font-size: 12px; } }
+
+/* Styled mode menu: no platform-native blue selection or leading grid icon. */
+.np-app-mode-picker .np-app-mode-select { position: relative; box-sizing: border-box; display: flex; align-items: center; justify-content: center !important; text-align: center !important; text-transform: none; letter-spacing: 0; transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease; }
+.np-app-mode-select .np-mode-chevron { position: absolute; right: 12px; top: 50%; width: 14px; height: 14px; transform: translateY(-50%); pointer-events: none; transition: transform 200ms ease; }
+.np-app-mode-select[aria-expanded="true"] .np-mode-chevron { transform: translateY(-50%) rotate(180deg); }
+.np-app-mode-picker { z-index: 50; }
+.np-app-mode-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  z-index: 60;
+  padding: 8px;
+  border: 1px solid var(--hub-border, #334155);
+  border-radius: 16px;
+  background: var(--hub-surface, #0f172a) !important;
+  box-shadow: 0 12px 32px rgba(15,23,42,.16);
+  animation: app-mode-open 160ms ease both;
+}
+.np-app-mode-menu[hidden] { display: none !important; }
+.np-app-mode-menu .np-action-btn {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center !important;
+  width: 100%;
+  min-width: 0 !important;
+  min-height: 44px;
+  padding: 10px 14px !important;
+  border: 0 !important;
+  border-radius: 12px;
+  background: transparent !important;
+  color: var(--hub-text, #f8fafc) !important;
+  text-align: center !important;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+.np-app-mode-menu .np-action-btn[aria-checked="true"],
+.np-app-mode-menu .np-action-btn:hover,
+.np-app-mode-menu .np-action-btn:focus-visible {
+  background: var(--hub-icon-bg, #143532) !important;
+  color: var(--hub-icon-fg, #5eead4) !important;
+}
+.np-app-mode-menu .np-action-btn:focus-visible { outline: 2px solid var(--hub-focus, #0d9488); outline-offset: -2px; }
+@keyframes app-mode-open { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .np-app-mode-menu { animation: none; } .np-app-mode-select .np-mode-chevron { transition: none; } }

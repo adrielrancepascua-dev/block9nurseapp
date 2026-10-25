@@ -4,7 +4,8 @@
                 if (localStorage.getItem('nursepath_user')) {
                     document.documentElement.setAttribute('data-ghost-auth', '1');
                 }
-                if (localStorage.getItem('nursepath_theme') === 'light') {
+                const savedTheme = localStorage.getItem('nursepath_theme');
+                if (savedTheme === 'light' || (savedTheme === 'system' && !window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                     document.documentElement.setAttribute('data-theme', 'light');
                 }
             } catch (e) {

@@ -342,6 +342,14 @@
   function applyBodyMode(mode) {
     document.body.classList.remove('pnle-mode-duty', 'pnle-mode-study');
     document.body.classList.add(mode === 'study' ? 'pnle-mode-study' : 'pnle-mode-duty');
+    document.querySelectorAll('.np-app-mode-picker').forEach((picker) => {
+      const next = mode === 'study' ? 'study' : 'duty';
+      picker.dataset.mode = next;
+      picker.querySelector('[data-app-mode-label]').textContent = next === 'study' ? 'PNLE' : 'Standard';
+      picker.querySelectorAll('[data-app-mode]').forEach((option) => {
+        option.setAttribute('aria-checked', String(option.getAttribute('data-app-mode') === next));
+      });
+    });
   }
 
   function hideLaunchGate() {
@@ -918,15 +926,49 @@
     if (dutyBtn) dutyBtn.addEventListener('click', enterDutyMode);
     if (studyBtn) studyBtn.addEventListener('click', enterStudyMode);
 
-    const dutySwitch = document.getElementById('pnleDutySwitchMode');
-    const studySwitch = document.getElementById('pnleStudySwitchMode');
-    if (dutySwitch) dutySwitch.addEventListener('click', () => showLaunchGateWhenReady(true));
-    if (studySwitch) {
-      studySwitch.addEventListener('click', () => {
-        endStudySession();
-        showLaunchGateWhenReady(true);
+    document.querySelectorAll('.np-app-mode-picker').forEach((picker) => {
+      const trigger = picker.querySelector('.np-app-mode-select');
+      const menu = picker.querySelector('.np-app-mode-menu');
+      const options = Array.from(menu.querySelectorAll('[data-app-mode]'));
+      function close() { menu.hidden = true; trigger.setAttribute('aria-expanded', 'false'); }
+      function open() {
+        menu.hidden = false;
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+      trigger.addEventListener('click', () => {
+        if (!menu.hidden) { close(); return; }
+        open();
+        options.find(option => option.getAttribute('aria-checked') === 'true').focus();
       });
-    }
+      trigger.addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+        event.preventDefault();
+        open();
+        options[event.key === 'ArrowDown' ? 0 : options.length - 1].focus();
+      });
+      menu.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          event.preventDefault(); event.stopPropagation(); close(); trigger.focus();
+        } else if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
+          event.preventDefault();
+          const index = options.indexOf(document.activeElement);
+          const next = event.key === 'Home' ? 0 : event.key === 'End' ? options.length - 1 : (index + (event.key === 'ArrowDown' ? 1 : -1) + options.length) % options.length;
+          options[next].focus();
+        }
+      });
+      options.forEach((option) => option.addEventListener('click', () => {
+        const mode = option.getAttribute('data-app-mode');
+        close();
+        if (mode !== picker.dataset.mode) {
+          if (mode === 'study') enterStudyMode();
+          else enterDutyMode();
+        }
+        const active = document.getElementById(mode === 'study' ? 'pnleStudySwitchMode' : 'pnleDutySwitchMode');
+        if (active) active.focus();
+      }));
+      document.addEventListener('pointerdown', (event) => { if (!picker.contains(event.target)) close(); });
+      document.addEventListener('focusin', (event) => { if (!picker.contains(event.target)) close(); });
+    });
 
     const tabbar = document.getElementById('pnleStudyTabbar');
     if (tabbar) {

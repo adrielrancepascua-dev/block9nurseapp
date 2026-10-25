@@ -30,10 +30,12 @@ const STATIC_ASSETS = [
   new URL('assets/sizes.js', BASE).href,
   new URL('css/styles.css', BASE).href,
   new URL('css/hub-redesign.css', BASE).href,
+  new URL('css/settings.css', BASE).href,
   new URL('css/reference-redesign.css', BASE).href,
   new URL('css/pnle-study.css', BASE).href,
   new URL('js/script-1.js', BASE).href,
   new URL('js/script-2.js', BASE).href,
+  new URL('js/settings.js', BASE).href,
   new URL('js/script-3.js', BASE).href,
   new URL('js/script-4.js', BASE).href,
   new URL('js/script-5.js', BASE).href,
@@ -44,6 +46,29 @@ const STATIC_ASSETS = [
   new URL('assets/screenshots/vitals-narrow.png', BASE).href,
   self.location.href
 ];
+
+// Settings asks the active worker for its own version and actual cache coverage.
+self.addEventListener('message', (event) => {
+  if (!event.data || event.data.type !== 'NURSEPATH_PACK_STATUS' || !event.ports[0]) return;
+  event.waitUntil((async () => {
+    try {
+      const exists = await caches.has(CACHE_NAME);
+      const cache = exists ? await caches.open(CACHE_NAME) : null;
+      const resources = await Promise.all(STATIC_ASSETS.map(async (url) => {
+        const response = cache && await cache.match(url);
+        return Boolean(response && response.ok);
+      }));
+      event.ports[0].postMessage({
+        version: CACHE_NAME,
+        ready: resources.every(Boolean),
+        cached: resources.filter(Boolean).length,
+        required: STATIC_ASSETS.length
+      });
+    } catch (error) {
+      event.ports[0].postMessage({ version: CACHE_NAME, ready: false, error: 'Cache storage is unavailable.' });
+    }
+  })());
+});
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
