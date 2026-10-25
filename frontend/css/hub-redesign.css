@@ -313,6 +313,7 @@ html .np-settings-open svg { width: 18px; height: 18px; color: var(--hub-icon-fg
 }
 
 /* ---------- Sidebar: one accent instead of five icon colours ------------- */
+.np-footer p { text-align: justify; }
 .np-sidebar-brand { letter-spacing: .08em; }
 .np-sidebar-link svg { color: var(--hub-icon-fg) !important; }
 .np-sidebar-link svg text { fill: #ffffff !important; }
