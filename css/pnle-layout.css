@@ -69,6 +69,15 @@ html[data-theme='light'] #pnleStudyHeader {
 #pnleStudyRoot .pnle-level-row { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding: 5px; border-radius: 999px; background: var(--pnle-soft) !important; margin: 0 0 14px; }
 #pnleStudyRoot .pnle-level-btn { min-height: 40px; padding: 8px 12px !important; border: 0; border-radius: 999px !important; font-size: 14px !important; font-weight: 550; color: var(--pnle-study-muted) !important; background: transparent !important; transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease; }
 #pnleStudyRoot .pnle-level-btn.is-active { background: var(--pnle-study-surface) !important; color: var(--pnle-accent) !important; box-shadow: 0 2px 5px rgba(30,20,50,.06); }
+#pnleStudyRoot .pnle-resume-card { padding: 18px; margin-bottom: 18px; border: 1px solid var(--pnle-ring); border-radius: 18px; background: var(--pnle-study-surface) !important; }
+#pnleStudyRoot .pnle-resume-card h3 { margin: 0 0 6px; font-size: 17px; line-height: 1.4; color: var(--pnle-study-text); font-weight: 650; }
+#pnleStudyRoot .pnle-resume-card p { margin: 0 0 14px; color: var(--pnle-study-muted); font-size: 13px; line-height: 1.6; }
+#pnleStudyRoot .pnle-difficulty-help { margin: 0 0 14px; color: var(--pnle-study-muted); font-size: 13px; font-weight: 400; line-height: 1.6; }
+#pnleStudyRoot .pnle-full-practice { width: 100%; min-height: 44px; margin-top: 6px; padding: 10px 14px !important; border: 0; border-radius: 12px; background: transparent !important; color: var(--pnle-accent) !important; font-family: inherit; font-size: 14px !important; font-weight: 500; text-align: center; }
+#pnleStudyRoot .pnle-full-practice:hover { background: var(--pnle-soft) !important; }
+#pnleStudyRoot:has(.pnle-resume-card) #pnleStartPractice { border: 1px solid var(--pnle-line); background: var(--pnle-study-surface) !important; color: var(--pnle-accent) !important; }
+#pnleStudyRoot .pnle-session-save-status { font-size: 13px; color: var(--pnle-study-muted); line-height: 1.6; }
+#pnleStudyRoot .pnle-session-save-status:empty { display: none; }
 #pnleStudyRoot .pnle-btn-primary { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; padding: 14px 16px !important; border: 0; border-radius: 16px !important; background: var(--pnle-lavender) !important; color: var(--pnle-on-lavender) !important; font-family: inherit; font-size: 14px !important; font-weight: 600; box-shadow: none; }
 #pnleStudyRoot .pnle-btn-primary:disabled { opacity: .5; }
 #pnleStudyRoot :is(.pnle-btn-primary, .pnle-mistakes-strip) svg { width: 18px; height: 18px; flex: none; }
@@ -172,10 +181,11 @@ html[data-theme='light'] #pnleStudyHeader {
 }
 #app-shell .np-unified-header :is(.np-header-lockup, .pnle-study-header-lockup) {
   display: inline-flex;
-  flex-wrap: nowrap;
+  flex-wrap: nowrap !important;
   align-items: center;
-  gap: 8px;
+  gap: 8px !important;
   margin: 0;
+  flex: none;
 }
 #app-shell .np-unified-header :is(.np-header-mark, .pnle-study-header-lockup img) {
   width: 32px !important;
@@ -193,7 +203,7 @@ html[data-theme='light'] #pnleStudyHeader {
   white-space: nowrap;
 }
 #app-shell .np-unified-header .np-page-header-actions { align-items: center; gap: 8px; }
-#app-shell .np-unified-header .np-settings-open { height: 44px; min-height: 44px !important; }
+#app-shell .np-unified-header .np-settings-open { width: 44px; min-width: 44px !important; height: 44px; min-height: 44px !important; padding-inline: 0 !important; justify-content: center; flex: none; }
 #app-shell .np-unified-header .np-settings-open svg { width: 20px; height: 20px; }
 @media(max-width:767px) {
   #app-shell #pnleStudyHeader.np-unified-header { margin: 4px 12px 8px; }
@@ -203,7 +213,11 @@ html[data-theme='light'] #pnleStudyHeader {
   #app-shell .np-unified-header { gap: 6px; }
   #app-shell .np-unified-header :is(.np-header-word, .pnle-study-header-brand) { font-size: 18px !important; }
   #app-shell .np-unified-header :is(.np-header-lockup, .pnle-study-header-lockup),
-  #app-shell .np-unified-header .np-page-header-actions { gap: 6px; }
+  #app-shell .np-unified-header .np-page-header-actions { gap: 6px !important; }
+}
+@media(max-width:360px) {
+  #app-shell .np-unified-header .np-app-mode-select { width: 96px !important; padding-inline: 24px !important; }
+  #app-shell .np-unified-header .np-mode-chevron { right: 8px; width: 12px; height: 12px; }
 }
 
 /* Approved question layout: inline explanations and a clear action area. */

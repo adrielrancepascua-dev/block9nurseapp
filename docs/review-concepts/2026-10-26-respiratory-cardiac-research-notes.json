@@ -1,0 +1,138 @@
+{
+  "researchDate": "2026-10-26",
+  "discovery": [
+    {
+      "query": "How do reviews distinguish arterial oxygen pressure, hemoglobin saturation, ventilation perfusion matching and oxygen-induced hypercapnia in COPD?",
+      "papers": [
+        {
+          "id": "n3t6y084wx7h",
+          "title": "Zuurstoftoediening bij een acute COPD-exacerbatie: zullen de patiënten werkelijk “stoppen met ademen”?",
+          "doi": "10.2143/tvg.73.13.2002375",
+          "year": "2020"
+        },
+        {
+          "id": "k2h37pfdfbnd",
+          "title": "Hypoxia in Clinical Practice: A Pathophysiological Framework for Diagnosis, Classification, and Management",
+          "doi": "10.5281/zenodo.20004673",
+          "year": "2026"
+        },
+        {
+          "id": "4f5triwcjv",
+          "title": "Hypercapnia during oxygen therapy in airways obstruction: a reappraisal.",
+          "doi": "10.1136/THX.41.12.897",
+          "year": "1986"
+        },
+        {
+          "id": "jas48tkr5hw7",
+          "title": "The role of hypoventilation and ventilation-perfusion redistribution in oxygen-induced hypercapnia during acute exacerbations of chronic obstructive pulmonary disease",
+          "doi": "10.1164/ajrccm.161.5.9904119"
+        },
+        {
+          "id": "2y8ly3bdwy",
+          "title": "Gas exchange in acute COPD exacerbation.",
+          "doi": "10.1183/09031936.98.11040994",
+          "year": "1998"
+        },
+        {
+          "id": "3tlnsebbws",
+          "title": "Discriminating between the effect of shunt and reduced VA/Q on arterial oxygen saturation is particularly useful in clinical practice.",
+          "doi": "10.1023/A:1011495416005",
+          "year": "2000"
+        },
+        {
+          "id": "48qfojavrh",
+          "title": "Ventilation-perfusion inequality in chronic obstructive pulmonary disease.",
+          "doi": "10.1172/JCI108630",
+          "year": "1977"
+        },
+        {
+          "id": "amisopfver",
+          "title": "Non-invasive Measurement of Pulmonary Gas Exchange Efficiency: The Oxygen Deficit.",
+          "doi": "10.3389/FPHYS.2021.757857",
+          "year": "2021"
+        },
+        {
+          "id": "ynyf8i3y01go",
+          "title": "Oxygen-induced hypercapnia in patients with exacerbations of chronic obstructive pulmonary disease: pathogenesis, diagnosis and prevention in emergency medical care (review)",
+          "doi": "10.24884/2072-6716-2026-27-1-70-76",
+          "year": "2026"
+        },
+        {
+          "id": "52ue7f6gvj",
+          "title": "Principles of oxygen administration and ventiltory support in patients with acute exacerbations of chronic obstructive pulmonary disease",
+          "doi": "10.5937/PRAMED1901033T",
+          "year": "2019"
+        }
+      ]
+    },
+    {
+      "query": "What guidelines and reviews support safe interpretation of troponin, digoxin toxicity, nitrate interactions and diuretic electrolyte effects?",
+      "papers": [
+        {
+          "id": "2m7ul6wvn1",
+          "title": "Troponin for acute coronary syndromes: has NICE got it right?",
+          "doi": "10.1258/0004563021902116",
+          "year": "2002"
+        },
+        {
+          "id": "4ce8fw32k9",
+          "title": "Therapeutic Guidelines: Cardiovascular - Version 5 [Book Review]",
+          "doi": null,
+          "year": "2009"
+        },
+        {
+          "id": "m76stmlnsq",
+          "title": "Diuretics, Digitalis and Arrhythmias",
+          "doi": "10.1111/J.0954-6820.1981.TB02641.X",
+          "year": "2009"
+        },
+        {
+          "id": "2a7h49fhl0",
+          "title": "Therapeutic drug monitoring of digoxin: impact of endogenous and exogenous digoxin-like immunoreactive substances.",
+          "doi": "10.2165/00139709-200625040-00007",
+          "year": "2006"
+        },
+        {
+          "id": "4589ift69o",
+          "title": "Recognition and management of digitalis toxicity",
+          "doi": "10.1016/0002-9149(92)91259-7",
+          "year": "1992"
+        },
+        {
+          "id": "1qibecvmo2",
+          "title": "Standards of laboratory practice: cardiac drug monitoring",
+          "doi": "10.1093/CLINCHEM/44.5.1096",
+          "year": "1998"
+        },
+        {
+          "id": "kwk38mq3k0zl",
+          "title": "Digoxin Therapy in Heart Failure and Atrial Fibrillation: A Pharmacotherapeutic Review for Pharmacists",
+          "doi": "10.64483/202522452",
+          "year": "2025"
+        },
+        {
+          "id": "201s1dwfs4",
+          "title": "Diagnosis and practical management of digoxin toxicity: a narrative review and consensus",
+          "doi": "10.1097/mej.0000000000001065",
+          "year": "2023"
+        },
+        {
+          "id": "1clcaxs2",
+          "title": "Review: Failure of current digoxin monitoring for toxicity: new monitoring recommendations to maintain therapeutic levels for efficacy",
+          "doi": "10.3389/fcvm.2023.1179892",
+          "year": "2023"
+        },
+        {
+          "id": "5ghynbf085",
+          "title": "Digoxin toxicity: Case for retiring its use in elderly patients?",
+          "doi": null,
+          "year": "2016"
+        }
+      ]
+    }
+  ],
+  "selection": "SciSpace indexes were treated as leads rather than proof of accuracy or peer review. Digoxin consensus ID 201s1dwfs4 was selected and original full text opened; other indexed leads were not automatically cited. Respiratory question surfaced conflicting historical hypercapnia explanations; current lesson uses controlled-oxygen guidance instead of a single-mechanism assertion.",
+  "accessIssues": "Several PMC opens returned CAPTCHA; publisher pages and society-hosted PDFs were used instead where possible. No inaccessible full text is described as read. OSA publisher abstract/recommendation preview and pulse-oximetry abstract were read; their limitations are explicit. Fifth MI indexed JACC text was initially found, then substantive official 2026 ESC slides were opened and used instead.",
+  "dateVerification": "Cystic fibrosis final publication 2015 (not PMC upload 2020). Acid-base review issue Jan2023 (copyright2022). Pulse-oximetry study March2024 issue (copyright2023). AF guideline released Nov2023, Circulation Jan2024 issue. Fifth MI Aug28 online/Sep15 2026 JACC issue, verified PubMed metadata; actual support from 2026 ESC slides.",
+  "scopeLimit": "Only the 24 specified lesson objects reviewed. Question stems, choices, keys, and mapped-topic completeness outside this set were not changed. Guideline citation does not transfer all recommendations into the app. Legacy nursing sources have statements outside retained lesson scope that were not adopted."
+}

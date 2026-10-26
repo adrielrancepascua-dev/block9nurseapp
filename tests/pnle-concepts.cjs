@@ -25,4 +25,5 @@ assert.equal(api.getForItems([{ id: 'future-question' }])[0].id, 'unavailable');
 assert.equal(api.getForItem({ id: 'exam-hard-031' }).id, 'reflux', 'Reflux questions need teaching about reflux');
 assert.equal(api.getForItem({ id: 'exam-hard-043' }).id, 'platelets', 'Phlebotomy bleeding risk needs platelet teaching');
 assert.equal(api.getForItem({ id: 'exam-hard-052' }).id, 'biopsy', 'Post-biopsy bleeding needs procedure aftercare teaching');
+assert.equal(api.getForItem({ id: 'periop-023' }).id, 'potassium', 'IV potassium questions need electrolyte and replacement-safety teaching');
 console.log(`Concept lessons cover ${bank.length} questions; deduplication and unavailable state pass.`);

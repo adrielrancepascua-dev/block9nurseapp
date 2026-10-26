@@ -153,7 +153,9 @@ const server = http.createServer((req,res) => {
     assert.equal(await page.locator('.pnle-lesson-section').count(), 1);
     assert.equal(await page.locator('.pnle-lesson-reflect').count(), 1);
     assert.equal(await page.locator('.pnle-review-option, .pnle-choice, .pnle-question-stem, .pnle-choice-reason').count(), 0, 'concept reading must not reveal questions, options or answer rationales');
-    assert.equal(await page.locator('.pnle-lesson-sources a').count() > 0, true);
+    assert.equal(await page.locator('.pnle-lesson-sources a').count() >= 2, true);
+    await page.locator('.pnle-lesson-sources summary').click();
+    assert.equal(await page.locator('.pnle-lesson-sources').getAttribute('open'), '');
     await page.evaluate(() => window.setNursePathTheme('dark'));
     assert.equal(await page.locator('.pnle-lesson-summary').evaluate(el => getComputedStyle(el).color), 'rgb(240, 237, 247)');
     if (screenshotDir) await page.screenshot({ animations: 'disabled', path: path.join(screenshotDir, 'pnle-concept-dark.png') });
@@ -168,6 +170,7 @@ const server = http.createServer((req,res) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.locator('#pnleReviewNext').click();
     assert.deepEqual(await page.evaluate(() => ['nursepath_pnle_mistakes_v1','nursepath_pnle_progress_v1','nursepath_pnle_daily_count_v1'].map(key => localStorage.getItem(key))), reviewStorage, 'reading explanations leaves progress unchanged');
+    page.once('dialog', dialog => dialog.accept());
     await page.locator('#pnleStartMistakes').click();
     await page.locator('.pnle-choice').nth(normalItem.correctIndex).click();
     await page.locator('#pnleNextBtn').click();
@@ -209,6 +212,7 @@ const server = http.createServer((req,res) => {
       assert.equal(await page.locator('#pnleStudyRoot').evaluate(el => el.scrollWidth <= el.clientWidth), true);
     }
     if (screenshotDir) await page.screenshot({ animations: 'disabled', path: path.join(screenshotDir, 'pnle-question-sata-scrolled.png') });
+    page.once('dialog', dialog => dialog.accept());
     await page.locator('#pnleQuitSession').click();
     await page.locator('[data-study-tab="progress"]').click();
     assert.equal(await page.locator('[data-study-tab="progress"]').getAttribute('aria-current'), 'page');

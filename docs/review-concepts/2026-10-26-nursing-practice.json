@@ -1,0 +1,616 @@
+[
+  {
+    "id": "asepsis",
+    "status": "supported",
+    "summary": "Aseptic practice reduces the introduction and transfer of microorganisms during care.",
+    "body": "Hand hygiene, appropriate protective equipment and maintenance of a sterile field serve different purposes. A suspected break in technique needs correction; an intact-looking surface alone does not establish sterility.",
+    "reflect": "How do clean technique and sterile technique serve different situations?",
+    "sources": [
+      {
+        "label": "OpenStax nursing text",
+        "url": "https://openstax.org/books/fundamentals-nursing/pages/10-2-asepsis-and-ppe"
+      },
+      {
+        "label": "OpenStax nursing text",
+        "url": "https://openstax.org/books/fundamentals-nursing/pages/10-3-sterile-technique"
+      },
+      {
+        "label": "CDC's Core Infection Prevention and Control Practices for Safe Healthcare Delivery in All Settings",
+        "url": "https://www.cdc.gov/infection-control/hcp/core-practices/index.html"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://openstax.org/books/fundamentals-nursing/pages/10-2-asepsis-and-ppe",
+        "title": "10.2 Asepsis and PPE",
+        "year": null,
+        "access": "full text",
+        "supports": "Summary/body: clean and sterile methods reduce contamination through different mechanisms; suspected contamination requires correction. Reflection: technique depends on the task.",
+        "limitations": "Educational reference; page publication date not verified unless shown. Reflection is a learning prompt, not a tested clinical rule."
+      },
+      {
+        "url": "https://openstax.org/books/fundamentals-nursing/pages/10-3-sterile-technique",
+        "title": "10.3 Sterile Technique",
+        "year": null,
+        "access": "full text",
+        "supports": "Summary/body: clean and sterile methods reduce contamination through different mechanisms; suspected contamination requires correction. Reflection: technique depends on the task.",
+        "limitations": "Educational reference; page publication date not verified unless shown. Reflection is a learning prompt, not a tested clinical rule."
+      },
+      {
+        "url": "https://www.cdc.gov/infection-control/hcp/core-practices/index.html",
+        "title": "CDC's Core Infection Prevention and Control Practices for Safe Healthcare Delivery in All Settings",
+        "year": 2024,
+        "access": "official guidance",
+        "supports": "Hand hygiene, risk-based protective equipment and aseptic practices reduce pathogen transmission.",
+        "limitations": "US guidance; implementation depends on procedure and local policy."
+      }
+    ],
+    "notes": "Research date: 2026-10-26. Existing reference(s) opened and checked; no question-bank text used. SciSpace discovery query: 'What guidelines and systematic reviews support perioperative infection prevention, recovery assessment, intravenous infiltration and opioid respiratory depression monitoring?' Relevant IDs: p791hkqwqe4c (IV evidence summary, followed to original full text); 2tlyetl8mc (2024 monitoring meta-analysis, PubMed abstract retrieved by search, no full-text claim); 72s3a134e82i (2024 opioid review, discovery only). Broad discovery supplemented with directly opened CDC/ASA/WHO guidance."
+  },
+  {
+    "id": "preop",
+    "status": "supported",
+    "summary": "Preoperative preparation combines informed participation, risk assessment and readiness for anesthesia and recovery.",
+    "body": "Consent involves understanding and voluntary agreement, not just a signature. Fasting instructions, medicine review and teaching address different risks and must follow the specific procedure and anesthesia plan.",
+    "reflect": "Why is checking understanding different from checking that a form is signed?",
+    "sources": [
+      {
+        "label": "OpenStax nursing text",
+        "url": "https://openstax.org/books/fundamentals-nursing/pages/31-2-preoperative-phase"
+      },
+      {
+        "label": "Preparing for Surgery: Checklist",
+        "url": "https://madeforthismoment.asahq.org/preparing-for-surgery/prep/preparing-for-surgery-checklist/"
+      },
+      {
+        "label": "The dialogue leading to a decision (part 1 of 4)",
+        "url": "https://www.gmc-uk.org/professional-standards/the-professional-standards/decision-making-and-consent/the-dialogue-leading-to-a-decision"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://openstax.org/books/fundamentals-nursing/pages/31-2-preoperative-phase",
+        "title": "31.2 Preoperative Phase",
+        "year": null,
+        "access": "full text",
+        "supports": "Summary/body: consent, individualized assessment, medicine review and procedure-specific preparation. Reflection: understanding is more than documentation.",
+        "limitations": "Educational reference; page publication date not verified unless shown. Reflection is a learning prompt, not a tested clinical rule."
+      },
+      {
+        "url": "https://madeforthismoment.asahq.org/preparing-for-surgery/prep/preparing-for-surgery-checklist/",
+        "title": "Preparing for Surgery: Checklist",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Preanesthesia history, medicine review, understanding and individualized preparation.",
+        "limitations": "Undated patient guidance; no universal fasting interval inferred."
+      },
+      {
+        "url": "https://www.gmc-uk.org/professional-standards/the-professional-standards/decision-making-and-consent/the-dialogue-leading-to-a-decision",
+        "title": "The dialogue leading to a decision (part 1 of 4)",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Dialogue explores patient values, understanding, alternatives and voluntary decisions.",
+        "limitations": "UK physician guidance used for communication principles, not Philippine legal scope; page undated."
+      }
+    ],
+    "notes": "Research date: 2026-10-26. Existing reference(s) opened and checked; no question-bank text used."
+  },
+  {
+    "id": "surgery",
+    "status": "supported",
+    "summary": "Surgical safety depends on shared verification, communication and control of environmental risks.",
+    "body": "A time-out confirms essential details before proceeding. Fire prevention considers ignition sources, fuel and oxidizers together. Team members share responsibility for identifying and communicating concerns.",
+    "reflect": "How does a shared verbal check add value beyond reviewing a chart?",
+    "sources": [
+      {
+        "label": "OpenStax nursing text",
+        "url": "https://openstax.org/books/fundamentals-nursing/pages/31-3-intraoperative-phase"
+      },
+      {
+        "label": "Safe surgery: Tool and Resources",
+        "url": "https://www.who.int/teams/integrated-health-services/patient-safety/research/safe-surgery/tool-and-resources"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://openstax.org/books/fundamentals-nursing/pages/31-3-intraoperative-phase",
+        "title": "31.3 Intraoperative Phase",
+        "year": null,
+        "access": "full text",
+        "supports": "Summary/body: shared verification, team communication and surgical fire components. Reflection: verbal checks build shared awareness.",
+        "limitations": "Educational reference; page publication date not verified unless shown. Reflection is a learning prompt, not a tested clinical rule."
+      },
+      {
+        "url": "https://www.who.int/teams/integrated-health-services/patient-safety/research/safe-surgery/tool-and-resources",
+        "title": "Safe surgery: Tool and Resources",
+        "year": 2009,
+        "access": "official guidance",
+        "supports": "WHO checklist resources specify team pauses and verbal verification to support communication.",
+        "limitations": "2009 checklist and implementation manual; checklist does not replace clinical judgment or all operating-room risk controls."
+      }
+    ],
+    "notes": "Research date: 2026-10-26. Existing reference(s) opened and checked; no question-bank text used."
+  },
+  {
+    "id": "recovery",
+    "status": "supported",
+    "summary": "Recovery assessment follows airway, breathing, circulation, consciousness, comfort and the effects of the procedure.",
+    "body": "Anesthesia, pain and reduced movement can affect ventilation and mobility. Gastrointestinal function and wound findings also evolve. New fever or other changes require assessment of possible causes rather than automatic assumptions.",
+    "reflect": "Why should an unexpected change be assessed in the context of time since surgery?",
+    "sources": [
+      {
+        "label": "OpenStax nursing text",
+        "url": "https://openstax.org/books/fundamentals-nursing/pages/31-4-postoperative-phase"
+      },
+      {
+        "label": "Standards for Postanesthesia Care",
+        "url": "https://www.asahq.org/standards-and-practice-parameters/standards-for-postanesthesia-care"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://openstax.org/books/fundamentals-nursing/pages/31-4-postoperative-phase",
+        "title": "31.4 Postoperative Phase",
+        "year": null,
+        "access": "full text",
+        "supports": "Summary/body: airway, circulation, consciousness, pain, mobility and evolving wound/GI findings. Reflection: timing helps interpret new postoperative findings.",
+        "limitations": "Educational reference; page publication date not verified unless shown. Reflection is a learning prompt, not a tested clinical rule."
+      },
+      {
+        "url": "https://www.asahq.org/standards-and-practice-parameters/standards-for-postanesthesia-care",
+        "title": "Standards for Postanesthesia Care",
+        "year": 2024,
+        "access": "official guidance",
+        "supports": "Continual postanesthesia assessment includes oxygenation, ventilation, circulation, consciousness and temperature.",
+        "limitations": "US standards amended October 23, 2024; not a complete ward recovery protocol."
+      }
+    ],
+    "notes": "Research date: 2026-10-26. Existing reference(s) opened and checked; no question-bank text used."
+  },
+  {
+    "id": "opioids",
+    "status": "supported",
+    "summary": "Opioids can relieve pain while also reducing alertness and respiratory drive.",
+    "body": "Assessment includes sedation, breathing and the person’s ability to participate safely in recovery. Patient-controlled devices require clear teaching and monitoring under the local protocol.",
+    "reflect": "Why can level of alertness provide useful information alongside a pain score?",
+    "sources": [
+      {
+        "label": "OpenStax nursing text",
+        "url": "https://openstax.org/books/fundamentals-nursing/pages/31-4-postoperative-phase"
+      },
+      {
+        "label": "Monitoring for Opioid-Induced Respiratory Depression",
+        "url": "https://www.apsf.org/article/monitoring-for-opioid-induced-respiratory-depression/"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://openstax.org/books/fundamentals-nursing/pages/31-4-postoperative-phase",
+        "title": "31.4 Postoperative Phase",
+        "year": null,
+        "access": "full text",
+        "supports": "Summary/body: pain relief, sedation/respiratory adverse effects, safe PCA education and monitoring. Reflection: alertness adds information beyond a pain score.",
+        "limitations": "Educational reference; page publication date not verified unless shown. Reflection is a learning prompt, not a tested clinical rule."
+      },
+      {
+        "url": "https://www.apsf.org/article/monitoring-for-opioid-induced-respiratory-depression/",
+        "title": "Monitoring for Opioid-Induced Respiratory Depression",
+        "year": 2018,
+        "access": "official guidance",
+        "supports": "Sedation and somnolence can precede opioid ventilatory impairment; respiration and alertness require monitoring.",
+        "limitations": "Professional safety review and consensus discussion; no single monitoring system prevents every event."
+      }
+    ],
+    "notes": "Research date: 2026-10-26. Existing reference(s) opened and checked; no question-bank text used."
+  },
+  {
+    "id": "iv",
+    "status": "qualified",
+    "summary": "IV therapy places a device within the vascular system, creating both a treatment route and potential complications.",
+    "body": "Infiltration is leakage of nonvesicant fluid into tissue; extravasation involves a tissue-damaging vesicant. Phlebitis is vein inflammation. Access selection considers treatment, duration and vessels. Assessment includes the insertion site and infusion system: local symptoms can have several causes, and central venous access also carries systemic risks such as air embolism when air enters the circulation.",
+    "reflect": "How might the same symptom require assessment for different IV complications?",
+    "sources": [
+      {
+        "label": "OpenStax: Principles of IV therapy",
+        "url": "https://openstax.org/books/clinical-nursing-skills/pages/13-1-principles-of-intravenous-therapy"
+      },
+      {
+        "label": "Intraoperative peripheral intravenous complications in adults: a summary of evidence for prevention and management of infiltration/extravasation",
+        "url": "https://www.frontiersin.org/journals/medicine/articles/10.3389/fmed.2026.1839528/full"
+      },
+      {
+        "label": "Wong et al.: Central catheter air embolism (2017)",
+        "url": "https://academic.oup.com/ckj/article/10/6/797/4055967"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://openstax.org/books/clinical-nursing-skills/pages/13-1-principles-of-intravenous-therapy",
+        "title": "13.1 Principles of Intravenous Therapy",
+        "year": null,
+        "access": "full text",
+        "supports": "Summary/body: IV access risks, infiltration, tissue-damaging extravasation and phlebitis. Reflection: site symptoms are nonspecific and need assessment.",
+        "limitations": "Educational reference; page publication date not verified unless shown. Reflection is a learning prompt, not a tested clinical rule."
+      },
+      {
+        "url": "https://www.frontiersin.org/journals/medicine/articles/10.3389/fmed.2026.1839528/full",
+        "title": "Intraoperative peripheral intravenous complications in adults: a summary of evidence for prevention and management of infiltration/extravasation",
+        "year": 2026,
+        "access": "full text",
+        "supports": "Perioperative IV leakage risk, treatment and access characteristics, obscured sites and continued surveillance. DOI: 10.3389/fmed.2026.1839528.",
+        "limitations": "Evidence synthesis of 13 publications; adult operating-room focus; terminology emphasizes cytotoxic extravasation, whereas broader vesicant injury terminology is retained from the nursing text."
+      },
+      {
+        "url": "https://academic.oup.com/ckj/article/10/6/797/4055967",
+        "title": "Venous air embolism related to the use of central catheters revisited: with emphasis on dialysis catheters",
+        "year": 2017,
+        "access": "full text",
+        "supports": "Central venous catheter use can permit air entry and venous air embolism, with cardiopulmonary or neurological effects. DOI: 10.1093/ckj/sfx064.",
+        "limitations": "Narrative review emphasizing dialysis catheters; no incidence estimate, positioning instruction or emergency procedure is imported."
+      }
+    ],
+    "notes": "Research date: 2026-10-26. Existing reference(s) opened and checked; no question-bank text used. Added explicit infiltration/extravasation distinction; no catheter-removal or antidote protocol imported. Broadened title and scope to include systemic air-entry risk, independently checked in the opened Clinical Kidney Journal review; no procedural prevention or treatment instructions added.",
+    "title": "IV access and complications"
+  },
+  {
+    "id": "raynaud",
+    "status": "supported",
+    "summary": "Raynaud phenomenon involves episodes of reduced blood flow to digits, often triggered by cold or emotional stress.",
+    "body": "Temporary vessel narrowing produces color, temperature and sensation changes. Assessment distinguishes reversible episodes from tissue injury and considers whether another condition is contributing.",
+    "reflect": "How might a trigger diary help explain a pattern of episodes?",
+    "sources": [
+      {
+        "label": "NIAMS: Raynaud phenomenon",
+        "url": "https://www.niams.nih.gov/health-topics/raynauds-phenomenon"
+      },
+      {
+        "label": "Raynaud's phenomenon",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7687329/"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://www.niams.nih.gov/health-topics/raynauds-phenomenon",
+        "title": "Raynaud's Phenomenon",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Summary/body: cold/stress-triggered digital vasospasm, sensory changes and secondary disease/tissue injury. Reflection: recording triggers may help characterize episodes, without proving diagnosis.",
+        "limitations": "Educational reference; page publication date not verified unless shown. Reflection is a learning prompt, not a tested clinical rule."
+      },
+      {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7687329/",
+        "title": "Raynaud's phenomenon",
+        "year": 2020,
+        "access": "full text",
+        "supports": "Cold/stress-related digital vasospasm, primary/secondary forms and risk of persistent ischemia in secondary disease. DOI: 10.7861/clinmed.2020-0754.",
+        "limitations": "Narrative clinical review; individual diagnostic investigation is outside the lesson."
+      }
+    ],
+    "notes": "Research date: 2026-10-26. Existing reference(s) opened and checked; no question-bank text used. SciSpace discovery query: 'What guidelines distinguish Raynaud phenomenon, peripheral artery disease and thromboangiitis obliterans and guide gastroesophageal reflux education?' Relevant IDs: 3t3zydugah (ESVM 2017 guideline), 3fjkklyh (2022 Raynaud review); discovery only, neither treated as full text. Independent RCP review and ACG/ACC guidelines were opened for final support; weakly matched case reports and repository items excluded."
+  },
+  {
+    "id": "pad",
+    "status": "qualified",
+    "summary": "Reduced arterial flow can limit oxygen delivery to limb tissues, particularly during activity.",
+    "body": "Atherosclerosis commonly underlies lower-limb PAD. Buerger disease is a distinct inflammatory, thrombotic disorder strongly linked to tobacco exposure. Pain with activity, skin changes, pulses and tissue injury help characterize perfusion; some people with PAD have atypical symptoms or no reported symptoms.",
+    "reflect": "Why might exertion reveal a circulation limitation before symptoms appear at rest?",
+    "sources": [
+      {
+        "label": "OpenStax nursing text",
+        "url": "https://openstax.org/books/medical-surgical-nursing/pages/12-7-peripheral-vascular-disease"
+      },
+      {
+        "label": "MedlinePlus: Buerger disease",
+        "url": "https://medlineplus.gov/ency/article/000172.htm"
+      },
+      {
+        "label": "2024 ACC/AHA/AACVPR/APMA/ABC/SCAI/SVM/SVN/SVS/SIR/VESS Guideline for the Management of Lower Extremity Peripheral Artery Disease",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12728805/"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://openstax.org/books/medical-surgical-nursing/pages/12-7-peripheral-vascular-disease",
+        "title": "12.7 Peripheral Vascular Disease",
+        "year": null,
+        "access": "full text",
+        "supports": "Summary/body: impaired arterial perfusion and observation of pain, pulses and tissue; MedlinePlus supports tobacco-associated Buerger disease separately. Reflection: exertion increases oxygen demand.",
+        "limitations": "Educational reference; page publication date not verified unless shown. Reflection is a learning prompt, not a tested clinical rule."
+      },
+      {
+        "url": "https://medlineplus.gov/ency/article/000172.htm",
+        "title": "Thromboangiitis obliterans",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Summary/body: impaired arterial perfusion and observation of pain, pulses and tissue; MedlinePlus supports tobacco-associated Buerger disease separately. Reflection: exertion increases oxygen demand.",
+        "limitations": "Educational reference; page publication date not verified unless shown. Reflection is a learning prompt, not a tested clinical rule."
+      },
+      {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12728805/",
+        "title": "2024 ACC/AHA/AACVPR/APMA/ABC/SCAI/SVM/SVN/SVS/SIR/VESS Guideline for the Management of Lower Extremity Peripheral Artery Disease",
+        "year": 2024,
+        "access": "full text",
+        "supports": "Atherosclerotic lower-limb PAD presentations, exertional symptoms, pulse/foot assessment. DOI: 10.1016/j.jacc.2024.02.013.",
+        "limitations": "Excludes nonatherosclerotic vasculitis and isolated small-vessel disease; Buerger content is supported separately by MedlinePlus."
+      }
+    ],
+    "notes": "Research date: 2026-10-26. Existing reference(s) opened and checked; no question-bank text used. Clarified that Buerger disease is not synonymous with atherosclerotic PAD."
+  },
+  {
+    "id": "antihistamine",
+    "status": "qualified",
+    "summary": "H1 antihistamines reduce selected histamine-mediated allergy symptoms.",
+    "body": "First-generation H1 antihistamines commonly cause sedation and anticholinergic effects such as dry mouth. Second-generation agents are usually less sedating, but drowsiness can still occur and varies by drug and dose. Age, other sedatives and existing conditions affect tolerability and safety.",
+    "reflect": "Why could a medicine for allergy symptoms affect falls risk?",
+    "sources": [
+      {
+        "label": "OpenStax nursing text",
+        "url": "https://openstax.org/books/pharmacology/pages/24-1-antihistamines-and-decongestants"
+      },
+      {
+        "label": "CSACI position statement: Newer generation H1-antihistamines are safer than first-generation H1-antihistamines and should be the first-line antihistamines for the treatment of allergic rhinitis and urticaria",
+        "url": "https://link.springer.com/article/10.1186/s13223-019-0375-9"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://openstax.org/books/pharmacology/pages/24-1-antihistamines-and-decongestants",
+        "title": "24.1 Antihistamines and Decongestants",
+        "year": null,
+        "access": "full text",
+        "supports": "Summary/body: H1 symptom relief and generation-dependent sedation/anticholinergic effects. Reflection: dizziness and sedation may affect fall risk.",
+        "limitations": "Educational reference; page publication date not verified unless shown. Reflection is a learning prompt, not a tested clinical rule."
+      },
+      {
+        "url": "https://link.springer.com/article/10.1186/s13223-019-0375-9",
+        "title": "CSACI position statement: Newer generation H1-antihistamines are safer than first-generation H1-antihistamines and should be the first-line antihistamines for the treatment of allergic rhinitis and urticaria",
+        "year": 2019,
+        "access": "full text",
+        "supports": "Older H1 agents cause sedation and anticholinergic effects; newer agents are less sedating with variation between drugs. DOI: 10.1186/s13223-019-0375-9.",
+        "limitations": "Canadian position statement; some historical availability statements have changed and are not reproduced."
+      }
+    ],
+    "notes": "Research date: 2026-10-26. Existing reference(s) opened and checked; no question-bank text used."
+  },
+  {
+    "id": "nasal",
+    "status": "qualified",
+    "summary": "Decongestants and intranasal corticosteroids act through different mechanisms.",
+    "body": "Topical decongestants reduce nasal swelling through vasoconstriction; prolonged use can cause rebound congestion. Intranasal corticosteroids reduce inflammation and usually need consistent use, with fuller benefit developing over days to weeks. Technique, product instructions and the individual care plan guide expectations and duration.",
+    "reflect": "Why should medicines with different mechanisms not be expected to work identically?",
+    "sources": [
+      {
+        "label": "OpenStax nursing text",
+        "url": "https://openstax.org/books/pharmacology/pages/24-1-antihistamines-and-decongestants"
+      },
+      {
+        "label": "OpenStax: Nasal medication administration",
+        "url": "https://openstax.org/books/clinical-nursing-skills/pages/14-3-administering-nasal-medications"
+      },
+      {
+        "label": "Allergic rhinitis",
+        "url": "https://link.springer.com/article/10.1186/s13223-024-00923-6"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://openstax.org/books/pharmacology/pages/24-1-antihistamines-and-decongestants",
+        "title": "24.1 Antihistamines and Decongestants",
+        "year": null,
+        "access": "full text",
+        "supports": "Summary/body: vasoconstrictor decongestants, inflammatory control and administration technique. Reflection: distinct mechanisms imply different expectations.",
+        "limitations": "Educational reference; page publication date not verified unless shown. Reflection is a learning prompt, not a tested clinical rule."
+      },
+      {
+        "url": "https://openstax.org/books/clinical-nursing-skills/pages/14-3-administering-nasal-medications",
+        "title": "14.3 Administering Nasal Medications",
+        "year": null,
+        "access": "full text",
+        "supports": "Summary/body: vasoconstrictor decongestants, inflammatory control and administration technique. Reflection: distinct mechanisms imply different expectations.",
+        "limitations": "Educational reference; page publication date not verified unless shown. Reflection is a learning prompt, not a tested clinical rule."
+      },
+      {
+        "url": "https://link.springer.com/article/10.1186/s13223-024-00923-6",
+        "title": "Allergic rhinitis",
+        "year": 2024,
+        "access": "full text",
+        "supports": "Intranasal steroid anti-inflammatory action, need for consistent use and delayed adequate response; prolonged topical decongestant use risks rebound congestion. DOI: 10.1186/s13223-024-00923-6.",
+        "limitations": "Narrative review; onset and permitted duration vary by formulation and plan, so no fixed universal interval is taught."
+      }
+    ],
+    "notes": "Research date: 2026-10-26. Existing reference(s) opened and checked; no question-bank text used."
+  },
+  {
+    "id": "allergy",
+    "status": "qualified",
+    "summary": "Allergic responses vary from localized symptoms to potentially life-threatening systemic reactions.",
+    "body": "Localized allergic inflammation differs from anaphylaxis, which can rapidly compromise airway, breathing or circulation, sometimes without skin findings. Emergency management of anaphylaxis centers on prompt intramuscular epinephrine under the applicable protocol. Antihistamines or topical anti-inflammatory medicines do not replace this treatment.",
+    "reflect": "How does a systemic reaction differ from inflammation limited to the skin?",
+    "sources": [
+      {
+        "label": "OpenStax nursing text",
+        "url": "https://openstax.org/books/medical-surgical-nursing/pages/24-7-anaphylaxis"
+      },
+      {
+        "label": "World allergy organization anaphylaxis guidance 2020",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7607509/"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://openstax.org/books/medical-surgical-nursing/pages/24-7-anaphylaxis",
+        "title": "24.7 Anaphylaxis",
+        "year": null,
+        "access": "full text",
+        "supports": "Summary/body: localized versus systemic reaction, airway/circulatory danger and epinephrine. Reflection: extent of involvement changes urgency.",
+        "limitations": "Educational reference; page publication date not verified unless shown. Reflection is a learning prompt, not a tested clinical rule."
+      },
+      {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7607509/",
+        "title": "World allergy organization anaphylaxis guidance 2020",
+        "year": 2020,
+        "access": "full text",
+        "supports": "Anaphylaxis may compromise airway, breathing or circulation without skin findings; IM epinephrine is first-line. DOI: 10.1016/j.waojou.2020.100472.",
+        "limitations": "Guidance rather than randomized emergency-treatment evidence; lesson intentionally omits dosing and procedural algorithms."
+      }
+    ],
+    "notes": "Research date: 2026-10-26. Existing reference(s) opened and checked; no question-bank text used. Added first-line emergency treatment context without a dose or clinical order; contemporary noninjectable products were not generalized across jurisdictions. SciSpace discovery query: 'What evidence supports antihistamine selection, intranasal corticosteroids, decongestant rebound congestion and intramuscular epinephrine for anaphylaxis?' Relevant IDs: pq815pdxek (2020 practice parameter), 2l8ed0tb6w (2008 WAO statement), x4wz5rk8v7s7 (2026 overview); discovery only. Final content uses directly opened WAO 2020 guidance. CSACI and rhinitis review were found by separate primary-source web searches."
+  },
+  {
+    "id": "priority",
+    "status": "supported",
+    "summary": "Prioritization compares patient cues, urgency and potential harm to identify what needs attention first.",
+    "body": "An acute change or threat to vital function may outweigh a stable chronic finding. Reassess as information changes, and connect each proposed action to the specific problem it addresses.",
+    "reflect": "Which new observation would make you revise an initial priority?",
+    "sources": [
+      {
+        "label": "OpenStax nursing text",
+        "url": "https://openstax.org/books/medical-surgical-nursing/pages/4-4-prioritizing-hypotheses-generating-solutions-and-taking-action"
+      },
+      {
+        "label": "The ABCDE Approach",
+        "url": "https://www.resus.org.uk/library/abcde-approach"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://openstax.org/books/medical-surgical-nursing/pages/4-4-prioritizing-hypotheses-generating-solutions-and-taking-action",
+        "title": "4.4 Prioritizing Hypotheses, Generating Solutions, and Taking Action",
+        "year": null,
+        "access": "full text",
+        "supports": "Summary/body: cues, urgency, potential harm and reassessment determine priorities. Reflection: new evidence can change prioritization.",
+        "limitations": "Educational reference; page publication date not verified unless shown. Reflection is a learning prompt, not a tested clinical rule."
+      },
+      {
+        "url": "https://www.resus.org.uk/library/abcde-approach",
+        "title": "The ABCDE Approach",
+        "year": 2024,
+        "access": "official guidance",
+        "supports": "Life threats take priority, followed by reassessment, response assessment and early help.",
+        "limitations": "Updated July 2024; UK professional resource, not a Philippine scope or triage regulation."
+      }
+    ],
+    "notes": "Research date: 2026-10-26. Existing reference(s) opened and checked; no question-bank text used."
+  },
+  {
+    "id": "delegation",
+    "status": "qualified",
+    "summary": "Delegation matches a task with a person’s competence, permitted role and the patient’s situation.",
+    "body": "Clear instructions, limits and follow-up support safe care. Required assessment and judgment remain with the appropriately authorized professional. Apply Philippine scope requirements and institutional policies rather than assuming roles are identical across settings.",
+    "reflect": "How might a change in patient stability affect whether a task can be delegated?",
+    "sources": [
+      {
+        "label": "OpenStax nursing text",
+        "url": "https://openstax.org/books/fundamentals-nursing/pages/15-4-nursing-standards-of-delegation"
+      },
+      {
+        "label": "National Guidelines for Nursing Delegation",
+        "url": "https://ncsbn.org/public-files/NCSBN_Delegation_Guidelines.pdf"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://openstax.org/books/fundamentals-nursing/pages/15-4-nursing-standards-of-delegation",
+        "title": "15.4 Nursing Standards of Delegation",
+        "year": null,
+        "access": "full text",
+        "supports": "Summary/body: competency, patient condition, instructions, oversight and retained professional judgment. Reflection: changing stability affects appropriateness.",
+        "limitations": "Educational reference; page publication date not verified unless shown. Reflection is a learning prompt, not a tested clinical rule."
+      },
+      {
+        "url": "https://ncsbn.org/public-files/NCSBN_Delegation_Guidelines.pdf",
+        "title": "National Guidelines for Nursing Delegation",
+        "year": 2016,
+        "access": "official guidance",
+        "supports": "Competence, patient condition, clear communication, supervision and retained professional judgment guide delegation.",
+        "limitations": "US framework published in Journal of Nursing Regulation 7(1); legal roles cannot be transferred to Philippine practice unchanged."
+      }
+    ],
+    "notes": "Research date: 2026-10-26. Existing reference(s) opened and checked; no question-bank text used. Philippine/institutional-scope caveat retained; US source is conceptual support only and does not establish Philippine delegation law."
+  },
+  {
+    "id": "communication",
+    "status": "supported",
+    "summary": "Therapeutic communication explores concerns and supports informed participation without dismissing feelings or making assumptions.",
+    "body": "Open questions, reflection and clarification help identify what matters to the person. Respect for beliefs and preferences includes exploring acceptable options with the care team.",
+    "reflect": "How could an open question reveal a concern that reassurance alone would miss?",
+    "sources": [
+      {
+        "label": "OpenStax nursing text",
+        "url": "https://openstax.org/books/medical-surgical-nursing/pages/6-2-effective-communication-in-the-nurse-patient-relationship"
+      },
+      {
+        "label": "The dialogue leading to a decision (part 1 of 4)",
+        "url": "https://www.gmc-uk.org/professional-standards/the-professional-standards/decision-making-and-consent/the-dialogue-leading-to-a-decision"
+      },
+      {
+        "label": "Jardien-Baboo et al.: Patient-centred care guideline review (2021)",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/33314226/"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://openstax.org/books/medical-surgical-nursing/pages/6-2-effective-communication-in-the-nurse-patient-relationship",
+        "title": "6.2 Effective Communication in the Nurse-Patient Relationship",
+        "year": null,
+        "access": "full text",
+        "supports": "Summary/body: active listening, clarification, avoiding assumptions and respecting preferences. Reflection: open exploration can reveal unexpressed concerns.",
+        "limitations": "Educational reference; page publication date not verified unless shown. Reflection is a learning prompt, not a tested clinical rule."
+      },
+      {
+        "url": "https://www.gmc-uk.org/professional-standards/the-professional-standards/decision-making-and-consent/the-dialogue-leading-to-a-decision",
+        "title": "The dialogue leading to a decision (part 1 of 4)",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Dialogue explores patient values, understanding, alternatives and voluntary decisions.",
+        "limitations": "UK physician guidance used for communication principles, not Philippine legal scope; page undated."
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/33314226/",
+        "title": "Integrative literature review of evidence-based patient-centred care guidelines",
+        "year": 2021,
+        "access": "abstract",
+        "supports": "Nine-guideline synthesis identifies patient values, communication, education and interdisciplinary support as facilitators of person-centered care. DOI: 10.1111/jan.14716.",
+        "limitations": "Abstract reviewed, not paywalled full text; supports broad principles rather than proving the benefit of one communication phrase."
+      }
+    ],
+    "notes": "Research date: 2026-10-26. Existing reference(s) opened and checked; no question-bank text used. SciSpace discovery query: 'How do nursing guidelines support clinical deterioration prioritization, delegation accountability and therapeutic patient centered communication?' ID 3uyl7ndyob led to DOI 10.1111/jan.14716; PubMed/publisher abstract checked. Other broadly matched and poorly relevant records were excluded. NCSBN and Resuscitation Council guidance were independently opened for delegation/prioritization."
+  },
+  {
+    "id": "reflux",
+    "status": "qualified",
+    "summary": "Reflux occurs when stomach contents move back into the esophagus, where they can irritate its lining.",
+    "body": "Heartburn can cause chest discomfort. GERD involves troublesome reflux symptoms or complications, rather than every episode of reflux. A possible digestive explanation does not remove the need to assess new or concerning chest symptoms for cardiac and other causes.",
+    "reflect": "Why is the location of discomfort alone insufficient to identify its cause?",
+    "sources": [
+      {
+        "label": "NIDDK: GER and GERD",
+        "url": "https://www.niddk.nih.gov/health-information/digestive-diseases/acid-reflux-ger-gerd-adults/definition-facts"
+      },
+      {
+        "label": "ACG Clinical Guideline: Guidelines for the Diagnosis and Management of Gastroesophageal Reflux Disease",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8754510/"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://www.niddk.nih.gov/health-information/digestive-diseases/acid-reflux-ger-gerd-adults/definition-facts",
+        "title": "Definition & Facts for GER & GERD",
+        "year": 2020,
+        "access": "official guidance",
+        "supports": "Summary/body: reflux definition and GERD symptoms/complications. Reflection: chest location alone does not distinguish causes.",
+        "limitations": "Educational reference; page publication date not verified unless shown. Reflection is a learning prompt, not a tested clinical rule."
+      },
+      {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8754510/",
+        "title": "ACG Clinical Guideline: Guidelines for the Diagnosis and Management of Gastroesophageal Reflux Disease",
+        "year": 2022,
+        "access": "full text",
+        "supports": "GERD involves troublesome reflux symptoms or complications; chest pain overlaps with cardiac disease and needs appropriate evaluation. DOI: 10.14309/ajg.0000000000001538.",
+        "limitations": "Adult guideline; symptoms alone are not a definitive diagnostic test."
+      }
+    ],
+    "notes": "Research date: 2026-10-26. Existing reference(s) opened and checked; no question-bank text used."
+  }
+]
+

@@ -10,6 +10,7 @@
   const MISTAKES_KEY = 'nursepath_pnle_mistakes_v1';
   const PROGRESS_KEY = 'nursepath_pnle_progress_v1';
   const DAILY_COUNT_KEY = 'nursepath_pnle_daily_count_v1';
+  const ACTIVE_SESSION_KEY = 'nursepath_pnle_session_v1';
   const BANK_GATE_OVERRIDE_KEY = 'nursepath_pnle_bank_gate_v1';
   const CHOICE_LABELS = ['A', 'B', 'C', 'D', 'E'];
 
@@ -46,6 +47,8 @@
 
   let bankItems = [];
   let session = null;
+  let sessionBankSignature = '';
+  let sessionSaveFailed = false;
   let launchResolved = false;
   let studySessionStartedAt = null;
   let studyTab = 'practice';
@@ -67,6 +70,63 @@
 
   function writeJson(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  function sessionContext() {
+    const user = readJson('nursepath_user', null);
+    return { owner: user && typeof user.email === 'string' ? user.email.trim().toLowerCase() : '', bankSignature: sessionBankSignature, now: Date.now() };
+  }
+
+  function removeSavedSession() {
+    try { localStorage.removeItem(ACTIVE_SESSION_KEY); } catch (e) { /* Storage may be unavailable. */ }
+  }
+
+  function restoreSavedSession() {
+    const helper = global.NursePathPnleSession;
+    if (!helper) return null;
+    const saved = readJson(ACTIVE_SESSION_KEY, null);
+    const restored = helper.decode(saved, bankItems, sessionContext());
+    if (saved && !restored) removeSavedSession();
+    return restored;
+  }
+
+  function saveActiveSession() {
+    try {
+      const helper = global.NursePathPnleSession;
+      if (!helper) throw new Error('Session helper unavailable');
+      const saved = helper.encode(session, sessionContext());
+      if (saved) localStorage.setItem(ACTIVE_SESSION_KEY, JSON.stringify(saved));
+      else removeSavedSession();
+      sessionSaveFailed = false;
+    } catch (e) { sessionSaveFailed = true; }
+    const status = document.getElementById('pnleSessionSaveStatus');
+    if (status) status.textContent = sessionSaveFailed ? 'This session could not be saved on this device. Keep this tab open to continue.' : '';
+  }
+
+  function discardActiveSession() {
+    session = null;
+    sessionSaveFailed = false;
+    removeSavedSession();
+  }
+
+  function hasUnfinishedSession() {
+    return Boolean(session && session.phase === 'question' && session.index < session.queue.length);
+  }
+
+  function resumePractice() {
+    if (!hasUnfinishedSession()) session = restoreSavedSession();
+    if (!hasUnfinishedSession()) { renderStudyHome(); return; }
+    studyTab = session.topicId === 'mistakes' ? 'mistakes' : 'practice';
+    renderQuestion();
+  }
+
+  function beginPractice(pool, topicId, level, kind, limit) {
+    if (hasUnfinishedSession() && !global.confirm('Start a new session? Your current question position will be replaced. Recorded answers stay saved.')) return;
+    const queue = shuffle(pool).slice(0, limit || pool.length);
+    session = { topicId, level, kind, queue, index: 0, answered: 0, locked: false, picked: [], phase: 'question' };
+    studyTab = topicId === 'mistakes' ? 'mistakes' : 'practice';
+    saveActiveSession();
+    renderQuestion();
   }
 
   function getLastMode() {
@@ -218,7 +278,7 @@
     localStorage.removeItem(MISTAKES_KEY);
     localStorage.removeItem(PROGRESS_KEY);
     localStorage.removeItem(DAILY_COUNT_KEY);
-    session = null;
+    discardActiveSession();
     if (studyTab === 'practice') renderStudyHome();
     else if (studyTab === 'mistakes') renderMistakesHome();
     else if (studyTab === 'progress') renderProgressHome();
@@ -388,7 +448,7 @@
       return;
     }
     endStudySession();
-    session = null;
+    saveActiveSession();
     const studyShell = document.getElementById('pnle-study-shell');
     if (studyShell) studyShell.classList.remove('is-active');
     setAppShellVisible(false);
@@ -433,7 +493,7 @@
     setLastMode('duty');
     launchResolved = true;
     hideLaunchGate();
-    session = null;
+    saveActiveSession();
     bootDutyApp();
   }
 
@@ -453,6 +513,8 @@
 
   function handlePostAuth() {
     bankItems = loadBank();
+    sessionBankSignature = global.NursePathPnleSession ? global.NursePathPnleSession.signature(bankItems) : '';
+    session = restoreSavedSession();
     const last = getLastMode();
     if (last === 'study') {
       enterStudyMode();
@@ -485,11 +547,6 @@
   function setStudyTab(tab) {
     studyTab = tab;
     syncStudyNavigation();
-    if (session && session.phase === 'question') {
-      if (tab !== 'practice') {
-        session = null;
-      }
-    }
     if (tab === 'practice') renderStudyHome();
     else if (tab === 'mistakes') renderMistakesHome();
     else if (tab === 'progress') renderProgressHome();
@@ -502,35 +559,14 @@
       alert('No questions in this pool yet. Try another topic or level.');
       return;
     }
-    session = {
-      topicId,
-      level,
-      queue: shuffle(pool),
-      index: 0,
-      answered: 0,
-      locked: false,
-      phase: 'question',
-    };
-    renderQuestion();
+    beginPractice(pool, topicId, level, 'topic');
   }
 
-  function startMixedPractice() {
+  function startMixedPractice(fullBank) {
     const level = getStudyLevel();
     const pool = filterItems('all', level);
-    if (!pool.length) {
-      alert('No questions available.');
-      return;
-    }
-    session = {
-      topicId: 'all',
-      level,
-      queue: shuffle(pool),
-      index: 0,
-      answered: 0,
-      locked: false,
-      phase: 'question',
-    };
-    renderQuestion();
+    if (!pool.length) { alert('No questions available.'); return; }
+    beginPractice(pool, 'all', level, fullBank ? 'full' : 'daily', fullBank ? pool.length : getDailyGoal());
   }
 
   function renderStudyHome() {
@@ -550,6 +586,9 @@
       return;
     }
     const level = getStudyLevel();
+    const practiceCount = filterItems('all', level).length;
+    const dailyCount = Math.min(getDailyGoal(), practiceCount);
+    const resumable = hasUnfinishedSession();
     const mistakeCount = Object.keys(readMistakes()).length;
     const ringPct = todayGoalRingPercent();
     const done = getDailyProgress();
@@ -580,6 +619,7 @@
         <h2>MedSurg practice</h2>
         <p>Unofficial Questions</p>
       </header>
+      ${resumable ? `<section class="pnle-resume-card" aria-labelledby="pnleResumeTitle"><div><h3 id="pnleResumeTitle">Pick up where you left off</h3><p>Question ${session.index + 1} of ${session.queue.length} · ${session.level === 'mixed' ? 'Mistakes' : session.level === 'hard' ? 'Hard' : 'Normal'}${session.locked ? ' · Answer saved' : ''}</p></div><button type="button" class="pnle-btn-primary" id="pnleResumePractice">Resume practice</button></section>` : ''}
       <div class="pnle-home-hero">
         <div class="pnle-goal-ring-wrap">
           <div class="pnle-goal-ring" style="--ring-pct:${ringPct}" aria-hidden="true">
@@ -591,25 +631,29 @@
           </div>
         </div>
         <div class="pnle-home-hero-text">
-          <p class="pnle-home-hero-title">${mastered} / ${bankItems.length}</p>
-          <p class="pnle-home-hero-sub">Mastered</p>
+          <p class="pnle-home-hero-title" aria-label="${mastered} of ${bankItems.length} questions mastered">${mastered} / ${bankItems.length}</p>
         </div>
       </div>
       <div class="pnle-level-row" role="group" aria-label="Difficulty">
         <button type="button" class="pnle-level-btn${level === 'normal' ? ' is-active' : ''}" data-level="normal" aria-pressed="${level === 'normal'}">Normal</button>
         <button type="button" class="pnle-level-btn${level === 'hard' ? ' is-active' : ''}" data-level="hard" aria-pressed="${level === 'hard'}">Hard</button>
       </div>
-      <button type="button" class="pnle-btn-primary" id="pnleStartPractice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 4 12 8-12 8V4Z"/></svg>Start practice</button>
+      <button type="button" class="pnle-btn-primary" id="pnleStartPractice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 4 12 8-12 8V4Z"/></svg>${resumable ? 'New daily practice' : goalMet ? 'Practice again' : 'Daily practice'} · ${dailyCount} questions</button>
+      <button type="button" class="pnle-full-practice np-action-btn" id="pnleStartFullPractice">Full ${level === 'hard' ? 'Hard' : 'Normal'} bank · ${practiceCount} questions</button>
       <button type="button" class="pnle-mistakes-strip" id="pnleHomeMistakes">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5C8 3 5 3 2 4v15c3-1 7-1 10 1 3-2 7-2 10-1V4c-3-1-6-1-10 1Zm0 0v15M15 10l2 2 3-4"/></svg>
         <span>My mistakes</span>
         <strong>${mistakeCount} waiting</strong>
       </button>
       <div class="pnle-topics-heading"><h2 class="pnle-section-label">Topics</h2><span>${TOPIC_ROWS.length} topics</span></div>
+      <p class="pnle-difficulty-help">Topic practice includes all questions at your selected difficulty.</p>
       <div class="pnle-topic-list">${topicRows}</div>
     `;
 
-    root.querySelector('#pnleStartPractice').addEventListener('click', startMixedPractice);
+    root.querySelector('#pnleStartPractice').addEventListener('click', () => startMixedPractice(false));
+    root.querySelector('#pnleStartFullPractice').addEventListener('click', () => startMixedPractice(true));
+    const resume = root.querySelector('#pnleResumePractice');
+    if (resume) resume.addEventListener('click', resumePractice);
     root.querySelector('#pnleHomeMistakes').addEventListener('click', () => setStudyTab('mistakes'));
     root.querySelectorAll('.pnle-level-btn').forEach((b) => {
       b.addEventListener('click', () => {
@@ -655,7 +699,6 @@
   }
 
   function startMistakeExplanations() {
-    session = null;
     studyTab = 'mistakes';
     syncStudyNavigation();
     const items = getMistakeItems();
@@ -711,17 +754,7 @@
       alert('No mistakes to review right now.');
       return;
     }
-    session = {
-      topicId: 'mistakes',
-      level: 'mixed',
-      queue: shuffle(unique),
-      index: 0,
-      answered: 0,
-      locked: false,
-      phase: 'question',
-    };
-    studyTab = 'mistakes';
-    renderQuestion();
+    beginPractice(unique, 'mistakes', 'mixed', 'mistakes');
   }
 
   function renderProgressHome() {
@@ -820,10 +853,12 @@
 
   function lockChoiceAnswer(root, item, picked) {
     session.locked = true;
+    session.picked = [picked];
     const correct = item.correctIndex;
     const isCorrect = picked === correct;
     recordAnswer(item, isCorrect);
     session.answered += 1;
+    saveActiveSession();
     const correctSet = new Set([correct]);
     const pickedSet = new Set([picked]);
     root.querySelectorAll('.pnle-choice').forEach((b) => {
@@ -835,11 +870,13 @@
 
   function lockSataAnswer(root, item, pickedList) {
     session.locked = true;
+    session.picked = pickedList.slice();
     const correct = getCorrectIndices(item);
     const pickedSorted = pickedList.slice().sort((a, b) => a - b);
     const isCorrect = setsEqual(pickedSorted, correct);
     recordAnswer(item, isCorrect);
     session.answered += 1;
+    saveActiveSession();
     const correctSet = new Set(correct);
     const pickedSet = new Set(pickedSorted);
     root.querySelectorAll('.pnle-choice').forEach((b) => {
@@ -880,13 +917,15 @@
     if (!root || !session) return;
     const item = session.queue[session.index];
     if (!item) {
+      session.phase = 'complete';
+      removeSavedSession();
       root.innerHTML = `
         <h2 class="pnle-screen-title">Session complete</h2>
         <p class="pnle-study-hint">You answered ${session.answered} question(s).</p>
         <button type="button" class="pnle-btn-primary" id="pnleDoneHome">Back to practice</button>
       `;
       root.querySelector('#pnleDoneHome').addEventListener('click', () => {
-        session = null;
+        discardActiveSession();
         setStudyTab('practice');
       });
       return;
@@ -949,6 +988,7 @@
         <div class="pnle-choices">${choices}</div>
       </div>
       <p class="pnle-answer-announcement" role="status" aria-live="polite"></p>
+      <p class="pnle-session-save-status" id="pnleSessionSaveStatus" role="status">${sessionSaveFailed ? 'This session could not be saved on this device. Keep this tab open to continue.' : ''}</p>
       <div class="pnle-question-actions">
         ${sataSubmit}
         <button type="button" class="pnle-btn-primary pnle-btn-next${sata ? ' is-hidden' : ''}" id="pnleNextBtn" disabled${sata ? ' hidden aria-hidden="true"' : ''}>Select an answer</button>
@@ -959,18 +999,21 @@
     const nextBtn = root.querySelector('#pnleNextBtn');
 
     root.querySelector('#pnleQuitSession').addEventListener('click', () => {
-      session = null;
+      if (!global.confirm('End this session? Recorded answers stay saved.')) return;
+      discardActiveSession();
       setStudyTab(studyTab);
     });
 
     root.querySelector('#pnleHistoryBtn').addEventListener('click', () => {
-      session = null;
       setStudyTab('mistakes');
     });
 
     if (sata) {
-      const selected = new Set();
+      const selected = new Set(session.picked || []);
       root.querySelectorAll('.pnle-choice--sata').forEach((btn) => {
+        const initiallySelected = selected.has(parseInt(btn.getAttribute('data-idx'), 10));
+        btn.classList.toggle('is-selected', initiallySelected);
+        btn.setAttribute('aria-pressed', String(initiallySelected));
         btn.addEventListener('click', () => {
           if (session.locked) return;
           const idx = parseInt(btn.getAttribute('data-idx'), 10);
@@ -982,6 +1025,8 @@
             btn.classList.add('is-selected');
           }
           btn.setAttribute('aria-pressed', String(selected.has(idx)));
+          session.picked = Array.from(selected);
+          saveActiveSession();
         });
       });
       const sataBtn = root.querySelector('#pnleSataSubmit');
@@ -999,9 +1044,19 @@
       root.querySelectorAll('.pnle-choice').forEach((btn) => bindChoiceTap(btn, root, item));
     }
 
+    if (session.locked) {
+      const correct = getCorrectIndices(item);
+      const picked = session.picked || [];
+      root.querySelectorAll('.pnle-choice').forEach(button => revealChoiceRow(button, item, parseInt(button.getAttribute('data-idx'), 10), new Set(correct), new Set(picked)));
+      showNextButton(root, setsEqual(picked.slice().sort((a, b) => a - b), correct));
+    }
+
     nextBtn.addEventListener('click', () => {
+      if (!session || !session.locked) return;
       session.index += 1;
       session.locked = false;
+      session.picked = [];
+      saveActiveSession();
       renderQuestion();
     });
   }

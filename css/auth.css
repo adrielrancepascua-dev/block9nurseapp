@@ -36,6 +36,7 @@ html[data-theme="light"] #authOverlay { background: #f3f7f7 !important; }
     background: none !important;
 }
 #authOverlay .auth-brand-lockup img { width: 48px; height: 48px; border-radius: 14px; flex: none; }
+#authOverlay .auth-tracking-requirement { margin: 0 0 14px; color: var(--hub-text-2); font-size: 13px; line-height: 1.6; }
 #authOverlay .auth-wordmark { margin: 0; font-family: inherit; font-size: 28px !important; font-weight: 800; letter-spacing: -.04em; line-height: 1.2; color: var(--hub-text) !important; background: none !important; }
 #authOverlay .auth-wordmark span { color: var(--hub-icon-fg) !important; background: none !important; }
 #authOverlay p, #authOverlay span, #authOverlay strong { background: none !important; }

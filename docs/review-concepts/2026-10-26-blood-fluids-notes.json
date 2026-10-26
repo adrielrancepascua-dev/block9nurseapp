@@ -1,0 +1,95 @@
+{
+  "researchDate": "2026-10-26",
+  "scope": [
+    "blood",
+    "immunity",
+    "iron",
+    "b12",
+    "epo",
+    "inherited",
+    "transfusion",
+    "warfarin",
+    "heparin",
+    "platelets",
+    "neutropenia",
+    "dic",
+    "polycythemia",
+    "sodium",
+    "potassium",
+    "calcium",
+    "magnesium",
+    "phosphate",
+    "fluid",
+    "dka",
+    "tonicity",
+    "biopsy"
+  ],
+  "method": "Audited original summaries, body and reflections against professional guidance, peer-reviewed reviews/studies and NIH resources. SciSpace supplied discovery leads; source metadata and relevant claims were checked against accessible original pages. No app or question-bank edits. All replacement lessons are concise paraphrases, not quotations.",
+  "scispaceQueries": [
+    {
+      "question": "What do current clinical reviews and professional guidelines establish about anemia in chronic kidney disease, iron and vitamin B12 deficiency, inherited bleeding disorders, anticoagulant monitoring, and transfusion safety?",
+      "relevantReturnedIds": [
+        "61borkduqztq",
+        "vjplmpuxhw1n",
+        "aztnv442rj8h"
+      ],
+      "outcome": "KDIGO 2026 lead independently verified at KDIGO and its complete guideline PDF; discovery result itself was not treated as full-text review."
+    },
+    {
+      "question": "What do clinical guidelines and reviews say about sodium and potassium disturbances, ionized versus total calcium, magnesium deficiency, phosphate shifts and intravenous fluid tonicity?",
+      "returnedIds": [
+        "n5aoucjvj3yb",
+        "y825wfcfcrui",
+        "kuz2y1jhuqth",
+        "s0a1y3pltka6",
+        "3urpmsa1",
+        "1krrnuct7r",
+        "3718vxqu",
+        "384p0dy0",
+        "qlwo2vvtd8oa",
+        "49i92a53yw"
+      ],
+      "outcome": "Returned results were largely cancer-, pediatric-, chapter- or other narrow-context sources; selected directly relevant NIH/journal originals through web research instead of treating broad matches as validation."
+    },
+    {
+      "question": "What evidence supports safe blood transfusion identification and monitoring, neutropenic infection recognition, heparin induced thrombocytopenia and bone marrow biopsy aftercare?",
+      "returnedIds": [
+        "6c7c3yz7cu",
+        "v6nyz4ikt8rl",
+        "4c6n7o5sqx",
+        "ndhnfps7vd",
+        "8nrl5jvr6h",
+        "mftr1m2p6p",
+        "40y4kogkt6",
+        "rvvhsk86l0",
+        "1ruws8k153",
+        "n9fs2bzs6r"
+      ],
+      "outcome": "Preferred accessible original ASH/IDSA guidelines and blood-service professional guidance over poorly matched or unverified discovery results."
+    }
+  ],
+  "accessLimitations": [
+    "Multiple PMC pages intermittently returned browser challenges. A full-text designation is used only when a successful open returned the article; otherwise evidence uses an actually inspected publisher or PubMed abstract.",
+    "NICE CG174 and NG239 full pages were blocked. Indexed extracts corroborated general concepts, but these are not counted as fully reviewed sources in the lesson evidence.",
+    "Bain bone-marrow complication studies were discovered but publisher/PMC/PubMed opens did not expose usable text. Accessible MedlinePlus and MSK aftercare guidance support the biopsy concept; no journal full-text review is claimed.",
+    "The WFH guideline PDF exceeded the web tool size limit, and PubMed exposed no usable abstract. The inherited-disorders lesson therefore uses two disease-specific NIH resources; the existing hereditary OpenStax section did not cover hemophilia.",
+    "Blood and immunity use professional society and NIH educational sources for basic physiology rather than forcing an unrelated treatment trial into the evidence."
+  ],
+  "replacements": [
+    "Removed inaccessible Elsevier DIC e-library reference.",
+    "Replaced B12 textbook citation with NIH and directly relevant original clinical research; the opened textbook contains broader imprecisions not carried into lesson text.",
+    "Replaced incomplete hereditary-disorders reference coverage with disease-specific sickle-cell and bleeding-disorder resources."
+  ],
+  "importantQualifications": [
+    "B12 neurologic disease can occur without anemia or macrocytosis.",
+    "CKD anemia is multifactorial, with relative EPO deficiency rather than a universal single-hormone cause.",
+    "UFH and LMWH monitoring differ; aPTT is not a universal heparin-monitoring test.",
+    "Potassium replacement needs controlled prescribed delivery and monitoring with renal function considered; no doses, rates or direct exam answer added.",
+    "Total calcium includes protein-bound, complexed and ionized fractions; albumin-adjustment formulas may misclassify status.",
+    "DKA may occur without marked hyperglycemia; total potassium depletion is common but kidney failure requires qualification.",
+    "Tonicity differs from bag osmolarity; dextrose in water supplies electrolyte-free water after normal glucose handling.",
+    "An elevated red-cell concentration does not always prove increased red-cell mass; thrombotic risk varies by cause."
+  ],
+  "classification": "supported means original core claims were supported, even where clarity/source quality improved; qualified means a meaningful caveat or distinction was added. No lesson required a wholesale reversal.",
+  "limitations": "This is a bounded educational evidence audit, not a systematic review or clinician sign-off. No claim of complete or 100% accuracy is made."
+}

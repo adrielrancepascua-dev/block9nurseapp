@@ -6,6 +6,10 @@
    ========================================================================== */
 
 :root {
+  --np-control-height: 48px;
+  --np-field-label-size: .875rem;
+  --np-field-text-size: 1rem;
+  --np-field-radius: 12px;
   --hub-teal-600: #0d9488;   /* accent: icons, borders, focus */
   --hub-teal-700: #0f766e;   /* fills that carry white text (5.5:1) */
   --hub-teal-50:  #f0fdfa;
@@ -367,25 +371,25 @@ html .np-settings-open svg { width: 18px; height: 18px; color: var(--hub-icon-fg
 #tools-hub .tools-hub-hero p { max-width: none; font-weight: 400; }
 #tools-hub .tools-hub-grid {
   grid-template-columns: minmax(0, 1fr) !important;
-  gap: 14px !important;
+  gap: 10px !important;
 }
 #tools-hub .tool-hub-card {
   display: grid !important;
-  grid-template-columns: 56px minmax(0, 1fr) 16px !important;
+  grid-template-columns: 48px minmax(0, 1fr) 16px !important;
   grid-template-rows: auto auto;
-  column-gap: 16px !important;
+  column-gap: 14px !important;
   row-gap: 5px !important;
   align-items: center !important;
-  min-height: 104px !important;
-  padding: 20px !important;
-  border-radius: 22px !important;
+  min-height: 88px !important;
+  padding: 16px !important;
+  border-radius: 18px !important;
 }
 #tools-hub .tool-hub-top { grid-column: 1; grid-row: 1 / 3; display: block; }
 #tools-hub .tool-hub-tag { display: none; }
 #tools-hub .tool-hub-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 16px;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
   border: 0;
   background: var(--hub-icon-bg) !important;
   color: var(--hub-icon-fg) !important;
@@ -414,7 +418,70 @@ html .np-settings-open svg { width: 18px; height: 18px; color: var(--hub-icon-fg
   #tools-hub .tool-hub-icon { width: 44px; height: 44px; border-radius: 13px; }
   #tools-hub .tool-hub-label { font-size: 16px; }
 }
+@media (min-width: 1120px) {
+  #tools-hub .tools-hub-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 12px !important; }
+}
+
+/* Shared clinical control roles; calculator values and formulas are unchanged. */
+#tools-detail label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--hub-text-2) !important;
+  font-family: var(--np-body, 'Figtree', 'Segoe UI', sans-serif);
+  font-size: var(--np-field-label-size) !important;
+  font-weight: 600 !important;
+  line-height: 1.5;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  background: none !important;
+}
+#tools-detail :is(input, select, textarea) {
+  min-width: 0;
+  max-width: 100%;
+  min-height: var(--np-control-height);
+  padding: 10px 12px !important;
+  border: 1px solid #8295ad !important;
+  border-radius: var(--np-field-radius);
+  background: var(--hub-surface) !important;
+  color: var(--hub-text) !important;
+  font-family: var(--np-body, 'Figtree', 'Segoe UI', sans-serif);
+  font-size: var(--np-field-text-size) !important;
+  font-weight: 500 !important;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+  caret-color: var(--hub-icon-fg);
+  color-scheme: dark !important;
+}
+html[data-theme='light'] #tools-detail :is(input, select, textarea) { color-scheme: light !important; }
+#tools-detail :is(input, textarea)::placeholder { color: var(--hub-text-2) !important; opacity: 1; }
+#tools-detail :is(input, select, textarea):focus-visible { outline: 2px solid var(--hub-focus) !important; outline-offset: 3px; border-color: var(--hub-focus) !important; }
+#tools-detail :is(input, select, textarea):disabled { opacity: .65; cursor: not-allowed; }
+.tools-detail-header :is(.tools-back-btn, .tool-guide-btn) { min-height: 44px; font-family: inherit; font-size: 14px !important; line-height: 1.5; }
+.tools-detail-header .tools-back-btn { background: transparent !important; color: var(--hub-text-2) !important; border-color: transparent !important; }
+.tools-detail-header .tool-guide-btn { background: var(--hub-icon-bg) !important; color: var(--hub-icon-fg) !important; border-color: var(--hub-icon-bd) !important; }
+#tools-detail :is(button[onclick^="calc"], #simulate-vitals-btn) {
+  min-height: var(--np-control-height);
+  border: 0;
+  border-radius: var(--np-field-radius);
+  background: var(--hub-teal-700) !important;
+  color: #ffffff !important;
+  font-family: var(--np-body, 'Figtree', 'Segoe UI', sans-serif);
+  font-size: 1rem !important;
+  font-weight: 600;
+  box-shadow: none !important;
+}
+#tools-detail :is(button[onclick^="calc"], #simulate-vitals-btn):hover { background: #115e59 !important; }
+#tools-detail :is(button[onclick^="calc"], #simulate-vitals-btn):focus-visible { outline: 2px solid var(--hub-focus); outline-offset: 3px; }
+#tools-detail .np-learn { background: var(--hub-icon-bg) !important; border-color: var(--hub-border) !important; }
+#tools-detail .np-learn-k { color: var(--hub-icon-fg) !important; font-size: .75rem; font-weight: 600; }
+#tools-detail .np-learn-v { color: var(--hub-text-2) !important; font-size: .875rem; line-height: 1.65; }
+#iv-calcs > div p:first-child { color: var(--hub-text-2) !important; font-size: .875rem !important; text-transform: none; }
+#iv-calcs :is(#mlhr, #iv-result) { color: var(--hub-text) !important; font-size: 1.5rem; font-variant-numeric: tabular-nums; }
+.study-classroom-body :is(p, li) { font-size: 1rem; line-height: 1.7; }
+.study-classroom-body .study-lesson-section { max-width: 72ch; }
+
 @media (prefers-reduced-motion: reduce) {
   #tools-hub .tools-hub-hero, #tools-hub .tools-hub-grid { animation: none !important; }
   #tools-hub .np-mode-toggle button { transition: none; }
+  .tool-panel.is-active, .study-panel.is-active, .study-detail, .tool-guide-sheet { animation: none !important; transition: none !important; transform: none !important; opacity: 1 !important; }
 }
