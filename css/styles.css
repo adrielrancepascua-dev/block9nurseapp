@@ -3927,7 +3927,7 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             }
             .np-tabbar-link[data-tab="tools"].is-active { color: #67e8f9; background: rgba(8, 47, 73, 0.55); }
             .np-tabbar-link[data-tab="otc"].is-active { color: #fbbf24; background: rgba(120, 53, 15, 0.35); }
-            .np-tabbar-link[data-tab="iv"].is-active { color: #5eead4; background: rgba(19, 78, 74, 0.45); }
+            .np-tabbar-link[data-tab="iv"].is-active { color: #ffedd5; background: rgba(194, 65, 12, 0.45); }
             .np-tabbar-link[data-tab="labs"].is-active { color: #6ee7b7; background: rgba(6, 78, 59, 0.4); }
             .np-tabbar-link[data-tab="abbrev"].is-active { color: #ddd6fe; background: rgba(76, 29, 149, 0.35); }
             .np-tabbar-link[data-tab="sizes"].is-active { color: #bae6fd; background: rgba(12, 74, 110, 0.4); }

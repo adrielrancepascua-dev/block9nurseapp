@@ -2243,6 +2243,47 @@
     })
   ];
 
+  const IV_CATEGORIES = [
+    { id: 'all', label: 'All' },
+    { id: 'lung', label: 'Lung infection', keywords: ['lung', 'lungs', 'pneumonia', 'respiratory', 'asthma', 'copd', 'airway', 'bronchospasm'], ids: ['ampicillin', 'ampicillin-sulbactam', 'co-amoxiclav', 'penicillin-g', 'piperacillin-tazobactam', 'cefuroxime', 'cefotaxime', 'ceftriaxone', 'ceftazidime', 'cefepime', 'meropenem', 'vancomycin', 'gentamicin', 'amikacin', 'clindamycin', 'ciprofloxacin', 'levofloxacin', 'azithromycin', 'linezolid', 'hydrocortisone', 'dexamethasone', 'methylprednisolone', 'aminophylline', 'magnesium-sulfate'] },
+    { id: 'urine', label: 'Urine infection', keywords: ['urine', 'urinary', 'uti', 'kidney', 'pyelonephritis'], ids: ['ampicillin', 'co-amoxiclav', 'piperacillin-tazobactam', 'cefuroxime', 'cefotaxime', 'ceftriaxone', 'ceftazidime', 'cefepime', 'meropenem', 'gentamicin', 'amikacin', 'ciprofloxacin', 'levofloxacin'] },
+    { id: 'belly', label: 'Belly infection', keywords: ['belly', 'abdomen', 'abdominal', 'gut', 'gi', 'intra-abdominal'], ids: ['ampicillin', 'ampicillin-sulbactam', 'piperacillin-tazobactam', 'cefotaxime', 'ceftriaxone', 'ceftazidime', 'cefepime', 'meropenem', 'metronidazole', 'clindamycin', 'ciprofloxacin', 'gentamicin', 'pantoprazole', 'omeprazole', 'esomeprazole', 'ranitidine', 'ondansetron', 'metoclopramide', 'hyoscine', 'octreotide', 'vasopressin'] },
+    { id: 'skin', label: 'Skin infection', keywords: ['skin', 'wound', 'cellulitis', 'soft tissue', 'bite'], ids: ['ampicillin-sulbactam', 'co-amoxiclav', 'oxacillin', 'cefazolin', 'cefuroxime', 'piperacillin-tazobactam', 'vancomycin', 'clindamycin', 'linezolid', 'ciprofloxacin'] },
+    { id: 'brain', label: 'Brain', keywords: ['brain', 'meningitis', 'cns', 'seizure', 'icp'], ids: ['ampicillin', 'penicillin-g', 'cefotaxime', 'ceftriaxone', 'ceftazidime', 'cefepime', 'meropenem', 'vancomycin', 'acyclovir', 'mannitol', 'dexamethasone', 'phenytoin', 'levetiracetam', 'phenobarbital', 'hypertonic-saline'] },
+    { id: 'heart', label: 'Heart', keywords: ['heart', 'cardiac', 'arrhythmia', 'chest pain', 'failure'], ids: ['furosemide', 'dopamine', 'dobutamine', 'norepinephrine', 'epinephrine', 'nitroglycerin', 'nitroprusside', 'amiodarone', 'adenosine', 'lidocaine', 'atropine', 'digoxin', 'metoprolol', 'diltiazem', 'heparin', 'nicardipine', 'labetalol', 'hydralazine', 'morphine', 'potassium-chloride', 'calcium-gluconate', 'magnesium-sulfate'] },
+    { id: 'pressure', label: 'Blood pressure', keywords: ['pressure', 'bp', 'shock', 'hypertension', 'hypotension'], ids: ['dopamine', 'dobutamine', 'norepinephrine', 'epinephrine', 'nitroglycerin', 'nitroprusside', 'nicardipine', 'labetalol', 'hydralazine', 'vasopressin', 'albumin'] },
+    { id: 'pain', label: 'Pain', keywords: ['pain', 'analgesia', 'ache'], ids: ['paracetamol', 'ketorolac', 'parecoxib', 'tramadol', 'morphine', 'nalbuphine', 'fentanyl', 'ketamine'] },
+    { id: 'seizure', label: 'Seizure', keywords: ['seizure', 'convulsion', 'epilepsy', 'status'], ids: ['midazolam', 'diazepam', 'phenytoin', 'levetiracetam', 'phenobarbital', 'magnesium-sulfate'] },
+    { id: 'nausea', label: 'Nausea', keywords: ['nausea', 'vomiting', 'antiemetic'], ids: ['ondansetron', 'metoclopramide', 'promethazine', 'dexamethasone', 'hyoscine'] },
+    { id: 'allergy', label: 'Allergy', keywords: ['allergy', 'anaphylaxis', 'rash', 'itch'], ids: ['epinephrine', 'diphenhydramine', 'hydrocortisone', 'dexamethasone', 'methylprednisolone', 'promethazine'] },
+    { id: 'bleeding', label: 'Bleeding', keywords: ['bleeding', 'bleed', 'hemorrhage', 'clot', 'warfarin', 'heparin'], ids: ['heparin', 'tranexamic-acid', 'phytomenadione', 'protamine', 'oxytocin', 'octreotide', 'pantoprazole', 'esomeprazole', 'omeprazole', 'vasopressin'] },
+    { id: 'labor', label: 'Labor', keywords: ['labor', 'labour', 'ob', 'postpartum', 'preeclampsia', 'uterus'], ids: ['oxytocin', 'terbutaline', 'magnesium-sulfate', 'labetalol', 'hydralazine', 'nalbuphine', 'tranexamic-acid'] },
+    { id: 'salts', label: 'Sugar and salts', keywords: ['sugar', 'glucose', 'electrolyte', 'potassium', 'sodium', 'calcium', 'magnesium'], ids: ['potassium-chloride', 'calcium-gluconate', 'sodium-bicarbonate', 'dextrose-50', 'hypertonic-saline', 'regular-insulin', 'glucagon', 'magnesium-sulfate', 'furosemide', 'albumin'] },
+    { id: 'fungus', label: 'Fungus', keywords: ['fungus', 'fungal', 'candida', 'yeast'], ids: ['fluconazole', 'amphotericin-b'] }
+  ];
+
+  let ivCategory = 'all';
+
+  function itemCategories(item) {
+    return IV_CATEGORIES.filter((cat) => cat.ids && cat.ids.indexOf(item.id) !== -1);
+  }
+
+  function passesCategory(item) {
+    if (ivCategory === 'all') return true;
+    return itemCategories(item).some((cat) => cat.id === ivCategory);
+  }
+
+  function categoryLine(item) {
+    const cats = itemCategories(item).slice().sort((a, b) => {
+      if (a.id === ivCategory) return -1;
+      if (b.id === ivCategory) return 1;
+      return 0;
+    });
+    const shown = cats.slice(0, 3).map((cat) => cat.label);
+    const extra = cats.length - shown.length;
+    return shown.join(' · ') + (extra > 0 ? ' · +' + extra : '');
+  }
+
   function escapeHtml(value) {
     return String(value || '')
       .replace(/&/g, '&amp;')
@@ -2257,10 +2298,10 @@
     return `<div class="otc-fact"><span class="otc-fact-k${toneClass}">${label}</span><span class="otc-fact-v">${escapeHtml(value)}</span></div>`;
   }
 
-  function nearest(query) {
+  function nearest(query, pool) {
     const calc = global.NursePathCalculators;
     if (!calc || typeof calc.nearestDrugMatches !== 'function') return [];
-    return calc.nearestDrugMatches(query, IV_DRUGS, 4);
+    return calc.nearestDrugMatches(query, pool || IV_DRUGS, 4);
   }
 
   function smartMatch(query, item) {
@@ -2269,13 +2310,16 @@
     const name = item.name.toLowerCase();
     const brands = (item.ph_brands || []).join(' ').toLowerCase();
     const aliases = (item.aliases || []).join(' ').toLowerCase();
-    const blob = [item.uses, item.drugClass, item.tags.join(' ')].join(' ').toLowerCase();
+    const cats = itemCategories(item);
+    const catText = cats.map((cat) => cat.label + ' ' + (cat.keywords || []).join(' ')).join(' ').toLowerCase();
+    const blob = [item.uses, item.indications, item.drugClass, item.tags.join(' '), catText].join(' ').toLowerCase();
     if (name === q || aliases.split(/\s+/).indexOf(q) !== -1) return { match: true, score: 1000 };
     let score = 0;
     if (name.indexOf(q) === 0) score += 600;
     if (name.indexOf(q) !== -1) score += 280;
     if (aliases.indexOf(q) !== -1) score += 240;
     if (brands.indexOf(q) !== -1) score += 220;
+    if (catText.indexOf(q) !== -1) score += 180;
     if (blob.indexOf(q) !== -1) score += 80;
     q.split(/\s+/).forEach((word) => {
       if (word.length > 2 && (name + ' ' + aliases + ' ' + brands + ' ' + blob).indexOf(word) !== -1) score += 40;
@@ -2283,21 +2327,40 @@
     return { match: score > 0, score };
   }
 
-  let visibleCount = 8;
-  const STEP = 8;
+  function renderCategories() {
+    const host = document.getElementById('iv-filter');
+    if (!host || !global.NPRef || typeof global.NPRef.buildSelect !== 'function') return;
+    const pool = IV_DRUGS;
+    global.NPRef.buildSelect(host, {
+      id: 'iv-category',
+      label: 'Category',
+      value: ivCategory,
+      options: IV_CATEGORIES.map((cat) => ({
+        id: cat.id,
+        label: cat.id === 'all' ? 'All categories' : cat.label,
+        count: cat.ids ? pool.filter((item) => cat.ids.indexOf(item.id) !== -1).length : pool.length
+      })),
+      onChange: (value) => {
+        ivCategory = value;
+        const input = document.getElementById('iv-search');
+        renderList(input ? input.value : '');
+      }
+    });
+  }
 
   function renderList(filter) {
     const listEl = document.getElementById('iv-list');
     if (!listEl) return;
     const q = String(filter || '').trim();
     const fragment = document.createDocumentFragment();
-    let matches = IV_DRUGS
+    const pool = IV_DRUGS.filter(passesCategory);
+    let matches = pool
       .map((item) => Object.assign({ item }, smartMatch(q, item)))
       .filter((row) => row.match)
       .sort((a, b) => b.score - a.score)
       .map((row) => row.item);
 
-    const suggestions = q ? nearest(q) : [];
+    const suggestions = q ? nearest(q, pool) : [];
     let usedFuzzy = false;
     if (q && matches.length === 0 && suggestions.length) {
       const best = suggestions[0].dist;
@@ -2310,7 +2373,7 @@
     if (!matches.length) {
       const empty = document.createElement('div');
       empty.className = 'otc-empty';
-      empty.textContent = 'No IV medication is close to that spelling. Try the generic name, such as vancomycin or ceftriaxone.';
+      empty.textContent = 'No IV medication matches. Try a name, brand, or category such as lung infection.';
       listEl.innerHTML = '';
       listEl.appendChild(empty);
       return;
@@ -2331,52 +2394,33 @@
       }
     }
 
-    const searching = q.length > 0;
-    const shown = searching ? matches : matches.slice(0, visibleCount);
     const selected = global.__nursepathSelectedIv && global.__nursepathSelectedIv.id;
-    shown.forEach((item) => {
+    matches.forEach((item) => {
       const card = document.createElement('button');
       card.type = 'button';
       card.className = 'otc-med-card' + (selected === item.id ? ' is-active' : '');
       card.dataset.ivId = item.id;
       const initials = item.name.split(/\s+/).slice(0, 2).map((part) => part[0]).join('').toUpperCase();
+      const cats = categoryLine(item);
       card.innerHTML = `
         <span class="tool-hub-icon">${escapeHtml(initials)}</span>
         <span class="otc-med-meta">
           <span class="tool-hub-label">${escapeHtml(item.name)}</span>
           <span class="tool-hub-desc">${escapeHtml(item.ph_brands.join(', '))}</span>
           <span class="otc-med-uses">${escapeHtml(item.uses)}</span>
+          ${cats ? `<span class="iv-cat-line">${escapeHtml(cats)}</span>` : ''}
         </span>
         <span class="tool-hub-tag">${item.highAlert ? 'High alert' : escapeHtml(item.drugClass.split(' ')[0])}</span>`;
       card.onclick = () => showDetail(item);
       fragment.appendChild(card);
     });
 
-    if (!searching && matches.length > visibleCount) {
-      const more = document.createElement('button');
-      more.type = 'button';
-      more.className = 'otc-more-btn';
-      more.innerHTML = `<span>Show ${Math.min(STEP, matches.length - visibleCount)} more</span><span class="otc-remaining">${matches.length - visibleCount} left</span>`;
-      more.onclick = () => {
-        visibleCount += STEP;
-        renderList('');
-      };
-      fragment.appendChild(more);
-    }
-    if (!searching && visibleCount > STEP) {
-      const less = document.createElement('button');
-      less.type = 'button';
-      less.className = 'otc-less-btn';
-      less.textContent = 'Show less';
-      less.onclick = () => {
-        visibleCount = STEP;
-        renderList('');
-      };
-      fragment.appendChild(less);
-    }
-
     listEl.innerHTML = '';
     listEl.appendChild(fragment);
+    const countEl = document.getElementById('iv-count');
+    if (global.NPRef && typeof global.NPRef.setCount === 'function') {
+      global.NPRef.setCount(countEl, matches.length, IV_DRUGS.length, 'IV medications', q.length > 0 || ivCategory !== 'all');
+    }
   }
 
   function showDetail(item, opts) {
@@ -2517,10 +2561,29 @@
       clearTimeout(timer);
       timer = setTimeout(() => renderList(input.value), 250);
     });
+    if (global.NPRef && typeof global.NPRef.bindSearch === 'function') global.NPRef.bindSearch(input);
+  }
+
+  function bindToTop() {
+    const btn = document.getElementById('iv-to-top');
+    if (!btn || btn.dataset.bound === '1') return;
+    btn.dataset.bound = '1';
+    const sync = () => {
+      const pane = document.getElementById('content-iv');
+      const open = pane && !pane.classList.contains('hidden');
+      btn.hidden = !(open && global.scrollY > 420);
+    };
+    global.addEventListener('scroll', sync, { passive: true });
+    btn.addEventListener('click', () => {
+      global.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    sync();
   }
 
   function init() {
     bindSearch();
+    renderCategories();
+    bindToTop();
     if (document.getElementById('iv-list')) renderList('');
   }
 
