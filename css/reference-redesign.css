@@ -48,12 +48,12 @@ html[data-theme="light"] {
 .rf-lab { --rf-accent: #10b981; --rf-accent-ink: #6ee7b7; --rf-accent-bg: rgba(16, 185, 129, .14); }
 .rf-ab  { --rf-accent: #8b5cf6; --rf-accent-ink: #c4b5fd; --rf-accent-bg: rgba(139, 92, 246, .16); }
 .rf-sz  { --rf-accent: #0ea5e9; --rf-accent-ink: #7dd3fc; --rf-accent-bg: rgba(14, 165, 233, .14); }
-.rf-iv  { --rf-accent: #ea580c; --rf-accent-ink: #fdba74; --rf-accent-bg: rgba(234, 88, 12, .18); }
+.rf-iv  { --rf-accent: #f59e0b; --rf-accent-ink: #fcd34d; --rf-accent-bg: rgba(245, 158, 11, .14); }
 html[data-theme="light"] .rf-otc { --rf-accent: #d97706; --rf-accent-ink: #92400e; --rf-accent-bg: #fffbeb; }
 html[data-theme="light"] .rf-lab { --rf-accent: #059669; --rf-accent-ink: #047857; --rf-accent-bg: #ecfdf5; }
 html[data-theme="light"] .rf-ab  { --rf-accent: #7c3aed; --rf-accent-ink: #5b21b6; --rf-accent-bg: #f5f3ff; }
 html[data-theme="light"] .rf-sz  { --rf-accent: #0284c7; --rf-accent-ink: #075985; --rf-accent-bg: #f0f9ff; }
-html[data-theme="light"] .rf-iv  { --rf-accent: #c2410c; --rf-accent-ink: #9a3412; --rf-accent-bg: #fff7ed; }
+html[data-theme="light"] .rf-iv  { --rf-accent: #d97706; --rf-accent-ink: #92400e; --rf-accent-bg: #fffbeb; }
 
 /* Light-mode global rule paints every <p> grey; keep our blocks transparent. */
 html[data-theme="light"] .rf-page p { background: transparent !important; }
@@ -481,41 +481,46 @@ html .otc-med-tag, html[data-theme="light"] .otc-med-tag { justify-self: start; 
 html .rf-lab .rf-row .rf-badge { width: 64px; min-width: 64px; padding: 0 4px; font-size: 12.5px; }
 html .rf-ab .rf-row .rf-badge { width: 64px; min-width: 64px; padding: 0 4px; font-size: 12.5px; }
 
-/* IV drug study: warm clay, not the cool hub teal. */
-#content-iv .otc-med-card { --accent: #fb923c; }
-html[data-theme="light"] #content-iv .otc-med-card { --accent: #ea580c; }
+/* IV list follows the OTC card: left aligned, room to read, no class capsule. */
+#iv-list.otc-list { gap: 14px; }
+#content-iv .otc-med-main { text-align: left; }
 #content-iv .iv-cat-line {
   display: block;
-  margin-top: 4px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .01em;
-  color: #fdba74;
+  margin-top: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.45;
+  text-align: left;
+  color: var(--rf-text-3);
 }
-html[data-theme="light"] #content-iv .iv-cat-line { color: #c2410c; }
-#tab-iv.np-sidebar-link svg { color: #fdba74 !important; }
-#tab-iv.np-sidebar-link.active {
-  background: rgba(194, 65, 12, .28) !important;
-  border-color: #ea580c !important;
-  color: #ffedd5 !important;
+#content-iv .otc-fact-list { gap: 12px; }
+#content-iv .otc-fact { padding: 12px 14px; }
+#content-iv .otc-fact-v { font-size: 14px; line-height: 1.6; }
+@media (max-width: 767px) {
+  #iv-list { padding-bottom: 28px; }
+  .np-tabbar-level[data-nav-level="main"] .np-tabbar-link {
+    font-size: 10px;
+    letter-spacing: 0;
+    padding-left: 1px !important;
+    padding-right: 1px !important;
+  }
+  .np-tabbar-level[data-nav-level="main"] .np-tabbar-link span { white-space: nowrap; }
 }
-.np-tabbar-link[data-tab="iv"].is-active { color: #ffedd5 !important; }
-.np-tabbar-level:has(> [data-tab="iv"].is-active)::before { background: #c2410c; }
 .iv-to-top {
   position: fixed;
   right: max(16px, env(safe-area-inset-right));
-  bottom: calc(var(--np-tabbar-height, 72px) + env(safe-area-inset-bottom) + 16px);
+  bottom: calc(var(--np-tabbar-height, 72px) + env(safe-area-inset-bottom) + 28px);
   z-index: 90;
-  min-height: 44px;
-  padding: 0 16px;
-  border: 0;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--rf-border-strong, #475569);
   border-radius: 999px;
-  background: #c2410c;
-  color: #fff7ed;
+  background: var(--rf-surface, #0f172a);
+  color: var(--rf-text, #e2e8f0);
   font-family: var(--np-body, inherit);
-  font-size: 14px;
-  font-weight: 800;
-  box-shadow: 0 8px 20px rgba(124, 45, 18, .35);
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(2, 6, 23, .28);
   cursor: pointer;
 }
 .iv-to-top[hidden] { display: none !important; }
