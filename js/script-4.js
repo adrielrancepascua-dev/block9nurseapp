@@ -615,7 +615,7 @@
             }
             const tabIv = document.getElementById('tab-iv');
             if (tabIv) {
-                tabIv.classList.remove('active', 'text-teal-300');
+                tabIv.classList.remove('active', 'text-orange-300');
                 tabIv.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
             }
             
@@ -640,7 +640,7 @@
                 if (contentIv) contentIv.classList.remove('hidden');
                 if (tabIv) {
                     tabIv.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
-                    tabIv.classList.add('active', 'text-teal-300');
+                    tabIv.classList.add('active', 'text-orange-300');
                 }
                 if (typeof hideIVDetail === 'function') hideIVDetail({ skipHistory: true });
                 if (typeof renderIVList === 'function') renderIVList(document.getElementById('iv-search') ? document.getElementById('iv-search').value : '');
@@ -761,7 +761,7 @@
             }
             const tabIvClear = document.getElementById('tab-iv');
             if (tabIvClear) {
-                tabIvClear.classList.remove('active', 'text-teal-300');
+                tabIvClear.classList.remove('active', 'text-orange-300');
                 tabIvClear.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
             }
         }
@@ -789,7 +789,7 @@
             if (iv) iv.classList.remove('hidden');
             if (tabIv) {
                 tabIv.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
-                tabIv.classList.add('active', 'text-teal-300');
+                tabIv.classList.add('active', 'text-orange-300');
             }
         }
 

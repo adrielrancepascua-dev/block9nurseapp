@@ -174,8 +174,8 @@
                     <span>OTC</span>
                 </button>
 
-                <button onclick="switchMainTab('iv')" id="tab-iv" class="tab-btn np-sidebar-link bg-slate-800 hover:bg-teal-900/50 border-slate-700 hover:border-teal-500/50 text-slate-300 hover:text-teal-300 transition-all">
-                    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-teal-300" aria-hidden="true"><path d="M12 3v12"/><path d="M9 12h6"/><path d="M8 21h8"/><path d="M12 15v6"/><path d="M7 6h10"/></svg>
+                <button onclick="switchMainTab('iv')" id="tab-iv" class="tab-btn np-sidebar-link bg-slate-800 border-slate-700 text-slate-300 transition-all">
+                    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12"/><path d="M9 12h6"/><path d="M8 21h8"/><path d="M12 15v6"/><path d="M7 6h10"/></svg>
                     <span>IV Drugs</span>
                 </button>
 
@@ -748,7 +748,7 @@
         </div> <!-- End content-otc -->
 
         <div id="content-iv" class="tab-content hidden">
-            <div class="otc-hub rf-page">
+            <div class="otc-hub rf-page rf-iv">
                 <div class="tools-hub-mode-row ref-hub-head">
                     <div class="tools-hub-hero">
                         <h2>IV Drug Study</h2>
@@ -759,9 +759,12 @@
                     <div class="rf-toolbar">
                         <div class="rf-search">
                             <span class="rf-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>
-                            <input id="iv-search" type="search" class="rf-search-input" placeholder="Search generic or brand. Misspellings still find the closest drug." autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search IV medications" />
+                            <input id="iv-search" type="search" class="rf-search-input" placeholder="Search name or brand" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search IV medications" />
+                            <button type="button" class="rf-search-clear" hidden aria-label="Clear search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
                         </div>
+                        <div id="iv-filter" class="rf-filter"></div>
                     </div>
+                    <div class="rf-count" id="iv-count" aria-live="polite"></div>
                 </div>
                 <div class="otc-layout">
                     <div id="iv-list-container">
@@ -775,6 +778,7 @@
                     </div>
                 </div>
             </div>
+            <button type="button" id="iv-to-top" class="iv-to-top" hidden>Go to top</button>
         </div>
 
         <!-- ============ LAB RANGES TAB CONTENT ============ -->
