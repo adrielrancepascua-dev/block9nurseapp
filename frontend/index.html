@@ -135,6 +135,11 @@
                     <span>OTC Medicines</span>
                 </button>
 
+                <button onclick="switchMainTab('iv')" id="tab-iv" class="tab-btn np-sidebar-link bg-slate-800 hover:bg-teal-900/50 border-slate-700 hover:border-teal-500/50 text-slate-300 hover:text-teal-300 transition-all">
+                    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-teal-300" aria-hidden="true"><path d="M12 3v12"/><path d="M9 12h6"/><path d="M8 21h8"/><path d="M12 15v6"/><path d="M7 6h10"/></svg>
+                    <span>IV Drug Study</span>
+                </button>
+
                 <button type="button" class="np-sidebar-link np-sidebar-placeholder" disabled>
                     <svg class="np-action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/></svg>
                     <span>Coming soon</span>
@@ -646,11 +651,37 @@
             </div>
         </div> <!-- End content-otc -->
 
+        <div id="content-iv" class="tab-content hidden">
+            <div class="otc-hub">
+                <div class="tools-hub-mode-row">
+                    <div class="tools-hub-hero">
+                        <h2>IV Drug Study</h2>
+                        <p>Generic name, class, mechanism, IV preparation, nursing responsibilities, and what to watch. A study reference for duty. Confirm the order and ward protocol with your CI.</p>
+                    </div>
+                </div>
+                <div class="otc-search-wrap">
+                    <input id="iv-search" type="search" class="otc-search-input" placeholder="Search generic or brand. A wrong spelling still suggests the closest drug." autocomplete="off" />
+                </div>
+                <div class="otc-layout">
+                    <div id="iv-list-container">
+                        <div id="iv-list" class="otc-list"></div>
+                    </div>
+                    <div id="iv-detail-container" class="otc-detail-shell hidden md:block">
+                        <button id="iv-back-btn" type="button" class="otc-back-btn" onclick="hideIVDetail()">← Back to list</button>
+                        <div id="iv-detail" class="otc-detail-panel">
+                            <p class="otc-detail-placeholder">Select an IV medication to open the drug study.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     <footer class="mt-12 py-6 text-center text-slate-500 border-t border-slate-800">
         <p class="text-xs">NursePath is a learning companion for nursing students. Always verify with your Clinical Instructor and approved references. Usage metadata may be logged with consent.</p>
     </footer>
     </div>
 
+    <script src="/assets/iv-drug-study.js"></script>
     <script src="/js/script-4.js"></script>
 
     <!-- Service Worker: duplicate register kept for debug logging after auth boot -->

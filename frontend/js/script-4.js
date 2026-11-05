@@ -604,12 +604,19 @@
             // Hide all tab contents
             document.getElementById('content-tools').classList.add('hidden');
             document.getElementById('content-otc').classList.add('hidden');
+            const ivContent = document.getElementById('content-iv');
+            if (ivContent) ivContent.classList.add('hidden');
             
             // Remove active state from all tab buttons
             document.getElementById('tab-tools').classList.remove('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
             document.getElementById('tab-tools').classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
             document.getElementById('tab-otc').classList.remove('active', 'bg-amber-900/50', 'border-amber-500/50', 'text-amber-400');
             document.getElementById('tab-otc').classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            const tabIv = document.getElementById('tab-iv');
+            if (tabIv) {
+                tabIv.classList.remove('active', 'bg-teal-900/50', 'border-teal-500/50', 'text-teal-300');
+                tabIv.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
             
             // Show selected tab content and activate button
             if (tab === 'tools') {
@@ -627,6 +634,15 @@
                 otcVisibleCount = OTC_INCREMENT;
                 renderOTCList('');
                 if (!skipHistory) pushNursePathState({ view: 'otc', tab: 'otc' });
+            } else if (tab === 'iv') {
+                if (ivContent) ivContent.classList.remove('hidden');
+                if (tabIv) {
+                    tabIv.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                    tabIv.classList.add('active', 'bg-teal-900/50', 'border-teal-500/50', 'text-teal-300');
+                }
+                if (typeof hideIVDetail === 'function') hideIVDetail({ skipHistory: true });
+                if (typeof renderIVList === 'function') renderIVList('');
+                if (!skipHistory) pushNursePathState({ view: 'iv', tab: 'iv' });
             }
             
             // Scroll to top of content
@@ -659,6 +675,7 @@
                     cur.tab === next.tab &&
                     cur.toolId === next.toolId &&
                     cur.otcId === next.otcId &&
+                    cur.ivId === next.ivId &&
                     cur.overlay === next.overlay
                 ) {
                     return;
@@ -676,10 +693,13 @@
         function ensureToolsTabVisible() {
             const tools = document.getElementById('content-tools');
             const otc = document.getElementById('content-otc');
+            const iv = document.getElementById('content-iv');
             if (tools) tools.classList.remove('hidden');
             if (otc) otc.classList.add('hidden');
+            if (iv) iv.classList.add('hidden');
             const tabTools = document.getElementById('tab-tools');
             const tabOtc = document.getElementById('tab-otc');
+            const tabIvReset = document.getElementById('tab-iv');
             if (tabTools) {
                 tabTools.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
                 tabTools.classList.add('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
@@ -688,13 +708,19 @@
                 tabOtc.classList.remove('active', 'bg-amber-900/50', 'border-amber-500/50', 'text-amber-400');
                 tabOtc.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
             }
+            if (tabIvReset) {
+                tabIvReset.classList.remove('active', 'bg-teal-900/50', 'border-teal-500/50', 'text-teal-300');
+                tabIvReset.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
         }
 
         function ensureOtcTabVisible() {
             const tools = document.getElementById('content-tools');
             const otc = document.getElementById('content-otc');
+            const iv = document.getElementById('content-iv');
             if (otc) otc.classList.remove('hidden');
             if (tools) tools.classList.add('hidden');
+            if (iv) iv.classList.add('hidden');
             const tabTools = document.getElementById('tab-tools');
             const tabOtc = document.getElementById('tab-otc');
             if (tabOtc) {
@@ -704,6 +730,35 @@
             if (tabTools) {
                 tabTools.classList.remove('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
                 tabTools.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
+            const tabIvOff = document.getElementById('tab-iv');
+            if (tabIvOff) {
+                tabIvOff.classList.remove('active', 'bg-teal-900/50', 'border-teal-500/50', 'text-teal-300');
+                tabIvOff.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
+        }
+
+        function ensureIvTabVisible() {
+            const tools = document.getElementById('content-tools');
+            const otc = document.getElementById('content-otc');
+            const iv = document.getElementById('content-iv');
+            if (iv) iv.classList.remove('hidden');
+            if (tools) tools.classList.add('hidden');
+            if (otc) otc.classList.add('hidden');
+            const tabIvOn = document.getElementById('tab-iv');
+            const tabToolsOff = document.getElementById('tab-tools');
+            const tabOtcOff = document.getElementById('tab-otc');
+            if (tabIvOn) {
+                tabIvOn.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                tabIvOn.classList.add('active', 'bg-teal-900/50', 'border-teal-500/50', 'text-teal-300');
+            }
+            if (tabToolsOff) {
+                tabToolsOff.classList.remove('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
+                tabToolsOff.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
+            if (tabOtcOff) {
+                tabOtcOff.classList.remove('active', 'bg-amber-900/50', 'border-amber-500/50', 'text-amber-400');
+                tabOtcOff.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
             }
         }
 
@@ -1089,6 +1144,20 @@
                     }
                 }
                 if (typeof hideOTCDetail === 'function') hideOTCDetail({ skipHistory: true });
+                return;
+            }
+
+            if (state.view === 'iv' || state.view === 'iv-detail') {
+                ensureIvTabVisible();
+                if (state.view === 'iv-detail' && state.ivId && window.NursePathIV) {
+                    const item = window.NursePathIV.find(state.ivId);
+                    if (item && typeof showIVDetail === 'function') {
+                        showIVDetail(item, { skipHistory: true });
+                        return;
+                    }
+                }
+                if (typeof hideIVDetail === 'function') hideIVDetail({ skipHistory: true });
+                if (typeof renderIVList === 'function') renderIVList(document.getElementById('iv-search') ? document.getElementById('iv-search').value : '');
                 return;
             }
 
@@ -2626,9 +2695,16 @@
                 .map(r => r.item);
 
             let usedFuzzy = false;
-            if (q && matches.length === 0 && window.NursePathCalculators && typeof window.NursePathCalculators.fuzzyDrugFallback === 'function') {
-                matches = window.NursePathCalculators.fuzzyDrugFallback(q, otcDatabase, 2);
+            let fuzzyName = '';
+            if (q && matches.length === 0 && window.NursePathCalculators && typeof window.NursePathCalculators.nearestDrugMatches === 'function') {
+                const suggestions = window.NursePathCalculators.nearestDrugMatches(q, otcDatabase, 4);
+                matches = suggestions.map((row) => row.item);
                 usedFuzzy = matches.length > 0;
+                fuzzyName = usedFuzzy ? suggestions[0].item.name : '';
+            } else if (q && matches.length === 0 && window.NursePathCalculators && typeof window.NursePathCalculators.fuzzyDrugFallback === 'function') {
+                matches = window.NursePathCalculators.fuzzyDrugFallback(q, otcDatabase);
+                usedFuzzy = matches.length > 0;
+                fuzzyName = usedFuzzy ? matches[0].name : '';
             }
 
             if(matches.length === 0){
@@ -2644,7 +2720,9 @@
             if (usedFuzzy) {
                 const hint = document.createElement('div');
                 hint.className = 'otc-fuzzy-hint';
-                hint.textContent = 'Showing close matches (typo-tolerant search).';
+                hint.textContent = fuzzyName
+                    ? `No exact spelling. Did you mean ${fuzzyName}? Showing the closest medicines.`
+                    : 'Showing close matches (typo-tolerant search).';
                 fragment.appendChild(hint);
             }
 

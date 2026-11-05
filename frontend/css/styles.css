@@ -1643,6 +1643,13 @@ html[data-ghost-auth="1"] #authOverlay { display: none !important; }
             color: #fde68a;
             margin-bottom: 2px;
         }
+        .otc-fuzzy-hint strong {
+            color: #fff;
+            font-weight: 800;
+        }
+        html[data-theme="light"] .otc-fuzzy-hint strong {
+            color: #92400e;
+        }
         .otc-more-btn, .otc-less-btn {
             width: 100%;
             min-height: 44px;
