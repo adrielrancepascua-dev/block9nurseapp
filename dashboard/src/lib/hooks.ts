@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { subscribeToUsageEventChanges } from './usageData'
 
 export interface NavItem {
   id: string
@@ -24,4 +25,25 @@ export function useMobile() {
   }, [])
 
   return isMobile
+}
+
+/** Refresh on an interval, when the tab is focused, and when a new event arrives. */
+export function useAutoRefresh(load: (silent: boolean) => void) {
+  useEffect(() => {
+    load(false)
+  }, [load])
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => load(true), 30000)
+    const onFocus = () => {
+      if (document.visibilityState === 'visible') load(true)
+    }
+    window.addEventListener('focus', onFocus)
+    const unsubscribe = subscribeToUsageEventChanges(() => load(true))
+    return () => {
+      window.clearInterval(intervalId)
+      window.removeEventListener('focus', onFocus)
+      unsubscribe()
+    }
+  }, [load])
 }

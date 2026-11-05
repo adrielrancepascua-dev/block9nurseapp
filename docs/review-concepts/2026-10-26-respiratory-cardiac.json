@@ -1,0 +1,883 @@
+{
+  "researchDate": "2026-10-26",
+  "scope": "Respiratory and cardiovascular focused review concepts (24 lessons)",
+  "method": "Claim-level review of summaries, body text and reflections against independent textbooks, original reviews, professional guidelines and official labels. SciSpace discovery supplemented source searches; primary pages or official summaries were opened. Access type and limitations are explicit for every item. This is an educational evidence review, not clinician sign-off or a guarantee of clinical completeness.",
+  "items": [
+    {
+      "id": "ventilation",
+      "status": "supported",
+      "summary": "Ventilation moves air; diffusion transfers gases across the alveolar membrane; perfusion carries blood past the alveoli.",
+      "body": "Breathing depends on pressure changes created by respiratory muscles. Good airflow alone does not ensure oxygen delivery when the membrane or pulmonary circulation is impaired.",
+      "reflect": "How could normal airflow coexist with poor oxygen delivery?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/11-1-concepts-of-oxygenation-and-perfusion"
+        },
+        {
+          "label": "BTS oxygen guideline (Thorax, 2017)",
+          "url": "https://www.brit-thoracic.org.uk/document-library/guidelines/emergency-oxygen/bts-guideline-for-oxygen-use-in-adults-in-healthcare-and-emergency-settings/"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/11-1-concepts-of-oxygenation-and-perfusion",
+          "title": "11.1 Concepts of Oxygenation and Perfusion",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://www.brit-thoracic.org.uk/document-library/guidelines/emergency-oxygen/bts-guideline-for-oxygen-use-in-adults-in-healthcare-and-emergency-settings/",
+          "title": "BTS guideline for oxygen use in adults in healthcare and emergency settings",
+          "year": 2017,
+          "access": "full text",
+          "supports": "Gas exchange; controlled oxygen and hypercapnia.",
+          "limitations": "Adult guidance; individual prescribed targets and subsequent guidance take precedence. DOI 10.1136/thoraxjnl-2016-209729."
+        }
+      ],
+      "notes": "Ventilation, diffusion, perfusion and the reflection are consistent with respiratory physiology."
+    },
+    {
+      "id": "oxygen",
+      "status": "corrected",
+      "summary": "Arterial oxygen saturation (SaO₂) is the proportion of hemoglobin oxygen-binding sites occupied. Pulse oximetry estimates it as SpO₂; PaO₂ is the partial pressure of dissolved arterial oxygen.",
+      "body": "Saturation, oxygen pressure and total oxygen content describe different properties. Hemoglobin concentration and blood flow also influence tissue oxygen delivery. Interpret readings with breathing effort, circulation, mental status and trends; low perfusion and skin pigmentation can affect pulse-oximeter accuracy.",
+      "reflect": "What other observations would help you interpret a saturation reading?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/11-1-concepts-of-oxygenation-and-perfusion"
+        },
+        {
+          "label": "Gudelunas et al., pulse oximetry study (2024)",
+          "url": "https://doi.org/10.1213/ANE.0000000000006755"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/11-1-concepts-of-oxygenation-and-perfusion",
+          "title": "11.1 Concepts of Oxygenation and Perfusion",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://doi.org/10.1213/ANE.0000000000006755",
+          "title": "Low Perfusion and Missed Diagnosis of Hypoxemia by Pulse Oximetry in Darkly Pigmented Skin: A Prospective Study",
+          "year": 2024,
+          "access": "abstract",
+          "supports": "Perfusion and pigmentation affect oximeter accuracy.",
+          "limitations": "Abstract only; 146 healthy volunteers, two devices. Does not establish race-based correction factors."
+        }
+      ],
+      "notes": "Replaced ambiguous 'how much hemoglobin' and pressure-as-amount phrasing; distinguished measured arterial saturation from the pulse-oximeter estimate. Added content and accuracy limits without correction factors."
+    },
+    {
+      "id": "abg",
+      "status": "qualified",
+      "summary": "pH describes acidity. Carbon dioxide reflects the respiratory component; bicarbonate reflects the metabolic component.",
+      "body": "Consider pH, PaCO₂ and bicarbonate together, including whether compensation is appropriate. Compensation moves pH toward normal; a near-normal pH can also hide a mixed disorder. History and other laboratory findings help distinguish these possibilities.",
+      "reflect": "How might ventilation and kidney function affect the same blood gas?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/10-4-acid-base-imbalance"
+        },
+        {
+          "label": "CJASN acid–base review (2023)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10101555/"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/10-4-acid-base-imbalance",
+          "title": "10.4 Acid-Base Imbalance",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10101555/",
+          "title": "Acid-Base Disorders in the Critically Ill Patient",
+          "year": 2023,
+          "access": "full text",
+          "supports": "Compensation and mixed acid–base disorders.",
+          "limitations": "Critical-care narrative review; not a stand-alone interpretation algorithm."
+        }
+      ],
+      "notes": "Original simple framework supported; clarified that a near-normal pH may represent mixed disease rather than successful compensation alone."
+    },
+    {
+      "id": "copd",
+      "status": "qualified",
+      "summary": "Chronic airflow limitation makes expiration difficult and can trap air in the lungs.",
+      "body": "Air trapping can increase breathing effort. Expiratory airflow limitation may worsen during an exacerbation. Supplemental oxygen is titrated to a prescribed target with clinical and blood-gas reassessment when needed; concern about carbon-dioxide retention must not lead to withholding needed oxygen.",
+      "reflect": "Why are oxygenation and carbon-dioxide clearance assessed separately?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/11-5-disorders-of-the-lower-respiratory-system-chronic-obstructive-pulmonary-disease"
+        },
+        {
+          "label": "BTS oxygen guideline (Thorax, 2017)",
+          "url": "https://www.brit-thoracic.org.uk/document-library/guidelines/emergency-oxygen/bts-guideline-for-oxygen-use-in-adults-in-healthcare-and-emergency-settings/"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/11-5-disorders-of-the-lower-respiratory-system-chronic-obstructive-pulmonary-disease",
+          "title": "11.5 Disorders of the Lower Respiratory System: Chronic Obstructive Pulmonary Disease",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://www.brit-thoracic.org.uk/document-library/guidelines/emergency-oxygen/bts-guideline-for-oxygen-use-in-adults-in-healthcare-and-emergency-settings/",
+          "title": "BTS guideline for oxygen use in adults in healthcare and emergency settings",
+          "year": 2017,
+          "access": "full text",
+          "supports": "Gas exchange; controlled oxygen and hypercapnia.",
+          "limitations": "Adult guidance; individual prescribed targets and subsequent guidance take precedence. DOI 10.1136/thoraxjnl-2016-209729."
+        }
+      ],
+      "notes": "Removed a universal implication that prolonging expiration or pursed-lip breathing reliably reduces workload. Added controlled-oxygen safety; no universal COPD target, hypoxic-drive explanation or oxygen restriction taught."
+    },
+    {
+      "id": "asthma",
+      "status": "supported",
+      "summary": "Asthma combines airway inflammation, narrowing and increased mucus, producing variable airflow obstruction.",
+      "body": "Wheezing reflects air moving through narrowed airways. Less audible wheezing does not always mean improvement: reduced airflow with exhaustion or worsening distress can signal deterioration.",
+      "reflect": "Why should breathing effort be assessed along with breath sounds?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/11-4-disorders-of-the-lower-respiratory-system-asthma"
+        },
+        {
+          "label": "GINA asthma summary guide (2026)",
+          "url": "https://ginasthma.org/wp-content/uploads/2026/07/GINA-Summary-Guide-2026-WEB-WMS.pdf"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/11-4-disorders-of-the-lower-respiratory-system-asthma",
+          "title": "11.4 Disorders of the Lower Respiratory System: Asthma",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://ginasthma.org/wp-content/uploads/2026/07/GINA-Summary-Guide-2026-WEB-WMS.pdf",
+          "title": "2026 Summary Guide for Asthma Management and Prevention",
+          "year": 2026,
+          "access": "official guidance",
+          "supports": "Variable airflow; quiet chest and deterioration.",
+          "limitations": "Adults, adolescents and children 6–11; no treatment steps reproduced."
+        }
+      ],
+      "notes": "Variable obstruction and the worsening-airflow explanation for reduced wheezing are supported; 2026 GINA specifically recognizes a quiet chest as a serious finding."
+    },
+    {
+      "id": "pneumonia",
+      "status": "qualified",
+      "summary": "Pneumonia is infection of lung tissue; inflammation and alveolar filling can impair gas exchange.",
+      "body": "Aspiration introduces oral or gastric material into the lower airway. It may cause chemical pneumonitis, aspiration pneumonia, or both. Swallowing difficulty, reduced consciousness and impaired protective reflexes increase risk. Respiratory symptoms, oxygenation, temperature and overall condition require assessment together.",
+      "reflect": "How do airway protection and swallowing affect respiratory health?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/11-7-disorders-of-the-lower-respiratory-system-pneumonia-and-aspiration"
+        },
+        {
+          "label": "Son et al., aspiration review (2017)",
+          "url": "https://jdapm.org/DOIx.php?id=10.17245/jdapm.2017.17.1.1"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/11-7-disorders-of-the-lower-respiratory-system-pneumonia-and-aspiration",
+          "title": "11.7 Disorders of the Lower Respiratory System: Pneumonia and Aspiration",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://jdapm.org/DOIx.php?id=10.17245/jdapm.2017.17.1.1",
+          "title": "Pneumonitis and pneumonia after aspiration",
+          "year": 2017,
+          "access": "full text",
+          "supports": "Aspiration risks and pneumonitis/pneumonia distinction.",
+          "limitations": "Narrative review; syndromes may overlap. DOI 10.17245/jdapm.2017.17.1.1."
+        }
+      ],
+      "notes": "Distinguished infectious pneumonia from chemical aspiration injury; an aspiration event does not automatically establish bacterial infection."
+    },
+    {
+      "id": "ards",
+      "status": "qualified",
+      "summary": "ARDS is acute inflammatory lung injury with increased alveolar-capillary permeability and impaired oxygenation.",
+      "body": "Edema and alveolar collapse reduce the amount of aerated lung and often decrease compliance, although stiffness varies. Respiratory support aims to maintain gas exchange while limiting additional lung injury. Oxygenation, ventilation, lung mechanics and clinical status all require reassessment.",
+      "reflect": "How could alveolar fluid affect both oxygenation and breathing effort?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/35-3-respiratory-concerns"
+        },
+        {
+          "label": "AARC patient–ventilator guideline (2024)",
+          "url": "https://www.aarc.org/wp-content/uploads/2024/10/patient-ventilator-assessment-aarc-cpg.pdf"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/35-3-respiratory-concerns",
+          "title": "35.3 Respiratory Concerns",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://www.aarc.org/wp-content/uploads/2024/10/patient-ventilator-assessment-aarc-cpg.pdf",
+          "title": "AARC Clinical Practice Guideline: Patient-Ventilator Assessment",
+          "year": 2024,
+          "access": "full text",
+          "supports": "Bedside assessment, airway placement, lung protection.",
+          "limitations": "Assessment recommendations have varying certainty; not an emergency troubleshooting algorithm. DOI 10.4187/respcare.12007."
+        }
+      ],
+      "notes": "Qualified universal reduced-compliance wording. The lesson is physiology, not diagnostic criteria; it does not equate every pulmonary edema with ARDS."
+    },
+    {
+      "id": "airway",
+      "status": "supported",
+      "summary": "An artificial airway maintains a pathway for breathing but may require assisted ventilation and ongoing assessment for patency, position and complications.",
+      "body": "A ventilator alarm is a cue to assess the patient and breathing system. Secretions, obstruction, tubing problems and changing lung mechanics can alter delivered ventilation.",
+      "reflect": "What patient observations help distinguish an equipment issue from worsening respiratory status?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/35-3-respiratory-concerns"
+        },
+        {
+          "label": "AARC patient–ventilator guideline (2024)",
+          "url": "https://www.aarc.org/wp-content/uploads/2024/10/patient-ventilator-assessment-aarc-cpg.pdf"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/35-3-respiratory-concerns",
+          "title": "35.3 Respiratory Concerns",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://www.aarc.org/wp-content/uploads/2024/10/patient-ventilator-assessment-aarc-cpg.pdf",
+          "title": "AARC Clinical Practice Guideline: Patient-Ventilator Assessment",
+          "year": 2024,
+          "access": "full text",
+          "supports": "Bedside assessment, airway placement, lung protection.",
+          "limitations": "Assessment recommendations have varying certainty; not an emergency troubleshooting algorithm. DOI 10.4187/respcare.12007."
+        }
+      ],
+      "notes": "Clarified that an airway alone does not guarantee effective ventilation; alarm and bedside assessment concepts supported."
+    },
+    {
+      "id": "pleural",
+      "status": "supported",
+      "summary": "The pleural space helps couple lung movement to chest movement. Air or excess fluid disrupts this relationship.",
+      "body": "A pneumothorax allows air into this space and can impair lung expansion. Chest drainage systems manage air or fluid while preserving a controlled pathway; system findings need clinical context.",
+      "reflect": "How can a problem outside the alveoli still impair ventilation?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/11-6-disorders-of-the-lower-respiratory-system-pneumothorax"
+        },
+        {
+          "label": "BTS pleural guideline and procedures (2023)",
+          "url": "https://www.brit-thoracic.org.uk/document-library/guidelines/pleural-disease/pleural-disease-full-supplement/"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/11-6-disorders-of-the-lower-respiratory-system-pneumothorax",
+          "title": "11.6 Disorders of the Lower Respiratory System: Pneumothorax",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://www.brit-thoracic.org.uk/document-library/guidelines/pleural-disease/pleural-disease-full-supplement/",
+          "title": "British Thoracic Society Guideline for pleural disease and Clinical Statement on pleural procedures",
+          "year": 2023,
+          "access": "full text",
+          "supports": "Pleural air/fluid and drainage principles.",
+          "limitations": "Not every pneumothorax requires drainage. Guideline DOI 10.1136/thorax-2022-219784."
+        }
+      ],
+      "notes": "Pressure/expansion relationship supported. Existing 'systems manage air or fluid' wording does not imply every pneumothorax requires a chest tube."
+    },
+    {
+      "id": "clots",
+      "status": "supported",
+      "summary": "A venous thrombus can travel to the pulmonary circulation and obstruct blood flow through the lungs.",
+      "body": "Immobility and venous stasis contribute to clot risk. Anticoagulants reduce clot formation or extension but also increase bleeding risk. Symptoms, mobility and bleeding observations all matter during assessment.",
+      "reflect": "How can impaired pulmonary blood flow affect oxygenation despite open airways?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/16-6-thrombotic-disorder"
+        },
+        {
+          "label": "ASH DVT/PE guideline educational summary (2020)",
+          "url": "https://www.hematology.org/education/clinicians/guidelines-and-quality-care/clinical-practice-guidelines/venous-thromboembolism-guidelines/-/media/3bf8a3b4e2f14571b81649863cec03ae.ashx"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/16-6-thrombotic-disorder",
+          "title": "16.6 Thrombotic Disorder",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://www.hematology.org/education/clinicians/guidelines-and-quality-care/clinical-practice-guidelines/venous-thromboembolism-guidelines/-/media/3bf8a3b4e2f14571b81649863cec03ae.ashx",
+          "title": "Treatment of Deep Vein Thrombosis and Pulmonary Embolism: An Educational Slide Set",
+          "year": 2020,
+          "access": "official guidance",
+          "supports": "Anticoagulation benefits and bleeding tradeoffs.",
+          "limitations": "Society educational summary of 2020 guideline, not full journal text; file upload date is not publication year."
+        }
+      ],
+      "notes": "Venous embolization, stasis, anticoagulant prevention of extension/recurrent clots and bleeding tradeoffs are supported; no claim that anticoagulants directly dissolve clots."
+    },
+    {
+      "id": "tb",
+      "status": "qualified",
+      "summary": "Pulmonary tuberculosis can spread through airborne particles released by a person with infectious disease.",
+      "body": "Infectious pulmonary or laryngeal TB requires airborne controls alongside standard precautions. Ventilation or isolation measures, appropriate respirators, effective treatment and education reduce transmission. Latent TB infection does not spread TB bacteria.",
+      "reflect": "Why does airborne spread require different controls from direct contact?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/11-8-disorders-of-the-lower-respiratory-system-tuberculosis"
+        },
+        {
+          "label": "CDC TB infection-control guideline (2005)",
+          "url": "https://www.cdc.gov/mmwr/preview/mmwrhtml/rr5417a1.htm"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/11-8-disorders-of-the-lower-respiratory-system-tuberculosis",
+          "title": "11.8 Disorders of the Lower Respiratory System: Tuberculosis",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://www.cdc.gov/mmwr/preview/mmwrhtml/rr5417a1.htm",
+          "title": "Guidelines for Preventing the Transmission of Mycobacterium tuberculosis in Health-Care Settings, 2005",
+          "year": 2005,
+          "access": "official guidance",
+          "supports": "Airborne transmission and layered controls.",
+          "limitations": "Older foundational guideline still linked by CDC's 2023 infection-control page; apply local policies."
+        }
+      ],
+      "notes": "Made airborne controls additive to standard precautions and distinguished infectious disease from latent infection."
+    },
+    {
+      "id": "cf",
+      "status": "supported",
+      "summary": "Cystic fibrosis alters epithelial salt and water transport, contributing to thick secretions in several organs.",
+      "body": "Airway mucus impairs clearance and encourages recurrent infection. Pancreatic involvement can affect digestion and nutrition, so respiratory and nutritional care are linked.",
+      "reflect": "How can a transport problem affect both breathing and nutrition?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/11-9-disorders-of-the-lower-respiratory-system-cystic-fibrosis"
+        },
+        {
+          "label": "Nature Reviews Disease Primers: Cystic fibrosis (2015)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7041544/"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/11-9-disorders-of-the-lower-respiratory-system-cystic-fibrosis",
+          "title": "11.9 Disorders of the Lower Respiratory System: Cystic Fibrosis",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7041544/",
+          "title": "Cystic fibrosis",
+          "year": 2015,
+          "access": "full text",
+          "supports": "CFTR, mucus clearance and pancreatic involvement.",
+          "limitations": "Mechanistic review; pancreatic insufficiency varies by genotype. No current CF treatment claims."
+        }
+      ],
+      "notes": "CFTR-related secretion transport, airway clearance/infection and pancreatic/nutritional links supported; 'can' preserves variable pancreatic involvement."
+    },
+    {
+      "id": "osa",
+      "status": "supported",
+      "summary": "In obstructive sleep apnea, the upper airway repeatedly narrows or closes during sleep.",
+      "body": "Repeated obstruction disrupts sleep and oxygenation. Prescribed positive airway pressure helps keep the airway open; consistent use, mask fit and comfort influence treatment effectiveness.",
+      "reflect": "How does supporting airway openness differ from simply supplying oxygen?",
+      "sources": [
+        {
+          "label": "NHLBI: Sleep apnea",
+          "url": "https://www.nhlbi.nih.gov/health/sleep-apnea"
+        },
+        {
+          "label": "AASM PAP guideline (2019)",
+          "url": "https://link.springer.com/article/10.5664/jcsm.7640"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://www.nhlbi.nih.gov/health/sleep-apnea",
+          "title": "Sleep Apnea - What Is Sleep Apnea?",
+          "year": null,
+          "access": "official guidance",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://link.springer.com/article/10.5664/jcsm.7640",
+          "title": "Treatment of Adult Obstructive Sleep Apnea with Positive Airway Pressure: An American Academy of Sleep Medicine Clinical Practice Guideline",
+          "year": 2019,
+          "access": "abstract",
+          "supports": "PAP, follow-up and adherence.",
+          "limitations": "Publisher abstract and recommendations visible; subscription full text not read. Adult OSA; does not cover central apnea."
+        }
+      ],
+      "notes": "Upper-airway collapse, PAP splinting and adherence support verified; reflection appropriately distinguishes airway support from oxygen delivery."
+    },
+    {
+      "id": "coronary",
+      "status": "qualified",
+      "summary": "Coronary circulation supplies oxygen to the heart muscle. Ischemia occurs when supply is insufficient for demand.",
+      "body": "Prolonged ischemia can injure myocardial cells. Elevated troponin indicates myocardial injury, which may have ischemic or nonischemic causes; it does not by itself establish infarction. Symptoms, serial results, ECG and sometimes imaging establish context. Revascularization can improve flow when an appropriate coronary lesion is present.",
+      "reflect": "Why are symptoms and investigations interpreted together?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/12-5-myocardial-infarction"
+        },
+        {
+          "label": "ESC Fifth Universal Definition of MI slides (2026)",
+          "url": "https://dam-assets.escardio.org/download/b2e827b89baa11f1879e62eac143aa37"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/12-5-myocardial-infarction",
+          "title": "12.5 Myocardial Infarction",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://dam-assets.escardio.org/download/b2e827b89baa11f1879e62eac143aa37",
+          "title": "Fifth Universal Definition of Myocardial Infarction (2026): ESC educational slide set",
+          "year": 2026,
+          "access": "official guidance",
+          "supports": "Injury requires contextual distinction from infarction.",
+          "limitations": "Official 36-page slide set opened and relevant criteria read; full journal article not reviewed. Underlying document DOI 10.1093/eurheartj/ehag101; JACC version metadata verified via PMID 42663357."
+        }
+      ],
+      "notes": "Explicit injury-versus-infarction distinction and qualified universal revascularization wording. Latest 2026 official slide set substantively accessed; no numeric troponin rule or MI classification algorithm reproduced."
+    },
+    {
+      "id": "hf",
+      "status": "qualified",
+      "summary": "Heart failure is a clinical syndrome involving impaired ventricular filling or ejection, often with raised filling pressures and congestion. Ejection fraction may be reduced or preserved.",
+      "body": "Left-sided congestion often affects the lungs; right-sided congestion often affects systemic veins, and both can coexist. Weight trends, edema, breathing and fluid balance help describe change, but none alone establishes the diagnosis.",
+      "reflect": "How does the location of congestion shape the observations you expect?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/12-3-heart-failure"
+        },
+        {
+          "label": "AHA/ACC/HFSA heart-failure guideline (2022)",
+          "url": "https://www.heart.org/-/media/832EA0F4E73948848612F228F7FA2D35.pdf"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/12-3-heart-failure",
+          "title": "12.3 Heart Failure",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://www.heart.org/-/media/832EA0F4E73948848612F228F7FA2D35.pdf",
+          "title": "2022 AHA/ACC/HFSA Guideline for the Management of Heart Failure",
+          "year": 2022,
+          "access": "official guidance",
+          "supports": "HF across EF categories; congestion assessment.",
+          "limitations": "Official slide-set adaptation, not complete journal article. Fundamental physiology only; not a claim that 2022 is latest global guidance."
+        }
+      ],
+      "notes": "Broadened the low-output-only impression to include preserved-EF disease and elevated filling pressures. Clarified overlap and nonspecificity of monitoring findings."
+    },
+    {
+      "id": "nitrates",
+      "status": "qualified",
+      "summary": "Nitrates relax vascular smooth muscle and can reduce the workload placed on the heart.",
+      "body": "Vasodilation can relieve angina but may cause hypotension, dizziness or syncope. Nitroglycerin must not be combined with PDE5 inhibitors such as sildenafil or with riociguat because of dangerous hypotension. Assessment includes symptoms, blood pressure, circulation and interacting medicines.",
+      "reflect": "Why might a medicine that reduces cardiac workload also cause dizziness?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/pharmacology/pages/18-7-nitrates"
+        },
+        {
+          "label": "DailyMed: NITROSTAT prescribing information",
+          "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5265648f-3062-48a2-a4e3-fea1207807a8"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/pharmacology/pages/18-7-nitrates",
+          "title": "18.7 Nitrates",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5265648f-3062-48a2-a4e3-fea1207807a8",
+          "title": "NITROSTAT—nitroglycerin tablet prescribing information",
+          "year": null,
+          "access": "official guidance",
+          "supports": "Vasodilation, hypotension and prohibited combinations.",
+          "limitations": "Product-specific label opened; label revision year not independently established."
+        }
+      ],
+      "notes": "Added named major contraindicated interactions rather than leaving all medicine interactions implicit; avoided timing, dose and administration algorithms."
+    },
+    {
+      "id": "digoxin",
+      "status": "qualified",
+      "summary": "Digoxin affects cardiac contraction and conduction. Its therapeutic and toxic effects can be close together.",
+      "body": "Reduced kidney function can decrease clearance. Low potassium or magnesium can increase susceptibility to toxicity; high potassium can occur in severe toxicity, especially after acute overdose. Pulse, symptoms, renal function, electrolytes and appropriately timed drug levels need interpretation together; a level alone cannot exclude toxicity.",
+      "reflect": "Why might a change in renal function matter even when the dose is unchanged?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/pharmacology/pages/19-6-adjunct-medications-used-in-heart-failure"
+        },
+        {
+          "label": "Digoxin toxicity review and consensus (2023)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10599802/"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/pharmacology/pages/19-6-adjunct-medications-used-in-heart-failure",
+          "title": "19.6 Adjunct Medications Used in Heart Failure",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10599802/",
+          "title": "Diagnosis and practical management of digoxin toxicity: a narrative review and consensus",
+          "year": 2023,
+          "access": "full text",
+          "supports": "Renal clearance, electrolytes and contextual levels.",
+          "limitations": "Expert consensus with limited direct evidence; not a universal treatment guideline. DOI 10.1097/MEJ.0000000000001065."
+        }
+      ],
+      "notes": "Distinguished low-potassium susceptibility from hyperkalemia accompanying acute toxicity, and emphasized contextual interpretation of concentrations."
+    },
+    {
+      "id": "diuretics",
+      "status": "qualified",
+      "summary": "Diuretics increase urinary salt and water excretion, helping reduce excess fluid in selected conditions.",
+      "body": "Diuresis can reduce congestion but also affect blood pressure, circulating volume, kidney function and electrolytes. Loop and thiazide diuretics can lower potassium; potassium-sparing diuretics can raise it. Monitoring connects weight, intake and output, symptoms, kidney function and laboratory trends.",
+      "reflect": "How could reducing fluid overload create a different monitoring need?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/pharmacology/pages/18-6-diuretics"
+        },
+        {
+          "label": "AHA/ACC/HFSA heart-failure guideline (2022)",
+          "url": "https://www.heart.org/-/media/832EA0F4E73948848612F228F7FA2D35.pdf"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/pharmacology/pages/18-6-diuretics",
+          "title": "18.6 Diuretics",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://www.heart.org/-/media/832EA0F4E73948848612F228F7FA2D35.pdf",
+          "title": "2022 AHA/ACC/HFSA Guideline for the Management of Heart Failure",
+          "year": 2022,
+          "access": "official guidance",
+          "supports": "HF across EF categories; congestion assessment.",
+          "limitations": "Official slide-set adaptation, not complete journal article. Fundamental physiology only; not a claim that 2022 is latest global guidance."
+        }
+      ],
+      "notes": "Added potassium-sparing exception and renal monitoring; retained selected-condition scope."
+    },
+    {
+      "id": "beta",
+      "status": "supported",
+      "summary": "Beta blockers reduce sympathetic effects on the heart, often slowing heart rate and reducing workload.",
+      "body": "A lower pulse can be an intended effect, but symptoms and blood pressure help determine tolerance. The medication’s purpose, patient condition and prescribed parameters guide monitoring.",
+      "reflect": "Why is a pulse measurement more informative when paired with symptoms?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/pharmacology/pages/18-4-beta-adrenergic-blockers"
+        },
+        {
+          "label": "bpacnz beta-blocker review (2024)",
+          "url": "https://bpac.org.nz/2024/docs/beta-blockers.pdf"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/pharmacology/pages/18-4-beta-adrenergic-blockers",
+          "title": "18.4 Beta-Adrenergic Blockers",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://bpac.org.nz/2024/docs/beta-blockers.pdf",
+          "title": "Beta blockers for cardiovascular conditions: one size does not fit all",
+          "year": 2024,
+          "access": "official guidance",
+          "supports": "Heart-rate effects, tolerance and drug differences.",
+          "limitations": "Professional prescribing review; agents differ. Not a peer-reviewed trial."
+        }
+      ],
+      "notes": "Heart-rate/workload effect and assessment alongside symptoms/BP supported. Purpose and prescribed parameters appropriately avoid a universal hold threshold."
+    },
+    {
+      "id": "inflammation",
+      "status": "qualified",
+      "summary": "Inflammation can involve the heart lining, muscle or surrounding pericardial sac.",
+      "body": "Pericardial fluid can impede ventricular filling when pressure rises; the rate of accumulation matters as well as volume. Infective endocarditis can damage valves. Myocardial inflammation can affect contraction or rhythm. The involved tissue helps explain the circulatory effects.",
+      "reflect": "How might pressure around the heart affect blood flow without blocking a coronary artery?",
+      "sources": [
+        {
+          "label": "NHLBI: Heart inflammation",
+          "url": "https://www.nhlbi.nih.gov/health/heart-inflammation"
+        },
+        {
+          "label": "ESC myocarditis/pericarditis guideline (2025)",
+          "url": "https://www.myocarditisfoundation.org/wp-content/uploads/2025/09/ehaf192.pdf"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://www.nhlbi.nih.gov/health/heart-inflammation",
+          "title": "Heart Inflammation - What Is Heart Inflammation?",
+          "year": null,
+          "access": "official guidance",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://www.myocarditisfoundation.org/wp-content/uploads/2025/09/ehaf192.pdf",
+          "title": "2025 ESC Guidelines for the management of myocarditis and pericarditis",
+          "year": 2025,
+          "access": "full text",
+          "supports": "Inflammation and tamponade-related impaired filling.",
+          "limitations": "Guideline PDF on Myocarditis Foundation; endocarditis separately supported by NHLBI. DOI 10.1093/eurheartj/ehaf192."
+        }
+      ],
+      "notes": "Added the rate-of-accumulation qualification and made the distinct muscle/valve/pericardial mechanisms explicit."
+    },
+    {
+      "id": "valves",
+      "status": "supported",
+      "summary": "Heart valves direct blood forward. Stenosis restricts opening; regurgitation allows backward flow.",
+      "body": "Either problem can increase cardiac workload and alter pressures in connected chambers or vessels. Symptoms depend on which valve is affected and the severity of dysfunction.",
+      "reflect": "How do narrowing and leaking create different flow problems?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/12-1-cardiovascular-overview"
+        },
+        {
+          "label": "ESC/EACTS valve guideline overview (2025)",
+          "url": "https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/All-ESC-Practice-Guidelines/Valvular-Heart-Disease"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/12-1-cardiovascular-overview",
+          "title": "12.1 Cardiovascular Overview",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/All-ESC-Practice-Guidelines/Valvular-Heart-Disease",
+          "title": "2025 ESC/EACTS Guidelines for the management of valvular heart disease",
+          "year": 2025,
+          "access": "official guidance",
+          "supports": "Valve-specific severity and integrated assessment.",
+          "limitations": "Official overview read; full journal article direct access failed. No intervention criteria reproduced."
+        }
+      ],
+      "notes": "Forward flow, stenosis, regurgitation and variable workload/pressure consequences supported. Official 2025 guideline overview verifies integrated severity assessment; no intervention criteria used."
+    },
+    {
+      "id": "rhythm",
+      "status": "qualified",
+      "summary": "Electrical impulses coordinate atrial and ventricular contraction. Rhythm disturbances can change the efficiency of cardiac output.",
+      "body": "Rate, regularity and conduction describe a rhythm; pulse, perfusion and symptoms describe its effect. Devices support selected electrical problems but still require assessment. Atrial fibrillation can increase thromboembolic stroke risk; anticoagulation decisions balance individual stroke prevention benefit with bleeding risk.",
+      "reflect": "Why can similar monitor rates produce different patient responses?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/12-2-dysrhythmia"
+        },
+        {
+          "label": "ACC/AHA/ACCP/HRS AF guideline (2023; 2024 issue)",
+          "url": "https://www.heart.org/-/media/Files/Professional/Quality-Improvement/Get-With-The-Guidelines/Get-With-The-Guidelines-AFIB/AFib-Month/joglaretal20232023areportofaccahaaccphrsguidelineforthediagnosisandmanagementofatrialfibrillation.pdf?sc_lang%253Den="
+        },
+        {
+          "label": "AHA bradycardia/conduction guideline summary (2018)",
+          "url": "https://professional.heart.org/en/science-news/2018-guideline-for-the-evaluation-and-management-of-bradycardia-and-cardiac-conduction-delay/top-things-to-know"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/12-2-dysrhythmia",
+          "title": "12.2 Dysrhythmia",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://www.heart.org/-/media/Files/Professional/Quality-Improvement/Get-With-The-Guidelines/Get-With-The-Guidelines-AFIB/AFib-Month/joglaretal20232023areportofaccahaaccphrsguidelineforthediagnosisandmanagementofatrialfibrillation.pdf?sc_lang%253Den=",
+          "title": "2023 ACC/AHA/ACCP/HRS Guideline for the Diagnosis and Management of Atrial Fibrillation",
+          "year": 2024,
+          "access": "full text",
+          "supports": "AF-associated stroke and anticoagulant bleeding risk.",
+          "limitations": "Guideline released November 2023, Circulation issue January 2024. DOI 10.1161/CIR.0000000000001193. No individualized eligibility criteria reproduced."
+        },
+        {
+          "url": "https://professional.heart.org/en/science-news/2018-guideline-for-the-evaluation-and-management-of-bradycardia-and-cardiac-conduction-delay/top-things-to-know",
+          "title": "2018 Guideline for the Evaluation & Management of Bradycardia & Cardiac Conduction Delay: Top Things to Know",
+          "year": 2018,
+          "access": "official guidance",
+          "supports": "Symptoms and rhythm correlation; selected pacing.",
+          "limitations": "Official summary, not full journal article; not all tachyarrhythmias covered."
+        }
+      ],
+      "notes": "Preserved rhythm-versus-perfusion distinction and added AF stroke/anticoagulant context; no apixaban dose, eligibility score or answer choice reproduced."
+    },
+    {
+      "id": "resuscitation",
+      "status": "qualified",
+      "summary": "Effective circulation depends on coordinated electrical activity and mechanical pumping.",
+      "body": "Unresponsiveness with absent or abnormal breathing, including gasping, requires immediate emergency activation and prompt action according to current BLS training, including CPR and AED use when indicated. Follow local protocols; an organized monitor rhythm does not prove an effective pulse or circulation.",
+      "reflect": "Why is the patient’s responsiveness central to an emergency assessment?",
+      "sources": [
+        {
+          "label": "AHA adult BLS guideline (2025)",
+          "url": "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-basic-life-support"
+        },
+        {
+          "label": "Resuscitation Council UK adult BLS (2025)",
+          "url": "https://www.resus.org.uk/professional-library/2025-resuscitation-guidelines/adult-basic-life-support-guidelines"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-basic-life-support",
+          "title": "Part 7: Adult Basic Life Support: 2025 American Heart Association Guidelines for CPR and ECC",
+          "year": 2025,
+          "access": "full text",
+          "supports": "Recognition, emergency activation, CPR and AED.",
+          "limitations": "Adult BLS; defer procedural details to current training. DOI 10.1161/CIR.0000000000001369."
+        },
+        {
+          "url": "https://www.resus.org.uk/professional-library/2025-resuscitation-guidelines/adult-basic-life-support-guidelines",
+          "title": "Adult basic life support Guidelines",
+          "year": 2025,
+          "access": "official guidance",
+          "supports": "Unresponsiveness, abnormal breathing and urgency.",
+          "limitations": "UK emergency numbers and sequence context are not exported into lesson."
+        }
+      ],
+      "notes": "Made gasping and time-sensitive resuscitation action explicit without creating a new BLS algorithm. Replaced general dysrhythmia citation with direct 2025 resuscitation guidance."
+    },
+    {
+      "id": "hypertension",
+      "status": "qualified",
+      "summary": "Blood pressure reflects interacting effects of cardiac output and vascular resistance.",
+      "body": "Hypertensive emergency involves elevated blood pressure with new or worsening acute target-organ injury, rather than a reading alone. Neurologic, cardiac, vascular and renal findings provide context. Correct measurement and reassessment matter; symptoms alone do not establish organ injury.",
+      "reflect": "Why do associated symptoms change the significance of a high reading?",
+      "sources": [
+        {
+          "label": "OpenStax nursing text",
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/12-4-hypertension"
+        },
+        {
+          "label": "AHA acute-care BP statement summary (2024)",
+          "url": "https://professional.heart.org/en/science-news/management-of-elevated-blood-pressure-in-the-acute-care-setting/top-things-to-know"
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://openstax.org/books/medical-surgical-nursing/pages/12-4-hypertension",
+          "title": "12.4 Hypertension",
+          "year": null,
+          "access": "full text",
+          "supports": "Core physiology, clinical observations and reflective application.",
+          "limitations": "Relevant public section opened; section-specific publication date not independently established. Only claims in this focused lesson are endorsed."
+        },
+        {
+          "url": "https://professional.heart.org/en/science-news/management-of-elevated-blood-pressure-in-the-acute-care-setting/top-things-to-know",
+          "title": "The Management of Elevated Blood Pressure in the Acute Care Setting: Top Things to Know",
+          "year": 2024,
+          "access": "official guidance",
+          "supports": "Acute organ injury distinguishes hypertensive emergency.",
+          "limitations": "Official statement summary; limited evidence for asymptomatic inpatient treatment. DOI 10.1161/HYP.0000000000000238."
+        }
+      ],
+      "notes": "Clarified organ-injury requirement and measurement reliability without a universal threshold or treatment algorithm."
+    }
+  ]
+}

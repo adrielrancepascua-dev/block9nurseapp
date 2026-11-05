@@ -69,10 +69,10 @@
   /** Soft nursing-attention cue for GCS bands (watch/report/trend — not orders). */
   function gcsAttention(total) {
     if (total >= 13) {
-      return 'Report E/V/M and trend serial scores. GCS is not a full neuro exam: pupils, glucose, and focal signs still matter.';
+      return 'GCS is not a full neuro exam: pupils, glucose, and focal signs still matter.';
     }
     if (total >= 9) {
-      return 'Document E/V/M, trend closely, and escalate a falling score to your instructor or team. Reassess rather than trusting one snapshot.';
+      return 'Document E/V/M and escalate a falling score to your instructor or team.';
     }
     return 'Severe band: report components now and escalate per unit pathway. Think airway protection and frequent reassessment; confirm next steps with your Clinical Instructor.';
   }
@@ -191,9 +191,8 @@
       tbsa += pct;
     });
     tbsa = Math.round(tbsa * 10) / 10;
-    let note = 'Minor burn territory in many teaching frameworks (<10% adult)';
-    if (tbsa >= 25) note = 'Major burn territory for an adult, at 25% or more.';
-    else if (tbsa >= 10) note = 'Moderate burn territory for an adult, at 10 to 24%.';
+    let note = 'At or below 15% TBSA. The 2004 BMJ article reserves formal fluid resuscitation for adults above 15%.';
+    if (tbsa > 15) note = 'Above 15% TBSA. The 2004 BMJ article says adults at this size warrant formal fluid resuscitation.';
     return { tbsa, breakdown, note, regions: RULE_OF_NINES_REGIONS };
   }
 

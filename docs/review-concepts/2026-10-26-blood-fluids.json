@@ -1,0 +1,858 @@
+[
+  {
+    "id": "blood",
+    "status": "supported",
+    "summary": "Red cells carry oxygen, white cells support immune defense, and platelets help form a plug at an injured vessel.",
+    "body": "Plasma transports blood cells and dissolved substances, including clotting proteins. A complete blood count describes cell populations and red-cell indices; separate tests may be needed to investigate clotting factors, platelet function or immune function.",
+    "reflect": "Why can a normal platelet count coexist with a clotting-factor disorder?",
+    "sources": [
+      {
+        "label": "Complete Blood Count (CBC)",
+        "url": "https://medlineplus.gov/lab-tests/complete-blood-count-cbc/"
+      },
+      {
+        "label": "Blood Basics",
+        "url": "https://www.hematology.org/education/patients/blood-basics"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://medlineplus.gov/lab-tests/complete-blood-count-cbc/",
+        "title": "Complete Blood Count (CBC)",
+        "year": null,
+        "access": "official guidance",
+        "supports": "CBC components, red-cell oxygen transport, leukocytes and platelets.",
+        "limitations": "Public laboratory education; cell counts do not establish all functional diagnoses."
+      },
+      {
+        "url": "https://www.hematology.org/education/patients/blood-basics",
+        "title": "Blood Basics",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Plasma proteins, red-cell oxygen transport, white-cell defense, platelets, and kidney EPO.",
+        "limitations": "ASH patient education, not a formal graded clinical guideline."
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Core claims supported. Clarified the limits of cell counts. ASH professional education provides foundational physiology rather than a graded guideline."
+  },
+  {
+    "id": "immunity",
+    "status": "supported",
+    "summary": "Innate and adaptive defenses cooperate to recognize and respond to threats.",
+    "body": "Neutrophils provide an early innate response. B cells produce antibodies with specific targets, while T cells coordinate immune responses or attack affected cells. Cell counts describe how many cells are present; they do not establish how well every immune pathway works.",
+    "reflect": "How do cell counts and immune function provide different information?",
+    "sources": [
+      {
+        "label": "What is immunology?",
+        "url": "https://www.immunology.org/public-information/bitesized-immunology/special-topics/what-immunology"
+      },
+      {
+        "label": "White Blood Count (WBC)",
+        "url": "https://medlineplus.gov/lab-tests/white-blood-count-wbc/"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://www.immunology.org/public-information/bitesized-immunology/special-topics/what-immunology",
+        "title": "What is immunology?",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Cooperating innate and adaptive defenses, neutrophil phagocytosis, specific lymphocyte responses.",
+        "limitations": "Professional society educational overview, not a diagnostic guideline."
+      },
+      {
+        "url": "https://medlineplus.gov/lab-tests/white-blood-count-wbc/",
+        "title": "White Blood Count (WBC)",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Leukocyte counts help investigate immune and infectious conditions but require other information.",
+        "limitations": "Public laboratory overview; does not measure specific immune function."
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Core mechanism supported. Added B-cell attribution and cooperation between defenses. These are foundational educational sources, not trials or formal diagnostic guidance."
+  },
+  {
+    "id": "iron",
+    "status": "qualified",
+    "summary": "Iron is required to make hemoglobin, the protein that carries oxygen in red cells.",
+    "body": "Deficiency can reflect blood loss, poor absorption, inadequate intake or increased needs. Assessment combines blood-cell measures, iron studies and history. Ferritin reflects stores but can rise with inflammation, so a seemingly normal result may need context. Replacing iron and investigating the cause address different parts of the problem.",
+    "reflect": "Why is identifying the cause of deficiency as important as replacing iron?",
+    "sources": [
+      {
+        "label": "Iron: Fact Sheet for Health Professionals",
+        "url": "https://ods.od.nih.gov/factsheets/Iron-HealthProfessional/"
+      },
+      {
+        "label": "British Society of Gastroenterology guidelines for the management of iron deficiency anaemia in adults",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/34497146/"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://ods.od.nih.gov/factsheets/Iron-HealthProfessional/",
+        "title": "Iron: Fact Sheet for Health Professionals",
+        "year": 2025,
+        "access": "official guidance",
+        "supports": "Hemoglobin synthesis, iron stores, deficiency mechanisms and inflammatory elevation of ferritin.",
+        "limitations": "Nutrition reference; ferritin interpretation depends on inflammatory and clinical context."
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/34497146/",
+        "title": "British Society of Gastroenterology guidelines for the management of iron deficiency anaemia in adults",
+        "year": 2021,
+        "access": "abstract",
+        "supports": "Investigation of deficiency causes alongside iron replacement.",
+        "limitations": "PubMed abstract opened; full text PMC/publisher access challenged. Adult UK guideline, not all pediatric settings.",
+        "doi": "10.1136/gutjnl-2021-325210"
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Original concept was sound. Added ferritin/inflammation qualification; retained cause investigation without prescribing supplementation. Existing OpenStax link opened and relevant; upgraded to NIH and professional guideline evidence."
+  },
+  {
+    "id": "b12",
+    "status": "qualified",
+    "summary": "Vitamin B12 supports DNA synthesis, red-cell development and normal nerve function.",
+    "body": "Deficiency can result from inadequate intake or impaired absorption. Neurologic changes may occur even without anemia or enlarged red cells. Symptoms, dietary and surgical history, medicines and appropriate biochemical tests therefore contribute information beyond the complete blood count.",
+    "reflect": "Why might neurologic observations matter even when the blood count is unremarkable?",
+    "sources": [
+      {
+        "label": "Vitamin B12: Fact Sheet for Consumers",
+        "url": "https://ods.od.nih.gov/factsheets/VitaminB12-Consumer/"
+      },
+      {
+        "label": "Neuropsychiatric disorders caused by cobalamin deficiency in the absence of anemia or macrocytosis",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/3374544/"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://ods.od.nih.gov/factsheets/VitaminB12-Consumer/",
+        "title": "Vitamin B12: Fact Sheet for Consumers",
+        "year": null,
+        "access": "official guidance",
+        "supports": "DNA, blood and nerve function; malabsorption and neurologic injury without megaloblastic anemia.",
+        "limitations": "Consumer overview; does not specify a diagnostic algorithm."
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/3374544/",
+        "title": "Neuropsychiatric disorders caused by cobalamin deficiency in the absence of anemia or macrocytosis",
+        "year": 1988,
+        "access": "abstract",
+        "supports": "Neurologic B12 deficiency may occur without anemia or macrocytosis.",
+        "limitations": "Older selected clinical series; not a population prevalence estimate or modern treatment protocol.",
+        "doi": "10.1056/NEJM198806303182604"
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Added absence-of-anemia qualification. Existing OpenStax section opened, but it contains imprecise intrinsic-factor/pernicious-anemia explanations outside the lesson; replaced it with NIH and the directly relevant original clinical series. NICE 2024 indexed recommendations agree, but full page was blocked and is not represented as fully reviewed."
+  },
+  {
+    "id": "epo",
+    "status": "qualified",
+    "summary": "Erythropoietin, produced mainly by the kidneys, signals bone marrow to make red cells.",
+    "body": "Chronic kidney disease can produce relative erythropoietin deficiency. Its anemia is often multifactorial: iron availability, inflammation, blood loss, nutritional deficiencies and marrow responsiveness also matter. Anemia in someone with kidney disease should therefore not automatically be attributed to one missing hormone.",
+    "reflect": "How can kidney disease affect oxygen transport without directly injuring the lungs?",
+    "sources": [
+      {
+        "label": "Blood Basics",
+        "url": "https://www.hematology.org/education/patients/blood-basics"
+      },
+      {
+        "label": "KDIGO 2026 Clinical Practice Guideline for the Management of Anemia in Chronic Kidney Disease (CKD)",
+        "url": "https://kdigo.org/wp-content/uploads/2026/04/KDIGO-2026-Anemia-in-CKD-Guideline.pdf"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://www.hematology.org/education/patients/blood-basics",
+        "title": "Blood Basics",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Plasma proteins, red-cell oxygen transport, white-cell defense, platelets, and kidney EPO.",
+        "limitations": "ASH patient education, not a formal graded clinical guideline."
+      },
+      {
+        "url": "https://kdigo.org/wp-content/uploads/2026/04/KDIGO-2026-Anemia-in-CKD-Guideline.pdf",
+        "title": "KDIGO 2026 Clinical Practice Guideline for the Management of Anemia in Chronic Kidney Disease (CKD)",
+        "year": 2026,
+        "access": "full text",
+        "supports": "Relative EPO deficiency, inflammation, blood loss, nutritional deficiency and marrow response in multifactorial CKD anemia.",
+        "limitations": "Practice points and graded recommendations have differing evidence certainty; no universal ESA indication inferred."
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Qualified hormone production as mainly renal and CKD deficiency as relative. KDIGO 2026 explicitly describes multifactorial anemia; no ESA initiation or hemoglobin target is supplied."
+  },
+  {
+    "id": "inherited",
+    "status": "qualified",
+    "summary": "Inherited blood disorders can affect hemoglobin or coagulation proteins through different mechanisms.",
+    "body": "Sickle cell disease changes hemoglobin and can make red cells obstruct small vessels, impairing tissue oxygen delivery. Inherited hemophilia involves deficient clotting factors and impaired stable clot formation. These examples require different assessments; a red-cell disorder and a clotting-factor disorder are not interchangeable.",
+    "reflect": "How would a red-cell disorder differ from a clotting-factor disorder?",
+    "sources": [
+      {
+        "label": "Sickle Cell Disease: What Is Sickle Cell Disease?",
+        "url": "https://www.nhlbi.nih.gov/health/sickle-cell-disease"
+      },
+      {
+        "label": "Bleeding Disorders: Types",
+        "url": "https://www.nhlbi.nih.gov/health/bleeding-disorders/types"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://www.nhlbi.nih.gov/health/sickle-cell-disease",
+        "title": "Sickle Cell Disease: What Is Sickle Cell Disease?",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Inherited hemoglobin abnormality produces sickling and vascular obstruction.",
+        "limitations": "Public disease overview; no treatment conclusions adopted."
+      },
+      {
+        "url": "https://www.nhlbi.nih.gov/health/bleeding-disorders/types",
+        "title": "Bleeding Disorders: Types",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Inherited hemophilia involves missing or low coagulation factors.",
+        "limitations": "Also covers acquired disorders; hemophilia is not always inherited."
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Specified inherited hemophilia because acquired hemophilia also exists. The original OpenStax hereditary section covers sickle cell disease/thalassemia but not hemophilia, so replaced the incomplete source coverage with disease-specific NIH pages. WFH guideline PDFs were too large for web extraction; no full-guideline review claimed."
+  },
+  {
+    "id": "transfusion",
+    "status": "supported",
+    "summary": "Transfusion supplies selected blood components for an identified clinical need.",
+    "body": "Correct patient, sample and component identification reduce incompatibility and wrong-component errors. Observation addresses a different risk: reactions can still occur despite correct matching and may involve immune responses, infection or circulatory overload. Unexpected changes require prompt assessment and escalation under the transfusion protocol.",
+    "reflect": "Why do identity checks and observation address different sources of risk?",
+    "sources": [
+      {
+        "label": "Transfusion process",
+        "url": "https://www.lifeblood.com.au/health-professionals/clinical-practice/transfusion-process"
+      },
+      {
+        "label": "3.12 Administration and Observation of Transfusion",
+        "url": "https://www.nzblood.co.nz/healthcare-professionals/transfusion-medicine/transfusion-medicine-handbook/3-guide-to-good-transfusion-practice/3-12-administration-and-observation-of-transfusion"
+      },
+      {
+        "label": "What can cause adverse events",
+        "url": "https://www.lifeblood.com.au/health-professionals/clinical-practice/adverse-events/what-can-cause-adverse-events"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://www.lifeblood.com.au/health-professionals/clinical-practice/transfusion-process",
+        "title": "Transfusion process",
+        "year": 2026,
+        "access": "official guidance",
+        "supports": "Clinical indication, compatibility, administration, monitoring and institutional policy.",
+        "limitations": "Australian blood-service professional guidance; local processes govern implementation."
+      },
+      {
+        "url": "https://www.nzblood.co.nz/healthcare-professionals/transfusion-medicine/transfusion-medicine-handbook/3-guide-to-good-transfusion-practice/3-12-administration-and-observation-of-transfusion",
+        "title": "3.12 Administration and Observation of Transfusion",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Bedside positive identification and observation for reactions throughout transfusion.",
+        "limitations": "New Zealand blood-service guidance; exact staffing and observation schedules vary locally."
+      },
+      {
+        "url": "https://www.lifeblood.com.au/health-professionals/clinical-practice/adverse-events/what-can-cause-adverse-events",
+        "title": "What can cause adverse events",
+        "year": 2025,
+        "access": "official guidance",
+        "supports": "Immune, infectious and circulatory causes of adverse transfusion events.",
+        "limitations": "Professional guidance; the lesson gives examples rather than an exhaustive classification."
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Original core claims supported. Identity checking does not prevent every reaction. Source set covers professional transfusion practice and reaction mechanisms. No timings, product thresholds or reaction-management algorithm supplied."
+  },
+  {
+    "id": "warfarin",
+    "status": "supported",
+    "summary": "Warfarin reduces production of functional vitamin K–dependent clotting factors.",
+    "body": "The INR standardizes a prothrombin-time measurement used to monitor its anticoagulant effect. Targets depend on the indication. Changes in medicines, illness and vitamin K intake can alter response. Consistent food patterns and bleeding observations remain relevant alongside laboratory trends.",
+    "reflect": "Why can an unchanged dose have a different effect after another medicine is added?",
+    "sources": [
+      {
+        "label": "Prothrombin Time Test and INR (PT/INR)",
+        "url": "https://medlineplus.gov/lab-tests/prothrombin-time-test-and-inr-ptinr/"
+      },
+      {
+        "label": "Guidance for the practical management of warfarin therapy in the treatment of venous thromboembolism",
+        "url": "https://link.springer.com/article/10.1007/s11239-015-1319-y"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://medlineplus.gov/lab-tests/prothrombin-time-test-and-inr-ptinr/",
+        "title": "Prothrombin Time Test and INR (PT/INR)",
+        "year": null,
+        "access": "official guidance",
+        "supports": "INR standardization and warfarin monitoring.",
+        "limitations": "Public test overview; therapeutic targets depend on indication."
+      },
+      {
+        "url": "https://link.springer.com/article/10.1007/s11239-015-1319-y",
+        "title": "Guidance for the practical management of warfarin therapy in the treatment of venous thromboembolism",
+        "year": 2016,
+        "access": "full text",
+        "supports": "INR monitoring; food, medication and illness effects; consistent vitamin K intake.",
+        "limitations": "VTE-focused guidance includes expert consensus where direct evidence is weak; no dosing advice retained.",
+        "doi": "10.1007/s11239-015-1319-y"
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Clarified functional factor production; avoided the inaccurate implication that vitamin K foods must be eliminated. Guidance is VTE-focused; the lesson intentionally supplies no universal INR target."
+  },
+  {
+    "id": "heparin",
+    "status": "qualified",
+    "summary": "Heparins enhance antithrombin-mediated inhibition within the coagulation system.",
+    "body": "Monitoring depends on the preparation, dose and clinical setting. Therapeutic unfractionated heparin commonly uses aPTT or anti-Xa pathways; low-molecular-weight heparin is not routinely monitored with aPTT. Laboratory results, renal function, platelet trends and clinical bleeding observations answer different safety questions.",
+    "reflect": "Why must a laboratory result be interpreted with the specific anticoagulant regimen?",
+    "sources": [
+      {
+        "label": "Partial Thromboplastin Time (PTT) Test",
+        "url": "https://medlineplus.gov/lab-tests/partial-thromboplastin-time-ptt-test/"
+      },
+      {
+        "label": "Guidance for the practical management of the heparin anticoagulants in the treatment of venous thromboembolism",
+        "url": "https://link.springer.com/article/10.1007/s11239-015-1315-2"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://medlineplus.gov/lab-tests/partial-thromboplastin-time-ptt-test/",
+        "title": "Partial Thromboplastin Time (PTT) Test",
+        "year": null,
+        "access": "official guidance",
+        "supports": "PTT evaluates clotting and can monitor selected heparin treatment.",
+        "limitations": "Does not imply PTT is appropriate for all heparin preparations."
+      },
+      {
+        "url": "https://link.springer.com/article/10.1007/s11239-015-1315-2",
+        "title": "Guidance for the practical management of the heparin anticoagulants in the treatment of venous thromboembolism",
+        "year": 2016,
+        "access": "full text",
+        "supports": "UFH aPTT or anti-Xa pathways; different monitoring requirements for LMWH.",
+        "limitations": "Optimal monitoring has limited comparative patient-outcome evidence; assays and protocols differ.",
+        "doi": "10.1007/s11239-015-1315-2"
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Replaced vague mechanism and added UFH/LMWH distinction. Anti-Xa monitoring is not universally required or superior for every regimen. No universal laboratory range or adjustment protocol provided."
+  },
+  {
+    "id": "platelets",
+    "status": "supported",
+    "summary": "Platelets help form the early plug at a damaged vessel. A low count can impair this part of hemostasis.",
+    "body": "Thrombocytopenia may reflect reduced production, increased destruction or other processes. Immune heparin-induced thrombocytopenia is a particularly important exception to assuming that low platelets mean only bleeding: platelet activation can increase thrombosis risk. Medication exposure, timing and the clinical picture matter alongside the trend.",
+    "reflect": "Why should a platelet trend be considered alongside medication exposure?",
+    "sources": [
+      {
+        "label": "Medical-Surgical Nursing: 16.4 Thrombocytopenia",
+        "url": "https://openstax.org/books/medical-surgical-nursing/pages/16-4-thrombocytopenia"
+      },
+      {
+        "label": "American Society of Hematology 2018 guidelines for management of venous thromboembolism: heparin-induced thrombocytopenia",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6258919/"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://openstax.org/books/medical-surgical-nursing/pages/16-4-thrombocytopenia",
+        "title": "Medical-Surgical Nursing: 16.4 Thrombocytopenia",
+        "year": 2024,
+        "access": "full text",
+        "supports": "Platelet role and reduced production or destruction as thrombocytopenia mechanisms.",
+        "limitations": "Textbook overview; HIT details anchored to ASH rather than all textbook explanations."
+      },
+      {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6258919/",
+        "title": "American Society of Hematology 2018 guidelines for management of venous thromboembolism: heparin-induced thrombocytopenia",
+        "year": 2018,
+        "access": "full text",
+        "supports": "Platelet-activating immune HIT combines platelet decline with increased thrombosis risk.",
+        "limitations": "Many management recommendations have low certainty; platelet decline alone does not diagnose HIT.",
+        "doi": "10.1182/bloodadvances.2018024489"
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Core claims supported. Added immune mechanism and avoided diagnosing HIT from a platelet count alone. Other causes of thrombocytopenia remain possible."
+  },
+  {
+    "id": "neutropenia",
+    "status": "supported",
+    "summary": "Neutrophils are important in infection defense; reduced numbers can weaken that response.",
+    "body": "Infection may progress with muted or absent usual inflammatory signs. Fever or another concerning change needs prompt attention under the patient’s care plan. Prevention and exposure precautions depend on the cause, severity and expected duration of neutropenia and the treatment setting.",
+    "reflect": "Why might the absence of a strong inflammatory response be misleading?",
+    "sources": [
+      {
+        "label": "Infection and Neutropenia during Cancer Treatment",
+        "url": "https://www.cancer.gov/about-cancer/treatment/side-effects/infection"
+      },
+      {
+        "label": "Clinical Practice Guideline for the Use of Antimicrobial Agents in Neutropenic Patients with Cancer: 2010 Update by the Infectious Diseases Society of America",
+        "url": "https://academic.oup.com/cid/article/52/4/e56/382256"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://www.cancer.gov/about-cancer/treatment/side-effects/infection",
+        "title": "Infection and Neutropenia during Cancer Treatment",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Neutropenia increases infection risk; infection symptoms need urgent attention.",
+        "limitations": "Cancer-treatment education; risk and precautions depend on cause and care plan."
+      },
+      {
+        "url": "https://academic.oup.com/cid/article/52/4/e56/382256",
+        "title": "Clinical Practice Guideline for the Use of Antimicrobial Agents in Neutropenic Patients with Cancer: 2010 Update by the Infectious Diseases Society of America",
+        "year": 2011,
+        "access": "full text",
+        "supports": "Inflammatory signs can be absent or attenuated and fever may be the only infection sign.",
+        "limitations": "Older cancer-neutropenia guideline; only foundational recognition claims retained, not antimicrobial regimens.",
+        "doi": "10.1093/cid/cir073"
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Supported by NCI education and IDSA recognition guidance. Avoided suggesting all neutropenic people need identical isolation or dietary precautions."
+  },
+  {
+    "id": "dic",
+    "status": "supported",
+    "summary": "Disseminated intravascular coagulation is systemic coagulation activation caused by an underlying illness or injury.",
+    "body": "Small-vessel fibrin formation can impair organ perfusion, while consumption of platelets and clotting proteins can contribute to bleeding. The balance varies with the underlying disease and stage. Clinical findings and repeated laboratory assessment help describe this changing process.",
+    "reflect": "How can excessive clot formation contribute to both organ injury and bleeding?",
+    "sources": [
+      {
+        "label": "Diagnosis and treatment of disseminated intravascular coagulation (DIC) according to four DIC guidelines",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4267589/"
+      },
+      {
+        "label": "Guidelines for the diagnosis and management of disseminated intravascular coagulation. British Committee for Standards in Haematology",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/19222477/"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4267589/",
+        "title": "Diagnosis and treatment of disseminated intravascular coagulation (DIC) according to four DIC guidelines",
+        "year": 2014,
+        "access": "full text",
+        "supports": "Systemic coagulation activation can produce organ dysfunction and bleeding; phenotype varies with cause.",
+        "limitations": "Narrative comparison of guidelines; treatment evidence and phenotypes differ.",
+        "doi": "10.1186/2052-0492-2-15"
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/19222477/",
+        "title": "Guidelines for the diagnosis and management of disseminated intravascular coagulation. British Committee for Standards in Haematology",
+        "year": 2009,
+        "access": "abstract",
+        "supports": "Clinical context, repeated laboratory assessment and underlying-condition treatment.",
+        "limitations": "Older guideline abstract; no historical drug recommendations adopted.",
+        "doi": "10.1111/j.1365-2141.2009.07600.x"
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Core paradox supported; clarified that clotting and bleeding are variable, not equally evident in every case. Replaced the inaccessible Elsevier e-library reference. Older guideline treatments were not imported."
+  },
+  {
+    "id": "polycythemia",
+    "status": "qualified",
+    "summary": "A genuinely increased red-cell mass can raise blood viscosity, but a concentrated blood count does not always mean extra red cells.",
+    "body": "Evaluation distinguishes primary marrow disease from secondary stimulation and from reduced plasma volume. Circulatory effects and thrombosis risk depend on the cause and other factors. A high hemoglobin or hematocrit therefore needs clinical interpretation rather than being assumed to improve tissue oxygen delivery.",
+    "reflect": "Why does a higher red-cell concentration not automatically mean better tissue perfusion?",
+    "sources": [
+      {
+        "label": "Medical-Surgical Nursing: 16.3 Polycythemia",
+        "url": "https://openstax.org/books/medical-surgical-nursing/pages/16-3-polycythemia"
+      },
+      {
+        "label": "Investigation and Management of Erythrocytosis",
+        "url": "https://link.springer.com/article/10.1007/s11899-016-0334-1"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://openstax.org/books/medical-surgical-nursing/pages/16-3-polycythemia",
+        "title": "Medical-Surgical Nursing: 16.3 Polycythemia",
+        "year": 2024,
+        "access": "full text",
+        "supports": "Increased red-cell mass, viscosity and primary versus secondary causes.",
+        "limitations": "Introductory text; thrombotic risk and management cannot be assumed identical across causes."
+      },
+      {
+        "url": "https://link.springer.com/article/10.1007/s11899-016-0334-1",
+        "title": "Investigation and Management of Erythrocytosis",
+        "year": 2016,
+        "access": "abstract",
+        "supports": "Absolute erythrocytosis has primary/secondary and acquired/congenital causes; confirmation and etiologic investigation matter.",
+        "limitations": "Subscription preview abstract only; no treatment recommendations adopted.",
+        "doi": "10.1007/s11899-016-0334-1"
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Qualified concentration versus absolute red-cell mass and cause-dependent risk. No blanket phlebotomy or antithrombotic advice. Original OpenStax reference remains useful for introductory viscosity physiology."
+  },
+  {
+    "id": "sodium",
+    "status": "qualified",
+    "summary": "Blood sodium concentration reflects sodium relative to water, not simply total-body sodium stores.",
+    "body": "Water retention, water loss, sodium changes and glucose-related shifts can alter the measurement. Changes in effective tonicity can move water into or out of brain cells and affect neurologic function. Symptoms, timing, other tests and trends guide interpretation.",
+    "reflect": "How could retained water lower sodium concentration without removing sodium?",
+    "sources": [
+      {
+        "label": "Sodium Blood Test",
+        "url": "https://medlineplus.gov/lab-tests/sodium-blood-test/"
+      },
+      {
+        "label": "Evaluation and management of hypernatremia in adults: clinical perspectives",
+        "url": "https://www.kjim.org/journal/view.php?doi=10.3904/kjim.2022.346"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://medlineplus.gov/lab-tests/sodium-blood-test/",
+        "title": "Sodium Blood Test",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Sodium concentration, dilution by retained water, losses and contextual interpretation.",
+        "limitations": "Public overview; does not distinguish every osmotic or laboratory artifact."
+      },
+      {
+        "url": "https://www.kjim.org/journal/view.php?doi=10.3904/kjim.2022.346",
+        "title": "Evaluation and management of hypernatremia in adults: clinical perspectives",
+        "year": 2023,
+        "access": "full text",
+        "supports": "Water-sodium relationship, cell water shifts, neurologic assessment, glucose and laboratory artifacts.",
+        "limitations": "Primarily adult hypernatremia; no correction-rate guidance imported.",
+        "doi": "10.3904/kjim.2022.346"
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Added glucose/tonicity context and avoided equating serum concentration with body sodium amount. The review focuses on hypernatremia, with the MedlinePlus source also covering low sodium."
+  },
+  {
+    "id": "potassium",
+    "status": "qualified",
+    "summary": "Potassium helps establish the electrical conditions needed for nerves, muscles and the heart.",
+    "body": "Kidney excretion, gastrointestinal losses, medicines and shifts between cells and blood affect its concentration. Blood levels may not reflect total-body stores. Both low and high levels can disrupt cardiac activity. Replacement requires a prescribed, carefully controlled approach with laboratory and clinical monitoring, particularly when kidney function is impaired.",
+    "reflect": "How might a blood concentration change without a change in total-body stores?",
+    "sources": [
+      {
+        "label": "Potassium Blood Test",
+        "url": "https://medlineplus.gov/lab-tests/potassium-blood-test/"
+      },
+      {
+        "label": "Potassium Disorders: Hypokalemia and Hyperkalemia",
+        "url": "https://www.aafp.org/pubs/afp/issues/2023/0100/potassium-disorders-hypokalemia-hyperkalemia.html"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://medlineplus.gov/lab-tests/potassium-blood-test/",
+        "title": "Potassium Blood Test",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Potassium supports nerves, muscles and cardiac function; high/low results need context.",
+        "limitations": "Laboratory overview, not a standalone emergency assessment."
+      },
+      {
+        "url": "https://www.aafp.org/pubs/afp/issues/2023/0100/potassium-disorders-hypokalemia-hyperkalemia.html",
+        "title": "Potassium Disorders: Hypokalemia and Hyperkalemia",
+        "year": 2023,
+        "access": "full text",
+        "supports": "Renal/GI loss, medication and transcellular shifts; dysrhythmias and spurious sample results.",
+        "limitations": "Clinical review with evidence of varying quality; no replacement protocol imported."
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Core physiology supported; added controlled replacement and renal-function context for the mapped medication/IV-safety concepts. No dose, administration rate, direct exam answer or independent replacement instruction."
+  },
+  {
+    "id": "calcium",
+    "status": "qualified",
+    "summary": "Calcium supports bone structure, nerve signaling, muscle contraction and coagulation.",
+    "body": "Total calcium includes protein-bound, complexed and ionized calcium; the ionized fraction is biologically active. Albumin changes can affect the relationship between total and active calcium. Albumin-adjustment formulas are imperfect, so test type, symptoms and clinical context matter when interpreting a result.",
+    "reflect": "Why might total and measured ionized calcium provide different information?",
+    "sources": [
+      {
+        "label": "Calcium Blood Test",
+        "url": "https://medlineplus.gov/lab-tests/calcium-blood-test/"
+      },
+      {
+        "label": "Use of Albumin-Adjusted Calcium Measurements in Clinical Practice",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39836424/"
+      },
+      {
+        "label": "Calcium: Fact Sheet for Health Professionals",
+        "url": "https://ods.od.nih.gov/factsheets/Calcium-HealthProfessional/"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://medlineplus.gov/lab-tests/calcium-blood-test/",
+        "title": "Calcium Blood Test",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Total versus ionized calcium and neuromuscular function.",
+        "limitations": "Public overview simplifies fractions; total calcium also includes complexed calcium."
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39836424/",
+        "title": "Use of Albumin-Adjusted Calcium Measurements in Clinical Practice",
+        "year": 2025,
+        "access": "abstract",
+        "supports": "Albumin-adjustment formulas can misclassify calcium status compared with measured ionized calcium.",
+        "limitations": "Cross-sectional Alberta adult population; association/classification evidence, not a treatment trial; abstract inspected.",
+        "doi": "10.1001/jamanetworkopen.2024.55251"
+      },
+      {
+        "url": "https://ods.od.nih.gov/factsheets/Calcium-HealthProfessional/",
+        "title": "Calcium: Fact Sheet for Health Professionals",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Ionized calcium supports nerve transmission, muscle activity and blood clotting; calcium is stored predominantly in bone.",
+        "limitations": "Nutrition-focused overview; serum calcium does not describe total nutritional stores."
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Original was broadly correct. Added complexed fraction and avoided treating albumin-corrected calcium as a reliable substitute for measured ionized calcium. Study reviewed through abstract; its cross-sectional findings do not establish treatment benefit."
+  },
+  {
+    "id": "magnesium",
+    "status": "supported",
+    "summary": "Magnesium supports enzyme reactions, nerve signaling and muscle function.",
+    "body": "Kidney handling, gastrointestinal losses, intake and medicines can disturb magnesium balance. Deficiency can accompany or contribute to potassium and calcium abnormalities and can affect cardiac rhythm. A blood result describes only part of magnesium status, so related electrolytes and the clinical picture remain useful.",
+    "reflect": "Why might more than one electrolyte need assessment when muscle or rhythm changes occur?",
+    "sources": [
+      {
+        "label": "Magnesium Blood Test",
+        "url": "https://medlineplus.gov/lab-tests/magnesium-blood-test/"
+      },
+      {
+        "label": "Magnesium: Fact Sheet for Health Professionals",
+        "url": "https://ods.od.nih.gov/factsheets/Magnesium-HealthProfessional/"
+      },
+      {
+        "label": "Hypomagnesemia: a clinical perspective",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/24966690/"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://medlineplus.gov/lab-tests/magnesium-blood-test/",
+        "title": "Magnesium Blood Test",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Renal handling, intestinal loss, cardiac/neuromuscular symptoms and linked potassium/calcium changes.",
+        "limitations": "Blood magnesium does not fully represent body stores."
+      },
+      {
+        "url": "https://ods.od.nih.gov/factsheets/Magnesium-HealthProfessional/",
+        "title": "Magnesium: Fact Sheet for Health Professionals",
+        "year": 2026,
+        "access": "official guidance",
+        "supports": "Enzyme/nerve/muscle roles, GI and urinary loss, arrhythmias, linked calcium/potassium deficiency.",
+        "limitations": "Nutrition-focused evidence synthesis; no replacement advice retained."
+      },
+      {
+        "url": "https://pubmed.ncbi.nlm.nih.gov/24966690/",
+        "title": "Hypomagnesemia: a clinical perspective",
+        "year": 2014,
+        "access": "abstract",
+        "supports": "Clinical relevance and renal magnesium handling.",
+        "limitations": "Abstract opened; full text challenged. Detailed linked electrolyte claims are supported by NIH guidance.",
+        "doi": "10.2147/IJNRD.S42054"
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Original supported. Added medication/intake and serum-versus-body status qualifications, with detailed claims supported by NIH professional guidance rather than the limited journal abstract."
+  },
+  {
+    "id": "phosphate",
+    "status": "supported",
+    "summary": "Phosphate contributes to cellular energy transfer, cell membranes and bone mineralization.",
+    "body": "Kidneys, intestinal absorption and hormones help regulate phosphate. Poor intake, altered renal handling and shifts into cells can change blood levels. A serum phosphate result is interpreted with nutrition, renal function and the wider metabolic state; it is not a direct measurement of cellular energy stores.",
+    "reflect": "Why can phosphate move into cells even when total-body phosphate is depleted?",
+    "sources": [
+      {
+        "label": "Phosphate in Blood",
+        "url": "https://medlineplus.gov/lab-tests/phosphate-in-blood/"
+      },
+      {
+        "label": "Approach to the Hypophosphatemic Patient",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3319220/"
+      },
+      {
+        "label": "Phosphorus: Fact Sheet for Health Professionals",
+        "url": "https://ods.od.nih.gov/factsheets/Phosphorus-HealthProfessional/"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://medlineplus.gov/lab-tests/phosphate-in-blood/",
+        "title": "Phosphate in Blood",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Blood phosphate assessment, kidney and related metabolic conditions.",
+        "limitations": "Public test overview; circulating phosphate is not a direct measure of cellular ATP."
+      },
+      {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3319220/",
+        "title": "Approach to the Hypophosphatemic Patient",
+        "year": 2012,
+        "access": "full text",
+        "supports": "Renal handling, hormonal regulation, absorption and intracellular phosphate shifts.",
+        "limitations": "Review focuses on low phosphate; no replacement regimen imported.",
+        "doi": "10.1210/jc.2011-1319"
+      },
+      {
+        "url": "https://ods.od.nih.gov/factsheets/Phosphorus-HealthProfessional/",
+        "title": "Phosphorus: Fact Sheet for Health Professionals",
+        "year": 2023,
+        "access": "official guidance",
+        "supports": "ATP, membranes, bone and hormone-regulated mineral metabolism.",
+        "limitations": "Nutrition reference, not a diagnostic or treatment algorithm."
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Core claims supported. Reflection now targets redistribution rather than implying serum phosphate directly measures energy use. No replacement regimen added."
+  },
+  {
+    "id": "fluid",
+    "status": "supported",
+    "summary": "Effective circulating volume helps sustain tissue perfusion; both fluid deficits and excesses can cause harm.",
+    "body": "Weight, intake and output, edema, vital signs and renal findings describe different aspects of balance. Urine output can change with perfusion, kidney injury, obstruction or medicines. Trends and combined assessment are more informative than any one observation.",
+    "reflect": "Why is urine output more useful when combined with other observations?",
+    "sources": [
+      {
+        "label": "Medical-Surgical Nursing: 10.2 Fluid Disturbances and Replacement",
+        "url": "https://openstax.org/books/medical-surgical-nursing/pages/10-2-fluid-disturbances-and-replacement"
+      },
+      {
+        "label": "Clinical Assessment of Fluid Status in Adults With Acute Kidney Injury: A Scoping Review",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11971954/"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://openstax.org/books/medical-surgical-nursing/pages/10-2-fluid-disturbances-and-replacement",
+        "title": "Medical-Surgical Nursing: 10.2 Fluid Disturbances and Replacement",
+        "year": 2024,
+        "access": "full text",
+        "supports": "Perfusion and fluid deficit/excess assessment using multiple findings.",
+        "limitations": "Introductory text; its numeric examples were not adopted as universal thresholds."
+      },
+      {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11971954/",
+        "title": "Clinical Assessment of Fluid Status in Adults With Acute Kidney Injury: A Scoping Review",
+        "year": 2025,
+        "access": "full text",
+        "supports": "Weight, fluid balance, urine output, clinical signs and holistic interpretation.",
+        "limitations": "Fifteen heterogeneous studies in adults with AKI; findings are not equally validated for every population.",
+        "doi": "10.1111/jorc.70014"
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Core claims supported. Added effective circulating volume and non-perfusion causes of urine-output change. Scoping-review applicability is strongest for hospitalized adults with AKI; no single measurement is presented as diagnostic."
+  },
+  {
+    "id": "dka",
+    "status": "qualified",
+    "summary": "Insufficient effective insulin promotes ketone production and metabolic acidosis in diabetic ketoacidosis.",
+    "body": "Hyperglycemia commonly causes urinary water and electrolyte loss, although DKA can occur without markedly elevated glucose. Insulin deficiency and related metabolic changes can shift potassium out of cells while ongoing losses deplete total-body stores. Thus normal or high blood potassium can coexist with depletion; kidney failure and other special circumstances require additional context.",
+    "reflect": "How can an apparently adequate blood potassium value coexist with depleted stores?",
+    "sources": [
+      {
+        "label": "Hyperglycemic Crises in Adults With Diabetes: A Consensus Report",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11272983/"
+      },
+      {
+        "label": "Medical-Surgical Nursing: 21.2 Diabetes Mellitus",
+        "url": "https://openstax.org/books/medical-surgical-nursing/pages/21-2-diabetes-mellitus"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11272983/",
+        "title": "Hyperglycemic Crises in Adults With Diabetes: A Consensus Report",
+        "year": 2024,
+        "access": "full text",
+        "supports": "Insulin deficiency and counterregulatory hormones, ketoacidosis, osmotic losses and potassium depletion despite normal/high blood levels.",
+        "limitations": "Adult consensus; dialysis and other special populations may differ. DKA may occur without marked hyperglycemia.",
+        "doi": "10.2337/dci24-0032"
+      },
+      {
+        "url": "https://openstax.org/books/medical-surgical-nursing/pages/21-2-diabetes-mellitus",
+        "title": "Medical-Surgical Nursing: 21.2 Diabetes Mellitus",
+        "year": 2024,
+        "access": "full text",
+        "supports": "Insulin physiology and diabetes-related metabolic disturbances.",
+        "limitations": "Broad textbook section; DKA nuances anchored to the 2024 consensus."
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Added euglycemic-DKA and special-population qualifications. Potassium deficit is common, not universal in advanced kidney failure. Mechanism is supported by the 2024 adult consensus; no treatment sequence or cutoffs supplied."
+  },
+  {
+    "id": "tonicity",
+    "status": "qualified",
+    "summary": "Tonicity describes a fluid’s effect on water movement across cell membranes and depends on effective osmoles.",
+    "body": "Bag osmolarity and physiologic tonicity are different. With normal glucose handling, dextrose in water leaves electrolyte-free water after glucose uptake and metabolism, making it effectively hypotonic. Crystalloids and colloids differ in composition and distribution; fluid choice depends on the clinical goal and reassessment.",
+    "reflect": "Why can a solution with a near-plasma bag osmolarity still provide free water?",
+    "sources": [
+      {
+        "label": "Misunderstandings about Tonicity and Osmolality Can Lead to Patient Harm",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10522352/"
+      },
+      {
+        "label": "Pharmacology for Nurses: 5.3 Intravenous Fluid Therapy, Total Parenteral Nutrition, and Blood Products",
+        "url": "https://openstax.org/books/pharmacology/pages/5-3-intravenous-fluid-therapy-total-parenteral-nutrition-and-blood-products"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10522352/",
+        "title": "Misunderstandings about Tonicity and Osmolality Can Lead to Patient Harm",
+        "year": 2023,
+        "access": "full text",
+        "supports": "Effective osmotic behavior differs from bag osmolality; metabolized dextrose leaves electrolyte-free water.",
+        "limitations": "Pharmacy safety analysis, not a comparative treatment trial; normal glucose handling is assumed.",
+        "doi": "10.4212/cjhp.3417"
+      },
+      {
+        "url": "https://openstax.org/books/pharmacology/pages/5-3-intravenous-fluid-therapy-total-parenteral-nutrition-and-blood-products",
+        "title": "Pharmacology for Nurses: 5.3 Intravenous Fluid Therapy, Total Parenteral Nutrition, and Blood Products",
+        "year": 2024,
+        "access": "full text",
+        "supports": "Crystalloid/colloid composition and individualized fluid use.",
+        "limitations": "Introductory classification; bag osmolarity must not be substituted for effective tonicity."
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Made the D5W distinction explicit without calling it physiologically isotonic. Glucose uptake/metabolism assumptions stated. Colloid size does not guarantee that fluid remains entirely intravascular."
+  },
+  {
+    "id": "biopsy",
+    "status": "supported",
+    "summary": "Bone marrow testing samples the tissue that produces blood cells. The puncture site needs aftercare.",
+    "body": "Bleeding, infection and pain are possible complications, although serious events are uncommon. The site and overall condition should be observed according to the procedure plan. Bleeding history, platelet or coagulation problems and medicines that affect hemostasis can change risk and reporting needs.",
+    "reflect": "Why should puncture-site findings be considered alongside the person’s overall condition?",
+    "sources": [
+      {
+        "label": "Bone Marrow Tests",
+        "url": "https://medlineplus.gov/lab-tests/bone-marrow-tests/"
+      },
+      {
+        "label": "Bone Marrow Aspiration and Biopsy",
+        "url": "https://www.mskcc.org/cancer-care/patient-education/bone-marrow-aspiration-and-biopsy"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://medlineplus.gov/lab-tests/bone-marrow-tests/",
+        "title": "Bone Marrow Tests",
+        "year": null,
+        "access": "official guidance",
+        "supports": "Marrow blood-cell production, aspiration versus biopsy and concerning puncture-site symptoms.",
+        "limitations": "Public education; no universal observation schedule."
+      },
+      {
+        "url": "https://www.mskcc.org/cancer-care/patient-education/bone-marrow-aspiration-and-biopsy",
+        "title": "Bone Marrow Aspiration and Biopsy",
+        "year": 2026,
+        "access": "official guidance",
+        "supports": "Bleeding history/medications, aftercare and reporting persistent bleeding, redness, pain or fever.",
+        "limitations": "Institutional patient guidance; instructions depend on procedure and individual risk."
+      }
+    ],
+    "notes": "Research checked 2026-10-26. Original core claims supported. Added serious-event rarity and medication context. Bain journal reports were found but full/abstract opens failed, so they are not claimed as reviewed evidence; two accessible independent clinical sources support the general aftercare concept."
+  }
+]

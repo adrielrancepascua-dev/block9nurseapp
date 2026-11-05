@@ -1,0 +1,83 @@
+/* Settings uses its own surface and type rules, isolated from tool UI. */
+html.np-settings-is-open, html.np-settings-is-open body { overflow: hidden; }
+#npSettingsOpen { display: inline-flex !important; }
+#npSettingsSheet { z-index: 1000; }
+#npSettingsSheet .np-settings-panel {
+    --settings-bg: #0b1220;
+    --settings-surface: #111c2e;
+    --settings-text: #f1f5f9;
+    --settings-muted: #a9b8ca;
+    --settings-line: #29384c;
+    --settings-teal: #5eead4;
+    --settings-tint: #143532;
+    position: absolute;
+    inset: 0;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 680px;
+    max-height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--settings-bg) !important;
+    color: var(--settings-text) !important;
+    border: 0;
+    border-radius: 0;
+    padding: max(24px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) calc(24px + env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    box-sizing: border-box;
+    font-family: var(--np-body, 'Figtree', sans-serif);
+    text-align: left;
+    animation: settings-enter 240ms ease both;
+}
+html[data-theme="light"] #npSettingsSheet .np-settings-panel {
+    --settings-bg: #f3f7f7;
+    --settings-surface: #ffffff;
+    --settings-text: #14212b;
+    --settings-muted: #5d6c79;
+    --settings-line: #e2e9eb;
+    --settings-teal: #0f766e;
+    --settings-tint: #e7f6f1;
+}
+#npSettingsSheet h2, #npSettingsSheet h3, #npSettingsSheet h4, #npSettingsSheet p { margin: 0; color: inherit; background: none !important; font-family: inherit; }
+#npSettingsSheet h2 { font-size: 28px !important; line-height: 1.2; font-weight: 700; letter-spacing: -.03em; }
+#npSettingsSheet h3, #npSettingsSheet h4, #npSettingsSheet strong { font-size: 17px; line-height: 1.4; font-weight: 600; }
+#npSettingsSheet p, #npSettingsSheet .settings-secondary { color: var(--settings-muted); font-size: 14px; line-height: 1.55; font-weight: 400; }
+#npSettingsSheet button { font-family: inherit; text-transform: none; letter-spacing: normal; cursor: pointer; }
+#npSettingsSheet svg { width: 23px; height: 23px; display: block; flex: none; }
+#npSettingsSheet .settings-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 24px; }
+#npSettingsSheet .settings-back { display: grid; place-items: center; width: 48px; min-width: 48px !important; height: 48px; min-height: 48px; padding: 0 !important; border: 0; border-radius: 16px; background: var(--settings-tint) !important; color: var(--settings-teal) !important; flex: none; }
+#npSettingsSheet .settings-card { background: var(--settings-surface) !important; border: 1px solid var(--settings-line); border-radius: 22px; padding: 18px; box-shadow: 0 2px 8px rgba(15,23,42,.025); }
+#npSettingsSheet .settings-account { display: flex; align-items: center; gap: 14px; }
+#npSettingsSheet .settings-account > div { min-width: 0; overflow-wrap: anywhere; }
+#npSettingsSheet .settings-account p { margin-top: 3px; }
+#npSettingsSheet .settings-avatar { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; color: white; background: #0f766e; flex: none; }
+#npSettingsSheet .settings-section-title { color: var(--settings-muted) !important; font-size: 12px !important; text-transform: uppercase; letter-spacing: .06em; font-weight: 500; margin: 24px 2px 10px; }
+#npSettingsSheet .settings-row-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+#npSettingsSheet .settings-icon { display: flex; align-items: center; color: var(--settings-teal); flex: none; }
+#npSettingsSheet .settings-themes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+#npSettingsSheet .settings-themes button { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0 !important; min-height: 108px; padding: 14px 6px !important; border: 1px solid var(--settings-line); border-radius: 16px; background: var(--settings-surface) !important; color: var(--settings-muted) !important; font-size: 14px; font-weight: 500; transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease; }
+#npSettingsSheet .settings-themes button[aria-pressed="true"] { background: var(--settings-tint) !important; border-color: var(--settings-teal); color: var(--settings-teal) !important; box-shadow: inset 0 0 0 1px var(--settings-teal); }
+#npSettingsSheet .settings-group { padding: 0 18px; }
+#npSettingsSheet .settings-row { display: grid; grid-template-columns: 23px minmax(0,1fr) auto; align-items: center; width: 100%; min-width: 0 !important; min-height: 82px; padding: 18px 0 !important; gap: 12px; border: 0; text-align: left; }
+#npSettingsSheet .settings-secondary { display: block; margin-top: 3px; }
+#npSettingsSheet .settings-action { background: none !important; color: var(--settings-text) !important; border-top: 1px solid var(--settings-line); border-radius: 0; }
+#npSettingsSheet .settings-action:disabled { opacity: .6; cursor: wait; }
+#npSettingsSheet .settings-chevron { font-size: 27px; line-height: 1; color: var(--settings-muted); transition: transform 160ms ease; }
+#npSettingsSheet .settings-status { font-size: 11px; border-radius: 99px; padding: 4px 8px; background: var(--settings-bg); color: var(--settings-muted); }
+#npSettingsSheet .settings-status[data-ready="true"] { color: var(--settings-teal); background: var(--settings-tint); }
+#npSettingsSheet .settings-update-status { padding: 0 0 16px; overflow-wrap: anywhere; }
+#npSettingsSheet .settings-disclosure + .settings-disclosure { border-top: 1px solid var(--settings-line); }
+#npSettingsSheet summary { cursor: pointer; list-style: none; }
+#npSettingsSheet summary::-webkit-details-marker { display: none; }
+#npSettingsSheet details[open] .settings-chevron { transform: rotate(90deg); }
+#npSettingsSheet .settings-detail { padding: 0 0 18px 35px; }
+#npSettingsSheet .settings-detail p + p { margin-top: 12px; }
+#npSettingsSheet a { color: var(--settings-teal); overflow-wrap: anywhere; text-decoration: underline; }
+#npSettingsSheet .settings-logout { margin-top: 24px; padding: 18px !important; border: 1px solid rgba(225,29,72,.14); border-radius: 20px; background: #351722 !important; color: #fda4af !important; }
+#npSettingsSheet .settings-logout .settings-icon, #npSettingsSheet .settings-logout .settings-chevron { color: inherit; }
+html[data-theme="light"] #npSettingsSheet .settings-logout { background: #fff1f2 !important; color: #be123c !important; }
+#npSettingsSheet .settings-footer { text-align: center; margin: 20px 0 0; font-size: 12px; }
+#npSettingsSheet :is(button, summary, a):focus-visible { outline: 2px solid var(--settings-teal); outline-offset: 3px; }
+@keyframes settings-enter { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@media (min-width: 720px) { #npSettingsSheet .np-settings-panel { inset: 24px 0; max-height: calc(100% - 48px); border-radius: 26px; padding: 28px; } }
+@media (max-width: 360px) { #npSettingsSheet .settings-row { gap: 8px; } #npSettingsSheet .settings-card { padding: 14px; } #npSettingsSheet .settings-group { padding: 0 14px; } #npSettingsSheet h4, #npSettingsSheet strong { font-size: 15px; } }
+@media (prefers-reduced-motion: reduce) { #npSettingsSheet .np-settings-panel { animation: none; } #npSettingsSheet .settings-themes button, #npSettingsSheet .settings-chevron { transition: none; } }

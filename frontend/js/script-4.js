@@ -1,58 +1,5 @@
-        // ============= VITAL SIGNS REFERENCE DATABASE =============
-        const vitalSignsReference = {
-            ageGroups: {
-                infant: { name: "Infant (0-1y)", range: [0, 1], pulse: { min: 100, max: 160 }, rr: { min: 30, max: 60 }, bpSys: { min: 70, max: 90 }, bpDia: { min: 45, max: 55 } },
-                toddler: { name: "Toddler (1-3y)", range: [1, 3], pulse: { min: 90, max: 150 }, rr: { min: 24, max: 40 }, bpSys: { min: 80, max: 100 }, bpDia: { min: 55, max: 65 } },
-                preschool: { name: "Preschool (3-6y)", range: [3, 6], pulse: { min: 80, max: 120 }, rr: { min: 22, max: 34 }, bpSys: { min: 85, max: 110 }, bpDia: { min: 60, max: 70 } },
-                schoolAge: { name: "School Age (6-12y)", range: [6, 12], pulse: { min: 70, max: 110 }, rr: { min: 18, max: 30 }, bpSys: { min: 90, max: 110 }, bpDia: { min: 60, max: 75 } },
-                adolescent: { name: "Adolescent (12-18y)", range: [12, 18], pulse: { min: 60, max: 100 }, rr: { min: 12, max: 20 }, bpSys: { min: 100, max: 130 }, bpDia: { min: 65, max: 85 } },
-                adult: { name: "Adult (18+y)", range: [18, 120], pulse: { min: 60, max: 100 }, rr: { min: 12, max: 20 }, bpSys: { min: 110, max: 120 }, bpDia: { min: 70, max: 80 } },
-                elderly: { name: "Elderly (65+y)", range: [65, 120], pulse: { min: 55, max: 100 }, rr: { min: 12, max: 22 }, bpSys: { min: 130, max: 150 }, bpDia: { min: 70, max: 90 } }
-            },
-            pregnancy: {
-                notes: "Pregnant women typically have 15-20% increased cardiac output and blood volume",
-                pulseIncrease: 10, // BPM increase during pregnancy
-                systolicIncrease: 0, // Usually stays same or slightly lower
-                diastolicDecrease: 5, // Often drops slightly
-                respiratoryIncrease: 1, // Slight increase
-                normalBP: { sys: [110, 135], dia: [70, 85] },
-                gestationalHypertension: { sys: 140, dia: 90 }, // ≥140/90
-                preeclampsia: { sys: 160, dia: 110 } // ≥160/110
-            },
-            comorbidities: {
-                hypertension: {
-                    name: "Hypertension",
-                    systolicTarget: 140,
-                    diastolicTarget: 90,
-                    severity: "ELEVATED",
-                    notes: "Persistent elevation; aim for <130/80 if tolerated"
-                },
-                diabetes: {
-                    name: "Diabetes",
-                    systolicTarget: 140,
-                    diastolicTarget: 90,
-                    fever: "Monitor for DKA (fever + tachycardia + tachypnea)",
-                    notes: "May have reduced fever response; check glucose"
-                },
-                asthma: {
-                    name: "Asthma",
-                    rrAlert: 25,
-                    notes: "Increased RR may indicate asthma exacerbation; listen for wheeze"
-                },
-                copd: {
-                    name: "COPD",
-                    rrAlert: 25,
-                    notes: "Chronic baseline elevation; major change concerning; watch for exacerbation"
-                },
-                ckd: {
-                    name: "Chronic Kidney Disease",
-                    systolicTarget: 130,
-                    diastolicTarget: 80,
-                    notes: "Stricter BP control needed; avoid NSAIDs; monitor fluid balance"
-                }
-            }
-        };
-
+        // UNUSED: nothing calls diagnosisDatabase. generateDiagnosis was removed.
+        // Do not surface these strings.
         // ============= REFERENCE PATTERN DATABASE =============
         const diagnosisDatabase = {
             fever: { symptoms: "High temperature (>38°C)", meds: ["Ref: Acetaminophen (500-1000mg)", "Ref: Ibuprofen (200-400mg with food)"], actions: "Monitor for dehydration signs, document fluid intake, and note cooling measures if above 40°C." },
@@ -78,481 +25,491 @@
             }
         }
 
-        // Helper: Get age group from age
-        function getAgeGroup(age) {
-            if (age < 1) return vitalSignsReference.ageGroups.infant;
-            if (age < 3) return vitalSignsReference.ageGroups.toddler;
-            if (age < 6) return vitalSignsReference.ageGroups.preschool;
-            if (age < 12) return vitalSignsReference.ageGroups.schoolAge;
-            if (age < 18) return vitalSignsReference.ageGroups.adolescent;
-            if (age >= 65) return vitalSignsReference.ageGroups.elderly;
-            return vitalSignsReference.ageGroups.adult;
+        function readVitalField(id, asFloat) {
+            const el = document.getElementById(id);
+            const raw = el ? String(el.value).trim() : '';
+            if (raw === '' || !Number.isFinite(Number(raw))) return { entered: false, n: null };
+            const n = asFloat ? parseFloat(raw) : parseInt(raw, 10);
+            if (!Number.isFinite(n)) return { entered: false, n: null };
+            return { entered: true, n: n };
         }
 
-        function generateDiagnosis(sys, dia, temp, hr, rr, age, pregnancies, pregnant, conditions) {
-            let diagnosis = [];
-            let priority = "STABLE";
-            let color = "text-slate-400";
-            let recommendations = [];
-            let contextNotes = [];
+        function ixText(id) {
+            const pack = window.NursePathInterpretation;
+            return pack && typeof pack.text === 'function' ? pack.text(id) : '';
+        }
 
-            // ===== PATIENT PROFILE SETUP =====
-            const isPregnant = pregnant === 'yes';
-            const ageGroup = getAgeGroup(age);
-            const hasComorbidity = conditions !== 'none';
-            const comorbidityData = hasComorbidity ? vitalSignsReference.comorbidities[conditions] : null;
+        function ixFill(id, map) {
+            const pack = window.NursePathInterpretation;
+            return pack && typeof pack.fill === 'function' ? pack.fill(id, map) : '';
+        }
 
-            // Add patient context
-            contextNotes.push(`📋 Patient: ${ageGroup.name}${isPregnant ? ' | PREGNANT (' + pregnancies + ' previous)' : ''}`);
-            if (hasComorbidity) contextNotes.push(`⚠️ Known condition: ${comorbidityData.name}`);
-
-            // Adjust vital sign targets based on pregnancy
-            let hrTarget = { min: ageGroup.pulse.min, max: ageGroup.pulse.max };
-            let rrTarget = { min: ageGroup.rr.min, max: ageGroup.rr.max };
-            let bpSysTarget = { min: ageGroup.bpSys.min, max: ageGroup.bpSys.max };
-            let bpDiaTarget = { min: ageGroup.bpDia.min, max: ageGroup.bpDia.max };
-
-            if (isPregnant) {
-                hrTarget.max += vitalSignsReference.pregnancy.pulseIncrease; // Allow +10 BPM
-                bpSysTarget.min = vitalSignsReference.pregnancy.normalBP.sys[0];
-                bpSysTarget.max = vitalSignsReference.pregnancy.normalBP.sys[1];
-                bpDiaTarget.min = vitalSignsReference.pregnancy.normalBP.dia[0];
-                bpDiaTarget.max = vitalSignsReference.pregnancy.normalBP.dia[1];
-            }
-
-            // ===== BP ASSESSMENT =====
-            // Check for critically low diastolic first
-            if (dia > 0 && dia < 40) {
-                diagnosis.push({ name: "⚠️ SIM ALERT: Severe Low Diastolic (DBP <40)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = "CRITICAL";
-                color = "text-red-500";
-                contextNotes.push("Diastolic below 40 mmHg suggests severe hypoperfusion. Report promptly.");
-            } else if (dia > 0 && dia < 60) {
-                diagnosis.push({ name: "Low Diastolic Pressure (DBP <60)", severity: "MONITOR", icon: "fa-arrow-down" });
-                if (priority === "STABLE") priority = "ELEVATED";
-                contextNotes.push(`Diastolic ${dia} mmHg is below the reference range, which is associated with orthostatic symptoms.`);
-            }
-            
-            // Systolic checks
-            if (sys > 0 && sys < 70) {
-                diagnosis.push({ name: "⚠️ SIM ALERT: Severe Hypotension (SBP <70)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = "CRITICAL";
-                color = "text-red-500";
-                contextNotes.push("Systolic below 70 mmHg represents severe hypotension and indicates hemodynamic instability. Report immediately.");
-            } else if (sys > 0 && sys < bpSysTarget.min) {
-                diagnosis.push({ name: `⚠️ SIM ALERT: Hypotension (Below ${ageGroup.name} Range)`, severity: "CRITICAL", icon: "fa-arrow-down" });
-                priority = "CRITICAL";
-                color = "text-red-500";
-                contextNotes.push(`Systolic ${sys} is below the reference for ${ageGroup.name} (usual ${bpSysTarget.min} to ${bpSysTarget.max}).`);
-            } else if (sys >= 180 || (dia && dia >= 120)) {
-                diagnosis.push({ name: "⚠️ SIM ALERT: Hypertensive Crisis Pattern (SBP ≥180/DBP ≥120)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = "CRITICAL";
-                color = "text-red-500";
-                recommendations.push(diagnosisDatabase.hypertensiveCrisis);
-            } else if (isPregnant && sys >= vitalSignsReference.pregnancy.preeclampsia.sys) {
-                diagnosis.push({ name: "⚠️ SIM ALERT: Preeclampsia Pattern (BP ≥160/110)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = "CRITICAL";
-                color = "text-red-500";
-                contextNotes.push("Severely elevated BP in pregnancy fits a preeclampsia pattern. Assess for proteinuria, edema, and headache, and report promptly.");
-            } else if (isPregnant && sys >= vitalSignsReference.pregnancy.gestationalHypertension.sys) {
-                diagnosis.push({ name: "Gestational Hypertension Pattern (SBP ≥140/DBP ≥90)", severity: "ELEVATED", icon: "fa-arrow-up" });
-                priority = "ELEVATED";
-                color = "text-orange-500";
-                contextNotes.push("This pattern is monitored for progression to preeclampsia.");
-            } else if (sys >= 160 || (dia && dia >= 100)) {
-                diagnosis.push({ name: "Severe Hypertension Pattern (SBP 160-179 or DBP 100-109)", severity: "ELEVATED", icon: "fa-arrow-up" });
-                priority = priority === "CRITICAL" ? "CRITICAL" : "ELEVATED";
-                color = "text-orange-500";
-                if (!isPregnant) recommendations.push(diagnosisDatabase.hypertension);
-            } else if (sys >= 140 || (dia && dia >= 90)) {
-                diagnosis.push({ name: "Hypertension Pattern (SBP 140-159 or DBP 90-99)", severity: "ELEVATED", icon: "fa-arrow-up" });
-                priority = priority === "CRITICAL" ? "CRITICAL" : "ELEVATED";
-                color = "text-orange-500";
-                if (!isPregnant) recommendations.push(diagnosisDatabase.hypertension);
-            } else if (sys >= bpSysTarget.max) {
-                diagnosis.push({ name: `Mildly Elevated BP (Above ${ageGroup.name} Reference)`, severity: "MONITOR", icon: "fa-arrow-up-long" });
-                contextNotes.push(`Systolic ${sys} is slightly above the reference for ${ageGroup.name} (usual ${bpSysTarget.min} to ${bpSysTarget.max}).`);
-            }
-
-            // ===== TEMPERATURE ASSESSMENT =====
-            if (temp > 0) {
-                if (temp <= 28) {
-                    diagnosis.push({ name: "⚠️ SIM ALERT: Severe Hypothermia (≤28°C)", severity: "CRITICAL", icon: "fa-snowflake" });
-                    priority = "CRITICAL";
-                    color = "text-blue-500";
-                    contextNotes.push("Temperature at or below 28°C indicates a critical hypothermia pattern. Follow your institution's thermal regulation protocol and report immediately.");
-                } else if (temp <= 35.0) {
-                    diagnosis.push({ name: "⚠️ SIM ALERT: Hypothermia (28-35°C)", severity: "CRITICAL", icon: "fa-snowflake" });
-                    priority = "CRITICAL";
-                    color = "text-blue-400";
-                    recommendations.push(diagnosisDatabase.hypothermia);
-                } else if (temp >= 40.5) {
-                    diagnosis.push({ name: "⚠️ SIM ALERT: Severe Hyperthermia (≥40.5°C)", severity: "CRITICAL", icon: "fa-fire" });
-                    priority = "CRITICAL";
-                    color = "text-red-500";
-                    contextNotes.push("Temperature at or above 40.5°C suggests a heat stroke pattern, which calls for immediate cooling measures. Report immediately.");
-                } else if (temp >= 40.0) {
-                    diagnosis.push({ name: "⚠️ SIM ALERT: Very High Fever (40.0-40.4°C)", severity: "CRITICAL", icon: "fa-fire" });
-                    priority = "CRITICAL";
-                    color = "text-red-500";
-                    recommendations.push(diagnosisDatabase.fever);
-                } else {
-                    // Age-adjusted fever thresholds
-                    let feverThreshold = 38.0;
-                    if (age < 3) feverThreshold = 38.5;
-                    if (age >= 65) feverThreshold = 37.5;
-
-                    if (temp >= 39.5) {
-                        diagnosis.push({ name: "High Fever Pattern (39.5-39.9°C)", severity: "CRITICAL", icon: "fa-fire" });
-                        color = "text-red-500";
-                        recommendations.push(diagnosisDatabase.fever);
-                        if (conditions === 'diabetes') contextNotes.push("Diabetic patient with a fever pattern. Monitor for DKA signs and infection indicators.");
-                    } else if (temp >= 38.5) {
-                        diagnosis.push({ name: "Moderate Fever Pattern (38.5-39.4°C)", severity: "MONITOR", icon: "fa-fire" });
-                        color = "text-orange-500";
-                        recommendations.push(diagnosisDatabase.fever);
-                    } else if (temp >= feverThreshold) {
-                        diagnosis.push({ name: `Mild Fever Pattern (${feverThreshold}-38.4°C)`, severity: "MONITOR", icon: "fa-thermometer" });
-                        recommendations.push(diagnosisDatabase.fever);
-                    }
-                }
-            }
-
-            // ===== HEART RATE ASSESSMENT (Age-Group Adjusted) =====
-            if (hr > 0 && hr < 30) {
-                diagnosis.push({ name: "⚠️ SIM ALERT: Severe Bradycardia (HR <30)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = "CRITICAL";
-                color = "text-red-500";
-                contextNotes.push("HR below 30 indicates a severe bradycardia pattern. Assess consciousness and pulse quality, and report immediately.");
-            } else if (hr > 200) {
-                diagnosis.push({ name: "⚠️ SIM ALERT: Severe Tachycardia (HR >200)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = "CRITICAL";
-                color = "text-red-500";
-                contextNotes.push("HR above 200 indicates a severe tachycardia pattern associated with arrhythmia, sepsis, or shock. Report immediately.");
-            } else if (hr > 0 && hr < hrTarget.min) {
-                diagnosis.push({ name: `Bradycardia Pattern (Below ${ageGroup.name} Reference: HR ${hr})`, severity: "MONITOR", icon: "fa-heart" });
-                contextNotes.push(`HR ${hr} is below the reference for ${ageGroup.name} (usual ${hrTarget.min} to ${hrTarget.max}).`);
-                recommendations.push(diagnosisDatabase.bradycardia);
-            } else if (hr > hrTarget.max && hr <= hrTarget.max + 20) {
-                let note = `Mild Tachycardia Pattern (HR ${hr})`;
-                if (isPregnant) note += " (within pregnancy range)";
-                if (temp >= 38.0) note += " (fever-related)";
-                diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-heart" });
-                contextNotes.push(`HR ${hr} is slightly above the reference for ${ageGroup.name} (usual ${hrTarget.min} to ${hrTarget.max}).`);
-            } else if (hr > hrTarget.max + 20 && hr <= hrTarget.max + 40) {
-                let note = `Tachycardia Pattern (HR ${hr})`;
-                if (temp >= 38.0) note += " (fever-related)";
-                diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-heart" });
-                contextNotes.push(`HR ${hr} exceeds the reference for ${ageGroup.name} (usual ${hrTarget.min} to ${hrTarget.max}).`);
-                recommendations.push(diagnosisDatabase.tachycardia);
-            } else if (hr > hrTarget.max + 40) {
-                diagnosis.push({ name: `⚠️ SIM ALERT: Severe Tachycardia (HR ${hr})`, severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = priority === "STABLE" ? "CRITICAL" : priority;
-                color = "text-red-500";
-                contextNotes.push(`HR ${hr} is significantly elevated, a pattern associated with shock, sepsis, or a severe underlying condition.`);
-            }
-
-            // ===== RESPIRATORY RATE ASSESSMENT (Age-Group Adjusted) =====
-            if (rr > 0 && rr < 8) {
-                diagnosis.push({ name: "⚠️ SIM ALERT: Severe Respiratory Depression (RR <8)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = "CRITICAL";
-                color = "text-red-500";
-                contextNotes.push("RR below 8 indicates a severe respiratory depression pattern with respiratory failure risk. Report immediately.");
-            } else if (rr > 50) {
-                diagnosis.push({ name: "⚠️ SIM ALERT: Severe Tachypnea (RR >50)", severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = "CRITICAL";
-                color = "text-red-500";
-                contextNotes.push("RR above 50 indicates a severe respiratory distress pattern. Report immediately.");
-            } else if (rr > 0 && rr < rrTarget.min) {
-                diagnosis.push({ name: `Bradypnea Pattern (Below ${ageGroup.name} Reference: RR ${rr})`, severity: "MONITOR", icon: "fa-wind" });
-                contextNotes.push(`RR ${rr} is below the reference for ${ageGroup.name} (usual ${rrTarget.min} to ${rrTarget.max}).`);
-            } else if (rr > rrTarget.max && rr <= rrTarget.max + 5) {
-                let note = `Mild Tachypnea Pattern (RR ${rr})`;
-                if (conditions === 'asthma' || conditions === 'copd') note += " (monitor for exacerbation)";
-                diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-wind" });
-                contextNotes.push(`RR ${rr} is slightly above the reference for ${ageGroup.name} (usual ${rrTarget.min} to ${rrTarget.max}).`);
-            } else if (rr > rrTarget.max + 5 && rr <= rrTarget.max + 15) {
-                let note = `Tachypnea Pattern (RR ${rr})`;
-                if (conditions === 'asthma' || conditions === 'copd') note += " (exacerbation indicator)";
-                diagnosis.push({ name: note, severity: "MONITOR", icon: "fa-wind" });
-                contextNotes.push(`RR ${rr} exceeds the reference for ${ageGroup.name} (usual ${rrTarget.min} to ${rrTarget.max}).`);
-                recommendations.push(diagnosisDatabase.tachypnea);
-            } else if (rr > rrTarget.max + 15) {
-                let note = `⚠️ SIM ALERT: Severe Tachypnea (RR ${rr})`;
-                if (conditions === 'asthma' || conditions === 'copd') note += " (EXACERBATION PATTERN)";
-                diagnosis.push({ name: note, severity: "CRITICAL", icon: "fa-exclamation-triangle" });
-                priority = priority === "STABLE" ? "CRITICAL" : priority;
-                color = "text-red-500";
-                contextNotes.push(`RR ${rr} is significantly elevated, a pattern associated with respiratory distress or hypoxia.`);
-            }
-
-            // ===== COMORBIDITY-SPECIFIC CHECKS =====
-            if (hasComorbidity) {
-                if (conditions === 'ckd' && sys > vitalSignsReference.comorbidities.ckd.systolicTarget) {
-                    contextNotes.push("CKD patient. Stricter BP control is emphasized and this reading exceeds the usual target. NSAIDs are generally avoided in CKD.");
-                }
-                if (conditions === 'asthma' && rr > 25) {
-                    contextNotes.push("Asthma patient with elevated RR. Auscultate for wheeze, since this pattern can indicate exacerbation.");
-                }
-                if (conditions === 'copd' && rr > 25) {
-                    contextNotes.push("COPD patient with elevated RR. Compare against the patient's baseline and consider an exacerbation pattern.");
-                }
-            }
-
-            return { diagnosis, priority, color, recommendations, contextNotes };
+        function joinReasons(reasons) {
+            return reasons.filter(Boolean).join('; ');
         }
 
         function liveAnalyze() {
-            // Interpretation grouped into priority, actions, and patient context.
-            const sys = parseInt(document.getElementById('sys').value);
-            const dia = parseInt(document.getElementById('dia').value);
-            const temp = parseFloat(document.getElementById('temp').value);
-            const hr = parseInt(document.getElementById('hr').value);
-            const rr = parseInt(document.getElementById('rr').value);
-            const age = parseInt(document.getElementById('age').value);
-            const pregnancies = parseInt(document.getElementById('pregnancies').value);
-            const pregnant = document.getElementById('pregnant').value;
-            const conditions = document.getElementById('conditions').value;
+            const sysField = readVitalField('sys', false);
+            const diaField = readVitalField('dia', false);
+            const tempField = readVitalField('temp', true);
+            const hrField = readVitalField('hr', false);
+            const rrField = readVitalField('rr', false);
+            const ageField = readVitalField('age', true);
+            const pregCountField = readVitalField('pregnancies', false);
+            const sys = sysField.n;
+            const dia = diaField.n;
+            const temp = tempField.n;
+            const hr = hrField.n;
+            const rr = rrField.n;
+            const age = ageField.n;
+            const sysOn = sysField.entered;
+            const diaOn = diaField.entered;
+            const tempOn = tempField.entered;
+            const hrOn = hrField.entered;
+            const rrOn = rrField.entered;
+            const ageOn = ageField.entered;
+            const pregnantEl = document.getElementById('pregnant');
+            const conditionsEl = document.getElementById('conditions');
+            const sexEl = document.getElementById('sex');
+            const pregnant = pregnantEl ? pregnantEl.value : 'no';
+            const conditions = conditionsEl ? conditionsEl.value : 'none';
+            const sex = sexEl ? sexEl.value : '';
             const box = document.getElementById('dx-box');
             const badge = document.getElementById('status-badge');
+            const notEntered = ixText('notEntered') || 'not entered';
 
-            if (!sys && !temp && !hr && !rr) {
+            if (!sysOn && !diaOn && !tempOn && !hrOn && !rrOn) {
                 box.innerHTML = `<div class="flex flex-col items-center space-y-2">
                     <svg class="inline text-3xl text-slate-600 opacity-50" width="1.3em" height="1.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3v18h18"/></svg>
                     <p class="text-sm text-slate-500">Enter all vital signs to generate the findings.</p>
                 </div>`;
-                badge.innerText = "Enter Vitals";
-                badge.className = "px-4 py-2 bg-slate-700 rounded-full text-xs font-mono text-slate-400 font-bold";
+                box.className = 'p-6 bg-slate-900/70 rounded-xl border border-slate-700 min-h-[120px] flex items-center justify-center text-slate-500 italic text-center';
+                badge.innerText = 'Enter Vitals';
+                badge.className = 'px-4 py-2 rounded-full text-xs font-mono font-bold';
+                badge.classList.remove('is-result');
                 return { ok: false, reason: 'missing_inputs' };
             }
 
             const abnormalFindings = [];
             const interpretations = [];
             const actions = [];
-            const context = [];
+            const flags = [];
             let severityScore = 0;
 
-            const isChild = age > 0 && age < 12;
-            const isOlderAdult = age >= 65;
+            // Fleming 2011 Web Tables 4 and 5. Half-open bands: age 8 is 8–12 years, not 6–8.
+            function flemingRow(ageYears) {
+                const rows = [
+                    { max: 0.25, label: '0–3 months', hr: [107, 181], rr: [25, 66] },
+                    { max: 0.5, label: '3–6 months', hr: [104, 175], rr: [24, 64] },
+                    { max: 0.75, label: '6–9 months', hr: [98, 168], rr: [23, 61] },
+                    { max: 1, label: '9–12 months', hr: [93, 161], rr: [22, 58] },
+                    { max: 1.5, label: '12–18 months', hr: [88, 156], rr: [21, 53] },
+                    { max: 2, label: '18–24 months', hr: [82, 149], rr: [19, 46] },
+                    { max: 3, label: '2–3 years', hr: [76, 142], rr: [18, 38] },
+                    { max: 4, label: '3–4 years', hr: [70, 136], rr: [17, 33] },
+                    { max: 6, label: '4–6 years', hr: [65, 131], rr: [17, 29] },
+                    { max: 8, label: '6–8 years', hr: [59, 123], rr: [16, 27] },
+                    { max: 12, label: '8–12 years', hr: [52, 115], rr: [14, 25] },
+                    { max: 15, label: '12–15 years', hr: [47, 108], rr: [12, 23] },
+                    { max: 18, label: '15–18 years', hr: [43, 104], rr: [11, 22] }
+                ];
+                if (!(ageYears >= 0) || ageYears >= 18) return null;
+                for (let i = 0; i < rows.length; i++) {
+                    if (ageYears < rows[i].max) return rows[i];
+                }
+                return null;
+            }
+            const fleming = ageOn ? flemingRow(age) : null;
+            // 2017 AAP Table 3: ages 1 to <13. At or above 140/90 is stage 2 without height. Lower readings need a height percentile.
+            const bpUnder13 = ageOn && age < 13;
+            const isOlderAdult = ageOn && age >= 65;
             const hasComorbidity = conditions && conditions !== 'none';
+            const hrLow = 60;
+            const hrHigh = 100;
+            const rrLow = 12;
+            const rrHigh = 20;
+            let bpUnstaged = false;
 
-            // Blood pressure interpretation
-            if (sys >= 180 || dia >= 120) {
-                interpretations.push(`Hypertensive crisis pattern (${sys}/${dia} mmHg)`);
-                abnormalFindings.push('critical_bp');
-                severityScore += 4;
-                actions.push("Recheck BP manually within 5 minutes and escalate to the clinical instructor immediately.");
-            } else if (sys >= 140 || dia >= 90) {
-                interpretations.push(`Stage 2 hypertension pattern (${sys}/${dia} mmHg)`);
-                abnormalFindings.push('stage2_bp');
-                severityScore += 3;
-                actions.push("Monitor blood pressure every 15 minutes and observe for headache, chest pain, or neurologic changes.");
-            } else if (sys >= 130 || dia >= 80) {
-                interpretations.push(`Stage 1 hypertension pattern (${sys}/${dia} mmHg)`);
-                abnormalFindings.push('stage1_bp');
-                severityScore += 2;
-                actions.push("Repeat the BP after a brief rest and compare it against earlier readings.");
-            } else if (sys >= 120 && dia < 80) {
-                interpretations.push(`Elevated blood pressure pattern (${sys}/${dia} mmHg)`);
-                abnormalFindings.push('elevated_bp');
-                severityScore += 1;
-            } else if (sys < 90 || dia < 60) {
-                interpretations.push(`Hypotension pattern (${sys}/${dia} mmHg)`);
-                abnormalFindings.push('low_bp');
-                severityScore += 2;
-                actions.push("Assess perfusion indicators such as mental status, skin signs, and capillary refill, then reassess vitals promptly.");
-            } else {
-                interpretations.push(`Blood pressure within reference range (${sys}/${dia} mmHg)`);
+            function boundSentence(field, value, direction, bound) {
+                return ixFill('flag.sentence', { field: field, value: value, direction: direction, bound: bound });
             }
 
-            // Temperature interpretation
-            if (temp >= 39.5) {
-                interpretations.push(`High fever pattern (${temp.toFixed(1)}°C)`);
-                abnormalFindings.push('high_fever');
-                severityScore += 3;
-                actions.push("Increase monitoring frequency and evaluate for fever-associated tachycardia or tachypnea trends.");
-            } else if (temp >= 38.0) {
-                interpretations.push(`Fever pattern (${temp.toFixed(1)}°C)`);
-                abnormalFindings.push('fever');
-                severityScore += 2;
-            } else if (temp >= 37.5) {
-                interpretations.push(`Low-grade fever pattern (${temp.toFixed(1)}°C)`);
-                abnormalFindings.push('low_fever');
-                severityScore += 1;
-            } else if (temp < 35.0) {
-                interpretations.push(`Hypothermia pattern (${temp.toFixed(1)}°C)`);
-                abnormalFindings.push('hypothermia');
-                severityScore += 3;
-                actions.push("Prioritize warming measures and reassess the core vital trends.");
-            } else {
-                interpretations.push(`Temperature within reference range (${temp.toFixed(1)}°C)`);
+            function pushFlag(label, sentences) {
+                const list = sentences.filter(Boolean);
+                if (!list.length) return null;
+                const flag = { label: label, sentences: list, reason: list.join(' ') };
+                flags.push(flag);
+                return flag;
             }
 
-            // Heart rate interpretation, simplified against age-adjusted bands
-            const hrLow = isChild ? 70 : 60;
-            const hrHigh = isChild ? 120 : 100;
-            if (hr > hrHigh + 20) {
-                interpretations.push(`Marked tachycardia pattern (HR ${hr} bpm)`);
-                abnormalFindings.push('severe_tachy');
-                severityScore += 3;
-                actions.push("Assess for contributing causes such as pain, fever, anxiety, or dehydration, and trend the HR closely.");
-            } else if (hr > hrHigh) {
-                interpretations.push(`Tachycardia pattern (HR ${hr} bpm)`);
-                abnormalFindings.push('tachy');
-                severityScore += 2;
-            } else if (hr < hrLow - 10) {
-                interpretations.push(`Bradycardia pattern (HR ${hr} bpm)`);
-                abnormalFindings.push('brady');
-                severityScore += 2;
-                actions.push("Reassess perfusion and symptoms, verify reading quality, and repeat the HR.");
-            } else {
-                interpretations.push(`Heart rate within expected range for age (HR ${hr} bpm)`);
-            }
-
-            // Respiratory rate interpretation, simplified against age-adjusted bands
-            const rrLow = isChild ? 18 : 12;
-            const rrHigh = isChild ? 30 : 20;
-            if (rr > rrHigh + 10) {
-                interpretations.push(`Severe tachypnea pattern (RR ${rr}/min)`);
-                abnormalFindings.push('severe_tachypnea');
-                severityScore += 3;
-                actions.push("Reassess airway and breathing immediately, and check oxygenation if available.");
-            } else if (rr > rrHigh) {
-                interpretations.push(`Tachypnea pattern (RR ${rr}/min)`);
-                abnormalFindings.push('tachypnea');
-                severityScore += 2;
-            } else if (rr < rrLow) {
-                interpretations.push(`Bradypnea pattern (RR ${rr}/min)`);
-                abnormalFindings.push('bradypnea');
-                severityScore += 2;
-                actions.push("Observe the depth and effort of breathing, then repeat the respiratory assessment.");
-            } else {
-                interpretations.push(`Respiratory rate within expected range for age (RR ${rr}/min)`);
-            }
-
-            // Combined pattern interpretation
-            if ((hr > hrHigh || hr > 100) && temp >= 38.0) {
-                interpretations.push("Tachycardia with fever pattern (possible systemic stress response)");
-                severityScore += 1;
-            }
-            if ((rr > rrHigh || rr > 20) && temp >= 38.0) {
-                interpretations.push("Tachypnea with fever pattern (watch for increasing work of breathing)");
-                severityScore += 1;
-            }
-
-            // Patient factor context
-            if (age > 0) {
-                context.push(isChild ? "Pediatric age group: compare trends with age-appropriate reference ranges." : "Adult reference ranges applied for baseline interpretation.");
-            }
-            if (isOlderAdult) {
-                context.push("Older adult factor: atypical presentation may occur, so trending and reassessment are important.");
-                severityScore += 1;
-            }
-            if (pregnant === 'yes') {
-                context.push("Pregnancy factor: monitor maternal trends closely and correlate with the gestational context.");
-                if (!Number.isNaN(pregnancies) && pregnancies > 0) {
-                    context.push(`Obstetric history noted: G${pregnancies}.`);
+            let bpFlag = null;
+            if (sysOn || diaOn) {
+                const bpSentences = [];
+                if (sysOn && sys < 40) bpSentences.push(boundSentence('Systolic', sys + ' mmHg', 'below', '40 mmHg'));
+                if (sysOn && sys > 300) bpSentences.push(boundSentence('Systolic', sys + ' mmHg', 'above', '300 mmHg'));
+                if (diaOn && dia < 20) bpSentences.push(boundSentence('Diastolic', dia + ' mmHg', 'below', '20 mmHg'));
+                if (diaOn && dia > 200) bpSentences.push(boundSentence('Diastolic', dia + ' mmHg', 'above', '200 mmHg'));
+                if (sysOn && diaOn && !(dia < sys)) bpSentences.push(ixFill('flag.dbpOrderSentence', { dia: dia, sys: sys }));
+                if (sysOn && diaOn) {
+                    const pulsePressure = sys - dia;
+                    if (pulsePressure > 80) bpSentences.push(boundSentence('Pulse pressure', pulsePressure + ' mmHg', 'above', '80 mmHg'));
+                    if (pulsePressure < 15) bpSentences.push(boundSentence('Pulse pressure', pulsePressure + ' mmHg', 'below', '15 mmHg'));
                 }
-                if (sys >= 140 || dia >= 90) {
-                    context.push("Pregnancy with an elevated BP pattern: discuss preeclampsia screening with your instructor.");
+                bpFlag = pushFlag('Blood pressure', bpSentences);
+                const pair = (sysOn && diaOn) ? (sys + '/' + dia) : (sysOn ? (sys + '/—') : ('—/' + dia));
+                if (bpUnder13 && age < 1) {
+                    bpUnstaged = true;
+                    interpretations.push({ text: ixFill('bp.under1', { pair: pair }), flag: bpFlag, rank: 0 });
+                } else if (bpUnder13 && ((sysOn && sys >= 140) || (diaOn && dia >= 90))) {
+                    interpretations.push({ text: ixFill('pattern.bpPedsStage2', { pair: pair }), flag: bpFlag, rank: 2 });
+                    abnormalFindings.push('stage2_bp');
+                    severityScore += 3;
+                    actions.push(ixText('action.bpPedsStage2'));
+                } else if (bpUnder13) {
+                    bpUnstaged = true;
+                    interpretations.push({ text: ixFill('bp.under13', { pair: pair }), flag: bpFlag, rank: 0 });
+                } else if ((sysOn && sys > 180) || (diaOn && dia > 120)) {
+                    interpretations.push({ text: ixFill('pattern.bpCrisis', { pair: pair }), flag: bpFlag, rank: 2 });
+                    abnormalFindings.push('critical_bp');
+                    severityScore += 4;
+                    actions.push(ixText('action.bpCrisis'));
+                } else if ((sysOn && sys >= 140) || (diaOn && dia >= 90)) {
+                    interpretations.push({ text: ixFill('pattern.bpStage2', { pair: pair }), flag: bpFlag, rank: 2 });
+                    abnormalFindings.push('stage2_bp');
+                    severityScore += 3;
+                    actions.push(ixText('action.bpStage2'));
+                } else if ((sysOn && sys >= 130) || (diaOn && dia >= 80)) {
+                    interpretations.push({ text: ixFill('pattern.bpStage1', { pair: pair }), flag: bpFlag, rank: 1 });
+                    abnormalFindings.push('stage1_bp');
+                    severityScore += 2;
+                    actions.push(ixText('action.bpStage1'));
+                } else if (sysOn && diaOn && sys >= 120 && dia < 80) {
+                    interpretations.push({ text: ixFill('pattern.bpElevated', { pair: pair }), flag: bpFlag, rank: 1 });
+                    abnormalFindings.push('elevated_bp');
                     severityScore += 1;
+                } else if ((sysOn && sys < 90) || (diaOn && dia < 60)) {
+                    interpretations.push({ text: ixFill('pattern.bpLow', { pair: pair }), flag: bpFlag, rank: 1 });
+                    abnormalFindings.push('low_bp');
+                    severityScore += 2;
+                    actions.push(ixText('action.bpLow'));
+                } else if (sysOn && diaOn) {
+                    interpretations.push({ text: ixFill('pattern.bpInRange', { pair: pair }), flag: bpFlag, rank: 0 });
+                } else if (sysOn) {
+                    interpretations.push({ text: ixFill('pattern.bpSysOnly', { sys: sys, missing: notEntered }), flag: bpFlag, rank: 0 });
+                } else {
+                    interpretations.push({ text: ixFill('pattern.bpDiaOnly', { dia: dia, missing: notEntered }), flag: bpFlag, rank: 0 });
                 }
+            } else {
+                interpretations.push({ text: ixFill('pattern.bpMissing', { missing: notEntered }), flag: null, rank: 0 });
+            }
+
+            let tempFlag = null;
+            if (tempOn) {
+                const tempSentences = [];
+                if (temp < 30) tempSentences.push(boundSentence('Temperature', temp.toFixed(1) + '°C', 'below', '30°C'));
+                if (temp > 43) tempSentences.push(boundSentence('Temperature', temp.toFixed(1) + '°C', 'above', '43°C'));
+                tempFlag = pushFlag('Temperature', tempSentences);
+                const tempLabel = temp.toFixed(1);
+                if (temp >= 39.5) {
+                    interpretations.push({ text: ixFill('pattern.tempHigh', { temp: tempLabel }), flag: tempFlag, rank: 1 });
+                    abnormalFindings.push('high_fever');
+                    severityScore += 3;
+                    actions.push(ixText('action.feverHigh'));
+                } else if (temp >= 38.0) {
+                    interpretations.push({ text: ixFill('pattern.tempFever', { temp: tempLabel }), flag: tempFlag, rank: 1 });
+                    abnormalFindings.push('fever');
+                    severityScore += 2;
+                } else if (temp >= 37.5) {
+                    interpretations.push({ text: ixFill('pattern.tempLowGrade', { temp: tempLabel }), flag: tempFlag, rank: 1 });
+                    abnormalFindings.push('low_fever');
+                    severityScore += 1;
+                } else if (temp < 35.0) {
+                    interpretations.push({ text: ixFill('pattern.tempHypo', { temp: tempLabel }), flag: tempFlag, rank: 1 });
+                    abnormalFindings.push('hypothermia');
+                    severityScore += 3;
+                    actions.push(ixText('action.hypothermia'));
+                } else {
+                    interpretations.push({ text: ixFill('pattern.tempInRange', { temp: tempLabel }), flag: tempFlag, rank: 0 });
+                }
+            } else {
+                interpretations.push({ text: ixFill('pattern.tempMissing', { missing: notEntered }), flag: null, rank: 0 });
+            }
+
+            let hrFlag = null;
+            if (hrOn) {
+                const hrSentences = [];
+                if (hr < 20) hrSentences.push(boundSentence('Heart rate', hr + ' bpm', 'below', '20 bpm'));
+                if (hr > 300) hrSentences.push(boundSentence('Heart rate', hr + ' bpm', 'above', '300 bpm'));
+                hrFlag = pushFlag('Heart rate', hrSentences);
+                if (fleming) {
+                    const low = fleming.hr[0];
+                    const high = fleming.hr[1];
+                    const place = hr > high ? 'above' : (hr < low ? 'below' : 'inside');
+                    interpretations.push({
+                        text: ixFill('pattern.hrPeds', { hr: hr, place: place, band: fleming.label, low: low, high: high }),
+                        flag: hrFlag,
+                        rank: place === 'inside' ? 0 : 2
+                    });
+                    if (place !== 'inside') {
+                        abnormalFindings.push(place === 'above' ? 'tachy' : 'brady');
+                        severityScore += 2;
+                        actions.push(ixText('action.hrPeds'));
+                    }
+                } else if (hr > hrHigh + 20) {
+                    interpretations.push({ text: ixFill('pattern.hrMarked', { hr: hr }), flag: hrFlag, rank: 2 });
+                    abnormalFindings.push('severe_tachy');
+                    severityScore += 3;
+                    actions.push(ixText('action.hrMarked'));
+                } else if (hr > hrHigh) {
+                    interpretations.push({ text: ixFill('pattern.hrTachy', { hr: hr }), flag: hrFlag, rank: 1 });
+                    abnormalFindings.push('tachy');
+                    severityScore += 2;
+                } else if (hr < hrLow - 10) {
+                    interpretations.push({ text: ixFill('pattern.hrBrady', { hr: hr }), flag: hrFlag, rank: 1 });
+                    abnormalFindings.push('brady');
+                    severityScore += 2;
+                    actions.push(ixText('action.hrBrady'));
+                } else {
+                    interpretations.push({ text: ixFill('pattern.hrInRange', { hr: hr }), flag: hrFlag, rank: 0 });
+                }
+            } else {
+                interpretations.push({ text: ixFill('pattern.hrMissing', { missing: notEntered }), flag: null, rank: 0 });
+            }
+
+            let rrFlag = null;
+            if (rrOn) {
+                const rrSentences = [];
+                if (rr < 4) rrSentences.push(boundSentence('Respiratory rate', rr + '/min', 'below', '4/min'));
+                if (rr > 60) rrSentences.push(boundSentence('Respiratory rate', rr + '/min', 'above', '60/min'));
+                rrFlag = pushFlag('Respiratory rate', rrSentences);
+                if (fleming) {
+                    const low = fleming.rr[0];
+                    const high = fleming.rr[1];
+                    const place = rr > high ? 'above' : (rr < low ? 'below' : 'inside');
+                    interpretations.push({
+                        text: ixFill('pattern.rrPeds', { rr: rr, place: place, band: fleming.label, low: low, high: high }),
+                        flag: rrFlag,
+                        rank: place === 'inside' ? 0 : 2
+                    });
+                    if (place !== 'inside') {
+                        abnormalFindings.push(place === 'above' ? 'tachypnea' : 'bradypnea');
+                        severityScore += 2;
+                        actions.push(ixText('action.rrPeds'));
+                    }
+                } else if (rr > rrHigh + 10) {
+                    interpretations.push({ text: ixFill('pattern.rrSevere', { rr: rr }), flag: rrFlag, rank: 2 });
+                    abnormalFindings.push('severe_tachypnea');
+                    severityScore += 3;
+                    actions.push(ixText('action.rrSevere'));
+                } else if (rr > rrHigh) {
+                    interpretations.push({ text: ixFill('pattern.rrTachy', { rr: rr }), flag: rrFlag, rank: 1 });
+                    abnormalFindings.push('tachypnea');
+                    severityScore += 2;
+                } else if (rr < rrLow) {
+                    interpretations.push({ text: ixFill('pattern.rrBrady', { rr: rr }), flag: rrFlag, rank: 1 });
+                    abnormalFindings.push('bradypnea');
+                    severityScore += 2;
+                    actions.push(ixText('action.rrLow'));
+                } else {
+                    interpretations.push({ text: ixFill('pattern.rrInRange', { rr: rr }), flag: rrFlag, rank: 0 });
+                }
+            } else {
+                interpretations.push({ text: ixFill('pattern.rrMissing', { missing: notEntered }), flag: null, rank: 0 });
+            }
+
+            if (fleming && hrOn && hr > fleming.hr[1] && tempOn && temp >= 38.0) {
+                interpretations.push({ text: ixFill('pattern.tachyFever', {}), flag: null, rank: 1 });
+                severityScore += 1;
+            } else if (!fleming && hrOn && (hr > hrHigh || hr > 100) && tempOn && temp >= 38.0) {
+                interpretations.push({ text: ixFill('pattern.tachyFever', {}), flag: null, rank: 1 });
+                severityScore += 1;
+            }
+            if (fleming && rrOn && rr > fleming.rr[1] && tempOn && temp >= 38.0) {
+                interpretations.push({ text: ixFill('pattern.rrFever', {}), flag: null, rank: 1 });
+                severityScore += 1;
+            } else if (!fleming && rrOn && (rr > rrHigh || rr > 20) && tempOn && temp >= 38.0) {
+                interpretations.push({ text: ixFill('pattern.rrFever', {}), flag: null, rank: 1 });
+                severityScore += 1;
+            }
+
+            if (isOlderAdult) severityScore += 1;
+            if (pregnant === 'yes' && ((sysOn && sys >= 140) || (diaOn && dia >= 90))) severityScore += 1;
+            if (hasComorbidity) severityScore += 1;
+
+            const enteredCount = (sysOn && diaOn ? 1 : 0) + (tempOn ? 1 : 0) + (hrOn ? 1 : 0) + (rrOn ? 1 : 0);
+            const vitalTotal = 4;
+            const setIncomplete = enteredCount < vitalTotal;
+            const incompleteLabel = ixFill('incomplete', { n: enteredCount, m: vitalTotal });
+
+            function indexFor(score, findings) {
+                if (score >= 10 || findings.includes('critical_bp') || findings.includes('severe_tachypnea')) return 4;
+                if (score >= 7) return 3;
+                if (score >= 4) return 2;
+                if (score >= 1) return 1;
+                return 0;
+            }
+            const priorityIndex = indexFor(severityScore, abnormalFindings);
+
+            const ranked = interpretations.slice().sort(function (a, b) { return b.rank - a.rank; });
+            const leadRow = ranked.find(function (row) { return row.rank > 0; }) || ranked.find(function (row) { return row.text.indexOf(notEntered) === -1; }) || ranked[0];
+            let lead = leadRow ? leadRow.text : '';
+            let leadFlag = leadRow && leadRow.flag ? leadRow.flag : null;
+
+            const considerations = [];
+            if (priorityIndex >= 3) {
+                considerations.push(ixText('escalate'));
+                considerations.push(ixText('recheckSet'));
+            }
+            actions.forEach(function (action) {
+                if (action && considerations.indexOf(action) === -1) considerations.push(action);
+            });
+            if (conditions === 'asthma' && (abnormalFindings.includes('tachypnea') || abnormalFindings.includes('severe_tachypnea'))) {
+                considerations.push(ixText('asthmaTachypnea'));
+            }
+            considerations.push(ixText('spo2Reminder'));
+
+            const context = [];
+            if (ageOn) context.push(ixFill('context.age', { age: age }));
+            if (sex === 'female' || sex === 'male') context.push(ixFill('context.sex', { sex: sex }));
+            if (pregnant === 'yes') context.push(ixText('context.pregnant'));
+            if (pregnant === 'yes' && pregCountField.entered) context.push(ixFill('context.pregnancies', { n: pregCountField.n }));
+            if (pregnant === 'yes' && ((sysOn && sys >= 160) || (diaOn && dia >= 110))) {
+                context.push(ixText('pregnancySevere'));
+            } else if (pregnant === 'yes' && ((sysOn && sys >= 140) || (diaOn && dia >= 90))) {
+                context.push(ixText('pregnancyHypertension'));
             }
             if (hasComorbidity) {
-                context.push(`Known condition context: ${conditions.toUpperCase()} may shift target priorities and reassessment frequency.`);
-                severityScore += 1;
+                const conditionLabels = {
+                    hypertension: 'Hypertension',
+                    diabetes: 'Diabetes',
+                    asthma: 'Asthma',
+                    copd: 'COPD',
+                    ckd: 'Chronic kidney disease',
+                    multiple: 'Multiple conditions'
+                };
+                context.push(ixFill('context.condition', { name: conditionLabels[conditions] || conditions }));
             }
 
-            // Assign priority level and style
-            const priorityLevels = [
-                { key: "Normal / Green", icon: "🟢", textClass: "text-green-300", bgClass: "bg-green-900/30", borderClass: "border-green-600/60" },
-                { key: "Mild Concern / Yellow", icon: "🟡", textClass: "text-yellow-300", bgClass: "bg-yellow-900/30", borderClass: "border-yellow-600/60" },
-                { key: "Moderate Concern / Orange", icon: "🟠", textClass: "text-orange-300", bgClass: "bg-orange-900/30", borderClass: "border-orange-600/60" },
-                { key: "High Priority / Red", icon: "🔴", textClass: "text-red-300", bgClass: "bg-red-900/30", borderClass: "border-red-600/60" },
-                { key: "Emergency / Critical", icon: "🚨", textClass: "text-red-200", bgClass: "bg-red-950/50", borderClass: "border-red-500" }
-            ];
-
-            let priorityIndex = 0;
-            if (severityScore >= 10 || abnormalFindings.includes('critical_bp') || abnormalFindings.includes('severe_tachypnea')) priorityIndex = 4;
-            else if (severityScore >= 7) priorityIndex = 3;
-            else if (severityScore >= 4) priorityIndex = 2;
-            else if (severityScore >= 1) priorityIndex = 1;
-
-            const chosenPriority = priorityLevels[priorityIndex];
-
-            // Keep action list concise and relevant (2-4 items)
-            const uniqueActions = [...new Set(actions)];
-            if (uniqueActions.length < 2) {
-                uniqueActions.push("Reassess the full vital signs within 15 to 30 minutes and compare the trend.");
-                uniqueActions.push("Report significant trend changes to your clinical instructor during scenario debrief.");
+            const conditionLabels = {
+                hypertension: 'Hypertension',
+                diabetes: 'Diabetes',
+                asthma: 'Asthma',
+                copd: 'COPD',
+                ckd: 'Chronic kidney disease',
+                multiple: 'Multiple conditions'
+            };
+            const conditionPoint = hasComorbidity ? 1 : 0;
+            const olderPoint = isOlderAdult ? 1 : 0;
+            const pregnancyPoint = (pregnant === 'yes' && ((sysOn && sys >= 140) || (diaOn && dia >= 90))) ? 1 : 0;
+            const shifts = [];
+            function noteShift(point, name) {
+                if (!point) return false;
+                const without = indexFor(severityScore - point, abnormalFindings);
+                if (without === priorityIndex) return false;
+                shifts.push(ixFill('how.severityPoint', {
+                    name: name,
+                    from: ixText('priority.' + without + '.text'),
+                    to: ixText('priority.' + priorityIndex + '.text')
+                }));
+                return true;
             }
-            const finalActions = uniqueActions.slice(0, 4);
+            const conditionChanged = noteShift(conditionPoint, conditionLabels[conditions] || 'Condition');
+            const olderChanged = noteShift(olderPoint, 'Older age');
+            const pregnancyChanged = noteShift(pregnancyPoint, 'Pregnancy');
+            const noted = [];
+            if (ageOn && !fleming && !olderChanged) noted.push('age');
+            if (sex === 'female' || sex === 'male') noted.push('sex');
+            if (pregnant === 'yes' && !pregnancyChanged) noted.push('pregnancy');
+            if (hasComorbidity && !conditionChanged) noted.push('condition');
+            const howParts = [];
+            if (fleming) howParts.push(ixFill('how.fleming', { band: fleming.label }));
+            if (fleming && age < 0.25) howParts.push(ixText('how.flemingNewborn'));
+            shifts.forEach(function (line) { if (line) howParts.push(line); });
+            if (noted.length) howParts.push(noted.join(', ') + ' ' + ixText('how.noted'));
+            let howDerived = howParts.join(' ');
+            if (!howDerived) howDerived = ixText('how.noted');
 
-            // Build interpretation list with strongest findings first
-            const criticalInterpretations = interpretations.filter(item =>
-                item.includes("crisis") || item.includes("Stage 2") || item.includes("Severe") || item.includes("Marked")
-            );
-            const baselineInterpretations = interpretations.filter(item => !criticalInterpretations.includes(item));
-            const finalInterpretations = [...criticalInterpretations, ...baselineInterpretations].slice(0, 5);
+            const referenceLabel = (fleming && bpUnder13)
+                ? (ixText('ref.peds') || 'Pediatric centile reference')
+                : (fleming
+                    ? (ixText('ref.fleming') || 'Fleming 2011 centiles')
+                    : (ixText('ref.adult') || 'adult reference'));
+            const inputs = [];
+            if (sysOn && diaOn) inputs.push('BP ' + sys + '/' + dia + ' mmHg');
+            else if (sysOn) inputs.push('Systolic ' + sys + ' mmHg; diastolic ' + notEntered);
+            else if (diaOn) inputs.push('Diastolic ' + dia + ' mmHg; systolic ' + notEntered);
+            else inputs.push('BP ' + notEntered);
+            inputs.push(tempOn ? ('Temp ' + temp.toFixed(1) + '°C') : ('Temp ' + notEntered));
+            inputs.push(hrOn ? ('HR ' + hr + ' bpm') : ('HR ' + notEntered));
+            inputs.push(rrOn ? ('RR ' + rr + '/min') : ('RR ' + notEntered));
 
-            let html = `<div class="w-full space-y-4 text-left not-italic">
-                <div class="rounded-lg border ${chosenPriority.borderClass} ${chosenPriority.bgClass} p-3">
-                    <p class="text-xs uppercase tracking-wide text-slate-300">Overall Priority Level</p>
-                    <p class="font-bold ${chosenPriority.textClass} text-sm mt-1">${chosenPriority.icon} ${chosenPriority.key}</p>
-                </div>
-
-                <div class="bg-slate-800/40 border border-slate-700 rounded-lg p-3">
-                    <p class="font-semibold text-slate-200 text-sm mb-2">Clinical Interpretation</p>
-                    <ul class="np-bullets text-xs text-slate-200">`;
-            finalInterpretations.forEach(item => {
-                html += `<li>${item}</li>`;
-            });
-            html += `</ul></div>
-
-                <div class="bg-slate-800/40 border border-slate-700 rounded-lg p-3">
-                    <p class="font-semibold text-slate-200 text-sm mb-2">Nursing Considerations / Actions</p>
-                    <ul class="np-bullets text-xs text-cyan-200">`;
-            finalActions.forEach(item => {
-                html += `<li>${item}</li>`;
-            });
-            html += `</ul></div>`;
-
-            if (context.length > 0) {
-                html += `<div class="bg-indigo-900/20 border border-indigo-700/50 rounded-lg p-3">
-                    <p class="font-semibold text-indigo-200 text-sm mb-2">Patient Context</p>
-                    <ul class="np-bullets text-xs text-indigo-100">`;
-                context.slice(0, 4).forEach(item => {
-                    html += `<li>${item}</li>`;
-                });
-                html += `</ul></div>`;
+            const quietPartial = setIncomplete && priorityIndex === 0 && !bpUnstaged;
+            let priority;
+            let incomplete = '';
+            let meaning = (priorityIndex === 1 && abnormalFindings.length === 0)
+                ? ixText('meaning.severityOnly')
+                : ixText('meaning.' + priorityIndex);
+            if (quietPartial) {
+                priority = { icon: '', text: incompleteLabel, neutral: true };
+                lead = ixText('partial.noConcerns');
+                leadFlag = null;
+                meaning = ixText('partial.noConcerns');
+            } else if (bpUnstaged && priorityIndex === 0) {
+                const unstagedLead = interpretations.filter(function (row) {
+                    return row.text.indexOf('2017 AAP') !== -1;
+                })[0];
+                const unstagedText = unstagedLead ? unstagedLead.text : ixText('bp.under13');
+                priority = {
+                    icon: '',
+                    text: setIncomplete ? incompleteLabel : unstagedText,
+                    neutral: true
+                };
+                lead = unstagedText;
+                leadFlag = null;
+                meaning = unstagedText;
+            } else {
+                priority = {
+                    icon: ixText('priority.' + priorityIndex + '.icon'),
+                    text: ixText('priority.' + priorityIndex + '.text'),
+                    neutral: false
+                };
+                if (setIncomplete) incomplete = incompleteLabel;
             }
+            const result = {
+                container: box,
+                priority: priority,
+                incomplete: incomplete,
+                lead: lead,
+                leadFlag: leadFlag,
+                interpretation: ranked,
+                considerations: considerations.filter(Boolean),
+                context: context,
+                meaning: meaning,
+                howDerived: howDerived,
+                disclaimer: ixText('disclaimer'),
+                inputs: inputs,
+                referenceLabel: referenceLabel,
+                flags: flags
+            };
+            if (typeof window.renderInterpretation === 'function') window.renderInterpretation(result);
 
-            html += `<div class="bg-amber-900/20 border border-amber-700/50 rounded-lg p-2">
-                    <p class="text-[10px] text-amber-300 italic">Reference findings for study. Confirm anything that affects care with your Clinical Instructor.</p>
-                </div>
-            </div>`;
-
-            box.innerHTML = html;
-            box.className = "p-4 bg-slate-700/20 rounded-xl border border-blue-500/40 min-h-[120px] flex items-start text-sm";
-
-            badge.innerText = `${chosenPriority.icon} ${chosenPriority.key}`;
-            badge.className = `px-4 py-2 rounded-full text-xs font-bold font-mono ${chosenPriority.textClass} bg-slate-800 border ${chosenPriority.borderClass} shadow-lg`;
+            badge.innerText = (priority.icon ? priority.icon + ' ' : '') + priority.text;
+            badge.className = 'px-4 py-2 rounded-full text-xs font-bold font-mono is-result';
 
             const learnWrap = document.getElementById('vitals-learn');
             const learnMeaning = document.getElementById('vitals-learn-meaning');
+            const learnHow = document.getElementById('vitals-learn-how');
             if (learnWrap) learnWrap.style.display = 'grid';
-            if (learnMeaning) {
-                const topFinding = finalInterpretations[0] || 'No dominant finding yet';
-                learnMeaning.textContent = `Priority ${chosenPriority.key}. Lead finding: ${topFinding}`;
-            }
+            if (learnMeaning) learnMeaning.textContent = 'Priority ' + priority.text + '. Lead finding: ' + lead;
+            if (learnHow) learnHow.textContent = howDerived;
 
             return {
                 ok: true,
-                priority: chosenPriority.key,
-                findings_count: finalInterpretations.length,
-                recommendation_count: finalActions.length,
+                priority: priority.text,
+                findings_count: interpretations.length,
+                recommendation_count: considerations.length,
                 has_comorbidity: conditions !== 'none',
-                pregnant
+                pregnant: pregnant
             };
         }
 
@@ -597,24 +554,68 @@
         }
 
         // ============= TAB SWITCHING FUNCTION =============
+        function setMobileNavLevel(level) {
+            const bar = document.getElementById('npTabbar');
+            if (!bar) return;
+            const next = level === 'references' ? 'references' : 'main';
+            if (bar.dataset.level === next) return;
+            bar.dataset.level = next;
+            bar.querySelectorAll('[data-nav-level]').forEach((group) => {
+                group.hidden = group.getAttribute('data-nav-level') !== next;
+                if (!group.hidden && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && group.animate) {
+                    group.getAnimations().forEach((animation) => animation.cancel());
+                    group.animate([
+                        { opacity: 0, transform: next === 'references' ? 'translateX(100%)' : 'translateX(-100%)' },
+                        { opacity: 1, transform: 'translateX(0)' }
+                    ], { duration: 320, easing: 'cubic-bezier(.22,1,.36,1)' });
+                }
+            });
+        }
+
+        function syncMobileNavigation(tab) {
+            setMobileNavLevel(['labs', 'abbrev', 'sizes'].includes(tab) ? 'references' : 'main');
+        }
+
         function switchMainTab(tab, opts) {
+            syncMobileNavigation(tab);
             const skipHistory = !!(opts && opts.skipHistory);
             trackUsageSafe('navigation', 'feature_open', { tab }, { minIntervalMs: 700, rateKey: `tab_${tab}` });
 
             // Hide all tab contents
             document.getElementById('content-tools').classList.add('hidden');
             document.getElementById('content-otc').classList.add('hidden');
-            const ivContent = document.getElementById('content-iv');
-            if (ivContent) ivContent.classList.add('hidden');
+            const contentLabs = document.getElementById('content-labs');
+            if (contentLabs) contentLabs.classList.add('hidden');
+            const contentAbbrev = document.getElementById('content-abbrev');
+            if (contentAbbrev) contentAbbrev.classList.add('hidden');
+            const contentSizes = document.getElementById('content-sizes');
+            if (contentSizes) contentSizes.classList.add('hidden');
+            const contentIv = document.getElementById('content-iv');
+            if (contentIv) contentIv.classList.add('hidden');
             
             // Remove active state from all tab buttons
             document.getElementById('tab-tools').classList.remove('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
             document.getElementById('tab-tools').classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
             document.getElementById('tab-otc').classList.remove('active', 'bg-amber-900/50', 'border-amber-500/50', 'text-amber-400');
             document.getElementById('tab-otc').classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            const tabLabs = document.getElementById('tab-labs');
+            if (tabLabs) {
+                tabLabs.classList.remove('active', 'text-emerald-400');
+                tabLabs.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
+            const tabAbbrev = document.getElementById('tab-abbrev');
+            if (tabAbbrev) {
+                tabAbbrev.classList.remove('active', 'text-violet-300');
+                tabAbbrev.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
+            const tabSizes = document.getElementById('tab-sizes');
+            if (tabSizes) {
+                tabSizes.classList.remove('active', 'text-sky-300');
+                tabSizes.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
             const tabIv = document.getElementById('tab-iv');
             if (tabIv) {
-                tabIv.classList.remove('active', 'bg-teal-900/50', 'border-teal-500/50', 'text-teal-300');
+                tabIv.classList.remove('active', 'text-teal-300');
                 tabIv.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
             }
             
@@ -632,19 +633,58 @@
                 // Reset to initial preview count and re-render OTC list when switching to tab
                 if (typeof hideOTCDetail === 'function') hideOTCDetail({ skipHistory: true });
                 otcVisibleCount = OTC_INCREMENT;
-                renderOTCList('');
+                renderOtcChips();
+                renderOTCList(otcSearch ? otcSearch.value : '');
                 if (!skipHistory) pushNursePathState({ view: 'otc', tab: 'otc' });
             } else if (tab === 'iv') {
-                if (ivContent) ivContent.classList.remove('hidden');
+                if (contentIv) contentIv.classList.remove('hidden');
                 if (tabIv) {
                     tabIv.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
-                    tabIv.classList.add('active', 'bg-teal-900/50', 'border-teal-500/50', 'text-teal-300');
+                    tabIv.classList.add('active', 'text-teal-300');
                 }
                 if (typeof hideIVDetail === 'function') hideIVDetail({ skipHistory: true });
-                if (typeof renderIVList === 'function') renderIVList('');
+                if (typeof renderIVList === 'function') renderIVList(document.getElementById('iv-search') ? document.getElementById('iv-search').value : '');
                 if (!skipHistory) pushNursePathState({ view: 'iv', tab: 'iv' });
+            } else if (tab === 'labs') {
+                if (contentLabs) contentLabs.classList.remove('hidden');
+                if (tabLabs) {
+                    tabLabs.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                    tabLabs.classList.add('active', 'text-emerald-400');
+                }
+                if (typeof resetLabView === 'function') resetLabView();
+                else if (typeof initLabRanges === 'function') initLabRanges();
+                if (!skipHistory) pushNursePathState({ view: 'labs', tab: 'labs' });
+            } else if (tab === 'abbrev') {
+                if (contentAbbrev) contentAbbrev.classList.remove('hidden');
+                if (tabAbbrev) {
+                    tabAbbrev.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                    tabAbbrev.classList.add('active', 'text-violet-300');
+                }
+                if (typeof resetAbbrevView === 'function') resetAbbrevView();
+                else if (typeof initAbbreviations === 'function') initAbbreviations();
+                if (!skipHistory) pushNursePathState({ view: 'abbrev', tab: 'abbrev' });
+            } else if (tab === 'sizes') {
+                if (contentSizes) contentSizes.classList.remove('hidden');
+                if (tabSizes) {
+                    tabSizes.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                    tabSizes.classList.add('active', 'text-sky-300');
+                }
+                if (typeof resetSizeView === 'function') resetSizeView();
+                else if (typeof initSizes === 'function') initSizes();
+                if (!skipHistory) pushNursePathState({ view: 'sizes', tab: 'sizes' });
             }
             
+            document.querySelectorAll('.np-tabbar-link').forEach((el) => {
+                const active = el.getAttribute('data-tab') === tab ||
+                    (el.getAttribute('data-nav-action') === 'references' && ['labs', 'abbrev', 'sizes'].includes(tab));
+                el.classList.toggle('is-active', active);
+                if (el.hasAttribute('data-tab')) {
+                    if (active) el.setAttribute('aria-current', 'page');
+                    else el.removeAttribute('aria-current');
+                }
+            });
+            if (typeof window.closeNursePathSettings === 'function') window.closeNursePathSettings();
+
             // Scroll to top of content
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -675,6 +715,9 @@
                     cur.tab === next.tab &&
                     cur.toolId === next.toolId &&
                     cur.otcId === next.otcId &&
+                    cur.labId === next.labId &&
+                    cur.abbrevId === next.abbrevId &&
+                    cur.sizeId === next.sizeId &&
                     cur.ivId === next.ivId &&
                     cur.overlay === next.overlay
                 ) {
@@ -690,75 +733,123 @@
             } catch (e) { /* ignore */ }
         }
 
-        function ensureToolsTabVisible() {
-            const tools = document.getElementById('content-tools');
-            const otc = document.getElementById('content-otc');
-            const iv = document.getElementById('content-iv');
-            if (tools) tools.classList.remove('hidden');
-            if (otc) otc.classList.add('hidden');
-            if (iv) iv.classList.add('hidden');
+        function clearMainTabButtons() {
             const tabTools = document.getElementById('tab-tools');
             const tabOtc = document.getElementById('tab-otc');
-            const tabIvReset = document.getElementById('tab-iv');
+            const tabLabs = document.getElementById('tab-labs');
             if (tabTools) {
-                tabTools.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
-                tabTools.classList.add('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
+                tabTools.classList.remove('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
+                tabTools.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
             }
             if (tabOtc) {
                 tabOtc.classList.remove('active', 'bg-amber-900/50', 'border-amber-500/50', 'text-amber-400');
                 tabOtc.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
             }
-            if (tabIvReset) {
-                tabIvReset.classList.remove('active', 'bg-teal-900/50', 'border-teal-500/50', 'text-teal-300');
-                tabIvReset.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            if (tabLabs) {
+                tabLabs.classList.remove('active', 'text-emerald-400');
+                tabLabs.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
+            const tabAbbrev = document.getElementById('tab-abbrev');
+            const tabSizes = document.getElementById('tab-sizes');
+            if (tabAbbrev) {
+                tabAbbrev.classList.remove('active', 'text-violet-300');
+                tabAbbrev.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
+            if (tabSizes) {
+                tabSizes.classList.remove('active', 'text-sky-300');
+                tabSizes.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
+            const tabIvClear = document.getElementById('tab-iv');
+            if (tabIvClear) {
+                tabIvClear.classList.remove('active', 'text-teal-300');
+                tabIvClear.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
+        }
+
+        function hideAllMainTabs() {
+            const tools = document.getElementById('content-tools');
+            const otc = document.getElementById('content-otc');
+            const labs = document.getElementById('content-labs');
+            if (tools) tools.classList.add('hidden');
+            if (otc) otc.classList.add('hidden');
+            if (labs) labs.classList.add('hidden');
+            const abbrev = document.getElementById('content-abbrev');
+            const sizes = document.getElementById('content-sizes');
+            if (abbrev) abbrev.classList.add('hidden');
+            if (sizes) sizes.classList.add('hidden');
+            const iv = document.getElementById('content-iv');
+            if (iv) iv.classList.add('hidden');
+        }
+
+        function ensureIvTabVisible() {
+            hideAllMainTabs();
+            clearMainTabButtons();
+            const iv = document.getElementById('content-iv');
+            const tabIv = document.getElementById('tab-iv');
+            if (iv) iv.classList.remove('hidden');
+            if (tabIv) {
+                tabIv.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                tabIv.classList.add('active', 'text-teal-300');
+            }
+        }
+
+        function ensureToolsTabVisible() {
+            hideAllMainTabs();
+            clearMainTabButtons();
+            const tools = document.getElementById('content-tools');
+            const tabTools = document.getElementById('tab-tools');
+            if (tools) tools.classList.remove('hidden');
+            if (tabTools) {
+                tabTools.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                tabTools.classList.add('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
             }
         }
 
         function ensureOtcTabVisible() {
-            const tools = document.getElementById('content-tools');
+            hideAllMainTabs();
+            clearMainTabButtons();
             const otc = document.getElementById('content-otc');
-            const iv = document.getElementById('content-iv');
-            if (otc) otc.classList.remove('hidden');
-            if (tools) tools.classList.add('hidden');
-            if (iv) iv.classList.add('hidden');
-            const tabTools = document.getElementById('tab-tools');
             const tabOtc = document.getElementById('tab-otc');
+            if (otc) otc.classList.remove('hidden');
             if (tabOtc) {
                 tabOtc.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
                 tabOtc.classList.add('active', 'bg-amber-900/50', 'border-amber-500/50', 'text-amber-400');
             }
-            if (tabTools) {
-                tabTools.classList.remove('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
-                tabTools.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
-            }
-            const tabIvOff = document.getElementById('tab-iv');
-            if (tabIvOff) {
-                tabIvOff.classList.remove('active', 'bg-teal-900/50', 'border-teal-500/50', 'text-teal-300');
-                tabIvOff.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+        }
+
+        function ensureLabsTabVisible() {
+            hideAllMainTabs();
+            clearMainTabButtons();
+            const labs = document.getElementById('content-labs');
+            const tabLabs = document.getElementById('tab-labs');
+            if (labs) labs.classList.remove('hidden');
+            if (tabLabs) {
+                tabLabs.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                tabLabs.classList.add('active', 'text-emerald-400');
             }
         }
 
-        function ensureIvTabVisible() {
-            const tools = document.getElementById('content-tools');
-            const otc = document.getElementById('content-otc');
-            const iv = document.getElementById('content-iv');
-            if (iv) iv.classList.remove('hidden');
-            if (tools) tools.classList.add('hidden');
-            if (otc) otc.classList.add('hidden');
-            const tabIvOn = document.getElementById('tab-iv');
-            const tabToolsOff = document.getElementById('tab-tools');
-            const tabOtcOff = document.getElementById('tab-otc');
-            if (tabIvOn) {
-                tabIvOn.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
-                tabIvOn.classList.add('active', 'bg-teal-900/50', 'border-teal-500/50', 'text-teal-300');
+        function ensureAbbrevTabVisible() {
+            hideAllMainTabs();
+            clearMainTabButtons();
+            const pane = document.getElementById('content-abbrev');
+            const tab = document.getElementById('tab-abbrev');
+            if (pane) pane.classList.remove('hidden');
+            if (tab) {
+                tab.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                tab.classList.add('active', 'text-violet-300');
             }
-            if (tabToolsOff) {
-                tabToolsOff.classList.remove('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
-                tabToolsOff.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
-            }
-            if (tabOtcOff) {
-                tabOtcOff.classList.remove('active', 'bg-amber-900/50', 'border-amber-500/50', 'text-amber-400');
-                tabOtcOff.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+        }
+
+        function ensureSizesTabVisible() {
+            hideAllMainTabs();
+            clearMainTabButtons();
+            const pane = document.getElementById('content-sizes');
+            const tab = document.getElementById('tab-sizes');
+            if (pane) pane.classList.remove('hidden');
+            if (tab) {
+                tab.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                tab.classList.add('active', 'text-sky-300');
             }
         }
 
@@ -800,13 +891,15 @@
             const studyBtn = document.getElementById('hubStudyBtn');
             if (dutyBtn) dutyBtn.classList.toggle('is-active', next === 'duty');
             if (studyBtn) studyBtn.classList.toggle('is-active', next === 'study');
+            if (dutyBtn) dutyBtn.setAttribute('aria-pressed', String(next === 'duty'));
+            if (studyBtn) studyBtn.setAttribute('aria-pressed', String(next === 'study'));
             const title = document.getElementById('toolsHubTitle');
             const blurb = document.getElementById('toolsHubBlurb');
-            if (title) title.textContent = next === 'study' ? 'Study Classroom' : 'Clinical Tools';
+            if (title) title.textContent = next === 'study' ? 'Lessons' : 'Clinical Tools';
             if (blurb) {
                 blurb.textContent = next === 'study'
-                    ? 'Study mode: pick a topic for an instructor-style lesson and quiz. Fully offline.'
-                    : 'Duty mode: fast calculators for ward pocket use. OTC lives in the OTC tab.';
+                    ? 'Explore concepts, lessons, and practice questions.'
+                    : 'Quick-access tools for clinical practice.';
             }
             document.querySelectorAll('.tool-hub-desc').forEach((el) => {
                 const duty = el.getAttribute('data-duty-desc');
@@ -829,6 +922,28 @@
             else openClinicalTool(toolId);
         }
 
+        function setToolChrome(active, vitalsOpen) {
+            document.documentElement.classList.toggle('np-tool-active', !!active);
+            document.documentElement.classList.toggle('np-vitals-open', !!vitalsOpen);
+        }
+
+        function syncVitalsObFields() {
+            const wrap = document.getElementById('vitals-ob-fields');
+            const sexEl = document.getElementById('sex');
+            const ageEl = document.getElementById('age');
+            const pregCount = document.getElementById('pregnancies');
+            const pregnant = document.getElementById('pregnant');
+            if (!wrap || !sexEl || !ageEl) return;
+            const age = parseInt(ageEl.value, 10);
+            const show = sexEl.value === 'female' && Number.isFinite(age) && age >= 12 && age <= 55;
+            wrap.classList.toggle('hidden', !show);
+            if (!show) {
+                if (pregCount) pregCount.value = '';
+                if (pregnant) pregnant.value = 'no';
+            }
+        }
+        window.syncVitalsObFields = syncVitalsObFields;
+
         function openClinicalTool(toolId, opts) {
             const hub = document.getElementById('tools-hub');
             const detail = document.getElementById('tools-detail');
@@ -839,6 +954,7 @@
             hub.classList.add('hidden');
             if (study) study.classList.add('hidden');
             detail.classList.remove('hidden');
+            setToolChrome(true, toolId === 'vitals');
             Object.values(CLINICAL_TOOL_PANELS).forEach((id) => {
                 const el = document.getElementById(id);
                 if (el) el.classList.remove('is-active');
@@ -846,6 +962,7 @@
             const panelId = CLINICAL_TOOL_PANELS[toolId];
             const panel = panelId ? document.getElementById(panelId) : null;
             if (panel) panel.classList.add('is-active');
+            if (toolId === 'vitals') syncVitalsObFields();
             trackUsageSafe('navigation', 'feature_open', { tool: toolId, hub_mode: 'duty' }, { minIntervalMs: 700, rateKey: `tool_${toolId}` });
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (toolId === 'apgar') initApgarInputs();
@@ -1017,6 +1134,7 @@
             hub.classList.add('hidden');
             if (detail) detail.classList.add('hidden');
             study.classList.remove('hidden');
+            setToolChrome(true, false);
             const content = window.NursePathToolContent;
             const tool = content && content.getTool(toolId);
             const titleEl = document.getElementById('studyClassTitle');
@@ -1041,6 +1159,7 @@
             currentStudyToolId = null;
             studyQuizState = null;
             closeToolGuide({ skipHistory: true });
+            setToolChrome(false, false);
             if (hub) hub.classList.remove('hidden');
             if (detail) detail.classList.add('hidden');
             if (study) study.classList.add('hidden');
@@ -1157,7 +1276,42 @@
                     }
                 }
                 if (typeof hideIVDetail === 'function') hideIVDetail({ skipHistory: true });
-                if (typeof renderIVList === 'function') renderIVList(document.getElementById('iv-search') ? document.getElementById('iv-search').value : '');
+                if (typeof renderIVList === 'function') {
+                    const search = document.getElementById('iv-search');
+                    renderIVList(search ? search.value : '');
+                }
+                return;
+            }
+
+            if (state.view === 'labs' || state.view === 'labs-detail') {
+                ensureLabsTabVisible();
+                if (state.view === 'labs-detail' && state.labId && Array.isArray(window.labDatabase)) {
+                    const item = window.labDatabase.find((lab) => lab && lab.id === state.labId);
+                    if (item && typeof showLabDetail === 'function') {
+                        showLabDetail(item, { skipHistory: true });
+                        return;
+                    }
+                }
+                if (typeof hideLabDetail === 'function') hideLabDetail({ skipHistory: true });
+                return;
+            }
+
+            if (state.view === 'abbrev' || state.view === 'abbrev-detail') {
+                ensureAbbrevTabVisible();
+                if (typeof hideAbbrevDetail === 'function') hideAbbrevDetail({ skipHistory: true });
+                return;
+            }
+
+            if (state.view === 'sizes' || state.view === 'sizes-detail') {
+                ensureSizesTabVisible();
+                if (state.view === 'sizes-detail' && state.sizeId && Array.isArray(window.sizeDatabase)) {
+                    const item = window.sizeDatabase.find((row) => row && row.id === state.sizeId);
+                    if (item && typeof showSizeDetail === 'function') {
+                        showSizeDetail(item, { skipHistory: true });
+                        return;
+                    }
+                }
+                if (typeof hideSizeDetail === 'function') hideSizeDetail({ skipHistory: true });
                 return;
             }
 
@@ -1176,6 +1330,7 @@
         });
 
         // Seed history so the first in-app Back has a hub state to land on.
+        try { window.history.scrollRestoration = 'manual'; } catch (e) { /* ignore */ }
         replaceNursePathState({ view: 'hub', tab: 'tools' });
 
         // Restore hub mode on load
@@ -1210,6 +1365,7 @@
             {
                 id: 'appearance',
                 letter: 'A',
+                short: 'Appearance',
                 name: 'Appearance (Color)',
                 hint: 'Skin color of the newborn',
                 options: [
@@ -1221,6 +1377,7 @@
             {
                 id: 'pulse',
                 letter: 'P',
+                short: 'Pulse',
                 name: 'Pulse (Heart rate)',
                 hint: 'Count apical HR for 1 full minute when possible',
                 options: [
@@ -1232,6 +1389,7 @@
             {
                 id: 'grimace',
                 letter: 'G',
+                short: 'Grimace',
                 name: 'Grimace (Reflex irritability)',
                 hint: 'Response to suction or mild stimulus',
                 options: [
@@ -1243,6 +1401,7 @@
             {
                 id: 'activity',
                 letter: 'A',
+                short: 'Activity',
                 name: 'Activity (Muscle tone)',
                 hint: 'Watch flexion and movement',
                 options: [
@@ -1254,6 +1413,7 @@
             {
                 id: 'respiration',
                 letter: 'R',
+                short: 'Respiration',
                 name: 'Respiration',
                 hint: 'Effort and cry quality',
                 options: [
@@ -1267,6 +1427,7 @@
         const BRADEN_RUBRIC = [
             {
                 id: 'sensory',
+                short: 'Sensory',
                 name: 'Sensory Perception',
                 hint: 'Ability to respond meaningfully to pressure-related discomfort',
                 options: [
@@ -1278,6 +1439,7 @@
             },
             {
                 id: 'moisture',
+                short: 'Moisture',
                 name: 'Moisture',
                 hint: 'Degree to which skin is exposed to moisture',
                 options: [
@@ -1289,6 +1451,7 @@
             },
             {
                 id: 'activity',
+                short: 'Activity',
                 name: 'Activity',
                 hint: 'Degree of physical activity',
                 options: [
@@ -1300,6 +1463,7 @@
             },
             {
                 id: 'mobility',
+                short: 'Mobility',
                 name: 'Mobility',
                 hint: 'Ability to change and control body position',
                 options: [
@@ -1311,6 +1475,7 @@
             },
             {
                 id: 'nutrition',
+                short: 'Nutrition',
                 name: 'Nutrition',
                 hint: 'Usual food intake pattern',
                 options: [
@@ -1322,6 +1487,7 @@
             },
             {
                 id: 'friction',
+                short: 'Friction',
                 name: 'Friction & Shear',
                 hint: 'Scored 1–3 only',
                 options: [
@@ -1336,6 +1502,7 @@
             {
                 id: 'eye',
                 key: 'eye',
+                short: 'Eye',
                 name: 'Eye Opening (E)',
                 hint: 'Best eye response',
                 options: [
@@ -1348,6 +1515,7 @@
             {
                 id: 'verbal',
                 key: 'verbal',
+                short: 'Verbal',
                 name: 'Verbal Response (V)',
                 hint: 'Best verbal response',
                 options: [
@@ -1355,12 +1523,14 @@
                     { value: 4, label: 'Confused', desc: 'Converses but confused.' },
                     { value: 3, label: 'Inappropriate words', desc: 'Random words, no conversation.' },
                     { value: 2, label: 'Incomprehensible sounds', desc: 'Moaning / groaning only.' },
-                    { value: 1, label: 'None', desc: 'No verbal response.' }
+                    { value: 1, label: 'None', desc: 'No verbal response.' },
+                    { value: 'NT', label: 'Unable to assess', desc: 'Intubated or otherwise cannot speak. Chart VT. Do not score this as 1.' }
                 ]
             },
             {
                 id: 'motor',
                 key: 'motor',
+                short: 'Motor',
                 name: 'Motor Response (M)',
                 hint: 'Best motor response',
                 options: [
@@ -1374,103 +1544,271 @@
             }
         ];
 
-        const apgarState = {};
+        function blankApgar() {
+            const row = {};
+            APGAR_RUBRIC.forEach((r) => { row[r.id] = null; });
+            return row;
+        }
+        const apgarByMinute = { '1': blankApgar(), '5': blankApgar(), '10': blankApgar() };
+        let apgarMinute = '1';
         const bradenState = {};
         const gcsState = { eye: null, verbal: null, motor: null };
+        const scaleOpen = { gcs: 'eye', braden: 'sensory' };
+        let scaleCopyText = { apgar: '', gcs: '', braden: '', ron: '' };
 
-        function renderScoreOptions(host, rubric, stateObj, onChange) {
+        function scaleOptionMatches(selected, value) {
+            return String(selected) === String(value);
+        }
+
+        function nextUnansweredId(rubric, stateObj) {
+            const next = rubric.find((item) => stateObj[item.id] == null || stateObj[item.id] === '');
+            return next ? next.id : null;
+        }
+
+        function setScaleBand(id, band) {
+            const el = document.getElementById(id);
+            if (el) el.dataset.band = band || 'pending';
+        }
+
+        function syncScaleCopy(key, btnId) {
+            const btn = document.getElementById(btnId);
+            if (!btn) return;
+            btn.disabled = !scaleCopyText[key];
+        }
+
+        function bindScaleButton(id, handler) {
+            const btn = document.getElementById(id);
+            if (!btn || btn.dataset.bound === '1') return;
+            btn.dataset.bound = '1';
+            btn.addEventListener('click', handler);
+        }
+
+        async function copyScaleResult(key, btn) {
+            const text = scaleCopyText[key];
+            if (!text) {
+                const prev = btn.textContent;
+                btn.textContent = 'Finish the score';
+                setTimeout(() => { btn.textContent = prev; }, 1200);
+                return;
+            }
+            try {
+                await navigator.clipboard.writeText(text);
+                const prev = btn.textContent;
+                btn.textContent = 'Copied';
+                setTimeout(() => { btn.textContent = prev; }, 1200);
+                trackUsageSafe(key === 'ron' ? 'rule_of_nines' : key, 'copy_reference', {}, { minIntervalMs: 1200, rateKey: `${key}_copy` });
+            } catch (e) {
+                const prev = btn.textContent;
+                btn.textContent = 'Copy failed';
+                setTimeout(() => { btn.textContent = prev; }, 1200);
+            }
+        }
+
+        function renderScaleAccordion(host, rubric, stateObj, uiKey, onChange) {
             if (!host) return;
             host.innerHTML = rubric.map((item) => {
                 const selected = stateObj[item.id];
+                const chosen = item.options.find((opt) => scaleOptionMatches(selected, opt.value));
+                const open = scaleOpen[uiKey] === item.id;
+                const summary = chosen
+                    ? `${item.short || item.name}: ${chosen.value === 'NT' ? 'VT' : chosen.value}, ${chosen.label}`
+                    : 'Not scored';
                 const optionsHtml = item.options.map((opt) => {
-                    const isSel = Number(selected) === Number(opt.value);
-                    return `<button type="button" class="score-option${isSel ? ' is-selected' : ''}" data-id="${item.id}" data-value="${opt.value}">
-                        <span class="score-option-num">${opt.value}</span>
-                        <span class="score-option-text"><span class="score-option-label">${opt.label}</span><span class="score-option-desc">${opt.desc}</span></span>
+                    const isSel = scaleOptionMatches(selected, opt.value);
+                    const badge = opt.value === 'NT' ? 'VT' : opt.value;
+                    return `<button type="button" class="scale-opt${isSel ? ' is-selected' : ''}" data-id="${escapeGuideHtml(item.id)}" data-value="${escapeGuideHtml(opt.value)}" aria-pressed="${isSel ? 'true' : 'false'}">
+                        <span class="scale-opt-num">${escapeGuideHtml(badge)}</span>
+                        <span class="scale-opt-copy">
+                            <span class="scale-opt-label">${escapeGuideHtml(opt.label)}</span>
+                            <span class="scale-opt-desc">${escapeGuideHtml(opt.desc)}</span>
+                        </span>
+                        <span class="scale-opt-mark" aria-hidden="true">${isSel ? '✓' : ''}</span>
                     </button>`;
                 }).join('');
-                const letter = item.letter ? `<span class="score-criterion-letter">${item.letter}</span>` : '';
-                return `<section class="score-criterion" data-criterion="${item.id}">
-                    <div class="score-criterion-head">
-                        <div>${letter}<div class="score-criterion-name">${item.name}</div></div>
-                        <div class="score-criterion-hint">${item.hint || ''}</div>
-                    </div>
-                    <div class="score-options">${optionsHtml}</div>
+                return `<section class="scale-sec${open ? ' is-open' : ''}${chosen ? ' is-done' : ''}">
+                    <button type="button" class="scale-sec-head" data-id="${escapeGuideHtml(item.id)}" aria-expanded="${open ? 'true' : 'false'}">
+                        <span class="scale-sec-name">${escapeGuideHtml(item.name)}</span>
+                        <span class="scale-sec-sum">${escapeGuideHtml(summary)}</span>
+                    </button>
+                    <div class="scale-sec-body"${open ? '' : ' hidden'}>${optionsHtml}</div>
                 </section>`;
             }).join('');
 
-            host.querySelectorAll('.score-option').forEach((btn) => {
+            host.querySelectorAll('.scale-sec-head').forEach((btn) => {
                 btn.addEventListener('click', () => {
                     const id = btn.getAttribute('data-id');
-                    const value = Number(btn.getAttribute('data-value'));
-                    stateObj[id] = value;
-                    renderScoreOptions(host, rubric, stateObj, onChange);
+                    scaleOpen[uiKey] = scaleOpen[uiKey] === id ? null : id;
+                    renderScaleAccordion(host, rubric, stateObj, uiKey, onChange);
+                });
+            });
+            host.querySelectorAll('.scale-opt').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    const id = btn.getAttribute('data-id');
+                    const raw = btn.getAttribute('data-value');
+                    stateObj[id] = raw === 'NT' ? 'NT' : Number(raw);
+                    scaleOpen[uiKey] = nextUnansweredId(rubric, stateObj);
+                    renderScaleAccordion(host, rubric, stateObj, uiKey, onChange);
                     onChange();
                 });
             });
         }
 
+        function renderApgarTable() {
+            const host = document.getElementById('apgar-inputs');
+            const state = apgarByMinute[apgarMinute];
+            if (!host || !state) return;
+            host.innerHTML = APGAR_RUBRIC.map((item) => {
+                const chosen = item.options.find((opt) => state[item.id] === opt.value);
+                const cells = item.options.slice().sort((a, b) => a.value - b.value).map((opt) => {
+                    const isSel = state[item.id] === opt.value;
+                    return `<button type="button" class="apgar-cell${isSel ? ' is-selected' : ''}" data-id="${item.id}" data-value="${opt.value}" aria-pressed="${isSel ? 'true' : 'false'}">
+                        <span class="apgar-cell-num">${opt.value}</span>
+                        <span class="apgar-cell-label">${escapeGuideHtml(opt.label)}</span>
+                    </button>`;
+                }).join('');
+                return `<div class="apgar-row">
+                    <div class="apgar-row-name">${escapeGuideHtml(item.name)}</div>
+                    <div class="apgar-cells">${cells}</div>
+                    <p class="apgar-row-desc">${escapeGuideHtml(chosen ? chosen.desc : (item.hint || 'Tap 0, 1, or 2.'))}</p>
+                </div>`;
+            }).join('');
+            host.querySelectorAll('.apgar-cell').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    state[btn.getAttribute('data-id')] = Number(btn.getAttribute('data-value'));
+                    renderApgarTable();
+                    calcApgar();
+                });
+            });
+            document.querySelectorAll('.apgar-min').forEach((btn) => {
+                const min = btn.getAttribute('data-min');
+                if (!min) return;
+                const on = min === apgarMinute;
+                btn.classList.toggle('is-selected', on);
+                btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+                btn.innerHTML = on
+                    ? `${min} min <span class="scale-opt-mark" aria-hidden="true">✓</span>`
+                    : `${min} min`;
+            });
+        }
+
+        function setApgarMinute(min) {
+            if (!apgarByMinute[min]) return;
+            apgarMinute = min;
+            renderApgarTable();
+            calcApgar();
+        }
+
         function initApgarInputs() {
             const host = document.getElementById('apgar-inputs');
             if (!host) return;
-            if (!Object.keys(apgarState).length) {
-                APGAR_RUBRIC.forEach((r) => { apgarState[r.id] = null; });
-            }
-            renderScoreOptions(host, APGAR_RUBRIC, apgarState, calcApgar);
+            bindScaleButton('apgar-copy', (e) => copyScaleResult('apgar', e.currentTarget));
+            bindScaleButton('apgar-reset', () => {
+                apgarByMinute[apgarMinute] = blankApgar();
+                renderApgarTable();
+                calcApgar();
+            });
+            document.querySelectorAll('.apgar-min').forEach((btn) => {
+                if (btn.dataset.bound === '1') return;
+                btn.dataset.bound = '1';
+                btn.addEventListener('click', () => setApgarMinute(btn.getAttribute('data-min')));
+            });
+            renderApgarTable();
             calcApgar();
         }
 
         function calcApgar() {
             const calc = window.NursePathCalculators;
             if (!calc) return;
-            const complete = APGAR_RUBRIC.every((r) => apgarState[r.id] != null);
+            const state = apgarByMinute[apgarMinute];
+            const answered = APGAR_RUBRIC.filter((r) => state[r.id] != null);
             const totalEl = document.getElementById('apgar-total');
             const interpEl = document.getElementById('apgar-interp');
-            if (!complete) {
-                if (totalEl) totalEl.textContent = '--';
-                if (interpEl) interpEl.textContent = 'Select all five domains to score.';
+            const sticky = document.getElementById('apgar-sticky');
+            if (answered.length < APGAR_RUBRIC.length) {
+                scaleCopyText.apgar = '';
+                const soFar = answered.reduce((sum, r) => sum + state[r.id], 0);
+                if (totalEl) totalEl.textContent = answered.length ? `APGAR ${soFar} so far` : 'APGAR —';
+                if (interpEl) interpEl.textContent = `${answered.length} of 5 at ${apgarMinute} min. Select every sign.`;
+                if (sticky) sticky.dataset.band = 'pending';
+                syncScaleCopy('apgar', 'apgar-copy');
                 return;
             }
-            const result = calc.apgarScore(apgarState);
-            if (totalEl) totalEl.textContent = String(result.total);
+            const result = calc.apgarScore(state);
+            const band = result.total <= 3 ? 'severe' : (result.total <= 6 ? 'moderate' : 'mild');
+            const parts = APGAR_RUBRIC.map((r) => `${r.short} ${state[r.id]}`).join(', ');
+            if (totalEl) totalEl.textContent = `APGAR ${result.total} at ${apgarMinute} min`;
             if (interpEl) interpEl.textContent = result.interpretation;
+            if (sticky) sticky.dataset.band = band;
+            scaleCopyText.apgar = `APGAR ${result.total} at ${apgarMinute} min. ${parts}. ${result.interpretation}`;
+            syncScaleCopy('apgar', 'apgar-copy');
             const meaning = document.getElementById('apgar-learn-meaning');
-            if (meaning) meaning.textContent = `Total ${result.total} of 10. ${result.interpretation}`;
-            trackUsageSafe('apgar', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'apgar' });
+            if (meaning) meaning.textContent = `Total ${result.total} of 10 at ${apgarMinute} min. ${result.interpretation}`;
+            trackUsageSafe('apgar', 'result_generated', { total: result.total, minute: apgarMinute }, { minIntervalMs: 1500, rateKey: 'apgar' });
+        }
+
+        function gcsParts() {
+            const e = gcsState.eye != null ? `E${gcsState.eye}` : 'E—';
+            const v = gcsState.verbal == null ? 'V—' : (gcsState.verbal === 'NT' ? 'VT' : `V${gcsState.verbal}`);
+            const m = gcsState.motor != null ? `M${gcsState.motor}` : 'M—';
+            return `${e} ${v} ${m}`;
         }
 
         function initGcsInputs() {
             const host = document.getElementById('gcs-inputs');
             if (!host) return;
-            // Map rubric ids to gcsState keys
-            const mapped = GCS_RUBRIC.map((r) => ({ ...r, id: r.key }));
-            renderScoreOptions(host, mapped, gcsState, calcGCS);
+            bindScaleButton('gcs-copy', (e) => copyScaleResult('gcs', e.currentTarget));
+            bindScaleButton('gcs-reset', () => {
+                gcsState.eye = null;
+                gcsState.verbal = null;
+                gcsState.motor = null;
+                scaleOpen.gcs = 'eye';
+                renderScaleAccordion(host, GCS_RUBRIC.map((r) => ({ ...r, id: r.key })), gcsState, 'gcs', calcGCS);
+                calcGCS();
+            });
+            renderScaleAccordion(host, GCS_RUBRIC.map((r) => ({ ...r, id: r.key })), gcsState, 'gcs', calcGCS);
             calcGCS();
         }
 
         function calcGCS() {
             const calc = window.NursePathCalculators;
             if (!calc) return;
-            const eyeChip = document.getElementById('gcs-chip-eye');
-            const verbalChip = document.getElementById('gcs-chip-verbal');
-            const motorChip = document.getElementById('gcs-chip-motor');
-            if (eyeChip) eyeChip.textContent = gcsState.eye != null ? `E${gcsState.eye}` : 'E—';
-            if (verbalChip) verbalChip.textContent = gcsState.verbal != null ? `V${gcsState.verbal}` : 'V—';
-            if (motorChip) motorChip.textContent = gcsState.motor != null ? `M${gcsState.motor}` : 'M—';
-
             const totalEl = document.getElementById('gcs-total');
             const sevEl = document.getElementById('gcs-severity');
             const attentionEl = document.getElementById('gcs-learn-attention');
-            if (gcsState.eye == null || gcsState.verbal == null || gcsState.motor == null) {
-                if (totalEl) totalEl.textContent = '--';
-                if (sevEl) sevEl.textContent = 'Select Eye, Verbal, and Motor.';
+            const meaning = document.getElementById('gcs-learn-meaning');
+            const parts = gcsParts();
+            const ready = gcsState.eye != null && gcsState.verbal != null && gcsState.motor != null;
+            if (!ready) {
+                scaleCopyText.gcs = '';
+                const started = gcsState.eye != null || gcsState.verbal != null || gcsState.motor != null;
+                if (totalEl) totalEl.textContent = started ? `GCS ${parts}` : parts;
+                if (sevEl) sevEl.textContent = started ? 'Select Eye, Verbal, and Motor.' : '';
+                setScaleBand('gcs-sticky', 'pending');
+                syncScaleCopy('gcs', 'gcs-copy');
+                if (meaning) meaning.textContent = 'Mild 13–15 · Moderate 9–12 · Severe ≤8';
                 if (attentionEl) attentionEl.textContent = 'Score Eye, Verbal, and Motor for a watch/report cue. Soft guidance only; confirm with your Clinical Instructor.';
                 return;
             }
+            if (gcsState.verbal === 'NT') {
+                const line = `GCS E${gcsState.eye} VT M${gcsState.motor}`;
+                if (totalEl) totalEl.textContent = line;
+                if (sevEl) sevEl.textContent = 'Verbal not assessed. Not a 3–15 total.';
+                setScaleBand('gcs-sticky', 'pending');
+                scaleCopyText.gcs = `${line}, verbal not assessed`;
+                syncScaleCopy('gcs', 'gcs-copy');
+                if (meaning) meaning.textContent = 'Verbal not assessed (VT). Do not add a fake verbal point.';
+                if (attentionEl) attentionEl.textContent = 'Chart VT when the person cannot speak. Confirm how your unit totals an intubated GCS with your Clinical Instructor.';
+                trackUsageSafe('gcs', 'result_generated', { verbal: 'NT' }, { minIntervalMs: 1500, rateKey: 'gcs' });
+                return;
+            }
             const result = calc.gcsScore(gcsState.eye, gcsState.verbal, gcsState.motor);
-            if (totalEl) totalEl.textContent = `${result.total}`;
-            if (sevEl) sevEl.textContent = `${result.severity} · Report as E${result.eye}V${result.verbal}M${result.motor}`;
-            const meaning = document.getElementById('gcs-learn-meaning');
+            const band = result.total <= 8 ? 'severe' : (result.total <= 12 ? 'moderate' : 'mild');
+            const word = band;
+            if (totalEl) totalEl.textContent = `GCS ${result.total} (E${result.eye} V${result.verbal} M${result.motor})`;
+            if (sevEl) sevEl.textContent = result.severity;
+            setScaleBand('gcs-sticky', band);
+            scaleCopyText.gcs = `GCS ${result.total} (E${result.eye} V${result.verbal} M${result.motor}), ${word}`;
+            syncScaleCopy('gcs', 'gcs-copy');
             if (meaning) meaning.textContent = `${result.severity} · Document E${result.eye}V${result.verbal}M${result.motor}`;
             if (attentionEl) attentionEl.textContent = result.attention || '';
             trackUsageSafe('gcs', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'gcs' });
@@ -1482,84 +1820,288 @@
             if (!Object.keys(bradenState).length) {
                 BRADEN_RUBRIC.forEach((r) => { bradenState[r.id] = null; });
             }
-            renderScoreOptions(host, BRADEN_RUBRIC, bradenState, calcBraden);
+            bindScaleButton('braden-copy', (e) => copyScaleResult('braden', e.currentTarget));
+            bindScaleButton('braden-reset', () => {
+                BRADEN_RUBRIC.forEach((r) => { bradenState[r.id] = null; });
+                scaleOpen.braden = 'sensory';
+                renderScaleAccordion(host, BRADEN_RUBRIC, bradenState, 'braden', calcBraden);
+                calcBraden();
+            });
+            renderScaleAccordion(host, BRADEN_RUBRIC, bradenState, 'braden', calcBraden);
             calcBraden();
         }
 
         function calcBraden() {
             const calc = window.NursePathCalculators;
             if (!calc) return;
-            const complete = BRADEN_RUBRIC.every((r) => bradenState[r.id] != null);
+            const answered = BRADEN_RUBRIC.filter((r) => bradenState[r.id] != null);
             const totalEl = document.getElementById('braden-total');
             const riskEl = document.getElementById('braden-risk');
             const attentionEl = document.getElementById('braden-learn-attention');
-            if (!complete) {
-                if (totalEl) totalEl.textContent = '--';
-                if (riskEl) riskEl.textContent = 'Score all six subscales.';
+            if (answered.length < BRADEN_RUBRIC.length) {
+                scaleCopyText.braden = '';
+                const soFar = answered.reduce((sum, r) => sum + bradenState[r.id], 0);
+                if (totalEl) totalEl.textContent = answered.length ? `Braden ${soFar} so far` : 'Braden —';
+                if (riskEl) riskEl.textContent = `${answered.length} of 6 scored.`;
+                setScaleBand('braden-sticky', 'pending');
+                syncScaleCopy('braden', 'braden-copy');
                 if (attentionEl) attentionEl.textContent = 'Score all six subscales for risk-band and prevention-focus cues. Soft guidance only; confirm with your Clinical Instructor.';
                 return;
             }
             const result = calc.bradenScore(bradenState);
-            if (totalEl) totalEl.textContent = String(result.total);
+            let band = 'low';
+            if (result.total <= 12) band = 'severe';
+            else if (result.total <= 14) band = 'moderate';
+            else if (result.total <= 18) band = 'mild';
+            const parts = BRADEN_RUBRIC.map((r) => `${r.short} ${bradenState[r.id]}`).join(', ');
+            if (totalEl) totalEl.textContent = `Braden ${result.total} of 23`;
             if (riskEl) riskEl.textContent = result.risk;
+            setScaleBand('braden-sticky', band);
+            scaleCopyText.braden = `Braden ${result.total} of 23, ${result.risk}. ${parts}`;
+            syncScaleCopy('braden', 'braden-copy');
             const meaning = document.getElementById('braden-learn-meaning');
             if (meaning) meaning.textContent = `Total ${result.total} of 23. ${result.risk}`;
             if (attentionEl) attentionEl.textContent = result.attention || '';
             trackUsageSafe('braden', 'result_generated', { total: result.total }, { minIntervalMs: 1500, rateKey: 'braden' });
         }
 
-        const ronSelection = {};
+        function blankRonSheet() {
+            return {
+                trunkUpper: 0,
+                trunkLower: 0,
+                armViewerLeft: 0,
+                armViewerRight: 0,
+                legViewerLeft: 0,
+                legViewerRight: 0
+            };
+        }
+        const ronViewState = { head: 0, perineum: 0, front: blankRonSheet(), back: blankRonSheet() };
+        let ronView = 'front';
+
+        function ronStateWord(frac) {
+            if (frac === 1) return 'Full';
+            if (frac === 0.5) return '1/2';
+            return '';
+        }
+
+        function ronCyclesHalf(regionId) {
+            return regionId === 'head' || regionId === 'trunkUpper' || regionId === 'trunkLower' || regionId === 'perineum';
+        }
+
+        function ronStoredFrac(regionId, view) {
+            if (regionId === 'head' || regionId === 'perineum') return ronViewState[regionId] || 0;
+            const sheet = ronViewState[view || ronView];
+            return (sheet && sheet[regionId]) || 0;
+        }
+
+        function ronSetFrac(regionId, view, next) {
+            if (regionId === 'head' || regionId === 'perineum') ronViewState[regionId] = next;
+            else if (ronViewState[view]) ronViewState[view][regionId] = next;
+        }
+
+        function ronAvg(a, b) {
+            return ((a || 0) + (b || 0)) / 2;
+        }
+
+        function ronCalculatorFractions() {
+            const front = ronViewState.front;
+            const back = ronViewState.back;
+            return {
+                head: ronViewState.head || 0,
+                perineum: ronViewState.perineum || 0,
+                chest: ronAvg(front.trunkUpper, front.trunkLower),
+                back: ronAvg(back.trunkUpper, back.trunkLower),
+                arm_r: ronAvg(front.armViewerLeft, back.armViewerRight),
+                arm_l: ronAvg(front.armViewerRight, back.armViewerLeft),
+                leg_r: ronAvg(front.legViewerLeft, back.legViewerRight),
+                leg_l: ronAvg(front.legViewerRight, back.legViewerLeft)
+            };
+        }
+
+        function ronBackKey(regionId) {
+            const swap = {
+                armViewerLeft: 'armViewerRight',
+                armViewerRight: 'armViewerLeft',
+                legViewerLeft: 'legViewerRight',
+                legViewerRight: 'legViewerLeft'
+            };
+            return swap[regionId] || regionId;
+        }
+
+        function ronDisplay(id) {
+            if (id === 'head' || id === 'perineum' || ronView !== 'both') {
+                const frac = ronStoredFrac(id, ronView === 'both' ? 'front' : ronView);
+                const state = frac === 1 ? 'full' : (frac === 0.5 ? 'half' : 'off');
+                return { state, word: ronStateWord(frac) };
+            }
+            const front = ronViewState.front[id] || 0;
+            const back = ronViewState.back[ronBackKey(id)] || 0;
+            if (front !== back) return { state: 'mixed', word: 'Mixed' };
+            const state = front === 1 ? 'full' : (front === 0.5 ? 'half' : 'off');
+            return { state, word: ronStateWord(front) };
+        }
+
+        function ronRegionLabel(id) {
+            const patientRightOnLeft = ronView !== 'back';
+            const side = (viewerLeft) => ((viewerLeft ? patientRightOnLeft : !patientRightOnLeft) ? 'Right' : 'Left');
+            const where = ronView === 'both' ? 'both sides' : ronView;
+            const names = {
+                head: 'Head',
+                trunkUpper: ronView === 'both' ? 'Upper trunk, both sides' : `Upper trunk, ${ronView}`,
+                trunkLower: ronView === 'both' ? 'Lower trunk, both sides' : `Lower trunk, ${ronView}`,
+                armViewerLeft: `${side(true)} arm, ${where}`,
+                armViewerRight: `${side(false)} arm, ${where}`,
+                legViewerLeft: `${side(true)} leg, ${where}`,
+                legViewerRight: `${side(false)} leg, ${where}`,
+                perineum: 'Perineum'
+            };
+            return names[id] || id;
+        }
+
+        function ronGroup(id, shape, percent, labelX, labelY, small) {
+            const shown = ronDisplay(id);
+            const word = shown.word;
+            const stateText = word && id !== 'perineum'
+                ? `<text class="ron-state${small ? ' ron-small' : ''}" x="${labelX}" y="${labelY + (small ? 14 : 16)}">${word}</text>`
+                : '';
+            const spoken = `${ronRegionLabel(id)} ${percent}${word ? ', ' + word : ', off'}`;
+            return `<g class="ron-region" data-region="${id}" data-state="${shown.state}" tabindex="0" role="button" aria-label="${escapeGuideHtml(spoken)}" aria-pressed="${shown.state === 'off' ? 'false' : 'true'}">
+                ${shape}
+                <text x="${labelX}" y="${labelY}"${small ? ' class="ron-small"' : ''}>${percent}</text>
+                ${stateText}
+            </g>`;
+        }
+
+        function ronFigureMarkup() {
+            const whole = ronView === 'both';
+            const leftMark = ronView === 'back' ? 'L' : 'R';
+            const rightMark = ronView === 'back' ? 'R' : 'L';
+            const perineumShown = ronDisplay('perineum');
+            const perineumLine = `Perineum 1%${perineumShown.word ? ' · ' + perineumShown.word : ''}`;
+            const viewName = ronView === 'both' ? 'both sides' : ronView;
+            const pct = {
+                head: '9%',
+                trunkUpper: whole ? '18%' : '9%',
+                trunkLower: whole ? '18%' : '9%',
+                arm: whole ? '9%' : '4.5%',
+                leg: whole ? '18%' : '9%',
+                perineum: '1%'
+            };
+            const viewBtn = (view, label) => {
+                const on = ronView === view;
+                return `<button type="button" class="ron-view${on ? ' is-selected' : ''}" data-view="${view}" aria-pressed="${on ? 'true' : 'false'}">${label}</button>`;
+            };
+            return `<div class="ron-views" role="group" aria-label="Body view">
+                ${viewBtn('front', 'Front')}
+                ${viewBtn('back', 'Back')}
+                ${viewBtn('both', 'Both')}
+            </div>
+            <svg viewBox="0 0 240 440" class="ron-body" role="group" aria-label="Rule of Nines body, ${viewName}">
+                ${ronGroup('head', '<circle cx="120" cy="32" r="26"/><rect x="109" y="55" width="22" height="18" rx="6" pointer-events="none"/>', pct.head, 120, 36, false)}
+                ${ronGroup('trunkUpper', '<path d="M82 82 Q120 70 158 82 L154 150 L86 150 Z"/>', pct.trunkUpper, 120, 120, false)}
+                ${ronGroup('trunkLower', '<path d="M86 153 L154 153 L150 214 L90 214 Z"/>', pct.trunkLower, 120, 188, false)}
+                ${ronGroup('armViewerLeft', '<path d="M78 86 Q54 88 46 106 L24 222 Q22 240 38 242 Q52 242 54 226 L72 130 Z"/>', pct.arm, 46, 170, true)}
+                ${ronGroup('armViewerRight', '<path d="M162 86 Q186 88 194 106 L216 222 Q218 240 202 242 Q188 242 186 226 L168 130 Z"/>', pct.arm, 194, 170, true)}
+                ${ronGroup('perineum', '<rect class="ron-hitpad" x="86" y="216" width="68" height="21" rx="8"/><rect x="106" y="217" width="28" height="18" rx="8"/>', pct.perineum, 120, 230, true)}
+                ${ronGroup('legViewerLeft', '<rect class="ron-hitpad" x="78" y="238" width="41" height="192"/><path d="M86 238 L118 238 L116 330 L112 418 Q111 430 97 430 Q82 430 82 418 L80 330 Z"/>', pct.leg, 100, 320, false)}
+                ${ronGroup('legViewerRight', '<rect class="ron-hitpad" x="121" y="238" width="41" height="192"/><path d="M154 238 L122 238 L124 330 L128 418 Q129 430 143 430 Q158 430 158 418 L160 330 Z"/>', pct.leg, 140, 320, false)}
+                <text class="ron-side" x="12" y="24">${leftMark}</text>
+                <text class="ron-side" x="228" y="24" text-anchor="end">${rightMark}</text>
+            </svg>
+            <button type="button" class="scale-action ron-perineum-btn" data-region="perineum">${perineumLine}</button>`;
+        }
 
         function initRuleOfNines() {
             const calc = window.NursePathCalculators;
-            const host = document.getElementById('ron-grid');
+            const host = document.getElementById('ron-figure');
             if (!calc || !host) return;
-            if (host.dataset.ready === '1') {
-                renderRuleOfNines();
-                return;
+            bindScaleButton('ron-copy', (e) => copyScaleResult('ron', e.currentTarget));
+            bindScaleButton('ron-reset', () => resetRuleOfNines());
+            if (host.dataset.ready !== '1') {
+                host.innerHTML = ronFigureMarkup();
+                host.addEventListener('click', (e) => {
+                    const viewBtn = e.target.closest('[data-view]');
+                    if (viewBtn && host.contains(viewBtn)) {
+                        const nextView = viewBtn.getAttribute('data-view');
+                        ronView = nextView === 'back' || nextView === 'both' ? nextView : 'front';
+                        renderRuleOfNines();
+                        return;
+                    }
+                    const part = e.target.closest('[data-region]');
+                    if (part && host.contains(part)) cycleRonRegion(part.getAttribute('data-region'));
+                });
+                host.addEventListener('keydown', (e) => {
+                    if (e.key !== 'Enter' && e.key !== ' ') return;
+                    const part = e.target.closest('.ron-region');
+                    if (!part) return;
+                    e.preventDefault();
+                    cycleRonRegion(part.getAttribute('data-region'));
+                });
+                host.dataset.ready = '1';
             }
-            host.innerHTML = calc.RULE_OF_NINES_REGIONS.map((region) => `
-                <button type="button" class="ron-region" data-region="${region.id}" onclick="cycleRonRegion('${region.id}')">
-                    <div class="text-sm font-bold text-slate-100">${region.label}</div>
-                    <div class="text-[11px] text-slate-400">Full = ${region.full}%</div>
-                    <div class="text-xs text-orange-300 mt-1" data-state>Off</div>
-                </button>`).join('');
-            host.dataset.ready = '1';
             renderRuleOfNines();
         }
 
+        function cycleRonBoth(regionId) {
+            if (regionId === 'head' || regionId === 'perineum') {
+                const current = ronViewState[regionId] || 0;
+                ronViewState[regionId] = current === 0 ? 0.5 : (current === 0.5 ? 1 : 0);
+                return;
+            }
+            const frontKey = regionId;
+            const backKey = ronBackKey(regionId);
+            const front = ronViewState.front[frontKey] || 0;
+            const back = ronViewState.back[backKey] || 0;
+            let next;
+            if (front !== back) next = 1;
+            else if (ronCyclesHalf(regionId)) next = front === 0 ? 0.5 : (front === 0.5 ? 1 : 0);
+            else next = front === 1 ? 0 : 1;
+            ronViewState.front[frontKey] = next;
+            ronViewState.back[backKey] = next;
+        }
+
         function cycleRonRegion(regionId) {
-            const current = ronSelection[regionId] || 0;
-            const next = current === 0 ? 0.5 : (current === 0.5 ? 1 : 0);
-            if (next === 0) delete ronSelection[regionId];
-            else ronSelection[regionId] = next;
+            if (ronView === 'both') {
+                cycleRonBoth(regionId);
+            } else {
+                const current = ronStoredFrac(regionId, ronView);
+                const next = ronCyclesHalf(regionId)
+                    ? (current === 0 ? 0.5 : (current === 0.5 ? 1 : 0))
+                    : (current === 1 ? 0 : 1);
+                ronSetFrac(regionId, ronView, next);
+            }
             renderRuleOfNines();
         }
 
         function renderRuleOfNines() {
             const calc = window.NursePathCalculators;
             if (!calc) return;
-            const result = calc.ruleOfNines(ronSelection);
-            document.getElementById('ron-tbsa').textContent = `${result.tbsa}%`;
-            document.getElementById('ron-note').textContent = result.note;
-            document.getElementById('ron-breakdown').textContent = result.breakdown.length
+            const host = document.getElementById('ron-figure');
+            if (host && host.dataset.ready === '1') host.innerHTML = ronFigureMarkup();
+            const result = calc.ruleOfNines(ronCalculatorFractions());
+            const totalEl = document.getElementById('ron-tbsa');
+            if (totalEl) totalEl.textContent = `${result.tbsa}% TBSA`;
+            const band = result.tbsa > 15 ? 'severe' : (result.tbsa > 0 ? 'mild' : 'pending');
+            setScaleBand('ron-sticky', band);
+            const breakdownEl = document.getElementById('ron-breakdown');
+            const breakdown = result.breakdown.length
                 ? result.breakdown.map((b) => `${b.label}: ${b.percent}%`).join(' · ')
                 : 'No regions selected';
+            if (breakdownEl) breakdownEl.textContent = breakdown;
+            scaleCopyText.ron = result.tbsa > 0
+                ? `TBSA ${result.tbsa}% (adult Rule of Nines). ${breakdown}. ${result.note}`
+                : '';
+            syncScaleCopy('ron', 'ron-copy');
             const ronMeaning = document.getElementById('ron-learn-meaning');
             if (ronMeaning) ronMeaning.textContent = result.tbsa > 0 ? `${result.tbsa}% TBSA. ${result.note}` : 'Adult Rule of Nines TBSA estimate for teaching.';
-            document.querySelectorAll('#ron-grid .ron-region').forEach((btn) => {
-                const id = btn.getAttribute('data-region');
-                const frac = ronSelection[id] || 0;
-                btn.classList.toggle('is-half', frac === 0.5);
-                btn.classList.toggle('is-full', frac === 1);
-                const state = btn.querySelector('[data-state]');
-                if (state) state.textContent = frac === 1 ? 'Full' : (frac === 0.5 ? 'Half' : 'Off');
-            });
             trackUsageSafe('rule_of_nines', 'feature_use', { tbsa: result.tbsa }, { minIntervalMs: 2000, rateKey: 'ron_update' });
         }
 
         function resetRuleOfNines() {
-            Object.keys(ronSelection).forEach((k) => delete ronSelection[k]);
+            ronViewState.head = 0;
+            ronViewState.perineum = 0;
+            ronViewState.front = blankRonSheet();
+            ronViewState.back = blankRonSheet();
             renderRuleOfNines();
         }
 
@@ -1596,7 +2138,7 @@
         const otcDatabase = [
             {
                 id: 'acetaminophen',
-                name: 'Acetaminophen',
+                name: 'Paracetamol (Acetaminophen)',
                 ph_brands: ['Biogesic', 'Tempra', 'Calpol', 'Tylenol', 'Panadol'],
                 uses: 'Fever, mild to moderate pain relief (headache, myalgia)',
                 origin: 'Synthetic analgesic discovered in the late 19th century',
@@ -1606,7 +2148,7 @@
                 tags: ['fever','pain','analgesic'],
                 // Additional Information (only shown in OTC Reference Directory when tab is clicked)
                 additionalInfo: {
-                    genericNames: ['Paracetamol', 'APAP', 'N-acetyl-p-aminophenol'],
+                    genericNames: ['Paracetamol', 'Acetaminophen', 'APAP', 'N-acetyl-p-aminophenol'],
                     drugClass: 'Analgesic, Antipyretic (Non-opioid)',
                     usesExpanded: 'Fever reduction (antipyretic), mild to moderate pain relief including headache, toothache, muscle aches, backache, menstrual cramps, arthritis pain, post-vaccination fever, and post-operative pain management',
                     mechanismOfAction: 'Inhibits cyclooxygenase (COX) enzymes primarily in the central nervous system, reducing prostaglandin synthesis. Unlike NSAIDs, it has minimal peripheral anti-inflammatory activity. Also activates descending serotonergic pathways and may interact with the endocannabinoid system for pain modulation.',
@@ -2548,7 +3090,7 @@
         function highlight(text, term){
             if(!term) return text;
             const re = new RegExp(escapeRegex(term), 'ig');
-            return text.replace(re, m => `<strong style="font-weight: 800; color: #22d3ee;">${m}</strong>`);
+            return text.replace(re, m => `<mark class="rf-hit">${m}</mark>`);
         }
 
         // OPTIMIZATION: Live analysis with debounced tracking
@@ -2558,11 +3100,12 @@
 
         // OPTIMIZATION: Initialize live vital signs analysis on field change with proper event tracking
         function initVitalSignsLiveAnalysis() {
-            const vitalFields = ['sys', 'dia', 'temp', 'hr', 'rr', 'age', 'pregnancies', 'pregnant', 'conditions'];
+            const vitalFields = ['sys', 'dia', 'temp', 'hr', 'rr', 'age', 'sex', 'pregnancies', 'pregnant', 'conditions'];
             vitalFields.forEach(fieldId => {
                 const field = document.getElementById(fieldId);
                 if (field) {
-                    field.addEventListener('change', () => {
+                    const onChange = () => {
+                        if (fieldId === 'age' || fieldId === 'sex') syncVitalsObFields();
                         // OPTIMIZATION: Track 'vitals', 'feature_open' on first interaction
                         if (!hasTrackedVitalsOpen) {
                             hasTrackedVitalsOpen = true;
@@ -2593,18 +3136,115 @@
                             
                             vitalSignsDebounceTimer = null;
                         }, VITAL_SIGNS_DEBOUNCE_MS);
+                    };
+                    field.addEventListener('change', onChange);
+                    field.addEventListener('input', () => {
+                        if (fieldId === 'age' || fieldId === 'sex') syncVitalsObFields();
                     });
                 }
             });
+            syncVitalsObFields();
         }
+
+        function updateNpStatusMeta() {
+            const onlineEl = document.getElementById('npOnlineStatus');
+            const packEl = document.getElementById('npPackStamp');
+            if (onlineEl) {
+                onlineEl.textContent = navigator.onLine ? 'Online' : 'Offline — cached copy in use';
+            }
+            if (packEl) {
+                packEl.textContent = 'Reference pack nursepath-v2.4.20';
+            }
+            const otcStamp = document.getElementById('otcPackStamp');
+            if (otcStamp) otcStamp.textContent = 'Reference pack nursepath-v2.4.20';
+        }
+        window.updateNpStatusMeta = updateNpStatusMeta;
 
         // State for OTC list preview - incremental loading
         let otcVisibleCount = 3;
         const OTC_INCREMENT = 3;
+        let otcBrowseFilter = 'all';
         window.otcDatabase = otcDatabase;
         // OPTIMIZATION: Debounce timer for OTC search input
         let otcSearchDebounceTimer = null;
         const OTC_SEARCH_DEBOUNCE_MS = 300;
+
+        const OTC_BROWSE_FILTERS = [
+            { id: 'all', label: 'All' },
+            { id: 'pain', label: 'Pain', tags: ['pain', 'fever', 'analgesic', 'nsaid', 'dysmenorrhea', 'inflammation', 'arthritis'] },
+            { id: 'allergy', label: 'Allergy', tags: ['allergy', 'antihistamine', 'urticaria', 'rhinitis'] },
+            { id: 'cough', label: 'Cough/Cold', tags: ['cough', 'cold', 'expectorant', 'decongestant', 'antitussive', 'sinus', 'congestion'] },
+            { id: 'gi', label: 'GI', tags: ['reflux', 'heartburn', 'diarrhea', 'constipation', 'antacid', 'nausea', 'gas', 'ppi', 'h2blocker', 'laxative', 'antidiarrheal', 'digestive'] },
+            { id: 'skin', label: 'Skin', tags: ['skin', 'topical', 'fungal', 'antiseptic', 'wound', 'rash', 'itching', 'steroid'] }
+        ];
+
+        function otcShortClass(item) {
+            const tags = (item.tags || []).map((t) => String(t).toLowerCase());
+            const rules = [
+                { keys: ['nsaid'], label: 'NSAID', color: '#fb923c' },
+                { keys: ['antihistamine', 'allergy'], label: 'Antihistamine', color: '#a78bfa' },
+                { keys: ['ppi'], label: 'PPI', color: '#34d399' },
+                { keys: ['h2blocker'], label: 'H2 blocker', color: '#2dd4bf' },
+                { keys: ['antacid'], label: 'Antacid', color: '#4ade80' },
+                { keys: ['antitussive'], label: 'Antitussive', color: '#38bdf8' },
+                { keys: ['expectorant'], label: 'Expectorant', color: '#22d3ee' },
+                { keys: ['decongestant', 'cold'], label: 'Cold', color: '#60a5fa' },
+                { keys: ['laxative', 'stool softener', 'constipation'], label: 'Laxative', color: '#c084fc' },
+                { keys: ['antidiarrheal', 'diarrhea'], label: 'Antidiarrheal', color: '#f472b6' },
+                { keys: ['bronchodilator', 'asthma'], label: 'Bronchodilator', color: '#67e8f9' },
+                { keys: ['herbal', 'doh-approved'], label: 'Herbal', color: '#86efac' },
+                { keys: ['antifungal'], label: 'Antifungal', color: '#fbbf24' },
+                { keys: ['antiseptic', 'wound'], label: 'Antiseptic', color: '#facc15' },
+                { keys: ['antibiotic'], label: 'Antibiotic', color: '#f59e0b' },
+                { keys: ['rehydration', 'electrolytes'], label: 'ORS', color: '#2dd4bf' },
+                { keys: ['gas', 'bloating'], label: 'Antigas', color: '#a3e635' },
+                { keys: ['antiemetic', 'nausea', 'motion sickness'], label: 'Nausea', color: '#e879f9' },
+                { keys: ['supplement', 'vitamin', 'iron', 'zinc'], label: 'Supplement', color: '#94a3b8' },
+                { keys: ['skin', 'steroid', 'topical'], label: 'Topical', color: '#fdba74' },
+                { keys: ['analgesic', 'pain', 'fever'], label: 'Analgesic', color: '#f87171' },
+                { keys: ['cough'], label: 'Cough', color: '#38bdf8' }
+            ];
+            for (const rule of rules) {
+                if (rule.keys.some((k) => tags.includes(k) || tags.some((t) => t.includes(k)))) {
+                    return rule;
+                }
+            }
+            return { label: 'OTC', color: '#fbbf24' };
+        }
+
+        window.otcShortClass = otcShortClass;
+
+        function otcMatchesBrowseFilter(item) {
+            if (otcBrowseFilter === 'all') return true;
+            const filter = OTC_BROWSE_FILTERS.find((f) => f.id === otcBrowseFilter);
+            if (!filter || !filter.tags) return true;
+            const tags = (item.tags || []).map((t) => String(t).toLowerCase());
+            return filter.tags.some((t) => tags.includes(t) || tags.some((x) => x.includes(t)));
+        }
+
+        function otcFilterCount(filter) {
+            if (!filter.tags) return otcDatabase.length;
+            return otcDatabase.filter((item) => {
+                const tags = (item.tags || []).map((t) => String(t).toLowerCase());
+                return filter.tags.some((t) => tags.includes(t) || tags.some((x) => x.includes(t)));
+            }).length;
+        }
+
+        function renderOtcChips() {
+            const wrap = document.getElementById('otc-chips');
+            if (!wrap || !window.NPRef) return;
+            window.NPRef.buildSelect(wrap, {
+                id: 'otc-filter',
+                label: 'Category',
+                value: otcBrowseFilter,
+                options: OTC_BROWSE_FILTERS.map((f) => ({ id: f.id, label: f.id === 'all' ? 'All categories' : f.label, count: otcFilterCount(f) })),
+                onChange: (value) => {
+                    otcBrowseFilter = value;
+                    otcVisibleCount = OTC_INCREMENT;
+                    renderOTCList(otcSearch ? otcSearch.value : '');
+                }
+            });
+        }
 
         // IMPROVED SEARCH: Fuzzy/smart search helper with relevance ranking
         function smartSearch(query, item) {
@@ -2617,6 +3257,7 @@
             const uses = (item.uses || '').toLowerCase();
             const tags = (item.tags || []).map(t => t.toLowerCase()).join(' ');
             const additionalInfo = item.additionalInfo || {};
+            const generics = (additionalInfo.genericNames || []).map((g) => String(g).toLowerCase()).join(' ');
             const usesExpanded = (additionalInfo.usesExpanded || '').toLowerCase();
             const whenToGiveExpanded = (additionalInfo.whenToGiveExpanded || '').toLowerCase();
             
@@ -2628,10 +3269,12 @@
 
             // Exact matches get highest score
             if (name === q) return { match: true, score: 1000 };
+            if (generics.split(/[,\s]+/).includes(q)) return { match: true, score: 980 };
             if (brands.split(' ').includes(q)) return { match: true, score: 950 };
 
             // Starts with query
             if (name.startsWith(q)) score += 500;
+            if (generics.includes(q)) score += 450;
             if (uses.startsWith(q)) score += 300;
             if (brands.startsWith(q)) score += 400;
 
@@ -2646,7 +3289,7 @@
 
             // Fuzzy: check for partial word matches (e.g. 'fever' matches 'antipyretic')
             const queryWords = q.split(/\s+/);
-            const allText = `${name} ${brands} ${uses} ${tags} ${usesExpanded} ${whenToGiveExpanded} ${deepText}`;
+            const allText = `${name} ${generics} ${brands} ${uses} ${tags} ${usesExpanded} ${whenToGiveExpanded} ${deepText}`;
             queryWords.forEach(word => {
                 if (word.length > 2 && allText.includes(word)) score += 40;
             });
@@ -2689,6 +3332,7 @@
             
             // IMPROVED SEARCH: Smart search with relevance ranking + fuzzy fallback
             let matches = otcDatabase
+                .filter(otcMatchesBrowseFilter)
                 .map(item => ({ item, ...smartSearch(q, item) }))
                 .filter(r => r.match)
                 .sort((a, b) => b.score - a.score)
@@ -2697,15 +3341,21 @@
             let usedFuzzy = false;
             let fuzzyName = '';
             if (q && matches.length === 0 && window.NursePathCalculators && typeof window.NursePathCalculators.nearestDrugMatches === 'function') {
-                const suggestions = window.NursePathCalculators.nearestDrugMatches(q, otcDatabase, 4);
-                matches = suggestions.map((row) => row.item);
+                const suggestions = window.NursePathCalculators.nearestDrugMatches(q, otcDatabase.filter(otcMatchesBrowseFilter), 4);
+                const best = suggestions.length ? suggestions[0].dist : 0;
+                matches = suggestions
+                    .filter((row) => row.dist <= (best === 0 ? 0 : best + 1))
+                    .map((row) => row.item);
                 usedFuzzy = matches.length > 0;
                 fuzzyName = usedFuzzy ? suggestions[0].item.name : '';
             } else if (q && matches.length === 0 && window.NursePathCalculators && typeof window.NursePathCalculators.fuzzyDrugFallback === 'function') {
-                matches = window.NursePathCalculators.fuzzyDrugFallback(q, otcDatabase);
+                matches = window.NursePathCalculators.fuzzyDrugFallback(q, otcDatabase.filter(otcMatchesBrowseFilter));
                 usedFuzzy = matches.length > 0;
                 fuzzyName = usedFuzzy ? matches[0].name : '';
             }
+
+            const otcCountEl = document.getElementById('otc-count');
+            if (window.NPRef) window.NPRef.setCount(otcCountEl, matches.length, otcDatabase.length, 'medicines', q.length > 0 || otcBrowseFilter !== 'all');
 
             if(matches.length === 0){
                 const noMatch = document.createElement('div');
@@ -2721,7 +3371,7 @@
                 const hint = document.createElement('div');
                 hint.className = 'otc-fuzzy-hint';
                 hint.textContent = fuzzyName
-                    ? `No exact spelling. Did you mean ${fuzzyName}? Showing the closest medicines.`
+                    ? `No exact spelling. Did you mean ${fuzzyName}?`
                     : 'Showing close matches (typo-tolerant search).';
                 fragment.appendChild(hint);
             }
@@ -2737,33 +3387,54 @@
                 const title = highlight(item.name, searchTerm);
                 const trade = highlight(item.ph_brands.join(', '), searchTerm);
                 const usesPreview = highlight(item.uses, searchTerm);
-                const initials = String(item.name || 'OTC')
-                    .split(/\s+/)
-                    .filter(Boolean)
-                    .slice(0, 2)
-                    .map((w) => w[0])
-                    .join('')
-                    .toUpperCase()
-                    .slice(0, 3) || 'OTC';
-                const tagRaw = (item.additionalInfo && item.additionalInfo.drugClass)
-                    ? String(item.additionalInfo.drugClass).split(/[\/,(-]/)[0].trim()
-                    : 'OTC';
-                const tag = tagRaw.length > 14 ? `${tagRaw.slice(0, 13)}…` : tagRaw;
+                const klass = otcShortClass(item);
+                const dose = (item.additionalInfo && item.additionalInfo.dosing)
+                    ? String(item.additionalInfo.dosing).split('.')[0].trim()
+                    : (item.whenToGive || '');
+                const caution = item.contraindications || '';
 
-                const card = document.createElement('button');
-                card.type = 'button';
+                const card = document.createElement('article');
                 card.className = 'otc-med-card' + (selectedId && item.id === selectedId ? ' is-active' : '');
                 card.dataset.otcId = item.id || '';
-                card.style.setProperty('--accent', '#fbbf24');
+                card.style.setProperty('--accent', klass.color);
                 card.innerHTML = `
-                    <span class="tool-hub-icon">${initials}</span>
-                    <span class="otc-med-meta">
-                        <span class="tool-hub-label">${title}</span>
-                        <span class="tool-hub-desc">${trade}</span>
-                        <span class="otc-med-uses">${usesPreview}</span>
-                    </span>
-                    <span class="tool-hub-tag">${tag}</span>`;
-                card.onclick = () => showOTCDetail(item);
+                    <button type="button" class="otc-med-main" aria-expanded="false">
+                        <span class="otc-med-meta">
+                            <span class="rf-card-title">${title}</span>
+                            <span class="rf-card-sub">${trade}</span>
+                            <span class="otc-med-tag">${klass.label}</span>
+                            <span class="otc-med-uses">${usesPreview}</span>
+                        </span>
+                        <span class="otc-expand-chevron" aria-hidden="true"></span>
+                    </button>
+                    <div class="otc-med-panel" hidden>
+                        <div class="otc-med-fact"><span>Dose</span><div>${dose || 'See full details.'}</div></div>
+                        <div class="otc-med-fact"><span>Caution</span><div>${caution || 'See full details.'}</div></div>
+                        <div class="otc-med-fact"><span>Use</span><div>${item.uses || '—'}</div></div>
+                        <button type="button" class="otc-full-detail">Full details</button>
+                    </div>`;
+                const mainBtn = card.querySelector('.otc-med-main');
+                const panel = card.querySelector('.otc-med-panel');
+                const fullBtn = card.querySelector('.otc-full-detail');
+                mainBtn.addEventListener('click', () => {
+                    const open = card.classList.toggle('is-expanded');
+                    mainBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    if (panel) panel.hidden = !open;
+                    if (open) {
+                        document.querySelectorAll('.otc-med-card.is-expanded').forEach((other) => {
+                            if (other === card) return;
+                            other.classList.remove('is-expanded');
+                            const otherMain = other.querySelector('.otc-med-main');
+                            const otherPanel = other.querySelector('.otc-med-panel');
+                            if (otherMain) otherMain.setAttribute('aria-expanded', 'false');
+                            if (otherPanel) otherPanel.hidden = true;
+                        });
+                    }
+                });
+                fullBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showOTCDetail(item);
+                });
                 fragment.appendChild(card);
             });
 
@@ -2790,7 +3461,7 @@
                 showLessBtn.onclick = () => {
                     otcVisibleCount = OTC_INCREMENT;
                     renderOTCList('');
-                    otcListEl.scrollIntoView({behavior:'smooth', block:'start'});
+                    otcListEl.scrollIntoView({ behavior: 'auto', block: 'nearest' });
                 };
                 fragment.appendChild(showLessBtn);
             }
@@ -2848,6 +3519,8 @@
             }
         }
 
+        if (window.NPRef) window.NPRef.bindSearch(otcSearch);
+
         // OPTIMIZATION: Add 300ms debounce to search input for better performance
         otcSearch.addEventListener('input', (e) => {
             if (otcSearchDebounceTimer) {
@@ -2863,8 +3536,15 @@
             if (!window.__nursepathAuthState || !window.__nursepathAuthState.authenticated || window.__nursepathAuthState.booted) {
                 return;
             }
+            renderOtcChips();
             renderOTCList('');
+            if (typeof initLabRanges === 'function') initLabRanges();
+            if (typeof initAbbreviations === 'function') initAbbreviations();
+            if (typeof initSizes === 'function') initSizes();
             initVitalSignsLiveAnalysis();
+            updateNpStatusMeta();
+            window.addEventListener('online', updateNpStatusMeta);
+            window.addEventListener('offline', updateNpStatusMeta);
             applyRoleVisibility();
             window.__nursepathAuthState.booted = true;
             window.__nursepathAuthState.pendingBoot = false;
@@ -2879,4 +3559,3 @@
         if (window.__nursepathAuthState && window.__nursepathAuthState.pendingBoot) {
             window.__nursepathBootApp();
         }
-    

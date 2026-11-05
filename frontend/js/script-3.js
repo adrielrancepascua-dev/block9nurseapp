@@ -23,7 +23,8 @@
         const TAB_APP_INIT_LOGGED_KEY = 'np_app_init_logged';
         const ACCESS_MODE_KEY = 'nursepath_access_mode_v1';
         const LAST_SYNC_KEY = 'nursepath_last_sync_v1';
-        // Attach signed-in email to usage events unless explicitly disabled.
+        // Signed-in email is attached to usage events. The auth consent checkbox must say so.
+        // Set window.NURSEPATH_USAGE_INCLUDE_EMAIL = false before this script to omit email.
         const USAGE_INCLUDE_EMAIL = window.NURSEPATH_USAGE_INCLUDE_EMAIL !== false;
         const SUPABASE_URL = window.NURSEPATH_SUPABASE_URL || 'https://oobrhmnvbxiqdbpjnnbn.supabase.co';
         const SUPABASE_ANON_KEY = window.NURSEPATH_SUPABASE_ANON_KEY || 'sb_publishable_wXKxmmY-s0c5yv7kDITMoA_jPmufAK2';

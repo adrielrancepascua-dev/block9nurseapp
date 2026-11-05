@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <meta name="theme-color" content="#0f172a">
     <meta name="description" content="NursePath is an offline clinical companion for nursing students, with duty tools, OTC reference, and study practice for school and ward prep.">
+    <meta name="nursepath-pnle-bank-gate" content="preview">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="NursePath">
@@ -18,6 +19,12 @@
     
     <!-- CRITICAL: Force dark mode immediately to prevent white flash -->
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/hub-redesign.css">
+    <link rel="stylesheet" href="/css/pnle-study.css">
+    <link rel="stylesheet" href="/css/reference-redesign.css">
+    <link rel="stylesheet" href="/css/settings.css">
+    <link rel="stylesheet" href="/css/auth.css">
+    <link rel="stylesheet" href="/css/pnle-layout.css">
     
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
@@ -30,41 +37,48 @@
     <script src="/assets/ui-helpers.js"></script>
     <script src="/assets/clinical-calculators.js"></script>
     <script src="/assets/tool-content.js"></script>
+    <script src="/assets/interpretation-content.js"></script>
     <script src="/assets/study-drills.js"></script>
+    <script src="/assets/lab-values.js"></script>
+    <script src="/assets/abbreviations.js"></script>
+    <script src="/assets/sizes.js"></script>
     <script src="/js/script-2.js"></script>
-    <!-- OFFLINE-FIRST: Inlined CSS (no CDN) -->
+    <script src="/js/settings.js" defer></script>
+    <!-- Styles live in /css/styles.css for the split frontend -->
     
     
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen" style="background-color: #020617 !important;">
 
     <!-- AUTH OVERLAY -->
-    <div id="authOverlay" style="position: fixed; inset: 0; background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px; overflow-y: auto;">
-        <div style="background: #0f172a; border: 2px solid #06b6d4; border-radius: 20px; padding: 32px 22px 26px; max-width: 440px; width: 100%; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5); margin: auto;">
+    <div id="authOverlay" role="region" aria-label="Sign in to NursePath">
+        <div class="auth-card">
             <div class="auth-brand-lockup">
-                <img src="/assets/brand/logo-wordmark-dark.png" alt="NursePath" width="680" height="192">
+                <img src="/assets/brand/logo-icon.png" alt="" width="48" height="48">
+                <h1 class="auth-wordmark">Nurse<span>Path</span></h1>
             </div>
-            <p class="auth-tagline">The offline clinical companion for nursing students. Duty tools, OTC reference, and study practice in one place.</p>
+            <p class="auth-tagline">The offline clinical companion for nursing students. Clinical tools, OTC reference, and study practice in one place.</p>
             <ul class="auth-value-list">
-                <li><strong>Duty:</strong> Fast vitals, IV math, scoring tools, and PH OTC brands, even offline.</li>
-                <li><strong>Study:</strong> Instructor-style lessons and quizzes for every tool.</li>
+                <li><strong>Standard:</strong> Duty mode for clinical tools and references. Study mode for lessons, explanations, and tool quizzes.</li>
+                <li><strong>PNLE:</strong> Practice questions to help you prepare for the Philippine Nurse Licensure Examination.</li>
             </ul>
             <p class="auth-soft-note">Learning companion for school and ward prep. Always verify with your Clinical Instructor and approved textbooks.</p>
 
-            <label style="display:flex; align-items:flex-start; gap:8px; margin-bottom: 14px; text-align:left;">
-                <input id="usageConsent" type="checkbox" style="margin-top:2px; width:16px; height:16px; min-height:16px; min-width:16px; accent-color:#06b6d4; cursor:pointer;">
-                <span style="color:#94a3b8; font-size:12px; line-height:1.35;">I consent to anonymous usage tracking for academic evaluation.</span>
+            <label class="auth-consent" for="usageConsent">
+                <input id="usageConsent" type="checkbox">
+                <span>I consent to usage tracking for academic evaluation. Events include my signed-in email, which features I open, and how long I use the app. Vital signs and patient details are not stored.</span>
             </label>
 
-            <button id="googleSignInBtn" type="button" class="google-btn" disabled>
+            <p class="auth-tracking-requirement" id="authTrackingRequirement">This academic evaluation requires usage-tracking consent to continue.</p>
+            <button id="googleSignInBtn" aria-describedby="authTrackingRequirement" type="button" class="google-btn" disabled>
                 <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.2 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.5-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 12 24 12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.2 6.1 29.3 4 24 4 16.1 4 9.2 8.5 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.3 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.1 39.5 16 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1.1 3.1-3.6 5.5-6.6 6.6l.1.1 6.2 5.2C36.1 41.3 44 36 44 24c0-1.3-.1-2.5-.4-3.5z"/></svg>
                 Continue with Google
             </button>
 
             <button id="authResetBtn" type="button" style="display:none; width:100%; padding:10px; margin-bottom:8px; font-size:12px; font-weight:700; background:#1f2937; color:#cbd5e1; border:1px solid #475569; border-radius:10px; cursor:pointer;">Reset This Device</button>
 
-            <p id="authStatus" style="color: #f59e0b; font-size: 12px; min-height: 18px; margin-top: 10px;"></p>
-            <p style="color:#475569; font-size:10px; margin-top:8px;">Sign in once online. After that, NursePath stays available offline on this device.</p>
+            <p id="authStatus" role="status" aria-live="polite"></p>
+            <p class="auth-offline-note">Sign in once online. After that, NursePath stays available offline on this device.</p>
         </div>
     </div>
 
@@ -115,70 +129,97 @@
     <!-- Supabase Auth + Offline Session Gate -->
     <script src="/js/script-3.js"></script>
 
+    <div id="pnleLaunchGate" class="pnle-launch-gate" hidden aria-labelledby="pnleLaunchTitle">
+        <header class="pnle-gate-header">
+            <img src="/assets/brand/logo-icon.png" alt="" width="40" height="40" class="pnle-gate-mark">
+            <div>
+                <p class="pnle-gate-brand">NursePath</p>
+                <h1 id="pnleLaunchTitle">Choose your mode</h1>
+            </div>
+        </header>
+        <p class="pnle-gate-lead">Ward tools and board prep — same app, different focus.</p>
+        <div class="pnle-gate-tiles">
+            <button type="button" id="pnleLaunchDuty" class="pnle-gate-tile pnle-gate-tile--duty">
+                <span class="pnle-gate-tile-badge" id="pnleGateDutyBadge" hidden>Last used</span>
+                <span class="pnle-gate-tile-icon" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 12h3l2-7 4 14 2-7h5"/></svg></span>
+                <span class="pnle-gate-tile-title">Standard</span>
+                <span class="pnle-gate-tile-tagline">Clinical tools and learning</span>
+                <span class="pnle-gate-tile-detail">Duty tools · Study lessons</span>
+                <span class="pnle-gate-tile-meta">Works offline once loaded</span>
+            </button>
+            <button type="button" id="pnleLaunchStudy" class="pnle-gate-tile pnle-gate-tile--study">
+                <span class="pnle-gate-tile-badge" id="pnleGateStudyBadge" hidden>Last used</span>
+                <span class="pnle-gate-tile-icon" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h6M9 11h6M9 15h4"/></svg></span>
+                <span class="pnle-gate-tile-title">PNLE</span>
+                <span class="pnle-gate-tile-tagline">Practice questions for PNLE preparation</span>
+                <span class="pnle-gate-tile-detail" id="pnleGateStudyGoal">Today: —</span>
+                <span class="pnle-gate-tile-meta" id="pnleGateStudyMistakes">My mistakes: —</span>
+            </button>
+        </div>
+        <p class="pnle-gate-foot">Verify with your CI and textbooks. NursePath is a learning companion, not a prescriber.</p>
+    </div>
+
     <div id="app-shell" style="display: none;">
     <div class="np-app-layout">
         <aside class="np-sidebar" id="npSidebar" aria-label="Primary navigation">
-            <button type="button" class="np-sidebar-toggle" id="npSidebarToggle" aria-label="Open navigation" aria-expanded="false" aria-controls="quick-nav">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-
+            <p class="np-sidebar-brand">NursePath</p>
             <nav id="quick-nav" class="np-sidebar-nav" aria-label="NursePath sections">
                 <button onclick="switchMainTab('tools')" id="tab-tools" class="tab-btn np-sidebar-link active bg-cyan-900/50 border-cyan-500/50 text-cyan-400 transition-all">
                     <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
-                    <span>Clinical Tools</span>
+                    <span>Tools</span>
                 </button>
 
                 <button onclick="switchMainTab('otc')" id="tab-otc" class="tab-btn np-sidebar-link bg-slate-800 hover:bg-amber-900/50 border-slate-700 hover:border-amber-500/50 text-slate-300 hover:text-amber-400 transition-all">
                     <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" class="text-amber-400" aria-hidden="true"><path d="M8 2a6 6 0 0 1 6 6v8a6 6 0 0 1-12 0V8a6 6 0 0 1 6-6zm8 0a6 6 0 0 1 0 12v-6a6 6 0 0 0-6-6h6z"/></svg>
-                    <span>OTC Medicines</span>
+                    <span>OTC</span>
                 </button>
 
                 <button onclick="switchMainTab('iv')" id="tab-iv" class="tab-btn np-sidebar-link bg-slate-800 hover:bg-teal-900/50 border-slate-700 hover:border-teal-500/50 text-slate-300 hover:text-teal-300 transition-all">
                     <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-teal-300" aria-hidden="true"><path d="M12 3v12"/><path d="M9 12h6"/><path d="M8 21h8"/><path d="M12 15v6"/><path d="M7 6h10"/></svg>
-                    <span>IV Drug Study</span>
+                    <span>IV Drugs</span>
                 </button>
 
-                <button type="button" class="np-sidebar-link np-sidebar-placeholder" disabled>
-                    <svg class="np-action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/></svg>
-                    <span>Coming soon</span>
+                <button onclick="switchMainTab('labs')" id="tab-labs" class="tab-btn np-sidebar-link bg-slate-800 hover:bg-emerald-900/50 border-slate-700 hover:border-emerald-500/50 text-slate-300 hover:text-emerald-400 transition-all">
+                    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" class="text-emerald-400" aria-hidden="true"><path d="M10 2h4v3h-1v5.2l6.2 10.3A2 2 0 0 1 17.4 23H6.6a2 2 0 0 1-1.8-2.5L11 10.2V5h-1V2z"/></svg>
+                    <span>Labs</span>
                 </button>
-                <button type="button" class="np-sidebar-link np-sidebar-placeholder" disabled>
-                    <svg class="np-action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/></svg>
-                    <span>Coming soon</span>
+
+                <button onclick="switchMainTab('abbrev')" id="tab-abbrev" class="tab-btn np-sidebar-link bg-slate-800 hover:bg-violet-900/50 border-slate-700 hover:border-violet-500/50 text-slate-300 hover:text-violet-300 transition-all">
+                    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" class="text-violet-300" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><text x="12" y="16.5" text-anchor="middle" font-size="10" font-weight="800" fill="#0f172a">Aa</text></svg>
+                    <span>Abbr</span>
+                </button>
+                <button onclick="switchMainTab('sizes')" id="tab-sizes" class="tab-btn np-sidebar-link bg-slate-800 hover:bg-sky-900/50 border-slate-700 hover:border-sky-500/50 text-slate-300 hover:text-sky-300 transition-all">
+                    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-sky-300" aria-hidden="true"><path d="M3 9h18v6H3z"/><path d="M6 9v4M9 9v2.5M12 9v4M15 9v2.5M18 9v4"/></svg>
+                    <span>Sizes</span>
                 </button>
             </nav>
 
             <div class="np-sidebar-actions">
+                <p class="np-sidebar-section">Settings</p>
                 <button type="button" id="npThemeToggle" class="np-action-btn np-theme-toggle-btn" aria-pressed="false" title="Switch to light mode">
                     <svg class="np-action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
                     <span class="np-action-label">Light mode</span>
                 </button>
-                <button type="button" class="np-action-btn np-switch-account-btn" disabled title="Switch account">
-                    <svg class="np-action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="3"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    <span class="np-action-label">Switch account</span>
-                </button>
-                <button type="button" class="np-action-btn np-logout-btn" onclick="manualLogout()" title="Logout">
+                <button type="button" class="np-action-btn np-logout-btn" onclick="manualLogout()" title="Log out">
                     <svg class="np-action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
-                    <span class="np-action-label">Logout</span>
+                    <span class="np-action-label">Log out</span>
                 </button>
             </div>
         </aside>
-        <button type="button" class="np-sidebar-backdrop" id="npSidebarBackdrop" aria-label="Close navigation" tabindex="-1"></button>
 
         <main class="np-main">
-    <div class="np-top-banner">
-        NursePath · Learning &amp; duty companion · Verify with faculty &amp; textbooks
-    </div>
-
     <div class="np-content max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
-        <header class="mb-4 sm:mb-6 text-center">
+        <header class="np-page-header np-unified-header">
             <div id="nursepathHeaderLogo" class="np-header-lockup" title="NursePath">
-                <img class="np-header-mark" src="/assets/icons/icon-192.png" alt="" width="52" height="52">
-                <h1 class="np-header-word">NursePath</h1>
+                <img class="np-header-mark" src="/assets/brand/logo-icon.png" alt="NursePath logo" width="36" height="36">
+                <h1 class="np-header-word">Nurse<span>Path</span></h1>
             </div>
-            <p class="text-slate-400 text-xs sm:text-sm">Duty tools, OTC reference, and study practice. Works offline.</p>
+            <div class="np-page-header-actions">
+                <div class="np-app-mode-picker" data-mode="duty"><button type="button" id="pnleDutySwitchMode" class="np-app-mode-select np-action-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="pnleDutySwitchModeMenu" aria-label="App mode"><span data-app-mode-label>Standard</span><svg class="np-mode-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><div class="np-app-mode-menu" id="pnleDutySwitchModeMenu" role="menu" aria-label="Choose app mode" hidden><button type="button" class="np-action-btn" role="menuitemradio" aria-checked="true" data-app-mode="duty">Standard</button><button type="button" class="np-action-btn" role="menuitemradio" aria-checked="false" data-app-mode="study">PNLE</button></div></div>
+                <button type="button" class="np-settings-open" id="npSettingsOpen" aria-haspopup="dialog" aria-controls="npSettingsSheet" aria-label="Open settings">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                </button>
+            </div>
         </header>
 
         <!-- ============ TOOLS TAB CONTENT ============ -->
@@ -203,67 +244,94 @@
 
         <div id="tools-hub" class="mb-6" data-hub-mode="duty">
             <div class="tools-hub-mode-row">
-                <div class="tools-hub-hero">
-                    <h2 id="toolsHubTitle">Clinical Tools</h2>
-                    <p id="toolsHubBlurb">Duty mode: fast calculators for ward pocket use. OTC lives in the OTC tab.</p>
-                </div>
                 <div class="np-mode-toggle" role="group" aria-label="Clinical tools mode">
-                    <button type="button" data-mode="duty" id="hubDutyBtn" class="is-active" onclick="setHubMode('duty')">Duty</button>
-                    <button type="button" data-mode="study" id="hubStudyBtn" onclick="setHubMode('study')">Study</button>
+                    <button type="button" data-mode="duty" id="hubDutyBtn" class="is-active" aria-pressed="true" onclick="setHubMode('duty')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v5a4 4 0 0 0 8 0V3M4 3h4M12 3h4M10 12v3a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="10" r="2"/></svg><span>Duty</span></button>
+                    <button type="button" data-mode="study" id="hubStudyBtn" aria-pressed="false" onclick="setHubMode('study')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 9 10-5 10 5-10 5-10-5ZM6 11v6c4 3 8 3 12 0v-6M22 9v7"/></svg><span>Study</span></button>
+                </div>
+                <div class="tools-hub-hero" aria-live="polite" aria-atomic="true">
+                    <h2 id="toolsHubTitle">Clinical Tools</h2>
+                    <p id="toolsHubBlurb">Quick-access tools for clinical practice.</p>
                 </div>
             </div>
             <div class="tools-hub-grid">
-                <button type="button" class="tool-hub-card" style="--accent:#f87171;" onclick="openHubTool('vitals')">
-                    <span class="tool-hub-icon">VS</span>
-                    <span><span class="tool-hub-label">Vital Signs</span><span class="tool-hub-desc" data-duty-desc="Age-aware interpretation of a full vitals set" data-study-desc="Lesson and quiz on patterns, context, and reporting">Age-aware interpretation of a full vitals set</span></span>
-                    <span class="tool-hub-tag">Assessment</span>
+                <button type="button" class="tool-hub-card" onclick="openHubTool('vitals')">
+                    <span class="tool-hub-top">
+                        <span class="tool-hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M20.8 5.6a5.2 5.2 0 0 0-7.4 0L12 7l-1.4-1.4a5.2 5.2 0 0 0-7.4 7.4L12 21.8l8.8-8.8a5.2 5.2 0 0 0 0-7.4z"/><path d="M3.5 12.5h4l1.8-3 3 6 2-3h6.2"/></svg></span>
+                        <span class="tool-hub-tag">Assessment</span>
+                    </span>
+                    <span class="tool-hub-label">Vital Signs</span>
+                    <span class="tool-hub-desc" data-duty-desc="Age-aware interpretation of a full vitals set" data-study-desc="Lesson and quiz on patterns, context, and reporting">Age-aware interpretation of a full vitals set</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#60a5fa;" onclick="openHubTool('iv')">
-                    <span class="tool-hub-icon">IV</span>
-                    <span><span class="tool-hub-label">IV Flow Rate</span><span class="tool-hub-desc" data-duty-desc="mL/hr and gtt/min drip calculations" data-study-desc="Lesson + quiz on formulas, drop factors, rounding">mL/hr and gtt/min drip calculations</span></span>
-                    <span class="tool-hub-tag">Math</span>
+                <button type="button" class="tool-hub-card" onclick="openHubTool('iv')">
+                    <span class="tool-hub-top">
+                        <span class="tool-hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M10 3V2h4v1"/><rect x="6" y="3" width="12" height="12" rx="3.5"/><path d="M9.5 8h5M9.5 11h3"/><path d="M12 15v4"/><path d="M12 22v.01"/></svg></span>
+                        <span class="tool-hub-tag">Math</span>
+                    </span>
+                    <span class="tool-hub-label">IV Flow Rate</span>
+                    <span class="tool-hub-desc" data-duty-desc="mL/hr and gtt/min drip calculations" data-study-desc="Lesson + quiz on formulas, drop factors, rounding">mL/hr and gtt/min drip calculations</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#34d399;" onclick="openHubTool('bmi')">
-                    <span class="tool-hub-icon">BMI</span>
-                    <span><span class="tool-hub-label">BMI & Body Metrics</span><span class="tool-hub-desc" data-duty-desc="WHO BMI category from weight and height" data-study-desc="Lesson + quiz on formula, categories, limits">WHO BMI category from weight and height</span></span>
-                    <span class="tool-hub-tag">Metrics</span>
+                <button type="button" class="tool-hub-card" onclick="openHubTool('bmi')">
+                    <span class="tool-hub-top">
+                        <span class="tool-hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M7.5 10a4.5 4.5 0 0 1 9 0"/><path d="M12 10l2-2.5"/></svg></span>
+                        <span class="tool-hub-tag">Metrics</span>
+                    </span>
+                    <span class="tool-hub-label">BMI & Body Metrics</span>
+                    <span class="tool-hub-desc" data-duty-desc="WHO BMI category from weight and height" data-study-desc="Lesson + quiz on formula, categories, limits">WHO BMI category from weight and height</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#f472b6;" onclick="openHubTool('aog')">
-                    <span class="tool-hub-icon">OB</span>
-                    <span><span class="tool-hub-label">AOG & EDD</span><span class="tool-hub-desc" data-duty-desc="Naegele's rule gestation dating" data-study-desc="Lesson + quiz on Naegele, trimesters, dating source">Naegele's rule gestation dating</span></span>
-                    <span class="tool-hub-tag">OB</span>
+                <button type="button" class="tool-hub-card" onclick="openHubTool('aog')">
+                    <span class="tool-hub-top">
+                        <span class="tool-hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/><path d="M12 18l-2.4-2.3a1.5 1.5 0 0 1 2.4-1.9 1.5 1.5 0 0 1 2.4 1.9z"/></svg></span>
+                        <span class="tool-hub-tag">OB</span>
+                    </span>
+                    <span class="tool-hub-label">AOG & EDD</span>
+                    <span class="tool-hub-desc" data-duty-desc="Naegele's rule gestation dating" data-study-desc="Lesson + quiz on Naegele, trimesters, dating source">Naegele's rule gestation dating</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#c4b5fd;" onclick="openHubTool('peds')">
-                    <span class="tool-hub-icon">PED</span>
-                    <span><span class="tool-hub-label">Pediatric Dosing</span><span class="tool-hub-desc" data-duty-desc="mg/kg plus Clark's & Young's Rules" data-study-desc="Lesson + quiz on mg/kg, Clark, and Young">mg/kg plus Clark's & Young's Rules</span></span>
-                    <span class="tool-hub-tag">Peds</span>
+                <button type="button" class="tool-hub-card" onclick="openHubTool('peds')">
+                    <span class="tool-hub-top">
+                        <span class="tool-hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M10.5 20.5a4.95 4.95 0 0 1-7-7l10-10a4.95 4.95 0 0 1 7 7z"/><path d="M8.5 8.5l7 7"/></svg></span>
+                        <span class="tool-hub-tag">Peds</span>
+                    </span>
+                    <span class="tool-hub-label">Pediatric Dosing</span>
+                    <span class="tool-hub-desc" data-duty-desc="mg/kg plus Clark's & Young's Rules" data-study-desc="Lesson + quiz on mg/kg, Clark, and Young">mg/kg plus Clark's & Young's Rules</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#fb7185;" onclick="openHubTool('apgar')">
-                    <span class="tool-hub-icon">APG</span>
-                    <span><span class="tool-hub-label">APGAR Score</span><span class="tool-hub-desc" data-duty-desc="1- and 5-minute newborn scoring with criteria" data-study-desc="Lesson + quiz on components, timing, bands">1- and 5-minute newborn scoring with criteria</span></span>
-                    <span class="tool-hub-tag">Newborn</span>
+                <button type="button" class="tool-hub-card" onclick="openHubTool('apgar')">
+                    <span class="tool-hub-top">
+                        <span class="tool-hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M4 16v-2.4C4 11.5 3 10.5 3 8c0-2.7 1.5-6 4.5-6C9.4 2 10 3.8 10 5.5c0 3.1-2 5.7-2 8.7V16a2 2 0 1 1-4 0z"/><path d="M20 20v-2.4c0-2.1 1-3.1 1-5.6 0-2.7-1.5-6-4.5-6C14.6 6 14 7.8 14 9.5c0 3.1 2 5.7 2 8.7V20a2 2 0 1 0 4 0z"/><path d="M16 17h4M4 13h4"/></svg></span>
+                        <span class="tool-hub-tag">Newborn</span>
+                    </span>
+                    <span class="tool-hub-label">APGAR Score</span>
+                    <span class="tool-hub-desc" data-duty-desc="1-, 5-, and 10-minute newborn scoring" data-study-desc="Lesson + quiz on components, timing, bands">1-, 5-, and 10-minute newborn scoring</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#38bdf8;" onclick="openHubTool('gcs')">
-                    <span class="tool-hub-icon">GCS</span>
-                    <span><span class="tool-hub-label">Glasgow Coma Scale</span><span class="tool-hub-desc" data-duty-desc="Eye / Verbal / Motor with clinical wording" data-study-desc="Lesson + quiz on E/V/M and documentation">Eye / Verbal / Motor with clinical wording</span></span>
-                    <span class="tool-hub-tag">Neuro</span>
+                <button type="button" class="tool-hub-card" onclick="openHubTool('gcs')">
+                    <span class="tool-hub-top">
+                        <span class="tool-hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span>
+                        <span class="tool-hub-tag">Neuro</span>
+                    </span>
+                    <span class="tool-hub-label">Glasgow Coma Scale</span>
+                    <span class="tool-hub-desc" data-duty-desc="Eye / Verbal / Motor with clinical wording" data-study-desc="Lesson + quiz on E/V/M and documentation">Eye / Verbal / Motor with clinical wording</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#2dd4bf;" onclick="openHubTool('braden')">
-                    <span class="tool-hub-icon">BRD</span>
-                    <span><span class="tool-hub-label">Braden Scale</span><span class="tool-hub-desc" data-duty-desc="Pressure injury risk with subscale meanings" data-study-desc="Lesson + quiz on risk scoring and prevention">Pressure injury risk with subscale meanings</span></span>
-                    <span class="tool-hub-tag">Skin</span>
+                <button type="button" class="tool-hub-card" onclick="openHubTool('braden')">
+                    <span class="tool-hub-top">
+                        <span class="tool-hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9"/></svg></span>
+                        <span class="tool-hub-tag">Skin</span>
+                    </span>
+                    <span class="tool-hub-label">Braden Scale</span>
+                    <span class="tool-hub-desc" data-duty-desc="Pressure injury risk with subscale meanings" data-study-desc="Lesson + quiz on risk scoring and prevention">Pressure injury risk with subscale meanings</span>
                 </button>
-                <button type="button" class="tool-hub-card" style="--accent:#fb923c;" onclick="openHubTool('ron')">
-                    <span class="tool-hub-icon">TBSA</span>
-                    <span><span class="tool-hub-label">Rule of Nines</span><span class="tool-hub-desc" data-duty-desc="Tap-body burn TBSA estimate" data-study-desc="Lesson + quiz on adult map and pediatrics caution">Tap-body burn TBSA estimate</span></span>
-                    <span class="tool-hub-tag">Trauma</span>
+                <button type="button" class="tool-hub-card" onclick="openHubTool('ron')">
+                    <span class="tool-hub-top">
+                        <span class="tool-hub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="5" r="2.2"/><path d="M12 8.5V15M6.5 10.5L12 8.5l5.5 2M9 21.5l3-6.5 3 6.5"/></svg></span>
+                        <span class="tool-hub-tag">Trauma</span>
+                    </span>
+                    <span class="tool-hub-label">Rule of Nines</span>
+                    <span class="tool-hub-desc" data-duty-desc="Tap-body burn TBSA estimate" data-study-desc="Lesson + quiz on adult map and pediatrics caution">Tap-body burn TBSA estimate</span>
                 </button>
             </div>
         </div>
 
         <div id="study-detail" class="study-detail hidden">
             <div class="tools-detail-header">
-                <button type="button" class="tools-back-btn" onclick="backToToolsHub()">← All Study Topics</button>
+                <button type="button" class="tools-back-btn" onclick="backToToolsHub()">← All lesson topics</button>
             </div>
             <div class="study-classroom">
                 <div class="study-classroom-head">
@@ -291,59 +359,55 @@
                     </button>
                 </div>
             </div>
-            <div id="tool-panel-vitals" class="tool-panel">                <!-- VITAL SIGNS INPUT & ANALYSIS -->
+            <div id="tool-panel-vitals" class="tool-panel">
                 <section id="vital-signs-section" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-2xl scroll-mt-20">
-                    <div class="flex justify-between items-center mb-6">
+                    <div class="flex justify-between items-center mb-4">
                         <h2 class="text-2xl font-bold text-white flex items-center">
-                            <svg width="1.3em" height="1.3em" viewBox="0 0 24 24" fill="currentColor" class="mr-3 text-red-500"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Vital Signs
+                            <span class="vitals-title-badge" aria-hidden="true">VS</span>
+                            Vital Signs
                         </h2>
-                        <span id="status-badge" class="px-4 py-2 bg-slate-700 rounded-full text-xs font-mono text-slate-400 font-bold">Enter Vitals</span>
+                        <span id="status-badge" class="px-4 py-2 rounded-full text-xs font-mono font-bold">Enter Vitals</span>
                     </div>
-                    
-                    <!-- Vital Signs Row -->
+
                     <div class="grid grid-cols-2 gap-2 mb-4 pb-4 border-b border-slate-700">
                         <div class="space-y-1">
-                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Systolic (mmHg)</label>
-                            <input type="number" id="sys" placeholder="120" min="0" max="300" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold text-cyan-400">
+                            <label for="sys" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Systolic (mmHg)</label>
+                            <input type="number" id="sys" inputmode="numeric" placeholder="—" min="0" max="300" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold">
                         </div>
                         <div class="space-y-1">
-                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Diastolic (mmHg)</label>
-                            <input type="number" id="dia" placeholder="80" min="0" max="200" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold text-cyan-400">
+                            <label for="dia" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Diastolic (mmHg)</label>
+                            <input type="number" id="dia" inputmode="numeric" placeholder="—" min="0" max="200" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold">
                         </div>
                         <div class="space-y-1">
-                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Temp (°C)</label>
-                            <input type="number" id="temp" placeholder="37.0" min="35" max="42" step="0.1" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold text-cyan-400">
+                            <label for="temp" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Temperature (°C)</label>
+                            <input type="number" id="temp" inputmode="decimal" placeholder="—" min="35" max="42" step="0.1" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold">
                         </div>
                         <div class="space-y-1">
-                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Pulse (BPM)</label>
-                            <input type="number" id="hr" placeholder="80" min="0" max="300" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold text-cyan-400">
+                            <label for="hr" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Pulse (beats/min)</label>
+                            <input type="number" id="hr" inputmode="numeric" placeholder="—" min="0" max="300" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold">
                         </div>
                         <div class="space-y-1">
-                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Resp (Rate)</label>
-                            <input type="number" id="rr" placeholder="16" min="0" max="60" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold text-cyan-400">
+                            <label for="rr" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Respiratory rate (breaths/min)</label>
+                            <input type="number" id="rr" inputmode="numeric" placeholder="—" min="0" max="60" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none text-base font-bold">
                         </div>
                     </div>
 
-                    <!-- Patient Demographics Row -->
                     <div class="grid grid-cols-2 gap-2 mb-4 pb-4 border-b border-slate-700">
                         <div class="space-y-1">
-                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Age (years)</label>
-                            <input type="number" id="age" placeholder="30" min="0" max="120" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
+                            <label for="age" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Age (years)</label>
+                            <input type="number" id="age" inputmode="numeric" placeholder="—" min="0" max="120" oninput="syncVitalsObFields()" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-base font-bold">
                         </div>
                         <div class="space-y-1">
-                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Pregnancies</label>
-                            <input type="number" id="pregnancies" placeholder="0" min="0" max="20" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Currently Pregnant</label>
-                            <select id="pregnant" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
-                                <option value="no">No</option>
-                                <option value="yes">Yes</option>
+                            <label for="sex" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Sex</label>
+                            <select id="sex" required onchange="syncVitalsObFields()" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-base font-bold">
+                                <option value="" selected disabled>Select</option>
+                                <option value="female">Female</option>
+                                <option value="male">Male</option>
                             </select>
                         </div>
                         <div class="space-y-1">
-                            <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Known Conditions</label>
-                            <select id="conditions" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-sm">
+                            <label for="conditions" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Known Conditions</label>
+                            <select id="conditions" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-base font-bold">
                                 <option value="none">None</option>
                                 <option value="hypertension">Hypertension</option>
                                 <option value="diabetes">Diabetes</option>
@@ -355,24 +419,36 @@
                         </div>
                     </div>
 
+                    <div id="vitals-ob-fields" class="grid grid-cols-2 gap-2 mb-4 pb-4 border-b border-slate-700 hidden">
+                        <div class="space-y-1">
+                            <label for="pregnancies" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Pregnancies</label>
+                            <input type="number" id="pregnancies" inputmode="numeric" placeholder="—" min="0" max="20" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-base font-bold">
+                        </div>
+                        <div class="space-y-1">
+                            <label for="pregnant" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Currently Pregnant</label>
+                            <select id="pregnant" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-500/30 outline-none text-base font-bold">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                        </div>
+                    </div>
 
-                    <!-- DIAGNOSIS BOX -->
+                    <div class="vitals-action-bar">
+                        <button id="simulate-vitals-btn" type="button" onclick="simulateVitalSigns()" class="w-full py-3 rounded-xl font-bold transition-all">
+                            Analyze Vital Signs
+                        </button>
+                        <p id="vitals-record-status" class="text-xs text-slate-400 min-h-[18px] mt-2"></p>
+                    </div>
+
                     <div id="dx-box" class="p-6 bg-slate-900/70 rounded-xl border border-slate-700 min-h-[120px] flex items-center justify-center text-slate-500 italic text-center">
                         <div class="flex flex-col items-center space-y-2">
                             <svg class="inline text-3xl text-slate-600 opacity-50" width="1.3em" height="1.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3v18h18"/></svg>
-                            <p class="text-sm">Enter all vital signs to generate assessment and medication recommendations...</p>
+                            <p class="text-sm">Enter vital signs, then tap Analyze.</p>
                         </div>
                     </div>
                     <div id="vitals-learn" class="np-learn" style="display:none;">
                         <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="vitals-learn-meaning">—</span></div>
-                        <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="vitals-learn-how">Reference ranges adjusted for age, pregnancy, and comorbidity.</span></div>
-                    </div>
-
-                    <div class="mt-4" style="display:flex; flex-direction:column; gap:8px;">
-                        <button id="simulate-vitals-btn" onclick="simulateVitalSigns()" class="w-full py-3 rounded-xl font-bold uppercase tracking-wider transition-all" style="background:linear-gradient(135deg,#f97316,#ea580c); color:#fff; border:2px solid #fdba74; box-shadow:0 10px 20px rgba(194,65,12,0.45);">
-                            <svg class="inline mr-2" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H5a2 2 0 0 0-2 2v14l4-4h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-6 9H9V7h2v5zm4-2h-2V7h2v3z"/></svg> Analyze Vital Signs
-                        </button>
-                        <p id="vitals-record-status" class="text-xs text-slate-400 min-h-[18px]"></p>
+                        <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="vitals-learn-how">—</span></div>
                     </div>
                 </section>
 
@@ -386,16 +462,16 @@
                         <div class="space-y-4">
                             <div class="grid grid-cols-2 gap-3">
                                 <div class="space-y-2">
-                                    <label class="text-[10px] font-bold text-slate-500 uppercase">Volume (mL)</label>
-                                    <input type="number" id="vol" placeholder="1000" min="0" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-blue-500 outline-none text-sm">
+                                    <label for="vol" class="text-[10px] font-bold text-slate-500 uppercase">Volume (mL)</label>
+                                    <input inputmode="decimal" type="number" id="vol" placeholder="1000" min="0" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-blue-500 outline-none text-sm">
                                 </div>
                                 <div class="space-y-2">
-                                    <label class="text-[10px] font-bold text-slate-500 uppercase">Time (Hours)</label>
-                                    <input type="number" id="hours" placeholder="8" min="0" step="0.5" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-blue-500 outline-none text-sm">
+                                    <label for="hours" class="text-[10px] font-bold text-slate-500 uppercase">Time (Hours)</label>
+                                    <input inputmode="decimal" type="number" id="hours" placeholder="8" min="0" step="0.5" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-blue-500 outline-none text-sm">
                                 </div>
                             </div>
                             <div class="space-y-2">
-                                <label class="text-[10px] font-bold text-slate-500 uppercase">Drop Factor (gtt/mL)</label>
+                                <label for="factor" class="text-[10px] font-bold text-slate-500 uppercase">Drop Factor (gtt/mL)</label>
                                 <select id="factor" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-blue-500">
                                     <option value="10">Macro Drip (10 gtt/mL) - Blood/Colloids</option>
                                     <option value="15">Macro Drip (15 gtt/mL) - Standard</option>
@@ -433,12 +509,12 @@
                         <div class="space-y-4">
                             <div class="grid grid-cols-2 gap-3">
                                 <div class="space-y-2">
-                                    <label class="text-[10px] font-bold text-slate-500 uppercase">Weight (kg)</label>
-                                    <input type="number" id="weight" placeholder="70" min="0" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-emerald-500 outline-none text-sm">
+                                    <label for="weight" class="text-[10px] font-bold text-slate-500 uppercase">Weight (kg)</label>
+                                    <input inputmode="decimal" type="number" id="weight" placeholder="70" min="0" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-emerald-500 outline-none text-sm">
                                 </div>
                                 <div class="space-y-2">
-                                    <label class="text-[10px] font-bold text-slate-500 uppercase">Height (cm)</label>
-                                    <input type="number" id="height" placeholder="170" min="0" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-emerald-500 outline-none text-sm">
+                                    <label for="height" class="text-[10px] font-bold text-slate-500 uppercase">Height (cm)</label>
+                                    <input inputmode="decimal" type="number" id="height" placeholder="170" min="0" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-emerald-500 outline-none text-sm">
                                 </div>
                             </div>
                             <div id="bmi-results" class="space-y-3">
@@ -448,6 +524,7 @@
                                     <p id="bmi-status" class="text-xs text-slate-400 mt-1">Category: --</p>
                                 </div>
                             </div>
+                            <div id="bmi-interp" class="np-interp-host"></div>
                             <div id="bmi-learn" class="np-learn">
                                 <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="bmi-learn-meaning">Underweight &lt;18.5 · Normal 18.5–24.9 · Overweight 25–29.9 · Obese ≥30</span></div>
                                 <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="bmi-learn-how">BMI = kg ÷ m² (height converted from cm).</span></div>
@@ -469,11 +546,11 @@
                         <!-- Input Section -->
                         <div class="space-y-4">
                             <div class="space-y-2">
-                                <label class="text-[10px] font-bold text-slate-500 uppercase">Last Menstrual Period (LMP)</label>
+                                <label for="lmp-date" class="text-[10px] font-bold text-slate-500 uppercase">Last Menstrual Period (LMP)</label>
                                 <input type="date" id="lmp-date" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-pink-500 outline-none text-sm text-slate-200" style="color-scheme: dark;">
                             </div>
                             <div class="space-y-2">
-                                <label class="text-[10px] font-bold text-slate-500 uppercase">Calculation Date</label>
+                                <label for="calc-date" class="text-[10px] font-bold text-slate-500 uppercase">Calculation Date</label>
                                 <input type="date" id="calc-date" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl focus:border-pink-500 outline-none text-sm text-slate-200" style="color-scheme: dark;">
                             </div>
                             <button onclick="calcAOGEDD()" class="w-full py-3 rounded-xl font-bold transition-all" style="background:linear-gradient(135deg,#f43f5e,#e11d48); color:#fff; border:2px solid #fda4af; box-shadow:0 10px 20px rgba(190,24,93,0.35);">
@@ -524,11 +601,11 @@
                     <div class="grid md:grid-cols-2 gap-4">
                         <div class="space-y-3">
                             <div class="grid grid-cols-2 gap-3">
-                                <div><label class="text-[10px] font-bold text-slate-500 uppercase">Weight (kg)</label><input type="number" id="peds-weight" min="0" step="0.1" placeholder="12" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
-                                <div><label class="text-[10px] font-bold text-slate-500 uppercase">Age (years)</label><input type="number" id="peds-age" min="0" step="0.1" placeholder="3" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
-                                <div><label class="text-[10px] font-bold text-slate-500 uppercase">Dose (mg/kg)</label><input type="number" id="peds-mgkg" min="0" step="0.1" placeholder="15" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
-                                <div><label class="text-[10px] font-bold text-slate-500 uppercase">Adult dose (mg)</label><input type="number" id="peds-adult" min="0" step="1" placeholder="500" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
-                                <div class="col-span-2"><label class="text-[10px] font-bold text-slate-500 uppercase">Max single dose (mg, optional)</label><input type="number" id="peds-max" min="0" step="1" placeholder="1000" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
+                                <div><label for="peds-weight" class="text-[10px] font-bold text-slate-500 uppercase">Weight (kg)</label><input inputmode="decimal" type="number" id="peds-weight" min="0" step="0.1" placeholder="12" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
+                                <div><label for="peds-age" class="text-[10px] font-bold text-slate-500 uppercase">Age (years)</label><input inputmode="decimal" type="number" id="peds-age" min="0" step="0.1" placeholder="3" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
+                                <div><label for="peds-mgkg" class="text-[10px] font-bold text-slate-500 uppercase">Dose (mg/kg)</label><input inputmode="decimal" type="number" id="peds-mgkg" min="0" step="0.1" placeholder="15" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
+                                <div><label for="peds-adult" class="text-[10px] font-bold text-slate-500 uppercase">Adult dose (mg)</label><input inputmode="decimal" type="number" id="peds-adult" min="0" step="1" placeholder="500" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
+                                <div class="col-span-2"><label for="peds-max" class="text-[10px] font-bold text-slate-500 uppercase">Max single dose (mg, optional)</label><input inputmode="decimal" type="number" id="peds-max" min="0" step="1" placeholder="1000" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm outline-none focus:border-violet-500"></div>
                             </div>
                             <button type="button" onclick="calcPediatricDose()" class="w-full py-3 rounded-xl font-bold" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;">Calculate Pediatric Dose</button>
                         </div>
@@ -550,101 +627,120 @@
             <div id="tool-panel-apgar" class="tool-panel">
                 <div id="apgar-section" class="learn-shell scroll-mt-20" style="--accent:#fb7185;">
                     <div class="learn-title" style="color:#fda4af;">APGAR Score</div>
-                    <p class="learn-sub">Tap the clinical finding that matches what you observe. Each option explains what 0, 1, or 2 means, and the total updates as you go.</p>
+                    <p class="learn-sub">Tap 0, 1, or 2 for each sign. The line under the row is the full meaning of the score you picked.</p>
+                    <div class="apgar-mins" role="group" aria-label="APGAR minute">
+                        <button type="button" class="apgar-min is-selected" data-min="1" aria-pressed="true">1 min <span class="scale-opt-mark" aria-hidden="true">✓</span></button>
+                        <button type="button" class="apgar-min" data-min="5" aria-pressed="false">5 min</button>
+                        <button type="button" class="apgar-min" data-min="10" aria-pressed="false">10 min</button>
+                    </div>
+                    <div class="scale-sticky" id="apgar-sticky" data-band="pending">
+                        <p class="scale-sticky-score" id="apgar-total">APGAR —</p>
+                        <p class="scale-sticky-band" id="apgar-interp">Select all five signs.</p>
+                    </div>
+                    <div class="scale-actions">
+                        <button type="button" class="scale-action" id="apgar-copy" disabled>Copy result</button>
+                        <button type="button" class="scale-action" id="apgar-reset">Reset</button>
+                    </div>
                     <div id="apgar-inputs"></div>
-                    <div class="score-result">
-                        <div class="score-result-label">APGAR total</div>
-                        <div id="apgar-total" class="score-result-value" style="color:#fda4af;">--</div>
-                        <div id="apgar-interp" class="score-result-interp">Select all five domains to score.</div>
-                        <div class="np-learn" style="margin-top:10px;">
-                            <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="apgar-learn-meaning">0–3 depressed · 4–6 moderate · 7–10 reassuring</span></div>
-                            <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="apgar-learn-how">Sum of Appearance + Pulse + Grimace + Activity + Respiration (each 0–2).</span></div>
-                        </div>
+                    <div class="np-learn" style="margin-top:10px;">
+                        <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="apgar-learn-meaning">0–3 depressed · 4–6 moderate · 7–10 reassuring</span></div>
+                        <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="apgar-learn-how">Sum of Appearance + Pulse + Grimace + Activity + Respiration (each 0–2).</span></div>
                     </div>
                 </div>
             </div>
             <div id="tool-panel-gcs" class="tool-panel">
                 <div id="gcs-section" class="learn-shell scroll-mt-20" style="--accent:#38bdf8;">
                     <div class="learn-title" style="color:#7dd3fc;">Glasgow Coma Scale</div>
-                    <p class="learn-sub">Pick the best eye, verbal, and motor response. Report as E_V_M (example: E4V5M6 = 15).</p>
-                    <div class="gcs-live-row">
-                        <span class="gcs-chip" id="gcs-chip-eye">E—</span>
-                        <span class="gcs-chip" id="gcs-chip-verbal">V—</span>
-                        <span class="gcs-chip" id="gcs-chip-motor">M—</span>
+                    <p class="learn-sub">Open one response, pick the best score, and the next section opens. Report E, V, and M, not only the sum.</p>
+                    <div class="scale-sticky" id="gcs-sticky" data-band="pending">
+                        <p class="scale-sticky-score" id="gcs-total">E— V— M—</p>
+                        <p class="scale-sticky-band" id="gcs-severity"></p>
+                    </div>
+                    <div class="scale-actions">
+                        <button type="button" class="scale-action" id="gcs-copy" disabled>Copy result</button>
+                        <button type="button" class="scale-action" id="gcs-reset">Reset</button>
                     </div>
                     <div id="gcs-inputs"></div>
-                    <div class="score-result">
-                        <div class="score-result-label">GCS total</div>
-                        <div id="gcs-total" class="score-result-value" style="color:#7dd3fc;">--</div>
-                        <div id="gcs-severity" class="score-result-interp">Select Eye, Verbal, and Motor.</div>
-                        <div class="np-learn" style="margin-top:10px;">
-                            <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="gcs-learn-meaning">Mild 13–15 · Moderate 9–12 · Severe ≤8</span></div>
-                            <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="gcs-learn-how">Total = E + V + M. Always report components, not only the sum.</span></div>
-                            <div class="np-learn-row"><span class="np-learn-k">Attention</span><span class="np-learn-v" id="gcs-learn-attention">Score Eye, Verbal, and Motor for a watch/report cue. Soft guidance only; confirm with your Clinical Instructor.</span></div>
-                        </div>
+                    <div class="np-learn" style="margin-top:10px;">
+                        <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="gcs-learn-meaning">Mild 13–15 · Moderate 9–12 · Severe ≤8</span></div>
+                        <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="gcs-learn-how">Total = E + V + M. Always report components, not only the sum.</span></div>
+                        <div class="np-learn-row"><span class="np-learn-k">Attention</span><span class="np-learn-v" id="gcs-learn-attention">Score Eye, Verbal, and Motor for a watch/report cue. Soft guidance only; confirm with your Clinical Instructor.</span></div>
                     </div>
                 </div>
             </div>
             <div id="tool-panel-braden" class="tool-panel">
                 <div id="braden-section" class="learn-shell scroll-mt-20" style="--accent:#2dd4bf;">
                     <div class="learn-title" style="color:#5eead4;">Braden Scale</div>
-                    <p class="learn-sub">A lower total means higher pressure-injury risk, on a scale of 6 to 23. Tap the wording that matches the patient and each choice explains the subscale.</p>
+                    <p class="learn-sub">A lower total means higher pressure-injury risk, on a scale of 6 to 23. Each choice collapses so you can see what you already scored.</p>
+                    <div class="scale-sticky" id="braden-sticky" data-band="pending">
+                        <p class="scale-sticky-score" id="braden-total">Braden —</p>
+                        <p class="scale-sticky-band" id="braden-risk">Score all six subscales.</p>
+                    </div>
+                    <div class="scale-actions">
+                        <button type="button" class="scale-action" id="braden-copy" disabled>Copy result</button>
+                        <button type="button" class="scale-action" id="braden-reset">Reset</button>
+                    </div>
                     <div id="braden-inputs"></div>
-                    <div class="score-result">
-                        <div class="score-result-label">Braden total</div>
-                        <div id="braden-total" class="score-result-value" style="color:#5eead4;">--</div>
-                        <div id="braden-risk" class="score-result-interp">Score all six subscales.</div>
-                        <div class="np-learn" style="margin-top:10px;">
-                            <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="braden-learn-meaning">Lower total = higher pressure-injury risk (6–23).</span></div>
-                            <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="braden-learn-how">Sum of Sensory, Moisture, Activity, Mobility, Nutrition, Friction/Shear.</span></div>
-                            <div class="np-learn-row"><span class="np-learn-k">Attention</span><span class="np-learn-v" id="braden-learn-attention">Score all six subscales for risk-band and prevention-focus cues. Soft guidance only; confirm with your Clinical Instructor.</span></div>
-                        </div>
+                    <div class="np-learn" style="margin-top:10px;">
+                        <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="braden-learn-meaning">Lower total = higher pressure-injury risk (6–23).</span></div>
+                        <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="braden-learn-how">Sum of Sensory, Moisture, Activity, Mobility, Nutrition, Friction/Shear.</span></div>
+                        <div class="np-learn-row"><span class="np-learn-k">Attention</span><span class="np-learn-v" id="braden-learn-attention">Score all six subscales for risk-band and prevention-focus cues. Soft guidance only; confirm with your Clinical Instructor.</span></div>
                     </div>
                 </div>
             </div>
             <div id="tool-panel-ron" class="tool-panel">
                 <div id="ron-section" class="learn-shell scroll-mt-20" style="--accent:#fb923c;">
                     <div class="learn-title" style="color:#fdba74;">Rule of Nines</div>
-                    <p class="learn-sub">Tap a body region to cycle Off, Half, then Full. Uses adult proportions for the TBSA estimate.</p>
-                    <div id="ron-grid" class="ron-body-grid mb-4"></div>
-                    <div class="score-result">
-                        <div class="score-result-label">Estimated TBSA</div>
-                        <div id="ron-tbsa" class="score-result-value" style="color:#fdba74;">0%</div>
-                        <div id="ron-note" class="score-result-interp">Tap body regions above</div>
-                        <div id="ron-breakdown" class="text-xs text-slate-400 mt-2"></div>
-                        <div class="np-learn" style="margin-top:10px;">
-                            <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="ron-learn-meaning">Adult Rule of Nines TBSA estimate for teaching.</span></div>
-                            <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="ron-learn-how">Head 9 · Arm 9 each · Trunk 18 front/back · Leg 18 each · Perineum 1 (half = ½ region).</span></div>
-                        </div>
-                        <button type="button" onclick="resetRuleOfNines()" class="w-full mt-3 py-3 rounded-xl font-bold bg-slate-800 text-slate-100 border border-slate-600">Reset Regions</button>
+                    <p class="learn-sub">Front or Back scores one side. Both sets the front and back of a part together. Head and trunk: off, half, full. Arms and legs: off or full. Mixed means the two sides differ. R and L are the patient’s sides.</p>
+                    <div class="scale-sticky" id="ron-sticky" data-band="pending">
+                        <p class="scale-sticky-score" id="ron-tbsa">0% TBSA</p>
+                    </div>
+                    <div class="scale-actions">
+                        <button type="button" class="scale-action" id="ron-copy" disabled>Copy result</button>
+                        <button type="button" class="scale-action" id="ron-reset">Reset</button>
+                    </div>
+                    <div id="ron-figure" class="ron-figure"></div>
+                    <p id="ron-breakdown" class="ron-breakdown">No regions selected</p>
+                    <p class="ron-peds-note">Pediatric Lund-Browder proportions are not in this pack. This map uses adult Rule of Nines only.</p>
+                    <div class="np-learn" style="margin-top:10px;">
+                        <div class="np-learn-row"><span class="np-learn-k">Meaning</span><span class="np-learn-v" id="ron-learn-meaning">Adult Rule of Nines TBSA estimate for teaching.</span></div>
+                        <div class="np-learn-row"><span class="np-learn-k">How derived</span><span class="np-learn-v" id="ron-learn-how">Head 9, shared. Trunk 9 upper and 9 lower on each view. Arm 4.5 each view. Leg 9 each view. Perineum 1, shared.</span></div>
                     </div>
                 </div>
             </div>
         </div>
 
         </div> <!-- End content-tools -->
-    </div>
 
         <!-- ============ OTC MEDICINES TAB CONTENT ============ -->
         <div id="content-otc" class="tab-content hidden">
-            <div class="otc-hub">
-                <div class="tools-hub-mode-row">
+            <div class="otc-hub rf-page rf-otc">
+                <div class="tools-hub-mode-row ref-hub-head">
                     <div class="tools-hub-hero">
                         <h2>OTC Medicines</h2>
-                        <p>Search Philippine brands, generics, or symptoms. A pocket reference for duty and study, so confirm anything that affects care with your CI.</p>
+                        <p>PH brands &amp; generics. Confirm with your CI.</p>
                     </div>
                 </div>
-                <div class="otc-search-wrap">
-                    <input id="otc-search" type="search" class="otc-search-input" placeholder="Search medicine, brand, or symptom (typo-tolerant)..." autocomplete="off" />
+                <div class="otc-sticky-chrome rf-sticky">
+                <div class="rf-toolbar">
+                    <div class="rf-search">
+                        <span class="rf-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>
+                        <input id="otc-search" type="search" class="rf-search-input" placeholder="Search brand, generic, symptom" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search medicines" />
+                        <button type="button" class="rf-search-clear" hidden aria-label="Clear search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+                    </div>
+                    <div id="otc-chips" class="rf-filter"></div>
                 </div>
+                <div class="rf-count" id="otc-count" aria-live="polite"></div>
+                </div>
+                <p class="otc-pack-stamp" id="otcPackStamp">Reference pack nursepath-v2.4.20</p>
                 <div class="otc-layout">
                     <div id="otc-list-container">
                         <div id="otc-list" class="otc-list"></div>
                     </div>
-                    <div id="otc-detail-container" class="otc-detail-shell hidden md:block">
-                        <button id="otc-back-btn" type="button" class="otc-back-btn" onclick="hideOTCDetail()">← Back to list</button>
-                        <div id="otc-detail" class="otc-detail-panel">
-                            <p class="otc-detail-placeholder">Select a medicine to view the duty quick take and study details.</p>
+                    <div id="otc-detail-container" class="otc-detail-shell rf-shell hidden md:block">
+                        <button id="otc-back-btn" type="button" class="rf-back" onclick="hideOTCDetail()">← Back to list</button>
+                        <div id="otc-detail" class="otc-detail-panel rf-detail">
+                            <div class="rf-placeholder"><span class="rf-placeholder-ic" data-ic="pill"></span><span>Select a medicine to view the duty quick take and study details.</span></div>
                         </div>
                     </div>
                 </div>
@@ -652,43 +748,236 @@
         </div> <!-- End content-otc -->
 
         <div id="content-iv" class="tab-content hidden">
-            <div class="otc-hub">
-                <div class="tools-hub-mode-row">
+            <div class="otc-hub rf-page">
+                <div class="tools-hub-mode-row ref-hub-head">
                     <div class="tools-hub-hero">
                         <h2>IV Drug Study</h2>
-                        <p>Generic name, class, mechanism, IV preparation, nursing responsibilities, and what to watch. A study reference for duty. Confirm the order and ward protocol with your CI.</p>
+                        <p>Class, mechanism, IV rate, and nursing checks. Confirm the order with your CI.</p>
                     </div>
                 </div>
-                <div class="otc-search-wrap">
-                    <input id="iv-search" type="search" class="otc-search-input" placeholder="Search generic or brand. A wrong spelling still suggests the closest drug." autocomplete="off" />
+                <div class="otc-sticky-chrome rf-sticky">
+                    <div class="rf-toolbar">
+                        <div class="rf-search">
+                            <span class="rf-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>
+                            <input id="iv-search" type="search" class="rf-search-input" placeholder="Search generic or brand. Misspellings still find the closest drug." autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search IV medications" />
+                        </div>
+                    </div>
                 </div>
                 <div class="otc-layout">
                     <div id="iv-list-container">
                         <div id="iv-list" class="otc-list"></div>
                     </div>
-                    <div id="iv-detail-container" class="otc-detail-shell hidden md:block">
-                        <button id="iv-back-btn" type="button" class="otc-back-btn" onclick="hideIVDetail()">← Back to list</button>
-                        <div id="iv-detail" class="otc-detail-panel">
-                            <p class="otc-detail-placeholder">Select an IV medication to open the drug study.</p>
+                    <div id="iv-detail-container" class="otc-detail-shell rf-shell hidden md:block">
+                        <button id="iv-back-btn" type="button" class="rf-back" onclick="hideIVDetail()">← Back to list</button>
+                        <div id="iv-detail" class="otc-detail-panel rf-detail">
+                            <div class="rf-placeholder"><span>Select an IV medication to open the drug study.</span></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-    <footer class="mt-12 py-6 text-center text-slate-500 border-t border-slate-800">
-        <p class="text-xs">NursePath is a learning companion for nursing students. Always verify with your Clinical Instructor and approved references. Usage metadata may be logged with consent.</p>
+        <!-- ============ LAB RANGES TAB CONTENT ============ -->
+        <div id="content-labs" class="tab-content hidden">
+            <div class="lab-hub rf-page rf-lab">
+                <div class="tools-hub-mode-row">
+                    <div class="tools-hub-hero">
+                        <h2>Lab Ranges</h2>
+                        <p>Adult pocket ranges. Slip &amp; CI win.</p>
+                    </div>
+                </div>
+                <div class="rf-toolbar">
+                    <div class="rf-search">
+                        <span class="rf-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>
+                        <input id="lab-search" type="search" class="rf-search-input" placeholder="Search K, Hgb, INR, or hyponatremia" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search lab tests" />
+                        <button type="button" class="rf-search-clear" hidden aria-label="Clear search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+                    </div>
+                    <div id="lab-chips" class="rf-filter"></div>
+                </div>
+                <div class="rf-count" id="lab-count" aria-live="polite"></div>
+                <div class="lab-layout">
+                    <div id="lab-list-container">
+                        <div id="lab-list" class="lab-list"></div>
+                    </div>
+                    <div id="lab-detail-container" class="lab-detail-shell rf-shell hidden md:block">
+                        <button id="lab-back-btn" type="button" class="rf-back" onclick="hideLabDetail()">← Back to list</button>
+                        <div id="lab-detail" class="lab-detail-panel rf-detail">
+                            <div class="rf-placeholder"><span class="rf-placeholder-ic" data-ic="flask"></span><span>Tap a test for normal, too high, too low, and how it is drawn.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End content-labs -->
+
+        <div id="content-abbrev" class="tab-content hidden">
+            <div class="ab-hub rf-page rf-ab">
+                <div class="tools-hub-mode-row">
+                    <div class="tools-hub-hero">
+                        <h2>Abbreviations</h2>
+                        <p>Ward short forms. Hospital list wins.</p>
+                    </div>
+                </div>
+                <div class="rf-toolbar">
+                    <div class="rf-search">
+                        <span class="rf-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>
+                        <input id="ab-search" type="search" class="rf-search-input" placeholder="Search PRN, NPO, or twice a day" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search abbreviations" />
+                        <button type="button" class="rf-search-clear" hidden aria-label="Clear search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+                    </div>
+                    <div id="ab-chips" class="rf-filter"></div>
+                </div>
+                <div class="rf-count" id="ab-count" aria-live="polite"></div>
+                <div class="ab-layout">
+                    <div id="ab-list-container">
+                        <div id="ab-list" class="ab-list"></div>
+                    </div>
+                    <div id="ab-detail-container" class="ab-detail-shell rf-shell hidden md:block">
+                        <button id="ab-back-btn" type="button" class="rf-back" onclick="hideAbbrevDetail()">← Back to list</button>
+                        <div id="ab-detail" class="ab-detail rf-detail">
+                            <p class="ab-placeholder">Tap a short form for the meaning, where it shows up, and when to write the words instead.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="content-sizes" class="tab-content hidden">
+            <div class="sz-hub rf-page rf-sz">
+                <div class="tools-hub-mode-row">
+                    <div class="tools-hub-hero">
+                        <h2>Sizes</h2>
+                        <p>Needles, syringes, cannulas, tubes. Package &amp; CI win.</p>
+                    </div>
+                </div>
+                <div class="rf-toolbar">
+                    <div class="rf-search">
+                        <span class="rf-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>
+                        <input id="sz-search" type="search" class="rf-search-input" placeholder="Search 22 G, insulin, or Foley" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search sizes" />
+                        <button type="button" class="rf-search-clear" hidden aria-label="Clear search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+                    </div>
+                    <div id="sz-chips" class="rf-filter"></div>
+                </div>
+                <div class="rf-count" id="sz-count" aria-live="polite"></div>
+                <div class="sz-layout">
+                    <div id="sz-list-container">
+                        <div id="sz-list" class="sz-list"></div>
+                    </div>
+                    <div id="sz-detail-container" class="sz-detail-shell rf-shell hidden md:block">
+                        <button id="sz-back-btn" type="button" class="rf-back" onclick="hideSizeDetail()">← Back to list</button>
+                        <div id="sz-detail" class="sz-detail rf-detail">
+                            <div class="rf-placeholder"><span class="rf-placeholder-ic" data-ic="needle"></span><span>Tap a size for the usual job, the angle, and what to read on the package.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <footer class="np-footer">
+        <p>Verify findings with your Clinical Instructor and approved textbooks before care decisions. Usage metadata may be logged with consent.</p>
     </footer>
-    </div>
-
-    <script src="/assets/iv-drug-study.js"></script>
-    <script src="/js/script-4.js"></script>
-
-    <!-- Service Worker: duplicate register kept for debug logging after auth boot -->
-    <script src="/js/script-5.js"></script>
+    </div> <!-- End np-content -->
 
         </main>
+
+        <nav class="np-tabbar" id="npTabbar" data-level="main" aria-label="Primary sections">
+            <div class="np-tabbar-level" data-nav-level="main">
+                <button type="button" class="np-tabbar-link is-active" data-tab="tools" onclick="switchMainTab('tools')">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
+                <span>Tools</span>
+            </button>
+                <button type="button" class="np-tabbar-link" data-tab="otc" onclick="switchMainTab('otc')">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 2a6 6 0 0 1 6 6v8a6 6 0 0 1-12 0V8a6 6 0 0 1 6-6zm8 0a6 6 0 0 1 0 12v-6a6 6 0 0 0-6-6h6z"/></svg>
+                <span>OTC</span>
+            </button>
+                <button type="button" class="np-tabbar-link" data-tab="iv" onclick="switchMainTab('iv')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12"/><path d="M9 12h6"/><path d="M8 21h8"/><path d="M12 15v6"/></svg>
+                <span>IV</span>
+            </button>
+                <button type="button" class="np-tabbar-link" data-nav-action="references" onclick="setMobileNavLevel('references')" aria-label="Open reference navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v15M12 5C9 3 5 3 2 4v14c3-1 7-1 10 2 3-3 7-3 10-2V4c-3-1-7-1-10 1Z"/></svg><span>References</span></button>
+            </div>
+            <div class="np-tabbar-level" data-nav-level="references" hidden>
+                <button type="button" class="np-tabbar-link" data-tab="labs" onclick="switchMainTab('labs')">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10 2h4v3h-1v5.2l6.2 10.3A2 2 0 0 1 17.4 23H6.6a2 2 0 0 1-1.8-2.5L11 10.2V5h-1V2z"/></svg>
+                <span>Labs</span>
+            </button>
+                <button type="button" class="np-tabbar-link" data-tab="abbrev" onclick="switchMainTab('abbrev')">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><text x="12" y="16.5" text-anchor="middle" font-size="10" font-weight="800" fill="#0f172a">Aa</text></svg>
+                <span>Abbr</span>
+            </button>
+                <button type="button" class="np-tabbar-link" data-tab="sizes" onclick="switchMainTab('sizes')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 9h18v6H3z"/><path d="M6 9v4M9 9v2.5M12 9v4M15 9v2.5M18 9v4"/></svg>
+                <span>Sizes</span>
+            </button>
+                <button type="button" class="np-tabbar-link" onclick="setMobileNavLevel('main')" aria-label="Back to main navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h12"/></svg><span>Back</span></button>
+            </div>
+        </nav>
+
+        <div class="np-settings-sheet" id="npSettingsSheet" hidden>
+            <button type="button" class="np-settings-backdrop" id="npSettingsBackdrop" aria-label="Close settings"></button>
+            <section class="np-settings-panel" role="dialog" aria-modal="true" aria-labelledby="npSettingsTitle" tabindex="-1">
+                <header class="settings-heading"><h2 id="npSettingsTitle">Settings</h2><button type="button" class="settings-back" id="npSettingsClose" aria-label="Back to NursePath" title="Back to NursePath"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 5-7 7 7 7M5 12h15"/></svg></button></header>
+                <section class="settings-card settings-account" aria-label="Student account"><span class="settings-avatar" data-settings-icon="user"></span><div><h3>Student Account</h3><p id="settingsAccountEmail">Checking account…</p><p id="settingsAccountProvider"></p></div></section>
+                <h3 class="settings-section-title">Appearance</h3>
+                <section class="settings-card">
+                    <div class="settings-row-heading"><span class="settings-icon" data-settings-icon="sun"></span><div><h4>App Theme</h4><p>Choose your preferred appearance</p></div></div>
+                    <div class="settings-themes" role="group" aria-label="App theme">
+                        <button type="button" data-settings-theme="light" aria-pressed="false"><span data-settings-icon="sun"></span><span>Light</span></button>
+                        <button type="button" data-settings-theme="dark" aria-pressed="false"><span data-settings-icon="moon"></span><span>Dark</span></button>
+                        <button type="button" data-settings-theme="system" aria-pressed="false"><span data-settings-icon="phone"></span><span>System</span></button>
+                    </div>
+                </section>
+                <h3 class="settings-section-title">App &amp; Offline</h3>
+                <section class="settings-card settings-group">
+                    <div class="settings-row"><span class="settings-icon" data-settings-icon="wifi"></span><div><h4>Offline Reference Pack</h4><p data-settings-version>Version unavailable</p><p id="settingsPackDetails">Checking required resources…</p></div><span class="settings-status" id="settingsPackStatus" role="status">Checking</span></div>
+                    <button type="button" class="settings-row settings-action" id="settingsCheckUpdates"><span class="settings-icon" data-settings-icon="refresh"></span><span><strong>Check for Updates</strong><span class="settings-secondary">Get the latest clinical references</span></span><span class="settings-chevron" aria-hidden="true">›</span></button>
+                    <p id="settingsUpdateStatus" class="settings-update-status" role="status" hidden></p>
+                </section>
+                <h3 class="settings-section-title">Privacy &amp; Support</h3>
+                <section class="settings-card settings-group">
+                    <details class="settings-disclosure"><summary class="settings-row"><span class="settings-icon" data-settings-icon="shield"></span><span><strong>Privacy &amp; Data Usage</strong><span class="settings-secondary">Learn how usage analytics work</span></span><span class="settings-chevron" aria-hidden="true">›</span></summary><div class="settings-detail">
+                        <p id="settingsConsentStatus"></p><p>Sign-in requires consent to usage tracking for academic evaluation. Events include your signed-in email, feature use, session duration, and some assessment scores or categories. Tracking is not anonymous.</p>
+                        <p>Vital-sign readings, patient identifiers, and raw calculator inputs are not sent as usage events. Do not enter patient names or identifying details.</p>
+                        <p>Usage events queue on this device and can sync to Supabase when online. Authentication attempts are also logged. Your device stores your saved identity, preferences, agreement, study progress, and cached references. The faculty dashboard can report usage and export events.</p>
+                        <p>Consent is recorded during sign-in. Contact <a href="mailto:adrielrancepascua@gmail.com">adrielrancepascua@gmail.com</a> about data use or deletion. Logging out removes saved account access on this device; it does not delete previously collected records.</p>
+                    </div></details>
+                    <details class="settings-disclosure"><summary class="settings-row"><span class="settings-icon" data-settings-icon="info"></span><span><strong>About NursePath</strong><span class="settings-secondary">Version, credits, and disclaimer</span></span><span class="settings-chevron" aria-hidden="true">›</span></summary><div class="settings-detail">
+                        <p data-settings-version>Version unavailable</p><p>NursePath — an offline clinical reference and learning companion for nursing students.</p><p>Developed by Rance Adriel M. Pascua, BSN student, Universidad de Dagupan. AI-assisted implementation credits include Claude and GitHub Copilot. Academic use is governed by the project's <a href="/LICENSE.txt" target="_blank" rel="noopener">license</a>.</p>
+                        <p>For educational and supervised reference use. NursePath does not diagnose, prescribe, or replace clinical judgment. Verify findings with your Clinical Instructor, approved textbooks, and your institution's protocols.</p>
+                    </div></details>
+                </section>
+                <button type="button" class="settings-logout settings-row" id="settingsLogout"><span class="settings-icon" data-settings-icon="logout"></span><strong>Log Out</strong><span class="settings-chevron" aria-hidden="true">›</span></button>
+                <p class="settings-footer">NursePath · Clinical Reference Companion</p>
+            </section>
+        </div>
+    </div>
+
+    <div id="pnle-study-shell" aria-label="PNLE Study mode">
+        <div class="pnle-study-layout">
+            <header class="pnle-study-header np-unified-header" id="pnleStudyHeader">
+                <div class="pnle-study-header-lockup">
+                    <img src="/assets/brand/logo-icon.png" alt="" width="32" height="32">
+                    <p class="pnle-study-header-brand">Nurse<span>Path</span></p>
+                </div>
+                <div class="np-page-header-actions"><div class="np-app-mode-picker" data-mode="study"><button type="button" id="pnleStudySwitchMode" class="np-app-mode-select np-action-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="pnleStudySwitchModeMenu" aria-label="App mode"><span data-app-mode-label>PNLE</span><svg class="np-mode-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><div class="np-app-mode-menu" id="pnleStudySwitchModeMenu" role="menu" aria-label="Choose app mode" hidden><button type="button" class="np-action-btn" role="menuitemradio" aria-checked="false" data-app-mode="duty">Standard</button><button type="button" class="np-action-btn" role="menuitemradio" aria-checked="true" data-app-mode="study">PNLE</button></div></div><button type="button" class="np-settings-open" id="pnleSettingsOpen" aria-haspopup="dialog" aria-controls="npSettingsSheet" aria-label="Open settings">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                </button></div>
+            </header>
+            <div id="pnleStudyRoot" class="pnle-study-main"></div>
+            <nav class="pnle-study-tabbar" id="pnleStudyTabbar" aria-label="Study sections">
+                <button type="button" class="pnle-tab is-active np-action-btn" data-study-tab="practice" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="18" rx="3"/><path d="M9 4V2h6v2M9 10h6M9 14h6M9 18h4"/></svg><span>Practice</span></button>
+                <button type="button" class="pnle-tab np-action-btn" data-study-tab="mistakes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5C8 3 5 3 2 4v15c3-1 7-1 10 1 3-2 7-2 10-1V4c-3-1-6-1-10 1Zm0 0v15M15 10l2 2 3-4"/></svg><span>Mistakes</span></button>
+                <button type="button" class="pnle-tab np-action-btn" data-study-tab="progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3v17h17M8 16v-4M13 16V8M18 16V5"/></svg><span>Progress</span></button>
+            </nav>
+        </div>
     </div>
     </div>
+
+    <script src="/assets/pnle-medsurg.js"></script>
+    <script src="/assets/pnle-concepts.js"></script>
+    <script src="/assets/pnle-session.js"></script>
+    <script src="/assets/iv-drug-study.js"></script>
+    <script src="/js/script-4.js"></script>
+    <script src="/js/pnle-study.js"></script>
+    <script src="/js/script-5.js"></script>
+    <script src="/js/tool-icons.js"></script>
 </body>
 </html>

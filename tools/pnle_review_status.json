@@ -1,0 +1,61 @@
+{
+  "_comment": "Per-item only. selfChecked = verified against handouts (preview). instructorReviewed = CI sign-off (student pilot).",
+  "testingReleaseAll": true,
+  "testingDisclaimer": "Unofficial Questions",
+  "items": {
+    "fluids-005": {
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
+      "instructorReviewed": false
+    },
+    "fluids-006": {
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
+      "instructorReviewed": false
+    },
+    "fluids-012": {
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
+      "instructorReviewed": false
+    },
+    "fluids-021": {
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
+      "instructorReviewed": false
+    },
+    "fluids-022": {
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
+      "instructorReviewed": false
+    },
+    "heart-003": {
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
+      "instructorReviewed": false
+    },
+    "blood-008": {
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
+      "instructorReviewed": false
+    },
+    "blood-009": {
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
+      "instructorReviewed": false
+    },
+    "blood-010": {
+      "selfChecked": true,
+      "selfCheckedBy": "Rance Adriel M. Pascua",
+      "selfCheckedAt": "2026-10-13",
+      "instructorReviewed": false
+    }
+  }
+}
