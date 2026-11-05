@@ -2292,6 +2292,10 @@
       .replace(/"/g, '&quot;');
   }
 
+  function joinSentences() {
+    return Array.prototype.filter.call(arguments, Boolean).join(' ');
+  }
+
   function fact(label, value, tone) {
     if (!value) return '';
     const toneClass = tone ? ` is-${tone}` : '';
@@ -2396,22 +2400,22 @@
 
     const selected = global.__nursepathSelectedIv && global.__nursepathSelectedIv.id;
     matches.forEach((item) => {
-      const card = document.createElement('button');
-      card.type = 'button';
+      const card = document.createElement('article');
       card.className = 'otc-med-card' + (selected === item.id ? ' is-active' : '');
       card.dataset.ivId = item.id;
-      const initials = item.name.split(/\s+/).slice(0, 2).map((part) => part[0]).join('').toUpperCase();
       const cats = categoryLine(item);
       card.innerHTML = `
-        <span class="tool-hub-icon">${escapeHtml(initials)}</span>
-        <span class="otc-med-meta">
-          <span class="tool-hub-label">${escapeHtml(item.name)}</span>
-          <span class="tool-hub-desc">${escapeHtml(item.ph_brands.join(', '))}</span>
-          <span class="otc-med-uses">${escapeHtml(item.uses)}</span>
-          ${cats ? `<span class="iv-cat-line">${escapeHtml(cats)}</span>` : ''}
-        </span>
-        <span class="tool-hub-tag">${item.highAlert ? 'High alert' : escapeHtml(item.drugClass.split(' ')[0])}</span>`;
-      card.onclick = () => showDetail(item);
+        <button type="button" class="otc-med-main">
+          <span class="otc-med-meta">
+            <span class="rf-card-title">${escapeHtml(item.name)}</span>
+            <span class="rf-card-sub">${escapeHtml(item.ph_brands.join(', '))}</span>
+            ${item.highAlert ? '<span class="otc-med-tag">High alert</span>' : ''}
+            <span class="otc-med-uses">${escapeHtml(item.uses)}</span>
+            ${cats ? `<span class="iv-cat-line">${escapeHtml(cats)}</span>` : ''}
+          </span>
+          <span class="otc-expand-chevron" aria-hidden="true"></span>
+        </button>`;
+      card.querySelector('button').onclick = () => showDetail(item);
       fragment.appendChild(card);
     });
 
@@ -2447,11 +2451,12 @@
       </div>
       <div id="iv-tldr-content">
         <div class="otc-fact-list">
-          ${fact('Indication', item.indications)}
-          ${fact('IV rate', item.rate, 'amber')}
-          ${fact('Dilute with', item.compatibility)}
-          ${fact('Watch', item.monitoring, 'warn')}
-          ${fact('Antidote', item.antidote, 'green')}
+          ${fact('Why it is given', joinSentences(item.uses, item.indications, item.mechanism))}
+          ${fact('How you give it', joinSentences(item.prep, item.rate, item.compatibility), 'amber')}
+          ${fact('Before you give it', joinSentences(item.before, item.contraindications), 'warn')}
+          ${fact('While it is running', joinSentences(item.during, item.adverse, item.monitoring), 'warn')}
+          ${fact('After the dose', joinSentences(item.after, item.evaluation, item.teaching), 'green')}
+          ${fact('If something goes wrong', joinSentences(item.antidote, item.interactions))}
         </div>
       </div>
       <div id="iv-full-content" style="display:none;">
