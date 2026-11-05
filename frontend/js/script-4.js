@@ -590,6 +590,8 @@
             if (contentAbbrev) contentAbbrev.classList.add('hidden');
             const contentSizes = document.getElementById('content-sizes');
             if (contentSizes) contentSizes.classList.add('hidden');
+            const contentIv = document.getElementById('content-iv');
+            if (contentIv) contentIv.classList.add('hidden');
             
             // Remove active state from all tab buttons
             document.getElementById('tab-tools').classList.remove('active', 'bg-cyan-900/50', 'border-cyan-500/50', 'text-cyan-400');
@@ -611,6 +613,11 @@
                 tabSizes.classList.remove('active', 'text-sky-300');
                 tabSizes.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
             }
+            const tabIv = document.getElementById('tab-iv');
+            if (tabIv) {
+                tabIv.classList.remove('active', 'text-teal-300');
+                tabIv.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
             
             // Show selected tab content and activate button
             if (tab === 'tools') {
@@ -629,6 +636,15 @@
                 renderOtcChips();
                 renderOTCList(otcSearch ? otcSearch.value : '');
                 if (!skipHistory) pushNursePathState({ view: 'otc', tab: 'otc' });
+            } else if (tab === 'iv') {
+                if (contentIv) contentIv.classList.remove('hidden');
+                if (tabIv) {
+                    tabIv.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                    tabIv.classList.add('active', 'text-teal-300');
+                }
+                if (typeof hideIVDetail === 'function') hideIVDetail({ skipHistory: true });
+                if (typeof renderIVList === 'function') renderIVList(document.getElementById('iv-search') ? document.getElementById('iv-search').value : '');
+                if (!skipHistory) pushNursePathState({ view: 'iv', tab: 'iv' });
             } else if (tab === 'labs') {
                 if (contentLabs) contentLabs.classList.remove('hidden');
                 if (tabLabs) {
@@ -702,6 +718,7 @@
                     cur.labId === next.labId &&
                     cur.abbrevId === next.abbrevId &&
                     cur.sizeId === next.sizeId &&
+                    cur.ivId === next.ivId &&
                     cur.overlay === next.overlay
                 ) {
                     return;
@@ -742,6 +759,11 @@
                 tabSizes.classList.remove('active', 'text-sky-300');
                 tabSizes.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
             }
+            const tabIvClear = document.getElementById('tab-iv');
+            if (tabIvClear) {
+                tabIvClear.classList.remove('active', 'text-teal-300');
+                tabIvClear.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            }
         }
 
         function hideAllMainTabs() {
@@ -755,6 +777,20 @@
             const sizes = document.getElementById('content-sizes');
             if (abbrev) abbrev.classList.add('hidden');
             if (sizes) sizes.classList.add('hidden');
+            const iv = document.getElementById('content-iv');
+            if (iv) iv.classList.add('hidden');
+        }
+
+        function ensureIvTabVisible() {
+            hideAllMainTabs();
+            clearMainTabButtons();
+            const iv = document.getElementById('content-iv');
+            const tabIv = document.getElementById('tab-iv');
+            if (iv) iv.classList.remove('hidden');
+            if (tabIv) {
+                tabIv.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                tabIv.classList.add('active', 'text-teal-300');
+            }
         }
 
         function ensureToolsTabVisible() {
@@ -1227,6 +1263,23 @@
                     }
                 }
                 if (typeof hideOTCDetail === 'function') hideOTCDetail({ skipHistory: true });
+                return;
+            }
+
+            if (state.view === 'iv' || state.view === 'iv-detail') {
+                ensureIvTabVisible();
+                if (state.view === 'iv-detail' && state.ivId && window.NursePathIV) {
+                    const item = window.NursePathIV.find(state.ivId);
+                    if (item && typeof showIVDetail === 'function') {
+                        showIVDetail(item, { skipHistory: true });
+                        return;
+                    }
+                }
+                if (typeof hideIVDetail === 'function') hideIVDetail({ skipHistory: true });
+                if (typeof renderIVList === 'function') {
+                    const search = document.getElementById('iv-search');
+                    renderIVList(search ? search.value : '');
+                }
                 return;
             }
 
@@ -3286,9 +3339,19 @@
                 .map(r => r.item);
 
             let usedFuzzy = false;
-            if (q && matches.length === 0 && window.NursePathCalculators && typeof window.NursePathCalculators.fuzzyDrugFallback === 'function') {
-                matches = window.NursePathCalculators.fuzzyDrugFallback(q, otcDatabase.filter(otcMatchesBrowseFilter), 2);
+            let fuzzyName = '';
+            if (q && matches.length === 0 && window.NursePathCalculators && typeof window.NursePathCalculators.nearestDrugMatches === 'function') {
+                const suggestions = window.NursePathCalculators.nearestDrugMatches(q, otcDatabase.filter(otcMatchesBrowseFilter), 4);
+                const best = suggestions.length ? suggestions[0].dist : 0;
+                matches = suggestions
+                    .filter((row) => row.dist <= (best === 0 ? 0 : best + 1))
+                    .map((row) => row.item);
                 usedFuzzy = matches.length > 0;
+                fuzzyName = usedFuzzy ? suggestions[0].item.name : '';
+            } else if (q && matches.length === 0 && window.NursePathCalculators && typeof window.NursePathCalculators.fuzzyDrugFallback === 'function') {
+                matches = window.NursePathCalculators.fuzzyDrugFallback(q, otcDatabase.filter(otcMatchesBrowseFilter));
+                usedFuzzy = matches.length > 0;
+                fuzzyName = usedFuzzy ? matches[0].name : '';
             }
 
             const otcCountEl = document.getElementById('otc-count');
@@ -3307,7 +3370,9 @@
             if (usedFuzzy) {
                 const hint = document.createElement('div');
                 hint.className = 'otc-fuzzy-hint';
-                hint.textContent = 'Showing close matches (typo-tolerant search).';
+                hint.textContent = fuzzyName
+                    ? `No exact spelling. Did you mean ${fuzzyName}?`
+                    : 'Showing close matches (typo-tolerant search).';
                 fragment.appendChild(hint);
             }
 

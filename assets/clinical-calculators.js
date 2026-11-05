@@ -217,23 +217,59 @@
     return prev[t.length];
   }
 
+  function normalizeDrugText(value) {
+    return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
+  }
+
+  function bestNameDistance(queryNorm, item) {
+    const labels = [item.name].concat(item.aliases || [], item.ph_brands || []);
+    let best = 99;
+    labels.forEach((label) => {
+      const name = normalizeDrugText(label);
+      if (!name) return;
+      let dist = levenshtein(queryNorm, name);
+      if (name.indexOf(queryNorm) !== -1 || queryNorm.indexOf(name) === 0) {
+        dist = Math.min(dist, name === queryNorm ? 0 : 1);
+      }
+      if (name.length > queryNorm.length) {
+        dist = Math.min(dist, levenshtein(queryNorm, name.slice(0, queryNorm.length)));
+        const step = Math.max(1, Math.floor(queryNorm.length / 2));
+        for (let i = 0; i + queryNorm.length <= name.length; i += step) {
+          dist = Math.min(dist, levenshtein(queryNorm, name.slice(i, i + queryNorm.length)));
+          if (dist <= 1) break;
+        }
+      }
+      if (dist < best) best = dist;
+    });
+    return best;
+  }
+
+  /** Closest medication names for a misspelled query. */
+  function nearestDrugMatches(query, database, limit) {
+    const q = normalizeDrugText(query);
+    if (q.length < 3 || !Array.isArray(database)) return [];
+    const threshold = Math.max(2, Math.round(q.length * 0.34));
+    const ranked = database
+      .map((item) => ({ item, dist: bestNameDistance(q, item) }))
+      .filter((row) => row.dist <= threshold)
+      .sort((a, b) => a.dist - b.dist || String(a.item.name).localeCompare(String(b.item.name)));
+    const seen = {};
+    const unique = [];
+    ranked.forEach((row) => {
+      const id = row.item.id || row.item.name;
+      if (seen[id]) return;
+      seen[id] = true;
+      unique.push(row);
+    });
+    return unique.slice(0, limit == null ? 4 : limit);
+  }
+
   function fuzzyDrugFallback(query, database, maxDist) {
-    const q = String(query || '').toLowerCase().trim();
-    const limit = maxDist == null ? 2 : maxDist;
-    if (!q || !Array.isArray(database)) return [];
-    return database
-      .map((item) => {
-        const name = String(item.name || '').toLowerCase();
-        const brands = (item.ph_brands || []).map((b) => String(b).toLowerCase());
-        let dist = levenshtein(q, name);
-        brands.forEach((b) => {
-          dist = Math.min(dist, levenshtein(q, b));
-        });
-        return { item, dist };
-      })
-      .filter((r) => r.dist <= limit)
-      .sort((a, b) => a.dist - b.dist)
-      .map((r) => r.item);
+    const rows = nearestDrugMatches(query, database, 8);
+    const limit = maxDist == null ? null : maxDist;
+    return rows
+      .filter((row) => limit == null || row.dist <= limit)
+      .map((row) => row.item);
   }
 
   global.NursePathCalculators = {
@@ -244,6 +280,7 @@
     ruleOfNines,
     RULE_OF_NINES_REGIONS,
     levenshtein,
-    fuzzyDrugFallback
+    fuzzyDrugFallback,
+    nearestDrugMatches
   };
 })(typeof window !== 'undefined' ? window : self);

@@ -174,6 +174,11 @@
                     <span>OTC</span>
                 </button>
 
+                <button onclick="switchMainTab('iv')" id="tab-iv" class="tab-btn np-sidebar-link bg-slate-800 hover:bg-teal-900/50 border-slate-700 hover:border-teal-500/50 text-slate-300 hover:text-teal-300 transition-all">
+                    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-teal-300" aria-hidden="true"><path d="M12 3v12"/><path d="M9 12h6"/><path d="M8 21h8"/><path d="M12 15v6"/><path d="M7 6h10"/></svg>
+                    <span>IV Drugs</span>
+                </button>
+
                 <button onclick="switchMainTab('labs')" id="tab-labs" class="tab-btn np-sidebar-link bg-slate-800 hover:bg-emerald-900/50 border-slate-700 hover:border-emerald-500/50 text-slate-300 hover:text-emerald-400 transition-all">
                     <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" class="text-emerald-400" aria-hidden="true"><path d="M10 2h4v3h-1v5.2l6.2 10.3A2 2 0 0 1 17.4 23H6.6a2 2 0 0 1-1.8-2.5L11 10.2V5h-1V2z"/></svg>
                     <span>Labs</span>
@@ -742,6 +747,36 @@
             </div>
         </div> <!-- End content-otc -->
 
+        <div id="content-iv" class="tab-content hidden">
+            <div class="otc-hub rf-page">
+                <div class="tools-hub-mode-row ref-hub-head">
+                    <div class="tools-hub-hero">
+                        <h2>IV Drug Study</h2>
+                        <p>Class, mechanism, IV rate, and nursing checks. Confirm the order with your CI.</p>
+                    </div>
+                </div>
+                <div class="otc-sticky-chrome rf-sticky">
+                    <div class="rf-toolbar">
+                        <div class="rf-search">
+                            <span class="rf-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>
+                            <input id="iv-search" type="search" class="rf-search-input" placeholder="Search generic or brand. Misspellings still find the closest drug." autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search IV medications" />
+                        </div>
+                    </div>
+                </div>
+                <div class="otc-layout">
+                    <div id="iv-list-container">
+                        <div id="iv-list" class="otc-list"></div>
+                    </div>
+                    <div id="iv-detail-container" class="otc-detail-shell rf-shell hidden md:block">
+                        <button id="iv-back-btn" type="button" class="rf-back" onclick="hideIVDetail()">← Back to list</button>
+                        <div id="iv-detail" class="otc-detail-panel rf-detail">
+                            <div class="rf-placeholder"><span>Select an IV medication to open the drug study.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- ============ LAB RANGES TAB CONTENT ============ -->
         <div id="content-labs" class="tab-content hidden">
             <div class="lab-hub rf-page rf-lab">
@@ -853,6 +888,10 @@
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 2a6 6 0 0 1 6 6v8a6 6 0 0 1-12 0V8a6 6 0 0 1 6-6zm8 0a6 6 0 0 1 0 12v-6a6 6 0 0 0-6-6h6z"/></svg>
                 <span>OTC</span>
             </button>
+                <button type="button" class="np-tabbar-link" data-tab="iv" onclick="switchMainTab('iv')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12"/><path d="M9 12h6"/><path d="M8 21h8"/><path d="M12 15v6"/></svg>
+                <span>IV</span>
+            </button>
                 <button type="button" class="np-tabbar-link" data-nav-action="references" onclick="setMobileNavLevel('references')" aria-label="Open reference navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v15M12 5C9 3 5 3 2 4v14c3-1 7-1 10 2 3-3 7-3 10-2V4c-3-1-7-1-10 1Z"/></svg><span>References</span></button>
             </div>
             <div class="np-tabbar-level" data-nav-level="references" hidden>
@@ -935,6 +974,7 @@
     <script src="/assets/pnle-medsurg.js"></script>
     <script src="/assets/pnle-concepts.js"></script>
     <script src="/assets/pnle-session.js"></script>
+    <script src="/assets/iv-drug-study.js"></script>
     <script src="/js/script-4.js"></script>
     <script src="/js/pnle-study.js"></script>
     <script src="/js/script-5.js"></script>
