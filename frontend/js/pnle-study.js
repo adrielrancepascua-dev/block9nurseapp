@@ -10,6 +10,7 @@
   const MISTAKES_KEY = 'nursepath_pnle_mistakes_v1';
   const PROGRESS_KEY = 'nursepath_pnle_progress_v1';
   const DAILY_COUNT_KEY = 'nursepath_pnle_daily_count_v1';
+  const STUDY_HOME_KEY = 'nursepath_study_home_v1';
   const ACTIVE_SESSION_KEY = 'nursepath_pnle_session_v1';
   const BANK_GATE_OVERRIDE_KEY = 'nursepath_pnle_bank_gate_v1';
   const CHOICE_LABELS = ['A', 'B', 'C', 'D', 'E'];
@@ -56,6 +57,16 @@
 
   function todayYmd() {
     return new Date().toISOString().slice(0, 10);
+  }
+
+  function addDays(ymd, days) {
+    const date = new Date(ymd + 'T12:00:00Z');
+    date.setUTCDate(date.getUTCDate() + days);
+    return date.toISOString().slice(0, 10);
+  }
+
+  function setQuestionChrome(on) {
+    document.body.classList.toggle('pnle-in-question', Boolean(on));
   }
 
   function readJson(key, fallback) {
@@ -123,7 +134,7 @@
   function beginPractice(pool, topicId, level, kind, limit) {
     if (hasUnfinishedSession() && !global.confirm('Start a new session? Your current question position will be replaced. Recorded answers stay saved.')) return;
     const queue = shuffle(pool).slice(0, limit || pool.length);
-    session = { topicId, level, kind, queue, index: 0, answered: 0, locked: false, picked: [], phase: 'question' };
+    session = { topicId, level, kind, queue, index: 0, answered: 0, locked: false, picked: [], missedIds: [], phase: 'question' };
     studyTab = topicId === 'mistakes' ? 'mistakes' : 'practice';
     saveActiveSession();
     renderQuestion();
@@ -318,21 +329,26 @@
     if (!correct) {
       const prev = mistakes[item.id];
       mistakes[item.id] = {
-        missedAt: new Date().toISOString(),
+        missedAt: prev && prev.missedAt ? prev.missedAt : new Date().toISOString(),
         correctDays: [],
+        stage: 0,
+        nextDue: addDays(day, 1),
       };
-      if (prev && prev.missedAt) {
-        mistakes[item.id].missedAt = prev.missedAt;
+      if (session) {
+        session.missedIds = session.missedIds || [];
+        if (session.missedIds.indexOf(item.id) === -1) session.missedIds.push(item.id);
       }
     } else if (mistakes[item.id]) {
       const days = mistakes[item.id].correctDays || [];
-      if (!days.includes(day)) {
-        days.push(day);
-        mistakes[item.id].correctDays = days.sort();
-      }
-      const uniqueDays = [...new Set(mistakes[item.id].correctDays)];
-      if (uniqueDays.length >= 2) {
+      if (!days.includes(day)) days.push(day);
+      const uniqueDays = [...new Set(days)].sort();
+      if (uniqueDays.length >= 3) {
         delete mistakes[item.id];
+      } else {
+        const gap = uniqueDays.length === 1 ? 3 : 7;
+        mistakes[item.id].correctDays = uniqueDays;
+        mistakes[item.id].stage = uniqueDays.length;
+        mistakes[item.id].nextDue = addDays(day, gap);
       }
     }
     writeMistakes(mistakes);
@@ -484,11 +500,12 @@
     const shell = document.getElementById('pnle-study-shell');
     if (shell) shell.classList.add('is-active');
     ensureAppBooted();
-    setStudyTab(studyTab || 'practice');
     startStudySession();
+    openToday();
   }
 
   function enterDutyMode() {
+    setQuestionChrome(false);
     endStudySession();
     setLastMode('duty');
     launchResolved = true;
@@ -511,12 +528,79 @@
     showLaunchGate(forSwitch);
   }
 
+  function dueMistakeItems() {
+    const day = todayYmd();
+    const mistakes = readMistakes();
+    return bankItems.filter((item) => {
+      const row = mistakes[item.id];
+      if (!row) return false;
+      return (row.nextDue || day) <= day;
+    });
+  }
+
+  function beginQueued(queue, topicId, level, kind) {
+    session = { topicId, level, kind, queue, index: 0, answered: 0, locked: false, picked: [], missedIds: [], phase: 'question' };
+    studyTab = 'practice';
+    saveActiveSession();
+    renderQuestion();
+  }
+
+  function startTodaySet() {
+    setStudyLevel('hard');
+    const due = shuffle(dueMistakeItems());
+    const dueIds = {};
+    due.forEach((item) => { dueIds[item.id] = true; });
+    const fresh = shuffle(filterItems('all', 'hard')).filter((item) => !dueIds[item.id]);
+    const queue = due.concat(fresh).slice(0, getDailyGoal());
+    if (!queue.length) {
+      renderStudyHome();
+      return;
+    }
+    beginQueued(queue, 'all', 'hard', 'daily');
+  }
+
+  function renderTodayDone() {
+    setQuestionChrome(false);
+    const root = document.getElementById('pnleStudyRoot');
+    if (!root) return;
+    syncStudyNavigation();
+    const waiting = Object.keys(readMistakes()).length;
+    root.innerHTML = `
+      <h2 class="pnle-screen-title">Today's ten are done</h2>
+      <p class="pnle-study-hint">${waiting ? waiting + ' missed items are scheduled to come back.' : 'Nothing is waiting from earlier misses.'}</p>
+      <button type="button" class="pnle-btn-primary" id="pnleDonePractice">Practice again</button>
+      <button type="button" class="pnle-ward-link" id="pnleOpenWard">Ward tools</button>
+    `;
+    root.querySelector('#pnleDonePractice').addEventListener('click', () => startTodaySet());
+    root.querySelector('#pnleOpenWard').addEventListener('click', () => enterDutyMode());
+  }
+
+  function openToday() {
+    if (!bankItems.length) {
+      renderStudyHome();
+      return;
+    }
+    session = session || restoreSavedSession();
+    if (hasUnfinishedSession()) {
+      studyTab = 'practice';
+      syncStudyNavigation();
+      renderQuestion();
+      return;
+    }
+    if (getDailyProgress() >= getDailyGoal()) {
+      renderTodayDone();
+      return;
+    }
+    startTodaySet();
+  }
+
   function handlePostAuth() {
     bankItems = loadBank();
     sessionBankSignature = global.NursePathPnleSession ? global.NursePathPnleSession.signature(bankItems) : '';
     session = restoreSavedSession();
     const last = getLastMode();
-    if (last === 'study') {
+    if (!localStorage.getItem(STUDY_HOME_KEY)) {
+      localStorage.setItem(STUDY_HOME_KEY, '1');
       enterStudyMode();
       return true;
     }
@@ -524,7 +608,7 @@
       enterDutyMode();
       return true;
     }
-    showLaunchGateWhenReady(false);
+    enterStudyMode();
     return true;
   }
 
@@ -570,6 +654,7 @@
   }
 
   function renderStudyHome() {
+    setQuestionChrome(false);
     const root = document.getElementById('pnleStudyRoot');
     if (!root) return;
     if (!bankItems.length) {
@@ -617,8 +702,9 @@
       ${isTestingReleaseAll() ? '' : gateBanner}
       <header class="pnle-practice-heading">
         <h2>MedSurg practice</h2>
-        <p>Unofficial Questions</p>
+        <p>Ten items a day. Misses come back tomorrow, then in three days, then in a week.</p>
       </header>
+      <button type="button" class="pnle-ward-link" id="pnleOpenWard">Ward tools</button>
       ${resumable ? `<section class="pnle-resume-card" aria-labelledby="pnleResumeTitle"><div><h3 id="pnleResumeTitle">Pick up where you left off</h3><p>Question ${session.index + 1} of ${session.queue.length} · ${session.level === 'mixed' ? 'Mistakes' : session.level === 'hard' ? 'Hard' : 'Normal'}${session.locked ? ' · Answer saved' : ''}</p></div><button type="button" class="pnle-btn-primary" id="pnleResumePractice">Resume practice</button></section>` : ''}
       <div class="pnle-home-hero">
         <div class="pnle-goal-ring-wrap">
@@ -650,7 +736,8 @@
       <div class="pnle-topic-list">${topicRows}</div>
     `;
 
-    root.querySelector('#pnleStartPractice').addEventListener('click', () => startMixedPractice(false));
+    root.querySelector('#pnleOpenWard').addEventListener('click', () => enterDutyMode());
+    root.querySelector('#pnleStartPractice').addEventListener('click', () => startTodaySet());
     root.querySelector('#pnleStartFullPractice').addEventListener('click', () => startMixedPractice(true));
     const resume = root.querySelector('#pnleResumePractice');
     if (resume) resume.addEventListener('click', resumePractice);
@@ -672,6 +759,7 @@
   }
 
   function renderMistakesHome() {
+    setQuestionChrome(false);
     const root = document.getElementById('pnleStudyRoot');
     if (!root) return;
     const mistakeCount = getMistakeItems().length;
@@ -758,6 +846,7 @@
   }
 
   function renderProgressHome() {
+    setQuestionChrome(false);
     const root = document.getElementById('pnleStudyRoot');
     if (!root) return;
     const mastered = getMasteredCount();
@@ -811,13 +900,13 @@
     const body = b.querySelector('.pnle-choice-body');
     const isCorrectOpt = correctSet.has(idx);
     const wasPicked = pickedSet.has(idx);
-    const showReason = isCorrectOpt || wasPicked;
+    const showReason = true;
     if (showReason && body) {
       const state = document.createElement('span');
       state.className = 'pnle-choice-state';
       state.textContent = isCorrectOpt
         ? (wasPicked ? 'Your answer · Correct' : 'Correct answer')
-        : 'Your answer · Incorrect';
+        : (wasPicked ? 'Your answer · Incorrect' : 'Why not this');
       body.appendChild(state);
       const reason = document.createElement('span');
       reason.className = 'pnle-choice-reason';
@@ -913,23 +1002,30 @@
   function renderQuestion() {
     syncStudyNavigation();
     const root = document.getElementById('pnleStudyRoot');
-    const tabbar = document.getElementById('pnleStudyTabbar');
     if (!root || !session) return;
     const item = session.queue[session.index];
     if (!item) {
+      setQuestionChrome(false);
       session.phase = 'complete';
+      const missed = (session.missedIds || []).length;
+      const comeBack = missed
+        ? (missed === 1 ? '1 missed item comes back tomorrow.' : missed + ' missed items come back tomorrow.')
+        : 'Nothing from this set comes back tomorrow.';
       removeSavedSession();
       root.innerHTML = `
-        <h2 class="pnle-screen-title">Session complete</h2>
-        <p class="pnle-study-hint">You answered ${session.answered} question(s).</p>
+        <h2 class="pnle-screen-title">Set complete</h2>
+        <p class="pnle-study-hint">You answered ${session.answered}. ${comeBack}</p>
         <button type="button" class="pnle-btn-primary" id="pnleDoneHome">Back to practice</button>
+        <button type="button" class="pnle-ward-link" id="pnleOpenWard">Ward tools</button>
       `;
       root.querySelector('#pnleDoneHome').addEventListener('click', () => {
         discardActiveSession();
         setStudyTab('practice');
       });
+      root.querySelector('#pnleOpenWard').addEventListener('click', () => enterDutyMode());
       return;
     }
+    setQuestionChrome(true);
 
     const mistakeCount = Object.keys(readMistakes()).length;
     const levelLabel =

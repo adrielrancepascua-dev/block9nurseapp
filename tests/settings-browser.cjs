@@ -38,6 +38,15 @@ const server = http.createServer((req,res) => {
     await page.waitForFunction(() => typeof window.openNursePathSettings === 'function');
     const duty = page.locator('#pnleLaunchDuty');
     if (await duty.isVisible()) await duty.click();
+    else if (await page.locator('#pnle-study-shell.is-active').count()) {
+      const endSet = page.locator('#pnleQuitSession');
+      if (await endSet.isVisible()) {
+        page.once('dialog', (dialog) => dialog.accept());
+        await endSet.click();
+      }
+      await page.locator('#pnleStudySwitchMode').click();
+      await page.locator('#pnleStudySwitchModeMenu [data-app-mode="duty"]').click();
+    }
     const screenshotDir = process.env.SETTINGS_SCREENSHOTS;
     assert.equal(await page.locator('#pnleDutySwitchMode').locator('..').getAttribute('data-mode'), 'duty');
     assert.equal(await page.locator('#pnleDutySwitchMode [data-app-mode-label]').textContent(), 'Standard');

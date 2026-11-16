@@ -19,8 +19,8 @@ test('hub modes update headings, descriptions, and accessible selection', () => 
   assert.equal(elements.hubStudyBtn['aria-pressed'], 'true');
   assert.equal(description.textContent, 'Lesson description');
   context.applyHubMode('duty', { silent: true });
-  assert.equal(elements.toolsHubTitle.textContent, 'Clinical Tools');
-  assert.equal(elements.toolsHubBlurb.textContent, 'Quick-access tools for clinical practice.');
+  assert.equal(elements.toolsHubTitle.textContent, 'Ward');
+  assert.equal(elements.toolsHubBlurb.textContent, 'Vitals, drip rate, and dosing. Scores sit below.');
   assert.equal(elements.hubDutyBtn['aria-pressed'], 'true');
   assert.equal(description.textContent, 'Duty description');
 });

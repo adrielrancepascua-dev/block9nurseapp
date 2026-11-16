@@ -23,11 +23,17 @@ const { createPreviewServer } = require('../tools/mobile-preview.cjs');
     });
     await page.waitForFunction(() => typeof window.openNursePathSettings === 'function');
     const standard = page.locator('#pnleLaunchDuty');
-    await standard.waitFor({ state: 'visible' });
-    await standard.click();
-    await page.locator('#pnleLaunchGate').waitFor({ state: 'hidden' });
-    await page.locator('#pnleDutySwitchMode').click();
-    await page.locator('#pnleDutySwitchModeMenu [data-app-mode="study"]').click();
+    if (await standard.isVisible()) {
+      await standard.click();
+      await page.locator('#pnleLaunchGate').waitFor({ state: 'hidden' });
+      await page.locator('#pnleDutySwitchMode').click();
+      await page.locator('#pnleDutySwitchModeMenu [data-app-mode="study"]').click();
+    }
+    const endSet = page.locator('#pnleQuitSession');
+    if (await endSet.isVisible()) {
+      page.once('dialog', (dialog) => dialog.accept());
+      await endSet.click();
+    }
     await page.locator('[data-study-tab="progress"]').click();
     assert.equal(await page.locator('.pnle-progress-dashboard').isVisible(), true);
     await page.reload();
