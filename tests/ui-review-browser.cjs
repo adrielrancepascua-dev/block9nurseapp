@@ -34,8 +34,19 @@ const screenshotDir = process.env.UI_REVIEW_SCREENSHOTS;
     const page = await context.newPage();
     await page.goto(`http://127.0.0.1:${server.address().port}`);
     await page.locator('#simulationModeOverlay button').click();
-    await page.locator('#pnleLaunchDuty').click();
-    await page.locator('#pnleLaunchGate').waitFor({ state: 'hidden' });
+    const launchDuty = page.locator('#pnleLaunchDuty');
+    if (await launchDuty.isVisible()) {
+      await launchDuty.click();
+      await page.locator('#pnleLaunchGate').waitFor({ state: 'hidden' });
+    } else {
+      const endSet = page.locator('#pnleQuitSession');
+      if (await endSet.isVisible()) {
+        page.once('dialog', (dialog) => dialog.accept());
+        await endSet.click();
+      }
+      await page.locator('#pnleStudySwitchMode').click();
+      await page.locator('#pnleStudySwitchModeMenu [data-app-mode="duty"]').click();
+    }
     for (const width of [320, 390, 768, 1440]) {
       await page.setViewportSize({ width, height: 1000 });
       const settings = await page.locator('#npSettingsOpen').boundingBox();

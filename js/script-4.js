@@ -895,11 +895,11 @@
             if (studyBtn) studyBtn.setAttribute('aria-pressed', String(next === 'study'));
             const title = document.getElementById('toolsHubTitle');
             const blurb = document.getElementById('toolsHubBlurb');
-            if (title) title.textContent = next === 'study' ? 'Lessons' : 'Clinical Tools';
+            if (title) title.textContent = next === 'study' ? 'Lessons' : 'Ward';
             if (blurb) {
                 blurb.textContent = next === 'study'
                     ? 'Explore concepts, lessons, and practice questions.'
-                    : 'Quick-access tools for clinical practice.';
+                    : 'Vitals, drip rate, and dosing. Scores sit below.';
             }
             document.querySelectorAll('.tool-hub-desc').forEach((el) => {
                 const duty = el.getAttribute('data-duty-desc');
@@ -2129,7 +2129,21 @@
         // Initialize calc date to today
         document.addEventListener('DOMContentLoaded', function() {
             const today = new Date().toISOString().split('T')[0];
-            document.getElementById('calc-date').value = today;
+            const calcDate = document.getElementById('calc-date');
+            if (calcDate) calcDate.value = today;
+            const wardSearch = document.getElementById('ward-tool-search');
+            if (!wardSearch) return;
+            wardSearch.addEventListener('input', function () {
+                const q = wardSearch.value.trim().toLowerCase();
+                document.querySelectorAll('#tools-hub .tool-hub-card').forEach(function (card) {
+                    card.hidden = q.length > 0 && card.textContent.toLowerCase().indexOf(q) === -1;
+                });
+                document.querySelectorAll('#tools-hub [data-ward-group]').forEach(function (group) {
+                    const any = group.querySelector('.tool-hub-card:not([hidden])');
+                    const label = group.previousElementSibling;
+                    if (label && label.classList.contains('ward-group-label')) label.hidden = !any;
+                });
+            });
         });
 
         // Calculators stay button-driven so each result is an explicit, logged action.
